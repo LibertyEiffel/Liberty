@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	tilde_expand (an_argument_l1097_c7: POINTER): POINTER 
 
-		-- function tilde_expand (in 67 at line /usr/include/readline/tilde.h)i
+		-- function tilde_expand (in `/usr/include/readline/tilde.h')
                -- tilde_expand
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	tilde_expand_word (an_argument_l1100_c7: POINTER): POINTER 
 
-		-- function tilde_expand_word (in 71 at line /usr/include/readline/tilde.h)i
+		-- function tilde_expand_word (in `/usr/include/readline/tilde.h')
                -- tilde_expand_word
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	tilde_find_word (an_argument_l1103_c7: POINTER; an_argument_l1104_c7: INTEGER; an_argument_l1105_c7: POINTER): POINTER 
 
-		-- function tilde_find_word (in 74 at line /usr/include/readline/tilde.h)i
+		-- function tilde_find_word (in `/usr/include/readline/tilde.h')
                -- tilde_find_word
                external "plug_in"
                alias "{

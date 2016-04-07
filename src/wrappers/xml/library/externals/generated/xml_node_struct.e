@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_NODE_STRUCT
--- Wrapper of struct _xmlNode defined in file /usr/include/libxml2/libxml/tree.h line 489
+-- Wrapper of struct _xmlNode defined in file /usr/include/libxml2/libxml/tree.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

@@ -1279,6 +1279,14 @@
 
 #define fts5extension_api_struct_set_xphrasenext(a_structure,a_value) do {(((struct Fts5ExtensionApi*)(a_structure)))->xPhraseNext = (a_value);}while(0)
 
+#define fts5extension_api_struct_get_xphrasefirstcolumn(a_structure) (((struct Fts5ExtensionApi*) (a_structure))->xPhraseFirstColumn)
+
+#define fts5extension_api_struct_set_xphrasefirstcolumn(a_structure,a_value) do {(((struct Fts5ExtensionApi*)(a_structure)))->xPhraseFirstColumn = (a_value);}while(0)
+
+#define fts5extension_api_struct_get_xphrasenextcolumn(a_structure) (((struct Fts5ExtensionApi*) (a_structure))->xPhraseNextColumn)
+
+#define fts5extension_api_struct_set_xphrasenextcolumn(a_structure,a_value) do {(((struct Fts5ExtensionApi*)(a_structure)))->xPhraseNextColumn = (a_value);}while(0)
+
 #define sizeof_fts5extension_api (sizeof(fts5extension_api))
 #define sizeof_fts5context (sizeof(fts5context))
 #define fts5phrase_iter_struct_get_a(a_structure) (((struct Fts5PhraseIter*) (a_structure))->a)
@@ -1370,6 +1378,14 @@
 #define fts5extension_api_struct_get_xphrasenext(a_structure) (((struct Fts5ExtensionApi*) (a_structure))->xPhraseNext)
 
 #define fts5extension_api_struct_set_xphrasenext(a_structure,a_value) do {(((struct Fts5ExtensionApi*)(a_structure)))->xPhraseNext = (a_value);}while(0)
+
+#define fts5extension_api_struct_get_xphrasefirstcolumn(a_structure) (((struct Fts5ExtensionApi*) (a_structure))->xPhraseFirstColumn)
+
+#define fts5extension_api_struct_set_xphrasefirstcolumn(a_structure,a_value) do {(((struct Fts5ExtensionApi*)(a_structure)))->xPhraseFirstColumn = (a_value);}while(0)
+
+#define fts5extension_api_struct_get_xphrasenextcolumn(a_structure) (((struct Fts5ExtensionApi*) (a_structure))->xPhraseNextColumn)
+
+#define fts5extension_api_struct_set_xphrasenextcolumn(a_structure,a_value) do {(((struct Fts5ExtensionApi*)(a_structure)))->xPhraseNextColumn = (a_value);}while(0)
 
 #define sizeof_fts5extension_api (sizeof(fts5extension_api))
 #define sizeof_fts5tokenizer (sizeof(fts5tokenizer))

@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	xml_cleanup_memory 
 
-		-- function xmlCleanupMemory (in 136 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlCleanupMemory (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlCleanupMemory
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	xml_gc_mem_get (a_free_func: POINTER; a_malloc_func: POINTER; a_malloc_atomic_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER 
 
-		-- function xmlGcMemGet (in 120 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlGcMemGet (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlGcMemGet
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	xml_gc_mem_setup (a_free_func: POINTER; a_malloc_func: POINTER; a_malloc_atomic_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER 
 
-		-- function xmlGcMemSetup (in 114 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlGcMemSetup (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlGcMemSetup
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	xml_init_memory: INTEGER 
 
-		-- function xmlInitMemory (in 130 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlInitMemory (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlInitMemory
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	xml_malloc_atomic_loc (a_size: like size_t; a_file: POINTER; a_line: INTEGER): POINTER 
 
-		-- function xmlMallocAtomicLoc (in 165 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMallocAtomicLoc (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMallocAtomicLoc
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	xml_malloc_loc (a_size: like size_t; a_file: POINTER; a_line: INTEGER): POINTER 
 
-		-- function xmlMallocLoc (in 161 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMallocLoc (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMallocLoc
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	xml_mem_blocks: INTEGER 
 
-		-- function xmlMemBlocks (in 143 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemBlocks (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemBlocks
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	xml_mem_display (a_fp: POINTER) 
 
-		-- function xmlMemDisplay (in 145 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemDisplay (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemDisplay
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	xml_mem_display_last (a_fp: POINTER; a_nb_bytes: like long) 
 
-		-- function xmlMemDisplayLast (in 147 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemDisplayLast (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemDisplayLast
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	xml_mem_free (a_ptr: POINTER) 
 
-		-- function xmlMemFree (in 157 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemFree (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemFree
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	xml_mem_get (a_free_func: POINTER; a_malloc_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER 
 
-		-- function xmlMemGet (in 109 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemGet (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemGet
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	xml_mem_malloc (a_size: like size_t): POINTER 
 
-		-- function xmlMemMalloc (in 153 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemMalloc (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemMalloc
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	xml_mem_realloc (a_ptr: POINTER; a_size: like size_t): POINTER 
 
-		-- function xmlMemRealloc (in 155 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemRealloc (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemRealloc
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	xml_mem_setup (a_free_func: POINTER; a_malloc_func: POINTER; a_realloc_func: POINTER; a_strdup_func: POINTER): INTEGER 
 
-		-- function xmlMemSetup (in 104 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemSetup (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemSetup
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	xml_mem_show (a_fp: POINTER; a_nr: INTEGER) 
 
-		-- function xmlMemShow (in 149 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemShow (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemShow
                external "plug_in"
                alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 
 	xml_mem_strdup_loc (a_str: POINTER; a_file: POINTER; a_line: INTEGER): POINTER 
 
-		-- function xmlMemStrdupLoc (in 167 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemStrdupLoc (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemStrdupLoc
                external "plug_in"
                alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 
 	xml_mem_used: INTEGER 
 
-		-- function xmlMemUsed (in 141 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemUsed (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemUsed
                external "plug_in"
                alias "{
@@ -214,7 +214,7 @@ feature {} -- External calls
 
 	xml_memory_dump 
 
-		-- function xmlMemoryDump (in 151 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemoryDump (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemoryDump
                external "plug_in"
                alias "{
@@ -226,7 +226,7 @@ feature {} -- External calls
 
 	xml_memory_strdup (a_str: POINTER): POINTER 
 
-		-- function xmlMemoryStrdup (in 159 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlMemoryStrdup (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlMemoryStrdup
                external "plug_in"
                alias "{
@@ -238,7 +238,7 @@ feature {} -- External calls
 
 	xml_realloc_loc (a_ptr: POINTER; a_size: like size_t; a_file: POINTER; a_line: INTEGER): POINTER 
 
-		-- function xmlReallocLoc (in 163 at line /usr/include/libxml2/libxml/xmlmemory.h)
+		-- function xmlReallocLoc (in `/usr/include/libxml2/libxml/xmlmemory.h')
                -- xmlReallocLoc
                external "plug_in"
                alias "{

@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_PARSER_INPUT_BUFFER_STRUCT
--- Wrapper of struct _xmlParserInputBuffer defined in file /usr/include/libxml2/libxml/xmlIO.h line 125
+-- Wrapper of struct _xmlParserInputBuffer defined in file /usr/include/libxml2/libxml/xmlIO.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

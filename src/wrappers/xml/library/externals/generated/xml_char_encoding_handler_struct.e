@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_CHAR_ENCODING_HANDLER_STRUCT
--- Wrapper of struct _xmlCharEncodingHandler defined in file /usr/include/libxml2/libxml/encoding.h line 141
+-- Wrapper of struct _xmlCharEncodingHandler defined in file /usr/include/libxml2/libxml/encoding.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	isolat1to_utf8 (an_out_external: POINTER; an_outlen: POINTER; an_in: POINTER; an_inlen: POINTER): INTEGER 
 
-		-- function isolat1ToUTF8 (in 232 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function isolat1ToUTF8 (in `/usr/include/libxml2/libxml/encoding.h')
                -- isolat1ToUTF8
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	utf8toisolat1 (an_out_external: POINTER; an_outlen: POINTER; an_in: POINTER; an_inlen: POINTER): INTEGER 
 
-		-- function UTF8Toisolat1 (in 226 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function UTF8Toisolat1 (in `/usr/include/libxml2/libxml/encoding.h')
                -- UTF8Toisolat1
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	xml_add_encoding_alias (a_name: POINTER; an_alias_external: POINTER): INTEGER 
 
-		-- function xmlAddEncodingAlias (in 185 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlAddEncodingAlias (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlAddEncodingAlias
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	xml_char_enc_close_func (a_handler: POINTER): INTEGER 
 
-		-- function xmlCharEncCloseFunc (in 219 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlCharEncCloseFunc (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlCharEncCloseFunc
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	xml_char_enc_first_line (a_handler: POINTER; an_out_external: POINTER; an_in: POINTER): INTEGER 
 
-		-- function xmlCharEncFirstLine (in 215 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlCharEncFirstLine (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlCharEncFirstLine
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	xml_char_enc_in_func (a_handler: POINTER; an_out_external: POINTER; an_in: POINTER): INTEGER 
 
-		-- function xmlCharEncInFunc (in 211 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlCharEncInFunc (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlCharEncInFunc
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	xml_char_enc_out_func (a_handler: POINTER; an_out_external: POINTER; an_in: POINTER): INTEGER 
 
-		-- function xmlCharEncOutFunc (in 206 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlCharEncOutFunc (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlCharEncOutFunc
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	xml_cleanup_char_encoding_handlers 
 
-		-- function xmlCleanupCharEncodingHandlers (in 169 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlCleanupCharEncodingHandlers (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlCleanupCharEncodingHandlers
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	xml_cleanup_encoding_aliases 
 
-		-- function xmlCleanupEncodingAliases (in 192 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlCleanupEncodingAliases (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlCleanupEncodingAliases
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	xml_del_encoding_alias (an_alias_external: POINTER): INTEGER 
 
-		-- function xmlDelEncodingAlias (in 188 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlDelEncodingAlias (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlDelEncodingAlias
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	xml_detect_char_encoding (an_in: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlDetectCharEncoding (in 202 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlDetectCharEncoding (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlDetectCharEncoding
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	xml_find_char_encoding_handler (a_name: POINTER): POINTER 
 
-		-- function xmlFindCharEncodingHandler (in 175 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlFindCharEncodingHandler (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlFindCharEncodingHandler
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	xml_get_char_encoding_handler (an_enc: INTEGER): POINTER 
 
-		-- function xmlGetCharEncodingHandler (in 173 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlGetCharEncodingHandler (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlGetCharEncodingHandler
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	xml_get_char_encoding_name (an_enc: INTEGER): POINTER 
 
-		-- function xmlGetCharEncodingName (in 196 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlGetCharEncodingName (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlGetCharEncodingName
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	xml_get_encoding_alias (an_alias_external: POINTER): POINTER 
 
-		-- function xmlGetEncodingAlias (in 190 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlGetEncodingAlias (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlGetEncodingAlias
                external "plug_in"
                alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 
 	xml_init_char_encoding_handlers 
 
-		-- function xmlInitCharEncodingHandlers (in 167 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlInitCharEncodingHandlers (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlInitCharEncodingHandlers
                external "plug_in"
                alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 
 	xml_new_char_encoding_handler (a_name: POINTER; an_input: POINTER; an_output: POINTER): POINTER 
 
-		-- function xmlNewCharEncodingHandler (in 177 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlNewCharEncodingHandler (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlNewCharEncodingHandler
                external "plug_in"
                alias "{
@@ -214,7 +214,7 @@ feature {} -- External calls
 
 	xml_parse_char_encoding (a_name: POINTER): INTEGER 
 
-		-- function xmlParseCharEncoding (in 194 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlParseCharEncoding (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlParseCharEncoding
                external "plug_in"
                alias "{
@@ -226,7 +226,7 @@ feature {} -- External calls
 
 	xml_register_char_encoding_handler (a_handler: POINTER) 
 
-		-- function xmlRegisterCharEncodingHandler (in 171 at line /usr/include/libxml2/libxml/encoding.h)
+		-- function xmlRegisterCharEncodingHandler (in `/usr/include/libxml2/libxml/encoding.h')
                -- xmlRegisterCharEncodingHandler
                external "plug_in"
                alias "{

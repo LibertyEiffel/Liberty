@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class HIST_ENTRY_STRUCT
--- Wrapper of struct _hist_entry defined in file /usr/include/readline/history.h line 47
+-- Wrapper of struct _hist_entry defined in file /usr/include/readline/history.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

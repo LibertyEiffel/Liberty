@@ -10,6 +10,6 @@ $(XML): $(HEADER)
 ifdef CASTXML
 	@castxml --castxml-gccxml -x c++  -o $(XML) $(HEADER) 
 else
-	@gccxml $(HEADER) -fxml=$(XML)
+	@gccxml --gccxml-compiler gcc-4.9 $(HEADER) -fxml=$(XML)
 endif
 

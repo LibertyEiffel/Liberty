@@ -100,8 +100,8 @@ feature {ANY}
          buffer.append(eiffel_name)
          buffer.append(once "[
             
-                -- Wrapper of #(1) #(2) defined in file #(3) line #(4)
-            ]" # c_type # c_string_name # c_file.c_string_name # line_row.to_utf8 )
+                -- Wrapper of #(1) #(2) defined in file #(3)
+            ]" # c_type # c_string_name # c_file.c_string_name)
          -- TODO: emit_description(class_descriptions.reference_at(eiffel_name))
          buffer.append(insert_tense)
          buffer.append(once "%T#(1)%N" # settings.typedefs)

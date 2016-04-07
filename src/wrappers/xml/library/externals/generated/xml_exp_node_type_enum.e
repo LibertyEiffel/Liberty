@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_EXP_NODE_TYPE_ENUM
 
--- Wrapper of enum xmlExpNodeType defined in file /usr/include/libxml2/libxml/xmlregexp.h line 134
+-- Wrapper of enum xmlExpNodeType defined in file /usr/include/libxml2/libxml/xmlregexp.h
 insert ENUM
 
 create {ANY} default_create

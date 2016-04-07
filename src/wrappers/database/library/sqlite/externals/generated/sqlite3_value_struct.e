@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class SQLITE3_VALUE_STRUCT
--- Wrapper of struct Mem defined in file /usr/include/sqlite3.h line 3455
+-- Wrapper of struct Mem defined in file /usr/include/sqlite3.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

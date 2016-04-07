@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_DOC_PROPERTIES_ENUM
 
--- Wrapper of enum xmlDocProperties defined in file /usr/include/libxml2/libxml/tree.h line 532
+-- Wrapper of enum xmlDocProperties defined in file /usr/include/libxml2/libxml/tree.h
 insert ENUM
 
 create {ANY} default_create

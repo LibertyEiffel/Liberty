@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_ERROR_DOMAIN_ENUM
 
--- Wrapper of enum xmlErrorDomain defined in file /usr/include/libxml2/libxml/xmlerror.h line 36
+-- Wrapper of enum xmlErrorDomain defined in file /usr/include/libxml2/libxml/xmlerror.h
 insert ENUM
 
 create {ANY} default_create

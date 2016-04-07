@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_ENTITY_TYPE_ENUM
 
--- Wrapper of enum xmlEntityType defined in file /usr/include/libxml2/libxml/entities.h line 24
+-- Wrapper of enum xmlEntityType defined in file /usr/include/libxml2/libxml/entities.h
 insert ENUM
 
 create {ANY} default_create

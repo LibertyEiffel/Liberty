@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_MUTEX_STRUCT
--- Wrapper of struct _xmlMutex defined in file /usr/include/libxml2/libxml/threads.h line 23
+-- Wrapper of struct _xmlMutex defined in file /usr/include/libxml2/libxml/threads.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

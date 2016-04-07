@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_ENTITY_STRUCT
--- Wrapper of struct _xmlEntity defined in file /usr/include/libxml2/libxml/entities.h line 38
+-- Wrapper of struct _xmlEntity defined in file /usr/include/libxml2/libxml/entities.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

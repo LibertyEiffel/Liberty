@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class SIGEVENT_STRUCT
--- Wrapper of struct sigevent defined in file /usr/include/time.h line 168
+-- Wrapper of struct sigevent defined in file /usr/include/time.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

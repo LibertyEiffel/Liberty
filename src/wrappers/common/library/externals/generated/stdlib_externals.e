@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	a64l (a_s: POINTER): like long 
 
-		-- function a64l (in 308 at line /usr/include/stdlib.h)
+		-- function a64l (in `/usr/include/stdlib.h')
                -- a64l
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	abort 
 
-		-- function abort (in 515 at line /usr/include/stdlib.h)
+		-- function abort (in `/usr/include/stdlib.h')
                -- abort
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	abs (a_x: INTEGER): INTEGER 
 
-		-- function abs (in 775 at line /usr/include/stdlib.h)
+		-- function abs (in `/usr/include/stdlib.h')
                -- abs
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	aligned_alloc (an_alignment: like long_unsigned; a_size: like long_unsigned): POINTER 
 
-		-- function aligned_alloc (in 509 at line /usr/include/stdlib.h)
+		-- function aligned_alloc (in `/usr/include/stdlib.h')
                -- aligned_alloc
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	at_quick_exit (a_func: POINTER): INTEGER 
 
-		-- function at_quick_exit (in 524 at line /usr/include/stdlib.h)
+		-- function at_quick_exit (in `/usr/include/stdlib.h')
                -- at_quick_exit
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	atexit (a_func: POINTER): INTEGER 
 
-		-- function atexit (in 519 at line /usr/include/stdlib.h)
+		-- function atexit (in `/usr/include/stdlib.h')
                -- atexit
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	atof (a_nptr: POINTER): REAL 
 
-		-- function atof (in 144 at line /usr/include/stdlib.h)
+		-- function atof (in `/usr/include/stdlib.h')
                -- atof
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	atoi (a_nptr: POINTER): INTEGER 
 
-		-- function atoi (in 147 at line /usr/include/stdlib.h)
+		-- function atoi (in `/usr/include/stdlib.h')
                -- atoi
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	atol (a_nptr: POINTER): like long 
 
-		-- function atol (in 150 at line /usr/include/stdlib.h)
+		-- function atol (in `/usr/include/stdlib.h')
                -- atol
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	atoll (a_nptr: POINTER): INTEGER_64 
 
-		-- function atoll (in 157 at line /usr/include/stdlib.h)
+		-- function atoll (in `/usr/include/stdlib.h')
                -- atoll
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	bsearch (a_key: POINTER; a_base: POINTER; a_nmemb: like long_unsigned; a_size: like long_unsigned; a_compar: POINTER): POINTER 
 
-		-- function bsearch (in 755 at line /usr/include/stdlib.h)
+		-- function bsearch (in `/usr/include/stdlib.h')
                -- bsearch
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	calloc (a_nmemb: like long_unsigned; a_size: like long_unsigned): POINTER 
 
-		-- function calloc (in 468 at line /usr/include/stdlib.h)
+		-- function calloc (in `/usr/include/stdlib.h')
                -- calloc
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	canonicalize_file_name (a_name: POINTER): POINTER 
 
-		-- function canonicalize_file_name (in 724 at line /usr/include/stdlib.h)
+		-- function canonicalize_file_name (in `/usr/include/stdlib.h')
                -- canonicalize_file_name
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	cfree (a_ptr: POINTER) 
 
-		-- function cfree (in 488 at line /usr/include/stdlib.h)
+		-- function cfree (in `/usr/include/stdlib.h')
                -- cfree
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	clearenv: INTEGER 
 
-		-- function clearenv (in 595 at line /usr/include/stdlib.h)
+		-- function clearenv (in `/usr/include/stdlib.h')
                -- clearenv
                external "plug_in"
                alias "{
@@ -189,10 +189,10 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __ctype_get_mb_cur_max skipped.
-       -- unwrappable function div in file /usr/include/stdlib.h line 789
+       -- unwrappable function div in file `/usr/include/stdlib.h'
 	drand48: REAL 
 
-		-- function drand48 (in 389 at line /usr/include/stdlib.h)
+		-- function drand48 (in `/usr/include/stdlib.h')
                -- drand48
                external "plug_in"
                alias "{
@@ -204,7 +204,7 @@ feature {} -- External calls
 
 	drand48_r (a_buffer: POINTER; a_result: POINTER): INTEGER 
 
-		-- function drand48_r (in 423 at line /usr/include/stdlib.h)
+		-- function drand48_r (in `/usr/include/stdlib.h')
                -- drand48_r
                external "plug_in"
                alias "{
@@ -216,7 +216,7 @@ feature {} -- External calls
 
 	ecvt (a_value: REAL; a_ndigit: INTEGER; a_decpt: POINTER; a_sign: POINTER): POINTER 
 
-		-- function ecvt (in 812 at line /usr/include/stdlib.h)
+		-- function ecvt (in `/usr/include/stdlib.h')
                -- ecvt
                external "plug_in"
                alias "{
@@ -228,7 +228,7 @@ feature {} -- External calls
 
 	ecvt_r (a_value: REAL; a_ndigit: INTEGER; a_decpt: POINTER; a_sign: POINTER; a_buf: POINTER; a_len: like long_unsigned): INTEGER 
 
-		-- function ecvt_r (in 842 at line /usr/include/stdlib.h)
+		-- function ecvt_r (in `/usr/include/stdlib.h')
                -- ecvt_r
                external "plug_in"
                alias "{
@@ -240,7 +240,7 @@ feature {} -- External calls
 
 	erand48 (a_xsubi: POINTER): REAL 
 
-		-- function erand48 (in 390 at line /usr/include/stdlib.h)
+		-- function erand48 (in `/usr/include/stdlib.h')
                -- erand48
                external "plug_in"
                alias "{
@@ -252,7 +252,7 @@ feature {} -- External calls
 
 	erand48_r (a_xsubi: POINTER; a_buffer: POINTER; a_result: POINTER): INTEGER 
 
-		-- function erand48_r (in 425 at line /usr/include/stdlib.h)
+		-- function erand48_r (in `/usr/include/stdlib.h')
                -- erand48_r
                external "plug_in"
                alias "{
@@ -264,7 +264,7 @@ feature {} -- External calls
 
 	exit (a_status: INTEGER) 
 
-		-- function exit (in 543 at line /usr/include/stdlib.h)
+		-- function exit (in `/usr/include/stdlib.h')
                -- exit
                external "plug_in"
                alias "{
@@ -277,7 +277,7 @@ feature {} -- External calls
 	-- `hidden' function _Exit skipped.
 	fcvt (a_value: REAL; a_ndigit: INTEGER; a_decpt: POINTER; a_sign: POINTER): POINTER 
 
-		-- function fcvt (in 818 at line /usr/include/stdlib.h)
+		-- function fcvt (in `/usr/include/stdlib.h')
                -- fcvt
                external "plug_in"
                alias "{
@@ -289,7 +289,7 @@ feature {} -- External calls
 
 	fcvt_r (a_value: REAL; a_ndigit: INTEGER; a_decpt: POINTER; a_sign: POINTER; a_buf: POINTER; a_len: like long_unsigned): INTEGER 
 
-		-- function fcvt_r (in 845 at line /usr/include/stdlib.h)
+		-- function fcvt_r (in `/usr/include/stdlib.h')
                -- fcvt_r
                external "plug_in"
                alias "{
@@ -301,7 +301,7 @@ feature {} -- External calls
 
 	free (a_ptr: POINTER) 
 
-		-- function free (in 483 at line /usr/include/stdlib.h)
+		-- function free (in `/usr/include/stdlib.h')
                -- free
                external "plug_in"
                alias "{
@@ -313,7 +313,7 @@ feature {} -- External calls
 
 	gcvt (a_value: REAL; a_ndigit: INTEGER; a_buf: POINTER): POINTER 
 
-		-- function gcvt (in 824 at line /usr/include/stdlib.h)
+		-- function gcvt (in `/usr/include/stdlib.h')
                -- gcvt
                external "plug_in"
                alias "{
@@ -325,7 +325,7 @@ feature {} -- External calls
 
 	getenv (a_name: POINTER): POINTER 
 
-		-- function getenv (in 564 at line /usr/include/stdlib.h)
+		-- function getenv (in `/usr/include/stdlib.h')
                -- getenv
                external "plug_in"
                alias "{
@@ -337,7 +337,7 @@ feature {} -- External calls
 
 	getloadavg (a_loadavg: POINTER; a_nelem: INTEGER): INTEGER 
 
-		-- function getloadavg (in 951 at line /usr/include/stdlib.h)
+		-- function getloadavg (in `/usr/include/stdlib.h')
                -- getloadavg
                external "plug_in"
                alias "{
@@ -349,7 +349,7 @@ feature {} -- External calls
 
 	getpt: INTEGER 
 
-		-- function getpt (in 944 at line /usr/include/stdlib.h)
+		-- function getpt (in `/usr/include/stdlib.h')
                -- getpt
                external "plug_in"
                alias "{
@@ -361,7 +361,7 @@ feature {} -- External calls
 
 	getsubopt (an_optionp: POINTER; a_tokens: POINTER; a_valuep: POINTER): INTEGER 
 
-		-- function getsubopt (in 899 at line /usr/include/stdlib.h)
+		-- function getsubopt (in `/usr/include/stdlib.h')
                -- getsubopt
                external "plug_in"
                alias "{
@@ -373,7 +373,7 @@ feature {} -- External calls
 
 	grantpt (a_fd: INTEGER): INTEGER 
 
-		-- function grantpt (in 924 at line /usr/include/stdlib.h)
+		-- function grantpt (in `/usr/include/stdlib.h')
                -- grantpt
                external "plug_in"
                alias "{
@@ -385,7 +385,7 @@ feature {} -- External calls
 
 	initstate (a_seed: NATURAL; a_statebuf: POINTER; a_statelen: like long_unsigned): POINTER 
 
-		-- function initstate (in 330 at line /usr/include/stdlib.h)
+		-- function initstate (in `/usr/include/stdlib.h')
                -- initstate
                external "plug_in"
                alias "{
@@ -397,7 +397,7 @@ feature {} -- External calls
 
 	initstate_r (a_seed: NATURAL; a_statebuf: POINTER; a_statelen: like long_unsigned; a_buf: POINTER): INTEGER 
 
-		-- function initstate_r (in 360 at line /usr/include/stdlib.h)
+		-- function initstate_r (in `/usr/include/stdlib.h')
                -- initstate_r
                external "plug_in"
                alias "{
@@ -409,7 +409,7 @@ feature {} -- External calls
 
 	jrand48 (a_xsubi: POINTER): like long 
 
-		-- function jrand48 (in 399 at line /usr/include/stdlib.h)
+		-- function jrand48 (in `/usr/include/stdlib.h')
                -- jrand48
                external "plug_in"
                alias "{
@@ -421,7 +421,7 @@ feature {} -- External calls
 
 	jrand48_r (a_xsubi: POINTER; a_buffer: POINTER; a_result: POINTER): INTEGER 
 
-		-- function jrand48_r (in 442 at line /usr/include/stdlib.h)
+		-- function jrand48_r (in `/usr/include/stdlib.h')
                -- jrand48_r
                external "plug_in"
                alias "{
@@ -433,7 +433,7 @@ feature {} -- External calls
 
 	l64a (a_n: like long): POINTER 
 
-		-- function l64a (in 305 at line /usr/include/stdlib.h)
+		-- function l64a (in `/usr/include/stdlib.h')
                -- l64a
                external "plug_in"
                alias "{
@@ -445,7 +445,7 @@ feature {} -- External calls
 
 	labs (a_x: like long): like long 
 
-		-- function labs (in 776 at line /usr/include/stdlib.h)
+		-- function labs (in `/usr/include/stdlib.h')
                -- labs
                external "plug_in"
                alias "{
@@ -457,7 +457,7 @@ feature {} -- External calls
 
 	lcong48 (a_param: POINTER) 
 
-		-- function lcong48 (in 406 at line /usr/include/stdlib.h)
+		-- function lcong48 (in `/usr/include/stdlib.h')
                -- lcong48
                external "plug_in"
                alias "{
@@ -469,7 +469,7 @@ feature {} -- External calls
 
 	lcong48_r (a_param: POINTER; a_buffer: POINTER): INTEGER 
 
-		-- function lcong48_r (in 454 at line /usr/include/stdlib.h)
+		-- function lcong48_r (in `/usr/include/stdlib.h')
                -- lcong48_r
                external "plug_in"
                alias "{
@@ -479,10 +479,10 @@ feature {} -- External calls
                }"
                end
 
-       -- unwrappable function ldiv in file /usr/include/stdlib.h line 791
+       -- unwrappable function ldiv in file `/usr/include/stdlib.h'
 	llabs (a_x: INTEGER_64): INTEGER_64 
 
-		-- function llabs (in 780 at line /usr/include/stdlib.h)
+		-- function llabs (in `/usr/include/stdlib.h')
                -- llabs
                external "plug_in"
                alias "{
@@ -492,10 +492,10 @@ feature {} -- External calls
                }"
                end
 
-       -- unwrappable function lldiv in file /usr/include/stdlib.h line 797
+       -- unwrappable function lldiv in file `/usr/include/stdlib.h'
 	lrand48: like long 
 
-		-- function lrand48 (in 393 at line /usr/include/stdlib.h)
+		-- function lrand48 (in `/usr/include/stdlib.h')
                -- lrand48
                external "plug_in"
                alias "{
@@ -507,7 +507,7 @@ feature {} -- External calls
 
 	lrand48_r (a_buffer: POINTER; a_result: POINTER): INTEGER 
 
-		-- function lrand48_r (in 430 at line /usr/include/stdlib.h)
+		-- function lrand48_r (in `/usr/include/stdlib.h')
                -- lrand48_r
                external "plug_in"
                alias "{
@@ -519,7 +519,7 @@ feature {} -- External calls
 
 	malloc (a_size: like long_unsigned): POINTER 
 
-		-- function malloc (in 466 at line /usr/include/stdlib.h)
+		-- function malloc (in `/usr/include/stdlib.h')
                -- malloc
                external "plug_in"
                alias "{
@@ -531,7 +531,7 @@ feature {} -- External calls
 
 	mblen (a_s: POINTER; a_n: like long_unsigned): INTEGER 
 
-		-- function mblen (in 863 at line /usr/include/stdlib.h)
+		-- function mblen (in `/usr/include/stdlib.h')
                -- mblen
                external "plug_in"
                alias "{
@@ -543,7 +543,7 @@ feature {} -- External calls
 
 	mbstowcs (a_pwcs: POINTER; a_s: POINTER; a_n: like long_unsigned): like long_unsigned 
 
-		-- function mbstowcs (in 874 at line /usr/include/stdlib.h)
+		-- function mbstowcs (in `/usr/include/stdlib.h')
                -- mbstowcs
                external "plug_in"
                alias "{
@@ -555,7 +555,7 @@ feature {} -- External calls
 
 	mbtowc (a_pwc: POINTER; a_s: POINTER; a_n: like long_unsigned): INTEGER 
 
-		-- function mbtowc (in 866 at line /usr/include/stdlib.h)
+		-- function mbtowc (in `/usr/include/stdlib.h')
                -- mbtowc
                external "plug_in"
                alias "{
@@ -567,7 +567,7 @@ feature {} -- External calls
 
 	memcpy (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
 
-		-- function memcpy (in 46 at line /usr/include/stdlib.h)
+		-- function memcpy (in `/usr/include/stdlib.h')
                -- memcpy
                external "plug_in"
                alias "{
@@ -579,7 +579,7 @@ feature {} -- External calls
 
 	mkdtemp (a_template: POINTER): POINTER 
 
-		-- function mkdtemp (in 663 at line /usr/include/stdlib.h)
+		-- function mkdtemp (in `/usr/include/stdlib.h')
                -- mkdtemp
                external "plug_in"
                alias "{
@@ -591,7 +591,7 @@ feature {} -- External calls
 
 	mkostemp (a_template: POINTER; a_flags: INTEGER): INTEGER 
 
-		-- function mkostemp (in 674 at line /usr/include/stdlib.h)
+		-- function mkostemp (in `/usr/include/stdlib.h')
                -- mkostemp
                external "plug_in"
                alias "{
@@ -603,7 +603,7 @@ feature {} -- External calls
 
 	mkostemp64 (a_template: POINTER; a_flags: INTEGER): INTEGER 
 
-		-- function mkostemp64 (in 684 at line /usr/include/stdlib.h)
+		-- function mkostemp64 (in `/usr/include/stdlib.h')
                -- mkostemp64
                external "plug_in"
                alias "{
@@ -615,7 +615,7 @@ feature {} -- External calls
 
 	mkostemps (a_template: POINTER; a_suffixlen: INTEGER; a_flags: INTEGER): INTEGER 
 
-		-- function mkostemps (in 694 at line /usr/include/stdlib.h)
+		-- function mkostemps (in `/usr/include/stdlib.h')
                -- mkostemps
                external "plug_in"
                alias "{
@@ -627,7 +627,7 @@ feature {} -- External calls
 
 	mkostemps64 (a_template: POINTER; a_suffixlen: INTEGER; a_flags: INTEGER): INTEGER 
 
-		-- function mkostemps64 (in 706 at line /usr/include/stdlib.h)
+		-- function mkostemps64 (in `/usr/include/stdlib.h')
                -- mkostemps64
                external "plug_in"
                alias "{
@@ -639,7 +639,7 @@ feature {} -- External calls
 
 	mkstemp (a_template: POINTER): INTEGER 
 
-		-- function mkstemp (in 620 at line /usr/include/stdlib.h)
+		-- function mkstemp (in `/usr/include/stdlib.h')
                -- mkstemp
                external "plug_in"
                alias "{
@@ -651,7 +651,7 @@ feature {} -- External calls
 
 	mkstemp64 (a_template: POINTER): INTEGER 
 
-		-- function mkstemp64 (in 630 at line /usr/include/stdlib.h)
+		-- function mkstemp64 (in `/usr/include/stdlib.h')
                -- mkstemp64
                external "plug_in"
                alias "{
@@ -663,7 +663,7 @@ feature {} -- External calls
 
 	mkstemps (a_template: POINTER; a_suffixlen: INTEGER): INTEGER 
 
-		-- function mkstemps (in 642 at line /usr/include/stdlib.h)
+		-- function mkstemps (in `/usr/include/stdlib.h')
                -- mkstemps
                external "plug_in"
                alias "{
@@ -675,7 +675,7 @@ feature {} -- External calls
 
 	mkstemps64 (a_template: POINTER; a_suffixlen: INTEGER): INTEGER 
 
-		-- function mkstemps64 (in 652 at line /usr/include/stdlib.h)
+		-- function mkstemps64 (in `/usr/include/stdlib.h')
                -- mkstemps64
                external "plug_in"
                alias "{
@@ -687,7 +687,7 @@ feature {} -- External calls
 
 	mktemp (a_template: POINTER): POINTER 
 
-		-- function mktemp (in 606 at line /usr/include/stdlib.h)
+		-- function mktemp (in `/usr/include/stdlib.h')
                -- mktemp
                external "plug_in"
                alias "{
@@ -699,7 +699,7 @@ feature {} -- External calls
 
 	mrand48: like long 
 
-		-- function mrand48 (in 398 at line /usr/include/stdlib.h)
+		-- function mrand48 (in `/usr/include/stdlib.h')
                -- mrand48
                external "plug_in"
                alias "{
@@ -711,7 +711,7 @@ feature {} -- External calls
 
 	mrand48_r (a_buffer: POINTER; a_result: POINTER): INTEGER 
 
-		-- function mrand48_r (in 439 at line /usr/include/stdlib.h)
+		-- function mrand48_r (in `/usr/include/stdlib.h')
                -- mrand48_r
                external "plug_in"
                alias "{
@@ -723,7 +723,7 @@ feature {} -- External calls
 
 	nrand48 (a_xsubi: POINTER): like long 
 
-		-- function nrand48 (in 394 at line /usr/include/stdlib.h)
+		-- function nrand48 (in `/usr/include/stdlib.h')
                -- nrand48
                external "plug_in"
                alias "{
@@ -735,7 +735,7 @@ feature {} -- External calls
 
 	nrand48_r (a_xsubi: POINTER; a_buffer: POINTER; a_result: POINTER): INTEGER 
 
-		-- function nrand48_r (in 433 at line /usr/include/stdlib.h)
+		-- function nrand48_r (in `/usr/include/stdlib.h')
                -- nrand48_r
                external "plug_in"
                alias "{
@@ -747,7 +747,7 @@ feature {} -- External calls
 
 	on_exit (a_func: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function on_exit (in 535 at line /usr/include/stdlib.h)
+		-- function on_exit (in `/usr/include/stdlib.h')
                -- on_exit
                external "plug_in"
                alias "{
@@ -759,7 +759,7 @@ feature {} -- External calls
 
 	posix_memalign (a_memptr: POINTER; an_alignment: like long_unsigned; a_size: like long_unsigned): INTEGER 
 
-		-- function posix_memalign (in 503 at line /usr/include/stdlib.h)
+		-- function posix_memalign (in `/usr/include/stdlib.h')
                -- posix_memalign
                external "plug_in"
                alias "{
@@ -771,7 +771,7 @@ feature {} -- External calls
 
 	posix_openpt (an_oflag: INTEGER): INTEGER 
 
-		-- function posix_openpt (in 916 at line /usr/include/stdlib.h)
+		-- function posix_openpt (in `/usr/include/stdlib.h')
                -- posix_openpt
                external "plug_in"
                alias "{
@@ -783,7 +783,7 @@ feature {} -- External calls
 
 	ptsname (a_fd: INTEGER): POINTER 
 
-		-- function ptsname (in 933 at line /usr/include/stdlib.h)
+		-- function ptsname (in `/usr/include/stdlib.h')
                -- ptsname
                external "plug_in"
                alias "{
@@ -795,7 +795,7 @@ feature {} -- External calls
 
 	ptsname_r (a_fd: INTEGER; a_buf: POINTER; a_buflen: like long_unsigned): INTEGER 
 
-		-- function ptsname_r (in 940 at line /usr/include/stdlib.h)
+		-- function ptsname_r (in `/usr/include/stdlib.h')
                -- ptsname_r
                external "plug_in"
                alias "{
@@ -807,7 +807,7 @@ feature {} -- External calls
 
 	putenv (a_string: POINTER): INTEGER 
 
-		-- function putenv (in 578 at line /usr/include/stdlib.h)
+		-- function putenv (in `/usr/include/stdlib.h')
                -- putenv
                external "plug_in"
                alias "{
@@ -819,7 +819,7 @@ feature {} -- External calls
 
 	qecvt (a_value: REAL_EXTENDED; a_ndigit: INTEGER; a_decpt: POINTER; a_sign: POINTER): POINTER 
 
-		-- function qecvt (in 830 at line /usr/include/stdlib.h)
+		-- function qecvt (in `/usr/include/stdlib.h')
                -- qecvt
                external "plug_in"
                alias "{
@@ -831,7 +831,7 @@ feature {} -- External calls
 
 	qecvt_r (a_value: REAL_EXTENDED; a_ndigit: INTEGER; a_decpt: POINTER; a_sign: POINTER; a_buf: POINTER; a_len: like long_unsigned): INTEGER 
 
-		-- function qecvt_r (in 849 at line /usr/include/stdlib.h)
+		-- function qecvt_r (in `/usr/include/stdlib.h')
                -- qecvt_r
                external "plug_in"
                alias "{
@@ -843,7 +843,7 @@ feature {} -- External calls
 
 	qfcvt (a_value: REAL_EXTENDED; a_ndigit: INTEGER; a_decpt: POINTER; a_sign: POINTER): POINTER 
 
-		-- function qfcvt (in 833 at line /usr/include/stdlib.h)
+		-- function qfcvt (in `/usr/include/stdlib.h')
                -- qfcvt
                external "plug_in"
                alias "{
@@ -855,7 +855,7 @@ feature {} -- External calls
 
 	qfcvt_r (a_value: REAL_EXTENDED; a_ndigit: INTEGER; a_decpt: POINTER; a_sign: POINTER; a_buf: POINTER; a_len: like long_unsigned): INTEGER 
 
-		-- function qfcvt_r (in 853 at line /usr/include/stdlib.h)
+		-- function qfcvt_r (in `/usr/include/stdlib.h')
                -- qfcvt_r
                external "plug_in"
                alias "{
@@ -867,7 +867,7 @@ feature {} -- External calls
 
 	qgcvt (a_value: REAL_EXTENDED; a_ndigit: INTEGER; a_buf: POINTER): POINTER 
 
-		-- function qgcvt (in 836 at line /usr/include/stdlib.h)
+		-- function qgcvt (in `/usr/include/stdlib.h')
                -- qgcvt
                external "plug_in"
                alias "{
@@ -879,7 +879,7 @@ feature {} -- External calls
 
 	qsort (a_base: POINTER; a_nmemb: like long_unsigned; a_size: like long_unsigned; a_compar: POINTER) 
 
-		-- function qsort (in 765 at line /usr/include/stdlib.h)
+		-- function qsort (in `/usr/include/stdlib.h')
                -- qsort
                external "plug_in"
                alias "{
@@ -891,7 +891,7 @@ feature {} -- External calls
 
 	qsort_r (a_base: POINTER; a_nmemb: like long_unsigned; a_size: like long_unsigned; a_compar: POINTER; an_arg: POINTER) 
 
-		-- function qsort_r (in 768 at line /usr/include/stdlib.h)
+		-- function qsort_r (in `/usr/include/stdlib.h')
                -- qsort_r
                external "plug_in"
                alias "{
@@ -903,7 +903,7 @@ feature {} -- External calls
 
 	quick_exit (a_status: INTEGER) 
 
-		-- function quick_exit (in 549 at line /usr/include/stdlib.h)
+		-- function quick_exit (in `/usr/include/stdlib.h')
                -- quick_exit
                external "plug_in"
                alias "{
@@ -915,7 +915,7 @@ feature {} -- External calls
 
 	rand: INTEGER 
 
-		-- function rand (in 374 at line /usr/include/stdlib.h)
+		-- function rand (in `/usr/include/stdlib.h')
                -- rand
                external "plug_in"
                alias "{
@@ -927,7 +927,7 @@ feature {} -- External calls
 
 	rand_r (a_seed: POINTER): INTEGER 
 
-		-- function rand_r (in 381 at line /usr/include/stdlib.h)
+		-- function rand_r (in `/usr/include/stdlib.h')
                -- rand_r
                external "plug_in"
                alias "{
@@ -939,7 +939,7 @@ feature {} -- External calls
 
 	random: like long 
 
-		-- function random (in 321 at line /usr/include/stdlib.h)
+		-- function random (in `/usr/include/stdlib.h')
                -- random
                external "plug_in"
                alias "{
@@ -951,7 +951,7 @@ feature {} -- External calls
 
 	random_r (a_buf: POINTER; a_result: POINTER): INTEGER 
 
-		-- function random_r (in 354 at line /usr/include/stdlib.h)
+		-- function random_r (in `/usr/include/stdlib.h')
                -- random_r
                external "plug_in"
                alias "{
@@ -963,7 +963,7 @@ feature {} -- External calls
 
 	realloc (a_ptr: POINTER; a_size: like long_unsigned): POINTER 
 
-		-- function realloc (in 480 at line /usr/include/stdlib.h)
+		-- function realloc (in `/usr/include/stdlib.h')
                -- realloc
                external "plug_in"
                alias "{
@@ -975,7 +975,7 @@ feature {} -- External calls
 
 	realpath (a_name: POINTER; a_resolved: POINTER): POINTER 
 
-		-- function realpath (in 734 at line /usr/include/stdlib.h)
+		-- function realpath (in `/usr/include/stdlib.h')
                -- realpath
                external "plug_in"
                alias "{
@@ -987,7 +987,7 @@ feature {} -- External calls
 
 	rpmatch (a_response: POINTER): INTEGER 
 
-		-- function rpmatch (in 888 at line /usr/include/stdlib.h)
+		-- function rpmatch (in `/usr/include/stdlib.h')
                -- rpmatch
                external "plug_in"
                alias "{
@@ -999,7 +999,7 @@ feature {} -- External calls
 
 	secure_getenv (a_name: POINTER): POINTER 
 
-		-- function secure_getenv (in 570 at line /usr/include/stdlib.h)
+		-- function secure_getenv (in `/usr/include/stdlib.h')
                -- secure_getenv
                external "plug_in"
                alias "{
@@ -1011,7 +1011,7 @@ feature {} -- External calls
 
 	seed48 (a_seed16v: POINTER): POINTER 
 
-		-- function seed48 (in 404 at line /usr/include/stdlib.h)
+		-- function seed48 (in `/usr/include/stdlib.h')
                -- seed48
                external "plug_in"
                alias "{
@@ -1023,7 +1023,7 @@ feature {} -- External calls
 
 	seed48_r (a_seed16v: POINTER; a_buffer: POINTER): INTEGER 
 
-		-- function seed48_r (in 451 at line /usr/include/stdlib.h)
+		-- function seed48_r (in `/usr/include/stdlib.h')
                -- seed48_r
                external "plug_in"
                alias "{
@@ -1035,7 +1035,7 @@ feature {} -- External calls
 
 	setenv (a_name: POINTER; a_value: POINTER; a_replace: INTEGER): INTEGER 
 
-		-- function setenv (in 584 at line /usr/include/stdlib.h)
+		-- function setenv (in `/usr/include/stdlib.h')
                -- setenv
                external "plug_in"
                alias "{
@@ -1047,7 +1047,7 @@ feature {} -- External calls
 
 	setkey (a_key: POINTER) 
 
-		-- function setkey (in 908 at line /usr/include/stdlib.h)
+		-- function setkey (in `/usr/include/stdlib.h')
                -- setkey
                external "plug_in"
                alias "{
@@ -1059,7 +1059,7 @@ feature {} -- External calls
 
 	setstate (a_statebuf: POINTER): POINTER 
 
-		-- function setstate (in 335 at line /usr/include/stdlib.h)
+		-- function setstate (in `/usr/include/stdlib.h')
                -- setstate
                external "plug_in"
                alias "{
@@ -1071,7 +1071,7 @@ feature {} -- External calls
 
 	setstate_r (a_statebuf: POINTER; a_buf: POINTER): INTEGER 
 
-		-- function setstate_r (in 365 at line /usr/include/stdlib.h)
+		-- function setstate_r (in `/usr/include/stdlib.h')
                -- setstate_r
                external "plug_in"
                alias "{
@@ -1083,7 +1083,7 @@ feature {} -- External calls
 
 	srand (a_seed: NATURAL) 
 
-		-- function srand (in 376 at line /usr/include/stdlib.h)
+		-- function srand (in `/usr/include/stdlib.h')
                -- srand
                external "plug_in"
                alias "{
@@ -1095,7 +1095,7 @@ feature {} -- External calls
 
 	srand48 (a_seedval: like long) 
 
-		-- function srand48 (in 403 at line /usr/include/stdlib.h)
+		-- function srand48 (in `/usr/include/stdlib.h')
                -- srand48
                external "plug_in"
                alias "{
@@ -1107,7 +1107,7 @@ feature {} -- External calls
 
 	srand48_r (a_seedval: like long; a_buffer: POINTER): INTEGER 
 
-		-- function srand48_r (in 448 at line /usr/include/stdlib.h)
+		-- function srand48_r (in `/usr/include/stdlib.h')
                -- srand48_r
                external "plug_in"
                alias "{
@@ -1119,7 +1119,7 @@ feature {} -- External calls
 
 	srandom (a_seed: NATURAL) 
 
-		-- function srandom (in 324 at line /usr/include/stdlib.h)
+		-- function srandom (in `/usr/include/stdlib.h')
                -- srandom
                external "plug_in"
                alias "{
@@ -1131,7 +1131,7 @@ feature {} -- External calls
 
 	srandom_r (a_seed: NATURAL; a_buf: POINTER): INTEGER 
 
-		-- function srandom_r (in 357 at line /usr/include/stdlib.h)
+		-- function srandom_r (in `/usr/include/stdlib.h')
                -- srandom_r
                external "plug_in"
                alias "{
@@ -1143,7 +1143,7 @@ feature {} -- External calls
 
 	strtod (a_nptr: POINTER; an_endptr: POINTER): REAL 
 
-		-- function strtod (in 164 at line /usr/include/stdlib.h)
+		-- function strtod (in `/usr/include/stdlib.h')
                -- strtod
                external "plug_in"
                alias "{
@@ -1155,7 +1155,7 @@ feature {} -- External calls
 
 	strtod_l (a_nptr: POINTER; an_endptr: POINTER; a_loc: POINTER): REAL 
 
-		-- function strtod_l (in 260 at line /usr/include/stdlib.h)
+		-- function strtod_l (in `/usr/include/stdlib.h')
                -- strtod_l
                external "plug_in"
                alias "{
@@ -1167,7 +1167,7 @@ feature {} -- External calls
 
 	strtof (a_nptr: POINTER; an_endptr: POINTER): REAL_32 
 
-		-- function strtof (in 172 at line /usr/include/stdlib.h)
+		-- function strtof (in `/usr/include/stdlib.h')
                -- strtof
                external "plug_in"
                alias "{
@@ -1179,7 +1179,7 @@ feature {} -- External calls
 
 	strtof_l (a_nptr: POINTER; an_endptr: POINTER; a_loc: POINTER): REAL_32 
 
-		-- function strtof_l (in 264 at line /usr/include/stdlib.h)
+		-- function strtof_l (in `/usr/include/stdlib.h')
                -- strtof_l
                external "plug_in"
                alias "{
@@ -1191,7 +1191,7 @@ feature {} -- External calls
 
 	strtol (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER): like long 
 
-		-- function strtol (in 183 at line /usr/include/stdlib.h)
+		-- function strtol (in `/usr/include/stdlib.h')
                -- strtol
                external "plug_in"
                alias "{
@@ -1203,7 +1203,7 @@ feature {} -- External calls
 
 	strtol_l (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER; a_loc: POINTER): like long 
 
-		-- function strtol_l (in 239 at line /usr/include/stdlib.h)
+		-- function strtol_l (in `/usr/include/stdlib.h')
                -- strtol_l
                external "plug_in"
                alias "{
@@ -1215,7 +1215,7 @@ feature {} -- External calls
 
 	strtold (a_nptr: POINTER; an_endptr: POINTER): REAL_EXTENDED 
 
-		-- function strtold (in 175 at line /usr/include/stdlib.h)
+		-- function strtold (in `/usr/include/stdlib.h')
                -- strtold
                external "plug_in"
                alias "{
@@ -1227,7 +1227,7 @@ feature {} -- External calls
 
 	strtold_l (a_nptr: POINTER; an_endptr: POINTER; a_loc: POINTER): REAL_EXTENDED 
 
-		-- function strtold_l (in 268 at line /usr/include/stdlib.h)
+		-- function strtold_l (in `/usr/include/stdlib.h')
                -- strtold_l
                external "plug_in"
                alias "{
@@ -1239,7 +1239,7 @@ feature {} -- External calls
 
 	strtoll (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER): INTEGER_64 
 
-		-- function strtoll (in 209 at line /usr/include/stdlib.h)
+		-- function strtoll (in `/usr/include/stdlib.h')
                -- strtoll
                external "plug_in"
                alias "{
@@ -1251,7 +1251,7 @@ feature {} -- External calls
 
 	strtoll_l (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER; a_loc: POINTER): INTEGER_64 
 
-		-- function strtoll_l (in 249 at line /usr/include/stdlib.h)
+		-- function strtoll_l (in `/usr/include/stdlib.h')
                -- strtoll_l
                external "plug_in"
                alias "{
@@ -1263,7 +1263,7 @@ feature {} -- External calls
 
 	strtoq (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER): INTEGER_64 
 
-		-- function strtoq (in 195 at line /usr/include/stdlib.h)
+		-- function strtoq (in `/usr/include/stdlib.h')
                -- strtoq
                external "plug_in"
                alias "{
@@ -1275,7 +1275,7 @@ feature {} -- External calls
 
 	strtoul (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER): like long_unsigned 
 
-		-- function strtoul (in 187 at line /usr/include/stdlib.h)
+		-- function strtoul (in `/usr/include/stdlib.h')
                -- strtoul
                external "plug_in"
                alias "{
@@ -1287,7 +1287,7 @@ feature {} -- External calls
 
 	strtoul_l (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER; a_loc: POINTER): like long_unsigned 
 
-		-- function strtoul_l (in 243 at line /usr/include/stdlib.h)
+		-- function strtoul_l (in `/usr/include/stdlib.h')
                -- strtoul_l
                external "plug_in"
                alias "{
@@ -1299,7 +1299,7 @@ feature {} -- External calls
 
 	strtoull (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER): NATURAL_64 
 
-		-- function strtoull (in 214 at line /usr/include/stdlib.h)
+		-- function strtoull (in `/usr/include/stdlib.h')
                -- strtoull
                external "plug_in"
                alias "{
@@ -1311,7 +1311,7 @@ feature {} -- External calls
 
 	strtoull_l (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER; a_loc: POINTER): NATURAL_64 
 
-		-- function strtoull_l (in 255 at line /usr/include/stdlib.h)
+		-- function strtoull_l (in `/usr/include/stdlib.h')
                -- strtoull_l
                external "plug_in"
                alias "{
@@ -1323,7 +1323,7 @@ feature {} -- External calls
 
 	strtouq (a_nptr: POINTER; an_endptr: POINTER; a_base: INTEGER): NATURAL_64 
 
-		-- function strtouq (in 200 at line /usr/include/stdlib.h)
+		-- function strtouq (in `/usr/include/stdlib.h')
                -- strtouq
                external "plug_in"
                alias "{
@@ -1335,7 +1335,7 @@ feature {} -- External calls
 
 	system (a_command: POINTER): INTEGER 
 
-		-- function system (in 717 at line /usr/include/stdlib.h)
+		-- function system (in `/usr/include/stdlib.h')
                -- system
                external "plug_in"
                alias "{
@@ -1347,7 +1347,7 @@ feature {} -- External calls
 
 	unlockpt (a_fd: INTEGER): INTEGER 
 
-		-- function unlockpt (in 928 at line /usr/include/stdlib.h)
+		-- function unlockpt (in `/usr/include/stdlib.h')
                -- unlockpt
                external "plug_in"
                alias "{
@@ -1359,7 +1359,7 @@ feature {} -- External calls
 
 	unsetenv (a_name: POINTER): INTEGER 
 
-		-- function unsetenv (in 588 at line /usr/include/stdlib.h)
+		-- function unsetenv (in `/usr/include/stdlib.h')
                -- unsetenv
                external "plug_in"
                alias "{
@@ -1371,7 +1371,7 @@ feature {} -- External calls
 
 	valloc (a_size: like long_unsigned): POINTER 
 
-		-- function valloc (in 498 at line /usr/include/stdlib.h)
+		-- function valloc (in `/usr/include/stdlib.h')
                -- valloc
                external "plug_in"
                alias "{
@@ -1383,7 +1383,7 @@ feature {} -- External calls
 
 	wcstombs (a_s: POINTER; a_pwcs: POINTER; a_n: like long_unsigned): like long_unsigned 
 
-		-- function wcstombs (in 877 at line /usr/include/stdlib.h)
+		-- function wcstombs (in `/usr/include/stdlib.h')
                -- wcstombs
                external "plug_in"
                alias "{
@@ -1393,6 +1393,6 @@ feature {} -- External calls
                }"
                end
 
-       -- unwrappable function wctomb in file /usr/include/stdlib.h line 870
+       -- unwrappable function wctomb in file `/usr/include/stdlib.h'
 
 end -- class STDLIB_EXTERNALS

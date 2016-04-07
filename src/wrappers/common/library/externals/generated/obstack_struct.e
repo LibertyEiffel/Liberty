@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class OBSTACK_STRUCT
--- Wrapper of struct obstack defined in file /usr/include/stdio.h line 896
+-- Wrapper of struct obstack defined in file /usr/include/stdio.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

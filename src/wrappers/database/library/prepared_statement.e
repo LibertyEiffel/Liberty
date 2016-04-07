@@ -18,12 +18,6 @@ feature {} -- Creation
 		end
 
 feature	{ANY}
-	parameters_count: INTEGER is
-      obsolete "use parameter_count instead"
-      do
-         Result := parameter_count
-      end
-   
 	parameter_count: INTEGER is
 			-- The number of paramenters to be provided to execute the
 			-- statement. This number depends on `some_sql' passed to

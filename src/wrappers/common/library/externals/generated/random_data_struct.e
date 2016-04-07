@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class RANDOM_DATA_STRUCT
--- Wrapper of struct random_data defined in file /usr/include/stdlib.h line 343
+-- Wrapper of struct random_data defined in file /usr/include/stdlib.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

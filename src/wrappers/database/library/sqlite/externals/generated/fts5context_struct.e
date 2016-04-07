@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class FTS5CONTEXT_STRUCT
--- Wrapper of struct Fts5Context defined in file /usr/include/sqlite3.h line 8147
+-- Wrapper of struct Fts5Context defined in file /usr/include/sqlite3.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

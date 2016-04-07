@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_AUTOMATA_STATE_STRUCT
--- Wrapper of struct _xmlAutomataState defined in file /usr/include/libxml2/libxml/xmlautomata.h line 37
+-- Wrapper of struct _xmlAutomataState defined in file /usr/include/libxml2/libxml/xmlautomata.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

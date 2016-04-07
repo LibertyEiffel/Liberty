@@ -46,7 +46,7 @@ feature {} -- Implementation
 
 end
 
--- Copyright: "(C) 2014 Paolo Redaelli "
+-- Copyright: "(C) 2014-2016 Paolo Redaelli, Raphael Mack"
 -- License: "LGPL v2 or later"
 
 

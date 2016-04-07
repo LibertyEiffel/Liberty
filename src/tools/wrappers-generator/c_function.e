@@ -98,8 +98,8 @@ feature {ANY}
          if not is_wrappable then
 			log("Function `#(1)' is  not wrappable%N" #  c_string_name)
             buffer.reset
-            buffer.append(once "       -- unwrappable function #(1) in file #(3) line #(2)%N" #
-					c_string_name # line_row.to_utf8 # c_file.c_string_name)
+            buffer.append(once "       -- unwrappable function #(1) in file `#(2)'%N" #
+					c_string_name # c_file.c_string_name)
             -- TODO: provide the reason; using developer_exception_name
             -- triggers some recursion bug AFAIK. Paolo 2009-10-02
          elseif not is_public then
@@ -131,8 +131,8 @@ feature {ANY}
          -- local description: COLLECTION[STRING];  word: STRING; iter: ITERATOR[STRING];  length,new_length: INTEGER
       do
          -- TODO: complete C_FUNCTION.append_description
-         buffer.append(once "%N%T%T-- function #(1) (in #(2) at line #(3))%N" #
-					c_string_name # line_row.to_utf8 # c_file.c_string_name)
+         buffer.append(once "%N%T%T-- function #(1) (in `#(2)')%N" #
+					c_string_name # c_file.c_string_name)
          -- description := feature_description(class_name, name)
          -- if description/=Void then
          --      from

@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class LIB_VERSION_TYPE_ENUM
 
--- Wrapper of enum _LIB_VERSION_TYPE defined in file /usr/include/math.h line 301
+-- Wrapper of enum _LIB_VERSION_TYPE defined in file /usr/include/math.h
 insert ENUM
 
 create {ANY} default_create

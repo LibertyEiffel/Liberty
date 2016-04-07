@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	xml_cleanup_threads 
 
-		-- function xmlCleanupThreads (in 71 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlCleanupThreads (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlCleanupThreads
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	xml_free_mutex (a_tok: POINTER) 
 
-		-- function xmlFreeMutex (in 46 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlFreeMutex (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlFreeMutex
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	xml_free_rmutex (a_tok: POINTER) 
 
-		-- function xmlFreeRMutex (in 55 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlFreeRMutex (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlFreeRMutex
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	xml_get_global_state: POINTER 
 
-		-- function xmlGetGlobalState (in 73 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlGetGlobalState (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlGetGlobalState
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	xml_get_thread_id: INTEGER 
 
-		-- function xmlGetThreadId (in 67 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlGetThreadId (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlGetThreadId
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	xml_init_threads 
 
-		-- function xmlInitThreads (in 61 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlInitThreads (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlInitThreads
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	xml_is_main_thread: INTEGER 
 
-		-- function xmlIsMainThread (in 69 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlIsMainThread (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlIsMainThread
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	xml_lock_library 
 
-		-- function xmlLockLibrary (in 63 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlLockLibrary (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlLockLibrary
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	xml_mutex_lock (a_tok: POINTER) 
 
-		-- function xmlMutexLock (in 42 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlMutexLock (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlMutexLock
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	xml_mutex_unlock (a_tok: POINTER) 
 
-		-- function xmlMutexUnlock (in 44 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlMutexUnlock (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlMutexUnlock
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	xml_new_mutex: POINTER 
 
-		-- function xmlNewMutex (in 40 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlNewMutex (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlNewMutex
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	xml_new_rmutex: POINTER 
 
-		-- function xmlNewRMutex (in 49 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlNewRMutex (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlNewRMutex
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	xml_rmutex_lock (a_tok: POINTER) 
 
-		-- function xmlRMutexLock (in 51 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlRMutexLock (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlRMutexLock
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	xml_rmutex_unlock (a_tok: POINTER) 
 
-		-- function xmlRMutexUnlock (in 53 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlRMutexUnlock (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlRMutexUnlock
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	xml_unlock_library 
 
-		-- function xmlUnlockLibrary (in 65 at line /usr/include/libxml2/libxml/threads.h)
+		-- function xmlUnlockLibrary (in `/usr/include/libxml2/libxml/threads.h')
                -- xmlUnlockLibrary
                external "plug_in"
                alias "{

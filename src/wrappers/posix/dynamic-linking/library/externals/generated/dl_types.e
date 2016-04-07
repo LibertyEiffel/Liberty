@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 
 feature {ANY} -- C type definitions (typedefs)
        lmid_t: like long
-               -- typedef Lmid_t from /usr/include/dlfcn.h line 44
+               -- typedef Lmid_t from /usr/include/dlfcn.h
                -- Empty by design, used for anchored declarations.
        do
        ensure Result.is_default

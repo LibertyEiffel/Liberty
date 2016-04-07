@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_PARSER_CTXT_STRUCT
--- Wrapper of struct _xmlParserCtxt defined in file /usr/include/libxml2/libxml/parser.h line 184
+-- Wrapper of struct _xmlParserCtxt defined in file /usr/include/libxml2/libxml/parser.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

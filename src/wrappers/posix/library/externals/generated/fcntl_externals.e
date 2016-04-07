@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	creat (a_file: POINTER; a_mode: NATURAL): INTEGER 
 
-		-- function creat (in 192 at line /usr/include/fcntl.h)
+		-- function creat (in `/usr/include/fcntl.h')
                -- creat
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	creat64 (a_file: POINTER; a_mode: NATURAL): INTEGER 
 
-		-- function creat64 (in 202 at line /usr/include/fcntl.h)
+		-- function creat64 (in `/usr/include/fcntl.h')
                -- creat64
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	fcntl (a_fd: INTEGER; a_cmd: INTEGER): INTEGER 
 
-		-- function fcntl (in 137 at line /usr/include/fcntl.h)
+		-- function fcntl (in `/usr/include/fcntl.h')
                -- fcntl (variadic call) 
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	lockf (a_fd: INTEGER; a_cmd: INTEGER; a_len: like long): INTEGER 
 
-		-- function lockf (in 221 at line /usr/include/fcntl.h)
+		-- function lockf (in `/usr/include/fcntl.h')
                -- lockf
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	lockf64 (a_fd: INTEGER; a_cmd: INTEGER; a_len: like long): INTEGER 
 
-		-- function lockf64 (in 230 at line /usr/include/fcntl.h)
+		-- function lockf64 (in `/usr/include/fcntl.h')
                -- lockf64
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	open (a_file: POINTER; an_oflag: INTEGER): INTEGER 
 
-		-- function open (in 146 at line /usr/include/fcntl.h)
+		-- function open (in `/usr/include/fcntl.h')
                -- open (variadic call) 
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	open64 (a_file: POINTER; an_oflag: INTEGER): INTEGER 
 
-		-- function open64 (in 156 at line /usr/include/fcntl.h)
+		-- function open64 (in `/usr/include/fcntl.h')
                -- open64 (variadic call) 
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	openat (a_fd: INTEGER; a_file: POINTER; an_oflag: INTEGER): INTEGER 
 
-		-- function openat (in 170 at line /usr/include/fcntl.h)
+		-- function openat (in `/usr/include/fcntl.h')
                -- openat (variadic call) 
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	openat64 (a_fd: INTEGER; a_file: POINTER; an_oflag: INTEGER): INTEGER 
 
-		-- function openat64 (in 181 at line /usr/include/fcntl.h)
+		-- function openat64 (in `/usr/include/fcntl.h')
                -- openat64 (variadic call) 
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	posix_fadvise (a_fd: INTEGER; an_offset: like long; a_len: like long; an_advise: INTEGER): INTEGER 
 
-		-- function posix_fadvise (in 238 at line /usr/include/fcntl.h)
+		-- function posix_fadvise (in `/usr/include/fcntl.h')
                -- posix_fadvise
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	posix_fadvise64 (a_fd: INTEGER; an_offset: like long; a_len: like long; an_advise: INTEGER): INTEGER 
 
-		-- function posix_fadvise64 (in 250 at line /usr/include/fcntl.h)
+		-- function posix_fadvise64 (in `/usr/include/fcntl.h')
                -- posix_fadvise64
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	posix_fallocate (a_fd: INTEGER; an_offset: like long; a_len: like long): INTEGER 
 
-		-- function posix_fallocate (in 260 at line /usr/include/fcntl.h)
+		-- function posix_fallocate (in `/usr/include/fcntl.h')
                -- posix_fallocate
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	posix_fallocate64 (a_fd: INTEGER; an_offset: like long; a_len: like long): INTEGER 
 
-		-- function posix_fallocate64 (in 271 at line /usr/include/fcntl.h)
+		-- function posix_fallocate64 (in `/usr/include/fcntl.h')
                -- posix_fallocate64
                external "plug_in"
                alias "{

@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	xml_exp_ctxt_nb_cons (a_ctxt: POINTER): INTEGER 
 
-		-- function xmlExpCtxtNbCons (in 128 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpCtxtNbCons (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpCtxtNbCons
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	xml_exp_ctxt_nb_nodes (a_ctxt: POINTER): INTEGER 
 
-		-- function xmlExpCtxtNbNodes (in 126 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpCtxtNbNodes (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpCtxtNbNodes
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	xml_exp_dump (a_buf: POINTER; an_expr: POINTER) 
 
-		-- function xmlExpDump (in 213 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpDump (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpDump
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	xml_exp_exp_derive (a_ctxt: POINTER; an_expr: POINTER; a_sub: POINTER): POINTER 
 
-		-- function xmlExpExpDerive (in 205 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpExpDerive (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpExpDerive
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	xml_exp_free (a_ctxt: POINTER; an_expr: POINTER) 
 
-		-- function xmlExpFree (in 154 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpFree (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpFree
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	xml_exp_free_ctxt (a_ctxt: POINTER) 
 
-		-- function xmlExpFreeCtxt (in 120 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpFreeCtxt (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpFreeCtxt
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	xml_exp_get_language (a_ctxt: POINTER; an_expr: POINTER; a_lang_list: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlExpGetLanguage (in 190 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpGetLanguage (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpGetLanguage
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	xml_exp_get_start (a_ctxt: POINTER; an_expr: POINTER; a_tok_list: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlExpGetStart (in 195 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpGetStart (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpGetStart
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	xml_exp_is_nillable (an_expr: POINTER): INTEGER 
 
-		-- function xmlExpIsNillable (in 186 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpIsNillable (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpIsNillable
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	xml_exp_max_token (an_expr: POINTER): INTEGER 
 
-		-- function xmlExpMaxToken (in 188 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpMaxToken (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpMaxToken
                external "plug_in"
                alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 
 	xml_exp_new_atom (a_ctxt: POINTER; a_name: POINTER; a_len: INTEGER): POINTER 
 
-		-- function xmlExpNewAtom (in 166 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpNewAtom (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpNewAtom
                external "plug_in"
                alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 
 	xml_exp_new_ctxt (a_max_nodes: INTEGER; a_dict: POINTER): POINTER 
 
-		-- function xmlExpNewCtxt (in 122 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpNewCtxt (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpNewCtxt
                external "plug_in"
                alias "{
@@ -214,7 +214,7 @@ feature {} -- External calls
 
 	xml_exp_new_or (a_ctxt: POINTER; a_left: POINTER; a_right: POINTER): POINTER 
 
-		-- function xmlExpNewOr (in 170 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpNewOr (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpNewOr
                external "plug_in"
                alias "{
@@ -226,7 +226,7 @@ feature {} -- External calls
 
 	xml_exp_new_range (a_ctxt: POINTER; a_subset: POINTER; a_min: INTEGER; a_max: INTEGER): POINTER 
 
-		-- function xmlExpNewRange (in 178 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpNewRange (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpNewRange
                external "plug_in"
                alias "{
@@ -238,7 +238,7 @@ feature {} -- External calls
 
 	xml_exp_new_seq (a_ctxt: POINTER; a_left: POINTER; a_right: POINTER): POINTER 
 
-		-- function xmlExpNewSeq (in 174 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpNewSeq (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpNewSeq
                external "plug_in"
                alias "{
@@ -250,7 +250,7 @@ feature {} -- External calls
 
 	xml_exp_parse (a_ctxt: POINTER; an_expr: POINTER): POINTER 
 
-		-- function xmlExpParse (in 163 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpParse (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpParse
                external "plug_in"
                alias "{
@@ -262,7 +262,7 @@ feature {} -- External calls
 
 	xml_exp_ref (an_expr: POINTER) 
 
-		-- function xmlExpRef (in 157 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpRef (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpRef
                external "plug_in"
                alias "{
@@ -274,7 +274,7 @@ feature {} -- External calls
 
 	xml_exp_string_derive (a_ctxt: POINTER; an_expr: POINTER; a_str: POINTER; a_len: INTEGER): POINTER 
 
-		-- function xmlExpStringDerive (in 200 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpStringDerive (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpStringDerive
                external "plug_in"
                alias "{
@@ -286,7 +286,7 @@ feature {} -- External calls
 
 	xml_exp_subsume (a_ctxt: POINTER; an_expr: POINTER; a_sub: POINTER): INTEGER 
 
-		-- function xmlExpSubsume (in 209 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlExpSubsume (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlExpSubsume
                external "plug_in"
                alias "{
@@ -298,7 +298,7 @@ feature {} -- External calls
 
 	xml_reg_exec_err_info (an_exec: POINTER; a_string: POINTER; a_nbval: POINTER; a_nbneg: POINTER; a_values: POINTER; a_terminal: POINTER): INTEGER 
 
-		-- function xmlRegExecErrInfo (in 103 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegExecErrInfo (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegExecErrInfo
                external "plug_in"
                alias "{
@@ -310,7 +310,7 @@ feature {} -- External calls
 
 	xml_reg_exec_next_values (an_exec: POINTER; a_nbval: POINTER; a_nbneg: POINTER; a_values: POINTER; a_terminal: POINTER): INTEGER 
 
-		-- function xmlRegExecNextValues (in 97 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegExecNextValues (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegExecNextValues
                external "plug_in"
                alias "{
@@ -322,7 +322,7 @@ feature {} -- External calls
 
 	xml_reg_exec_push_string (an_exec: POINTER; a_value: POINTER; a_data: POINTER): INTEGER 
 
-		-- function xmlRegExecPushString (in 87 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegExecPushString (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegExecPushString
                external "plug_in"
                alias "{
@@ -334,7 +334,7 @@ feature {} -- External calls
 
 	xml_reg_exec_push_string2 (an_exec: POINTER; a_value: POINTER; a_value2: POINTER; a_data: POINTER): INTEGER 
 
-		-- function xmlRegExecPushString2 (in 91 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegExecPushString2 (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegExecPushString2
                external "plug_in"
                alias "{
@@ -346,7 +346,7 @@ feature {} -- External calls
 
 	xml_reg_free_exec_ctxt (an_exec: POINTER) 
 
-		-- function xmlRegFreeExecCtxt (in 85 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegFreeExecCtxt (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegFreeExecCtxt
                external "plug_in"
                alias "{
@@ -358,7 +358,7 @@ feature {} -- External calls
 
 	xml_reg_free_regexp (a_regexp: POINTER) 
 
-		-- function xmlRegFreeRegexp (in 53 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegFreeRegexp (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegFreeRegexp
                external "plug_in"
                alias "{
@@ -370,7 +370,7 @@ feature {} -- External calls
 
 	xml_reg_new_exec_ctxt (a_comp: POINTER; a_callback: POINTER; a_data: POINTER): POINTER 
 
-		-- function xmlRegNewExecCtxt (in 81 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegNewExecCtxt (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegNewExecCtxt
                external "plug_in"
                alias "{
@@ -382,7 +382,7 @@ feature {} -- External calls
 
 	xml_regexp_compile (a_regexp: POINTER): POINTER 
 
-		-- function xmlRegexpCompile (in 52 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegexpCompile (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegexpCompile
                external "plug_in"
                alias "{
@@ -394,7 +394,7 @@ feature {} -- External calls
 
 	xml_regexp_exec (a_comp: POINTER; a_value: POINTER): INTEGER 
 
-		-- function xmlRegexpExec (in 55 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegexpExec (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegexpExec
                external "plug_in"
                alias "{
@@ -406,7 +406,7 @@ feature {} -- External calls
 
 	xml_regexp_is_determinist (a_comp: POINTER): INTEGER 
 
-		-- function xmlRegexpIsDeterminist (in 61 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegexpIsDeterminist (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegexpIsDeterminist
                external "plug_in"
                alias "{
@@ -418,7 +418,7 @@ feature {} -- External calls
 
 	xml_regexp_print (an_output: POINTER; a_regexp: POINTER) 
 
-		-- function xmlRegexpPrint (in 58 at line /usr/include/libxml2/libxml/xmlregexp.h)
+		-- function xmlRegexpPrint (in `/usr/include/libxml2/libxml/xmlregexp.h')
                -- xmlRegexpPrint
                external "plug_in"
                alias "{

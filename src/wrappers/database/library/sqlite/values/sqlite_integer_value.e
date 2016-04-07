@@ -5,6 +5,7 @@ class SQLITE_INTEGER_VALUE
 
 inherit 
 	SQLITE_VALUE
+    TYPED_VARIANT[INTEGER_64]
 	REFERENCE[INTEGER_64]
 
 create
@@ -13,29 +14,30 @@ create
 	-- It outght convert INTEGER, INTEGER_64, ABSTRACT_STRING,
 
 feature {ANY}
-	from_integer (an_integer: INTEGER) is
+	from_integer (an_integer: INTEGER) 
 		do
 			item := an_integer.to_integer_64
 		end
 
-	from_integer_64 (an_int_64: INTEGER_64) is
+	from_integer_64 (an_int_64: INTEGER_64) 
 		do
 			item := an_int_64
 		end
 
 feature 
-	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) is
+	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) 
 			-- Bind Current value as parameter to `an_index' placeholder in `a_statement'.
+        local res: INTEGER
 		do
-			res := sqlite3_bind_int_64 (a_statement.handle, an_index, content.to_integer)
+			res := sqlite3_bind_int64 (a_statement.handle, an_index, item)
 		end
 		 
-	as_string: STRING is 
+	as_string: STRING 
 		do
 			Result := item.to_string
 		end
 
-	type: INTEGER is
+	type: INTEGER
 		do
 			Result := sqlite_integer
 		end

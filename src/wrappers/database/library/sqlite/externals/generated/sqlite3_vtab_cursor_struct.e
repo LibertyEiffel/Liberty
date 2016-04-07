@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class SQLITE3_VTAB_CURSOR_STRUCT
--- Wrapper of struct sqlite3_vtab_cursor defined in file /usr/include/sqlite3.h line 5833
+-- Wrapper of struct sqlite3_vtab_cursor defined in file /usr/include/sqlite3.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

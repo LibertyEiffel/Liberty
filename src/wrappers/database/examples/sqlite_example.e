@@ -30,46 +30,54 @@ feature {ANY}
 					iter.is_off
 				loop
 					row := iter.item
-					print (row.item(0).out)
-					print (" aged ")
-					print (row.item(1).out)
+                    print ("#(1), #(2) years old%N" # row@0 # row@1 )
 					iter.next
 					if not iter.is_off then
 						io.put_string (", ")
 					end
 				end
-				io.put_string ("%N")
+				io.put_string (".%N")
 			end
 		end
 feature {ANY} 
-	entries: ARRAY[FAST_ARRAY[ANY]] is
-		once
-			Result := << 
-							{FAST_ARRAY[ANY] <<"Linus Torvalds", create {REFERENCE[INTEGER]}.set_item(50)>>},
-							{FAST_ARRAY[ANY] <<"Richard Stallman", create {REFERENCE[INTEGER]}.set_item(50)>>},
-							{FAST_ARRAY[ANY] <<"Raphael Mack", create {REFERENCE[INTEGER]}.set_item(24)>>}
-							{FAST_ARRAY[ANY] <<"Raphael Mack", create {REFERENCE[INTEGER]}.set_item(24)>>}
-							>>
-		end
-		
-	use_prepared_insert is
+    entries: ARRAY[FAST_ARRAY[SQLITE_VALUE]] once
+        Result := << <<s("Linus Torvalds"), int(50)>>,
+            <<s("Richard Stallman"), int(60)>>,
+            <<s("Raphael Mack"), int(35)>>,
+            <<s("Cyril Adrian"), int(40)>>
+        >>
+    end
+
+feature {ANY} -- Commodities
+    -- Those commodity features are just shortcuts needed because current
+    -- compiler (as of March 2016) does not support convert
+    s(a_str: STRING): SQLITE_STRING_VALUE do create Result.from_string(a_str) end  
+    int (an_i: INTEGER): SQLITE_INTEGER_VALUE do create Result.from_integer(an_i) end
+
+feature {ANY}
+    use_prepared_insert 
 		local
 			a_command: PREPARED_COMMAND
 			i: INTEGER
 		do
 			a_command := database.prepare_command("INSERT INTO programmers VALUES(?,?);")
-			from
-				i := entries.lower
-			until
-				i > entries.upper
-			loop 
-				io.put_string ("Inserting " + entries.item(i).out + "... %N")
-				a_command.execute (entries.item(i))
-				i := i + 1
-			end
+            entries.for_each(agent (an_entry: TRAVERSABLE[SQLITE_VALUE]) do
+                io.put_string ("Inserting " + an_entry.out + "... %N")
+				a_command.execute (an_entry)
+            end)
+
+			-- from
+			-- 	i := entries.lower
+			-- until
+			-- 	i > entries.upper
+			-- loop 
+			-- 	io.put_string ("Inserting " + entries.item(i).out + "... %N")
+			-- 	a_command.execute (entries.item(i))
+			-- 	i := i + 1
+			-- end
 		end
 	
-	delete_inserted_data is
+	delete_inserted_data 
 		local
 			a_command: PREPARED_COMMAND
 			i: INTEGER
@@ -90,7 +98,7 @@ feature {ANY}
 	age_limit: INTEGER is 32
 			-- Age above which a programmer is considered "old" 8-)
 
-	use_prepared_query is
+	use_prepared_query 
 		local
 			name: STRING
 			age: INTEGER

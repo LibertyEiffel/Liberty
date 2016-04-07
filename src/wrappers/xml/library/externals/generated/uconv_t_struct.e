@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class UCONV_T_STRUCT
--- Wrapper of struct _uconv_t defined in file /usr/include/libxml2/libxml/encoding.h line 132
+-- Wrapper of struct _uconv_t defined in file /usr/include/libxml2/libxml/encoding.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

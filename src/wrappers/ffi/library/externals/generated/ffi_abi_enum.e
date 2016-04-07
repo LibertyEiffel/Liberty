@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class FFI_ABI_ENUM
 
--- Wrapper of enum ffi_abi defined in file /usr/include/x86_64-linux-gnu/ffitarget.h line 78
+-- Wrapper of enum ffi_abi defined in file /usr/include/x86_64-linux-gnu/ffitarget.h
 insert ENUM
 
 create {ANY} default_create

@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XLINK_HANDLER_STRUCT
--- Wrapper of struct _xlinkHandler defined in file /usr/include/libxml2/libxml/xlink.h line 152
+-- Wrapper of struct _xlinkHandler defined in file /usr/include/libxml2/libxml/xlink.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

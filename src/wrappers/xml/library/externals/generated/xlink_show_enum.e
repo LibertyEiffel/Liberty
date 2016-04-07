@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XLINK_SHOW_ENUM
 
--- Wrapper of enum xlinkShow defined in file /usr/include/libxml2/libxml/xlink.h line 43
+-- Wrapper of enum xlinkShow defined in file /usr/include/libxml2/libxml/xlink.h
 insert ENUM
 
 create {ANY} default_create

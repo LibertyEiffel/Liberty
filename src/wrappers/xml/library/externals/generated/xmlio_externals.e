@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	xml_alloc_output_buffer (an_encoder: POINTER): POINTER 
 
-		-- function xmlAllocOutputBuffer (in 223 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlAllocOutputBuffer (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlAllocOutputBuffer
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	xml_alloc_parser_input_buffer (an_enc: INTEGER): POINTER 
 
-		-- function xmlAllocParserInputBuffer (in 167 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlAllocParserInputBuffer (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlAllocParserInputBuffer
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	xml_check_filename (a_path: POINTER): INTEGER 
 
-		-- function xmlCheckFilename (in 310 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlCheckFilename (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlCheckFilename
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	xml_check_httpinput (a_ctxt: POINTER; a_ret: POINTER): POINTER 
 
-		-- function xmlCheckHTTPInput (in 291 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlCheckHTTPInput (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlCheckHTTPInput
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	xml_cleanup_input_callbacks 
 
-		-- function xmlCleanupInputCallbacks (in 159 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlCleanupInputCallbacks (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlCleanupInputCallbacks
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	xml_cleanup_output_callbacks 
 
-		-- function xmlCleanupOutputCallbacks (in 219 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlCleanupOutputCallbacks (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlCleanupOutputCallbacks
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	xml_file_close (a_context: POINTER): INTEGER 
 
-		-- function xmlFileClose (in 323 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlFileClose (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlFileClose
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	xml_file_match (a_filename: POINTER): INTEGER 
 
-		-- function xmlFileMatch (in 315 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlFileMatch (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlFileMatch
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	xml_file_open (a_filename: POINTER): POINTER 
 
-		-- function xmlFileOpen (in 317 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlFileOpen (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlFileOpen
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	xml_file_read (a_context: POINTER; a_buffer: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlFileRead (in 319 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlFileRead (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlFileRead
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	xml_free_parser_input_buffer (an_in: POINTER) 
 
-		-- function xmlFreeParserInputBuffer (in 200 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlFreeParserInputBuffer (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlFreeParserInputBuffer
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	xml_ioftpclose (a_context: POINTER): INTEGER 
 
-		-- function xmlIOFTPClose (in 359 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlIOFTPClose (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlIOFTPClose
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	xml_ioftpmatch (a_filename: POINTER): INTEGER 
 
-		-- function xmlIOFTPMatch (in 351 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlIOFTPMatch (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlIOFTPMatch
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	xml_ioftpopen (a_filename: POINTER): POINTER 
 
-		-- function xmlIOFTPOpen (in 353 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlIOFTPOpen (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlIOFTPOpen
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	xml_ioftpread (a_context: POINTER; a_buffer: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlIOFTPRead (in 355 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlIOFTPRead (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlIOFTPRead
                external "plug_in"
                alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 
 	xml_iohttpclose (a_context: POINTER): INTEGER 
 
-		-- function xmlIOHTTPClose (in 343 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlIOHTTPClose (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlIOHTTPClose
                external "plug_in"
                alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 
 	xml_iohttpmatch (a_filename: POINTER): INTEGER 
 
-		-- function xmlIOHTTPMatch (in 330 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlIOHTTPMatch (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlIOHTTPMatch
                external "plug_in"
                alias "{
@@ -214,7 +214,7 @@ feature {} -- External calls
 
 	xml_iohttpopen (a_filename: POINTER): POINTER 
 
-		-- function xmlIOHTTPOpen (in 332 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlIOHTTPOpen (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlIOHTTPOpen
                external "plug_in"
                alias "{
@@ -226,7 +226,7 @@ feature {} -- External calls
 
 	xml_iohttpopen_w (a_post_uri: POINTER; a_compression: INTEGER): POINTER 
 
-		-- function xmlIOHTTPOpenW (in 335 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlIOHTTPOpenW (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlIOHTTPOpenW
                external "plug_in"
                alias "{
@@ -238,7 +238,7 @@ feature {} -- External calls
 
 	xml_iohttpread (a_context: POINTER; a_buffer: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlIOHTTPRead (in 339 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlIOHTTPRead (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlIOHTTPRead
                external "plug_in"
                alias "{
@@ -250,7 +250,7 @@ feature {} -- External calls
 
 	xml_no_net_external_entity_loader (an_url: POINTER; an_id: POINTER; a_ctxt: POINTER): POINTER 
 
-		-- function xmlNoNetExternalEntityLoader (in 298 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlNoNetExternalEntityLoader (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlNoNetExternalEntityLoader
                external "plug_in"
                alias "{
@@ -262,7 +262,7 @@ feature {} -- External calls
 
 	xml_normalize_windows_path (a_path: POINTER): POINTER 
 
-		-- function xmlNormalizeWindowsPath (in 307 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlNormalizeWindowsPath (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlNormalizeWindowsPath
                external "plug_in"
                alias "{
@@ -274,7 +274,7 @@ feature {} -- External calls
 
 	xml_output_buffer_close (an_out_external: POINTER): INTEGER 
 
-		-- function xmlOutputBufferClose (in 269 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferClose (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferClose
                external "plug_in"
                alias "{
@@ -286,7 +286,7 @@ feature {} -- External calls
 
 	xml_output_buffer_create_buffer (a_buffer: POINTER; an_encoder: POINTER): POINTER 
 
-		-- function xmlOutputBufferCreateBuffer (in 235 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferCreateBuffer (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferCreateBuffer
                external "plug_in"
                alias "{
@@ -298,7 +298,7 @@ feature {} -- External calls
 
 	xml_output_buffer_create_fd (a_fd: INTEGER; an_encoder: POINTER): POINTER 
 
-		-- function xmlOutputBufferCreateFd (in 239 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferCreateFd (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferCreateFd
                external "plug_in"
                alias "{
@@ -310,7 +310,7 @@ feature {} -- External calls
 
 	xml_output_buffer_create_file (a_file: POINTER; an_encoder: POINTER): POINTER 
 
-		-- function xmlOutputBufferCreateFile (in 231 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferCreateFile (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferCreateFile
                external "plug_in"
                alias "{
@@ -323,7 +323,7 @@ feature {} -- External calls
 	-- `hidden' function __xmlOutputBufferCreateFilename skipped.
 	xml_output_buffer_create_filename (an_uri: POINTER; an_encoder: POINTER; a_compression: INTEGER): POINTER 
 
-		-- function xmlOutputBufferCreateFilename (in 226 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferCreateFilename (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferCreateFilename
                external "plug_in"
                alias "{
@@ -335,7 +335,7 @@ feature {} -- External calls
 
 	xml_output_buffer_create_io (an_iowrite: POINTER; an_ioclose: POINTER; an_ioctx: POINTER; an_encoder: POINTER): POINTER 
 
-		-- function xmlOutputBufferCreateIO (in 243 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferCreateIO (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferCreateIO
                external "plug_in"
                alias "{
@@ -347,7 +347,7 @@ feature {} -- External calls
 
 	xml_output_buffer_flush (an_out_external: POINTER): INTEGER 
 
-		-- function xmlOutputBufferFlush (in 267 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferFlush (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferFlush
                external "plug_in"
                alias "{
@@ -359,7 +359,7 @@ feature {} -- External calls
 
 	xml_output_buffer_get_content (an_out_external: POINTER): POINTER 
 
-		-- function xmlOutputBufferGetContent (in 250 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferGetContent (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferGetContent
                external "plug_in"
                alias "{
@@ -371,7 +371,7 @@ feature {} -- External calls
 
 	xml_output_buffer_get_size (an_out_external: POINTER): like size_t 
 
-		-- function xmlOutputBufferGetSize (in 252 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferGetSize (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferGetSize
                external "plug_in"
                alias "{
@@ -383,7 +383,7 @@ feature {} -- External calls
 
 	xml_output_buffer_write (an_out_external: POINTER; a_len: INTEGER; a_buf: POINTER): INTEGER 
 
-		-- function xmlOutputBufferWrite (in 255 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferWrite (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferWrite
                external "plug_in"
                alias "{
@@ -395,7 +395,7 @@ feature {} -- External calls
 
 	xml_output_buffer_write_escape (an_out_external: POINTER; a_str: POINTER; an_escaping: POINTER): INTEGER 
 
-		-- function xmlOutputBufferWriteEscape (in 262 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferWriteEscape (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferWriteEscape
                external "plug_in"
                alias "{
@@ -407,7 +407,7 @@ feature {} -- External calls
 
 	xml_output_buffer_write_string (an_out_external: POINTER; a_str: POINTER): INTEGER 
 
-		-- function xmlOutputBufferWriteString (in 259 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlOutputBufferWriteString (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlOutputBufferWriteString
                external "plug_in"
                alias "{
@@ -419,7 +419,7 @@ feature {} -- External calls
 
 	xml_parser_get_directory (a_filename: POINTER): POINTER 
 
-		-- function xmlParserGetDirectory (in 202 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserGetDirectory (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserGetDirectory
                external "plug_in"
                alias "{
@@ -431,7 +431,7 @@ feature {} -- External calls
 
 	xml_parser_input_buffer_create_fd (a_fd: INTEGER; an_enc: INTEGER): POINTER 
 
-		-- function xmlParserInputBufferCreateFd (in 176 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserInputBufferCreateFd (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserInputBufferCreateFd
                external "plug_in"
                alias "{
@@ -443,7 +443,7 @@ feature {} -- External calls
 
 	xml_parser_input_buffer_create_file (a_file: POINTER; an_enc: INTEGER): POINTER 
 
-		-- function xmlParserInputBufferCreateFile (in 173 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserInputBufferCreateFile (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserInputBufferCreateFile
                external "plug_in"
                alias "{
@@ -456,7 +456,7 @@ feature {} -- External calls
 	-- `hidden' function __xmlParserInputBufferCreateFilename skipped.
 	xml_parser_input_buffer_create_filename (an_uri: POINTER; an_enc: INTEGER): POINTER 
 
-		-- function xmlParserInputBufferCreateFilename (in 170 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserInputBufferCreateFilename (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserInputBufferCreateFilename
                external "plug_in"
                alias "{
@@ -468,7 +468,7 @@ feature {} -- External calls
 
 	xml_parser_input_buffer_create_io (an_ioread: POINTER; an_ioclose: POINTER; an_ioctx: POINTER; an_enc: INTEGER): POINTER 
 
-		-- function xmlParserInputBufferCreateIO (in 185 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserInputBufferCreateIO (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserInputBufferCreateIO
                external "plug_in"
                alias "{
@@ -480,7 +480,7 @@ feature {} -- External calls
 
 	xml_parser_input_buffer_create_mem (a_mem: POINTER; a_size: INTEGER; an_enc: INTEGER): POINTER 
 
-		-- function xmlParserInputBufferCreateMem (in 179 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserInputBufferCreateMem (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserInputBufferCreateMem
                external "plug_in"
                alias "{
@@ -492,7 +492,7 @@ feature {} -- External calls
 
 	xml_parser_input_buffer_create_static (a_mem: POINTER; a_size: INTEGER; an_enc: INTEGER): POINTER 
 
-		-- function xmlParserInputBufferCreateStatic (in 182 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserInputBufferCreateStatic (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserInputBufferCreateStatic
                external "plug_in"
                alias "{
@@ -504,7 +504,7 @@ feature {} -- External calls
 
 	xml_parser_input_buffer_grow (an_in: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlParserInputBufferGrow (in 193 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserInputBufferGrow (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserInputBufferGrow
                external "plug_in"
                alias "{
@@ -516,7 +516,7 @@ feature {} -- External calls
 
 	xml_parser_input_buffer_push (an_in: POINTER; a_len: INTEGER; a_buf: POINTER): INTEGER 
 
-		-- function xmlParserInputBufferPush (in 196 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserInputBufferPush (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserInputBufferPush
                external "plug_in"
                alias "{
@@ -528,7 +528,7 @@ feature {} -- External calls
 
 	xml_parser_input_buffer_read (an_in: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlParserInputBufferRead (in 190 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlParserInputBufferRead (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlParserInputBufferRead
                external "plug_in"
                alias "{
@@ -540,7 +540,7 @@ feature {} -- External calls
 
 	xml_pop_input_callbacks: INTEGER 
 
-		-- function xmlPopInputCallbacks (in 162 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlPopInputCallbacks (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlPopInputCallbacks
                external "plug_in"
                alias "{
@@ -552,7 +552,7 @@ feature {} -- External calls
 
 	xml_register_default_input_callbacks 
 
-		-- function xmlRegisterDefaultInputCallbacks (in 165 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlRegisterDefaultInputCallbacks (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlRegisterDefaultInputCallbacks
                external "plug_in"
                alias "{
@@ -564,7 +564,7 @@ feature {} -- External calls
 
 	xml_register_default_output_callbacks 
 
-		-- function xmlRegisterDefaultOutputCallbacks (in 221 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlRegisterDefaultOutputCallbacks (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlRegisterDefaultOutputCallbacks
                external "plug_in"
                alias "{
@@ -576,7 +576,7 @@ feature {} -- External calls
 
 	xml_register_httppost_callbacks 
 
-		-- function xmlRegisterHTTPPostCallbacks (in 285 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlRegisterHTTPPostCallbacks (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlRegisterHTTPPostCallbacks
                external "plug_in"
                alias "{
@@ -588,7 +588,7 @@ feature {} -- External calls
 
 	xml_register_input_callbacks (a_match_func: POINTER; an_open_func: POINTER; a_read_func: POINTER; a_close_func: POINTER): INTEGER 
 
-		-- function xmlRegisterInputCallbacks (in 205 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlRegisterInputCallbacks (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlRegisterInputCallbacks
                external "plug_in"
                alias "{
@@ -600,7 +600,7 @@ feature {} -- External calls
 
 	xml_register_output_callbacks (a_match_func: POINTER; an_open_func: POINTER; a_write_func: POINTER; a_close_func: POINTER): INTEGER 
 
-		-- function xmlRegisterOutputCallbacks (in 272 at line /usr/include/libxml2/libxml/xmlIO.h)
+		-- function xmlRegisterOutputCallbacks (in `/usr/include/libxml2/libxml/xmlIO.h')
                -- xmlRegisterOutputCallbacks
                external "plug_in"
                alias "{

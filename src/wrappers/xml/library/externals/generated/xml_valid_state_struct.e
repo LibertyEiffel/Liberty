@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_VALID_STATE_STRUCT
--- Wrapper of struct _xmlValidState defined in file /usr/include/libxml2/libxml/valid.h line 28
+-- Wrapper of struct _xmlValidState defined in file /usr/include/libxml2/libxml/valid.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

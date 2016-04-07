@@ -79,8 +79,8 @@ feature {ANY}
          emit_description_on(class_descriptions.reference_at(c_string_name), buffer)
          buffer.append(once "[
             
-            -- Wrapper of enum #(1) defined in file #(2) line #(3)
-            ]" # c_string_name # c_file.c_string_name # line_row.to_utf8 )
+            -- Wrapper of enum #(1) defined in file #(2)
+            ]" # c_string_name # c_file.c_string_name )
          buffer.append(once "%Ninsert ENUM%N%Ncreate {ANY} default_create%N")
          buffer.print_on(output)
       end

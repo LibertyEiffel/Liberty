@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class KEYMAP_ENTRY_STRUCT
--- Wrapper of struct _keymap_entry defined in file /usr/include/readline/keymaps.h line 44
+-- Wrapper of struct _keymap_entry defined in file /usr/include/readline/keymaps.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

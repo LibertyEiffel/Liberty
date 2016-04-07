@@ -36,7 +36,7 @@ feature {ANY}
                   -- this further test may be buggy and enum.prefix_length < c_string_name.count then
                   stored_eiffel_name.remove_head(enum.longest_prefix)
                else
-                  log("#(1) enumeration values: value '#(2)' (at line #(3))  the longest prefix: keeping name to avoid problems%N"
+                   log("#(1) enumeration values: value '#(2)' (at line #(3)) is the longest prefix: keeping name to avoid problems%N"
 	                  # enum.values.count.to_string # c_string_name # line.out)
                end
             else log("The parent of C_ENUM_VALUE at line #(1) not a C_ENUM!%N" # line.out)
