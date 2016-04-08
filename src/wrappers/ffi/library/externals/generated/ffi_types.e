@@ -8,6 +8,13 @@ insert ANY undefine is_equal, copy end
 	STANDARD_C_LIBRARY_TYPES
 
 feature {ANY} -- C type definitions (typedefs)
+       ffi_type: NATURAL
+               -- typedef FFI_TYPE from /usr/include/x86_64-linux-gnu/ffi.h
+               -- Empty by design, used for anchored declarations.
+       do
+       ensure Result.is_default
+       end
+
        ffi_sarg: like long
                -- typedef ffi_sarg from /usr/include/x86_64-linux-gnu/ffitarget.h
                -- Empty by design, used for anchored declarations.
@@ -17,13 +24,6 @@ feature {ANY} -- C type definitions (typedefs)
 
        ffi_arg: like long_unsigned
                -- typedef ffi_arg from /usr/include/x86_64-linux-gnu/ffitarget.h
-               -- Empty by design, used for anchored declarations.
-       do
-       ensure Result.is_default
-       end
-
-       ffi_type: NATURAL
-               -- typedef FFI_TYPE from /usr/include/x86_64-linux-gnu/ffi.h
                -- Empty by design, used for anchored declarations.
        do
        ensure Result.is_default

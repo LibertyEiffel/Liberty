@@ -8,6 +8,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
+	-- `hidden' function __builtin_memcpy skipped.
 	ffi_call (a_cif: POINTER; a_fn: POINTER; a_rvalue: POINTER; an_avalue: POINTER) 
 
 		-- function ffi_call (in `/usr/include/x86_64-linux-gnu/ffi.h')
@@ -32,7 +33,7 @@ feature {} -- External calls
                }"
                end
 
-	ffi_closure_free (an_argument_l58_c7: POINTER) 
+	ffi_closure_free (an_argument_l108_c7: POINTER) 
 
 		-- function ffi_closure_free (in `/usr/include/x86_64-linux-gnu/ffi.h')
                -- ffi_closure_free
@@ -128,7 +129,7 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_closure (an_argument_l144_c7: POINTER; an_argument_l145_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
+	ffi_prep_closure (an_argument_l111_c7: POINTER; an_argument_l112_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
 
 		-- function ffi_prep_closure (in `/usr/include/x86_64-linux-gnu/ffi.h')
                -- ffi_prep_closure
@@ -140,7 +141,7 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_closure_loc (an_argument_l137_c7: POINTER; an_argument_l138_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
+	ffi_prep_closure_loc (an_argument_l117_c7: POINTER; an_argument_l118_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
 
 		-- function ffi_prep_closure_loc (in `/usr/include/x86_64-linux-gnu/ffi.h')
                -- ffi_prep_closure_loc
@@ -152,7 +153,7 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_java_raw_closure (an_argument_l62_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
+	ffi_prep_java_raw_closure (an_argument_l141_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
 
 		-- function ffi_prep_java_raw_closure (in `/usr/include/x86_64-linux-gnu/ffi.h')
                -- ffi_prep_java_raw_closure
@@ -164,7 +165,7 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_java_raw_closure_loc (an_argument_l42_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
+	ffi_prep_java_raw_closure_loc (an_argument_l147_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
 
 		-- function ffi_prep_java_raw_closure_loc (in `/usr/include/x86_64-linux-gnu/ffi.h')
                -- ffi_prep_java_raw_closure_loc
@@ -176,7 +177,7 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_raw_closure (an_argument_l131_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
+	ffi_prep_raw_closure (an_argument_l128_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
 
 		-- function ffi_prep_raw_closure (in `/usr/include/x86_64-linux-gnu/ffi.h')
                -- ffi_prep_raw_closure
@@ -188,7 +189,7 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_raw_closure_loc (an_argument_l68_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
+	ffi_prep_raw_closure_loc (an_argument_l134_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
 
 		-- function ffi_prep_raw_closure_loc (in `/usr/include/x86_64-linux-gnu/ffi.h')
                -- ffi_prep_raw_closure_loc
