@@ -148,15 +148,10 @@ bootstrap() {
 bin: $TARGET/bin
 sys: $LIBERTY_HOME/sys
 short: $LIBERTY_HOME/resources/short
-os: UNIX
-flavor: $(if grep -qi '^cygwin' /proc/version; then
-   echo Cygwin
-else
-   echo Linux
-fi
-)
+os: ${OS}
+flavor: ${flavor}
 tag: 3
-jobs: $((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
+jobs: ${jobs}
 
 [Environment]
 path_liberty: $LIBERTY_HOME/
