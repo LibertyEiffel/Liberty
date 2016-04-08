@@ -2,14 +2,27 @@
 
 export EXE_SUFFIX=''
 export OS=UNIX
-if test -x /usr/bin/cygpath.exe; then
-    # Cygwin specific
-    EXE_SUFFIX=".exe"
-    OS=Cygwin
-    flavor=generic
-else
-    flavor=`uname -s`
-fi
+
+case `uname -s` in
+    CYGWIN*)
+	flavor=generic
+	OS=Cygwin
+	EXE_SUFFIX=".exe"
+	;;
+    Linux)
+	flavor=Linux
+	jobs=$((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
+	;;
+    Darwin)
+	flavor=Darwin
+	jobs=$((1 + $(sysctl -n machdep.cpu.core_count)))
+	;;
+    *)
+	flavor=uknown
+	jobs=1
+	;;
+esac
+
 
 if [ x$plain == x ]; then
     plain=FALSE
@@ -143,7 +156,7 @@ progress() {
     label="$4"
     echo '~~~~ '$label' ~~~~' >> $LOG
     if test $plain = TRUE; then
-        awk -vmax=$max -vcur=$current '
+        awk -v max=$max -v cur=$current '
             BEGIN {
                 printf(" * %02d/%02d: %s\n", cur, max, "'"$label"'");
                 exit;
@@ -155,7 +168,7 @@ progress() {
         # For perceived performance, use a non-minear progress bar
         # See http://blog.codinghorror.com/actual-performance-perceived-performance/
         # (Linear is still available if $linear is non-zero)
-        awk -vmax=$max -vcur=$current -vsize=$size -vcol=$col -vlinear=0$linear '
+        awk -v max=$max -v cur=$current -v size=$size -v col=$col -v linear=0$linear '
             BEGIN {
                 x = cur / max;
                 if (linear) {
