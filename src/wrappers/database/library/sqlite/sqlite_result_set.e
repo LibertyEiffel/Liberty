@@ -1,14 +1,9 @@
 note
-   description:
-      "Result set of an SQL query from an SQLite database."
-   copyright:
-      "(C) 2006 Paolo Redaelli "
-   license:
-      "LGPL v2 or later"
-   date:
-      "$Date:$"
-   revision:
-      "$Revision:$"
+	description: "Result set of an SQL query from an SQLite database."
+	copyright: "(C) 2006 Paolo Redaelli "
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
 class SQLITE_RESULT_SET
 
@@ -25,5 +20,4 @@ create {ANY}
 
 feature {ANY} -- feature get_new_iterator: ITERATOR [SQLITE_RESULT_ROW] is do end
    
-
 end -- class SQLITE_RESULT_SET

@@ -437,7 +437,7 @@ if (substage("wrappers")) {
       $genresult = warnErrAdd($genresult, genWrapper("zmq"));
       $wrapperresult = $genresult;
       
-      file_put_contents($stagedir ."/result.txt", $curRes);
+      file_put_contents($stagedir ."/result.txt", $wrapperresult);
       endsubstage();
    }
 
