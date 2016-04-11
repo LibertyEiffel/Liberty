@@ -12,7 +12,7 @@ CORRECT_CLASSES=correct-classes
 WRONG_EXAMPLES=examples-with-errors
 CORRECT_EXAMPLES=correct-examples
 
-
+export WRONG_CLASSES CORRECT_CLASSES WRONG_EXAMPLES CORRECT_EXAMPLES
 
 check_position () {
 	if [ ! $eiffel_libraries ] 
@@ -84,7 +84,7 @@ check-class () {
     if se class_check $CLASS >$RESULT 2>&1
     then 
         echo correct.
-        WRONG_CLASSES="$CLASS $WRONG_CLASSES"
+        echo >>$CORRECT_CLASSES $CLASS 
     else 
         echo contains errors.
         cat $RESULT
