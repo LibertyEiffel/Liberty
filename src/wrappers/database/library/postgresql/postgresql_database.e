@@ -23,8 +23,8 @@ inherit
 create {ANY}  connect
 
 feature {} -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
+	struct_size: like size_t
+		external "C inline use <libpg-fe.h>"
 		alias "sizeof(PGconn)"
 		end
 
