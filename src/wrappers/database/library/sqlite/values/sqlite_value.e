@@ -1,3 +1,7 @@
+note
+    copyright: "(C) 2014,2016 Paolo Redaelli <paolo.redaelli@gmail.com>"
+    license: "LGPL v2 or later"
+
 deferred class SQLITE_VALUE
 	-- A value stored in a SQLite database. 
 	
@@ -23,7 +27,9 @@ deferred class SQLITE_VALUE
 	-- integer instead. If not, it inserts the string. This feature is called
 	-- type affinity. "
 
-inherit VARIANT
+inherit 
+    VARIANT
+    WRAPPER_HANDLER
 
 insert 
     SQLITE3_EXTERNALS
@@ -41,51 +47,10 @@ feature {SQLITE_PREPARED_STATEMENT}
 		end
 		 
 feature {ANY}
-	as_string: STRING is 
-		deferred
-		end
-	type: INTEGER is
-		deferred
-		end
-
-feature {ANY} -- Type queries
-    -- design: "Not really proper oo design; candy"
-	is_integer: BOOLEAN
-		do
-		end
-
-	is_real (a_column: INTEGER): BOOLEAN
-		do
-		end
 	
-	is_string (a_column: INTEGER): BOOLEAN
-		do
-		end
-	
-	is_boolean (a_column: INTEGER): BOOLEAN
-		do
-			Result := False
-		end
-
-feature {ANY} -- Column queries 
-	integer_item (a_column: INTEGER): INTEGER
-		do
-		end
-
-	real_item (a_column: INTEGER): REAL
-		do
-		end
-
-	string_item (a_column: INTEGER): STRING
-		do
-		end
-
-	boolean_item (a_column: INTEGER): BOOLEAN
-		do
+    type: INTEGER is
+		deferred
 		end
 end
-
--- Copyright: "(C) 2014 Paolo Redaelli "
--- License: "LGPL v2 or later"
 
 

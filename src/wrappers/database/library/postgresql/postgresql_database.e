@@ -1,4 +1,4 @@
-indexing
+note
 	description: "."
 	copyright: "(C) 2006 Paolo Redaelli, Raphael Mack"
 	license: "LGPL v2 or later"

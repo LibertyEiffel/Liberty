@@ -21,7 +21,7 @@ feature {ANY}
 				database.execute ("SELECT * FROM programmers;")
 			end
 			if database.last_action_success then
-				iter := database.result_set.get_new_iterator
+				iter := database.result_set.new_iterator
 				
 				io.put_string ("Programmers in the database are: ")
 				from
@@ -30,7 +30,7 @@ feature {ANY}
 					iter.is_off
 				loop
 					row := iter.item
-                    print ("#(1), #(2) years old%N" # row@0 # row@1 )
+                    ("#(1), #(2) years old%N" # &row.item(0) # &row.item(1) ).print_on(std_output)
 					iter.next
 					if not iter.is_off then
 						io.put_string (", ")
@@ -41,30 +41,32 @@ feature {ANY}
 		end
 feature {ANY} 
     entries: ARRAY[FAST_ARRAY[SQLITE_VALUE]] once
-        Result := << <<s("Linus Torvalds"), int(50)>>,
-            <<s("Richard Stallman"), int(60)>>,
-            <<s("Raphael Mack"), int(35)>>,
-            <<s("Cyril Adrian"), int(40)>>
+        Result := << 
+            {FAST_ARRAY[SQLITE_VALUE] <<s("Linus Torvalds"), int(50)>>},
+            {FAST_ARRAY[SQLITE_VALUE] <<s("Richard Stallman"), int(60)>>},
+            {FAST_ARRAY[SQLITE_VALUE] <<s("Raphael Mack"), int(35)>>},
+            {FAST_ARRAY[SQLITE_VALUE] <<s("Cyril Adrian"), int(40)>>}
         >>
     end
 
 feature {ANY} -- Commodities
     -- Those commodity features are just shortcuts needed because current
     -- compiler (as of March 2016) does not support convert
-    s(a_str: STRING): SQLITE_STRING_VALUE do create Result.from_string(a_str) end  
-    int (an_i: INTEGER): SQLITE_INTEGER_VALUE do create Result.from_integer(an_i) end
+    s(a_str: STRING): SQLITE_STRING_VALUE do create Result.set_item(a_str) end  
+    int (an_i: INTEGER): SQLITE_INTEGER_VALUE do create Result.set_item(an_i) end
 
 feature {ANY}
     use_prepared_insert 
 		local
-			a_command: PREPARED_COMMAND
-			i: INTEGER
+			a_command: SQLITE_PREPARED_COMMAND
+            -- TODO: 2016-04-15 if a_command is only a PREPARED_COMMAND the code is correct but the compiler currently produces wrong, uncompilable code
+            -- when you use ITERABLE features you don't need a counter i: INTEGER
 		do
 			a_command := database.prepare_command("INSERT INTO programmers VALUES(?,?);")
             entries.for_each(agent (an_entry: TRAVERSABLE[SQLITE_VALUE]) do
-                io.put_string ("Inserting " + an_entry.out + "... %N")
+                io.put_string ("Inserting "+an_entry.first.out+" ... %N")
 				a_command.execute (an_entry)
-            end)
+            end(?))
 
 			-- from
 			-- 	i := entries.lower
@@ -89,7 +91,8 @@ feature {ANY}
 				i > entries.upper
 			loop 
 				io.put_string ("Deleting '" + entries.item(i).item(0).out + "' ... ")
-				a_command.execute ({FAST_ARRAY[ANY] <<entries.item(i).item(0)>>})
+				-- a_command.execute ({FAST_ARRAY[ANY] <<entries.item(i).item(0)>>})
+				a_command.execute (<<entries.item(i).item(0)>>)
 				io.put_string (a_command.last_affected_rows.out + " rows affected%N")
 				i := i + 1
 			end
@@ -100,13 +103,13 @@ feature {ANY}
 
 	use_prepared_query 
 		local
-			name: STRING
-			age: INTEGER
+			name,age: STRING
 		do
 			query := database.prepare_query("SELECT * FROM programmers WHERE age>?;")
-			query.execute (<<create {REFERENCE[INTEGER]}.set_item(age_limit)>>)
+			query.execute (<<create {SQLITE_INTEGER_VALUE}.set_item(age_limit)>>)
+			-- query.execute (<<int(age_limit)>>)
 			if query.last_exec_success then
-				iter := query.last_result.get_new_iterator
+				iter := query.last_result.new_iterator
 				from
 					iter.start
 					io.put_string ("Programmers over " + age_limit.out + " years old: ")
@@ -114,14 +117,9 @@ feature {ANY}
 					iter.is_off
 				loop
 					row := iter.item
-					check
-						row_not_void: row /= Void
-						first_is_string: row.is_string (0)
-						second_is_integer: row.is_integer (1)
-					end
-					name := row.string_item(0)
-					age := row.integer_item(1)
-					print (name+" aged "+age.out)
+					name := row.item(0).out
+					age := row.item(1).out
+					print (name+" aged "+age)
 					iter.next
 					if iter.is_off then
 						print (".%N")

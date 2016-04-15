@@ -8,12 +8,10 @@ note
 class SQLITE_RESULT_SET
 
 inherit
-   -- Features inheriting
-   RESULT_SET[SQLITE_RESULT_ROW]
-      -- Implementation
-   LINKED_LIST[SQLITE_RESULT_ROW]
-      undefine copy, is_equal
-      end
+	-- Features inheriting
+	RESULT_SET[SQLITE_RESULT_ROW] undefine default_create end
+	-- Implementation
+	LINKED_LIST[SQLITE_RESULT_ROW] undefine copy, is_equal end
 
 create {ANY}
    make

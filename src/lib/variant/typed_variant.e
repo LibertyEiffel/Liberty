@@ -4,14 +4,19 @@ class TYPED_VARIANT[E_]
 	-- another a date.
 
 inherit
-	VARIANT
-    REFERENCE[E_]
+    VARIANT redefine out end
+    REFERENCE[E_] redefine out end
 
 create {ANY} set_item
 
+feature {ANY}
+    out: STRING 
+        do
+            Result := item.out
+        end
 end -- class TYPED_VARIANT
 
--- Copyright (c) 2013 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2013,2016 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

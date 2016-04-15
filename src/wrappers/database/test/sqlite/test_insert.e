@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Test case"
 	copyright: "(C) 2007 Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
@@ -38,14 +38,15 @@ feature {ANY}
 			db.execute ("SELECT * FROM existant;")
 			assert (db.last_action_success)
 
-			it := db.result_set.get_new_iterator
+			it := db.result_set.new_iterator
 			it.start
 			assert (not it.is_off)
-			assert (it.item.is_string(0))
-			assert (it.item.string_item(0).is_equal("Raphael Mack"))
+			assert ({SQLITE_STRING_VALUE} ?:= it.item.item(0) )
+			assert (it.item.item(0).out.is_equal("Raphael Mack"))
 			
-			assert (it.item.is_string(1))
-			assert (it.item.string_item(1).is_equal("24"))
+			-- This will fail since SQLite tends to return string values...
+            -- assert ({SQLITE_INTEGER_VALUE} ?:= it.item.item(1))
+            assert (it.item.item(1).out.is_equal("24"))
 			
 			db.close
 		 

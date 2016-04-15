@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Cursor for Postgresql database."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"

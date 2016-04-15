@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Test case"
 	copyright: "(C) 2007 Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"

@@ -2,11 +2,19 @@ class SQLITE_STRING_VALUE
 	-- A text value stored in a SQLite database. 
 
 inherit 
-	SQLITE_VALUE
+	SQLITE_VALUE undefine out end
 	TYPED_VARIANT[STRING]
 
-create
-	{ANY} set_item
+create {ANY} set_item 
+create {SQLITE_DATABASE, SQLITE_PREPARED_QUERY} from_external_copy
+
+feature {SQLITE_DATABASE}
+    from_external_copy (a_pointer: POINTER) 
+        require
+            a_pointer /= default_pointer
+        do
+            set_item(create {STRING}.from_external_copy(a_pointer))
+        end
 
 feature {SQLITE_PREPARED_STATEMENT} 
 	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) is
@@ -21,13 +29,9 @@ feature {SQLITE_PREPARED_STATEMENT}
 		end
 		 
 feature {ANY}
-	as_string: STRING is 
-		do
-			Result := item.to_string
-		end
 	type: INTEGER is
 		do
-			Result := sqlite_float
+			Result := sqlite_text
 		end
 end
 

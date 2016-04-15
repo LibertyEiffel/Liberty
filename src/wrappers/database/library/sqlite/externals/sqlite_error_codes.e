@@ -9,7 +9,7 @@ note
 	
 expanded class SQLITE_ERROR_CODES
 
-feature {ANY} -- Result codes 
+feature {} -- Result codes 
 
 	sqlite_ok: INTEGER is
 			-- SQL error or missing database 

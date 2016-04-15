@@ -2,8 +2,10 @@ class SQLITE_BLOB_VALUE
 	-- A blob value stored in a SQLite database, accessable as byte array
 
 inherit
-   SQLITE_VALUE
+   SQLITE_VALUE undefine out end
    TYPED_VARIANT[ARRAY[NATURAL_8]]
+
+create from_byte_array
 
 feature {ANY}
 	from_byte_array (an_array: ARRAY[NATURAL_8]) is

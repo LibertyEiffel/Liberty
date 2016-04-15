@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Test case"
 	copyright: "(C) 2007 Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
@@ -39,7 +39,7 @@ feature {ANY}
 			db.execute ("SELECT * FROM existant;")
 			assert (db.last_action_success)
 
-			it := db.result_set.get_new_iterator
+			it := db.result_set.new_iterator
 			it.start
 			assert (it.is_off) -- should be empty
 
