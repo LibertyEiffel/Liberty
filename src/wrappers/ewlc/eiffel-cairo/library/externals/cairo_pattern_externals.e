@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for CAIRO_PATTERN"
 	copyright: "[
 					Copyright (C) 2006, 2007 Paolo Redaelli ,

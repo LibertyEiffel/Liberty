@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkSortType -- Determines the direction of a sort."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Used for mouse scroll events."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

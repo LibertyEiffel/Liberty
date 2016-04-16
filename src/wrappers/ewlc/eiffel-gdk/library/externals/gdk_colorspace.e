@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GDK_COLORSPACE - Colorspaces supported by gdk-pixbuf"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

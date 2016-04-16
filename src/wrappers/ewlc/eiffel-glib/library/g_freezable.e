@@ -1,4 +1,4 @@
-indexing
+note
 	description: "An object that can be made  ."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli

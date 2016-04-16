@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Utility functions dealing with Gobject signals"
 
 	

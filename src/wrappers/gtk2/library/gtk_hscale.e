@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkHScale -- A horizontal slider widget for selecting a value from a range."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

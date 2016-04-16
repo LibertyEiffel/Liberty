@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Signal callback: a object that receive a signal when it is emitted and call its callback feature"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Curl list"
 	copyright: "[
 					Author: Natalia B. Bidart

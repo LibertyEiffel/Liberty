@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GDK_SELECTION - Functions for transfering data via the X selection mechanism."
 	copyright: "[
 					Copyright (C) 2008 eiffel-libraries team, GTK+ team

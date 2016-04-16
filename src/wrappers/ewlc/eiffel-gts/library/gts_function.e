@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Callback for GtsFunc."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli

@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Signals -- A means for customization of object behaviour and a general purpose notification mechanism"
 	long: ""

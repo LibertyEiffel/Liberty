@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOO_CANVAS_PATH -- A svg path on a canvas"
 	copyright: "[
 					GooCanvas. Copyright (C) 2005 Damon Chaplin, eiffel-libraries team and others

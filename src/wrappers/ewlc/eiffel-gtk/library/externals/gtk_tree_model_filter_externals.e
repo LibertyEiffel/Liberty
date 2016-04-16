@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GtkTreeModelFilter: A GtkTreeModel which hides parts of an underlying tree model"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

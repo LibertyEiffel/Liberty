@@ -1,4 +1,4 @@
-indexing
+note
 	description: "real 32 matrix"
 	copyright: "(C) 2006 Paolo Redaelli %
 	%Raphael Mack <mail@raphael-mack.de>"

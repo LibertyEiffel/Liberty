@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Wrapper for a generic C structure"
 	copyright: "[
 					(C) 2005,2008 Paolo Redaelli, Raphael Mack <mail@raphael-mack.de>

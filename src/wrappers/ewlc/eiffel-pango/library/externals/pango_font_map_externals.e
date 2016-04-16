@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for PANGO_FONT_MAP"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, Pango team

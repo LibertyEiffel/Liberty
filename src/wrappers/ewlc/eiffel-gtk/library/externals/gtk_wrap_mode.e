@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkWrapMode describes a type of line wrapping."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

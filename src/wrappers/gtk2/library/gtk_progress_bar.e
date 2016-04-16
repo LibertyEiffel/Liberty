@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkProgressBar: A widget which indicates progress visually"
 	copyright: "[
 					Copyright (C) 2006 Nicolas Fafchamps <nicolas.fafchamps@gmail-com

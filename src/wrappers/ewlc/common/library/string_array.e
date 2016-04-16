@@ -1,4 +1,4 @@
-indexing
+note
 	description: "An array of C strings. Wraps 'char **'."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli 

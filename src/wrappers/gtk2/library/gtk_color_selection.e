@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkColorSelection, a widget used to select a color."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

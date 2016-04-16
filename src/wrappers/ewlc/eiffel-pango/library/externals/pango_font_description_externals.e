@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for features of PANGO_FONT_DESCRIPTION"
 	copyright: "[
 					Copyright (C) 2007 Soluciones Informaticas Libres S.A. (Except),

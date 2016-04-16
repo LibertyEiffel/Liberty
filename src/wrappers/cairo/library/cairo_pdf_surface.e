@@ -1,4 +1,4 @@
-indexing
+note
 	description: "PDF Surfaces -- Rendering PDF documents."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

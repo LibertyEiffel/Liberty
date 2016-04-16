@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkEditable -- Interface for text-editing widgets."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

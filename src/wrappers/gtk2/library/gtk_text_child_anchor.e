@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTextChildAnchor: a spot in the buffer where child widgets can be anchored"
 	copyright:
 		"[

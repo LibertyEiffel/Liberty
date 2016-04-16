@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTreeView A widget for displaying both trees and lists."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

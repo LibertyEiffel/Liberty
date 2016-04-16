@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTK_TOOLBAR"
 	copyright: "[
 					Copyright (C) 2007 Soluciones Informaticas Libres S.A.,

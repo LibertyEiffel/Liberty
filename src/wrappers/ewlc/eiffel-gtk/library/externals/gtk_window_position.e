@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Various flags to influence window placement"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GTK_FILE_FILTER_FLAGS These flags indicate what parts of a GtkFileFilterInfo struct are filled or need to be filled.a"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

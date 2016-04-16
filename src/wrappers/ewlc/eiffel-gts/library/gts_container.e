@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Container classes."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

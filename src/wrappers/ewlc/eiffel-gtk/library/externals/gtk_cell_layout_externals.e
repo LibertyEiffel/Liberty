@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GtkCellLayout: An interface for packing cells"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

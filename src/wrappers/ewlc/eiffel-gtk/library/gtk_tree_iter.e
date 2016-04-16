@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The GtkTreeIter is the primary structure for accessing a structure. Models are expected to put a unique integer in the stamp member, and put model-specific data in the three user_data members."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

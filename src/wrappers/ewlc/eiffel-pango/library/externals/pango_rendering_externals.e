@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls shown on Pango Rendering documentation page"
 	copyright: "Copyright (C) 2007 Paolo Redaelli, Pango developers"
 	license: "LGPL v2 or later"

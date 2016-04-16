@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTL_FILE_FILTER_INFO A GtkFileFilterInfo struct is used to pass information about the tested file to gtk_file_filter_filter()."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

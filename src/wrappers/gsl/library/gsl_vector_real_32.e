@@ -1,4 +1,4 @@
-indexing
+note
 	description: "gsl vector of REAL_32"
 	copyright: "(C) 2006 Raphael Mack <rmack@student.ethz.ch>"
 	license: "LGPL v2 or later"

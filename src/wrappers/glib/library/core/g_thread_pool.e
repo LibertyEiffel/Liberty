@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Thread Pools — pools of threads to execute work concurrently"
 	copyright: "(C) 2011 Paolo Redaelli"
 	license: "LGPL v2 or later"

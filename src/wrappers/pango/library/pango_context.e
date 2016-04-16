@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The PangoContext structure stores global information used to control the itemization process."
 	copyright: "[
 					Copyright (C) 2006-2007 eiffel-libraries team,

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkComboBoxEntry -- A text entry field with a dropdown list."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

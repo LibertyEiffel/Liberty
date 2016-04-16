@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum GtkReliefStyle indicates the relief to be drawn around a GtkButton."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

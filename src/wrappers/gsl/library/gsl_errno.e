@@ -1,4 +1,4 @@
-indexing
+note
 	description: "handling of the GSL returned error code"
 	copyright: "(C) 2005 Jose Bollo <jose.bollo@laposte.net>%
               %    2006 Raphael Mack<mail@raphael-mack.de>"

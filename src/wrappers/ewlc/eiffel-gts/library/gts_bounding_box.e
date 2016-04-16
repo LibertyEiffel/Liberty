@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Bounding boxes trees -- implementation of axis-aligned bounding-box trees."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

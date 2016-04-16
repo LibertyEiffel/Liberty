@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A simple 3D vector."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

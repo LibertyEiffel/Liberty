@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkItem -- base class for GtkMenuItem, GtkListItem and GtkTreeItem."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

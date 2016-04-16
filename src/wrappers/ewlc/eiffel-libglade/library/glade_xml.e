@@ -1,4 +1,4 @@
-indexing
+note
 	description: "UI description extracted from a Glade XML file"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

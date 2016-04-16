@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Layout Objects -- Highlevel layout driver objects"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, Pango team

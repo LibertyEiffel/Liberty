@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Utility functions dealing with g_signals"
 
 	

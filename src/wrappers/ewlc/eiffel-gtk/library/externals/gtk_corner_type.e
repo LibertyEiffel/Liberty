@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkCornerType Specifies which corner a child widget should be placed in when packed into a GtkScrolledWindow. This is effectively the opposite of where the scroll bars are placed."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

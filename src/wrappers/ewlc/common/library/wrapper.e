@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Deferred class handling low-level C interfaces. Its heirs will fully expose each other their internals."
 	copyright: "[
 					Copyright (C) 2005,2008 Paolo Redaelli

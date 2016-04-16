@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Gsl matrix example: shows how gsl errors are handled"
 	copyright: "(C) 2006 Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Edges are derived from GtsSegment. They are used to define GtsTriangle.."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

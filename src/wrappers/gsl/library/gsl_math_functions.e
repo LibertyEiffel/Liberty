@@ -1,4 +1,4 @@
-indexing
+note
 	description: "mathematical functions - directly wrapped from gsl, see gsl reference for details"
 	copyright: "(C) 2006 Raphael Mack <mail@raphael-mack.de>"
 	authors: "Raphael Mack"

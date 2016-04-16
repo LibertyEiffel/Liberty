@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Base class for GtkHSeparator and GtkVSeparator"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

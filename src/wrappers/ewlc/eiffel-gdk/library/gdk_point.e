@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GdkPoint is a simple structure containing an x and y coordinate of a point.."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

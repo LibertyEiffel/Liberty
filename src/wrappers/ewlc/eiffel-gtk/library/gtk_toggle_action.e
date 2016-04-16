@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkToggleAction — An action which can be toggled between two states"
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

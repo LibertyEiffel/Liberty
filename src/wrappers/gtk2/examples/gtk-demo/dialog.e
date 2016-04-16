@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Dialog and Message Boxes - Dialog widgets are used to pop up a transient window for user feedback."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

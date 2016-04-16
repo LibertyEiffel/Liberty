@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkMessageType -- The type of message being displayed in the dialog."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

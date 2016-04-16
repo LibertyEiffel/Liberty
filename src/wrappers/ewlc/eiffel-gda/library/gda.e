@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GDA - Gnome Data Access"
 	copyright: "[
 					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder

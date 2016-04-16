@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Ancestor of all GTS objects."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, Gts team

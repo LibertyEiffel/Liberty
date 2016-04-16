@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum cairo_filter_t"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Various scaling factors used in Pango."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

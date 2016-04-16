@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Wrapper for a generic C structure allocated with g_malloc0"
 	copyright: "(C) 2008 Pablo Moisset"
 

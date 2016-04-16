@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Used for key press and key release events."
 	copyright: "[
 					Copyright (C) 2007 eiffel-libraries team, GTK+ team

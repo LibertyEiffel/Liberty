@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for POLY"
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart

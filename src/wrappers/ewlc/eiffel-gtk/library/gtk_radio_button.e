@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GTK_RADIO_BUTTON -- A choice from multiple check buttons."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

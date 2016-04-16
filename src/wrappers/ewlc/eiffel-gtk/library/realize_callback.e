@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generic callback for the realize signal"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (except),

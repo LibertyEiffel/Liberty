@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Cairo Image Surface: Cairo surfaces that represent data in memory."
 	copyright: "[
 					Copyright (C) 2007 Soluciones Informaticas Libres S.A. (Except),

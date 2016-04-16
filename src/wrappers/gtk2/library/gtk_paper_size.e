@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Named paper sizes."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

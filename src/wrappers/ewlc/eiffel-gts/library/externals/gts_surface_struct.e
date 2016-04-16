@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Access to GtsSurface C structure"
 	copyright: "Copyright (C) 2007 Paolo Redaelli, GTS developers"
 	license: "LGPL v2 or later"

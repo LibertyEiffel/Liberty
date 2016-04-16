@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The GtkAlignment widget externals."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

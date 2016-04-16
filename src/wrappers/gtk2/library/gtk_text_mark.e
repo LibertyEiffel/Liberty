@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTextMark -- a position in the buffer preserved across buffer modifications."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

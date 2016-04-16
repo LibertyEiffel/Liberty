@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTS_POINT"
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"

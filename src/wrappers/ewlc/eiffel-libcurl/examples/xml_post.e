@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Xml post example"
 	copyright: "[
 					Author: Natalia B. Bidart

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkFileFilter - used to restrict the files shown in a GtkFileChoose."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

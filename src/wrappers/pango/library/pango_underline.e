@@ -1,4 +1,4 @@
-indexing
+note
 	description: "the PangoUnderline enumeration is used to specify whether text should be underlined, and if so, the type of underlining."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

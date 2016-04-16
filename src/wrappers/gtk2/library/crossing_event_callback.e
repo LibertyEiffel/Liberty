@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generic callback for the enter-notify-event and leave-notify-event signals"
 	copyright: "[
 					Copyright (C) 2006 Anthony Lenton, eiffel-libraries team,  GTK+ team and others

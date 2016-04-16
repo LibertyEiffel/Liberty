@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTreeStore -- A tree-like data structure that can be used with the GtkTreeView."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

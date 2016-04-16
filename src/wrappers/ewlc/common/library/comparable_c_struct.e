@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Comparable wrappers of structures stored into containers."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli

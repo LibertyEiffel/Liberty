@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Different methods to retrieve a codec"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

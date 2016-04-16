@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GDK_EVENT_KEY"
 	copyright: "[
 					Copyright (C) 2007 eiffel-libraries team, GTK+ team

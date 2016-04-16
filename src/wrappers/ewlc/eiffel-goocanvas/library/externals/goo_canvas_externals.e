@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOO_CANVAS_EXTERNALS -- externals for GOO_CANVAS"
 	copyright: "[
 					GooCanvas. Copyright (C) 2005 Damon Chaplin, eiffel-libraries team and others

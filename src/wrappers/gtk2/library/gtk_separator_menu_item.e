@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkSeparatorMenuItem -- A separator used in menus."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

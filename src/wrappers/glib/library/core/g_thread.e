@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Threads — thread abstraction; including threads, different mutexes, conditions and thread private data"
 	copyright: "(C) 2011 Paolo Redaelli"
 	license: "LGPL v2 or later"

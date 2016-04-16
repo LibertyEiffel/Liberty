@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkToolbar -- Create bars of buttons and other widgets."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

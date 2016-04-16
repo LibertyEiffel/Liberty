@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum cairo_line_join_t"
 	copyright: "[
 					Copyright (C) 2007 eiffel-libraries team,

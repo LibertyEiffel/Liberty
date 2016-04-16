@@ -1,4 +1,4 @@
-indexing
+note
 	description: "An attributes which set font size."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

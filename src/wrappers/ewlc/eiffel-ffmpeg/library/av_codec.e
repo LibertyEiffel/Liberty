@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The AVCodec structure and methods to operate on it"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

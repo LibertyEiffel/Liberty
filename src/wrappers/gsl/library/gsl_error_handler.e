@@ -1,4 +1,4 @@
-indexing
+note
 	description: "activation and desactivation of the default error handling"
 	copyright: "(C) 2005 Jose Bollo <jose.bollo@laposte.net>%
               %    2006 Raphael Mack <mail@raphael-mack.de>"

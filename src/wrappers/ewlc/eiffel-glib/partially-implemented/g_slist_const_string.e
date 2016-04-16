@@ -1,4 +1,4 @@
-indexing
+note
 	description: "List of (const) strings"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli 

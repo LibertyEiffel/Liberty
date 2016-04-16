@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkFileChooserWidget — File chooser widget that can be embedded in other widgets"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others

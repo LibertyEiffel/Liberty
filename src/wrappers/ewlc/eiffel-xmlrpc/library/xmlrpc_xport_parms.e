@@ -1,4 +1,4 @@
-indexing
+note
 	description: "XMLRPC xport parameters"
 	copyright: "[
 					Author: Natalia B. Bidart

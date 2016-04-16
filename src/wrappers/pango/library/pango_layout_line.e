@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Layout Line Objects -- Represent a single line of text within a Pango Layout"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, Pango team

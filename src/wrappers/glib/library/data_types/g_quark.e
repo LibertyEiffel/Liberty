@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Quarks a 2-way association between a string and a unique integer identifier."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Font Options -- How a font should be rendered."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

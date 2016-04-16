@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Arrays of non-expanded wrappers of C data structures; it grows automatically as new elements are added."
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"

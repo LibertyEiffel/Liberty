@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Simple http example"
 	copyright: "[
 					Author: Natalia B. Bidart

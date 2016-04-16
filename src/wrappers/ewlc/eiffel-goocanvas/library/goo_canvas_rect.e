@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOO_CANVAS_RECT -- Shows a rect on a canvas"
 	copyright: "[
 					GooCanvas. Copyright (C) 2005 Damon Chaplin, eiffel-libraries team and others

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTK_ASPECT_FRAME"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A class that can handle WRAPPER's internals"
 	copyright: "[
 					Copyright (C) 2005 Paolo Redaelli

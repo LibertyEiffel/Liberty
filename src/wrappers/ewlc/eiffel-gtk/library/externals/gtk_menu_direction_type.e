@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum  GtkMenuDirectionType - An enumeration representing directional movements within a menu."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

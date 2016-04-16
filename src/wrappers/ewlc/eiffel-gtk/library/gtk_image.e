@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkImage: A widget displaying an image"
 	copyright: "[
 					Copyright (C) 2006 Nicolas Fafchamps <nicolas.fafchamps@gmail.com> and others

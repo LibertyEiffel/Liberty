@@ -1,4 +1,4 @@
-indexing
+note
 	description: "PangoFontMap - Base class for font maps, should be inherited by the different renderers"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

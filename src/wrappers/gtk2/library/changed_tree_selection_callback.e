@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Callback for the changed signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others

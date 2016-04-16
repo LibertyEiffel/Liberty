@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for using with AV_FORMAT_CONTEXT"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

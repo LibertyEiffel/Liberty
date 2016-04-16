@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTK_PRINT_SETTINGS"
 	copyright: "(C) 2007 Paolo Redaelli "
 	license: "LGPL v2 or later"

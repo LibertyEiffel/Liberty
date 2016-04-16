@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Simple curl example used as parent for other examples"
 	copyright: "[
 					Author: Natalia B. Bidart

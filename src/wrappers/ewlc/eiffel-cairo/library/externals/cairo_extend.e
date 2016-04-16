@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum cairo_extend_t"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for curl http structure"
 	copyright: "[
 					Author: Natalia B. Bidart

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Ancestor for all GLib callbacks"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkPrintJob -- Represents a print job."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

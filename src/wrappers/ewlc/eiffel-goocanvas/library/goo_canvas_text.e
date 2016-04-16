@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOO_CANVAS_TEXT -- Shows pango rendered text on the canvas"
 	copyright: "[
 					GooCanvas. Copyright (C) 2005 Damon Chaplin, eiffel-libraries team and others

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Faces -- face object."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTS team

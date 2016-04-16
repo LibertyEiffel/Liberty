@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls related to path handling "
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A horizontal separator."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

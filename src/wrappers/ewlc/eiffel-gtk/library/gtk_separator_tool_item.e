@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkSeparatorToolItem -- A toolbar item that separates groups of other toolbar items."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

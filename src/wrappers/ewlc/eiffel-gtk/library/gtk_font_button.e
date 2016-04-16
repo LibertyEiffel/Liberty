@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkFontButton: A button to launch a font selection dialog."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

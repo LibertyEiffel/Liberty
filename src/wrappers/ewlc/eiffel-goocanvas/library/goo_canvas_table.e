@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOO_CANVAS_TABLE -- A class to arrange CANVAS_ITEMs in a table"
 	copyright: "[
 					GooCanvas. Copyright (C) 2005 Damon Chaplin, eiffel-libraries team and others

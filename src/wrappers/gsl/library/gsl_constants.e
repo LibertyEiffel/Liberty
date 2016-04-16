@@ -1,4 +1,4 @@
-indexing
+note
 	description: "mathematical constants - only real_64 versions exist, to use it as real_32 just append a .force_to_real_32"
 	copyright: "(C) 2006 Raphael Mack <mail@raphael-mack.de>"
 	authors: "Raphael Mack"

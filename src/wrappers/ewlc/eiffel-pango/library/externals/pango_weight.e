@@ -1,4 +1,4 @@
-indexing
+note
 	description: "An enumeration specifying the weight (boldness) of a font. This is a numerical value ranging from 100 to 900, but there are some predefined values"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,

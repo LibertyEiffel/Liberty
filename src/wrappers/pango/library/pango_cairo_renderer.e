@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Cairo Renderier -- Allows Rendering with the Cairo backend"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except),

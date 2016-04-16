@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkFileChooserDialog A file chooser dialog, suitable for `File/Open' or `File/Save' commands."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

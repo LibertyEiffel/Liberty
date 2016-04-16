@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkPackType -- Represents the packing location GtkBox children. (See: GtkVBox, GtkHBox, and GtkButtonBox)."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkCellRenderer An object for rendering a single cell on a GdkDrawable."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkPolicyType Determines when a scroll bar will be visible."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

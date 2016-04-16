@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Curl list test"
 	copyright: "[
 					Author: Natalia B. Bidart

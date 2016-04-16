@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generic callback for the editing-started signal"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others

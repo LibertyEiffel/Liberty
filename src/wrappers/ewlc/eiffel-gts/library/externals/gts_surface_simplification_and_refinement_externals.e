@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Surface simplification and refinement -- reducing or increasing the number of edges of a triangulated."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

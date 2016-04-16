@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkJustification Used for justifying the text inside a GtkLabel widget. (See also GtkAlignment)."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

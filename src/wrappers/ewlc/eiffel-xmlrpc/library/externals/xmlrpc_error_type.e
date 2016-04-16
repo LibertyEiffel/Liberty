@@ -1,4 +1,4 @@
-indexing
+note
 	description: "XMLRPC error type"
 	copyright: "[
 					Author: Natalia B. Bidart

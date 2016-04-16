@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Progressive surfaces -- continuous level-of-detail for surfaces."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTS team

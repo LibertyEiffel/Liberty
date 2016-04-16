@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum  GtkSelectionMode Used to control what selections users are allowed to make."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

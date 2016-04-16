@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "Access to the C errno variable"
    copyright:

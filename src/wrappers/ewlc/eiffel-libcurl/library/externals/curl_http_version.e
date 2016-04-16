@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Curl http version constants"
 	copyright: "[
 					Author: Natalia B. Bidart

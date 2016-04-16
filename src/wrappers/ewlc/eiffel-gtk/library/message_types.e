@@ -1,4 +1,4 @@
-indexing
+note
 	description: "MessageType -- The type of message being displayed in a dialog."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team

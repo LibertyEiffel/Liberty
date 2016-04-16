@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Curl htt post"
 	copyright: "[
 					Author: Natalia B. Bidart

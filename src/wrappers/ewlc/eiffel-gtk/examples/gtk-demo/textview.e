@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Text Widget/Multiple Views"
 	long_description: "[
 							 The GtkTextView widget displays a GtkTextBuffer. One GtkTextBuffer

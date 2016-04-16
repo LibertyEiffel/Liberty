@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkWidget -- Base class for all widgets"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

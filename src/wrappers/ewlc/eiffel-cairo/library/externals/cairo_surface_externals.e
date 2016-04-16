@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for features of CAIRO_SURFACE"
 	copyright: "[
 					Copyright (C) 2006, 2007 Paolo Redaelli ,

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkDrawingArea - A widget for custom user interface elements."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

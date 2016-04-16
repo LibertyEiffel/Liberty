@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Describes a change of keyboard focus."
 	copyright: "[
 					Copyright (C) 2007 eiffel-libraries team, GTK+ team

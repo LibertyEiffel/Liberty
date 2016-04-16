@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "A wrapper for a C object whose memory is handled by the Eiffel library "
    copyright:

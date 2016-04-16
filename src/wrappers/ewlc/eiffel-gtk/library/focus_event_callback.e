@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generic callback for the focus-in-event and focus-out-event signals."
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others

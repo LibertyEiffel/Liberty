@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Iterator over STRING_ARRAY, wrapper of 'gchar **'"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli

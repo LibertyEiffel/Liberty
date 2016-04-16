@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A GdkSpan represents a horizontal line of pixels starting at the pixel with coordinates x, y and ending before x + width, y."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

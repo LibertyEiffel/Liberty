@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generic enumeration"
 	copyright: "[
 					Copyright (C) 2008 Paolo Redaelli

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generic callback for the key-release-event and key-pressed-event signals"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others

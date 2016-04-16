@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A widget which is not displayed."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

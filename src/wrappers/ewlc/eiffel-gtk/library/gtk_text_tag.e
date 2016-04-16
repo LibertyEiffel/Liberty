@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTextTag: A tag that can be applied to text in a GtkTextBuffer."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

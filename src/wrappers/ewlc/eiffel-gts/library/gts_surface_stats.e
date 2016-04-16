@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Statistics of a GTS_SRUFACE."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTS team

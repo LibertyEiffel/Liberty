@@ -1,4 +1,4 @@
-indexing
+note
 	description: "external features of G_QUARK"
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"

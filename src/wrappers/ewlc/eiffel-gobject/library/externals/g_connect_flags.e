@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum GConnectFlags -- The connection flags are used to specify the behaviour of a signal's connection."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"

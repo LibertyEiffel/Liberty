@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkRadioMenuItem -- A choice from multiple check menu items."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

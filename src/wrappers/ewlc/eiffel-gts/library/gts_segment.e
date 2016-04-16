@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Segments -- segment object and related functions.."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

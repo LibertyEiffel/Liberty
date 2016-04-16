@@ -1,4 +1,4 @@
-indexing
+note
 	description: "PANGO_CAIRO_FONT_MAP is an interface exported by font maps for use with Cairo. The actual type of the font map will depend on the particular font technology Cairo was compiled to use."
 	copyright: "[
 					Copyright (C) 2007 Soluciones Informaticas Libres S.A. (Except),

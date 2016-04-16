@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Names of various standard paper sizes and related features."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

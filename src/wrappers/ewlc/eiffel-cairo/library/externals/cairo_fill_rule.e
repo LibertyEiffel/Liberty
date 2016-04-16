@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum cairo_fill_rule_t"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

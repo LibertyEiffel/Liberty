@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkResponseType. Predefined values for use as response ids in GTK_DIALOG add_button. All predefined values are negative, GTK+ leaves positive values for application-defined response ids."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

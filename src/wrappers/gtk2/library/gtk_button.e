@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkButton -- A widget that creates a signal when clicked on"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Curl main class"
 	copyright: "[
 					Author: Natalia B. Bidart

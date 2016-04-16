@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkLayout: Infinite scrollable area containing child widgets and/or custom drawing."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

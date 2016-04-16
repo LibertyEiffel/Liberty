@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Windows -- Onscreen display areas in the target window system."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

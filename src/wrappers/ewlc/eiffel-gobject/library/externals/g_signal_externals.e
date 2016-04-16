@@ -1,4 +1,4 @@
-indexing
+note
 	descriptio: "External calls for G_SIGNAL"
 
 deferred class G_SIGNAL_EXTERNALS

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for features of PANGO_CAIRO_RENDERER"
 	copyright: "[
 					Copyright (C) 2007 Soluciones Informaticas Libres S.A. (Except),

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Three-dimensional points in the GNU Triangulated Surfaces"
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli,  1999 St<E9>phane Popinet

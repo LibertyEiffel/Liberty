@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkScale -- Base class for GtkHScale and GtkVScale."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

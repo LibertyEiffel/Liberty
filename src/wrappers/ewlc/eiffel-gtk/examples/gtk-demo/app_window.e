@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Application main window - Demonstrates a typical application window with menubar, toolbar, statusbar."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

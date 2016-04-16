@@ -1,4 +1,4 @@
-indexing
+note
 	description: "."
 	copyright: "[
 					Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE

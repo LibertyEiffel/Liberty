@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkAttachOptions - Denotes the expansion properties that a widget will have when it (or its parent) is resized."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

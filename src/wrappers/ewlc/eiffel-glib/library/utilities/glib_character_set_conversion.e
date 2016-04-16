@@ -1,4 +1,4 @@
-indexing
+note
 	description: "C string Utility Functions -- various C-string-related functions."
 	copyright: "[
 					Copyright (C) 2007 Anthony Lenton, Soluciones Informaticas Libres S.A.,

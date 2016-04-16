@@ -1,4 +1,4 @@
-indexing
+note
 	description: "example to show how to use gsl_vector classes"
 	copyright: "(C) 2006 Raphael Mack <rmack@student.ethz.ch>"
 	license: "LGPL v2 or later"

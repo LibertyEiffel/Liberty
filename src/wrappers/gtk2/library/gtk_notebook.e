@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkNotebook -- A tabbed notebook container."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generated when all or part of a window becomes visible and needs to be redrawn."
 	copyright: "[
 					Copyright (C) 2007 eiffel-libraries team, GTK+ team

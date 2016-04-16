@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkColorSelectionDialog — A standard dialog box for selecting a color."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

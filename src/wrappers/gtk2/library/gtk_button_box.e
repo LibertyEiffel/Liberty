@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkButtonBox: Base class for GtkHButtonBox and GtkVButtonBox."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

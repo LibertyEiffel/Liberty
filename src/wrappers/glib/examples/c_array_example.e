@@ -1,4 +1,4 @@
-indexing
+note
 	copyright: "(C) 2007 Paolo Redaelli "
 	license: "LGPL v2 or later"
 

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTearoffMenuItem -- A menu item used to tear off and reattach its menu."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

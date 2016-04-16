@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkScrollbar: Base class for GtkHScrollbar and GtkVScrollbar."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

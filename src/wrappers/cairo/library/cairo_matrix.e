@@ -1,4 +1,4 @@
-indexing
+note
 	description: "cairo_matrix_t -- Generic matrix operations."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

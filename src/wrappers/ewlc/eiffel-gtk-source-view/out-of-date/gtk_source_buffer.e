@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A text buffer object for GtkSourceView."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GtkSourceView developers

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Benchmark for boosted property setter"
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli

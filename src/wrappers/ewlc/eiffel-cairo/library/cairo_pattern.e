@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Patterns -- Gradients and filtered sources"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

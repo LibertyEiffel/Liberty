@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The base object type of gobject library"
 	long:  "[
 				Currently the only wrapped features are those explicitly necessary to

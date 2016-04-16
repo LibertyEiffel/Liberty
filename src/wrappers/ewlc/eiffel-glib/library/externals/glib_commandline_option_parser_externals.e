@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for "
 	copyright: "Copyright (C) 2007 Paolo Readelli, $original_copyright_holder"
 	license: "LGPL v2 or later"

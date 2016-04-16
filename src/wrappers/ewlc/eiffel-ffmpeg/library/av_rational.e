@@ -1,4 +1,4 @@
-indexing
+note
 	description: "AVRationals are simply rational numbers, numerator and denominator"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

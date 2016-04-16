@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A structure which contains a single enum value, it's name, and it's nickname.."
 	copyright: "[
 					Copyright (C) 2006-2016: eiffel-libraries team, GTK+ team

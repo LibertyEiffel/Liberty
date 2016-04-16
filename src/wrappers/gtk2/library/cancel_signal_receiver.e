@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Receiver of the cancel signal."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkNotebookPage -- an opaque implementation detail of GtkNotebook."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

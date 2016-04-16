@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTK_ENTRY_COMPLETION"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

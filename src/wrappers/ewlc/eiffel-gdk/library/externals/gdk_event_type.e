@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GdkEventType: Specifies the type of the event."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

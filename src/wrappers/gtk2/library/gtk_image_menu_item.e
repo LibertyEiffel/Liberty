@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GTK_IMAGE_MENU_ITEM."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

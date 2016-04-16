@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkVBox -- A vertical container box."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

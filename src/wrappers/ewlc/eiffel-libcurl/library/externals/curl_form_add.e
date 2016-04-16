@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Curl form add codes"
 	copyright: "[
 					Author: Natalia B. Bidart

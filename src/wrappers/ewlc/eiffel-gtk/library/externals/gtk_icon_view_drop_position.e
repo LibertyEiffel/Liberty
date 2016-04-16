@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkIconViewDropPosition An enum for determining where a dropped row goes. "
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Dummy wrapper factory."
 	copyright: "(C) 2007 Paolo Redaelli"
 	license: "LGPL v2 or later"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for CAIRO_MATRIX"
 	copyright: "[
 					Copyright (C) 2006 Paolo Radaelli,

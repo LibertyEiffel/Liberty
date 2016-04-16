@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum GtkButtonsType -- Prebuilt sets of buttons for the dialog. If none of these choices are appropriate, simply use GTK_BUTTONS_NONE then call gtk_dialog_add_buttons()."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others

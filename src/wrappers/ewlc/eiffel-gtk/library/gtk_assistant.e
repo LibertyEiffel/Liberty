@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkAssistant -- A widget used to guide users through multi-step."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

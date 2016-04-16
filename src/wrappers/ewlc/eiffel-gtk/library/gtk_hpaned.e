@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkHPaned -- A container with two panes arranged horizontally"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Key-value file parser -- parses .ini-like config files."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, Glib developers

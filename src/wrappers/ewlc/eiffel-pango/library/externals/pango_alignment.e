@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum PangoAlignment"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, Pango team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The GParameter struct is an auxiliary structure used to hand parameter name/value pairs to g_object_newv()."
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"

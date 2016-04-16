@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generic callback for the match-selected signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others

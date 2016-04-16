@@ -1,4 +1,4 @@
-indexing
+note
 	copyright: "[
 					Copyright (C) 2008 Paolo Redaelli
 					

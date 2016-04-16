@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Gsl complex example"
 	copyright: "(C) 2006-2008"
 	license: "LGPL v2 or later"

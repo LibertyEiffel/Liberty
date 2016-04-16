@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTK_FILE_FILTER"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

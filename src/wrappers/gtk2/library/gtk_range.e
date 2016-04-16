@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkRange -- Base class for widgets which visualize an adjustment."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

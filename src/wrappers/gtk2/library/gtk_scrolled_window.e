@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A container that adds scrollbars to its child widget"
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

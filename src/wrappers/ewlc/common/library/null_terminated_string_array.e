@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Wrapper for NULL terminated array of strings."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli 

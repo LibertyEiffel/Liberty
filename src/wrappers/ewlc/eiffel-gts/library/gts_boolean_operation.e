@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Boolean operations -- set operations between surfaces: union, intersection, difference."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

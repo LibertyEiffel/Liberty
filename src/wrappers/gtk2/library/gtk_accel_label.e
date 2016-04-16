@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkAccelLabel — A label which displays an accelerator key on the right of the text."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

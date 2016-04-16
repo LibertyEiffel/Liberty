@@ -1,4 +1,4 @@
-indexing
+note
 	description: "complex number"
 	copyright: "(C) 2006 - 2008"
 	authors: "Raphael Mack <mail@raphael-mack.de>"

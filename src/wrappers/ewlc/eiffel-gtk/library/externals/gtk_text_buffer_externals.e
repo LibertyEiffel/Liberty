@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "GTK Text buffer. Text with attributes to be stored in a GtkTextView"
 

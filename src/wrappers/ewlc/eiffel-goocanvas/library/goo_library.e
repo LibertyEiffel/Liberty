@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOO_LIBRARY -- Required to register creation agents to G_OBJECT"
 	copyright: "[
 					GooCanvas. Copyright (C) 2005 Damon Chaplin, eiffel-libraries team and others

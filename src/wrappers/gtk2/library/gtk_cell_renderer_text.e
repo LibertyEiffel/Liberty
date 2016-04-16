@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkCellRendererText Renders text in a cell."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

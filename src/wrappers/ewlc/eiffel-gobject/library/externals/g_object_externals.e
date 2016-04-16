@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External features of G_OBJECT"
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"

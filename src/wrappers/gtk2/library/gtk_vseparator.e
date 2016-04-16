@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkVSeparator -- A vertical separator."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

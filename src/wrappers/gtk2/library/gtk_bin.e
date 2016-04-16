@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkBin - A container with just one child"
 	long_description: "[
 							 The GtkBin widget is a container with just
