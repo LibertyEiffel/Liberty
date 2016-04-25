@@ -195,19 +195,19 @@ x_int: extract_internals
 -- smarteiffel_options: -no_strip
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O2 -fno-gcse
+c_compiler_options: -pipe -O2
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -O2 -fno-gcse
+cpp_compiler_options: -pipe -O2
 cpp_linker_path: $CC
 cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
 [no_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1 -fno-gcse
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -219,7 +219,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [require_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1 -fno-gcse
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -231,7 +231,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [ensure_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1 -fno-gcse
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -243,7 +243,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [invariant_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1 -fno-gcse
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -255,7 +255,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [loop_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1 -fno-gcse
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -267,7 +267,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [all_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1 -fno-gcse
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -279,7 +279,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [debug_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -g -O1 -fno-gcse
+c_compiler_options: -pipe -g -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -611,10 +611,10 @@ x_int: extract_internals
 
 [boost]
 c_compiler_type: gcc
-c_compiler_options: -pipe -O2 -fno-gcse
+c_compiler_options: -pipe -O2
 c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
-cpp_compiler_options: -pipe -O2 -fno-gcse
+cpp_compiler_options: -pipe -O2
 cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 
 [no_check]
