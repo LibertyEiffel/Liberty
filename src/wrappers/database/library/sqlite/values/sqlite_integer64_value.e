@@ -4,9 +4,8 @@ class SQLITE_INTEGER64_VALUE
     -- All integers in SQLIte are 64 bit values; this 32-bit version is 
 
 inherit 
-	SQLITE_VALUE
+	SQLITE_VALUE  undefine out end
     TYPED_VARIANT[INTEGER_64]
-	REFERENCE[INTEGER_64]
 
 create {ANY} set_item, from_integer
 
@@ -18,7 +17,7 @@ feature {ANY}
 			item := an_integer.to_integer_64
 		end
 
-feature 
+feature {ANY}
 	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) 
 			-- Bind Current value as parameter to `an_index' placeholder in `a_statement'.
         local res: INTEGER
