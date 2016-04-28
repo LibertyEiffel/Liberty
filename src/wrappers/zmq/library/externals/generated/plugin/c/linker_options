@@ -1,2 +1,0 @@
-[UNIX]
-zmq: "$(pkg-config --libs libzmq) -Xlinker --no-as-needed"

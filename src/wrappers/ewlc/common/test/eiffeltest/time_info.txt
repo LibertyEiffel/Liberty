@@ -1,3 +1,0 @@
-Execution of "se test" started: Tuesday August 21 15:41:15 2007
-                    terminated: Tuesday August 21 15:42:45 2007
-90 (elapsed seconds.)
