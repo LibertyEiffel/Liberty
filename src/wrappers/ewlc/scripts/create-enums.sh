@@ -119,7 +119,7 @@ emit_header () {
     CREATION_CLAUSE=$(echo $ENUMERATION_ITEMS | cut -d ' ' -f 1 )
     CREATION_CLAUSE=set_$(echo ${CREATION_CLAUSE//${PREFIX}} | tr '[:upper:]' '[:lower:]')
     cat >$EIFFEL_ENUM_FILE <<EOF
-indexing
+note
 	description: "Enum $ENUM_NAME"
 	status: "[
                   AUTOMATICALLY GENERATED FILE. 

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A triangle in the GNU Triangulated Surfaces library."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

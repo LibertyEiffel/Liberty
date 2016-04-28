@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkHScrollbar, a vertical scrollbar."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

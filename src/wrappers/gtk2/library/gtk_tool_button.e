@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A GtkToolItem subclass that displays buttons."
 	copyright: "[
 					Copyright (C) 2006 Daniel F Moisset, GTK+ team

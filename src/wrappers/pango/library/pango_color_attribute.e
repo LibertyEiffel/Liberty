@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The PangoAttrColor structure is used to represent attributes that are colors."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

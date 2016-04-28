@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GDK_ATOM - An opaque type representing a string as an index into a table of strings on the X server."
 	copyright: "[
 					Copyright (C) 2008 eiffel-libraries team, GTK+ team

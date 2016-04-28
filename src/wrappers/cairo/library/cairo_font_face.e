@@ -1,4 +1,4 @@
-indexing
+note
 	description: "CAIRO_FONT_FACE -- Base class for fonts"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

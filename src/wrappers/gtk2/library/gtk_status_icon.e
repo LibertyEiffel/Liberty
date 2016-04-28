@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkStatusIcon — Display an icon in the system tray."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

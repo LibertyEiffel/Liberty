@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Iterator over a C_ARRAY."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli

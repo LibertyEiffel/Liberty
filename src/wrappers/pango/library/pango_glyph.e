@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Glyph Storage -- Structures for storing information about glyphs"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, pango team

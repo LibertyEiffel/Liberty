@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkFileSelection: Prompt the user for a file or directory name."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkCellRendererCombo Renders a combobox in a cell."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

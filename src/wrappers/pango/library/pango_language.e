@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The PangoLanguage structure is used to represent a language.."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

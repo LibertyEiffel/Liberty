@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTreeModel -- The tree interface used by GtkTreeView."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

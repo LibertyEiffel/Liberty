@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOptionArg enum"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, Glib developers.

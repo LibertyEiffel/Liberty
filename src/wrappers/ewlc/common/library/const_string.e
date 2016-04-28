@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A string made from a `C' const char pointer."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GTK stock items names"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

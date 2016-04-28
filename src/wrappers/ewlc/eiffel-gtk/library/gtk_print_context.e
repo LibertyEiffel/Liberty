@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkPrintContext -- Encapsulates context for drawing pages."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

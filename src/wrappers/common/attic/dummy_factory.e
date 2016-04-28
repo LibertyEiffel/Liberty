@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "Dummy wrapper factory."
    copyright:

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GdkScreen -- Object representing a physical screen."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

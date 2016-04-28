@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkPageSetup stores page setup information."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

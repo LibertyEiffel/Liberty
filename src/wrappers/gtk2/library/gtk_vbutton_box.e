@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkHButtonBox: A container for arranging buttons horizontally."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

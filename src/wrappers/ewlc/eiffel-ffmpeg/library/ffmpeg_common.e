@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Common functions and constants for using FFMPEG"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

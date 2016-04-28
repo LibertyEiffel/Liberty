@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Unicode UTF-8 string."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, Glib team

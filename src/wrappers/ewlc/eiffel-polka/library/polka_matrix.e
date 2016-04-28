@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Operations on Polka's matrices"
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart

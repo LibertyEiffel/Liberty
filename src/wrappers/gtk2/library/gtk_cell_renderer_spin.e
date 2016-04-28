@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkCellRendererSpin -- Renders a spin button in a cell."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

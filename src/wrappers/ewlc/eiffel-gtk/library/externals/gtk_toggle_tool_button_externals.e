@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GtkToggleToolButton."
 	copyright: "[
 					Copyright (C) 2006 GTK+ team

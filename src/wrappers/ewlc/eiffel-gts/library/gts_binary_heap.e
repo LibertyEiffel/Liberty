@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Binary heaps: efficient data structure for priority heaps."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

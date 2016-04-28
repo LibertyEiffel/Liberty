@@ -1,4 +1,4 @@
-indexing
+note
 	description: "generic gsl vector"
 	copyright: "(C) 2006 Raphael Mack <rmack@student.ethz.ch>"
 	license: "LGPL v2 or later"

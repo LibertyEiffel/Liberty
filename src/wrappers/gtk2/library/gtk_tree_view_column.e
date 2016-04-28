@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTreeViewColumn - A visible column in a GtkTreeView widget."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

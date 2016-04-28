@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Entry completion demo."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team

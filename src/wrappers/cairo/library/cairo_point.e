@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A point in bidimentional space (for Cairo)."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

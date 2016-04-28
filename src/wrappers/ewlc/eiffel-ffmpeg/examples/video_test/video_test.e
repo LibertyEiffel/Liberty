@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Open a video file, extract file frames and create GTKImages with them"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

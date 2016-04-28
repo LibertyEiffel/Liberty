@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Type Conversion Macros: portably storing integers in pointer variables."
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"

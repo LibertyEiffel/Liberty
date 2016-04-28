@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GTK_ALLOCATION, a region which has been allocated to the widget by its parent."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

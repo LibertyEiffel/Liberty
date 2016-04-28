@@ -1,4 +1,4 @@
-indexing
+note
 
 	description: "Character GParamSpec"
 	copyright: "Copyright (C) 2005-2016: , Paolo Redaelli"

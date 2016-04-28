@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkToggleToolButton - A GtkToolItem containing a toggle button."
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A.,

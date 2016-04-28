@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTK_FONT_SELECTION"
 	copyright: "Copyright (C) 2007 Paolo Redaelli, Gtk team"
 	license: "LGPL v2 or later"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for features of CAIRO_IMAGE_SURFACE"
 	copyright: "[
 					Copyright (C) 2007 Soluciones Informaticas Libres S.A. (Except),

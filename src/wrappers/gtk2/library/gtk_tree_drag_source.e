@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTreeView drag-and-drop Interface for drag-and-drop support in GtkTreeView."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

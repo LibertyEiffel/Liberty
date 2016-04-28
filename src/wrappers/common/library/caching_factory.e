@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "A wrapper factory that "
    copyright:

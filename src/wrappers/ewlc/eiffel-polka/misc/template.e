@@ -1,4 +1,4 @@
-indexing
+note
 	description: ""
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkPrintSettings -- Stores print settings."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

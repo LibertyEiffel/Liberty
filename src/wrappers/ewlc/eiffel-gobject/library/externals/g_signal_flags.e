@@ -1,4 +1,4 @@
-indexing
+note
 	description: "wrapper of enum GSignalFlags; the signal flags are used to specify a signal's behaviour, the overall signal description outlines how especially the RUN flags control the stages of a signal emission."
 
 deferred class G_SIGNAL_FLAGS 

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkToolItem: the base class of widgets that can be added to GtkToolbar."
 	copyright: "[
 					Copyright (C) 2006 Daniel F Moisset , GTK+ team

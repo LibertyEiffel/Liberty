@@ -1,4 +1,4 @@
-indexing
+note
 	description: "An enumeration specifying the various slant styles possible for a font."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli,

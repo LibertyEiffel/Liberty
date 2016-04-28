@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A GdkCursor structure represents a cursor."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

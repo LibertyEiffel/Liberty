@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Deferred empty class handling comparable low-level C interfaces."
 	copyright: "[
 					Copyright (C) 2008 Paolo Redaelli

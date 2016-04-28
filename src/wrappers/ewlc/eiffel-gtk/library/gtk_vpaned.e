@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkVPaned -- A container with two panes arranged vertically"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

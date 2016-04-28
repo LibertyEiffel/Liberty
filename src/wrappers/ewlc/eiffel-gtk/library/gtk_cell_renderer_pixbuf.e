@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkCellRendererPixbuf renders a pixbuf in a cell."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

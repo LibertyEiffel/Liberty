@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Used for button press and button release events."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTable -- Pack widgets in regular patterns."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

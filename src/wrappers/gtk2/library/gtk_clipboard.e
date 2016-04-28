@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Clipboards - Storing data on clipboards."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

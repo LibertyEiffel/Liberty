@@ -1,4 +1,4 @@
-indexing
+note
 	description:
 		"Text Attributes -- Font and other attributes for annotating text."
 	copyright:

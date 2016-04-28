@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GtkCellView: A widget displaying a single row of a GtkTreeModel"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

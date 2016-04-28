@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Pango Constants - Constants for using with Pango."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, Pango team

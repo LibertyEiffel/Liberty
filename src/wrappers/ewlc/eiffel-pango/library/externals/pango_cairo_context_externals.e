@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for PANGO_CAIRO_CONTEXT"
 	copyright: "[
 					Copyright (C) 2007 Soluciones Informaticas Libres S.A. (Except),

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "An enumeration specifying the width of the font relative to other designs within a family. "
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,

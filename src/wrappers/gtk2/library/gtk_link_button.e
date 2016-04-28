@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkLinkButton -- A buttons bound to a URL."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

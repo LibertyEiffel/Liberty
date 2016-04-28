@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkSpinButton Retrieve an integer or floating-point number from the user."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

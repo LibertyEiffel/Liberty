@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTK_TOOL_MENU_BUTTON"
 	copyright: "Copyright (C) 2007 $EWLC_developer, $original_copyright_holder"
 	license: "LGPL v2 or later"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "XMLRPC value int"
 	copyright: "[
 					Author: Natalia B. Bidart

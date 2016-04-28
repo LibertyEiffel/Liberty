@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum cairo_svg_version_t"
 	copyright: "[
 					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder

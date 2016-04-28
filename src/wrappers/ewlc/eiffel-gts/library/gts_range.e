@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Simple statistics -- a basic structure for computing min, max, average and variance."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTS team

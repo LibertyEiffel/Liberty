@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkPrinter represents a printer."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

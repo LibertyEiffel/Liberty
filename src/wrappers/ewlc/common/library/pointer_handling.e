@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Utility class to reference and dereference C pointers."
 	copyright: "[
 					Copyright (C) 2005 Paolo Redaelli

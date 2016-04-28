@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkMisc -- Base class for widgets with alignments and padding."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

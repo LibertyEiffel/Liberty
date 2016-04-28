@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Callback for the enter-notify-event signal"
 	copyright: "[
 					Copyright (C) 2006 Anthony Lenton, eiffel-libraries team,  GTK+ team and others

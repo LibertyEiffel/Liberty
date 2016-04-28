@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkIconTheme -- Looking up icons by name."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

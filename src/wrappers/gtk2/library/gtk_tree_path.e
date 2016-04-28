@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GTK_TREE_PATH, an object referring to a row."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

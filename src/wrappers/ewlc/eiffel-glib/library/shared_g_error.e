@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Shared error for C features that supports it."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Iterator for G_SLIST."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Report messages of minor importance to the user"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

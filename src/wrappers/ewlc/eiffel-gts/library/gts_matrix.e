@@ -1,4 +1,4 @@
-indexing
+note
 	description: "	Vectors and matrices -- simple operations on vectors and matrices.."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

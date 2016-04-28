@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GdkPixbuf"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

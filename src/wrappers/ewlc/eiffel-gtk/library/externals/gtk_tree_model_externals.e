@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTK_TREE_MODEL, the tree interface used by GtkTreeView"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A Unicode character."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, Glib team

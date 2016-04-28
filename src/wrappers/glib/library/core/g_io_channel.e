@@ -1,4 +1,4 @@
-indexing
+note
 	copyright: "(C) 2005 Paolo Redaelli, 2007 Soluciones Informaticas Libres S.A. (Except)"
 	license: "LGPL v2 or later"
 	date: "$Date:$"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Different valid options for discarding frames"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

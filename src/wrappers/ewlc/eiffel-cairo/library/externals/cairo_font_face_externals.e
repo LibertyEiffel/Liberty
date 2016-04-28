@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for CAIRO_FONT_FACE"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

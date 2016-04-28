@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The bits in a PANGO_FONT_MASK correspond to fields in a PangoFontDescription that have been set."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,

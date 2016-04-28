@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Operation on convex polyhedra"
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart

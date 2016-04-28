@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTreeModelFilter - a GtkTreeModel which hides parts of an underlying tree model."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

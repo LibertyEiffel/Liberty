@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkCheckMenuItem -- A menu item with a check box."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

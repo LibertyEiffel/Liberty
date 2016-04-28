@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOO_CANVAS -- The canvas widget"
 	copyright: "[
 					GooCanvas. Copyright (C) 2005 Damon Chaplin, eiffel-libraries team and others

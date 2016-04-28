@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkMenuBar -- A subclass widget for GtkMenuShell which holds GtkMenuItem widgets."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

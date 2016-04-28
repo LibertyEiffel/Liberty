@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Http post example"
 	copyright: "[
 					Author: Natalia B. Bidart

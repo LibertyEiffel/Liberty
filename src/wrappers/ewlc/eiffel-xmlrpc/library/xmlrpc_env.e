@@ -1,4 +1,4 @@
-indexing
+note
 	description: "XMLRPC environment"
 	copyright: "[
 					Author: Natalia B. Bidart

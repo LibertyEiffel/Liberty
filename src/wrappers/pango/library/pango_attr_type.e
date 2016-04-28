@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 					  The PangoAttrType distinguishes between different
 					  types of attributes. Along with the predefined

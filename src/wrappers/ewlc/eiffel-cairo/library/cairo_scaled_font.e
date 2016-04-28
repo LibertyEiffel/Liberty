@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Scaled Fonts -- Caching metrics for a particular font size."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Graphics Contexts -- Objects to encapsulate drawing properties"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

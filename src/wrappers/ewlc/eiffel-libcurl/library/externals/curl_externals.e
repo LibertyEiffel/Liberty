@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for curl operations"
 	copyright: "[
 					Author: Natalia B. Bidart

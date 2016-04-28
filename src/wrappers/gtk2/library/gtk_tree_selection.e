@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTreeSelection - The selection object for GtkTreeView."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

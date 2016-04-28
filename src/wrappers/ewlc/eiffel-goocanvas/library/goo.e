@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOO -- Access to GOO_LIBRARY singleton"
 	copyright: "[
 					GooCanvas. Copyright (C) 2005 Damon Chaplin, eiffel-libraries team and others

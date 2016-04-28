@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkAdjustment -- A GtkObject representing an adjustable bounded value."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

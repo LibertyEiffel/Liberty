@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkPrintOperation: High-level Printing API."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

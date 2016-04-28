@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GTS_TOKEN_TYPE"
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GDK_EVENT_SCROLL"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

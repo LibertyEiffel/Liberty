@@ -1,4 +1,4 @@
-indexing
+note
 	description: "."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, Cairo team

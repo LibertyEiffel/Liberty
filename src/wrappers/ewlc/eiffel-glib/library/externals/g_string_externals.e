@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Strings -- text buffers which grow automatically as text is added."
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "An expanded G_OBJECT factory, useful as a local feature in classes that generates many kind of wrapper objects."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli

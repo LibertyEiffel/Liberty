@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GtkLabel A widget that displays a small to medium amount of text"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

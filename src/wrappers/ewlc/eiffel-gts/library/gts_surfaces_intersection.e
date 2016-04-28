@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Intersection of surface."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTS team

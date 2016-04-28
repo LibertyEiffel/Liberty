@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkFileChooserError -- These identify the various errors that can occur while calling GtkFileChooser functions."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

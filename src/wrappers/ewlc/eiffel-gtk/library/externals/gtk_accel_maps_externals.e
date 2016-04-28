@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTK_ACCEL_MAPS"
 	copyright: "(C) 2007 Paolo Redaelli "
 	license: "LGPL v2 or later"

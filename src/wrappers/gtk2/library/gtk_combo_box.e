@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkComboBox -- A widget used to choose from a list of items."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

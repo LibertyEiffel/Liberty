@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls to a number of functions for dealing with Unicode characters and strings."
 	copyright: "Copyright (C) 2007 Paolo Redaelli, $original_copyright_holder"
 	license: "LGPL v2 or later"

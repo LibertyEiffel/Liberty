@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Key bindings for individual widgets."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GParamSpec, Metadata for parameter specifications"
 	copyright: "[
 					Copyright (C) 2006-2016: eiffel-libraries team, GTK+ team

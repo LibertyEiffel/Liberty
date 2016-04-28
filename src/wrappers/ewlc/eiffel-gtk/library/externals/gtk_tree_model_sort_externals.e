@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GtkTreeModelSort: A GtkTreeModel which makes an underlying tree model sortable"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

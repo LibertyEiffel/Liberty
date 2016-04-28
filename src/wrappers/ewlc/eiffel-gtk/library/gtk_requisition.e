@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A GtkRequisition represents the desired size of a widget. See the section called `Siz Requisition' in GTK_WIDGET for more informations."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

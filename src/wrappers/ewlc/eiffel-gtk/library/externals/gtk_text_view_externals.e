@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTextView - Widget that displays a GtkTextBuffer"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

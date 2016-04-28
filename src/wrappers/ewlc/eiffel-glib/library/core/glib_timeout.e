@@ -1,4 +1,4 @@
-indexing
+note
 	description: "[
 					Base class for having timed periodical events called from
 					the main loop

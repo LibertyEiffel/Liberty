@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GdkCursorType: Specifies the type of the cursor."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

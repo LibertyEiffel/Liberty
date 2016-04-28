@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generic callback for the insert-text signal"
 	copyright: "[
 					Copyright (C) 2007 eiffel-libraries team,  GTK+ team and others

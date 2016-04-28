@@ -1,4 +1,4 @@
-indexing
+note
 	description: "XMLRPC value array"
 	copyright: "[
 					Author: Natalia B. Bidart

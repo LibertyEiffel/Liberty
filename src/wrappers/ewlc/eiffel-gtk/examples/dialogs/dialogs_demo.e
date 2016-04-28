@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GTK+ 2 example demostrating the use of dialogs"
 	copyright: "(C) 2004 Paolo Redaelli "
 	license: "LGPL v2 or later"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GdkScrollDirection: Specifies the direction of a scroll event."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

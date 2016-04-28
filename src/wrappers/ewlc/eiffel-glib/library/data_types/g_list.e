@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The GList provides a standard doubly-linked list data %
    %structure. See also G_LIST_TRAVERSABLE."
 	copyright: "2008 Raphael Mack"

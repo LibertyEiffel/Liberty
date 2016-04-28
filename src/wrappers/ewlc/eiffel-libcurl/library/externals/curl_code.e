@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Curl codes"
 	copyright: "[
 					Author: Natalia B. Bidart

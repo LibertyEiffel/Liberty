@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkMessageDialog -- A convenient message window."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

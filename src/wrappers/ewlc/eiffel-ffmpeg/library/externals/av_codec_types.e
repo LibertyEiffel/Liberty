@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Different valid options for a codec type"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

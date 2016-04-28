@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum cairo_subpixel_order_t"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

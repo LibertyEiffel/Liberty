@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkAboutDialog - Display information about an application."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

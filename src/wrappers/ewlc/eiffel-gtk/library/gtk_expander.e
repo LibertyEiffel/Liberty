@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkExpander -- A container which can hide its child."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

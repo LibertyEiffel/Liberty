@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Multiline text view widget"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Accelerator Maps -- Loadable keyboard accelerator specifications."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

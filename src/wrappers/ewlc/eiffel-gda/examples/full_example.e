@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Gnome Data Access full example."
 	copyright: "[
 					Copyright (C) 2006, 2007 Paolo Redaelli, GDA team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum cairo_font_slant_t"
 	copyright: "[
 					Copyright (C) 2007 eiffel-libraries team, Pango team

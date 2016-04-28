@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkCellRendererAccel -- Renders a keyboard accelerator in a cell."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

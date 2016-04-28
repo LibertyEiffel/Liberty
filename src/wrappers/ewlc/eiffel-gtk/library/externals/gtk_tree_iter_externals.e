@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GtkTreeIter struct. Just commented C docs for now"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

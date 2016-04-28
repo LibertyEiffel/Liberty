@@ -1,4 +1,4 @@
-indexing
+note
 	description: "general matrix"
 	copyright: "(C) 2006 Paolo Redaelli %
 	%Raphael Mack <mail@raphael-mack.de>"

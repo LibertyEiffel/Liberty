@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum cairo_font_weight_t"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, Cairo team

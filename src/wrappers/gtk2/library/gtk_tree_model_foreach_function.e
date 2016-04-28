@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Callback for GtkTreeModelForeachFunc"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

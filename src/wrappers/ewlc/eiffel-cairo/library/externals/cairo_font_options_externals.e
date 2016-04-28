@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External C calls for CAIRO_FONT_OPTIONS"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

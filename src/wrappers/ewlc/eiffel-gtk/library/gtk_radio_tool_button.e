@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkRadioToolButton -- A toolbar item that contains a radio button."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

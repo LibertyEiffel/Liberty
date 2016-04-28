@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTargetEntry -- String representing the drag type."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

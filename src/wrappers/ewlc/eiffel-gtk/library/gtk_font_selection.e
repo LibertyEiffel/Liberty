@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkFontSelection: A widget for selecting fonts."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

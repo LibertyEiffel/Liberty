@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Callback for the expose-event signal."
 	copyright: "[
 					Copyright (C) 2007 eiffel-libraries team,  GTK+ team and others

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "G_ERROR - information about an error that has occurred."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

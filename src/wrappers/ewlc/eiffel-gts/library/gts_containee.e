@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GTS Containee class."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

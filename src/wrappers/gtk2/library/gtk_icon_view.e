@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkIconView -- A widget which displays a list of icons in a grid"
 	copyright: "[
 					Copyright (C) 2006 Nicolas Fafchamps <nicolas.fafchamps@gmail.com> and others

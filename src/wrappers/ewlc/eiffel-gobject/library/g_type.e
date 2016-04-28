@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GType - the GLib Runtime type identification and management system."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Generic values, a polymorphic type that can hold values of any other type"
 	copyright: "Copyright (c) 2005, Paolo Redaelli"
 	license: "LGPL"

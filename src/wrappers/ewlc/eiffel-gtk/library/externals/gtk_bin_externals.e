@@ -1,4 +1,4 @@
-indexing
+note
 	copyright: "(C) 2005 Paolo Redaelli "
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Data-type for Boolean lattice, ordered as bottom < {true,false} < top"
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A special version of GSList (singly-linked list) to wrap GSList containing C strings."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"

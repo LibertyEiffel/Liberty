@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The possible line break classifications."
 	copyright: "[
 					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder

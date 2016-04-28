@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Curl option codes"
 	copyright: "[
 					Author: Natalia B. Bidart

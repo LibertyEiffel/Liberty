@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Curl info constants"
 	copyright: "[
 					Author: Natalia B. Bidart

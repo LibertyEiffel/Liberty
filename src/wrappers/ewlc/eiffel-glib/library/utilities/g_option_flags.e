@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum "
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, Glib developers

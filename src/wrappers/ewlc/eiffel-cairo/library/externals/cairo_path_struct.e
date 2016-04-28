@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Access to cairo_path_t C structure"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

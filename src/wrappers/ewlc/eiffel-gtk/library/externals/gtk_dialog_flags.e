@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkDialogFlags -- Flags used to influence dialog construction."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

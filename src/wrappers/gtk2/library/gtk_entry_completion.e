@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkEntryCompletion -- Completion functionality for GtkEntry"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

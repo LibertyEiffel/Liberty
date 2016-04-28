@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkViewport, An adapter which makes widgets scrollable."
 	copyright: "[
 					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum GtkFileChooserAction -- Used as a return value of handlers for the confirm-overwrite signal of a GtkFileChooser. This value determines whether the file chooser will present the stock confirmation dialog, accept the user's choice of a filename, or let the user choose another filename."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

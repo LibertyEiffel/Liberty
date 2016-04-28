@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for XMLRPC value"
 	copyright: "[
 					Author: Natalia B. Bidart

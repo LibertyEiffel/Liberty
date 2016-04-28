@@ -1,4 +1,4 @@
-indexing
+note
 	description: "SVG Surfaces: Rendering SVG documents."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, Cairo team

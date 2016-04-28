@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkMenuToolButton: A GtkToolItem containing a button with an additional dropdown menu."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkWindowGroup -- Limit the effect of grabs."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Memory Allocation -- general memory-handling."
 	library: "GLib 2"
 	copyright: "(C) 2005 Paolo Redaelli "

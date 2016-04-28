@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Vertex split -- object encoding a reversible edge-collapse operation."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

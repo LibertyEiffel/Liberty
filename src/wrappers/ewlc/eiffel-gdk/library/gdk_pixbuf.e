@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GdkPixbuf -- Information that describes an image."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkAction — An action which can be triggered by a menu or toolbar item."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

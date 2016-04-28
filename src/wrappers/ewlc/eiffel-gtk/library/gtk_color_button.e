@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkColorButton — A button to launch a color selection dialog"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others

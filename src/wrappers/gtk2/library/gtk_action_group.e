@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A group of actions."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

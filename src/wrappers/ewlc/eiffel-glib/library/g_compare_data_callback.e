@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Wrapper callback for GCompareDataFunc"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli

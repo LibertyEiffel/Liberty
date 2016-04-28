@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum cairo_path_data_type_t"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

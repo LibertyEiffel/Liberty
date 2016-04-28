@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkPaned: Base class for widgets with two adjustable panes."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

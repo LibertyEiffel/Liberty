@@ -1,4 +1,4 @@
-indexing
+note
 	description: " enum GtkPageOrientation"
 	copyright: "[
 					Copyright (C) 2007 eiffel-libraries team, GTK+ team

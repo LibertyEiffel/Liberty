@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum GtkCellRendererAccelMode"
 	copyright: "[
 					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder

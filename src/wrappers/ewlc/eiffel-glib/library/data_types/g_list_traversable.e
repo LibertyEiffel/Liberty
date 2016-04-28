@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The G_LIST_TRAVERSABLE provides a standard singly-linked list data structure. Objects of this class may be in a frozen state. Therefore it cannot conform to the standard class COLLECTION. See also classes G_LIST and G_SLIST."
 	copyright: "(C) 2006, 2008 Paolo Redaelli, Raphael Mack "
 	license: "LGPL v2 or later"

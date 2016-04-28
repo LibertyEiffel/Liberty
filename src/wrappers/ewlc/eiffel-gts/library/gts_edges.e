@@ -1,4 +1,4 @@
-indexing
+note
 	description: "List of edges."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

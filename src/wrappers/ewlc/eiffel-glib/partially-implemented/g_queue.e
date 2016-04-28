@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Double-ended Queue data structure."
 	copyright: "[
 					Copyright (C) 2005 eiffel-libraries team, GTK+ team

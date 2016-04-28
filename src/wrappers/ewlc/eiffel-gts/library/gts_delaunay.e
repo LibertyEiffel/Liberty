@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Delaunay and constrained Delaunay triangulations."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTS team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkCalendar -- Displays a calendar and allows the user to select a date."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

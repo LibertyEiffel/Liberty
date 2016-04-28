@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A single complete demo widget for gtk-demo application."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

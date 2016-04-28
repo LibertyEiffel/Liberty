@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkFileChooser -- File chooser interface used by GtkFileChooserWidget and GtkFileChooserDialog."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

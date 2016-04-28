@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Structures representing abstract fonts."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli,

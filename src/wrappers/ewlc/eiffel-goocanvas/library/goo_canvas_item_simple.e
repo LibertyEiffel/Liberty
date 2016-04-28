@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GOO_CANVAS_ITEM_SIMPLE -- Ancestor of all the canvas items"
 	copyright: "[
 					GooCanvas. Copyright (C) 2005 Damon Chaplin, eiffel-libraries team and others

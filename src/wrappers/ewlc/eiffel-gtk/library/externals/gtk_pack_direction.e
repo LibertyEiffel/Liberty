@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GtkPackDirection"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

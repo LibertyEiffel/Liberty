@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkEventBox -- A widget used to catch events for widgets which do not have their own window."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

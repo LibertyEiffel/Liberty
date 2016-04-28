@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The GSList provides a standard singly-linked list data structure. See also G_SLIST, G_LIST"
 	copyright: "(C) 2006, 2008 Paolo Redaelli, Raphael Mack"
 	license: "LGPL v2 or later"

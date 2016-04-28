@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Callback for the paste-clipboard signal"
 	copyright: "[
 					Copyright (C) 2008 Anthony Lenton, Soluciones Informáticas Libres S.A.,

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A really simple example on matrix creation."
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The cairo drawing context (cairo_t in C)"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

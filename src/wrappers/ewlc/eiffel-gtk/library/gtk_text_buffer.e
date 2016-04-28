@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Formatted text buffer; GtkTextBuffer stores attributed text for display in a GtkTextView "
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

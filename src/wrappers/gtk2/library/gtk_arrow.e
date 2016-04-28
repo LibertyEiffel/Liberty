@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkArrow: Displays an arrow."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Wrapper for NULL terminated array of pointer."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli 

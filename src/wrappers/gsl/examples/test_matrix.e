@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Gsl matrix example:  shows how to allocate, initialize and read from a matrix using the functions gsl_matrix_alloc, gsl_matrix_set and gsl_matrix_get."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum cairo_antialias_t"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,

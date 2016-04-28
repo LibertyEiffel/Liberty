@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Callback for the font-set signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, Anthony Lenton, eiffel-libraries team,  GTK+ team and others

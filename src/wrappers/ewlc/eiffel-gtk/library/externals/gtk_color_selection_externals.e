@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GtkColorSelection"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

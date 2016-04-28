@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Data-type for performing parallel assignements and substitutions on matrices and polyhedra."
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart

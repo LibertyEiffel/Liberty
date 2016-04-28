@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Paths: Creating paths and manipulating path data."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

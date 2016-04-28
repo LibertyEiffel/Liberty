@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The AVCodecContext structure and methods to work with it"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Integer GParamSpec"
 	copyright: "Copyright (C) 2005-2016: , Paolo Redaelli"
 	license: "LGPL"

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GdkRgbDither - Selects whether or not GdkRGB applies dithering to the image on display."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

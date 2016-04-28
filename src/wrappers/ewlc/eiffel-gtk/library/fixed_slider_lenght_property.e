@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The `fixed-slider-length' style property."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

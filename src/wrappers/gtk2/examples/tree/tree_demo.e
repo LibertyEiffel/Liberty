@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Tree example translated to Eiffel from C"
 	copyright: "Copyright (c) 2003-2004 Tim-Philipp Müller <tim at centricular dot net>, Copyright (c) 2005, Paolo Redaelli"
 	license: "LGPL v2 or later"

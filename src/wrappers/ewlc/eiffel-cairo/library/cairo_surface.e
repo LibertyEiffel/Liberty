@@ -1,4 +1,4 @@
-indexing
+note
 	description: "cairo_surface_t: base class for Cairo surfaces."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,

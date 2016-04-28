@@ -1,4 +1,4 @@
-indexing
+note
 	description: "External calls for GTS_SURFACE_TRAVERSE"
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"

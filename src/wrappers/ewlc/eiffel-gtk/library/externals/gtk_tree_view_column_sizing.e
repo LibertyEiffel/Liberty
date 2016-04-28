@@ -1,4 +1,4 @@
-indexing
+note
 	description: "enum GtkTreeViewColumnSizing - The sizing method the column uses to determine its width. Please note that GTK_TREE_VIEW_COLUMN_AUTOSIZE are inefficient for large views, and can make columns appear choppy."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

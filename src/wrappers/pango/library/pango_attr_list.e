@@ -1,4 +1,4 @@
-indexing
+note
 	description: "PANGO_ATTR_LIST:  a list of attributes that apply to a section of text."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkMenuItem -- The widget used for item in menus."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkTreeSortable -- The interface for sortable models used by GtkTreeView."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

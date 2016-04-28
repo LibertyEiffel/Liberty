@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The GSList provides a standard singly-linked list data %
    %structure. See also G_SLIST_TRAVERSABLE."
 	copyright: "2008 Raphael Mack"

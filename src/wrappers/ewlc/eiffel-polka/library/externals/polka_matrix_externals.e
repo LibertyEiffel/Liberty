@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Externals calls for POLKA_MATRIX"
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The numerical values of fundamental GTypes"
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team

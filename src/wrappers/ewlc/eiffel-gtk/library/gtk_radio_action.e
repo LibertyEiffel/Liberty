@@ -1,4 +1,4 @@
-indexing
+note
 	description: "GtkRadioAction — An action of which only one in a group can be active."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team

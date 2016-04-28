@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Enum GdkFillRule - The method for determining which pixels are included in a region, when creating a GdkRegion from a polygon. The fill rule is only relevant for polygons which overlap themselves."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"

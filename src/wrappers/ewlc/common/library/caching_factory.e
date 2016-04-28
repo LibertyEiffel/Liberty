@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A wrapper factory that "
 	copyright: "[
 					Copyright 2006, 2007 Paolo Redaelli

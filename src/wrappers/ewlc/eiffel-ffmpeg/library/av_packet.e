@@ -1,4 +1,4 @@
-indexing
+note
 	description: "The AVPacket structure"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)

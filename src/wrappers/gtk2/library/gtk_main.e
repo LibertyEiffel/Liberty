@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Main loop and Events - Library initialization, main event loop, and events"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "PANGO_CAIRO_CONTEXT: A PangoContext created from a PangoCairoFontMap "
 	copyright: "[
 					Copyright (C) 2007 Soluciones Informaticas Libres S.A. (Except),
