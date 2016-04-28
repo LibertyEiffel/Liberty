@@ -20,7 +20,7 @@ insert
 
 feature {ANY}
    liberty_authors: STRING "C.ADRIAN, P.REDAELLI, R.MACK"
-   liberty_dates: STRING "2011-2015"
+   liberty_dates: STRING "2011-2016"
 
    copyright: ABSTRACT_STRING
       once
