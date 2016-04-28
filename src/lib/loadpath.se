@@ -18,7 +18,6 @@ language/
 log/loadpath.se
 message_formatter/
 misc/loadpath.se
-mmi/loadpath.se
 ncurses/loadpath.se
 net/loadpath.se
 numeric/loadpath.se
