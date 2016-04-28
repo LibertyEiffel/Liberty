@@ -36,7 +36,11 @@ feature {ANY}
    has_wrapper: BOOLEAN
       local field_type: C_TYPE
       do
-          Result := types.at(dequalify(type)).has_wrapper
+          -- You may want to write "Result := types.at(dequalify(type)).has_wrapper" but that's simplicistic
+          field_type := types.reference_at(dequalify(type))
+          if field_type/=Void then
+              Result:=field_type.has_wrapper
+          end
       rescue
           log("C_FIELD.has_wrapper failed%N")
           print_run_time_stack

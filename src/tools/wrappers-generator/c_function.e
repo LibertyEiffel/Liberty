@@ -38,7 +38,7 @@ feature {ANY}
 
    return_type: C_TYPE
       do
-         Result := types.at(returns)
+         Result := types.reference_at(returns)
       end
 
    compute_eiffel_name
@@ -72,9 +72,10 @@ feature {ANY}
          -- wrappable? The variadic part of the function, the ellipsis ("...")
          -- is ignored.
       local
-         i: INTEGER_32
+         i: INTEGER_32; a_return_type: C_TYPE
       do
-         Result := return_type.is_void or return_type.has_wrapper -- return_type.referree.has_wrapper
+         a_return_type := return_type
+         Result := a_return_type/=Void and then (a_return_type.is_void or a_return_type.has_wrapper) -- return_type.referree.has_wrapper
          if Result then
             -- Check for
             from
