@@ -615,7 +615,7 @@ feature {HIERARCHIC_GRAPH_NODE}
       end
 
    internal_distance (other: like Current; pos, max: INTEGER): INTEGER
-         -- Returns Maximum_integer if unaccessibility detected
+         -- Returns Maximum_integer if inaccessibility detected
          -- Returns -1 when break needed
          -- Distance from current point otherwise
          -- Warning: max length and pos are from the search start.

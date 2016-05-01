@@ -347,7 +347,7 @@ feature {}
       end
 
    made: BOOLEAN
-         -- This flag makes sure that heirs call "make" in their creation procedire(s).
+         -- This flag makes sure that heirs call "make" in their creation procedure(s).
 
    is_made: BOOLEAN
          -- A trick to be sure that `made' is not alive (therefore not generated) in boost mode.

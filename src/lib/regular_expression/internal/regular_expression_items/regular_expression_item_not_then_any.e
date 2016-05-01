@@ -4,7 +4,7 @@
 class REGULAR_EXPRESSION_ITEM_NOT_THEN_ANY
    --
    -- negate the node such that if node matches it makes
-   -- a backtrack but conversly if node fails, the character
+   -- a backtrack but conversely if node fails, the character
    -- is accepted (any character) and exploration continues.
    --
 

@@ -3,7 +3,7 @@
 --
 class BASE64_OUTPUT_STREAM
    --
-   -- A base64 encoder. The underlying stream gets encoded in base64 via this filter.
+   -- A Base64 encoder. The underlying stream gets encoded in Base64 via this filter.
    --
 
 inherit

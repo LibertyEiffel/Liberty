@@ -96,7 +96,7 @@ feature {ANY} -- Object Printing:
    to_string: STRING
          -- Convert `Current' into a new allocated STRING using 6 as the default number of digits for the
          -- fractional part.
-         -- Exemple: `(1.5).to_string' will return "1.500000".
+         -- Example: `(1.5).to_string' will return "1.500000".
          --
          -- Note: see also `to_string_format', `to_string_scientific' as well as `append_in' to save memory.
       deferred
@@ -104,7 +104,7 @@ feature {ANY} -- Object Printing:
 
    to_string_format (f: INTEGER): STRING
          -- Convert `Current' into a new allocated STRING using `f' digits for fractional part.
-         -- Exemple: `(1.5).to_string_format(2)' will return "1.50".
+         -- Example: `(1.5).to_string_format(2)' will return "1.50".
          --
          -- Note: see also `to_string_scientific', `to_string' as well as `append_in_format' to save memory.
       require
@@ -115,7 +115,7 @@ feature {ANY} -- Object Printing:
    to_string_scientific (f: INTEGER): STRING
          -- Convert `Current' into a new allocated STRING, using the scientific notation with `f' digits for
          -- the fractional part.
-         -- Exemple: `(155.5).to_string_scientific(4)' will return "1.5550e+02".
+         -- Example: `(155.5).to_string_scientific(4)' will return "1.5550e+02".
          --
          -- Note: see also `to_string', `to_string_format' as well as `append_in_scientific' to save memory.
       deferred

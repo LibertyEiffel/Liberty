@@ -26,7 +26,7 @@ feature {ANY}
          -- In this mode cursor may blink in a more special or in a more visible way.
 
    valid_cursor_visibility (code: INTEGER): BOOLEAN
-         -- Chack that code is one of `invisible_cursor_mode', `default_visible_cursor_mode'
+         -- Check that code is one of `invisible_cursor_mode', `default_visible_cursor_mode'
          -- or `special_visible_cursor_mode'.
       do
          inspect

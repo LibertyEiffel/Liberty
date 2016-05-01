@@ -3,7 +3,7 @@
 --
 class ARRAY2[E_]
    --
-   -- General prurpose, resizable, two dimensional array.
+   -- General purpose, resizable, two dimensional array.
    --
 
 inherit

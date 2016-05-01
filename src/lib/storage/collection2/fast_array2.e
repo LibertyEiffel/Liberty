@@ -281,7 +281,7 @@ feature {ANY} -- Resizing:
          tmp: like Current; l, c: INTEGER
       do
          create tmp.make(new_count1, new_count2)
-         -- It may be possible to avoid this ceation when :
+         -- It may be possible to avoid this creation when :
          --    new `capacity' <= old `capacity'
          from
             l := line_maximum

@@ -79,7 +79,7 @@ feature {ANY} -- common
 
    matches_only_current_position: BOOLEAN
          -- Does the matching occur only from current position?
-         -- If that falg is True then:
+         -- If that flag is True then:
          --   * if match succeeds then position is advanced
          --   * if match fails the position remains
          --
@@ -166,7 +166,7 @@ feature {} -- backtracked search
          end
       end
 
-feature {REGULAR_EXPRESSION_ITEM} -- context managment
+feature {REGULAR_EXPRESSION_ITEM} -- context management
    context_type_frame: INTEGER -1
 
    context_frame_cut: INTEGER -2
@@ -510,7 +510,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- matching facilities
          end
       end
 
-feature {REGULAR_EXPRESSION_ITEM} -- positionnal predicates
+feature {REGULAR_EXPRESSION_ITEM} -- positional predicates
    is_begin_of_text: BOOLEAN
          -- True if at begin of the text
       do

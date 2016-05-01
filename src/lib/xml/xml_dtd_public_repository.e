@@ -11,7 +11,7 @@ insert
 
 feature {ANY}
    register (public_id: UNICODE_STRING; a_url: STRING)
-         -- Register the public DTD `public_id' as having a local couterpart file in the given `local_path'.
+         -- Register the public DTD `public_id' as having a local counterpart file in the given `local_path'.
       require
          valid_public_id: not public_id.is_empty
          valid_url: valid_url(a_url)

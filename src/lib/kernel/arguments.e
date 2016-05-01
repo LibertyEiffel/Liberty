@@ -34,7 +34,7 @@ feature {ANY}
 
 feature {}
    frozen command_arguments: FAST_ARRAY[STRING]
-         -- Give acces to arguments command line including the command name at index 0.
+         -- Give access to arguments command line including the command name at index 0.
          -- This is a once function, so you can modify command-line arguments!
          -- (NOTE: just be sure not to remove the first argument, although you may change it)
       local

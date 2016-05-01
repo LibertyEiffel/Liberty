@@ -283,7 +283,7 @@ feature {}
 
    sprintf (buffer: NATIVE_ARRAY[CHARACTER]; mode: CHARACTER; f: INTEGER; value: like Current)
          -- Put in the `buffer' a viewable version of the `value' using `mode' with `f' digits for the fractional
-         -- part. Assume the `buffer' is large enougth.
+         -- part. Assume the `buffer' is large enough.
       require
          mode = 'f' xor mode = 'e'
          f >= 0

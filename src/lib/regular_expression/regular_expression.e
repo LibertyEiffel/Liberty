@@ -151,7 +151,7 @@ feature {ANY} -- matching capabilities
       end
 
    named_group_matched (name: ABSTRACT_STRING): BOOLEAN
-         -- Did the group named `name' match durign the last match?
+         -- Did the group named `name' match during the last match?
          --
          -- See also `group_names', `named_group_first_index'.
       require
@@ -460,7 +460,7 @@ feature {ANY} -- substitution capabilities
       end
 
    substitute_for (text: ABSTRACT_STRING)
-         -- This call has to be precedeed by a sucessful matching on the same text.
+         -- This call has to be preceded by a successful matching on the same text.
          -- Then the substitution is made on the matching part. The result is in `last_substitution'.
          --
          -- See also `prepare_substitution', `last_substitution', `substitute_in'.
@@ -498,7 +498,7 @@ feature {ANY} -- substitution capabilities
       end
 
    substitute_in (text: STRING)
-         -- This call has to be precedeed by a sucessful matching on the same text.
+         -- This call has to be preceded by a successful matching on the same text.
          -- Then the substitution is made in `text' on the matching
          -- part (`text' is modified).
          --
@@ -558,7 +558,7 @@ feature {ANY} -- substitution capabilities
 
    can_substitute: BOOLEAN
          -- Substitution is only allowed when some valid substitution
-         -- pattern has been registered and after a sucessful pattern matching.
+         -- pattern has been registered and after a successful pattern matching.
          --
          -- See also `substitute_in', `substitute_for'.
       do

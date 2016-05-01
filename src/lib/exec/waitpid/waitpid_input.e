@@ -8,7 +8,7 @@ class WAITPID_INPUT
    --
    -- If this stream is created then exiting children will send data in this channel.
    --
-   -- Each child sends exactly one empty line, plus "out-of-band" information containing the child pid and its
+   -- Each child sends exactly one empty line, plus "out-of-band" information containing the child PID and its
    -- exit status.
    --
 

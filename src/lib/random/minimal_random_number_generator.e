@@ -3,7 +3,7 @@
 --
 class MINIMAL_RANDOM_NUMBER_GENERATOR
    --
-   -- Implements the Minimal Standard generator from Press et. al. Numerical Recipies.
+   -- Implements the Minimal Standard generator from Press et. al. Numerical Recipes.
    --
 
 inherit

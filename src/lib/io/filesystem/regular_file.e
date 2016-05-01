@@ -74,7 +74,7 @@ feature {ANY} -- Text stream access
       end
 
    append: OUTPUT_STREAM
-         -- Returns a stream connected for appending to the file. If the write stream is already conencted,
+         -- Returns a stream connected for appending to the file. If the write stream is already connected,
          -- use `write' instead.
          -- Always returns the same object.
       require

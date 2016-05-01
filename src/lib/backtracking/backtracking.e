@@ -23,7 +23,7 @@ deferred class BACKTRACKING
    --            search_next
    --         end
    --
-   -- These features are declared to be bound to ANY but dont hesitate to
+   -- These features are declared to be bound to ANY but don't hesitate to
    -- change the type of the context to what your context is.
    --
 

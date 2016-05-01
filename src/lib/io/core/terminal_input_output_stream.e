@@ -30,7 +30,7 @@ feature {ANY}
    can_disconnect: BOOLEAN True
 
    detach
-         -- Detach the input and the ouput
+         -- Detach the input and the output
          --
          -- See also `detach_input', `detach_output'.
       do

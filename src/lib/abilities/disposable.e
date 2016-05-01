@@ -3,7 +3,7 @@
 --
 deferred class DISPOSABLE
    --
-   -- All classes whoses instances need a special treatment before
+   -- All classes whose instances need a special treatment before
    -- they are disposed of by the garbage collector should inherit
    -- from this class and effect `dispose'.
    --

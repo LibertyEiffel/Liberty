@@ -6,7 +6,7 @@ obsolete "In release 2.3, the new name for this class is PRESS_RANDOM_NUMBER_GEN
          %Update your code. (January 10th 2006.)%N"
          
    -- Press' standard generator, which uses the minimal standard
-   -- and then uses shuffling to break up short order corelations.
+   -- and then uses shuffling to break up short order correlations.
 
 inherit
    MIN_STAND

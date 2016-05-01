@@ -53,7 +53,7 @@ feature {UNICODE_STRING, UNICODE_STRING_HANDLER}
          -- The place where characters are stored.
          -- WARNING: it's only `storage' area. Each Unicode value
          -- stored using 2 bytes (CHARACTER). Encoding used is UTF-16NE.
-         -- low surrogates are stored in other way for direct acces.
+         -- low surrogates are stored in other way for direct access.
 
 feature {ANY}
    count: INTEGER
@@ -547,7 +547,7 @@ feature {ANY} -- Testing and Conversion:
             if k = 1 then
                if v < 128 or else v < 2048 and then seq_length > 2 or else v < 65536 and then seq_length > 3 then
                   -- overlong sequence, must be refused by any UTF-8
-                  -- complient decode for security reasons.
+                  -- compliant decode for security reasons.
                   extend(65533)
                   Result := False
                elseif not valid_unicode(v) then

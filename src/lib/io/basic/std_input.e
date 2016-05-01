@@ -214,7 +214,7 @@ feature {}
          check
             std_input = Current
          end
-         -- Nothing to dispode for `std_input'.
+         -- Nothing to dispose for `std_input'.
       end
 
 end -- class STD_INPUT

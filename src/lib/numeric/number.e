@@ -731,7 +731,7 @@ feature {ANY} -- To mix NUMBER and INTEGER_64:
                if int.is_odd then
                   Result := Result * other
                end
-               other := other * other -- methode sqrt : ^2
+               other := other * other -- method sqrt : ^2
                int := int #// 2
             end
             Result := Result * other

@@ -20,7 +20,7 @@ feature {ANY}
 
    with_seed (seed_value: INTEGER)
          -- Create (or reset) the random number generator with an explicit `seed_value'.
-         -- By using and explicit `seed_value', one can replay more than once the very same hasardous 
+         -- By using and explicit `seed_value', one can replay more than once the very same hazardous 
          -- sequence.
          --
          -- See also `make'.

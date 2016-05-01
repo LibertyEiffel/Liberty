@@ -196,7 +196,7 @@ feature {}
          end
       end
 
-feature {EXEC_INPUT_STREAM_WIN32, EXEC_OUTPUT_STREAM_WIN32} -- plugin lowlevel data
+feature {EXEC_INPUT_STREAM_WIN32, EXEC_OUTPUT_STREAM_WIN32} -- plugin low-level data
    data: POINTER
 
 feature {} -- plugin features

@@ -230,7 +230,7 @@ feature {ABSTRACT_STRING, ITERATOR_ON_ROPE} -- Implementation
 
 feature {} -- Split index
    split_index: INTEGER
-         -- The index where the rope is split. It corresponds to the length of ther left part of the ROPE.
+         -- The index where the rope is split. It corresponds to the length of the left part of the ROPE.
       do
          Result := left.upper
       ensure

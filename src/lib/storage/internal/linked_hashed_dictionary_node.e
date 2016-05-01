@@ -3,7 +3,7 @@
 --
 class LINKED_HASHED_DICTIONARY_NODE[V_, K_]
    --
-   -- Auxilliary class to implement LINKED_HASHED_DICTIONARY.
+   -- Auxiliary class to implement LINKED_HASHED_DICTIONARY.
    --
 
 inherit

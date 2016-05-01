@@ -61,7 +61,7 @@ feature {ANY}
 
    duplicate
          -- Duplicate the running process so that two processes are running simultaneously with the same code
-         -- and starting from the same data (inspired from the fork(2) Posix call)
+         -- and starting from the same data (inspired from the fork(2) POSIX call)
       require
          is_ready
       deferred

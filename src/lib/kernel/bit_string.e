@@ -629,7 +629,7 @@ feature {ANY} -- Others:
       end
 
    out_in_tagged_out_memory
-         -- Append terse printable represention of current object
+         -- Append terse printable representation of current object
          -- in `tagged_out_memory'
       do
          Current.append_in(tagged_out_memory)

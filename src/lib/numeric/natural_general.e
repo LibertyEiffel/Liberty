@@ -37,7 +37,7 @@ feature {ANY}
       end
 
    infix "-" (other: like Current): like Current
-         -- Result of substracting `other'.
+         -- Result of subtracting `other'.
       external "built_in"
       end
 
@@ -52,7 +52,7 @@ feature {ANY}
       end
 
    infix "//" (other: like Current): like Current
-         -- Quotient of the euclidian division of `Current' by `other'.
+         -- Quotient of the Euclidian division of `Current' by `other'.
          -- The corresponding remainder is given by infix "\\".
          --
          -- See also infix "#//".
@@ -60,7 +60,7 @@ feature {ANY}
       end
 
    infix "\\" (other: like Current): like Current
-         -- Remainder of the euclidian division of `Current' by `other'.
+         -- Remainder of the Euclidian division of `Current' by `other'.
          -- By definition, `0 <= Result < other.abs'.
          --
          -- See also infix "#\\", infix "//".
@@ -193,7 +193,7 @@ feature {ANY} -- Conversions:
       end
 
    to_character: CHARACTER
-         -- Return the coresponding ASCII character.
+         -- Return the corresponding ASCII character.
          --
          -- See also `to_boolean', `to_number', `to_string'.
       deferred

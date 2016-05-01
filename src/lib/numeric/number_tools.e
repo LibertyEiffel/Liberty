@@ -60,7 +60,7 @@ feature {ANY}
 
    is_number (formula: ABSTRACT_STRING): BOOLEAN
          -- Is the `formula' a correct notation to create a NUMBER ?
-         -- Actually, any correct `formula' using a combination of litteral
+         -- Actually, any correct `formula' using a combination of literal
          -- integer constants with + - * / () and ! is a correct notation to
          -- create a NUMBER. Traditional priority rules are used for
          -- operators and the ! character denote the factorial computation.

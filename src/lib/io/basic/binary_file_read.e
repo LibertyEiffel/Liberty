@@ -179,7 +179,7 @@ feature {ANY}
 
    seek (new_offset: INTEGER_64)
          -- Next read will start at position `new_offset', counted from
-         -- the begining of the file.
+         -- the beginning of the file.
          --
          -- See also `offset'.
       require

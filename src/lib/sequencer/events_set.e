@@ -463,7 +463,7 @@ feature {}
                    wset: POINTER; wsize: INTEGER; wmore: BOOLEAN;
                    eset:POINTER; esize: INTEGER; emore: BOOLEAN;
                    s, us: INTEGER): INTEGER
-         --return -1 if signal interupt occured
+         --return -1 if signal interrupt occurred
       external "plug_in"
       alias "{
          location: "${sys}/plugins"

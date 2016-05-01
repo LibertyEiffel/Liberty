@@ -130,7 +130,7 @@ feature {ANY}
 feature {}
    start_time: MICROSECOND_TIME
 
-   last_print: REAL -- total_time value when last print occured
+   last_print: REAL -- total_time value when last print occurred
 
    custom_print: PROCEDURE[TUPLE[BENCHMARK]] -- Used if non Void. See also default_print
 
