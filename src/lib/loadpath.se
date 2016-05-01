@@ -3,7 +3,6 @@ automaton/
 backtracking/loadpath.se
 cli/loadpath.se
 design_patterns/
-edc-new/loadpath.se
 exec/loadpath.se
 foreign_interface/
 get_text/loadpath.se
@@ -18,7 +17,6 @@ language/
 log/loadpath.se
 message_formatter/
 misc/loadpath.se
-mmi/loadpath.se
 ncurses/loadpath.se
 net/loadpath.se
 numeric/loadpath.se
