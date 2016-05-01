@@ -1,12 +1,18 @@
 XML=posix.xml
 HEADER=liberty-posix.h
-HEADERS=/usr/include/fcntl.h \
-	/usr/include/sys/mman.h \
-	/usr/include/unistd.h 
+## HEADERS=/usr/include/fcntl.h \
+## 	/usr/include/sys/mman.h \
+## 	/usr/include/sys/types.h \
+## 	/usr/include/sys/wait.h \
+## 	/usr/include/unistd.h 
+HEADERS:=$(shell cpp $(HEADER) -H -o /dev/null 2>&1 | cut -d " " -f 2)
 CASTXML:=$(shell command -v castxml 2>/dev/null)
 
 wrappers: $(XML)
-	@wrappers_generator --local $(XML) $(HEADERS)
+	wrappers_generator --local $(XML) $(HEADERS)
+
+debug: $(XML)
+	wrappers_generator.debug --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER)
 ifdef CASTXML
