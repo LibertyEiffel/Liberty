@@ -1810,6 +1810,10 @@ feature {}
                            error_handler.print_as_error
                         end
                         value := ascii_code.to_character
+                     else
+                        error_handler.add_position(current_position)
+                        error_handler.append(em38)
+                        error_handler.print_as_fatal_error
                      end
                   when '1' .. '9' then
                      ascii_code := cc.decimal_value
