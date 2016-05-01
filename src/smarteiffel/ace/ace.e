@@ -53,7 +53,7 @@ feature {}
 feature {ANY}
    file_path: STRING
          -- Non Void when a ACE file is in use (keep in mind that one can
-         -- stil launch a compilation without any ACE file, passing all the
+         -- still launch a compilation without any ACE file, passing all the
          -- information using command arguments only).
          -- Usually, ACE files are suffixed with ".ace" or ".ACE".
 
@@ -124,7 +124,7 @@ feature {ANY}
          Result := root_class_names.count
       end
 
-   --|*** Boost level for debuging purpose. Should decode boost option
+   --|*** Boost level for debugging purpose. Should decode boost option
    --|if we decide to keep it.
 
    boost1: BOOLEAN True

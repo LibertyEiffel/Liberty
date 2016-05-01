@@ -24,7 +24,7 @@ feature {ANY}
          -- When non Void, it is an expression like:  foo  ?:= bar
 
    right_side: EXPRESSION
-         -- The righ-hand side.
+         -- The right-hand side.
 
    end_mark_comment: BOOLEAN False
 

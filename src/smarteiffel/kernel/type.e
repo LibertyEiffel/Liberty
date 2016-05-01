@@ -1070,7 +1070,7 @@ feature {LIVE_TYPE}
 
 feature {LIVE_TYPE}
    expanded_default_create_stamp: FEATURE_STAMP
-         -- Must be called when we are sure that there is only and only one creation procedure whith no argument.
+         -- Must be called when we are sure that there is only and only one creation procedure with no argument.
       require
          is_user_expanded
       do

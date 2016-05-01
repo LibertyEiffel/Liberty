@@ -106,7 +106,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
       end
 
    put_position (position: POSITION)
-         -- Echo the `position' inside brakets.
+         -- Echo the `position' inside brackets.
       do
          if is_verbose then
             if position.is_unknown then

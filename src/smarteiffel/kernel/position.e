@@ -7,7 +7,7 @@ expanded class POSITION
    -- file, but, POSITION objects are also used in -cecil file or in the ACE file as well.
    --
    -- Because POSITION objects are very numerous (there are a _lot_ of POSITION objects used and
-   -- POSITON objects are small objects). For this reason, POSITION is an expanded class.
+   -- POSITION objects are small objects). For this reason, POSITION is an expanded class.
    --
    -- Note: do not add new attributes in this class which must fit on 32bits. Also keep in mind that
    -- it is an expanded class !
