@@ -1,7 +1,7 @@
 class LOOPS
    --
    -- Have a look at feature `gcd' to have an example of assertions in a loop.
-   -- Also note that LibertyEiffel handle recursivity in assertions.
+   -- Also note that Liberty Eiffel handles recursivity in assertions.
    -- (There is also a feature `gcd' in class INTEGER_GENERAL.)
    --
    -- compile the program with -loop_check to validate loop
@@ -47,7 +47,7 @@ feature {ANY}
             gcd(Result, value) = gcd(value_1, value_2)
          variant
             -- with each iteration the variant decreases but stays non-negative
-            -- if such a variant exists the loop definitly terminates
+            -- if such a variant exists the loop definitely terminates
             Result.max(value)
          until
             -- termination condition: the loop body will be executed

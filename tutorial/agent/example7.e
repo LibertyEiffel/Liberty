@@ -45,7 +45,7 @@ feature {}
          -- Creating and calling an agent with an open argument.  The
          -- open arguments are replaced with question marks when
          -- creating the agent.  When calling the agent, the open
-         -- arguments must be supplied in the tupple.
+         -- arguments must be supplied in the tuple.
 
          f2 := agent "Agents " + ?
          io.put_string("Calling f2(%"are easy%") ")

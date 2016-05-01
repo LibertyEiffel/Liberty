@@ -1,6 +1,6 @@
 class EXAMPLE2
    --
-   -- How to use the Eiffel $ operator wich can be used to pass the address of
+   -- How to use the Eiffel $ operator which can be used to pass the address of
    -- an Eiffel feature (to be called later from C).
    --
    -- To compile this file:

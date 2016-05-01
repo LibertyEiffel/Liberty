@@ -21,7 +21,7 @@ feature {ANY}
             t1 /= t2
             t1.is_equal(t2) -- Normal crash here ...
          end
-         -- To know how to cutomize the TRIANGLE.is_equal feature,
+         -- To know how to customize the TRIANGLE.is_equal feature,
          -- just have a look in the version4 directory.
       end
 
