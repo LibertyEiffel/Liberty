@@ -27,6 +27,7 @@ feature {EIFFELTEST_TOOLS}
          create mexps.with_capacity(0)
          missing_expectations := mexps
          groups.replay_all(mexps)
+         do_at_exit(agent check_all_done)
       ensure
          is_replaying
          missing_expectations.is_empty
