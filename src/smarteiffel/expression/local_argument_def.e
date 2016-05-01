@@ -17,7 +17,7 @@ feature {ANY}
          -- An alias of `hashed_string.to_string'.
 
    result_type: TYPE_MARK
-         -- The the corresponding written one in the declaration list.
+         -- The corresponding written one in the declaration list.
 
    rank: INTEGER
          -- The `rank' in the corresponding declaration list.

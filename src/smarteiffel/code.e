@@ -58,7 +58,7 @@ feature {ANY}
       end
 
    specialize_and_check (type: TYPE): CODE
-         -- This `specialize_and_check' step is applyed after `specialize_in' / `specialize_thru'. The `specialize_and_check'
+         -- This `specialize_and_check' step is applied after `specialize_in' / `specialize_thru'. The `specialize_and_check'
          -- step has been added to continue specialization which can't be made at `specialize_in' / `specialize_thru'
          -- time (because the expression TYPE computation may involve TYPEs who don't yet exist).
          -- At `specialize_and_check' step, all TYPEs used by `Current' expression are ready, so TYPE may be known for all

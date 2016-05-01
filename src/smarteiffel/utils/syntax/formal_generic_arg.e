@@ -29,7 +29,7 @@ feature {ANY}
          -- Non Void if any.
 
    rank: INTEGER
-         -- In the corresponding declation list.
+         -- In the corresponding declaration list.
 
    constrained: BOOLEAN
       do

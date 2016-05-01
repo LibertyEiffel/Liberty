@@ -6,7 +6,7 @@ class PARSER_BUFFER
    -- Parsers are working in a unique buffered area (the file to parse
    -- entirely loaded into this unique buffer during parsing). This solution make
    -- it easy point/line/column counting as well as backward moves.
-   -- The acces to the current character (feature `cc') is also very fast.
+   -- The access to the current character (feature `cc') is also very fast.
    --
 
 insert
@@ -36,7 +36,7 @@ feature {ANY} -- Initializing the `parser_buffer':
 
    load_file (a_path: STRING)
          -- Try to load `a_path' and set `is_ready' when corresponding file has
-         -- been sucessfully loaded. (One must not forget to call `release' when
+         -- been successfully loaded. (One must not forget to call `release' when
          -- the parsing is done.)
       require
          not is_ready

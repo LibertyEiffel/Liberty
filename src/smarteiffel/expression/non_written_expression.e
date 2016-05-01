@@ -3,7 +3,7 @@
 --
 deferred class NON_WRITTEN_EXPRESSION
    --
-   -- Common parent of all internal expression which cannot be written in pure eiffel.
+   -- Common parent of all internal expression which cannot be written in pure Eiffel.
    -- (As an example, see VOID_CALL class.)
    --
 

@@ -797,13 +797,13 @@ feature {ANY} -- Set of features to bufferize the next C function to be generate
          -- Indicates that the new C function creates closures (locals are not generated in the same way)
 
    pending_c_function_signature: STRING
-         -- The signature of the `pending_c_function' beeing prepared.
+         -- The signature of the `pending_c_function' being prepared.
       once
          create Result.with_capacity(128)
       end
 
    pending_c_function_body: STRING
-         -- The body of the `pending_c_function' beeing prepared.
+         -- The body of the `pending_c_function' being prepared.
       once
          create Result.with_capacity(1024)
       end
@@ -812,7 +812,7 @@ feature {ANY} -- Set of features to bufferize the next C function to be generate
          -- Changed each time a new `pending_c_function' is generated.
 
    prepare_c_function
-         -- Start the preparation of a the next C function. Information about the next function to
+         -- Start the preparation of the next C function. Information about the next function to
          -- generate is bufferized until `dump_pending_c_function' is called.
       require
          not pending_c_function

@@ -4,13 +4,13 @@
 class RUN_TIME_SET
    --
    -- The set of all possible `at_run_time' LIVE_TYPEs which are associated with some `owner' LIVE_TYPE. There
-   -- exactely one RUN_TIME_SET object for each LIVE_TYPE. The RUN_TIME_SET of a LIVE_TYPE is the set of
+   -- exactly one RUN_TIME_SET object for each LIVE_TYPE. The RUN_TIME_SET of a LIVE_TYPE is the set of
    -- possible `at_run_time' LIVE_TYPEs which can be assigned into a variable of this LIVE_TYPE and which may be
    -- actually held by an expression of the type of `owner'.
    -- Note: except for some kernel expanded (*), the RUN_TIME_SET of some expanded LIVE_TYPE has only one
    -- element (i.e. the expanded LIVE_TYPE itself).
    --
-   -- (*) The RUN_TIME_SET of INTEGER_16 can contains INTEGER_16 and INTEGER_8 (because we can directely assign an
+   -- (*) The RUN_TIME_SET of INTEGER_16 can contains INTEGER_16 and INTEGER_8 (because we can directly assign an
    -- INTEGER_8 into a variable of type INTEGER_16).
    --
 

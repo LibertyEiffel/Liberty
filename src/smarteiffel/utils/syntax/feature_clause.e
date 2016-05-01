@@ -21,7 +21,7 @@ feature {ANY}
          -- The `clients' allowed to use these features.
 
    comment: COMMENT
-         -- The heading comment comming with the clause.
+         -- The heading comment coming with the clause.
 
    class_text: CLASS_TEXT
          -- The one where `Current' is written.

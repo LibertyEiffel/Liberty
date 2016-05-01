@@ -653,7 +653,7 @@ feature {ANY}
          -- The only one accepted notation is:        ${...}. The substitution is performed in `line'.
          -- When given the `path' information is used to emit an error message when the variable does not exists.
          -- If any, substitute in `line' some "system.se" well-known key (i.e. "sys", "bin" or "short").
-         -- If case of unknow key, uses echo.getenv instead.
+         -- If case of unknown key, uses echo.getenv instead.
       require
          line /= Void
       local
@@ -789,7 +789,7 @@ feature {SE, ACE, COMMAND_LINE_TOOLS}
 
 feature {}
    add_libraries_from_compiler_options
-         -- Extract additionnal libs from c_compiler_options
+         -- Extract additional libs from c_compiler_options
       local
          i, j: INTEGER; lib_name: STRING
       do
@@ -1484,7 +1484,7 @@ feature {} -- SAS/c support functions:
 feature {ACE}
    read_loadpath_files
          -- For command line mode only (no ACE file used). Reads the loadpath files given on the command line,
-         -- then either the loadpath.se in the current directory or the currnet directory itself as a cluster,
+         -- then either the loadpath.se in the current directory or the current directory itself as a cluster,
          -- and finally the configuration loadpaths.
       require
          ace.file_path = Void
@@ -1894,7 +1894,7 @@ feature {COMMAND_LINE_TOOLS}
 feature {ACE, COMMAND_LINE_TOOLS}
    is_alternate_c_mode: BOOLEAN
          -- If False, then the C mode associated with the Liberty Eiffel level
-         -- will be selected; otherwise, the user has explicitely used the
+         -- will be selected; otherwise, the user has explicitly used the
          -- -c_mode option; this one will be used.
 
    set_default_c_mode (c_mode: STRING)
@@ -1907,7 +1907,7 @@ feature {ACE, COMMAND_LINE_TOOLS}
       end
 
    set_alternate_c_mode (c_mode: STRING)
-         -- Sets an alternate C mode (the user explicitely used the -c_mode
+         -- Sets an alternate C mode (the user explicitly used the -c_mode
          -- flag)
       do
          if c_compiler_mode = c_compiler_cc then

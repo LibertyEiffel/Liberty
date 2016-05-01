@@ -476,7 +476,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
                error_handler.print_as_fatal_error
             end
             Result := other
-            --|*** As the Result is alway other, we could turn this
+            --|*** As the Result is always other, we could turn this
             --|into a procedure ?? (feb 2nd 2006)
          end
       end

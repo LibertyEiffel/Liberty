@@ -36,7 +36,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          lt: LIVE_TYPE
       do
          lt := visited.type.live_type
-         -- ----------------------------- Definiton for gc_markXXX :
+         -- ----------------------------- Definition for gc_markXXX :
          cpp.prepare_c_function
          function_signature.append(once "void ")
          memory.mark_in(visited, function_signature, False)
@@ -45,7 +45,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
          function_signature.append(once "o)")
          gc_mark_na(visited)
          cpp.dump_pending_c_function(True)
-         -- --------------------------------- Definiton for newXXX :
+         -- --------------------------------- Definition for newXXX :
          cpp.prepare_c_function
          ltid_in(lt, function_signature, True, False)
          function_signature.append(once "new")

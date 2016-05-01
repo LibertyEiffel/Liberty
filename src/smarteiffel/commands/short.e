@@ -179,7 +179,7 @@ feature {}
 
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
          -- Because of style options, this function always returns True.
-         -- Futhermore, this function is used for non ACE mode too.
+         -- Furthermore, this function is used for non ACE mode too.
       do
          Result := True
          if is_client_flag(arg) then

@@ -426,7 +426,7 @@ feature {}
    Instruction_syntax_flag: INTEGER_8          1
          -- Any possible complex instruction.
    Atomic_syntax_flag: INTEGER_8               2
-         -- Simple value whith not dot.
+         -- Simple value with no dot.
    When_inspect_syntax_flag: INTEGER_8         3
          -- Expression in "when" part of "inspect".
 
@@ -5521,12 +5521,12 @@ feature {}
       end
 
    a_instruction: BOOLEAN
-         --  ++ instruction -> check | debug | conditionnal | retry |
+         --  ++ instruction -> check | debug | conditional | retry |
          --  ++                inspect | loop | old_creation |
          --  ++                c_inline_c | c_inline_h |
          --  ++                create_instruction |
          --  ++                assignment_or_procedure_call [":=" expression ]
-         --  ++                expresison [":=" expression ]
+         --  ++                expression [":=" expression ]
          --  ++
       local
          dummy: BOOLEAN
