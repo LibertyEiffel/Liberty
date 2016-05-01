@@ -10,7 +10,7 @@ feature {}
       do
          -- first create the terminal stream (the one that can write characters to some device)
          create file.connect_to("index.html")
-         -- now create the filter, and attach it the the previous stream (many filters can be hooked this way)
+         -- now create the filter, and attach it the previous stream (many filters can be hooked this way)
          create html.connect_to(file)
          -- now write the file using the upmost filter (the one that is *not* connected by something else)
          -- The HTML_OUTPUT_STREAM is a bit peculiar because it exports many helper functions instead of the

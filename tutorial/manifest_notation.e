@@ -301,7 +301,7 @@ feature {}
          check
             real_64 = 35.5
          end
-         -- You can ommit the fractional part when using scientific notation:
+         -- You can omit the fractional part when using scientific notation:
          check
             3E2 = 300.0
          end

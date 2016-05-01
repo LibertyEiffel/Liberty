@@ -1,8 +1,8 @@
 class EXAMPLE3
    --
-   -- In the DICTIONARY class, the `for_each' feature has an agent argument wich
-   -- a procedure with two arguments, one for the value (type `V') and one for
-   -- the key (type `K').
+   -- In the DICTIONARY class, the `for_each' feature has an agent argument
+   -- which is a procedure with two arguments, one for the value (type `V') and
+   -- one for the key (type `K').
    --
 
 create {ANY}

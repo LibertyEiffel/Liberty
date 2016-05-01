@@ -1,6 +1,6 @@
 class EXAMPLE1
    --
-   -- This example shows how to know about the curent date and time
+   -- This example shows how to know about the current date and time
    -- using class TIME.
    --
 

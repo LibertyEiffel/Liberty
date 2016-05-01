@@ -26,7 +26,7 @@ feature {}
 
    set_from_integer_64 (c: like Current; value: INTEGER_64)
          -- This uses a macro to walk around expanded types'
-         -- paas-by-value convention. It only works if c actually
+         -- pass-by-value convention. It only works if c actually
          -- /is/ Current.
       external "plug_in"
       alias "{
