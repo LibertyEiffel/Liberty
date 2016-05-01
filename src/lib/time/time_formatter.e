@@ -3,7 +3,7 @@
 --
 deferred class TIME_FORMATTER
    --
-   -- The polymophic format class for TIME.
+   -- The polymorphic format class for TIME.
    --
 
 insert

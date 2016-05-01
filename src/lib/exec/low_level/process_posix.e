@@ -207,7 +207,7 @@ feature {}
          end
       end
 
-feature {EXEC_INPUT_STREAM_POSIX, EXEC_OUTPUT_STREAM_POSIX} -- plugin lowlevel data
+feature {EXEC_INPUT_STREAM_POSIX, EXEC_OUTPUT_STREAM_POSIX} -- plugin low-level data
    data: POINTER
 
 feature {} -- plugin features

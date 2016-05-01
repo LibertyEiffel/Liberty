@@ -106,7 +106,7 @@ feature {ANY}
       end
 
    insert_index (c: COLLECTION[X]; element: X): INTEGER
-         -- retrieve the upper index for wich gt
+         -- retrieve the upper index for which gt
       require
          c /= Void
          is_sorted(c)

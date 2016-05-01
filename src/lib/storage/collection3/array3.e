@@ -3,7 +3,7 @@
 --
 class ARRAY3[E_]
    --
-   -- General prurpose, resizable, three dimensional array.
+   -- General purpose, resizable, three dimensional array.
    --
 
 inherit
@@ -333,7 +333,7 @@ feature {ANY} --  Looking and comparison:
 
    has (x: like item): BOOLEAN
          -- Search if a element x is in the array using `equal'.
-         -- See also `fast_has' to choose the apropriate one.
+         -- See also `fast_has' to choose the appropriate one.
       do
          if count > 0 then
             Result := storage.first_index_of(x, count - 1) <= count - 1

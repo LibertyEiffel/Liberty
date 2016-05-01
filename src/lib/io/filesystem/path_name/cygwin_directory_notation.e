@@ -4,7 +4,7 @@
 class CYGWIN_DIRECTORY_NOTATION
    -- The Cygwin like file path notation looks like:
    --   //C/SmartEiffel/sys/system.se
-   --|*** I've never sen this notation. My cygwin uses plain old unix
+   --|*** I've never seen this notation. My cygwin uses plain old unix
    --|*** notation, windows drives are mapped to /cygdrive/c/ etc...
    --|*** <FM-23/03/2003>
    --|*** AFAIR that's the old b20 series <CAD 2005.11.18>

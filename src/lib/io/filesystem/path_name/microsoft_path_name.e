@@ -183,7 +183,7 @@ feature {ANY} -- Access
          -- Some basic checks
          Result := not path.has('/') and then not path.is_empty and then (drive /= no_drive implies not path.has_prefix(once "\\"
          -- UNIX slash not allowed
-         -- Empty pathis not normalized
+         -- Empty path is not normalized
          ))
          -- Double slash allowed only without drive
          -- Remove initial slashes

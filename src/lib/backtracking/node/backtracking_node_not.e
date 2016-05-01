@@ -5,7 +5,7 @@ class BACKTRACKING_NODE_NOT
    --
    -- node that negate a node what mean that the exploration
    -- will be continued if exploration of the subnode is stopped
-   -- and conversly.
+   -- and conversely.
    --
 
 inherit
@@ -26,7 +26,7 @@ feature {ANY}
          explorer.push_or(the_true_node)
          -- evaluate 'node' now
          explorer.set_current_node(node)
-         -- and if it's a succes the following node
+         -- and if it's a success the following node
          -- will remove the or by a cut and will fail
          explorer.push_and(the_cut_and_false_node)
       end

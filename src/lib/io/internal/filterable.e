@@ -11,7 +11,7 @@ insert
 
 feature {ANY}
    is_connected: BOOLEAN
-         -- True if the stream is connected. Only in that case can data be transfered via this stream.
+         -- True if the stream is connected. Only in that case can data be transferred via this stream.
       deferred
       end
 
@@ -28,7 +28,7 @@ feature {ANY}
       end
 
    is_filtered: BOOLEAN
-         -- True if some filter is using this stream as backend. use that filter instead.
+         -- True if some filter is using this stream as backend. Use that filter instead.
       do
          Result := filter /= Void
       end

@@ -3,7 +3,7 @@
 --
 class BASE64_INPUT_STREAM
    --
-   -- A base64 decoder. Plug it onto a base64-encoded stream.
+   -- A Base64 decoder. Plug it onto a Base64-encoded stream.
    --
 
 inherit

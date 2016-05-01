@@ -40,7 +40,7 @@ feature {ANY}
 
    append_in (str: STRING; raw: BOOLEAN)
          -- Append the JSON string into `str'
-         -- If `raw' is True, append raw utf8 codes; otherwise, use '\u' sequences
+         -- If `raw' is True, append raw UTF-8 codes; otherwise, use '\u' sequences
       require
          str /= Void
       local
@@ -53,7 +53,7 @@ feature {ANY}
 
    write_to (str: OUTPUT_STREAM; raw: BOOLEAN)
          -- Write the JSON string to `str'
-         -- If `raw' is True, write raw utf8 codes; otherwise, use '\u' sequences
+         -- If `raw' is True, write raw UTF-8 codes; otherwise, use '\u' sequences
       require
          str.is_connected
       local

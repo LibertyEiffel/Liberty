@@ -5,7 +5,7 @@ deferred class SET[E_]
    --
    -- Definition of a mathematical set of objects. All common operations on mathematical sets are available.
    --
-   -- Well knowned implementations are HASHED_SET and AVL_SET.
+   -- Well known implementations are HASHED_SET and AVL_SET.
    --
 
 inherit

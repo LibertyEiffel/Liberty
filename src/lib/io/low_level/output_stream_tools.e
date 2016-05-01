@@ -215,7 +215,7 @@ feature {ANY} -- To write a number:
       end
 
    put_real_format (r: REAL; f: INTEGER)
-         -- Output `r' with only `f' digit for the fractionnal part.
+         -- Output `r' with only `f' digit for the fractional part.
          -- Examples:
          --    put_real(3.519,2) print "3.51".
       require
@@ -229,7 +229,7 @@ feature {ANY} -- To write a number:
       end
 
    put_real_scientific (r: REAL; f: INTEGER)
-         -- Output `r' using the scientific notation with only `f' digit for the fractionnal part.
+         -- Output `r' using the scientific notation with only `f' digit for the fractional part.
          -- Examples:
          --    put_real_scientific(3.519,2) print "3.16e+00".
       require

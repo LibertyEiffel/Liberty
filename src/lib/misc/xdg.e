@@ -3,7 +3,7 @@
 --
 expanded class XDG
    --
-   -- freedesktop management
+   -- freedesktop.org management
    --
 
 insert

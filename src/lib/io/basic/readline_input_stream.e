@@ -3,7 +3,7 @@
 --
 class READLINE_INPUT_STREAM
    --
-   -- An input stream where the data is read from CLI using GNU readline.
+   -- An input stream where the data is read from CLI using GNU Readline.
    --
    -- NOTE: the history is a singleton so there is really no point in creating more than
    -- one readline stream...

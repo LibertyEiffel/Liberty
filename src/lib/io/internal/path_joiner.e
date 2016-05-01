@@ -6,7 +6,7 @@ deferred class PATH_JOINER
    --
    -- A typical session goes like this:
    -- # call `start_join' describing you drive (if any) and whether you are absolute or relative
-   -- # Repeatedly call the `join_xxx' procedures to desribe yourself, more significant elements first (i.e.
+   -- # Repeatedly call the `join_xxx' procedures to describe yourself, more significant elements first (i.e.
    --   generally left-to-right)
    -- # call `end_join'
    --

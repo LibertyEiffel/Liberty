@@ -5,7 +5,7 @@ deferred class TRAVERSABLE[E_]
    -- A `TRAVERSABLE[E_]' is a finite readable sequence of objects of type E_.
    -- For instance, `COLLECTION's and `STRING's are `TRAVERSABLE'.
    --
-   -- A good performance should always be obtained by sequentially acessing a `TRAVERSABLE' with increasing
+   -- A good performance should always be obtained by sequentially accessing a `TRAVERSABLE' with increasing
    -- indexes (from `lower' to `upper'), as demonstrated in the following code snippet :
    --
    --  from

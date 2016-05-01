@@ -43,7 +43,7 @@ feature {}
       end
 
    default_descriptor: INTEGER
-         -- A descriptor that referes to the same file as stdin initially does.
+         -- A descriptor that refers to the same file as stdin initially does.
 
    dup (descriptor_: INTEGER): INTEGER
          -- Return a new descriptor that refers to the same file as `descriptor_'.

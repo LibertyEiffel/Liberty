@@ -7,7 +7,7 @@ obsolete "In release 2.3, the new name for this class is MINIMAL_RANDOM_NUMBER_G
 
    --
    -- Implements the Minimal Standard generator from Press et. al.
-   -- Numerical Recipies.
+   -- Numerical Recipes.
    --
 
 inherit

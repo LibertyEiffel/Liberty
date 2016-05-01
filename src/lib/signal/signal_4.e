@@ -37,7 +37,7 @@ feature {ANY}
       end
 
    emit (val1: E; val2: F; val3: G; val4: H)
-         -- Emit signal, ie. already registred procedure will be called
+         -- Emit signal, ie. already registered procedure will be called
          -- in registration order except if removed by another before.
       do
          from
@@ -64,7 +64,7 @@ feature {ANY}
 
    disconnect (connect_identifier: PROCEDURE[TUPLE[E, F, G, H]])
          -- Unregister procedure for this signal. If the same
-         -- procedure was registred many times, only first is removed.
+         -- procedure was registered many times, only first is removed.
       local
          i: INTEGER
       do
@@ -82,7 +82,7 @@ feature {ANY}
       end
 
    is_empty: BOOLEAN
-         -- return True if no callback is registred for this signal
+         -- return True if no callback is registered for this signal
       do
          Result := callbacks.is_empty
       end

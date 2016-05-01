@@ -20,7 +20,7 @@ deferred class INTERNALS
    --
    -- # Don't use INTERNALS
    --
-   -- # If rule 1 is unapplicable, use INTERNALS to build a higher-level abstraction, and use that abstraction
+   -- # If rule 1 is inapplicable, use INTERNALS to build a higher-level abstraction, and use that abstraction
    -- in your application. You really don't want INTERNALS scattered around your application code.
    --
 

@@ -210,7 +210,7 @@ feature {XML_PARSER}
       end
 
    open_entity_url (a_entity: UNICODE_STRING; a_url: URL)
-         -- XML_REPOSITORY doen't use entity urls
+         -- XML_REPOSITORY doesn't use entity urls
       do
          fire_update_error(once "Unexpected entityurl", last_line, last_column)
       end

@@ -121,7 +121,7 @@ feature {}
          check
             std_error = Current
          end
-         -- Nothing to dispode for `std_error'.
+         -- Nothing to dispose for `std_error'.
       end
 
 end -- class STD_ERROR

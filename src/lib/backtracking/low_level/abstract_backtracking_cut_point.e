@@ -5,7 +5,7 @@ class ABSTRACT_BACKTRACKING_CUT_POINT
    --
    -- Instances of that class are used by the ABSTRACT_BACKTRACKING
    -- to record "cut points" data. A cut point is an indication of
-   -- up to wich alternative are to be removed from the exploration.
+   -- up to which alternative are to be removed from the exploration.
    --
    -- Instances of that class are inserted in the continuation path
    -- to be retrieved by dynamic cast during calls to cut.

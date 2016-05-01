@@ -16,7 +16,7 @@ feature {ANY}
       end
 
    infix "-" (other: like Current): like Current
-         -- Result of substracting `other'.
+         -- Result of subtracting `other'.
       deferred
       end
 

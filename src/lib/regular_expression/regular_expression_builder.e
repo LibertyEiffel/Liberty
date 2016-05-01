@@ -13,8 +13,8 @@ expanded class REGULAR_EXPRESSION_BUILDER
 
 feature {ANY} -- Building REGULAR_EXPRESSION
    convert_posix_pattern (p: STRING): REGULAR_EXPRESSION
-         -- Create some REGULAR_EXPRESSION from the pattern `p' according to Posix syntax.
-         -- If `p' is not a valid regular expression according to Posix syntax, then `Result' is Void
+         -- Create some REGULAR_EXPRESSION from the pattern `p' according to POSIX syntax.
+         -- If `p' is not a valid regular expression according to POSIX syntax, then `Result' is Void
          -- and `last_error_message' and `last_error_position' are set.
       require
          p /= Void
@@ -153,7 +153,7 @@ feature {ANY} -- options
       end
 
    set_no_extended_ligibility
-         -- Desactivate extended ligibility.
+         -- Deactivate extended ligibility.
       do
          has_extended_ligibility := False
       ensure
@@ -206,7 +206,7 @@ feature {} -- Internal
 
    convert_backtracking_pattern (p: STRING; builder: BACKTRACKING_REGULAR_EXPRESSION_BUILDER): BACKTRACKING_REGULAR_EXPRESSION
          -- Create some BACKTRACKING_REGULAR_EXPRESSION from the pattern `p' according to the syntax
-         -- pased by the given 'builder'.
+         -- passed by the given 'builder'.
          -- If `p' is not a valid regular expression according the said syntax, then `Result' is Void
          -- and `last_error_message' and `last_error_message' are set.
       require

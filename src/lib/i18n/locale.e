@@ -32,7 +32,7 @@ feature {ANY}
 
 feature {ANY} -- some useful locale-related items
 
-   -- NOTE: All those features share te same once STRING.
+   -- NOTE: All those features share the same once STRING.
    -- Be sure to copy the result if it is meant to be kept.
 
    localized_text (text_id: ABSTRACT_STRING): STRING

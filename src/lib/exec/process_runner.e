@@ -5,7 +5,7 @@ deferred class PROCESS_RUNNER
 
 feature {ANY}
    execute (program: STRING; arguments: TRAVERSABLE[STRING]; keep_environment: BOOLEAN)
-         -- Execute the given `program' (how the program is discovered is os-dependant), passing to it the
+         -- Execute the given `program' (how the program is discovered is OS-dependent), passing to it the
          -- `arguments'. The environment is cleared if `keep_environment' is False.
       require
          program /= Void

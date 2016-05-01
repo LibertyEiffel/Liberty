@@ -99,7 +99,7 @@ feature {ANY}
 
    put_integer_16_big_endian (i: INTEGER_16)
          -- Write `i' in big endian mode.
-         -- The result is machine independant.
+         -- The result is machine independent.
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
@@ -110,7 +110,7 @@ feature {ANY}
 
    put_integer_16_little_endian (i: INTEGER_16)
          -- Write `i' in little endian mode.
-         -- The result is machine independant.
+         -- The result is machine independent.
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
@@ -132,7 +132,7 @@ feature {ANY}
 
    put_integer_32_big_endian (i: INTEGER_32)
          -- Write `i' in big endian mode.
-         -- The result is machine independant.
+         -- The result is machine independent.
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
@@ -143,7 +143,7 @@ feature {ANY}
 
    put_integer_32_little_endian (i: INTEGER_32)
          -- Write `i' in little endian mode.
-         -- The result is machine independant.
+         -- The result is machine independent.
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
