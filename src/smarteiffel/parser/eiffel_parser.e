@@ -28,7 +28,7 @@ feature {ANY}
    total_time: INTEGER_64
 
 feature {ANY}
-   predefined_type_mark (tm: STRING; sp: POSITION): TYPE_MARK is
+   predefined_type_mark (tm: STRING; sp: POSITION): TYPE_MARK
       require
          tm /= Void
       do
@@ -4798,7 +4798,7 @@ feature {}
          end
       end
 
-   inline_agent_no_name: FEATURE_NAME is
+   inline_agent_no_name: FEATURE_NAME
       once
          create Result.unknown_position("__inline_agent__")
          Result.set_is_frozen

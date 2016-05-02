@@ -115,7 +115,7 @@ feature {EIFFEL_PARSER}
          names.add_last(a_name)
       end
 
-   clear_synonyms is
+   clear_synonyms
       require
          not names.is_empty
       do

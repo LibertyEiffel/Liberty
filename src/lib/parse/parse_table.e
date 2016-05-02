@@ -130,7 +130,7 @@ feature {ANY}
 
    out_in_tagged_out_memory
       do
-         for_all_atoms(agent (atom: PARSE_ATOM[C_]) is do atom.out_in_tagged_out_memory; tagged_out_memory.extend('%N') end)
+         for_all_atoms(agent (atom: PARSE_ATOM[C_]) do atom.out_in_tagged_out_memory; tagged_out_memory.extend('%N') end)
       end
 
    pretty_print_on (stream: OUTPUT_STREAM)
