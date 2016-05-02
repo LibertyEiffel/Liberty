@@ -45,7 +45,7 @@ feature {EIFFEL_GRAMMAR}
       deferred
       ensure
          count = old count + 1
-         first = a_child -- because the grammer is right-recursive the last child is added first
+         first = a_child -- because the grammar is right-recursive the last child is added first
       end
 
 end -- class EIFFEL_LIST_NODE

@@ -3,7 +3,7 @@
 --
 class HASHED_SET_NODE[E_]
    --
-   -- Auxilliary class to implement HASHED_SET.
+   -- Auxiliary class to implement HASHED_SET.
    --
 
 inherit

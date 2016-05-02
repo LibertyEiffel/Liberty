@@ -3,7 +3,7 @@
 --
 expanded class TRISTATE_VALUES
 --
--- Yes, No, Maybe tri-state constrant values. Intended to be inserted in client classes.
+-- Yes, No, Maybe tri-state constraint values. Intended to be inserted in client classes.
 --
 -- See also TRISTATE
 --

@@ -3,7 +3,7 @@
 --
 deferred class JSON_CODEC[DATA_]
    --
-   -- A json codec, to be subclassed for actual functionality
+   -- A JSON codec, to be subclassed for actual functionality
    --
 
 inherit

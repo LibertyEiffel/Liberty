@@ -3,7 +3,7 @@
 --
 class HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]
    --
-   -- Auxilliary class to implement HASHED_BIJECTIVE_DICTIONARY.
+   -- Auxiliary class to implement HASHED_BIJECTIVE_DICTIONARY.
    --
 
 inherit

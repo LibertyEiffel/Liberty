@@ -4,7 +4,7 @@
 class PRESS_RANDOM_NUMBER_GENERATOR
    --
    -- Press' standard generator, which uses the MINIMAL_RANDOM_NUMBER_GENERATOR 
-   -- and then uses shuffling to break up short order corelations.
+   -- and then uses shuffling to break up short order correlations.
    --
    
 inherit

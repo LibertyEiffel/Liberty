@@ -290,7 +290,7 @@ feature {ANY} -- To provide iterating facilities:
 feature {ANY}
    fast_is_equal (other: like Current): BOOLEAN
          -- Do both dictionaries have the same set of associations?
-         -- Keys are compared with `is_equal' and values are comnpared
+         -- Keys are compared with `is_equal' and values are compared
          -- with the basic = operator.
          --
          -- See also `is_equal'.

@@ -14,7 +14,7 @@ feature {ANY}
          -- True if the JSON text must be prettily indented, False if no extra space should be emitted
 
    raw: BOOLEAN
-         -- True if utf-8 characters can be emitted, False if '\u' sequences are emitted instead
+         -- True if UTF-8 characters can be emitted, False if '\u' sequences are emitted instead
 
    set_pretty (enable: BOOLEAN)
       do

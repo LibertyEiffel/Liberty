@@ -30,7 +30,7 @@ feature {ANY} -- basic
          at_the_begin: position = scanned_string.lower
       end
 
-feature {ANY} -- error managment
+feature {ANY} -- error management
    has_error: BOOLEAN
          -- True when an error was encountered
 
@@ -78,7 +78,7 @@ feature {ANY} -- scanning
 
    last_character: CHARACTER
          -- The scanned character.
-         -- The last character readden from 'scanned_string'.
+         -- The last character read from 'scanned_string'.
 
    valid_last_character: BOOLEAN
          -- True when 'last_character' is valid.
@@ -168,7 +168,7 @@ feature {ANY} -- scanning
    read_integer
          -- Reads an integer value beginning at the
          -- currently scanned position.
-         -- The readen value is stored in 'last_integer'.
+         -- The read value is stored in 'last_integer'.
       require
          has_no_error: not has_error
          not_at_end: not end_of_input
@@ -189,7 +189,7 @@ feature {ANY} -- scanning
       end
 
    saved_position: INTEGER
-         -- The saved position (only one is currently enougth).
+         -- The saved position (only one is currently enough).
 
    save_position
          -- Saves the current scanning position.

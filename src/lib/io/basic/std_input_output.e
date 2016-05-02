@@ -95,7 +95,7 @@ feature {}
          check
             io = Current
          end
-         -- Nothing to dispode for `io'.
+         -- Nothing to dispose for `io'.
       end
    
 invariant

@@ -25,9 +25,9 @@ feature {JOB, LOOP_ITEM}
 
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET)
-         -- Use `events' to descibe condition that make this job ready to `continue'.
+         -- Use `events' to describe condition that make this job ready to `continue'.
          -- `events' describe the conditions to be satisfied before
-         -- runing this job for one more step.
+         -- running this job for one more step.
       require
          events /= Void
          not events.queryable
@@ -37,7 +37,7 @@ feature {LOOP_ITEM}
 
    is_ready (events: EVENTS_SET): BOOLEAN
          -- Check if this job is ready to continue his work.
-         -- `events' describe the events which occured.
+         -- `events' describe the events which occurred.
       require
          events /= Void
          events.queryable

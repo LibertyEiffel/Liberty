@@ -5,7 +5,7 @@ class XML_PARSER
    -- The standard SmartEiffel XML parser. It is able to parse any well-formed WML document, and also can
    -- validate a document containing a DTD.
    --
-   -- Note that this parser is not namespace-aware, nor daoes it validate documents using a Schema. Classes
+   -- Note that this parser is not namespace-aware, nor does it validate documents using a Schema. Classes
    -- to that avail must be built on top of this parser.
    --
    -- See http://www.w3.org/TR/2006/REC-xml11-20060816/

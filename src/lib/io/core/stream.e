@@ -11,7 +11,7 @@ deferred class STREAM
    --
    -- Streams can:
    -- + be connected (e.g. to some system object)
-   -- + be used ot read or write characters, only if they are connected
+   -- + be used to read or write characters, only if they are connected
    -- + be filtered (see FILTER)
    --
 
@@ -21,7 +21,7 @@ insert
 
 feature {ANY}
    is_connected: BOOLEAN
-         -- True if the stream is connected. Only in that case can data be transfered via this stream.
+         -- True if the stream is connected. Only in that case can data be transferred via this stream.
       deferred
       end
 

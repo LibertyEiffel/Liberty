@@ -389,7 +389,7 @@ feature {ANY} -- Looking and comparison:
    same_items (other: COLLECTION[E_]): BOOLEAN
          -- Do both collections have the same items? The basic `=' is used
          -- for comparison of items and indices are not considered (for
-         -- example this routine may yeld True with `Current' indexed in
+         -- example this routine may yield True with `Current' indexed in
          -- range [1..2] and `other' indexed in range [2..3]).
          --
          -- See also `is_equal', `fast_is_equal'.

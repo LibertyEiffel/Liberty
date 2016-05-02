@@ -21,7 +21,7 @@
 -- -----------------------------------------------------------------------------------------------------------
 class EDC_STORABLE_XML_FILE_DRIVER
    --
-   -- Data is stored in an XML file given by the url after the <code>"xml://"</code> prefix.
+   -- Data is stored in an XML file given by the URL after the <code>"xml://"</code> prefix.
    --
 
 inherit

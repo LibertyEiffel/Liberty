@@ -2,7 +2,7 @@
 --
 deferred class XMLNS_CALLBACKS
    --
-   -- This class fulfills the same role as XML_CALLBACKS, but using namespace differenciation.
+   -- This class fulfills the same role as XML_CALLBACKS, but using namespace differentiation.
    --
 
 feature {XMLNS_PARSER}

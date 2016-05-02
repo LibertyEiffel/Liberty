@@ -6,7 +6,7 @@ class JSON[DATA_]
    -- JSON management.
    --
    -- Notes:
-   --  * only utf-8 is supported.
+   --  * only UTF-8 is supported.
    --  * number overflows are not well managed (if at all)
    --
 

@@ -472,7 +472,7 @@ feature {ANY} -- Subtract:
 
 feature {ANY} -- To divide:
    divide (other: like Current)
-         -- Put the the quotient of the Euclidian division of
+         -- Put the quotient of the Euclidian division of
          -- `Current' by `other' in `Current'.
          -- (The contents of `other' is not changed.)
       require
@@ -484,7 +484,7 @@ feature {ANY} -- To divide:
       end
 
    mod (other: like Current)
-         -- Put the the remainder of the Euclidian division of
+         -- Put the remainder of the Euclidian division of
          -- `Current' by `other' in `Current'.
          -- (The contents of `other' is not changed.)
       require

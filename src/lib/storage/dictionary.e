@@ -4,10 +4,10 @@
 deferred class DICTIONARY[V_, K_]
    --
    -- Associative memory. Values of type `V_' are stored using Keys of type `K_'.
-   -- To make a comparison with the well knowned ARRAY class, with a DICTIONARY, index used are not only
+   -- To make a comparison with the well known ARRAY class, with a DICTIONARY, index used are not only
    -- INTEGER, you can use for example a STRING to access to your information.
    --
-   -- Well knowned implementations, see HASHED_DICTIONARY, AVL_DICTIONARY and ARRAY_DICTIONARY.
+   -- Well known implementations, see HASHED_DICTIONARY, AVL_DICTIONARY and ARRAY_DICTIONARY.
    --
    -- See also BIJECTIVE_DICTIONARY class.
    --

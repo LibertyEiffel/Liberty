@@ -213,7 +213,7 @@ feature {} -- Input and Output:
 feature {} -- Object Printing:
    frozen print (some: STRING)
          -- When some is Void, output "Void" on `std_output', otherwise, output `some' on `std_output'.
-         -- Note: still here for historal reasons.
+         -- Note: still here for historical reasons.
       do
          if some = Void then
             std_output.put_string(once "Void")
@@ -271,7 +271,7 @@ feature {ANY} -- Object Printing:
       end
 
    out_in_tagged_out_memory
-         -- Append terse printable represention of current object in `tagged_out_memory'.
+         -- Append terse printable representation of current object in `tagged_out_memory'.
       require
          locked: tagged_out_locked
       local

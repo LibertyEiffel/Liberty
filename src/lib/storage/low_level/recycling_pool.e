@@ -56,7 +56,7 @@ feature {ANY}
 
   recycle (an_item: like item)
          --
-         -- Stores the object as being reuseable. Automatically calls the "recycle" feature of the object.
+         -- Stores the object as being reusable. Automatically calls the "recycle" feature of the object.
          --
          -- Two notes:
          --

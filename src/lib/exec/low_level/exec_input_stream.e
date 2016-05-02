@@ -2,7 +2,7 @@
 -- See the full copyright at the end.
 --
 class EXEC_INPUT_STREAM
-        -- Common anchestor of EXEC_INPUT_STREAM_WIN32 and EXEC_INPUT_STREAM_POSIX
+        -- Common ancestor of EXEC_INPUT_STREAM_WIN32 and EXEC_INPUT_STREAM_POSIX
 
 inherit
    TERMINAL_INPUT_STREAM

@@ -236,10 +236,10 @@ feature {} -- build
       end
 
    Repeat_infiny: INTEGER -1
-         -- Constant that means "infinite repitition".
+         -- Constant that means "infinite repetition".
 
    emit (item: BACKTRACKING_NODE)
-         -- Pushs 'item' on the stack.
+         -- Pushes 'item' on the stack.
          -- [..] -> [.., item]
       require
          item_not_void: item /= Void
@@ -509,7 +509,7 @@ feature {} -- build
          -- and replace it by a single item that is a or of all of them.
          -- The collection must not be empty.
          -- The order of evaluation will remain.
-         -- The binary or's tree is recurssive on right for efficiency.
+         -- The binary or's tree is recursive on right for efficiency.
          -- [.., Void, X] -> [.., X]
          -- [.., Void, Y, X] -> [.., Y or X]
          -- [.., Void, Z, Y, X] -> [.., Z or (Y or X)]
