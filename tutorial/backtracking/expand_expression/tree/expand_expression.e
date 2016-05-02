@@ -5,7 +5,7 @@ class EXPAND_EXPRESSION
    -- That program shows the use of ABSTRACT_BACKTRACKING.
    --
    -- That program read expressions from the standard input and print the
-   -- expansion of the readen expression on the standard output.
+   -- expansion of the read expression on the standard output.
    -- The expressions are composed of sequence and alternative of terms.
    -- The expansion is the list of all the sequences allowed when
    -- alternatives are removed.
@@ -196,7 +196,7 @@ feature {ANY} -- parsing
       end
 
    parse_alternative: BACKTRACKING_NODE
-         -- parse an alternative recurssively to construct tree
+         -- parse an alternative recursively to construct tree
          -- balanced to the right because it is more efficient
       do
          Result := parse_sequence
@@ -208,7 +208,7 @@ feature {ANY} -- parsing
       end
 
    parse_sequence: BACKTRACKING_NODE
-         -- parse a sequence recurssively to construct tree
+         -- parse a sequence recursively to construct tree
          -- balanced to the right because it is more efficient
       do
          Result := parse_term
@@ -233,7 +233,7 @@ feature {ANY} -- parsing
             -- if already a termination, return the empty item
             Result := the_true_node
          elseif current_character = '(' then
-            -- parse a sub expression in parenthessis
+            -- parse a sub expression in parenthesis
             next_character
             skip_separators
             Result := parse_alternative

@@ -54,7 +54,7 @@ feature {}
       do
          -- About the stack and the sequencer: see the sequencer tutorial
          create stack.make
-         -- Create a server listeneing at the given address
+         -- Create a server listening at the given address
          server := access.server
          -- Must test if the server is effectively listening (otherwise there was an error: address in use and
          -- so on)

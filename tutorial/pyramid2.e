@@ -49,14 +49,14 @@ feature {}
       end
 
    put (value, line, column: INTEGER)
-         -- Updtate `pyramid' and `used'.
+         -- Update `pyramid' and `used'.
       do
          used.put(True, value)
          pyramid.put(value, line, column)
       end
 
    remove (line, column: INTEGER)
-         -- Updtate `pyramid' and `used'.
+         -- Update `pyramid' and `used'.
       do
          if pyramid.item(line, column) /= 0 then
             used.put(False, pyramid.item(line, column))
@@ -130,7 +130,7 @@ feature {}
 
 feature {ANY}
    print_on (file: OUTPUT_STREAM)
-         -- Display the pyramid to the standart output.
+         -- Display the pyramid to the standard output.
       local
          line, column: INTEGER; blanks: STRING
       do

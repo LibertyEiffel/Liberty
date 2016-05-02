@@ -10,7 +10,7 @@ feature {}
          perl: PERL
       do
          create perl.make
-         io.flush -- All buffered Eiffel text is written before perl is writting.
+         io.flush -- All buffered Eiffel text is written before perl is writing.
          perl.instruction(once "use strict;print(%"Hello!\n%");")
          perl.instruction(once "[
                                 print("Perl code in verbatim mode, even % character is allowed!\n");

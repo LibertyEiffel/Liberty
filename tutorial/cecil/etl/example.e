@@ -28,7 +28,7 @@ feature {ANY}
          -- The following loop should trigger the GC a few times (use
          -- the -gc_info option to be sure that the GC is called).
          -- As the allocated STRING in the following loop ("bar%N") has
-         -- exactely the same size as the one allocated on the C side
+         -- exactly the same size as the one allocated on the C side
          -- ("foo%N"), the former should overwrite the latter.
 
          from
