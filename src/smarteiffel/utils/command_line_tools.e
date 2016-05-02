@@ -112,7 +112,7 @@ feature {}
          -- Memory of `is_help_flag'.
 
    search_for_echo_redirect_flag: STRING
-         -- Seach for the -output_error_warning_on flag amongs arguments in order to apply redirection as
+         -- Search for the -output_error_warning_on flag among arguments in order to apply redirection as
          -- early as possible (should be called first when the command accept this flag).
          -- A non Void `Result' indicates the redirection path.
       local
@@ -159,7 +159,7 @@ feature {}
       end
 
    search_for_verbose_flag
-         -- Seach the -verbose flag amongs arguments in order to become verbose as soon as possible (should be
+         -- Search the -verbose flag among arguments in order to become verbose as soon as possible (should be
          -- called after `search_for_echo_redirect_flag' when the command accept this flag).
       local
          argi: INTEGER; arg: STRING; found: BOOLEAN
@@ -211,12 +211,12 @@ feature {}
          -- Search for some ACE file name in the command line arguments.  When some argument has the
          -- appropriate suffix (ie. ".ace" or ".ACE"), the `ace' parser is automatically launched in order to
          -- parse this configuration file. The caller is then notified that we are now in ACE mode (the result
-         -- is True). When we are in ACE mode, remainings allowed argument are automatically handled.
+         -- is True). When we are in ACE mode, remaining allowed arguments are automatically handled.
       local
          i: INTEGER; arg: STRING
       do
          if system_tools /= Void then
-            -- Be sure system_tools is intanciated before reading the ACE file (otherwise we have a buffer
+            -- Be sure system_tools is instanciated before reading the ACE file (otherwise we have a buffer
             -- conflict)
          end
          -- First, search for some *.ace or *.ACE file name:

@@ -4,7 +4,7 @@
 class MANIFEST_STRING
    --
    -- Any kind of manifest strings: classic STRING as well as UNICODE_STRING
-   -- writtent using the classic way as well as multi-line verbatim
+   -- written using the classic way as well as multi-line verbatim
    -- manifest strings. Also note that the onceness status of the
    -- corresponding manifest string is also part of the MANIFEST_STRING
    -- object knowledge.
@@ -275,12 +275,12 @@ feature {PARSER}
 
 feature {MANIFEST_STRING, MANIFEST_STRING_POOL, CODE_PRINTER}
    alias_link: like Current
-         -- May be non Void to indicate that `alias_link' has exactely the same initial storage information as
-         -- `Current'. In this situation, both `Current' and `alias_link' have exactely the same `initial_storage_id'
+         -- May be non Void to indicate that `alias_link' has exactly the same initial storage information as
+         -- `Current'. In this situation, both `Current' and `alias_link' have exactly the same `initial_storage_id'
          -- mangling.
 
    initial_storage_id: STRING
-         -- Mangling value used to distinghish the initial storage information from all other possible MANIFEST_STRINGs.
+         -- Mangling value used to distinguish the initial storage information from all other possible MANIFEST_STRINGs.
          -- (Actually when some MANIFEST_STRING have the same initial storage information than another one, the storage
          -- itself is shared into a global variable. The corresponding global variable is used only and only if
          -- there is really an actual alias collected.)

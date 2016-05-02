@@ -5,7 +5,7 @@ class C_SPLITTER_LEGACY
    --
    -- The legacy generated C files splitter
    --
-   -- Tries to somewhat equalize the sice of the C files
+   -- Tries to somewhat equalize the size of the C files
    --
 
 inherit

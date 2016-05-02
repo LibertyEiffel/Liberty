@@ -186,7 +186,7 @@ feature {ANY}
             target_type := t.resolve_in(type)
             af := feature_stamp.anonymous_feature(target_type)
             args := arguments.simplify(type)
-            -- Attemp to inline first:
+            -- Attempt to inline first:
             inline_memo := af.inline_instruction_1(type, target_type, t, args.first)
             if inline_memo /= Void then
                Result := inline_memo.instruction

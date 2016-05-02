@@ -263,7 +263,7 @@ feature {}
       end
 
    collected_storage_id_set: SET[STRING]
-         -- Because we share common initial storage amongs collected MANIFEST_STRINGs, we have to maintain this set up to
+         -- Because we share common initial storage among collected MANIFEST_STRINGs, we have to maintain this set up to
          -- date while collecting.
       once
          create {HASHED_SET[STRING]} Result.with_capacity(4096)

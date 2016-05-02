@@ -63,7 +63,7 @@ feature {ANY}
    declaration_type: TYPE
       do
          check
-            -- The special treatement must be done before.
+            -- The special treatment must be done before.
             False
          end
       end

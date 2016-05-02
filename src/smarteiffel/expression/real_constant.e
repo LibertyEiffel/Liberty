@@ -52,7 +52,7 @@ feature {ANY}
       end
 
    to_string: STRING
-         -- Which is actually exactely the way the real was written by the user (see also `normalized_view').
+         -- Which is actually exactly the way the real was written by the user (see also `normalized_view').
       do
          Result := pretty_view
       end
@@ -81,7 +81,7 @@ feature {ANY}
                cc := pretty_view.item(i)
                inspect
                   state
-               when 0 then   -- Still waiting fot the first non zero digit of the mantissa.
+               when 0 then   -- Still waiting for the first non zero digit of the mantissa.
                   inspect
                      cc
                   when '{' then
@@ -115,7 +115,7 @@ feature {ANY}
                   when '_' then
                      -- Ignored.
                   end
-               when 3 then   -- Inside frational part.
+               when 3 then   -- Inside rational part.
                   inspect
                      cc
                   when '0' then

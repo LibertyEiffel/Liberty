@@ -174,7 +174,7 @@ feature {ANY}
          old top = top + 1
          context_stack.valid_index(top) implies stack_top.valid
 -- ***         not (old stack_top).valid
--- *** Well, at time beeing, the previous assertion cannot be compiled....
+-- *** Well, at time being, the previous assertion cannot be compiled....
 -- *** Dom. june 8th 2008 ***
       end
 

@@ -114,7 +114,7 @@ feature {ANY}
       end
 
    append_in (buffer: STRING)
-         -- Append in `buffer' Eiffel prettifyed view of `Current'.
+         -- Append in `buffer' Eiffel prettified view of `Current'.
       do
          if pretty_view /= Void then
             buffer.append(pretty_view)

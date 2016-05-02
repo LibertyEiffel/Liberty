@@ -230,7 +230,7 @@ feature {}
             Result := precomputable_function_list.item(i)
             if Result.feature_stamp = fs and then Result.context_type = type then
                -- (We have found the same one.)
-               -- We may consider to ommit the comparison of `type' and `context_type', but I am not really sure of
+               -- We may consider to omit the comparison of `type' and `context_type', but I am not really sure of
                -- that.
             else
                Result := Void

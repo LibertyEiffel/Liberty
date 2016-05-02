@@ -196,7 +196,7 @@ feature {CREATION_CLAUSE_LIST}
             i > procedure_list.count
          loop
             fn := procedure_list.item(i)
-            -- Using `search' here because the existance of all creation procedures is done
+            -- Using `search' here because the existence of all creation procedures is done
             -- for all TYPEs (reference and expanded as well) somewhere else:
             fs := type.search(fn)
             if fs /= Void then

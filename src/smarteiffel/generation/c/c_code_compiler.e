@@ -3,7 +3,7 @@
 --
 class C_CODE_COMPILER
    -- For an INSTRUCTION, produce the corresponding C code. For an EXPRESSION the C code to access
-   -- the value (user's expanded are no longuer pointer).
+   -- the value (user's expanded are no longer pointer).
 
 inherit
    CODE_VISITOR
@@ -103,7 +103,7 @@ feature {ASSIGNMENT_ATTEMPT}
          function_body.append(left_type.name.to_string)
          if visited.forced_flag then
             check
-               not ace.boost -- Alway replaced with an assignment in boost mode.
+               not ace.boost -- Always replaced with an assignment in boost mode.
             end
             function_body.append(once " ::= ")
          else
@@ -420,7 +420,7 @@ feature {CREATE_INSTRUCTION}
                internal_c_local.unlock
             end
          end
-         -- For all kind of newly created objet, we may call the class invariant:
+         -- For all kind of newly created object, we may call the class invariant:
          class_invariant_flag := cpp.class_invariant_call_opening(created_type_memory, True)
          if class_invariant_flag > 0 then
             if created_type_memory.is_expanded and then cpp.need_struct.for(created_type_memory.canonical_type_mark) then

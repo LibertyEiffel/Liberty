@@ -97,7 +97,7 @@ feature {WRITABLE_ATTRIBUTE}
       do
          if can_be_dropped_flag then
             -- Reading an attribute is harmless while trying to drop some code.
-            -- Note this cannot be the left-hand side of an assignement (see WRITABLE_ATTRIBUTE_NAME).
+            -- Note this cannot be the left-hand side of an assignment (see WRITABLE_ATTRIBUTE_NAME).
          else
             precomputable := False
          end
@@ -1225,7 +1225,7 @@ feature {}
       end
 
    current_dynamic_type: TYPE
-         -- Of the currenly visited feature.
+         -- Of the currently visited feature.
       do
          Result := type_stack.last
       end

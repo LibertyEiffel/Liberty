@@ -125,7 +125,7 @@ feature {TYPE}
          Result := rename_list.item(i)
       end
 
-feature {PARENT_EDGE, VISITOR} -- Optionnal list in syntaxical order:
+feature {PARENT_EDGE, VISITOR} -- Optional list in syntactical order:
    rename_list: RENAME_LIST
 
    export_list: EXPORT_LIST
