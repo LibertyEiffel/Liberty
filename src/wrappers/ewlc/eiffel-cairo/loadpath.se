@@ -1,5 +1,0 @@
-../common/loadpath.se
-./library/loadpath.se
-../eiffel-gobject/library/loadpath.se
-../eiffel-glib/loadpath.se
-..

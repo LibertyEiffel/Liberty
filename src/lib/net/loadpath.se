@@ -7,4 +7,3 @@ protocols/
 resource_locators/
 servers/
 servers/http/
-ezmq/loadpath.se
