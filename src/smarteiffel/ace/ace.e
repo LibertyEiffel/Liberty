@@ -114,7 +114,7 @@ feature {ANY}
          root_index := root_index + 1
       end
 
-   reset_roots is
+   reset_roots
       do
          root_index := 0
       end
