@@ -893,10 +893,10 @@ feature {}
                      error_handler.append_integer(digit_count)
                      error_handler.add_position(current_position)
                      error_handler.append(
-                         " digits). You must use exactely 2, 4, 8 or 16 digits only. A 2 digits value %
-                         %denote an INTEGER_8, a 4 digits value denote an INTEGER_16, a 8 digits value %
-                         %denote an INTEGER_32, and, finally, a 16 digits value denote an INTEGER_64. %
-                         %(See examples in file %"SmartEiffel/tutorial/hexadecimal.e%".)")
+                         " digits). You must use exactly 2, 4, 8 or 16 digits only. A 2 digit value %
+                         %denotes an INTEGER_8, a 4 digit value denotes an INTEGER_16, an 8 digit value %
+                         %denotes an INTEGER_32, and, finally, a 16 digit value denotes an INTEGER_64. %
+                         %(See examples in file %"tutorial/manifest_notation.e%".)")
                      error_handler.print_as_fatal_error
                   end
                   if pretty_view.first /= '{' then
@@ -1794,7 +1794,7 @@ feature {}
                         pretty_view.extend(cc); next_char
                         if not cc.is_hexadecimal_digit then
                            error_handler.add_position(current_position)
-                           error_handler.append(once "Must use exactely two hexadecimal digit for a CHARACTER constant.")
+                           error_handler.append(once "Must use exactly two hexadecimal digits for a CHARACTER constant.")
                            error_handler.print_as_error
                         end
                         ascii_code := ascii_code * 16 + cc.hexadecimal_value
