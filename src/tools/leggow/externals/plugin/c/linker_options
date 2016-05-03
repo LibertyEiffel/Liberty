@@ -1,2 +1,0 @@
-[UNIX]
-glib: "$(pkg-config --libs gobject-introspection-1.0)"

@@ -1,3 +1,0 @@
-[UNIX]
-glib: "$(pkg-config --cflags gobject-introspection-1.0)"
-
