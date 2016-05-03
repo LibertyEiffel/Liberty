@@ -433,8 +433,6 @@ if (substage("wrappers")) {
       $genresult = warnErrAdd($genresult, genWrapper("posix"));
       $genresult = warnErrAdd($genresult, genWrapper("posix/dynamic-linking"));
       $genresult = warnErrAdd($genresult, genWrapper("readline"));
-      $genresult = warnErrAdd($genresult, genWrapper("xml"));
-      $genresult = warnErrAdd($genresult, genWrapper("zmq"));
       $wrapperresult = $genresult;
       
       file_put_contents($stagedir ."/result.txt", $wrapperresult);
