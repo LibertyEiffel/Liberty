@@ -1,0 +1,8 @@
+This cluster - Eiffel-plugin - is an experiment on how to implement plug-in for Eiffel, i.e. loading external libraries providing new functionalities.
+
+It shall not to be confused with the external plugin mechanism.
+
+To further confuse things, this plugins do actually use the external plugin
+mechanism.... Or shall we call it PLUGGABLE?
+
+

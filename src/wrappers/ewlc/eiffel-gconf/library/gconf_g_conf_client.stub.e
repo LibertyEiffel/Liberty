@@ -1,0 +1,1352 @@
+note
+	description: "."
+	copyright: "[
+					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+	wrapped_version: "Unknown"
+
+class GCONF_G_CONF_CLIENT
+
+inherit
+	(SHARED_?)C_STRUCT
+
+insert
+	GCONF_G_CONF_CLIENT_EXTERNALS
+
+create {ANY} make, from_external_pointer
+
+feature {} -- Creation
+
+	--   Link: GConf Reference Manual (start)
+	--   Link: Using the GConf library (parent)
+	--   Link: Using the GConf library (previous)
+	--   Link: gconf-backend (next)
+	--   Link: Using the GConf library (chapter)
+	--
+	--   Prev Up Home                  GConf Reference Manual                  Next
+	--   Top  |  Description
+	--
+	--   GConfClient
+	--
+	--   GConfClient -- GObject-based convenience wrapper
+	--
+	--Synopsis
+	--
+	--
+	--
+	--
+	-- enum                GConfClientPreloadType;
+	-- enum                GConfClientErrorHandlingMode;
+	-- void                (*GConfClientNotifyFunc)            (GConfClient *client,
+	--                                                          guint cnxn_id,
+	--                                                          GConfEntry *entry,
+	--                                                          gpointer user_data);
+	-- void                (*GConfClientErrorHandlerFunc)      (GConfClient *client,
+	--                                                          GError *error);
+	-- #define             GCONF_CLIENT                        (obj)
+	-- GConfClient*        gconf_client_get_default            (void);
+	-- GConfClient*        gconf_client_get_for_engine         (GConfEngine *engine);
+	-- void                gconf_client_add_dir                (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GConfClientPreloadType preload,
+	--                                                          GError **err);
+	-- void                gconf_client_remove_dir             (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	-- guint               gconf_client_notify_add             (GConfClient *client,
+	--                                                          const gchar *namespace_section,
+	--                                                          GConfClientNotifyFunc func,
+	--                                                          gpointer user_data,
+	--                                                          GFreeFunc destroy_notify,
+	--                                                          GError **err);
+	-- void                gconf_client_notify_remove          (GConfClient *client,
+	--                                                          guint cnxn);
+	-- void                gconf_client_notify                 (GConfClient *client,
+	--                                                          const char *key);
+	-- void                gconf_client_set_error_handling     (GConfClient *client,
+	--                                                          GConfClientErrorHandlingMode mode);
+	-- void                gconf_client_set_global_default_error_handler
+	--                                                         (GConfClientErrorHandlerFunc func);
+	-- void                gconf_client_clear_cache            (GConfClient *client);
+	-- void                gconf_client_preload                (GConfClient *client,
+	--                                                          const gchar *dirname,
+	--                                                          GConfClientPreloadType type,
+	--                                                          GError **err);
+	-- void                gconf_client_set                    (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          const GConfValue *val,
+	--                                                          GError **err);
+	-- GConfValue*         gconf_client_get                    (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- GConfValue*         gconf_client_get_without_default    (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- GConfEntry*         gconf_client_get_entry              (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          const gchar *locale,
+	--                                                          gboolean use_schema_default,
+	--                                                          GError **err);
+	-- GConfValue*         gconf_client_get_default_from_schema
+	--                                                         (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_unset                  (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_recursive_unset        (GConfClient *client,
+	--                                                          const char *key,
+	--                                                          GConfUnsetFlags flags,
+	--                                                          GError **err);
+	-- GSList*             gconf_client_all_entries            (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	-- GSList*             gconf_client_all_dirs               (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	-- void                gconf_client_suggest_sync           (GConfClient *client,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_dir_exists             (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_key_is_writable        (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gdouble             gconf_client_get_float              (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gint                gconf_client_get_int                (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gchar*              gconf_client_get_string             (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_get_bool               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- GConfSchema*        gconf_client_get_schema             (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- GSList*             gconf_client_get_list               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_get_pair               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gpointer car_retloc,
+	--                                                          gpointer cdr_retloc,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_set_float              (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          gdouble val,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_set_int                (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          gint val,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_set_string             (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          const gchar *val,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_set_bool               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          gboolean val,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_set_schema             (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          const GConfSchema *val,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_set_list               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GSList *list,
+	--                                                          GError **err);
+	-- gboolean            gconf_client_set_pair               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gconstpointer address_of_car,
+	--                                                          gconstpointer address_of_cdr,
+	--                                                          GError **err);
+	-- void                gconf_client_error                  (GConfClient *client,
+	--                                                          GError *error);
+	-- void                gconf_client_unreturned_error       (GConfClient *client,
+	--                                                          GError *error);
+	-- void                gconf_client_value_changed          (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValue *value);
+	-- gboolean            gconf_client_commit_change_set      (GConfClient *client,
+	--                                                          GConfChangeSet *cs,
+	--                                                          gboolean remove_committed,
+	--                                                          GError **err);
+	-- GConfChangeSet*     gconf_client_reverse_change_set     (GConfClient *client,
+	--                                                          GConfChangeSet *cs,
+	--                                                          GError **err);
+	-- GConfChangeSet*     gconf_client_change_set_from_currentv
+	--                                                         (GConfClient *client,
+	--                                                          const gchar **keys,
+	--                                                          GError **err);
+	-- GConfChangeSet*     gconf_client_change_set_from_current
+	--                                                         (GConfClient *client,
+	--                                                          GError **err,
+	--                                                          const gchar *first_key,
+	--                                                          ...);
+	--
+	--
+	--Description
+	--
+	--   GConfClient adds the following features to plain GConf:
+	--
+	--     o A client-side cache for a specified list of directories you're
+	--       interested in. You can "preload" entire directories into the cache,
+	--       speeding things up even more.
+	--
+	--     o Some automatic error handling, if you request it.
+	--
+	--     o Signals when a value changes or an error occurs.
+	--
+	--  Warning
+	--
+	--   If you use GConfClient, you should not use the underlying GConfEngine
+	--   directly, or you'll break things. This is why there's no
+	--   gconf_client_get_engine() function; in fact, if you create the GConfClient
+	--   with gconf_client_get_default(), there is no (legitimate) way to obtain a
+	--   pointer to the underlying GConfEngine. If you create a GConfClient from an
+	--   existing engine, you'll have to be disciplined enough to avoid using that
+	--   engine directly. ^[1]
+	--
+	--   A GConfClient has a list of directories that it "watches." These
+	--   directories are optionally pre-loaded into the cache, and monitored in
+	--   order to emit the value_changed signal. The GConfClient can also be used
+	--   to access directories not in the list, but those directories won't be
+	--   preloaded and the "value_changed" signal won't be emitted for them.
+	--
+	--   There are two error-related signals in GConfClient. The first is plain
+	--   "error"; it's emitted anytime an error occurs. The second is
+	--   "unreturned_error"; this signal is emitted if you pass NULL as the
+	--   GError** to any GConfClient function. The idea is that you can have a
+	--   global error handler attached to the "unreturned_error" signal; if you
+	--   want to use this handler, you don't need to use the normal GConf error
+	--   handling mechanism. However, if you ever need to handle errors for a
+	--   specific function call, you can override the global handler by passing a
+	--   non-NULL GError** to the function. If you want an error handler that's
+	--   always invoked, use the "error" signal.
+	--
+	--   The "value_changed" signal is emitted whenever the server notifies your
+	--   client program that a value has changed in the GConf database. There's one
+	--   problem with this signal: the signal handler has to use strcmp() to
+	--   determine whether the changed value is the one it was interested in. If
+	--   you are interested in lots of values, then every time a value changes
+	--   you'll be making lots of calls to strcmp() and getting O(n) performance.
+	--   gconf_client_notify_add() is a superior interface in most cases for this
+	--   reason. Note that calling gconf_client_set() and its relatives will cause
+	--   "value_changed" to be emitted, but "value_changed" is also emitted if
+	--   another process changes the value.
+	--
+	--   Most of the GConfClient interface mirrors the functions you'd use to
+	--   manipulate a GConfEngine (gconf_engine_get() and gconf_client_get(), for
+	--   example). These should all work just like the GConfEngine versions, except
+	--   that they use the cache from GConfClient and emit the GConfClient signals.
+	--
+	--   As always with GConf, applications based on GConfClient should use a
+	--   model-controller-view architecture. Typically, this means that areas of
+	--   your application affected by a setting will monitor the relevant key and
+	--   update themselves when necessary. The preferences dialog will simply
+	--   change keys, allowing GConf to notify the rest of the application that
+	--   changes have occurred. Here the application proper is the "view," GConf is
+	--   the "model", and the preferences dialog is the "controller." In no case
+	--   should you do this:
+	--
+	--  gconf_client_set(client, key, value);
+	--  application_update_to_reflect_setting();
+	--
+	--   This breaks if a setting is changed outside your application--or even from
+	--   a different part of your application. The correct way (in pseudo-code) is:
+	--
+	--  /* At application startup */
+	--  gconf_client_notify_add(client, key, application_update_to_reflect_setting, data);
+	--
+	--  /* From preferences dialog */
+	--  gconf_client_set(client, key, value);
+	--
+	--   See the example programs that come with GConf for more details.
+	--
+	--Details
+	--
+	--  enum GConfClientPreloadType
+	--
+	-- typedef enum { /*< prefix=GCONF_CLIENT >*/
+	--   GCONF_CLIENT_PRELOAD_NONE,     /* don't preload anything */
+	--   GCONF_CLIENT_PRELOAD_ONELEVEL, /* load entries directly under the directory. */
+	--   GCONF_CLIENT_PRELOAD_RECURSIVE /* recurse the directory tree; possibly quite expensive! */
+	-- } GConfClientPreloadType;
+	--
+	--   The GConfClientPreloadType is used to tell GConfClient how to preload one
+	--   of its directories. As a rule of thumb, if you plan to get the value of
+	--   almost all the keys in a directory, preloading that directory will
+	--   probably enhance performance. If you plan to use only half the keys,
+	--   preloading is likely a bad idea. GCONF_CLIENT_PRELOAD_NONE specifies that
+	--   no preload occurs, GCONF_CLIENT_PRELOAD_ONELEVEL loads the immediate
+	--   children of the directory, GCONF_CLIENT_PRELOAD_RECURSIVE loads all
+	--   children of the directory and its subdirectories, recursively.
+	--
+	--   GCONF_CLIENT_PRELOAD_NONE      preload nothing.
+	--   GCONF_CLIENT_PRELOAD_ONELEVEL  preload immediate children of the
+	--                                  directory.
+	--   GCONF_CLIENT_PRELOAD_RECURSIVE recursively preload everything in and below
+	--                                  the directory.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum GConfClientErrorHandlingMode
+	--
+	-- typedef enum { /*< prefix=GCONF_CLIENT >*/
+	--   GCONF_CLIENT_HANDLE_NONE,
+	--   GCONF_CLIENT_HANDLE_UNRETURNED,
+	--   GCONF_CLIENT_HANDLE_ALL
+	-- } GConfClientErrorHandlingMode;
+	--
+	--   GConfClientErrorHandlingMode is used to control GConfClient's default
+	--   error handling. GConfClient can pop up a dialog in the default signal
+	--   handler for "error" or "unreturned_error." You can specify that no errors
+	--   are handled, only unreturned errors are handled, or all errors are handled
+	--   with this enumeration. You can prevent specific errors from being handled
+	--   automatically by stopping the signal emission before the default signal
+	--   handler is called (see the GLib documentation,
+	--   g_signal_stop_emission_by_name() for example).
+	--
+	--   GCONF_CLIENT_HANDLE_NONE       never run a default error handler.
+	--   GCONF_CLIENT_HANDLE_UNRETURNED run a default error handler for unreturned
+	--                                  errors ("unreturned_error" signal).
+	--   GCONF_CLIENT_HANDLE_ALL        run a default error handler for all errors
+	--                                  ("error" signal).
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  GConfClientNotifyFunc ()
+	--
+	-- void                (*GConfClientNotifyFunc)            (GConfClient *client,
+	--                                                          guint cnxn_id,
+	--                                                          GConfEntry *entry,
+	--                                                          gpointer user_data);
+	--
+	--   This is the signature of a user function added with
+	--   gconf_client_notify_add(). The notify function is invoked when the value
+	--   of a key changes. The value argument is the new value, or NULL if the key
+	--   was unset. The value argument should not be modified, and should be copied
+	--   if you want to keep it around (the GConfClient will destroy it sometime
+	--   after your notify function is called).
+	--
+	--   client :    the GConfClient notifying us.
+	--   cnxn_id :   connection ID from gconf_client_notify_add().
+	--   entry :     a GConfEntry.
+	--   user_data : user data from gconf_client_notify_add().
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  GConfClientErrorHandlerFunc ()
+	--
+	-- void                (*GConfClientErrorHandlerFunc)      (GConfClient *client,
+	--                                                          GError *error);
+	--
+	--   This is the signature of a user function which needs to be called for
+	--   error handling.
+	--
+	--   client : a GConfClient.
+	--   error :  the return location for an allocated GError, or NULL to ignore
+	--            errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  GCONF_CLIENT()
+	--
+	-- #define GCONF_CLIENT(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GCONF_TYPE_CLIENT, GConfClient))
+	--
+	--   Casts a pointer to a GConfClient*.
+	--
+	--   obj : a GConfClient.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_default ()
+	--
+	-- GConfClient*        gconf_client_get_default            (void);
+	--
+	--   Creates a new GConfClient using the default GConfEngine. Normally this is
+	--   the engine you want. If someone else is already using the default
+	--   GConfClient, this function returns the same one they're using, but with
+	--   the reference count incremented. So you have to unref either way.
+	--
+	--   It's important to call g_type_init() before using this GObject, to
+	--   initialize the type system.
+	--
+	--   Returns : a new GConfClient. g_object_unref() when you're done.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_for_engine ()
+	--
+	-- GConfClient*        gconf_client_get_for_engine         (GConfEngine *engine);
+	--
+	--   Creates a new GConfClient with a specific GConfEngine. Only specialized
+	--   configuration-related programs should need to call this function. The
+	--   returned GConfClient should be unref'd when you're done with
+	--   g_object_unref(). Remember to avoid using the GConfEngine directly once
+	--   you have a GConfClient wrapper.
+	--
+	--   engine :  the GConfEngine to use.
+	--   Returns : a new GConfClient.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_add_dir ()
+	--
+	-- void                gconf_client_add_dir                (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GConfClientPreloadType preload,
+	--                                                          GError **err);
+	--
+	--   Add a directory to the list of directories the GConfClient will watch. Any
+	--   changes to keys below this directory will cause the "value_changed" signal
+	--   to be emitted. When you add the directory, you can request that the
+	--   GConfClient preload its contents; see GConfClientPreloadType for details.
+	--
+	--   Added directories may not overlap. That is, if you add "/foo", you may not
+	--   add "/foo/bar". However you can add "/foo" and "/bar". You can also add
+	--   "/foo" multiple times; if you add a directory multiple times, it will not
+	--   be removed until you call gconf_client_remove_dir() an equal number of
+	--   times.
+	--
+	--   client :  a GConfClient.
+	--   dir :     directory to add to the list.
+	--   preload : degree of preload.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_remove_dir ()
+	--
+	-- void                gconf_client_remove_dir             (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	--
+	--   Remove a directory from the list created with gconf_client_add_dir(). If
+	--   any notifications have been added below this directory with
+	--   gconf_client_notify_add(), those notifications will be disabled until you
+	--   re-add the removed directory. Note that if a directory has been added
+	--   multiple times, you must remove it the same number of times before the
+	--   remove takes effect.
+	--
+	--   client : a GConfClient.
+	--   dir :    directory to remove.
+	--   err :    the return location for an allocated GError, or NULL to ignore
+	--            errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_notify_add ()
+	--
+	-- guint               gconf_client_notify_add             (GConfClient *client,
+	--                                                          const gchar *namespace_section,
+	--                                                          GConfClientNotifyFunc func,
+	--                                                          gpointer user_data,
+	--                                                          GFreeFunc destroy_notify,
+	--                                                          GError **err);
+	--
+	--   Request notification of changes to namespace_section. This includes the
+	--   key namespace_section itself, and any keys below it (the behavior is
+	--   identical to gconf_engine_notify_add(), but while
+	--   gconf_engine_notify_add() places a notification request on the server for
+	--   every notify function, GConfClient requests server notification for
+	--   directories added with gconf_client_add_dir() and keeps the list of
+	--   GConfClientNotifyFunc on the client side).
+	--
+	--   For the notification to happen, namespace_section must be equal to or
+	--   below one of the directories added with gconf_client_add_dir(). You can
+	--   still call gconf_client_notify_add() for other directories, but no
+	--   notification will be received until you add a directory above or equal to
+	--   namespace_section. One implication of this is that
+	--   gconf_client_remove_dir() temporarily disables notifications that were
+	--   below the removed directory.
+	--
+	--   The function returns a connection ID you can use to call
+	--   gconf_client_notify_remove().
+	--
+	--   See the description of GConfClientNotifyFunc for details on how the
+	--   notification function is called.
+	--
+	--   client :            a GConfClient.
+	--   namespace_section : where to listen for changes.
+	--   func :              function to call when changes occur.
+	--   user_data :         user data to pass to func.
+	--   destroy_notify :    function to call on user_data when the notify is
+	--                       removed or the GConfClient is destroyed, or NULL for
+	--                       none.
+	--   err :               the return location for an allocated GError, or NULL
+	--                       to ignore errors.
+	--   Returns :           a connection ID for removing the notification.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_notify_remove ()
+	--
+	-- void                gconf_client_notify_remove          (GConfClient *client,
+	--                                                          guint cnxn);
+	--
+	--   Remove a notification using the ID returned from
+	--   gconf_client_notify_add(). Invokes the destroy notify function on the
+	--   notification's user data, if appropriate.
+	--
+	--   client : a GConfClient.
+	--   cnxn :   connection ID.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_notify ()
+	--
+	-- void                gconf_client_notify                 (GConfClient *client,
+	--                                                          const char *key);
+	--
+	--   Emits the "value-changed" signal and notifies listeners as if key had been
+	--   changed
+	--
+	--   client : a GConfClient.
+	--   key :    the key that has changed.
+	--
+	--   Since 2.4.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set_error_handling ()
+	--
+	-- void                gconf_client_set_error_handling     (GConfClient *client,
+	--                                                          GConfClientErrorHandlingMode mode);
+	--
+	--   Controls the default error handling for GConfClient. See
+	--   GConfClientErrorHandlingMode and GConfClientParentWindowFunc for details
+	--   on this.
+	--
+	--   client : a GConfClient.
+	--   mode :   error handling mode.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set_global_default_error_handler ()
+	--
+	-- void                gconf_client_set_global_default_error_handler
+	--                                                         (GConfClientErrorHandlerFunc func);
+	--
+	--   Set func as the default error handler for the GConfClient. This handler
+	--   would be called for all GConfClient internal errors.
+	--
+	--   func : pointer to the function to be called for error handling.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_clear_cache ()
+	--
+	-- void                gconf_client_clear_cache            (GConfClient *client);
+	--
+	--   Dumps everything out of the GConfClient client-side cache. If you know
+	--   you're done using the GConfClient for a while, you can call this function
+	--   to save some memory.
+	--
+	--   client : a GConfClient.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_preload ()
+	--
+	-- void                gconf_client_preload                (GConfClient *client,
+	--                                                          const gchar *dirname,
+	--                                                          GConfClientPreloadType type,
+	--                                                          GError **err);
+	--
+	--   Preloads a directory. Normally you do this when you call
+	--   gconf_client_add_dir(), but if you've called gconf_client_clear_cache()
+	--   there may be a reason to do it again.
+	--
+	--   client :  a GConfClient.
+	--   dirname : directory to preload.
+	--   type :    degree of preload.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set ()
+	--
+	-- void                gconf_client_set                    (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          const GConfValue *val,
+	--                                                          GError **err);
+	--
+	--   Sets the value of a configuration key. Just like gconf_engine_set(), but
+	--   uses GConfClient caching and error-handling features. The val argument
+	--   will not be modified.
+	--
+	--   client : a GConfClient.
+	--   key :    key to set.
+	--   val :    new value.
+	--   err :    the return location for an allocated GError, or NULL to ignore
+	--            errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get ()
+	--
+	-- GConfValue*         gconf_client_get                    (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Gets the value of a configuration key. Just like gconf_engine_get(), but
+	--   uses GConfClient caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key to get.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : newly-allocated GConfValue, or NULL if unset and no default
+	--             exists.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_without_default ()
+	--
+	-- GConfValue*         gconf_client_get_without_default    (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Gets the value of a configuration key. Just like gconf_client_get() but
+	--   doesn't look for a default value if the key is unset.
+	--
+	--   client :  a GConfClient.
+	--   key :     key to get.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : newly-allocated GConfValue, or NULL if unset (even if a default
+	--             exists).
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_entry ()
+	--
+	-- GConfEntry*         gconf_client_get_entry              (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          const gchar *locale,
+	--                                                          gboolean use_schema_default,
+	--                                                          GError **err);
+	--
+	--   Obtains the full GConfEntry for a value. Just like
+	--   gconf_engine_get_entry(), but uses GConfClient caching and error-handling
+	--   features.
+	--
+	--   client :             a GConfClient.
+	--   key :                key to get.
+	--   locale :             preferred locale (as in the locale-related
+	--                        environment variables).
+	--   use_schema_default : indicates whether to look for a default value when
+	--                        the key is unset.
+	--   err :                the return location for an allocated GError, or NULL
+	--                        to ignore errors.
+	--   Returns :            a GConfEntry.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_default_from_schema ()
+	--
+	-- GConfValue*         gconf_client_get_default_from_schema
+	--                                                         (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Returns the default value stored in the key's schema, if the key has a
+	--   schema associated and the schema exists and the schema contains a default
+	--   value. Note that gconf_client_get(), gconf_engine_client_string(), and so
+	--   on already return the default value if no other value is found, so
+	--   normally you do not need this function. This function is just for
+	--   convenience; you could also get the GConfMetaInfo for the key, read the
+	--   schema name from there, then look up the schema by name and extract the
+	--   default value. Just like gconf_engine_get_default_from_schema(), but uses
+	--   GConfClient caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key to get.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : newly-allocated GConfValue, or NULL if the key has no default
+	--             value in its schema.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_unset ()
+	--
+	-- gboolean            gconf_client_unset                  (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Unsets the value of key; if key is already unset, has no effect. An error
+	--   of note is GCONF_OVERRIDDEN, indicating that the system administrator has
+	--   "forced" a value for this key. Just like gconf_engine_unset(), but uses
+	--   GConfClient caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key to unset.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_recursive_unset ()
+	--
+	-- gboolean            gconf_client_recursive_unset        (GConfClient *client,
+	--                                                          const char *key,
+	--                                                          GConfUnsetFlags flags,
+	--                                                          GError **err);
+	--
+	--   Unsets all keys below key, including key itself. If any unset fails,
+	--   continues on to unset as much as it can. The first failure is returned in
+	--   err. Just like gconf_engine_recursive_unset(), but uses GConfClient
+	--   caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     a key or directory name to be unset.
+	--   flags :   change how the unset is done.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   Since 2.4.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_all_entries ()
+	--
+	-- GSList*             gconf_client_all_entries            (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	--
+	--   Lists the key-value pairs in dir. Does not list subdirectories; for that
+	--   use gconf_client_all_dirs(). The returned list contains GConfEntry
+	--   objects. A GConfEntry contains an absolute key and a value. The list is
+	--   not recursive, it contains only the immediate children of dir. To free the
+	--   returned list, gconf_entry_free() each list element, then g_slist_free()
+	--   the list itself. Just like gconf_engine_all_entries(), but uses
+	--   GConfClient caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   dir :     directory to list.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : List of GConfEntry.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_all_dirs ()
+	--
+	-- GSList*             gconf_client_all_dirs               (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	--
+	--   Lists the subdirectories in dir. The returned list contains allocated
+	--   strings. Each string is the absolute path of a subdirectory. You should
+	--   g_free() each string in the list, then g_slist_free() the list itself.
+	--   Just like gconf_engine_all_dirs(), but uses GConfClient caching and
+	--   error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   dir :     directory to get subdirectories from.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : List of allocated subdirectory names.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_suggest_sync ()
+	--
+	-- void                gconf_client_suggest_sync           (GConfClient *client,
+	--                                                          GError **err);
+	--
+	--   Suggests to gconfd that you've just finished a block of changes, and it
+	--   would be an optimal time to sync to permanent storage. This is only a
+	--   suggestion; and gconfd will eventually sync even if you don't call
+	--   gconf_engine_suggest_sync(). This function is just a "hint" provided to
+	--   gconfd to maximize efficiency and minimize data loss. Just like
+	--   gconf_engine_suggest_sync().
+	--
+	--   client : a GConfClient.
+	--   err :    the return location for an allocated GError, or NULL to ignore
+	--            errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_dir_exists ()
+	--
+	-- gboolean            gconf_client_dir_exists             (GConfClient *client,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	--
+	--   Queries whether the directory dir exists in the GConf database. Returns
+	--   TRUE or FALSE. Just like gconf_engine_dir_exists(), but uses GConfClient
+	--   caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   dir :     directory to check for
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE or FALSE.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_key_is_writable ()
+	--
+	-- gboolean            gconf_client_key_is_writable        (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Checks whether the key is writable.
+	--
+	--   client :  a GConfClient.
+	--   key :     the value to be changed.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE if the key is writable, FALSE if the key is read only.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_float ()
+	--
+	-- gdouble             gconf_client_get_float              (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the floating point number (GCONF_VALUE_FLOAT) stored at key.
+	--   Automatically performs type-checking, so if a non-float is stored at key,
+	--   an error is returned. On error, or if key is unset, 0.0 is returned. Just
+	--   like gconf_engine_get_float(), but uses GConfClient caching and
+	--   error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the value of key, or 0.0 if no value is obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_int ()
+	--
+	-- gint                gconf_client_get_int                (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the integer (GCONF_VALUE_INT) stored at key. Automatically
+	--   performs type-checking, so if a non-integer is stored at key, an error is
+	--   returned. On error, or if key is unset, 0 is returned. Just like
+	--   gconf_engine_get_int(), but uses GConfClient caching and error-handling
+	--   features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the value of key, or 0 if no value is obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_string ()
+	--
+	-- gchar*              gconf_client_get_string             (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the string (GCONF_VALUE_STRING) stored at key. Automatically
+	--   performs type-checking, so if a non-string is stored at key, an error is
+	--   returned. On error, or if key is unset, NULL is returned. Just like
+	--   gconf_engine_get_string(), but uses GConfClient caching and error-handling
+	--   features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : allocated string (value of key), or NULL if no value is
+	--             obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_bool ()
+	--
+	-- gboolean            gconf_client_get_bool               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the boolean value (GCONF_VALUE_BOOL) stored at key. Automatically
+	--   performs type-checking, so if a non-bool is stored at key, an error is
+	--   returned. On error, or if key is unset, FALSE is returned. Just like
+	--   gconf_engine_get_bool(), but uses GConfClient caching and error-handling
+	--   features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the value of key, or FALSE if no value is obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_schema ()
+	--
+	-- GConfSchema*        gconf_client_get_schema             (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the schema (GCONF_VALUE_SCHEMA) stored at key. Automatically
+	--   performs type-checking, so if a non-schema is stored at key, an error is
+	--   returned. If no value is set or an error occurs, NULL is returned. Just
+	--   like gconf_engine_get_schema(), but uses GConfClient caching and
+	--   error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the value of key as an allocated GConfSchema, or NULL if no
+	--             value was obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_list ()
+	--
+	-- GSList*             gconf_client_get_list               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GError **err);
+	--
+	--   Requests the list (GCONF_VALUE_LIST) stored at key. Automatically performs
+	--   type-checking, so if a non-list is stored at key, or the list does not
+	--   contain elements of type list_type, an error is returned. If no value is
+	--   set or an error occurs, NULL is returned. Note that NULL is also the empty
+	--   list, so if you need to distinguish the empty list from an unset value,
+	--   you must use gconf_client_get() to obtain a raw GConfValue.
+	--
+	--   Remember that GConf lists can only store primitive types:
+	--   GCONF_VALUE_FLOAT, GCONF_VALUE_INT, GCONF_VALUE_BOOL, GCONF_VALUE_STRING,
+	--   GCONF_VALUE_SCHEMA. Also remember that lists must be uniform, you may not
+	--   mix types in the same list.
+	--
+	--   The type of the list elements depends on list_type. A GConfValue with type
+	--   GCONF_VALUE_LIST normally stores a list of more GConfValue objects.
+	--   gconf_client_get_list() automatically converts to primitive C types. Thus,
+	--   the list->data fields in the returned list contain:
+	--
+	--   GCONF_VALUE_INT    The integer itself, converted with GINT_TO_POINTER()
+	--   GCONF_VALUE_BOOL   The bool itself, converted with GINT_TO_POINTER()
+	--   GCONF_VALUE_FLOAT  A pointer to gdouble, which should be freed with
+	--                      g_free()
+	--   GCONF_VALUE_STRING A pointer to gchar, which should be freed with g_free()
+	--   GCONF_VALUE_SCHEMA A pointer to GConfSchema, which should be freed with
+	--                      gconf_schema_free()
+	--
+	--   In the GCONF_VALUE_FLOAT and GCONF_VALUE_STRING cases, you must g_free()
+	--   each list element. In the GCONF_VALUE_SCHEMA case you must
+	--   gconf_schema_free() each element. In all cases you must free the list
+	--   itself with g_slist_free(). Just like gconf_engine_get_list(), but uses
+	--   GConfClient caching and error-handling features.
+	--
+	--   client :    a GConfClient.
+	--   key :       key you want the value of.
+	--   list_type : type of each list element.
+	--   err :       the return location for an allocated GError, or NULL to ignore
+	--               errors.
+	--   Returns :   an allocated list, with elements as described above.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_get_pair ()
+	--
+	-- gboolean            gconf_client_get_pair               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gpointer car_retloc,
+	--                                                          gpointer cdr_retloc,
+	--                                                          GError **err);
+	--
+	--   Requests the pair (GCONF_VALUE_PAIR) stored at key. Automatically performs
+	--   type-checking, so if a non-pair is stored at key, or the pair does not
+	--   have the right car_type and cdr_type, an error is returned. Remember that
+	--   the car of a pair is its first value, and the cdr is its second value, in
+	--   the Lisp tradition.
+	--
+	--   Remember that GConf pairs can only store primitive types:
+	--   GCONF_VALUE_FLOAT, GCONF_VALUE_INT, GCONF_VALUE_BOOL, GCONF_VALUE_STRING,
+	--   GCONF_VALUE_SCHEMA.
+	--
+	--   gconf_client_get_pair() stores the two fields of the pair in the locations
+	--   pointed to by car_retloc and cdr_retloc. The type of these pointers
+	--   depends on the corresponding car_type and cdr_type:
+	--
+	--   GCONF_VALUE_INT                    pointer to gint
+	--   GCONF_VALUE_BOOL                   pointer to gboolean
+	--   GCONF_VALUE_FLOAT                  pointer to gdouble
+	--   GCONF_VALUE_STRING                 pointer to gchar*
+	--   GCONF_VALUE_SCHEMA                 pointer to GConfSchema*
+	--
+	--   In the GCONF_VALUE_STRING case, you must g_free() the string(s) stored in
+	--   the return location(s). In the GCONF_VALUE_SCHEMA case you must
+	--   gconf_schema_free() the returned schema. If there's an error or the value
+	--   is unset, car_retloc and cdr_retloc are left unchanged.
+	--
+	--   gconf_client_get_pair() returns TRUE on success.
+	--
+	--   An example of gconf_client_get_pair() in action:
+	--
+	-- gdouble car = 10.0;
+	-- gchar* cdr  = NULL;
+	-- GError* error = NULL;
+	--
+	-- if (!gconf_client_get_pair(conf, "/foo",
+	--                     GCONF_VALUE_FLOAT,
+	--                     GCONF_VALUE_STRING,
+	--                     &car, &cdr, &error))
+	--   {
+	--     /* Note: car/cdr should be untouched, because an error occurred */
+	--     g_assert(error != NULL);
+	--     fprintf(stderr, "Error: %s\n", error->message);
+	--     g_error_free(error);
+	--     error = NULL;
+	--   }
+	-- else
+	--   {
+	--     /* Note: car/cdr may be untouched even though there was no error,
+	--        if no value was set for "/foo"
+	--      */
+	--     printf("Found pair (%g,%s)\n", car, cdr);
+	--     if (cdr != NULL)
+	--       g_free(cdr);
+	--   }
+	--
+	--   client :     a GConfClient.
+	--   key :        key you want the value of.
+	--   car_type :   desired type of the pair's first field (car).
+	--   cdr_type :   desired type of the pair's second field (cdr).
+	--   car_retloc : address of a return location for the car.
+	--   cdr_retloc : address of a return location for the cdr.
+	--   err :        the return location for an allocated GError, or NULL to
+	--                ignore errors.
+	--   Returns :    TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set_float ()
+	--
+	-- gboolean            gconf_client_set_float              (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          gdouble val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but doesn't store a float (GCONF_VALUE_FLOAT),
+	--   gconf_client_set_float() will fail. Just like gconf_engine_set(), but uses
+	--   GConfClient caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set_int ()
+	--
+	-- gboolean            gconf_client_set_int                (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          gint val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but doesn't store an integer (GCONF_VALUE_INT),
+	--   gconf_client_set_int() will fail. Just like gconf_engine_set(), but uses
+	--   GConfClient caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set_string ()
+	--
+	-- gboolean            gconf_client_set_string             (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          const gchar *val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but doesn't store a string (GCONF_VALUE_STRING),
+	--   gconf_client_set_string() will fail. Just like gconf_engine_set(), but
+	--   uses GConfClient caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set_bool ()
+	--
+	-- gboolean            gconf_client_set_bool               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          gboolean val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but but doesn't store a boolean (GCONF_VALUE_BOOL),
+	--   gconf_client_set_bool() will fail. Just like gconf_engine_set(), but uses
+	--   GConfClient caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set_schema ()
+	--
+	-- gboolean            gconf_client_set_schema             (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          const GConfSchema *val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but doesn't store a schema value (GCONF_VALUE_SCHEMA),
+	--   gconf_client_set_schema() will fail. Just like gconf_engine_set(), but
+	--   uses GConfClient caching and error-handling features.
+	--
+	--   client :  a GConfClient.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set_list ()
+	--
+	-- gboolean            gconf_client_set_list               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GSList *list,
+	--                                                          GError **err);
+	--
+	--   Changes the value of key to a list of type list_type. Automatically
+	--   creates the key if it didn't exist before (ie it was unset or it had a
+	--   default value). If the key already exists but doesn't store a list value
+	--   (GCONF_VALUE_LIST), gconf_client_set_list() will fail.
+	--
+	--   client :    a GConfClient.
+	--   key :       key you want to set the value of.
+	--   list_type : type of each list element.
+	--   list :      new value of key.
+	--   err :       the return location for an allocated GError, or NULL to ignore
+	--               errors.
+	--   Returns :   TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_set_pair ()
+	--
+	-- gboolean            gconf_client_set_pair               (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gconstpointer address_of_car,
+	--                                                          gconstpointer address_of_cdr,
+	--                                                          GError **err);
+	--
+	--   Changes the value of key to a pair with the first field of type car_type
+	--   and the second field of type cdr_type. Automatically creates the key if it
+	--   didn't exist before (ie it was unset or it had a default value). If the
+	--   key already exists but doesn't store a pair value (GCONF_VALUE_PAIR),
+	--   gconf_client_set_pair() will fail.
+	--
+	--   client :         a GConfClient.
+	--   key :            key you want to set the value of.
+	--   car_type :       type of the pair's first field (car).
+	--   cdr_type :       type of the pair's second field (cdr).
+	--   address_of_car : address of the car.
+	--   address_of_cdr : address of the cdr.
+	--   err :            the return location for an allocated GError, or NULL to
+	--                    ignore errors.
+	--   Returns :        TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_error ()
+	--
+	-- void                gconf_client_error                  (GConfClient *client,
+	--                                                          GError *error);
+	--
+	--   Emits the "error" signal. Rarely useful.
+	--
+	--   client : a GConfClient.
+	--   error :  error to pass to signal handlers.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_unreturned_error ()
+	--
+	-- void                gconf_client_unreturned_error       (GConfClient *client,
+	--                                                          GError *error);
+	--
+	--   Emits the "unreturned_error" signal. Rarely useful.
+	--
+	--   client : a GConfClient.
+	--   error :  error to pass to signal handlers.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_value_changed ()
+	--
+	-- void                gconf_client_value_changed          (GConfClient *client,
+	--                                                          const gchar *key,
+	--                                                          GConfValue *value);
+	--
+	--   Emits the "value_changed" signal. Rarely useful.
+	--
+	--   client : a GConfClient.
+	--   key :    key to pass to signal handlers.
+	--   value :  value of key to pass to signal handlers.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_commit_change_set ()
+	--
+	-- gboolean            gconf_client_commit_change_set      (GConfClient *client,
+	--                                                          GConfChangeSet *cs,
+	--                                                          gboolean remove_committed,
+	--                                                          GError **err);
+	--
+	--   Applies the changes in the change set to the GConfClient passed as the
+	--   first argument. If remove_committed is TRUE, then any
+	--   successfully-committed changes are removed from the change set. If
+	--   remove_committed is FALSE, the GConfChangeSet is left unmodified.
+	--
+	--   If any set or unset operation results in an error, then processing
+	--   terminates and the error is returned in err (unless err was NULL). If
+	--   remove_committed was TRUE, then all the changes committed before the error
+	--   occurred will have been removed from the set. If any error occurs, FALSE
+	--   is returned.
+	--
+	--   client :           a GConfClient.
+	--   cs :               a GConfChangeSet.
+	--   remove_committed : whether to remove successfully-committed changes from
+	--                      the set.
+	--   err :              the return location for an allocated GError, or NULL to
+	--                      ignore errors.
+	--   Returns :          TRUE on success, FALSE if an error occurs.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_reverse_change_set ()
+	--
+	-- GConfChangeSet*     gconf_client_reverse_change_set     (GConfClient *client,
+	--                                                          GConfChangeSet *cs,
+	--                                                          GError **err);
+	--
+	--   Creates a change set that would reverse cs. That is, for each change in
+	--   cs, save the current state of that key in the returned change set.
+	--
+	--   client :  a GConfClient.
+	--   cs :      change set to create the reverse of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : a new change set that would restore the current state of each
+	--             key in cs.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_change_set_from_currentv ()
+	--
+	-- GConfChangeSet*     gconf_client_change_set_from_currentv
+	--                                                         (GConfClient *client,
+	--                                                          const gchar **keys,
+	--                                                          GError **err);
+	--
+	--   Creates a change set that will change the keys in NULL-terminated array
+	--   keys to their current state. Use this to save the current state of a
+	--   collection of keys; then you can later revert to the current state by
+	--   committing the returned change set.
+	--
+	--   client :  a GConfClient.
+	--   keys :    NULL-terminated array of key names.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : new change set that changes all the keys to their current state.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_client_change_set_from_current ()
+	--
+	-- GConfChangeSet*     gconf_client_change_set_from_current
+	--                                                         (GConfClient *client,
+	--                                                          GError **err,
+	--                                                          const gchar *first_key,
+	--                                                          ...);
+	--
+	--   Convenient varargs version of gconf_client_change_set_from_currentv().
+	--
+	--   client :    a GConfClient.
+	--   err :       the return location for an allocated GError, or NULL to ignore
+	--               errors.
+	--   first_key : first key to save the current state of.
+	--   ... :       NULL-terminated list of additional keys.
+	--   Returns :   new change set that changes all the keys to their current
+	--               state.
+	--
+	--   --------------
+	--
+	--   ^[1] This is all a white lie; some direct GConfEngine operations are safe.
+	--   But it's complicated to know which, and if an operation isn't safe the
+	--   resulting bugs will mangle the cache and cause weird bugs at an
+	--   indeterminate time in the future; you don't want to risk this situation.
+
+end -- class GCONF_G_CONF_CLIENT

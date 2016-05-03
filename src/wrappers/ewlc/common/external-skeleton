@@ -1,0 +1,18 @@
+note
+	description: "External calls for "
+	copyright: "Copyright (C) 2007 $EWLC_developer, $original_copyright_holder"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
+
+deferred class _EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+feature {} -- External calls
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(Foo)"
+		end
+end

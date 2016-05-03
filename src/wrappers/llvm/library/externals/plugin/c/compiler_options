@@ -1,0 +1,3 @@
+[UNIX]
+llvm: "$(llvm-config --cflags)"
+

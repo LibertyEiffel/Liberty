@@ -1,0 +1,697 @@
+   "above-child"          gboolean              : Read / Write
+   "accel-closure"        GClosure              : Read / Write
+   "accel-widget"         GtkWidget             : Read / Write
+   "accept-focus"         gboolean              : Read / Write
+   "accepts-tab"          gboolean              : Read / Write
+   "action-area-border"   gint                  : Read
+   "action-group"         GtkActionGroup        : Read / Write
+   "action"               GtkFileChooserAction  : Read / Write
+   "activatable"          gboolean              : Read / Write
+   "activates-default"    gboolean              : Read / Write
+   "active"               gboolean              : Read / Write
+   "active"               gint                  : Read / Write
+   "activity-blocks"      guint                 : Read / Write
+   "activity-mode"        gboolean              : Read / Write
+   "activity-step"        guint                 : Read / Write
+   "add-tearoffs"         gboolean              : Read / Write
+   "adjustment"           GtkAdjustment         : Read / Write
+   "adjustment"           GtkAdjustment         : Read / Write / Construct
+   "alignment"            gfloat                : Read / Write
+   "allow-empty"          gboolean              : Read / Write
+   "allow-grow"           gboolean              : Read / Write
+   "allow-rules"          gboolean              : Read
+   "allow-shrink"         gboolean              : Read / Write
+   "alpha"                guint                 : Read / Write
+   "angle"                gdouble               : Read / Write
+   "appears-as-list"      gboolean              : Read
+   "app-paintable"        gboolean              : Read / Write
+   "arrow-displacement-x" gint                  : Read
+   "arrow-displacement-y" gint                  : Read
+   "arrow-spacing"        gint                  : Read
+   "arrow-type"           GtkArrowType          : Read / Write
+   "artists"              GStrv                 : Read / Write
+   "attributes"           PangoAttrList         : Read / Write
+   "authors"              GStrv                 : Read / Write
+   "background-full-height" gboolean              : Read / Write
+   "background-full-height-set" gboolean              : Read / Write
+   "background"           gchararray            : Write
+   "background-gdk"       GdkColor              : Read / Write
+   "background-set"       gboolean              : Read / Write
+   "background-stipple"   GdkPixmap             : Read / Write
+   "background-stipple-set" gboolean              : Read / Write
+   "bar-style"            GtkProgressBarStyle   : Read / Write
+   "border-width"         guint                 : Read / Write
+   "bottom-attach"        gint                  : Read / Write
+   "bottom-attach"        guint                 : Read / Write
+   "bottom-padding"       guint                 : Read / Write
+   "buffer"               GtkTextBuffer         : Read / Write
+   "button-relief"        GtkReliefStyle        : Read
+   "buttons"              GtkButtonsType        : Write / Construct Only
+   "button-spacing"       gint                  : Read
+   "caller"               GtkWidget             : Read / Write
+   "can-default"          gboolean              : Read / Write
+   "can-focus"            gboolean              : Read / Write
+   "case-sensitive"       gboolean              : Read / Write
+   "cell-background"      gchararray            : Write
+   "cell-background-gdk"  GdkColor              : Read / Write
+   "cell-background-set"  gboolean              : Read / Write
+   "child-displacement-x" gint                  : Read
+   "child-displacement-y" gint                  : Read
+   "child"                GtkWidget             : Write
+   "child-internal-pad-x" gint                  : Read
+   "child-internal-pad-y" gint                  : Read
+   "child-min-height"     gint                  : Read
+   "child-min-width"      gint                  : Read
+   "child-model"          GtkTreeModel          : Read / Write / Construct Only
+   "child-pack-direction" GtkPackDirection      : Read / Write
+   "clickable"            gboolean              : Read / Write
+   "climb-rate"           gdouble               : Read / Write
+   "color"                GdkColor              : Read / Write
+   "columns"              gint                  : Read / Write
+   "column-spacing"       gint                  : Read / Write
+   "column-spacing"       guint                 : Read / Write
+   "column-span-column"   gint                  : Read / Write
+   "comments"             gchararray            : Read / Write
+   "composite-child"      gboolean              : Read
+   "content-area-border"  gint                  : Read
+   "copyright"            gchararray            : Read / Write
+   "current-alpha"        guint                 : Read / Write
+   "current-color"        GdkColor              : Read / Write
+   "cursor-aspect-ratio"  gfloat                : Read
+   "cursor-color"         GdkColor              : Read
+   "cursor-position"      gint                  : Read
+   "cursor-visible"       gboolean              : Read / Write
+   "curve-type"           GtkCurveType          : Read / Write
+   "day"                  gint                  : Read / Write
+   "decorated"            gboolean              : Read / Write
+   "default-border"       GtkBorder             : Read
+   "default-height"       gint                  : Read / Write
+   "default-outside-border" GtkBorder             : Read
+   "default-width"        gint                  : Read / Write
+   "destroy-with-parent"  gboolean              : Read / Write
+   "dialog"               GtkFileChooserDialog  : Write / Construct Only
+   "digits"               gint                  : Read / Write
+   "digits"               guint                 : Read / Write
+   "direction"            GtkTextDirection      : Read / Write
+   "discrete-blocks"      guint                 : Read / Write
+   "displace-focus"       gboolean              : Read
+   "documenters"          GStrv                 : Read / Write
+   "do-overwrite-confirmation" gboolean              : Read / Write
+   "draw-as-radio"        gboolean              : Read / Write
+   "draw-border"          GtkBorder             : Read
+   "draw"                 gboolean              : Read / Write
+   "draw-indicator"       gboolean              : Read / Write
+   "draw-value"           gboolean              : Read / Write
+   "editable"             gboolean              : Read / Write
+   "editable-set"         gboolean              : Read / Write
+   "ellipsize"            PangoEllipsizeMode    : Read / Write
+   "ellipsize-set"        gboolean              : Read / Write
+   "emit-always"          gboolean              : Read / Write
+   "enable-arrow-keys"    gboolean              : Read / Write
+   "enable-arrows-always" gboolean              : Read / Write
+   "enable-popup"         gboolean              : Read / Write
+   "enable-search"        gboolean              : Read / Write
+   "error-underline-color" GdkColor              : Read
+   "even-row-color"       GdkColor              : Read
+   "events"               GdkEventMask          : Read / Write
+   "expanded"             gboolean              : Read / Write / Construct
+   "expander-column"      GtkTreeViewColumn     : Read / Write
+   "expander-size"        gint                  : Read
+   "expander-spacing"     gint                  : Read
+   "expander-style"       GtkCTreeExpanderStyle  : Read / Write
+   "expand"               gboolean              : Read / Write
+   "extension-events"     GdkExtensionMode      : Read / Write
+   "extra-widget"         GtkWidget             : Read / Write
+   "family"               gchararray            : Read / Write
+   "family-set"           gboolean              : Read / Write
+   "file"                 gchararray            : Read / Write
+   "filename"             gchararray            : Read / Write
+   "file-system-backend"  gchararray            : Write / Construct Only
+   "fill"                 gboolean              : Read / Write
+   "filter"               GtkFileFilter         : Read / Write
+   "fixed-height-mode"    gboolean              : Read / Write
+   "fixed-slider-length"  gboolean              : Read
+   "fixed-width"          gint                  : Read / Write
+   "focus-line-pattern"   gchararray            : Read
+   "focus-line-width"     gint                  : Read
+   "focus-on-click"       gboolean              : Read / Write
+   "focus-on-map"         gboolean              : Read / Write
+   "focus-padding"        gint                  : Read
+   "follow-state"         gboolean              : Read / Write
+   "font-desc"            PangoFontDescription  : Read / Write
+   "font"                 gchararray            : Read / Write
+   "font"                 GdkFont               : Read
+   "font-name"            gchararray            : Read / Write
+   "foreground"           gchararray            : Write
+   "foreground-gdk"       GdkColor              : Read / Write
+   "foreground-set"       gboolean              : Read / Write
+   "foreground-stipple"   GdkPixmap             : Read / Write
+   "foreground-stipple-set" gboolean              : Read / Write
+   "fraction"             gdouble               : Read / Write
+   "gravity"              GdkGravity            : Read / Write
+   "group"                GtkRadioAction        : Write
+   "group"                GtkRadioButton        : Write
+   "group"                GtkRadioMenuItem      : Write
+   "group"                GtkRadioToolButton    : Write
+   "gtk-alternative-button-order" gboolean              : Read / Write
+   "gtk-button-images"    gboolean              : Read / Write
+   "gtk-can-change-accels" gboolean              : Read / Write
+   "gtk-color-palette"    gchararray            : Read / Write
+   "gtk-cursor-blink"     gboolean              : Read / Write
+   "gtk-cursor-blink-time" gint                  : Read / Write
+   "gtk-cursor-theme-name" gchararray            : Read / Write
+   "gtk-cursor-theme-size" gint                  : Read / Write
+   "gtk-dnd-drag-threshold" gint                  : Read / Write
+   "gtk-double-click-distance" gint                  : Read / Write
+   "gtk-double-click-time" gint                  : Read / Write
+   "gtk-entry-select-on-focus" gboolean              : Read / Write
+   "gtk-fallback-icon-theme" gchararray            : Read / Write
+   "gtk-font-name"        gchararray            : Read / Write
+   "gtk-icon-sizes"       gchararray            : Read / Write
+   "gtk-icon-theme-name"  gchararray            : Read / Write
+   "gtk-key-theme-name"   gchararray            : Read / Write
+   "gtk-menu-bar-accel"   gchararray            : Read / Write
+   "gtk-menu-bar-popup-delay" gint                  : Read / Write
+   "gtk-menu-images"      gboolean              : Read / Write
+   "gtk-menu-popdown-delay" gint                  : Read / Write
+   "gtk-menu-popup-delay" gint                  : Read / Write
+   "gtk-modules"          gchararray            : Read / Write
+   "gtk-split-cursor"     gboolean              : Read / Write
+   "gtk-theme-name"       gchararray            : Read / Write
+   "gtk-toolbar-icon-size" GtkIconSize           : Read / Write
+   "gtk-toolbar-style"    GtkToolbarStyle       : Read / Write
+   "gtk-xft-antialias"    gint                  : Read / Write
+   "gtk-xft-dpi"          gint                  : Read / Write
+   "gtk-xft-hinting"      gint                  : Read / Write
+   "gtk-xft-hintstyle"    gchararray            : Read / Write
+   "gtk-xft-rgba"         gchararray            : Read / Write
+   "hadjustment"          GtkAdjustment         : Read / Write
+   "hadjustment"          GtkAdjustment         : Read / Write / Construct
+   "handle-position"      GtkPositionType       : Read / Write
+   "handle-size"          gint                  : Read
+   "has-backward-stepper" gboolean              : Read
+   "has-default"          gboolean              : Read / Write
+   "has-entry"            gboolean              : Read / Write
+   "has-focus"            gboolean              : Read / Write
+   "has-forward-stepper"  gboolean              : Read
+   "has-frame"            gboolean              : Read / Write
+   "has-opacity-control"  gboolean              : Read / Write
+   "has-palette"          gboolean              : Read / Write
+   "has-resize-grip"      gboolean              : Read / Write
+   "has-secondary-backward-stepper" gboolean              : Read
+   "has-secondary-forward-stepper" gboolean              : Read
+   "has-separator"        gboolean              : Read / Write
+   "has-toplevel-focus"   gboolean              : Read
+   "headers-clickable"    gboolean              : Read / Write
+   "headers-visible"      gboolean              : Read / Write
+   "height"               gint                  : Read / Write
+   "height"               guint                 : Read / Write
+   "height-request"       gint                  : Read / Write
+   "hide-if-empty"        gboolean              : Read / Write
+   "homogeneous"          gboolean              : Read / Write
+   "horizontal-offset"    gint                  : Read
+   "horizontal-padding"   gint                  : Read
+   "horizontal-separator" gint                  : Read
+   "hover-expand"         gboolean              : Read / Write
+   "hover-selection"      gboolean              : Read / Write
+   "hscrollbar-policy"    GtkPolicyType         : Read / Write
+   "icon"                 GdkPixbuf             : Read / Write
+   "icon-name"            gchararray            : Read / Write
+   "icon-set"             GtkIconSet            : Read / Write
+   "icon-size"            gint                  : Read / Write
+   "icon-widget"          GtkWidget             : Read / Write
+   "ignore-hidden"        gboolean              : Read / Write
+   "image"                GdkImage              : Read / Write
+   "image"                GtkWidget             : Read / Write
+   "inconsistent"         gboolean              : Read / Write
+   "indent-expanders"     gboolean              : Read
+   "indent"               gint                  : Read / Write
+   "indent"               guint                 : Read / Write
+   "indent-set"           gboolean              : Read / Write
+   "indicator-size"       gint                  : Read
+   "indicator-size"       GtkRequisition        : Read
+   "indicator-spacing"    gint                  : Read
+   "indicator-spacing"    GtkBorder             : Read
+   "inline-completion"    gboolean              : Read / Write
+   "interior-focus"       gboolean              : Read
+   "internal-padding"     gint                  : Read
+   "inverted"             gboolean              : Read / Write
+   "invisible-char"       guint                 : Read / Write
+   "invisible"            gboolean              : Read / Write
+   "invisible-set"        gboolean              : Read / Write
+   "is-active"            gboolean              : Read
+   "is-expanded"          gboolean              : Read / Write
+   "is-expander"          gboolean              : Read / Write
+   "is-focus"             gboolean              : Read / Write
+   "is-important"         gboolean              : Read / Write
+   "item-width"           gint                  : Read / Write
+   "justification"        GtkJustification      : Read / Write
+   "justification-set"    gboolean              : Read / Write
+   "justify"              GtkJustification      : Read / Write
+   "label"                gchararray            : Read / Write
+   "label"                gchararray            : Read / Write / Construct
+   "label-inactive"       gchararray            : Read / Write
+   "label-no-tip"         gchararray            : Read / Write
+   "label-widget"         GtkWidget             : Read / Write
+   "label-xalign"         gfloat                : Read / Write
+   "label-yalign"         gfloat                : Read / Write
+   "language"             gchararray            : Read / Write
+   "language-set"         gboolean              : Read / Write
+   "layout-style"         GtkButtonBoxStyle     : Read / Write
+   "left-attach"          gint                  : Read / Write
+   "left-attach"          guint                 : Read / Write
+   "left-margin"          gint                  : Read / Write
+   "left-margin-set"      gboolean              : Read / Write
+   "left-padding"         guint                 : Read / Write
+   "license"              gchararray            : Read / Write
+   "line-style"           GtkCTreeLineStyle     : Read / Write
+   "line-wrap"            gboolean              : Read / Write
+   "link-color"           GdkColor              : Read
+   "local-only"           gboolean              : Read / Write
+   "logo"                 GdkPixbuf             : Read / Write
+   "logo-icon-name"       gchararray            : Read / Write
+   "lower"                gdouble               : Read / Write
+   "margin"               gint                  : Read / Write
+   "markup-column"        gint                  : Read / Write
+   "markup"               gchararray            : Write
+   "mask"                 GdkPixmap             : Read / Write
+   "max-length"           gint                  : Read / Write
+   "max-position"         gint                  : Read
+   "max-size"             gdouble               : Read / Write
+   "max-width-chars"      gint                  : Read / Write
+   "max-width"            gint                  : Read / Write
+   "max-x"                gfloat                : Read / Write
+   "max-y"                gfloat                : Read / Write
+   "menu"                 GtkMenu               : Read / Write
+   "menu-label"           gchararray            : Read / Write
+   "message-border"       gint                  : Read
+   "message-type"         GtkMessageType        : Read / Write / Construct
+   "metric"               GtkMetricType         : Read / Write
+   "minimum-key-length"   gint                  : Read / Write
+   "min-position"         gint                  : Read
+   "min-slider-length"    gint                  : Read
+   "min-width"            gint                  : Read / Write
+   "min-x"                gfloat                : Read / Write
+   "min-y"                gfloat                : Read / Write
+   "mnemonic-keyval"      guint                 : Read
+   "mnemonic-widget"      GtkWidget             : Read / Write
+   "modal"                gboolean              : Read / Write
+   "mode"                 GtkCellRendererMode   : Read / Write
+   "mode"                 GtkSizeGroupMode      : Read / Write
+   "model"                GtkTreeModel          : Read / Write
+   "model"                GtkTreeModel          : Read / Write / Construct Only
+   "month"                gint                  : Read / Write
+   "name"                 gchararray            : Read / Write
+   "name"                 gchararray            : Read / Write / Construct Only
+   "n-columns"            guint                 : Read / Write
+   "n-columns"            guint                 : Read / Write / Construct Only
+   "no-month-change"      gboolean              : Read / Write
+   "no-show-all"          gboolean              : Read / Write
+   "n-rows"               guint                 : Read / Write
+   "numeric"              gboolean              : Read / Write
+   "obey-child"           gboolean              : Read / Write
+   "odd-row-color"        GdkColor              : Read
+   "orientation"          GtkOrientation        : Read / Write
+   "orientation"          GtkProgressBarOrientation  : Read / Write
+   "overwrite"            gboolean              : Read / Write
+   "pack-direction"       GtkPackDirection      : Read / Write
+   "pack-type"            GtkPackType           : Read / Write
+   "padding"              guint                 : Read / Write
+   "page"                 gint                  : Read / Write
+   "page-increment"       gdouble               : Read / Write
+   "page-size"            gdouble               : Read / Write
+   "paragraph-background" gchararray            : Write
+   "paragraph-background-gdk" GdkColor              : Read / Write
+   "paragraph-background-set" gboolean              : Read / Write
+   "parent"               GtkContainer          : Read / Write
+   "pattern"              gchararray            : Write
+   "pixbuf-animation"     GdkPixbufAnimation    : Read / Write
+   "pixbuf-column"        gint                  : Read / Write
+   "pixbuf-expander-closed" GdkPixbuf             : Read / Write
+   "pixbuf-expander-open" GdkPixbuf             : Read / Write
+   "pixbuf"               GdkPixbuf             : Read / Write
+   "pixels-above-lines"   gint                  : Read / Write
+   "pixels-above-lines-set" gboolean              : Read / Write
+   "pixels-below-lines"   gint                  : Read / Write
+   "pixels-below-lines-set" gboolean              : Read / Write
+   "pixels-inside-wrap"   gint                  : Read / Write
+   "pixels-inside-wrap-set" gboolean              : Read / Write
+   "pixel-size"           gint                  : Read / Write
+   "pixmap"               GdkPixmap             : Read / Write
+   "popup-completion"     gboolean              : Read / Write
+   "popup-set-width"      gboolean              : Read / Write
+   "popup-single-match"   gboolean              : Read / Write
+   "position"             gdouble               : Read / Write
+   "position"             gint                  : Read / Write
+   "position-set"         gboolean              : Read / Write
+   "preview-text"         gchararray            : Read / Write
+   "preview-widget-active" gboolean              : Read / Write
+   "preview-widget"       GtkWidget             : Read / Write
+Properties of GtkAboutDialog
+Properties of GtkAccelLabel
+Properties of GtkAccessible
+Properties of GtkAction
+Properties of GtkActionGroup
+Properties of GtkAdjustment
+Properties of GtkAlignment
+Properties of GtkArrow
+Properties of GtkAspectFrame
+Properties of GtkBin
+Properties of GtkBox
+Properties of GtkButton
+Properties of GtkButtonBox
+Properties of GtkCalendar
+Properties of GtkCellEditable
+Properties of GtkCellLayout
+Properties of GtkCellRenderer
+Properties of GtkCellRendererCombo
+Properties of GtkCellRendererPixbuf
+Properties of GtkCellRendererProgress
+Properties of GtkCellRendererText
+Properties of GtkCellRendererToggle
+Properties of GtkCellView
+Properties of GtkCheckButton
+Properties of GtkCheckMenuItem
+Properties of GtkCList
+Properties of GtkColorButton
+Properties of GtkColorSelection
+Properties of GtkColorSelectionDialog
+Properties of GtkCombo
+Properties of GtkComboBox
+Properties of GtkComboBoxEntry
+Properties of GtkContainer
+Properties of GtkCTree
+Properties of GtkCurve
+Properties of GtkDialog
+Properties of GtkDrawingArea
+Properties of GtkEditable
+Properties of GtkEntry
+Properties of GtkEntryCompletion
+Properties of GtkEventBox
+Properties of GtkExpander
+Properties of GtkFileChooser
+Properties of GtkFileChooserButton
+Properties of GtkFileChooserDialog
+Properties of GtkFileChooserWidget
+Properties of GtkFileSelection
+Properties of GtkFixed
+Properties of GtkFontButton
+Properties of GtkFontSelection
+Properties of GtkFontSelectionDialog
+Properties of GtkFrame
+Properties of GtkGammaCurve
+Properties of GtkHandleBox
+Properties of GtkHBox
+Properties of GtkHButtonBox
+Properties of GtkHPaned
+Properties of GtkHRuler
+Properties of GtkHScale
+Properties of GtkHScrollbar
+Properties of GtkHSeparator
+Properties of GtkIconTheme
+Properties of GtkIconView
+Properties of GtkImage
+Properties of GtkImageMenuItem
+Properties of GtkIMContext
+Properties of GtkIMContextSimple
+Properties of GtkIMMulticontext
+Properties of GtkInputDialog
+Properties of GtkInvisible
+Properties of GtkItem
+Properties of GtkItemFactory
+Properties of GtkLabel
+Properties of GtkLayout
+Properties of GtkList
+Properties of GtkListItem
+Properties of GtkListStore
+Properties of GtkMenu
+Properties of GtkMenuBar
+Properties of GtkMenuItem
+Properties of GtkMenuShell
+Properties of GtkMenuToolButton
+Properties of GtkMessageDialog
+Properties of GtkMisc
+Properties of GtkNotebook
+Properties of GtkObject
+Properties of GtkOldEditable
+Properties of GtkOptionMenu
+Properties of GtkPaned
+Properties of GtkPixmap
+Properties of GtkPlug
+Properties of GtkPreview
+Properties of GtkProgress
+Properties of GtkProgressBar
+Properties of GtkRadioAction
+Properties of GtkRadioButton
+Properties of GtkRadioMenuItem
+Properties of GtkRadioToolButton
+Properties of GtkRange
+Properties of GtkRuler
+Properties of GtkScale
+Properties of GtkScrollbar
+Properties of GtkScrolledWindow
+Properties of GtkSeparator
+Properties of GtkSeparatorMenuItem
+Properties of GtkSeparatorToolItem
+Properties of GtkSettings
+Properties of GtkSizeGroup
+Properties of GtkSocket
+Properties of GtkSpinButton
+Properties of GtkStatusbar
+Properties of GtkStyle
+Properties of GtkTable
+Properties of GtkTearoffMenuItem
+Properties of GtkText
+Properties of GtkTextBuffer
+Properties of GtkTextMark
+Properties of GtkTextTag
+Properties of GtkTextTagTable
+Properties of GtkTextView
+Properties of GtkTipsQuery
+Properties of GtkToggleAction
+Properties of GtkToggleButton
+Properties of GtkToggleToolButton
+Properties of GtkToolbar
+Properties of GtkToolButton
+Properties of GtkToolItem
+Properties of GtkTooltips
+Properties of GtkTree
+Properties of GtkTreeItem
+Properties of GtkTreeModel
+Properties of GtkTreeModelFilter
+Properties of GtkTreeModelSort
+Properties of GtkTreeSelection
+Properties of GtkTreeSortable
+Properties of GtkTreeStore
+Properties of GtkTreeView
+Properties of GtkTreeViewColumn
+Properties of GtkUIManager
+Properties of GtkVBox
+Properties of GtkVButtonBox
+Properties of GtkViewport
+Properties of GtkVPaned
+Properties of GtkVRuler
+Properties of GtkVScale
+Properties of GtkVScrollbar
+Properties of GtkVSeparator
+Properties of GtkWidget
+Properties of GtkWindow
+Properties of GtkWindowGroup
+   "pulse-step"           gdouble               : Read / Write
+   "radio"                gboolean              : Read / Write
+   "ratio"                gfloat                : Read / Write
+   "receives-default"     gboolean              : Read / Write
+   "relief"               GtkReliefStyle        : Read / Write
+   "reorderable"          gboolean              : Read / Write
+   "resizable"            gboolean              : Read / Write
+   "resize"               gboolean              : Read / Write
+   "resize-mode"          GtkResizeMode         : Read / Write
+   "right-attach"         gint                  : Read / Write
+   "right-attach"         guint                 : Read / Write
+   "right-margin"         gint                  : Read / Write
+   "right-margin-set"     gboolean              : Read / Write
+   "right-padding"        guint                 : Read / Write
+   "rise"                 gint                  : Read / Write
+   "rise-set"             gboolean              : Read / Write
+   "role"                 gchararray            : Read / Write
+   "row-height"           guint                 : Read / Write
+   "row-spacing"          gint                  : Read / Write
+   "row-spacing"          guint                 : Read / Write
+   "row-span-column"      gint                  : Read / Write
+   "rules-hint"           gboolean              : Read / Write
+   "scale"                gdouble               : Read / Write
+   "scale-set"            gboolean              : Read / Write
+   "screen"               GdkScreen             : Read / Write
+   "scrollable"           gboolean              : Read / Write
+   "scrollbar-spacing"    gint                  : Read
+   "scroll-offset"        gint                  : Read
+   "search-column"        gint                  : Read / Write
+   "secondary-cursor-color" GdkColor              : Read
+   "secondary"            gboolean              : Read / Write
+   "selectable"           gboolean              : Read / Write
+   "selected-shadow-type" GtkShadowType         : Read
+   "selection-bound"      gint                  : Read
+   "selection-box-alpha"  guchar                : Read
+   "selection-box-color"  GdkColor              : Read
+   "selection-mode"       GtkSelectionMode      : Read / Write
+   "select-multiple"      gboolean              : Read / Write
+   "sensitive"            gboolean              : Read / Write
+   "shadow"               GtkShadowType         : Read / Write
+   "shadow-type"          GtkShadowType         : Read
+   "shadow-type"          GtkShadowType         : Read / Write
+   "short-label"          gchararray            : Read / Write
+   "show-arrow"           gboolean              : Read / Write
+   "show-border"          gboolean              : Read / Write
+   "show-day-names"       gboolean              : Read / Write
+   "show-fileops"         gboolean              : Read / Write
+   "show-heading"         gboolean              : Read / Write
+   "show-hidden"          gboolean              : Read / Write
+   "show-size"            gboolean              : Read / Write
+   "show-stub"            gboolean              : Read / Write
+   "show-style"           gboolean              : Read / Write
+   "show-tabs"            gboolean              : Read / Write
+   "show-text"            gboolean              : Read / Write
+   "show-week-numbers"    gboolean              : Read / Write
+   "shrink"               gboolean              : Read / Write
+   "single-line-mode"     gboolean              : Read / Write
+   "single-paragraph-mode" gboolean              : Read / Write
+   "size"                 gint                  : Read / Write
+   "size-points"          gdouble               : Read / Write
+   "size-set"             gboolean              : Read / Write
+   "sizing"               GtkTreeViewColumnSizing  : Read / Write
+   "skip-pager-hint"      gboolean              : Read / Write
+   "skip-taskbar-hint"    gboolean              : Read / Write
+   "slider-length"        gint                  : Read
+   "slider-width"         gint                  : Read
+   "snap-edge"            GtkPositionType       : Read / Write
+   "snap-edge-set"        gboolean              : Read / Write
+   "snap-to-ticks"        gboolean              : Read / Write
+   "sort-indicator"       gboolean              : Read / Write
+   "sort-order"           GtkSortType           : Read / Write
+   "sort-type"            GtkSortType           : Read / Write
+   "space-size"           gint                  : Read
+   "space-style"          GtkToolbarSpaceStyle  : Read
+   "spacing"              gint                  : Read / Write
+   "spacing"              guint                 : Read / Write
+   "step-increment"       gdouble               : Read / Write
+   "stepper-size"         gint                  : Read
+   "stepper-spacing"      gint                  : Read
+   "stock-detail"         gchararray            : Read / Write
+   "stock"                gchararray            : Read / Write
+   "stock-id"             gchararray            : Read / Write
+   "stock-size"           guint                 : Read / Write
+   "storage-type"         GtkImageType          : Read
+   "stretch"              PangoStretch          : Read / Write
+   "stretch-set"          gboolean              : Read / Write
+   "strikethrough"        gboolean              : Read / Write
+   "strikethrough-set"    gboolean              : Read / Write
+   "style"                GtkStyle              : Read / Write
+   "style"                PangoStyle            : Read / Write
+   "style-set"            gboolean              : Read / Write
+   "tab-border"           guint                 : Write
+   "tab-expand"           gboolean              : Read / Write
+   "tab-fill"             gboolean              : Read / Write
+   "tab-hborder"          guint                 : Read / Write
+   "tab-label"            gchararray            : Read / Write
+   "tab-pack"             GtkPackType           : Read / Write
+   "tab-pos"              GtkPositionType       : Read / Write
+   "tabs"                 PangoTabArray         : Read / Write
+   "tabs-set"             gboolean              : Read / Write
+   "tab-vborder"          guint                 : Read / Write
+   "tag-table"            GtkTextTagTable       : Read / Write / Construct Only
+   "take-focus"           gboolean              : Read / Write
+   "tearoff-state"        gboolean              : Read / Write
+   "tearoff-title"        gchararray            : Read / Write
+   "text-column"          gint                  : Read / Write
+   "text"                 gchararray            : Read / Write
+   "text-position"        gint                  : Read / Write
+   "text-xalign"          gfloat                : Read / Write
+   "text-yalign"          gfloat                : Read / Write
+   "title"                gchararray            : Read / Write
+   "titles-active"        gboolean              : Read / Write
+   "toggle-spacing"       gint                  : Read
+   "toolbar-style"        GtkToolbarStyle       : Read / Write
+   "tooltip"              gchararray            : Read / Write
+   "tooltips"             gboolean              : Read / Write
+   "top-attach"           gint                  : Read / Write
+   "top-attach"           guint                 : Read / Write
+   "top-padding"          guint                 : Read / Write
+   "translator-credits"   gchararray            : Read / Write
+   "tree-column"          guint                 : Read / Write / Construct Only
+   "trough-border"        gint                  : Read
+   "type"                 GtkWindowType         : Read / Write / Construct Only
+   "type-hint"            GdkWindowTypeHint     : Read / Write
+   "ui"                   gchararray            : Read
+   "underline"            PangoUnderline        : Read / Write
+   "underline-set"        gboolean              : Read / Write
+   "update-policy"        GtkSpinButtonUpdatePolicy  : Read / Write
+   "update-policy"        GtkUpdateType         : Read / Write
+   "upper"                gdouble               : Read / Write
+   "urgency-hint"         gboolean              : Read / Write
+   "use-alpha"            gboolean              : Read / Write
+   "use-drag-icons"       gboolean              : Read / Write
+   "use-font"             gboolean              : Read / Write
+   "use-markup"           gboolean              : Read / Write
+   "use-markup"           gboolean              : Read / Write / Construct
+   "use-preview-label"    gboolean              : Read / Write
+   "user-data"            gpointer              : Read / Write
+   "use-separator"        gboolean              : Read
+   "use-size"             gboolean              : Read / Write
+   "use-stock"            gboolean              : Read / Write / Construct
+   "use-underline"        gboolean              : Read / Write
+   "use-underline"        gboolean              : Read / Write / Construct
+   "vadjustment"          GtkAdjustment         : Read / Write
+   "vadjustment"          GtkAdjustment         : Read / Write / Construct
+   "value"                gdouble               : Read / Write
+   "value"                gint                  : Read / Write
+   "value-in-list"        gboolean              : Read / Write
+   "value-pos"            GtkPositionType       : Read / Write
+   "value-spacing"        gint                  : Read
+   "variant"              PangoVariant          : Read / Write
+   "variant-set"          gboolean              : Read / Write
+   "version"              gchararray            : Read / Write
+   "vertical-offset"      gint                  : Read
+   "vertical-padding"     gint                  : Read
+   "vertical-separator"   gint                  : Read
+   "virtual-root"         GtkTreePath           : Read / Write / Construct Only
+   "visibility"           gboolean              : Read / Write
+   "visible"              gboolean              : Read / Write
+   "visible-horizontal"   gboolean              : Read / Write
+   "visible-overflown"    gboolean              : Read / Write
+   "visible-vertical"     gboolean              : Read / Write
+   "visible-window"       gboolean              : Read / Write
+   "vscrollbar-policy"    GtkPolicyType         : Read / Write
+   "website"              gchararray            : Read / Write
+   "website-label"        gchararray            : Read / Write
+   "weight"               gint                  : Read / Write
+   "weight-set"           gboolean              : Read / Write
+   "widget"               GtkWidget             : Read / Write
+   "width-chars"          gint                  : Read / Write
+   "width"                gint                  : Read
+   "width"                gint                  : Read / Write
+   "width"                guint                 : Read / Write
+   "width-request"        gint                  : Read / Write
+   "window-placement"     GtkCornerType         : Read / Write
+   "window-position"      GtkWindowPosition     : Read / Write
+   "word-wrap"            gboolean              : Read / Write
+   "wrap"                 gboolean              : Read / Write
+   "wrap-license"         gboolean              : Read / Write
+   "wrap-mode"            GtkWrapMode           : Read / Write
+   "wrap-mode"            PangoWrapMode         : Read / Write
+   "wrap-mode-set"        gboolean              : Read / Write
+   "wrap-width"           gint                  : Read / Write
+   "xalign"               gfloat                : Read / Write
+   "x"                    gint                  : Read / Write
+   "x-options"            GtkAttachOptions      : Read / Write
+   "x-padding"            guint                 : Read / Write
+   "xpad"                 gint                  : Read / Write
+   "xpad"                 guint                 : Read / Write
+   "xscale"               gfloat                : Read / Write
+   "yalign"               gfloat                : Read / Write
+   "year"                 gint                  : Read / Write
+   "y"                    gint                  : Read / Write
+   "y-options"            GtkAttachOptions      : Read / Write
+   "y-padding"            guint                 : Read / Write
+   "ypad"                 gint                  : Read / Write
+   "ypad"                 guint                 : Read / Write
+   "yscale"               gfloat                : Read / Write

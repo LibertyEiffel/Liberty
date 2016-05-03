@@ -1,0 +1,541 @@
+note
+	description: "."
+	copyright: "[
+					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+	wrapped_version: "Unknown"
+
+class GCONF_GCONF_CHANGESET
+
+inherit
+	(SHARED_?)C_STRUCT
+
+insert
+	GCONF_GCONF_CHANGESET_EXTERNALS
+
+create {ANY} make, from_external_pointer
+
+feature {} -- Creation
+
+	--   Link: GConf Reference Manual (start)
+	--   Link: Using the GConf library (parent)
+	--   Link: gconf-locale (previous)
+	--   Link: Using the GConf library (chapter)
+	--
+	--   Prev Up Home                   GConf Reference Manual
+	--   Top  |  Description
+	--
+	--   GConfChangeSet
+	--
+	--   GConfChangeSet -- a set of configuration changes to be made.
+	--
+	--Synopsis
+	--
+	--
+	--
+	--
+	--                     GConfChangeSet;
+	-- void                (*GConfChangeSetForeachFunc)        (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValue *value,
+	--                                                          gpointer user_data);
+	-- gboolean            gconf_engine_commit_change_set      (GConfEngine *conf,
+	--                                                          GConfChangeSet *cs,
+	--                                                          gboolean remove_committed,
+	--                                                          GError **err);
+	-- GConfChangeSet*     gconf_engine_reverse_change_set     (GConfEngine *conf,
+	--                                                          GConfChangeSet *cs,
+	--                                                          GError **err);
+	-- GConfChangeSet*     gconf_engine_change_set_from_currentv
+	--                                                         (GConfEngine *conf,
+	--                                                          const gchar **keys,
+	--                                                          GError **err);
+	-- GConfChangeSet*     gconf_engine_change_set_from_current
+	--                                                         (GConfEngine *conf,
+	--                                                          GError **err,
+	--                                                          const gchar *first_key,
+	--                                                          ...);
+	-- GConfChangeSet*     gconf_change_set_new                (void);
+	-- void                gconf_change_set_ref                (GConfChangeSet *cs);
+	-- void                gconf_change_set_unref              (GConfChangeSet *cs);
+	-- void                gconf_change_set_clear              (GConfChangeSet *cs);
+	-- guint               gconf_change_set_size               (GConfChangeSet *cs);
+	-- void                gconf_change_set_remove             (GConfChangeSet *cs,
+	--                                                          const gchar *key);
+	-- void                gconf_change_set_foreach            (GConfChangeSet *cs,
+	--                                                          GConfChangeSetForeachFunc func,
+	--                                                          gpointer user_data);
+	-- gboolean            gconf_change_set_check_value        (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValue **value_retloc);
+	-- void                gconf_change_set_set                (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValue *value);
+	-- void                gconf_change_set_set_nocopy         (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValue *value);
+	-- void                gconf_change_set_unset              (GConfChangeSet *cs,
+	--                                                          const gchar *key);
+	-- void                gconf_change_set_set_float          (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          gdouble val);
+	-- void                gconf_change_set_set_int            (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          gint val);
+	-- void                gconf_change_set_set_string         (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          const gchar *val);
+	-- void                gconf_change_set_set_bool           (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          gboolean val);
+	-- void                gconf_change_set_set_schema         (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfSchema *val);
+	-- void                gconf_change_set_set_list           (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GSList *list);
+	-- void                gconf_change_set_set_pair           (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gconstpointer address_of_car,
+	--                                                          gconstpointer address_of_cdr);
+	-- void                gconf_change_set_set_user_data      (GConfChangeSet *cs,
+	--                                                          gpointer data,
+	--                                                          GDestroyNotify dnotify);
+	-- gpointer            gconf_change_set_get_user_data      (GConfChangeSet *cs);
+	--
+	--Description
+	--
+	--   a GConfChangeSet allows you to collect a set of changes to configuration
+	--   keys (set/unset operations). You can then commit all the changes at once.
+	--   This is convenient for something like a preferences dialog; you can
+	--   collect all the pending changes in a GConfChangeSet, then when the user
+	--   clicks "apply" send them all to the configuration database. The
+	--   GConfChangeSet allows you to avoid sending every preferences setting when
+	--   "apply" is clicked; you only have to send the settings the user changed.
+	--
+	--   In the future, GConf may also have optimizations so that changing a group
+	--   of values with GConfChangeSet is faster than calling gconf_engine_set()
+	--   for each value. In the future, GConfChangeSet may also represent an atomic
+	--   transaction, where all or none of the values are set; however, for now the
+	--   operation is not atomic.
+	--
+	--Details
+	--
+	--  GConfChangeSet
+	--
+	-- typedef struct _GConfChangeSet GConfChangeSet;
+	--
+	--   An opaque data type representing a set of changes to be made. A change set
+	--   can contain "set" and "unset" operations.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  GConfChangeSetForeachFunc ()
+	--
+	-- void                (*GConfChangeSetForeachFunc)        (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValue *value,
+	--                                                          gpointer user_data);
+	--
+	--   The type of a function passed to gconf_change_set_foreach(). The cs
+	--   argument is the GConfChangeSet you're iterating over. key is a key in the
+	--   change set. value is the value the key will be set to, or NULL if the key
+	--   will be unset. user_data is the user data passed to
+	--   gconf_change_set_foreach().
+	--
+	--   cs :        the GConfChangeSet being iterated over.
+	--   key :       the current key.
+	--   value :     the current value, or NULL.
+	--   user_data : user data passed to gconf_change_set_foreach().
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_commit_change_set ()
+	--
+	-- gboolean            gconf_engine_commit_change_set      (GConfEngine *conf,
+	--                                                          GConfChangeSet *cs,
+	--                                                          gboolean remove_committed,
+	--                                                          GError **err);
+	--
+	--   Applies the changes in the change set to the GConfEngine passed as the
+	--   first argument. If remove_committed is TRUE, then any
+	--   successfully-committed changes are removed from the change set. If
+	--   remove_committed is FALSE, the GConfChangeSet is left unmodified.
+	--
+	--   If any set or unset operation results in an error, then processing
+	--   terminates and the error is returned in err (unless err was NULL). If
+	--   remove_committed was TRUE, then all the changes committed before the error
+	--   occurred will have been removed from the set. If any error occurs, FALSE
+	--   is returned.
+	--
+	--   conf :             a GConfEngine.
+	--   cs :               a GConfChangeSet.
+	--   remove_committed : whether to remove successfully-committed changes from
+	--                      the set
+	--   err :              the return location for an allocated GError, or NULL to
+	--                      ignore errors.
+	--   Returns :          TRUE on success, FALSE if an error occurs.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_reverse_change_set ()
+	--
+	-- GConfChangeSet*     gconf_engine_reverse_change_set     (GConfEngine *conf,
+	--                                                          GConfChangeSet *cs,
+	--                                                          GError **err);
+	--
+	--   Creates a change set that would reverse cs. That is, for each change in
+	--   cs, save the current state of that key in the returned change set.
+	--
+	--   conf :    a GConfEngine.
+	--   cs :      the GConfChangeSet to be reverted.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the modified GConfChangeSet.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_change_set_from_currentv ()
+	--
+	-- GConfChangeSet*     gconf_engine_change_set_from_currentv
+	--                                                         (GConfEngine *conf,
+	--                                                          const gchar **keys,
+	--                                                          GError **err);
+	--
+	--   Creates a change set that will change the keys in NULLterminated array
+	--   keys to their current state.
+	--
+	--   conf :    a GConfEngine.
+	--   keys :    NULLterminated array of key names.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the newly allocated GConfChangeSet.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_change_set_from_current ()
+	--
+	-- GConfChangeSet*     gconf_engine_change_set_from_current
+	--                                                         (GConfEngine *conf,
+	--                                                          GError **err,
+	--                                                          const gchar *first_key,
+	--                                                          ...);
+	--
+	--   Convenient Varags version of gconf_engine_change_set_from_current().
+	--
+	--   conf :      a GConfEngine.
+	--   err :       the return location for an allocated GError, or NULL to ignore
+	--               errors.
+	--   first_key : the first key, a char* value.
+	--   ... :       the keys to be set.
+	--   Returns :   the newly allocated GConfChangeSet.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_new ()
+	--
+	-- GConfChangeSet*     gconf_change_set_new                (void);
+	--
+	--   Creates a new, empty GConfChangeSet. The caller assumes one reference
+	--   count, and must call gconf_change_set_unref() eventually.
+	--
+	--   Returns : a new GConfChangeSet.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_ref ()
+	--
+	-- void                gconf_change_set_ref                (GConfChangeSet *cs);
+	--
+	--   Increases the reference count of a GConfChangeSet by one.
+	--
+	--   cs : a GConfChangeSet.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_unref ()
+	--
+	-- void                gconf_change_set_unref              (GConfChangeSet *cs);
+	--
+	--   Decreases the reference count of a GConfChangeSet by one. If the reference
+	--   count reaches 0, destroys the GConfChangeSet.
+	--
+	--   cs : a GConfChangeSet.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_clear ()
+	--
+	-- void                gconf_change_set_clear              (GConfChangeSet *cs);
+	--
+	--   Clears all changes from a GConfChangeSet, so that committing the change
+	--   set would have no effect.
+	--
+	--   cs : a GConfChangeSet.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_size ()
+	--
+	-- guint               gconf_change_set_size               (GConfChangeSet *cs);
+	--
+	--   Returns the size of the changeset, a guint value.
+	--
+	--   cs :      a GConfChangeSet.
+	--   Returns : the size, a guint value.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_remove ()
+	--
+	-- void                gconf_change_set_remove             (GConfChangeSet *cs,
+	--                                                          const gchar *key);
+	--
+	--   Removes a change from a GConfChangeSet. The key given as the key argument
+	--   will not be modified if this change set is committed. If key is not in the
+	--   change set, this function has no effect.
+	--
+	--   cs :  a GConfChangeSet.
+	--   key : key to remove from the change set.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_foreach ()
+	--
+	-- void                gconf_change_set_foreach            (GConfChangeSet *cs,
+	--                                                          GConfChangeSetForeachFunc func,
+	--                                                          gpointer user_data);
+	--
+	--   Iterates over a GConfChangeSet by calling a GConfChangeSetForeachFunc for
+	--   each change in the set. See the description of GConfChangeSetForeachFunc
+	--   for details. You may not call gconf_change_set_remove() during the
+	--   iteration, because you'll confuse the internal data structures and cause
+	--   memory corruption.
+	--
+	--   cs :        a GConfChangeSet.
+	--   func :      function to call for each change in the change set.
+	--   user_data : user data to pass to the GConfChangeSetForeachFunc.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_check_value ()
+	--
+	-- gboolean            gconf_change_set_check_value        (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValue **value_retloc);
+	--
+	--   Looks up the hash table associated with the GConfChangeSet for the key
+	--   key. If the key is found , the value is set in value_retloc.
+	--
+	--   cs :           a GConfChangeSet.
+	--   key :          the key to be searched in the changeset.
+	--   value_retloc : a GConfValue ** to hold the key, if found.
+	--   Returns :      TRUE on finding the key, FALSE if key is not found.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set ()
+	--
+	-- void                gconf_change_set_set                (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValue *value);
+	--
+	--   Adds a "set" operation to a change set. This function is similar to
+	--   gconf_engine_set(), except that no errors can occur (errors occur later,
+	--   when you try to commit the change set).
+	--
+	--   cs :    a GConfChangeSet.
+	--   key :   the key to change.
+	--   value : the value to change the key to.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set_nocopy ()
+	--
+	-- void                gconf_change_set_set_nocopy         (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValue *value);
+	--
+	--   Like gconf_change_set_set(), except that the GConfChangeSet takes
+	--   ownership of the GConfValue. You should not use the value again. It will
+	--   be destroyed when the change is removed from the GConfChangeSet, the
+	--   change is modified, or the GConfChangeSet is destroyed.
+	--
+	--   cs :    a GConfChangeSet.
+	--   key :   the key to change.
+	--   value : the new value of key.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_unset ()
+	--
+	-- void                gconf_change_set_unset              (GConfChangeSet *cs,
+	--                                                          const gchar *key);
+	--
+	--   Adds an "unset" operation to a GConfChangeSet. This function schedules a
+	--   gconf_engine_unset().
+	--
+	--   cs :  a GConfChangeSet.
+	--   key : the key to unset.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set_float ()
+	--
+	-- void                gconf_change_set_set_float          (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          gdouble val);
+	--
+	--   Adds a "set" operation; takes a gdouble argument, so you can avoid
+	--   creating a GConfValue.
+	--
+	--   cs :  a GConfChangeSet.
+	--   key : the key to set.
+	--   val : the new value of key.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set_int ()
+	--
+	-- void                gconf_change_set_set_int            (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          gint val);
+	--
+	--   Adds a "set" operation; takes a gint argument, so you can avoid creating a
+	--   GConfValue.
+	--
+	--   cs :  a GConfChangeSet.
+	--   key : the key to set.
+	--   val : the new value of key.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set_string ()
+	--
+	-- void                gconf_change_set_set_string         (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          const gchar *val);
+	--
+	--   Adds a "set" operation; takes a gchar* argument, so you can avoid creating
+	--   a GConfValue.
+	--
+	--   cs :  a GConfChangeSet.
+	--   key : the key to set.
+	--   val : the new value of key.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set_bool ()
+	--
+	-- void                gconf_change_set_set_bool           (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          gboolean val);
+	--
+	--   Adds a "set" operation; takes a gboolean argument, so you can avoid
+	--   creating a GConfValue.
+	--
+	--   cs :  a GConfChangeSet.
+	--   key : the key to set.
+	--   val : the new value of key.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set_schema ()
+	--
+	-- void                gconf_change_set_set_schema         (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfSchema *val);
+	--
+	--   Adds a "set" operation; takes a GConfSchema argument, so you can avoid
+	--   creating a GConfValue. The schema is copied, val is left unmodified.
+	--
+	--   cs :  a GConfChangeSet.
+	--   key : the key to set.
+	--   val : the new value of key.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set_list ()
+	--
+	-- void                gconf_change_set_set_list           (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GSList *list);
+	--
+	--   Adds a "set" operation; takes a GList argument and the type of the list,
+	--   so you can avoid creating a GConfValue. This results in the list of values
+	--   being set for the key.
+	--
+	--   cs :        a GConfChangeSet.
+	--   key :       the key to set.
+	--   list_type : the type of the list.
+	--   list :      a GList containing the values to be set.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set_pair ()
+	--
+	-- void                gconf_change_set_set_pair           (GConfChangeSet *cs,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gconstpointer address_of_car,
+	--                                                          gconstpointer address_of_cdr);
+	--
+	--   Adds a "set" operation; takes a pointer to the addresses of the pair of
+	--   values, so you can avoid creating a GConfValue. This results in the pair
+	--   of values being set for the key.
+	--
+	--   cs :             a GConfChangeSet.
+	--   key :            the key to set.
+	--   car_type :       the type of the pair's first field. (car)
+	--   cdr_type :       the type of the pair's second field. (cdr)
+	--   address_of_car : address of the car.
+	--   address_of_cdr : address of the cdr.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_set_user_data ()
+	--
+	-- void                gconf_change_set_set_user_data      (GConfChangeSet *cs,
+	--                                                          gpointer data,
+	--                                                          GDestroyNotify dnotify);
+	--
+	--   Sets the user_data and the destroy notification function fields of the
+	--   GConfChangeSet.
+	--
+	--   cs :      a GConfChangeSet.
+	--   data :    a gpointer.
+	--   dnotify : a pointer to the function to be called during destroy.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_change_set_get_user_data ()
+	--
+	-- gpointer            gconf_change_set_get_user_data      (GConfChangeSet *cs);
+	--
+	--   Returns the user_data field of the GConfChangeSet.
+	--
+	--   cs :      a GConfChangeSet.
+	--   Returns : a pointer to the user_data.
+
+end -- class GCONF_GCONF_CHANGESET

@@ -1,0 +1,1221 @@
+note
+	description: "."
+	copyright: "[
+					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+	wrapped_version: "Unknown"
+
+class GCONF_GCONF
+
+inherit
+	(SHARED_?)C_STRUCT
+
+insert
+	GCONF_GCONF_EXTERNALS
+
+create {ANY} make, from_external_pointer
+
+feature {} -- Creation
+
+	--   Link: GConf Reference Manual (start)
+	--   Link: Using the GConf library (parent)
+	--   Link: GConfValue, GConfEntry, GConfMetaInfo (previous)
+	--   Link: gconf-locale (next)
+	--   Link: Using the GConf library (chapter)
+	--
+	--   Prev Up Home                  GConf Reference Manual                  Next
+	--   Top  |  Description
+	--
+	--   GConf Core Interfaces
+	--
+	--   GConf Core Interfaces -- Basic functions to initialize GConf and get/set
+	--   values
+	--
+	--Synopsis
+	--
+	--
+	--
+	--
+	-- gboolean            gconf_init                          (int argc,
+	--                                                          char **argv,
+	--                                                          GError **err);
+	-- void                gconf_preinit                       (gpointer app,
+	--                                                          gpointer mod_info);
+	-- void                gconf_postinit                      (gpointer app,
+	--                                                          gpointer mod_info);
+	-- gboolean            gconf_is_initialized                (void);
+	-- void                (*GConfNotifyFunc)                  (GConfEngine *conf,
+	--                                                          guint cnxn_id,
+	--                                                          GConfEntry *entry,
+	--                                                          gpointer user_data);
+	-- guint               gconf_engine_notify_add             (GConfEngine *conf,
+	--                                                          const gchar *namespace_section,
+	--                                                          GConfNotifyFunc func,
+	--                                                          gpointer user_data,
+	--                                                          GError **err);
+	-- void                gconf_engine_notify_remove          (GConfEngine *conf,
+	--                                                          guint cnxn);
+	-- GConfValue*         gconf_engine_get                    (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- GConfValue*         gconf_engine_get_without_default    (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- GConfEntry*         gconf_engine_get_entry              (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *locale,
+	--                                                          gboolean use_schema_default,
+	--                                                          GError **err);
+	-- GConfValue*         gconf_engine_get_with_locale        (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *locale,
+	--                                                          GError **err);
+	-- GConfValue*         gconf_engine_get_default_from_schema
+	--                                                         (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_set                    (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const GConfValue *value,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_unset                  (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_associate_schema       (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *schema_key,
+	--                                                          GError **err);
+	-- GSList*             gconf_engine_all_entries            (GConfEngine *conf,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	-- GSList*             gconf_engine_all_dirs               (GConfEngine *conf,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	-- void                gconf_engine_suggest_sync           (GConfEngine *conf,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_dir_exists             (GConfEngine *conf,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	-- void                gconf_engine_remove_dir             (GConfEngine *conf,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_key_is_writable        (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gboolean            gconf_valid_key                     (const gchar *key,
+	--                                                          gchar **why_invalid);
+	-- gboolean            gconf_key_is_below                  (const gchar *above,
+	--                                                          const gchar *below);
+	-- gchar*              gconf_concat_dir_and_key            (const gchar *dir,
+	--                                                          const gchar *key);
+	-- gchar*              gconf_unique_key                    (void);
+	-- char*               gconf_escape_key                    (const char *arbitrary_text,
+	--                                                          int len);
+	-- char*               gconf_unescape_key                  (const char *escaped_key,
+	--                                                          int len);
+	-- gdouble             gconf_engine_get_float              (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gint                gconf_engine_get_int                (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gchar*              gconf_engine_get_string             (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_get_bool               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- GConfSchema*        gconf_engine_get_schema             (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	-- GSList*             gconf_engine_get_list               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_get_pair               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gpointer car_retloc,
+	--                                                          gpointer cdr_retloc,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_set_float              (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          gdouble val,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_set_int                (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          gint val,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_set_string             (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *val,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_set_bool               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          gboolean val,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_set_schema             (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const GConfSchema *val,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_set_list               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GSList *list,
+	--                                                          GError **err);
+	-- gboolean            gconf_engine_set_pair               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gconstpointer address_of_car,
+	--                                                          gconstpointer address_of_cdr,
+	--                                                          GError **err);
+	--                     GConfEnumStringPair;
+	-- gboolean            gconf_string_to_enum                (GConfEnumStringPair lookup_table[],
+	--                                                          const gchar *str,
+	--                                                          gint *enum_value_retloc);
+	-- const gchar*        gconf_enum_to_string                (GConfEnumStringPair lookup_table[],
+	--                                                          gint enum_value);
+	-- void                gconf_clear_cache                   (GConfEngine *conf,
+	--                                                          GError **err);
+	-- void                gconf_synchronous_sync              (GConfEngine *conf,
+	--                                                          GError **err);
+	-- GConfValue*         gconf_engine_get_full               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *locale,
+	--                                                          gboolean use_schema_default,
+	--                                                          gboolean *is_default_p,
+	--                                                          gboolean *is_writable_p,
+	--                                                          GError **err);
+	--
+	--Description
+	--
+	--   These functions initialize GConf, and communicate with the gconfd server
+	--   via a GConfEngine object. You can install a notification request on the
+	--   server, get values, set values, list directories, and associate schema
+	--   names with keys.
+	--
+	--   Most of this interface is replicated in the GObject wrapper (GConfClient
+	--   object); an alternative to the value-setting functions is the
+	--   GConfChangeSet interface.
+	--
+	--Details
+	--
+	--  gconf_init ()
+	--
+	-- gboolean            gconf_init                          (int argc,
+	--                                                          char **argv,
+	--                                                          GError **err);
+	--
+	--  Warning
+	--
+	--   gconf_init is deprecated and should not be used in newly-written code.
+	--
+	--   Initializes the GConf library. Creates a connection to a CORBA ORB, and
+	--   initializes OAF (the object activation framework) if it isn't already
+	--   initialized.
+	--
+	--   argc :
+	--   argv :
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE otherwise.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_preinit ()
+	--
+	-- void                gconf_preinit                       (gpointer app,
+	--                                                          gpointer mod_info);
+	--
+	--  Warning
+	--
+	--   gconf_preinit is deprecated and should not be used in newly-written code.
+	--
+	--   app :
+	--   mod_info :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_postinit ()
+	--
+	-- void                gconf_postinit                      (gpointer app,
+	--                                                          gpointer mod_info);
+	--
+	--  Warning
+	--
+	--   gconf_postinit is deprecated and should not be used in newly-written code.
+	--
+	--   app :
+	--   mod_info :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_is_initialized ()
+	--
+	-- gboolean            gconf_is_initialized                (void);
+	--
+	--  Warning
+	--
+	--   gconf_is_initialized is deprecated and should not be used in newly-written
+	--   code.
+	--
+	--   Asks whether the library has been initialized.
+	--
+	--   Returns : TRUE if the library has been initialized.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  GConfNotifyFunc ()
+	--
+	-- void                (*GConfNotifyFunc)                  (GConfEngine *conf,
+	--                                                          guint cnxn_id,
+	--                                                          GConfEntry *entry,
+	--                                                          gpointer user_data);
+	--
+	--   A callback function invoked when a key's value changes. The cnxn_id
+	--   parameter will be the connection ID returned from
+	--   gconf_engine_notify_add(). key will be the full path of the changed key,
+	--   value will be the new value if the key is set. If the key is unset, value
+	--   will be the default value if one exists, or NULL otherwise. is_default
+	--   indicates whether a value is a default setting or a user setting. If value
+	--   is NULL, is_default will be TRUE. user_data is the data passed to
+	--   gconf_engine_notify_add().
+	--
+	--   conf :      the GConfEngine passed to gconf_engine_notify_add().
+	--   cnxn_id :   the ID returned from gconf_engine_notify_add().
+	--   entry :
+	--   user_data : the user data passed to gconf_engine_notify_add().
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_notify_add ()
+	--
+	-- guint               gconf_engine_notify_add             (GConfEngine *conf,
+	--                                                          const gchar *namespace_section,
+	--                                                          GConfNotifyFunc func,
+	--                                                          gpointer user_data,
+	--                                                          GError **err);
+	--
+	--   Registers a notification request with the gconfd server. The server will
+	--   notify the client when any key at or below namespace_section is set or
+	--   unset. Try to watch the smallest possible part of the namespace; otherwise
+	--   you will slow down the server and your application with unnecessary
+	--   notifications. Note that you should prefer gconf_client_notify_add() if
+	--   you're using the GObject wrapper library, because
+	--   gconf_client_notify_add() does not require a client-server conversation
+	--   for every callback. gconf_engine_notify_add() requests a different server
+	--   notification for every callback. The function returns an ID you can use to
+	--   remove the notification request; 0 is an invalid ID, and is returned if an
+	--   error occurs.
+	--
+	--   conf :              a GConfEngine to monitor for changes.
+	--   namespace_section : the directory or key to watch; you will be notified of
+	--                       changes at or below this point.
+	--   func :              the callback to invoke when a notification is received
+	--                       from the server.
+	--   user_data :         the data to pass to the callback.
+	--   err :               the return location for an allocated GError, or NULL
+	--                       to ignore errors.
+	--   Returns :           an ID for the notification request, or 0 on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_notify_remove ()
+	--
+	-- void                gconf_engine_notify_remove          (GConfEngine *conf,
+	--                                                          guint cnxn);
+	--
+	--   Removes a notification request.
+	--
+	--   conf : the GConfEngine you were monitoring for changes.
+	--   cnxn : The ID returned by gconf_engine_notify_add().
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get ()
+	--
+	-- GConfValue*         gconf_engine_get                    (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Returns the GConfValue stored at key, or NULL if no value is set. You must
+	--   call gconf_value_free() to free the returned value. If you know the
+	--   expected type of the value, you probably want to use the type-specific
+	--   convenience wrappers (gconf_engine_get_int(), etc.) because they will do
+	--   the type-checking for you and return the appropriate type. Automatically
+	--   returns the default value for a key, if the key is unset and a default
+	--   exists.
+	--
+	--   conf :    a GConfEngine to get the value from.
+	--   key :     the key to get.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : newly-allocated GConfValue, or NULL if unset and no default
+	--             exists.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_without_default ()
+	--
+	-- GConfValue*         gconf_engine_get_without_default    (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Identical to gconf_engine_get(), except that it will return NULL in place
+	--   of the default value if the key is unset. Note that gconf_engine_get() can
+	--   also return NULL if no default exists or an error occurs.
+	--
+	--   conf :    a GConfEngine to get the value from.
+	--   key :     the key to get.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : newly-allocated GConfValue, or NULL if unset.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_entry ()
+	--
+	-- GConfEntry*         gconf_engine_get_entry              (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *locale,
+	--                                                          gboolean use_schema_default,
+	--                                                          GError **err);
+	--
+	--   Obtain the full GConfEntry for a value.
+	--
+	--   conf :               a GConfEngine.
+	--   key :                the key to get.
+	--   locale :             preferred locale (as in the locale-related
+	--                        environment variables).
+	--   use_schema_default : a gboolean value indicating whether the default value
+	--                        associated with schema should be used.
+	--   err :                the return location for an allocated GError, or NULL
+	--                        to ignore errors.
+	--   Returns :            a GConfEntry.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_with_locale ()
+	--
+	-- GConfValue*         gconf_engine_get_with_locale        (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *locale,
+	--                                                          GError **err);
+	--
+	--   Requests the value appropriate for a particular locale. Right now, only
+	--   values of type GCONF_VALUE_SCHEMA are localized; the locale is meaningless
+	--   for other value types. Also, gconf_engine_get() automatically requests the
+	--   value in the user's current locale. So this function is only useful if you
+	--   want a schema for some locale other than the user's current locale. Except
+	--   for the additional argument, this function is identical to
+	--   gconf_engine_get() in all respects.
+	--
+	--   conf :    a GConfEngine to get the value from.
+	--   key :     the key to get.
+	--   locale :  preferred locale (as in the locale-related environment
+	--             variables).
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : newly-allocated GConfValue, or NULL if unset.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_default_from_schema ()
+	--
+	-- GConfValue*         gconf_engine_get_default_from_schema
+	--                                                         (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Returns the default value stored in the key's schema, if the key has a
+	--   schema associated and the schema exists and the schema contains a default
+	--   value. Note that gconf_engine_get(), gconf_engine_get_string(), and so on
+	--   already return the default value if no other value is found, so normally
+	--   you do not need this function. This function is just for convenience; you
+	--   could also get the GConfMetaInfo for the key, read the schema name from
+	--   there, then look up the schema by name and extract the default value.
+	--
+	--   conf :    a GConfEngine to get the value from.
+	--   key :     the key to get the default value for.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : newly-allocated GConfValue, or NULL if unset.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_set ()
+	--
+	-- gboolean            gconf_engine_set                    (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const GConfValue *value,
+	--                                                          GError **err);
+	--
+	--   Sets the value of key to value. Does not modify the passed-in GConfValue,
+	--   you must free it yourself. You may prefer a type-specific convenience
+	--   wrapper, such as gconf_engine_set_int().
+	--
+	--   An error of note is GCONF_OVERRIDDEN, indicating that the system
+	--   administrator has "forced" a value for this key. If no writable
+	--   configuration sources exist, it is not an error, but GConf will just
+	--   forget all your values; this allows users to have a configuration-free
+	--   setup without a constant barrage of error messages.
+	--
+	--   conf :    a GConfEngine to set the value in.
+	--   key :     the key to set.
+	--   value :   the new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_unset ()
+	--
+	-- gboolean            gconf_engine_unset                  (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Unsets the value of key; if key is already unset, has no effect. An error
+	--   of note is GCONF_OVERRIDDEN, indicating that the system administrator has
+	--   "forced" a value for this key.
+	--
+	--   conf :    a GConfEngine to affect.
+	--   key :     the key to unset.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_associate_schema ()
+	--
+	-- gboolean            gconf_engine_associate_schema       (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *schema_key,
+	--                                                          GError **err);
+	--
+	--   Directs GConf to find the schema for key at location schema_key. That is,
+	--   the value stored at schema_key should have type GCONF_VALUE_SCHEMA, and be
+	--   descriptive of key. Normally you don't call this function from C code; you
+	--   can ship a special file with your application and ask gconftool to install
+	--   schema associations into the database during "make install."
+	--
+	--   conf :       a GConfEngine to affect.
+	--   key :        the key to associate the schema with.
+	--   schema_key : the key where the schema will be stored.
+	--   err :        the return location for an allocated GError, or NULL to
+	--                ignore errors.
+	--   Returns :    TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_all_entries ()
+	--
+	-- GSList*             gconf_engine_all_entries            (GConfEngine *conf,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	--
+	--   Lists the key-value pairs in dir. Does not list subdirectories; for that
+	--   use gconf_engine_all_dirs(). The returned list contains GConfEntry
+	--   objects. A GConfEntry contains an absolute key and a value. The list is
+	--   not recursive, it contains only the immediate children of dir. To free the
+	--   returned list, gconf_entry_free() each list element, then g_slist_free()
+	--   the list itself.
+	--
+	--   conf :    a GConfEngine.
+	--   dir :     Directory to list.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : List of GConfEntry.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_all_dirs ()
+	--
+	-- GSList*             gconf_engine_all_dirs               (GConfEngine *conf,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	--
+	--   Lists the subdirectories in dir. The returned list contains allocated
+	--   strings. Each string is the absolute path of a subdirectory. You should
+	--   g_free() each string in the list, then g_slist_free() the list itself.
+	--
+	--   conf :    a GConfEngine.
+	--   dir :     Directory to get subdirectories from.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : List of allocated subdirectory names.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_suggest_sync ()
+	--
+	-- void                gconf_engine_suggest_sync           (GConfEngine *conf,
+	--                                                          GError **err);
+	--
+	--   Suggests to gconfd that you've just finished a block of changes, and it
+	--   would be an optimal time to sync to permanent storage. This is only a
+	--   suggestion; and gconfd will eventually sync even if you don't call
+	--   gconf_engine_suggest_sync(). This function is just a "hint" provided to
+	--   gconfd to maximize efficiency and minimize data loss.
+	--
+	--   conf : the GConfEngine to suggest syncing to.
+	--   err :  the return location for an allocated GError, or NULL to ignore
+	--          errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_dir_exists ()
+	--
+	-- gboolean            gconf_engine_dir_exists             (GConfEngine *conf,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	--
+	--   Queries whether the directory dir exists in the GConf database. Returns
+	--   TRUE or FALSE.
+	--
+	--   conf :    a GConfEngine.
+	--   dir :     Directory to check for.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE or FALSE.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_remove_dir ()
+	--
+	-- void                gconf_engine_remove_dir             (GConfEngine *conf,
+	--                                                          const gchar *dir,
+	--                                                          GError **err);
+	--
+	--   This function first checks the validity of the gconf key. In case of a
+	--   local GConfEngine it removes the directory from the source backend calling
+	--   gconf_sources_remove_dir(). Otherwise it obtains the configuration
+	--   database using gconf_engine_get_database() and removes the directory from
+	--   the database calling ConfigDatabase_remove_dir().
+	--
+	--   conf : a GConfEngine.
+	--   dir :  the name of the directory to be removed.
+	--   err :  the return location for an allocated GError, or NULL to ignore
+	--          errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_key_is_writable ()
+	--
+	-- gboolean            gconf_engine_key_is_writable        (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Checks whether the key is writable.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     the value to be changed.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE if the key is writable, FALSE if the key is read only.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_valid_key ()
+	--
+	-- gboolean            gconf_valid_key                     (const gchar *key,
+	--                                                          gchar **why_invalid);
+	--
+	--   Asks whether a key is syntactically correct, that is, it ensures that the
+	--   key consists of slash-separated strings and contains only legal
+	--   characters. Normally you shouldn't need to call this function; the GConf
+	--   functions all check this for you and return an error if the key is
+	--   invalid. However, it may be useful to validate input to an entry field or
+	--   the like. If you pass a non-NULL address as the why_invalid argument, an
+	--   allocated string is returned explaining why the key is invalid, if it is.
+	--   If the key is valid the why_invalid argument is unused.
+	--
+	--   key :         key to check.
+	--   why_invalid : return location for an explanation of the problem, if any.
+	--                 g_free() the returned string.
+	--   Returns :     TRUE if the key is valid, or FALSE if not.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_key_is_below ()
+	--
+	-- gboolean            gconf_key_is_below                  (const gchar *above,
+	--                                                          const gchar *below);
+	--
+	--   Asks whether the key below would be found below the key above, were they
+	--   both to exist in the database. For example, /foo is always found below /
+	--   and above /foo/bar. This probably isn't useful but GConf uses it
+	--   internally so here it is if you need it.
+	--
+	--   above :   the key on the "left hand side" of the predicate.
+	--   below :   the key on the "right hand side."
+	--   Returns : TRUE or FALSE.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_concat_dir_and_key ()
+	--
+	-- gchar*              gconf_concat_dir_and_key            (const gchar *dir,
+	--                                                          const gchar *key);
+	--
+	--   Concatenates the dir and key passed removing the unnecessary '/'
+	--   characters and returns the new string.
+	--
+	--   dir :     the directory.
+	--   key :     the key.
+	--   Returns : the newly concatenated string.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_unique_key ()
+	--
+	-- gchar*              gconf_unique_key                    (void);
+	--
+	--   Generates a new and unique key using serial number, process id, current
+	--   time and a random number generated.
+	--
+	--   Returns : a newly created key, a gchar value.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_escape_key ()
+	--
+	-- char*               gconf_escape_key                    (const char *arbitrary_text,
+	--                                                          int len);
+	--
+	--   Escape arbitrary_text such that it's a valid key element (i.e. one part of
+	--   the key path). The escaped key won't pass gconf_valid_key() because it
+	--   isn't a whole key (i.e. it doesn't have a preceding slash), but prepending
+	--   a slash to the escaped text should always result in a valid key.
+	--
+	--   arbitrary_text : some text in any encoding or format
+	--   len :            length of arbitrary_text in bytes, or -1 if
+	--                    arbitrary_text is nul-terminated
+	--   Returns :        a nul-terminated valid GConf key
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_unescape_key ()
+	--
+	-- char*               gconf_unescape_key                  (const char *escaped_key,
+	--                                                          int len);
+	--
+	--   Converts a string escaped with gconf_escape_key() back into its original
+	--   form.
+	--
+	--   escaped_key : a key created with gconf_escape_key()
+	--   len :         length of escaped_key in bytes, or -1 if escaped_key is
+	--                 nul-terminated
+	--   Returns :     the original string that was escaped to create escaped_key
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_float ()
+	--
+	-- gdouble             gconf_engine_get_float              (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the floating point number (GCONF_VALUE_FLOAT) stored at key.
+	--   Automatically performs type-checking, so if a non-float is stored at key,
+	--   an error is returned. On error, or if key is unset, 0.0 is returned.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the value of key, or 0.0 if no value is obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_int ()
+	--
+	-- gint                gconf_engine_get_int                (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the integer (GCONF_VALUE_INT) stored at key. Automatically
+	--   performs type-checking, so if a non-integer is stored at key, an error is
+	--   returned. On error, or if key is unset, 0 is returned.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the value of key, or 0 if no value is obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_string ()
+	--
+	-- gchar*              gconf_engine_get_string             (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the string (GCONF_VALUE_STRING) stored at key. Automatically
+	--   performs type-checking, so if a non-string is stored at key, an error is
+	--   returned. On error, or if key is unset, NULL is returned.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : allocated string (value of key), or NULL if no value is
+	--             obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_bool ()
+	--
+	-- gboolean            gconf_engine_get_bool               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the boolean value (GCONF_VALUE_BOOL) stored at key. Automatically
+	--   performs type-checking, so if a non-bool is stored at key, an error is
+	--   returned. On error, or if key is unset, FALSE is returned.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the value of key, or FALSE if no value is obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_schema ()
+	--
+	-- GConfSchema*        gconf_engine_get_schema             (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GError **err);
+	--
+	--   Requests the schema (GCONF_VALUE_SCHEMA) stored at key. Automatically
+	--   performs type-checking, so if a non-schema is stored at key, an error is
+	--   returned. If no value is set or an error occurs, NULL is returned.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want the value of.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : the value of key as an allocated GConfSchema, or NULL if no
+	--             value was obtained.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_list ()
+	--
+	-- GSList*             gconf_engine_get_list               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GError **err);
+	--
+	--   Requests the list (GCONF_VALUE_LIST) stored at key. Automatically performs
+	--   type-checking, so if a non-list is stored at key, or the list does not
+	--   contain elements of type list_type, an error is returned. If no value is
+	--   set or an error occurs, NULL is returned. Note that NULL is also the empty
+	--   list, so if you need to distinguish the empty list from an unset value,
+	--   you must use gconf_engine_get() to obtain a raw GConfValue.
+	--
+	--   Remember that GConf lists can only store primitive types:
+	--   GCONF_VALUE_FLOAT, GCONF_VALUE_INT, GCONF_VALUE_BOOL, GCONF_VALUE_STRING,
+	--   GCONF_VALUE_SCHEMA. Also remember that lists must be uniform, you may not
+	--   mix types in the same list.
+	--
+	--   The type of the list elements depends on list_type. A GConfValue with type
+	--   GCONF_VALUE_LIST normally stores a list of more GConfValue objects.
+	--   gconf_engine_get_list() automatically converts to primitive C types. Thus,
+	--   the list->data fields in the returned list contain:
+	--
+	--   GCONF_VALUE_INT    The integer itself, converted with GINT_TO_POINTER()
+	--   GCONF_VALUE_BOOL   The bool itself, converted with GINT_TO_POINTER()
+	--   GCONF_VALUE_FLOAT  A pointer to gdouble, which should be freed with
+	--                      g_free()
+	--   GCONF_VALUE_STRING A pointer to gchar, which should be freed with g_free()
+	--   GCONF_VALUE_SCHEMA A pointer to GConfSchema, which should be freed with
+	--                      gconf_schema_free()
+	--
+	--   In the GCONF_VALUE_FLOAT and GCONF_VALUE_STRING cases, you must g_free()
+	--   each list element. In the GCONF_VALUE_SCHEMA case you must
+	--   gconf_schema_free() each element. In all cases you must free the list
+	--   itself with g_slist_free().
+	--
+	--   conf :      a GConfEngine.
+	--   key :       key you want the value of.
+	--   list_type : type of each list element.
+	--   err :       the return location for an allocated GError, or NULL to ignore
+	--               errors.
+	--   Returns :   an allocated list, with elements as described above.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_pair ()
+	--
+	-- gboolean            gconf_engine_get_pair               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gpointer car_retloc,
+	--                                                          gpointer cdr_retloc,
+	--                                                          GError **err);
+	--
+	--   Requests the pair (GCONF_VALUE_PAIR) stored at key. Automatically performs
+	--   type-checking, so if a non-pair is stored at key, or the pair does not
+	--   have the right car_type and cdr_type, an error is returned. Remember that
+	--   the car of a pair is its first value, and the cdr is its second value, in
+	--   the Lisp tradition.
+	--
+	--   Remember that GConf pairs can only store primitive types:
+	--   GCONF_VALUE_FLOAT, GCONF_VALUE_INT, GCONF_VALUE_BOOL, GCONF_VALUE_STRING,
+	--   GCONF_VALUE_SCHEMA.
+	--
+	--   gconf_engine_get_pair() stores the two fields of the pair in the locations
+	--   pointed to by car_retloc and cdr_retloc. The type of these pointers
+	--   depends on the corresponding car_type and cdr_type:
+	--
+	--   GCONF_VALUE_INT                    pointer to gint
+	--   GCONF_VALUE_BOOL                   pointer to gboolean
+	--   GCONF_VALUE_FLOAT                  pointer to gdouble
+	--   GCONF_VALUE_STRING                 pointer to gchar*
+	--   GCONF_VALUE_SCHEMA                 pointer to GConfSchema*
+	--
+	--   In the GCONF_VALUE_STRING case, you must g_free() the string(s) stored in
+	--   the return location(s). In the GCONF_VALUE_SCHEMA case you must
+	--   gconf_schema_free() the returned schema. If there's an error or the value
+	--   is unset, car_retloc and cdr_retloc are left unchanged.
+	--
+	--   gconf_engine_get_pair() returns TRUE on success.
+	--
+	--   An example of gconf_engine_get_pair() in action:
+	--
+	-- gdouble car = 10.0;
+	-- gchar* cdr  = NULL;
+	-- GError* error = NULL;
+	--
+	-- if (!gconf_engine_get_pair(conf, "/foo",
+	--                     GCONF_VALUE_FLOAT,
+	--                     GCONF_VALUE_STRING,
+	--                     &car, &cdr, &error))
+	--   {
+	--     /* Note: car/cdr should be untouched, because an error occurred */
+	--     g_assert(error != NULL);
+	--     fprintf(stderr, "Error: %s\n", error->message);
+	--     g_error_free(error);
+	--     error = NULL;
+	--   }
+	-- else
+	--   {
+	--     /* Note: car/cdr may be untouched even though there was no error,
+	--        if no value was set for "/foo"
+	--      */
+	--     printf("Found pair (%g,%s)\n", car, cdr);
+	--     if (cdr != NULL)
+	--       g_free(cdr);
+	--   }
+	--
+	--   conf :       a GConfEngine.
+	--   key :        key you want the value of.
+	--   car_type :   desired type of the pair's first field (car).
+	--   cdr_type :   desired type of the pair's second field (cdr).
+	--   car_retloc : address of a return location for the car.
+	--   cdr_retloc : address of a return location for the cdr.
+	--   err :        the return location for an allocated GError, or NULL to
+	--                ignore errors.
+	--   Returns :    TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_set_float ()
+	--
+	-- gboolean            gconf_engine_set_float              (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          gdouble val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but doesn't store a float (GCONF_VALUE_FLOAT),
+	--   gconf_engine_set_float() will fail.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_set_int ()
+	--
+	-- gboolean            gconf_engine_set_int                (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          gint val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but doesn't store an integer (GCONF_VALUE_INT),
+	--   gconf_engine_set_int() will fail.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_set_string ()
+	--
+	-- gboolean            gconf_engine_set_string             (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but doesn't store a string (GCONF_VALUE_STRING),
+	--   gconf_engine_set_string() will fail.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_set_bool ()
+	--
+	-- gboolean            gconf_engine_set_bool               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          gboolean val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but but doesn't store a boolean (GCONF_VALUE_BOOL),
+	--   gconf_engine_set_bool() will fail.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_set_schema ()
+	--
+	-- gboolean            gconf_engine_set_schema             (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const GConfSchema *val,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to val. Automatically creates the key if it didn't
+	--   exist before (ie it was unset or it only had a default value). If the key
+	--   already exists but doesn't store a schema value (GCONF_VALUE_SCHEMA),
+	--   gconf_engine_set_schema() will fail.
+	--
+	--   conf :    a GConfEngine.
+	--   key :     key you want to set the value of.
+	--   val :     new value of key.
+	--   err :     the return location for an allocated GError, or NULL to ignore
+	--             errors.
+	--   Returns : TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_set_list ()
+	--
+	-- gboolean            gconf_engine_set_list               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType list_type,
+	--                                                          GSList *list,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to list of type list_type. Automatically creates
+	--   the key if it didn't exist before (ie it was unset or it only had a
+	--   default value). If the key already exists but doesn't store a list value
+	--   (GCONF_VALUE_LIST), gconf_engine_set_list() will fail.
+	--
+	--   conf :      a GConfEngine.
+	--   key :       key you want to set the value of.
+	--   list_type : type of each list element.
+	--   list :      new value of key.
+	--   err :       the return location for an allocated GError, or NULL to ignore
+	--               errors.
+	--   Returns :   TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_set_pair ()
+	--
+	-- gboolean            gconf_engine_set_pair               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          GConfValueType car_type,
+	--                                                          GConfValueType cdr_type,
+	--                                                          gconstpointer address_of_car,
+	--                                                          gconstpointer address_of_cdr,
+	--                                                          GError **err);
+	--
+	--   Change the value of key to a pair of first type car_type and second type
+	--   cdr_type . Automatically creates the key if it didn't exist before (ie it
+	--   was unset or it only had a default value). If the key already exists but
+	--   doesn't store a schema value (GCONF_VALUE_SCHEMA),
+	--   gconf_engine_set_schema() will fail.
+	--
+	--   conf :           a GConfEngine.
+	--   key :            key you want to set the value of.
+	--   car_type :       type of the pair's first field (car).
+	--   cdr_type :       type of the pair's second field (cdr).
+	--   address_of_car : address of the car.
+	--   address_of_cdr : address of the cdr.
+	--   err :            the return location for an allocated GError, or NULL to
+	--                    ignore errors.
+	--   Returns :        TRUE on success, FALSE on error.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  GConfEnumStringPair
+	--
+	-- typedef struct {
+	--   gint enum_value;
+	--   const gchar* str;
+	-- } GConfEnumStringPair;
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_string_to_enum ()
+	--
+	-- gboolean            gconf_string_to_enum                (GConfEnumStringPair lookup_table[],
+	--                                                          const gchar *str,
+	--                                                          gint *enum_value_retloc);
+	--
+	--   It's best to store enumeration values as strings rather than integers.
+	--   This is robust against changes in the enumeration, and also
+	--   human-readable. This function makes it more convenient to store enums as
+	--   strings.
+	--
+	--   The first argument is a lookup table, typically declared statically as
+	--   follows:
+	--
+	-- static GConfEnumStringPair foo_enum_lookup_table[] = {
+	--   { FOO_BLAH, "Blah" },
+	--   { FOO_BAR,  "Bar"  },
+	--   { 0, NULL }
+	-- };
+	--
+	--   Note that the last element of the table is { 0, NULL }. Typically the
+	--   strings you use should be semi-human-readable, for GTK+ and GNOME
+	--   stripping off the library prefix and converting to StudlyCaps is the
+	--   recommended convention.
+	--
+	--   The function returns TRUE if a match for the string is found, and if a
+	--   match is found the enum value is placed in enum_value_retloc.
+	--
+	--   lookup_table :      a lookup table mapping enum values to strings.
+	--   str :               the string to convert to an enum value.
+	--   enum_value_retloc : the address of an enum variable.
+	--   Returns :           TRUE if a match was found.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_enum_to_string ()
+	--
+	-- const gchar*        gconf_enum_to_string                (GConfEnumStringPair lookup_table[],
+	--                                                          gint enum_value);
+	--
+	--   See gconf_string_to_enum() for background information on this function.
+	--
+	--   lookup_table : a lookup table mapping enum values to strings.
+	--   enum_value :   the enumeration value to convert to a string.
+	--   Returns :      a pointer to the proper string in the lookup table, or NULL
+	--                  if no match was found.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_clear_cache ()
+	--
+	-- void                gconf_clear_cache                   (GConfEngine *conf,
+	--                                                          GError **err);
+	--
+	--   In case of a local GConfEngine, this function calls
+	--   gconf_sources_clear_cache() to clear the cache from the source. Otherwise
+	--   it obtains the configuration database using gconf_engine_get_database()
+	--   and clears the configuration database cache using
+	--   ConfigDatabase_clear_cache().
+	--
+	--   conf : a GConfEngine.
+	--   err :  the return location for an allocated GError, or NULL to ignore
+	--          errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_synchronous_sync ()
+	--
+	-- void                gconf_synchronous_sync              (GConfEngine *conf,
+	--                                                          GError **err);
+	--
+	--   In case of a local GConfEngine, this function syncs up all the gconf
+	--   sources calling gconf_synchronous_sync(). Otherwise it obtains the
+	--   configuration database using gconf_engine_get_database() and syncs up the
+	--   database calling ConfigDatabase_synchronous_sync().
+	--
+	--   conf : a GConfEngine.
+	--   err :  the return location for an allocated GError, or NULL to ignore
+	--          errors.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_engine_get_full ()
+	--
+	-- GConfValue*         gconf_engine_get_full               (GConfEngine *conf,
+	--                                                          const gchar *key,
+	--                                                          const gchar *locale,
+	--                                                          gboolean use_schema_default,
+	--                                                          gboolean *is_default_p,
+	--                                                          gboolean *is_writable_p,
+	--                                                          GError **err);
+	--
+	--   Returns the GConfValue of a key and the associated GConfEntry fields
+	--   depending on the parameters passed.
+	--
+	--   conf :               a GConfEngine.
+	--   key :                the key whose value is to be obtained.
+	--   locale :             the preferred locale (as in the locale related
+	--                        environment variables) orNULL if no locale is to be
+	--                        passed.
+	--   use_schema_default : a gboolean value, indicating whether schema
+	--                        information is to be used as the default value.
+	--   is_default_p :       a gpointer if the is_default field of the GConfEntry
+	--                        is required, NULL otherwise.
+	--   is_writable_p :      a gpointer if the is_writable field of the GConfEntry
+	--                        is required, NULL otherwise.
+	--   err :                the return location for an allocated GError, or NULL
+	--                        to ignore errors.
+	--   Returns :            the GConfValue.
+
+end -- class GCONF_GCONF

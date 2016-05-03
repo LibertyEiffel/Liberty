@@ -1,0 +1,397 @@
+note
+	description: "."
+	copyright: "[
+					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+	wrapped_version: "Unknown"
+
+class GCONF_GCONF_BACKEND
+
+inherit
+	(SHARED_?)C_STRUCT
+
+insert
+	GCONF_GCONF_BACKEND_EXTERNALS
+
+create {ANY} make, from_external_pointer
+
+feature {} -- Creation
+
+	--   Link: GConf Reference Manual (start)
+	--   Link: Using the GConf library (parent)
+	--   Link: GConfClient (previous)
+	--   Link: GConfEngine (next)
+	--   Link: Using the GConf library (chapter)
+	--
+	--   Prev Up Home                  GConf Reference Manual                  Next
+	--   Top  |  Description
+	--
+	--   gconf-backend
+	--
+	--   gconf-backend
+	--
+	--Synopsis
+	--
+	--
+	--
+	--
+	--                     GConfBackendVTable;
+	--                     GConfBackend;
+	-- gchar*              gconf_address_backend               (const gchar *address);
+	-- gchar*              gconf_address_resource              (const gchar *address);
+	-- gchar*              gconf_backend_file                  (const gchar *address);
+	-- GConfBackend*       gconf_get_backend                   (const gchar *address,
+	--                                                          GError **err);
+	-- void                gconf_backend_ref                   (GConfBackend *backend);
+	-- void                gconf_backend_unref                 (GConfBackend *backend);
+	-- GConfSource*        gconf_backend_resolve_address       (GConfBackend *backend,
+	--                                                          const gchar *address,
+	--                                                          GError **err);
+	--
+	--Description
+	--
+	--Details
+	--
+	--  GConfBackendVTable
+	--
+	-- typedef struct {
+	--   /* Set to sizeof (GConfBackendVTable) - used for future proofing */
+	--   gsize                  vtable_size;
+	--
+	--   void                (* shutdown)        (GError** err);
+	--
+	--   GConfSource*        (* resolve_address) (const gchar* address,
+	--                                            GError** err);
+	--
+	--   /* Thread locks. If the backend is thread-safe, then these
+	--    * can be NULL. If per-source locks are needed, then these
+	--    * calls should lock a mutex stored in the GConfSource.
+	--    * If a per-backend lock is needed, then the calls can ignore
+	--    * their source argument and lock the whole backend.
+	--    */
+	--   void                (* lock)            (GConfSource* source,
+	--                                            GError** err);
+	--
+	--   void                (* unlock)          (GConfSource* source,
+	--                                            GError** err);
+	--
+	--   /* Report whether a given key (and its subkeys) can be read/written.
+	--    * Sources may not permit reading/writing from/to /foo but forbid
+	--    * writing to /foo/bar; if a key can be read or written then its
+	--    * subkeys may also be read/written.
+	--    *
+	--    * This field allows backends to be configured so that they only
+	--    * store certain kinds of data in certain sections of the GConf
+	--    * namespace.
+	--    *
+	--    * If these functions return an error, they MUST return FALSE as
+	--    * well.
+	--    */
+	--
+	--   gboolean           (* readable)         (GConfSource* source,
+	--                                            const gchar* key,
+	--                                            GError** err);
+	--
+	--   gboolean           (* writable)        (GConfSource* source,
+	--                                            const gchar* key,
+	--                                            GError** err);
+	--
+	--   /* schema_name filled if NULL or GCONF_VALUE_IGNORE_SUBSEQUENT returned.
+	--      if schema_name is NULL, it isn't filled */
+	--   GConfValue*         (* query_value)     (GConfSource* source,
+	--                                            const gchar* key,
+	--                                            const gchar** locales,
+	--                                            gchar** schema_name,
+	--                                            GError** err);
+	--
+	--   GConfMetaInfo*      (* query_metainfo)  (GConfSource* source,
+	--                                            const gchar* key,
+	--                                            GError** err);
+	--
+	--   void                (* set_value)       (GConfSource* source,
+	--                                            const gchar* key,
+	--                                            const GConfValue* value,
+	--                                            GError** err);
+	--
+	--   /* Returns list of GConfEntry with key set to a relative
+	--    * pathname. In the public client-side API the key
+	--    * is always absolute though.
+	--    */
+	--   GSList*             (* all_entries)     (GConfSource* source,
+	--                                            const gchar* dir,
+	--                                            const gchar** locales,
+	--                                            GError** err);
+	--
+	--   /* Returns list of allocated strings, relative names */
+	--   GSList*             (* all_subdirs)     (GConfSource* source,
+	--                                            const gchar* dir,
+	--                                            GError** err);
+	--
+	--   void                (* unset_value)     (GConfSource* source,
+	--                                            const gchar* key,
+	--                                            const gchar* locale,
+	--                                            GError** err);
+	--
+	--   gboolean            (* dir_exists)      (GConfSource* source,
+	--                                            const gchar* dir,
+	--                                            GError** err);
+	--
+	--   void                (* remove_dir)      (GConfSource* source,
+	--                                            const gchar* dir,
+	--                                            GError** err);
+	--
+	--   void                (* set_schema)      (GConfSource* source,
+	--                                            const gchar* key,
+	--                                            const gchar* schema_key,
+	--                                            GError** err);
+	--
+	--   gboolean            (* sync_all)        (GConfSource* source,
+	--                                            GError** err);
+	--
+	--   void                (* destroy_source)  (GConfSource* source);
+	--
+	--   /* This is basically used by the test suite */
+	--   void                (* clear_cache)     (GConfSource* source);
+	--
+	--   /* used by gconf-sanity-check */
+	--   void                (* blow_away_locks) (const char *address);
+	--
+	--   void                (* set_notify_func) (GConfSource           *source,
+	--                                            GConfSourceNotifyFunc  notify_func,
+	--                                            gpointer               user_data);
+	--
+	--   void                (* add_listener)    (GConfSource           *source,
+	--                                            guint                  id,
+	--                                            const gchar           *namespace_section);
+	--
+	--   void                (* remove_listener) (GConfSource           *source,
+	--                                            guint                  id);
+	-- } GConfBackendVTable;
+	--
+	--   The GConfBackendVTable is a table of methods that any GConf backend must
+	--   implement. The dynamically loaded library module should export a function
+	--   called gconf_backend_get_vtable() that returns a pointer to a
+	--   GConfBackendVTable.
+	--
+	--   Here is the specification of the vtable members:
+	--
+	--                   The size of the vtable structure. This is used by the
+	--                   daemon to ensure that a mismatch between the version of
+	--   vtable_size     GConf the backend was compiled against and the version the
+	--                   daemon was compiled against can be handled gracefully. Set
+	--                   this field to sizeof (GConfBackendVtable).
+	--                   Called prior to unloading the dynamic module. Should
+	--   shutdown        ensure that no functions or static/global variables from
+	--                   the module will ever be accessed again. Should free any
+	--                   memory that the backend no longer needs.
+	--                   Should create a GConfSource for accessing the supplied
+	--                   address. Should set the GCONF_SOURCE_ALL_READABLE and
+	--   resolve_address GCONF_SOURCE_ALL_WRITEABLE flags if appropriate. If these
+	--                   are not set, the backend must implement the writable and
+	--                   readable methods. If NULL is returned, then the error
+	--                   should be set.
+	--                   If the backend is thread safe (does its own locking or
+	--                   whatever), then lock and unlock can be NULL. If the
+	--                   backend requires a lock for each source, then lock and
+	--   lock            unlock should lock/unlock that lock. If the backend has a
+	--                   global lock for all uses of the backend, then lock and
+	--                   unlock should ignore their arguments and lock the entire
+	--                   backend.
+	--   unlock          See description of lock.
+	--                   If the GCONF_SOURCE_ALL_READABLE flag is set, this method
+	--                   is never called and may be NULL. If
+	--                   GCONF_SOURCE_ALL_READABLE is unset, and this method is
+	--                   NULL, then the source is write-only. If this method is
+	--   readable        implemented, it should return TRUE if the given key could
+	--                   be read from the given source. TRUE should be returned
+	--                   even if the key is unset; this function returns something
+	--                   similar to permissions, it is not asking whether the key
+	--                   exists. If an error is set, then FALSE must be returned.
+	--   writable        Analagous to readable, but for writing.
+	--                   This method must be implemented if the source is readable.
+	--                   It returns the value of a key. The "locales" argument is a
+	--                   NULL-terminated vector of locale names, where the first
+	--                   locale in the vector is the preferred locale, the next is
+	--                   the second choice, etc. if the "schema_name" argument is
+	--                   non-NULL, then it should be filled with an allocated
+	--                   string giving the name of the schema attached to the key,
+	--   query_value     if and only if NULL is returned. This is an optimization
+	--                   to avoid looking up the same key again in the database if
+	--                   it's unset and we need to ask for its default value from
+	--                   the schema. If NULL is returned, indicating that the key
+	--                   is unset, then schema_name should not be filled in. If
+	--                   this method sets an error, NULL must be returned. It may
+	--                   not set an error while also returning a value. The
+	--                   returned value will be destroyed by the caller, so should
+	--                   be a copy of the backend's internal data.
+	--                   This method must be implemented. If any metainfo is
+	--   query_metainfo  available about a key, it returns a GConfMetaInfo with
+	--                   that metainfo set. If none is available, NULL is returned.
+	--                   NULL should also be returned if an error is set.
+	--                   This method must be implemented if the source is writable.
+	--   set_value       It sets the value of a key. If the key is already set, its
+	--                   value should be replaced. Setting a value should update
+	--                   the modification time of the key.
+	--                   This method must be implemented. It returns a list of all
+	--                   keys in the given directory for which some information is
+	--                   available (metainfo or values). The returned list should
+	--   all_entries     contain GConfEntry objects. On error, NULL should be
+	--                   returned and the error set. Subdirectories should not be
+	--                   included in the returned list. The list and the GConfEntry
+	--                   objects will be freed by the caller.
+	--                   This method must be implemented. It returns a list of all
+	--                   the subdirectories in a given directory. It should return
+	--   all_subdirs     the subdirectories as relative paths, i.e. there should
+	--                   not be any slashes in the subdirectory name. Each
+	--                   subdirectory in the list should be an allocated string;
+	--                   the list and the strings will be freed by the caller.
+	--                   If the given key has a value, then this method should
+	--                   unset the value. If a value is unset, subsequent calls to
+	--   unset_value     query_value should return NULL. If the locale string
+	--                   passed in to unset_value is non-NULL, then only the value
+	--                   for that locale should be unset. If NULL, the value should
+	--                   be globally unset for all locales.
+	--   dir_exists      Determines whether a directory exists. Should return TRUE
+	--                   if there is a directory with the given name.
+	--                   Should remove a directory, recursively: including all its
+	--   remove_dir      subdirectories and all the values and keys inside the
+	--                   directory.
+	--   set_schema      Should associate a schema name with a key.
+	--                   Should ensure that all data is stored on permanent media,
+	--   sync_all        or whatever makes sense for the backend. Called
+	--                   periodically by the GConf daemon.
+	--   destroy_source  Should destroy a source obtained with resolve_address.
+	--   clear_cache     Discard any cached data after saving the data to permanent
+	--                   storage.
+	--                   Unconditionally discard any locks whether they are stale
+	--   blow_away_locks or otherwise in order to force the backend to be able to
+	--                   obtain access to its data store.
+	--                   If the backend wishes to notify the daemon of changes in
+	--                   the value of keys it must implement this method. In order
+	--                   to notify the daemon of a change, the backend should
+	--                   invoke the supplied notify_func with user_data. Backends
+	--                   must not notify the daemon of changes which the daemon has
+	--   set_notify_func not expressed interest in by adding a listener with
+	--                   add_listener. Also, the backend must make every effort to
+	--                   minimise the number of notifications it emits. For
+	--                   example, if the daemon has added a listener for /apps and
+	--                   another for /apps/foo and the value of /apps/foo/bar
+	--                   changes, the backend should only emit a single
+	--                   notification.
+	--                   If it is possible for entries to be changed concurrently
+	--                   by another daemon, the backend may support notifying the
+	--                   daemon (and any listening clients) of such changes. This
+	--                   function should add a listener to a section of the tree
+	--                   and when any of the following events occur, the backend
+	--                   should invoke the notify function with the key that has
+	--                   changed:
+	--
+	--                     * If the entry is set or unset
+	--   add_listener
+	--                     * If the entry's value changes
+	--
+	--                     * If the entry's schema name changes
+	--
+	--                     * If the entry is a schema and its value in any locale
+	--                       changes
+	--
+	--                   Note, the backend should not notify the daemon of any
+	--                   changes that originated from the daemon itself.
+	--   remove_listener Remove a listener added with add_listener. The listener is
+	--                   identified by the integer supplied.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  GConfBackend
+	--
+	-- typedef struct {
+	--   const gchar* name;
+	--   guint refcount;
+	--   GConfBackendVTable vtable;
+	--   GModule* module;
+	-- } GConfBackend;
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_address_backend ()
+	--
+	-- gchar*              gconf_address_backend               (const gchar *address);
+	--
+	--   address :
+	--   Returns :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_address_resource ()
+	--
+	-- gchar*              gconf_address_resource              (const gchar *address);
+	--
+	--   address :
+	--   Returns :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_backend_file ()
+	--
+	-- gchar*              gconf_backend_file                  (const gchar *address);
+	--
+	--   address :
+	--   Returns :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_get_backend ()
+	--
+	-- GConfBackend*       gconf_get_backend                   (const gchar *address,
+	--                                                          GError **err);
+	--
+	--   address :
+	--   err :
+	--   Returns :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_backend_ref ()
+	--
+	-- void                gconf_backend_ref                   (GConfBackend *backend);
+	--
+	--   backend :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_backend_unref ()
+	--
+	-- void                gconf_backend_unref                 (GConfBackend *backend);
+	--
+	--   backend :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gconf_backend_resolve_address ()
+	--
+	-- GConfSource*        gconf_backend_resolve_address       (GConfBackend *backend,
+	--                                                          const gchar *address,
+	--                                                          GError **err);
+	--
+	--   backend :
+	--   address :
+	--   err :
+	--   Returns :
+
+end -- class GCONF_GCONF_BACKEND

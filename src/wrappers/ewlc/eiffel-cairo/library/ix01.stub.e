@@ -1,0 +1,622 @@
+note
+	description: "."
+	copyright: "[
+					Copyright (C) 2007 Paolo Redaelli, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+	wrapped_version: "1.2.4"
+
+class FOO
+
+inherit
+	(SHARED_?)C_STRUCT
+
+insert
+	FOO_EXTERNALS
+
+create {ANY} make, from_external_pointer
+
+feature {} -- Creation
+
+	--   Link: Cairo: A Vector Graphics Library (start)
+	--   Link: Cairo: A Vector Graphics Library (parent)
+	--   Link: Types (previous)
+	--   Link: Index of new symbols in 1.2 (next)
+	--   Link: Part I. Tutorial (part)
+	--   Link: Part II. Reference (part)
+	--   Link: Drawing (chapter)
+	--   Link: Fonts (chapter)
+	--   Link: Surfaces (chapter)
+	--   Link: Utilities (chapter)
+	--   Link: Index (index)
+	--   Link: Index of new symbols in 1.2 (index)
+	--   Link: Appendix A. Creating a language binding for cairo (appendix)
+	--
+	--   Prev   Home             Cairo: A Vector Graphics Library              Next
+	--
+	--Index
+	--
+	--   , Description
+	--
+	--  C
+	--
+	--   cairo_antialias_t, enum cairo_antialias_t
+	--
+	--   cairo_append_path, cairo_append_path ()
+	--
+	--   cairo_arc, cairo_arc ()
+	--
+	--   cairo_arc_negative, cairo_arc_negative ()
+	--
+	--   cairo_bool_t, cairo_bool_t
+	--
+	--   cairo_clip, cairo_clip ()
+	--
+	--   cairo_clip_preserve, cairo_clip_preserve ()
+	--
+	--   cairo_close_path, cairo_close_path ()
+	--
+	--   cairo_content_t, enum cairo_content_t
+	--
+	--   cairo_copy_page, cairo_copy_page ()
+	--
+	--   cairo_copy_path, cairo_copy_path ()
+	--
+	--   cairo_copy_path_flat, cairo_copy_path_flat ()
+	--
+	--   cairo_create, cairo_create ()
+	--
+	--   cairo_curve_to, cairo_curve_to ()
+	--
+	--   cairo_debug_reset_static_data, cairo_debug_reset_static_data ()
+	--
+	--   cairo_destroy, cairo_destroy ()
+	--
+	--   cairo_destroy_func_t, cairo_destroy_func_t ()
+	--
+	--   cairo_device_to_user, cairo_device_to_user ()
+	--
+	--   cairo_device_to_user_distance, cairo_device_to_user_distance ()
+	--
+	--   cairo_extend_t, enum cairo_extend_t
+	--
+	--   cairo_fill, cairo_fill ()
+	--
+	--   cairo_fill_extents, cairo_fill_extents ()
+	--
+	--   cairo_fill_preserve, cairo_fill_preserve ()
+	--
+	--   cairo_fill_rule_t, enum cairo_fill_rule_t
+	--
+	--   cairo_filter_t, enum cairo_filter_t
+	--
+	--   cairo_font_extents, cairo_font_extents ()
+	--
+	--   cairo_font_extents_t, cairo_font_extents_t
+	--
+	--   cairo_font_face_destroy, cairo_font_face_destroy ()
+	--
+	--   cairo_font_face_get_type, cairo_font_face_get_type ()
+	--
+	--   cairo_font_face_get_user_data, cairo_font_face_get_user_data ()
+	--
+	--   cairo_font_face_reference, cairo_font_face_reference ()
+	--
+	--   cairo_font_face_set_user_data, cairo_font_face_set_user_data ()
+	--
+	--   cairo_font_face_status, cairo_font_face_status ()
+	--
+	--   cairo_font_face_t, cairo_font_face_t
+	--
+	--   cairo_font_options_copy, cairo_font_options_copy ()
+	--
+	--   cairo_font_options_create, cairo_font_options_create ()
+	--
+	--   cairo_font_options_destroy, cairo_font_options_destroy ()
+	--
+	--   cairo_font_options_equal, cairo_font_options_equal ()
+	--
+	--   cairo_font_options_get_antialias, cairo_font_options_get_antialias ()
+	--
+	--   cairo_font_options_get_hint_metrics, cairo_font_options_get_hint_metrics
+	--   ()
+	--
+	--   cairo_font_options_get_hint_style, cairo_font_options_get_hint_style ()
+	--
+	--   cairo_font_options_get_subpixel_order,
+	--   cairo_font_options_get_subpixel_order ()
+	--
+	--   cairo_font_options_hash, cairo_font_options_hash ()
+	--
+	--   cairo_font_options_merge, cairo_font_options_merge ()
+	--
+	--   cairo_font_options_set_antialias, cairo_font_options_set_antialias ()
+	--
+	--   cairo_font_options_set_hint_metrics, cairo_font_options_set_hint_metrics
+	--   ()
+	--
+	--   cairo_font_options_set_hint_style, cairo_font_options_set_hint_style ()
+	--
+	--   cairo_font_options_set_subpixel_order,
+	--   cairo_font_options_set_subpixel_order ()
+	--
+	--   cairo_font_options_status, cairo_font_options_status ()
+	--
+	--   cairo_font_options_t, cairo_font_options_t
+	--
+	--   cairo_font_slant_t, enum cairo_font_slant_t
+	--
+	--   cairo_font_type_t, enum cairo_font_type_t
+	--
+	--   cairo_font_weight_t, enum cairo_font_weight_t
+	--
+	--   cairo_format_t, enum cairo_format_t
+	--
+	--   cairo_ft_font_face_create_for_ft_face,
+	--   cairo_ft_font_face_create_for_ft_face ()
+	--
+	--   cairo_ft_font_face_create_for_pattern,
+	--   cairo_ft_font_face_create_for_pattern ()
+	--
+	--   cairo_ft_font_options_substitute, cairo_ft_font_options_substitute ()
+	--
+	--   cairo_ft_scaled_font_lock_face, cairo_ft_scaled_font_lock_face ()
+	--
+	--   cairo_ft_scaled_font_unlock_face, cairo_ft_scaled_font_unlock_face ()
+	--
+	--   cairo_get_antialias, cairo_get_antialias ()
+	--
+	--   cairo_get_current_point, cairo_get_current_point ()
+	--
+	--   cairo_get_fill_rule, cairo_get_fill_rule ()
+	--
+	--   cairo_get_font_face, cairo_get_font_face ()
+	--
+	--   cairo_get_font_matrix, cairo_get_font_matrix ()
+	--
+	--   cairo_get_font_options, cairo_get_font_options ()
+	--
+	--   cairo_get_group_target, cairo_get_group_target ()
+	--
+	--   cairo_get_line_cap, cairo_get_line_cap ()
+	--
+	--   cairo_get_line_join, cairo_get_line_join ()
+	--
+	--   cairo_get_line_width, cairo_get_line_width ()
+	--
+	--   cairo_get_matrix, cairo_get_matrix ()
+	--
+	--   cairo_get_miter_limit, cairo_get_miter_limit ()
+	--
+	--   cairo_get_operator, cairo_get_operator ()
+	--
+	--   cairo_get_source, cairo_get_source ()
+	--
+	--   cairo_get_target, cairo_get_target ()
+	--
+	--   cairo_get_tolerance, cairo_get_tolerance ()
+	--
+	--   cairo_glyph_extents, cairo_glyph_extents ()
+	--
+	--   cairo_glyph_path, cairo_glyph_path ()
+	--
+	--   cairo_glyph_t, cairo_glyph_t
+	--
+	--   cairo_hint_metrics_t, enum cairo_hint_metrics_t
+	--
+	--   cairo_hint_style_t, enum cairo_hint_style_t
+	--
+	--   cairo_identity_matrix, cairo_identity_matrix ()
+	--
+	--   cairo_image_surface_create, cairo_image_surface_create ()
+	--
+	--   cairo_image_surface_create_for_data, cairo_image_surface_create_for_data
+	--   ()
+	--
+	--   cairo_image_surface_create_from_png, cairo_image_surface_create_from_png
+	--   ()
+	--
+	--   cairo_image_surface_create_from_png_stream,
+	--   cairo_image_surface_create_from_png_stream ()
+	--
+	--   cairo_image_surface_get_data, cairo_image_surface_get_data ()
+	--
+	--   cairo_image_surface_get_format, cairo_image_surface_get_format ()
+	--
+	--   cairo_image_surface_get_height, cairo_image_surface_get_height ()
+	--
+	--   cairo_image_surface_get_stride, cairo_image_surface_get_stride ()
+	--
+	--   cairo_image_surface_get_width, cairo_image_surface_get_width ()
+	--
+	--   cairo_in_fill, cairo_in_fill ()
+	--
+	--   cairo_in_stroke, cairo_in_stroke ()
+	--
+	--   cairo_line_cap_t, enum cairo_line_cap_t
+	--
+	--   cairo_line_join_t, enum cairo_line_join_t
+	--
+	--   cairo_line_to, cairo_line_to ()
+	--
+	--   cairo_mask, cairo_mask ()
+	--
+	--   cairo_mask_surface, cairo_mask_surface ()
+	--
+	--   cairo_matrix_init, cairo_matrix_init ()
+	--
+	--   cairo_matrix_init_identity, cairo_matrix_init_identity ()
+	--
+	--   cairo_matrix_init_rotate, cairo_matrix_init_rotate ()
+	--
+	--   cairo_matrix_init_scale, cairo_matrix_init_scale ()
+	--
+	--   cairo_matrix_init_translate, cairo_matrix_init_translate ()
+	--
+	--   cairo_matrix_invert, cairo_matrix_invert ()
+	--
+	--   cairo_matrix_multiply, cairo_matrix_multiply ()
+	--
+	--   cairo_matrix_rotate, cairo_matrix_rotate ()
+	--
+	--   cairo_matrix_scale, cairo_matrix_scale ()
+	--
+	--   cairo_matrix_t, cairo_matrix_t
+	--
+	--   cairo_matrix_transform_distance, cairo_matrix_transform_distance ()
+	--
+	--   cairo_matrix_transform_point, cairo_matrix_transform_point ()
+	--
+	--   cairo_matrix_translate, cairo_matrix_translate ()
+	--
+	--   cairo_move_to, cairo_move_to ()
+	--
+	--   cairo_new_path, cairo_new_path ()
+	--
+	--   cairo_new_sub_path, cairo_new_sub_path ()
+	--
+	--   cairo_operator_t, enum cairo_operator_t
+	--
+	--   cairo_paint, cairo_paint ()
+	--
+	--   cairo_paint_with_alpha, cairo_paint_with_alpha ()
+	--
+	--   cairo_path_data_t, union cairo_path_data_t
+	--
+	--   cairo_path_data_type_t, enum cairo_path_data_type_t
+	--
+	--   cairo_path_destroy, cairo_path_destroy ()
+	--
+	--   cairo_path_t, cairo_path_t
+	--
+	--   cairo_pattern_add_color_stop_rgb, cairo_pattern_add_color_stop_rgb ()
+	--
+	--   cairo_pattern_add_color_stop_rgba, cairo_pattern_add_color_stop_rgba ()
+	--
+	--   cairo_pattern_create_for_surface, cairo_pattern_create_for_surface ()
+	--
+	--   cairo_pattern_create_linear, cairo_pattern_create_linear ()
+	--
+	--   cairo_pattern_create_radial, cairo_pattern_create_radial ()
+	--
+	--   cairo_pattern_create_rgb, cairo_pattern_create_rgb ()
+	--
+	--   cairo_pattern_create_rgba, cairo_pattern_create_rgba ()
+	--
+	--   cairo_pattern_destroy, cairo_pattern_destroy ()
+	--
+	--   cairo_pattern_get_extend, cairo_pattern_get_extend ()
+	--
+	--   cairo_pattern_get_filter, cairo_pattern_get_filter ()
+	--
+	--   cairo_pattern_get_matrix, cairo_pattern_get_matrix ()
+	--
+	--   cairo_pattern_get_type, cairo_pattern_get_type ()
+	--
+	--   cairo_pattern_reference, cairo_pattern_reference ()
+	--
+	--   cairo_pattern_set_extend, cairo_pattern_set_extend ()
+	--
+	--   cairo_pattern_set_filter, cairo_pattern_set_filter ()
+	--
+	--   cairo_pattern_set_matrix, cairo_pattern_set_matrix ()
+	--
+	--   cairo_pattern_status, cairo_pattern_status ()
+	--
+	--   cairo_pattern_t, cairo_pattern_t
+	--
+	--   cairo_pattern_type_t, enum cairo_pattern_type_t
+	--
+	--   cairo_pdf_surface_create, cairo_pdf_surface_create ()
+	--
+	--   cairo_pdf_surface_create_for_stream, cairo_pdf_surface_create_for_stream
+	--   ()
+	--
+	--   cairo_pdf_surface_set_size, cairo_pdf_surface_set_size ()
+	--
+	--   cairo_pop_group, cairo_pop_group ()
+	--
+	--   cairo_pop_group_to_source, cairo_pop_group_to_source ()
+	--
+	--   cairo_ps_surface_create, cairo_ps_surface_create ()
+	--
+	--   cairo_ps_surface_create_for_stream, cairo_ps_surface_create_for_stream ()
+	--
+	--   cairo_ps_surface_dsc_begin_page_setup,
+	--   cairo_ps_surface_dsc_begin_page_setup ()
+	--
+	--   cairo_ps_surface_dsc_begin_setup, cairo_ps_surface_dsc_begin_setup ()
+	--
+	--   cairo_ps_surface_dsc_comment, cairo_ps_surface_dsc_comment ()
+	--
+	--   cairo_ps_surface_set_size, cairo_ps_surface_set_size ()
+	--
+	--   cairo_push_group, cairo_push_group ()
+	--
+	--   cairo_push_group_with_content, cairo_push_group_with_content ()
+	--
+	--   cairo_read_func_t, cairo_read_func_t ()
+	--
+	--   cairo_rectangle, cairo_rectangle ()
+	--
+	--   cairo_reference, cairo_reference ()
+	--
+	--   cairo_rel_curve_to, cairo_rel_curve_to ()
+	--
+	--   cairo_rel_line_to, cairo_rel_line_to ()
+	--
+	--   cairo_rel_move_to, cairo_rel_move_to ()
+	--
+	--   cairo_reset_clip, cairo_reset_clip ()
+	--
+	--   cairo_restore, cairo_restore ()
+	--
+	--   cairo_rotate, cairo_rotate ()
+	--
+	--   cairo_save, cairo_save ()
+	--
+	--   cairo_scale, cairo_scale ()
+	--
+	--   cairo_scaled_font_create, cairo_scaled_font_create ()
+	--
+	--   cairo_scaled_font_destroy, cairo_scaled_font_destroy ()
+	--
+	--   cairo_scaled_font_extents, cairo_scaled_font_extents ()
+	--
+	--   cairo_scaled_font_get_ctm, cairo_scaled_font_get_ctm ()
+	--
+	--   cairo_scaled_font_get_font_face, cairo_scaled_font_get_font_face ()
+	--
+	--   cairo_scaled_font_get_font_matrix, cairo_scaled_font_get_font_matrix ()
+	--
+	--   cairo_scaled_font_get_font_options, cairo_scaled_font_get_font_options ()
+	--
+	--   cairo_scaled_font_get_type, cairo_scaled_font_get_type ()
+	--
+	--   cairo_scaled_font_glyph_extents, cairo_scaled_font_glyph_extents ()
+	--
+	--   cairo_scaled_font_reference, cairo_scaled_font_reference ()
+	--
+	--   cairo_scaled_font_status, cairo_scaled_font_status ()
+	--
+	--   cairo_scaled_font_t, cairo_scaled_font_t
+	--
+	--   cairo_scaled_font_text_extents, cairo_scaled_font_text_extents ()
+	--
+	--   cairo_select_font_face, cairo_select_font_face ()
+	--
+	--   cairo_set_antialias, cairo_set_antialias ()
+	--
+	--   cairo_set_dash, cairo_set_dash ()
+	--
+	--   cairo_set_fill_rule, cairo_set_fill_rule ()
+	--
+	--   cairo_set_font_face, cairo_set_font_face ()
+	--
+	--   cairo_set_font_matrix, cairo_set_font_matrix ()
+	--
+	--   cairo_set_font_options, cairo_set_font_options ()
+	--
+	--   cairo_set_font_size, cairo_set_font_size ()
+	--
+	--   cairo_set_line_cap, cairo_set_line_cap ()
+	--
+	--   cairo_set_line_join, cairo_set_line_join ()
+	--
+	--   cairo_set_line_width, cairo_set_line_width ()
+	--
+	--   cairo_set_matrix, cairo_set_matrix ()
+	--
+	--   cairo_set_miter_limit, cairo_set_miter_limit ()
+	--
+	--   cairo_set_operator, cairo_set_operator ()
+	--
+	--   cairo_set_scaled_font, cairo_set_scaled_font ()
+	--
+	--   cairo_set_source, cairo_set_source ()
+	--
+	--   cairo_set_source_rgb, cairo_set_source_rgb ()
+	--
+	--   cairo_set_source_rgba, cairo_set_source_rgba ()
+	--
+	--   cairo_set_source_surface, cairo_set_source_surface ()
+	--
+	--   cairo_set_tolerance, cairo_set_tolerance ()
+	--
+	--   cairo_show_glyphs, cairo_show_glyphs ()
+	--
+	--   cairo_show_page, cairo_show_page ()
+	--
+	--   cairo_show_text, cairo_show_text ()
+	--
+	--   cairo_status, cairo_status ()
+	--
+	--   cairo_status_t, enum cairo_status_t
+	--
+	--   cairo_status_to_string, cairo_status_to_string ()
+	--
+	--   cairo_stroke, cairo_stroke ()
+	--
+	--   cairo_stroke_extents, cairo_stroke_extents ()
+	--
+	--   cairo_stroke_preserve, cairo_stroke_preserve ()
+	--
+	--   cairo_subpixel_order_t, enum cairo_subpixel_order_t
+	--
+	--   cairo_surface_create_similar, cairo_surface_create_similar ()
+	--
+	--   cairo_surface_destroy, cairo_surface_destroy ()
+	--
+	--   cairo_surface_finish, cairo_surface_finish ()
+	--
+	--   cairo_surface_flush, cairo_surface_flush ()
+	--
+	--   cairo_surface_get_content, cairo_surface_get_content ()
+	--
+	--   cairo_surface_get_device_offset, cairo_surface_get_device_offset ()
+	--
+	--   cairo_surface_get_font_options, cairo_surface_get_font_options ()
+	--
+	--   cairo_surface_get_type, cairo_surface_get_type ()
+	--
+	--   cairo_surface_get_user_data, cairo_surface_get_user_data ()
+	--
+	--   cairo_surface_mark_dirty, cairo_surface_mark_dirty ()
+	--
+	--   cairo_surface_mark_dirty_rectangle, cairo_surface_mark_dirty_rectangle ()
+	--
+	--   cairo_surface_reference, cairo_surface_reference ()
+	--
+	--   cairo_surface_set_device_offset, cairo_surface_set_device_offset ()
+	--
+	--   cairo_surface_set_fallback_resolution,
+	--   cairo_surface_set_fallback_resolution ()
+	--
+	--   cairo_surface_set_user_data, cairo_surface_set_user_data ()
+	--
+	--   cairo_surface_status, cairo_surface_status ()
+	--
+	--   cairo_surface_t, cairo_surface_t
+	--
+	--   cairo_surface_type_t, enum cairo_surface_type_t
+	--
+	--   cairo_surface_write_to_png, cairo_surface_write_to_png ()
+	--
+	--   cairo_surface_write_to_png_stream, cairo_surface_write_to_png_stream ()
+	--
+	--   cairo_svg_get_versions, cairo_svg_get_versions ()
+	--
+	--   cairo_svg_surface_create, cairo_svg_surface_create ()
+	--
+	--   cairo_svg_surface_create_for_stream, cairo_svg_surface_create_for_stream
+	--   ()
+	--
+	--   cairo_svg_surface_restrict_to_version,
+	--   cairo_svg_surface_restrict_to_version ()
+	--
+	--   cairo_svg_version_t, enum cairo_svg_version_t
+	--
+	--   cairo_svg_version_to_string, cairo_svg_version_to_string ()
+	--
+	--   cairo_t, cairo_t
+	--
+	--   cairo_text_extents, cairo_text_extents ()
+	--
+	--   cairo_text_extents_t, cairo_text_extents_t
+	--
+	--   cairo_text_path, cairo_text_path ()
+	--
+	--   cairo_transform, cairo_transform ()
+	--
+	--   cairo_translate, cairo_translate ()
+	--
+	--   cairo_user_data_key_t, cairo_user_data_key_t
+	--
+	--   cairo_user_to_device, cairo_user_to_device ()
+	--
+	--   cairo_user_to_device_distance, cairo_user_to_device_distance ()
+	--
+	--   CAIRO_VERSION, CAIRO_VERSION
+	--
+	--   cairo_version, cairo_version ()
+	--
+	--   CAIRO_VERSION_ENCODE, CAIRO_VERSION_ENCODE()
+	--
+	--   CAIRO_VERSION_MAJOR, CAIRO_VERSION_MAJOR
+	--
+	--   CAIRO_VERSION_MICRO, CAIRO_VERSION_MICRO
+	--
+	--   CAIRO_VERSION_MINOR, CAIRO_VERSION_MINOR
+	--
+	--   CAIRO_VERSION_STRING, CAIRO_VERSION_STRING
+	--
+	--   cairo_version_string, cairo_version_string ()
+	--
+	--   cairo_win32_font_face_create_for_hfont,
+	--   cairo_win32_font_face_create_for_hfont ()
+	--
+	--   cairo_win32_font_face_create_for_logfontw,
+	--   cairo_win32_font_face_create_for_logfontw ()
+	--
+	--   cairo_win32_scaled_font_done_font, cairo_win32_scaled_font_done_font ()
+	--
+	--   cairo_win32_scaled_font_get_metrics_factor,
+	--   cairo_win32_scaled_font_get_metrics_factor ()
+	--
+	--   cairo_win32_scaled_font_select_font, cairo_win32_scaled_font_select_font
+	--   ()
+	--
+	--   cairo_win32_surface_create, cairo_win32_surface_create ()
+	--
+	--   cairo_win32_surface_create_with_dib, cairo_win32_surface_create_with_dib
+	--   ()
+	--
+	--   cairo_win32_surface_get_dc, cairo_win32_surface_get_dc ()
+	--
+	--   cairo_write_func_t, cairo_write_func_t ()
+	--
+	--   cairo_xlib_surface_create, cairo_xlib_surface_create ()
+	--
+	--   cairo_xlib_surface_create_for_bitmap, cairo_xlib_surface_create_for_bitmap
+	--   ()
+	--
+	--   cairo_xlib_surface_get_depth, cairo_xlib_surface_get_depth ()
+	--
+	--   cairo_xlib_surface_get_display, cairo_xlib_surface_get_display ()
+	--
+	--   cairo_xlib_surface_get_drawable, cairo_xlib_surface_get_drawable ()
+	--
+	--   cairo_xlib_surface_get_height, cairo_xlib_surface_get_height ()
+	--
+	--   cairo_xlib_surface_get_screen, cairo_xlib_surface_get_screen ()
+	--
+	--   cairo_xlib_surface_get_visual, cairo_xlib_surface_get_visual ()
+	--
+	--   cairo_xlib_surface_get_width, cairo_xlib_surface_get_width ()
+	--
+	--   cairo_xlib_surface_set_drawable, cairo_xlib_surface_set_drawable ()
+	--
+	--   cairo_xlib_surface_set_size, cairo_xlib_surface_set_size ()
+	--
+	--  T
+	--
+	--   types
+	--
+	--                cairo_matrix, Description
+
+end -- class FOO
