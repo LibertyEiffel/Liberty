@@ -79,7 +79,7 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING "Only the -verbose, -version, and -help flags are allowed.%N"
+   valid_argument_for_ace_mode: STRING "Only the -version and -help flags are allowed.%N"
 
 end -- class ACE_CHECK
 --
