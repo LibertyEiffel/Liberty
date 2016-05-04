@@ -718,7 +718,7 @@ feature {}
                when 'x' then
                   if first_digit_index /= pretty_view.count or else pretty_view.last /= '0' then
                      error_handler.add_position(current_position)
-                     error_handler.append(once "Erreur while reading a number.")
+                     error_handler.append(once "Error while reading a number.")
                      error_handler.print_as_fatal_error
                   end
                   pretty_view.extend(cc)
