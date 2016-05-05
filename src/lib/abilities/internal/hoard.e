@@ -49,7 +49,7 @@ feature {ANY} -- Agent-based features:
          if p ?:= action then
             p ::= action
          else
-            p := agent (a: ROUTINE[TUPLE[E_]]; e: E_) is do a.call([e]) end (action, ?)
+            p := agent (a: ROUTINE[TUPLE[E_]]; e: E_) do a.call([e]) end (action, ?)
          end
          for_each(p)
       end

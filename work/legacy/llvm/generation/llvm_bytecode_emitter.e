@@ -45,7 +45,7 @@ feature {SMART_EIFFEL}
                         create workers.with_capacity(workers_count)
                         socket_path := "ipc:///tmp/liberty-llvm-compiler-"+process_id.out
                         controller_path := "ipc:///tmp/liberty-llvm-compiler-controller-"+process_id.out
-                        workers_count.times(agent is do
+                        workers_count.times(agent do
                                 workers.add_last(create {LLVM_WORKER}.communicating_over(socket_path))
                         end)
 
