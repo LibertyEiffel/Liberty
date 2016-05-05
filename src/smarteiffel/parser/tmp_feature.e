@@ -115,7 +115,7 @@ feature {EIFFEL_PARSER}
          names.add_last(a_name)
       end
 
-   clear_synonyms is
+   clear_synonyms
       require
          not names.is_empty
       do
@@ -424,8 +424,8 @@ feature {}
       do
          if type = Void or else arguments /= Void then
             if constant_expression /= Void then
-               error_handler.append(once "Using a static constant expression just after the %"is%" keyword %
-                                    %is suitable only for a constant attribute definition. The constant %
+               error_handler.append(once "Bad constant-attribute definition. Using a manifest constant for the feature %
+                                    %value is suitable only for a constant-attribute definition. The constant %
                                     %found (i.e. ")
                error_handler.add_expression(constant_expression)
                error_handler.append(once ") cannot be used as the definition of the feature ")
@@ -437,11 +437,10 @@ feature {}
             error_handler.append(once " Actually, feature ")
             error_handler.add_feature_name(names.first)
             if type = Void then
-               error_handler.append(once " has no result type")
+               error_handler.append(once " has no result type.")
             else
-               error_handler.append(once " has an argument list")
+               error_handler.append(once " has an argument list.")
             end
-            error_handler.append(once ". Bad constant-attribute definition.")
             error_handler.add_position(names.first.start_position)
             error_handler.print_as_fatal_error
          elseif not type.is_static then

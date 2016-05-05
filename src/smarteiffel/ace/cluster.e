@@ -104,7 +104,7 @@ feature {ANY}
       end
 
 feature {CLUSTER_POOL_DATA}
-   do_action (class_name: CLASS_NAME; action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
+   do_action (class_name: CLASS_NAME; action: PROCEDURE[TUPLE[CLASS_TEXT]])
       do
          action.call([class_text(class_name, True)])
       end
