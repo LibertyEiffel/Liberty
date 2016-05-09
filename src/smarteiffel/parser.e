@@ -672,7 +672,7 @@ feature {}
    token_buffer: TOKEN_BUFFER
          -- The temporary buffer for some name.
 
-   em1: STRING "Underscore in fractionnal part must group 3 digits."
+   em1: STRING "Underscore in fractional part must group 3 digits."
 
    em2: STRING "Right hand side expression of := assignment expected here."
 
