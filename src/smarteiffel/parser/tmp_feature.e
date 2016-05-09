@@ -423,8 +423,9 @@ feature {}
          -- a "unique" definition).
       do
          if type = Void or else arguments /= Void then
+            error_handler.append(once "Bad constant-attribute definition. ")
             if constant_expression /= Void then
-               error_handler.append(once "Bad constant-attribute definition. Using a manifest constant for the feature %
+               error_handler.append(once "Using a manifest constant for the feature %
                                     %value is suitable only for a constant-attribute definition. The constant %
                                     %found (i.e. ")
                error_handler.add_expression(constant_expression)
@@ -432,7 +433,7 @@ feature {}
                error_handler.add_feature_name(names.first)
                error_handler.append(once ".")
             else
-               error_handler.append(once "A %"unique%" definition is actually a constant attribute definition.")
+               error_handler.append(once "A %"unique%" definition is actually a constant-attribute definition.")
             end
             error_handler.append(once " Actually, feature ")
             error_handler.add_feature_name(names.first)
