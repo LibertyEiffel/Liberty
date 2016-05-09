@@ -5175,7 +5175,9 @@ feature {}
                else
                   last_feature_declaration := tmp_feature.as_writable_attribute
                   ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
+                  if tmp_feature.header_comment = Void then
+                     last_feature_declaration.set_header_comment(get_comment)
+                  end
                end
             end
 
