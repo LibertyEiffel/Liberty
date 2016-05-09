@@ -68,10 +68,10 @@ feature {ANY}
          is_long_form := obsolete_mark /= Void or else require_assertion /= Void or else ensure_assertion /= Void
          if header_comment /= Void then
             if header_comment.start_position.line = first_name.start_position.line then
-               -- Let the comment at its original place.
+               -- Leave the comment at its original place.
                header_comment.pretty(2)
             else
-               il := pretty_printer.indent_level_for_header_comment_of_feature
+               il := indent_level + pretty_printer.indent_level_for_header_comment_of_feature
                pretty_printer.set_indent_level(il)
                header_comment.pretty(il)
             end
