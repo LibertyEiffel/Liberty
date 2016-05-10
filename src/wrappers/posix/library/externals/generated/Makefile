@@ -19,16 +19,20 @@ HEADERS:=$(shell cpp $(HEADER) -H -o /dev/null 2>&1 | cut -d " " -f 2 | grep -v 
 -e /stdint.h \
 -e /stdlib.h \
 -e /string.h \
+-e /strings.h \
 -e /time.h\
 -e /types.h \
--e /wchar.h\
 -e /wchar.h )
-
 
 CASTXML:=$(shell command -v castxml 2>/dev/null)
 
+.PHONY: clean
+
 wrappers: $(XML)
 	wrappers_generator --local $(XML) $(HEADERS)
+
+clean:
+	rm $(XML) *.e
 
 debug: $(XML)
 	wrappers_generator.debug --local $(XML) $(HEADERS)
