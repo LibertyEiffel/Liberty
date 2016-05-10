@@ -1,3 +1,0 @@
-[UNIX]
-glib: "$(pkg-config --cflags glib-2.0)"
-
