@@ -5,7 +5,26 @@ HEADER=liberty-posix.h
 ## 	/usr/include/sys/types.h \
 ## 	/usr/include/sys/wait.h \
 ## 	/usr/include/unistd.h 
-HEADERS:=$(shell cpp $(HEADER) -H -o /dev/null 2>&1 | cut -d " " -f 2)
+
+## Headers are programmately found processing the output of C preprocessor.
+## In fact they are not only found in /usr/include
+HEADERS:=$(shell cpp $(HEADER) -H -o /dev/null 2>&1 | cut -d " " -f 2 | grep -v -e /assert.h \
+-e /ctype.h \
+-e /errno.h \
+-e /float.h \
+-e /math.h \
+-e /search.h \
+-e /stddef.h \
+-e /stdio.h \
+-e /stdint.h \
+-e /stdlib.h \
+-e /string.h \
+-e /time.h\
+-e /types.h \
+-e /wchar.h\
+-e /wchar.h )
+
+
 CASTXML:=$(shell command -v castxml 2>/dev/null)
 
 wrappers: $(XML)
