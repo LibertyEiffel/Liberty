@@ -2,26 +2,7 @@
 ** This file has been created by wrappers_generator.
 ** Any change will be lost by the next execution of the tool.
 */
-#define sizeof___fsid_t (sizeof(__fsid_t))
 #define sizeof___sigset_t (sizeof(__sigset_t))
-#define timespec_struct_get_tv_sec(a_structure) (((struct timespec*) (a_structure))->tv_sec)
-
-#define timespec_struct_set_tv_sec(a_structure,a_value) do {(((struct timespec*)(a_structure)))->tv_sec = (a_value);}while(0)
-
-#define timespec_struct_get_tv_nsec(a_structure) (((struct timespec*) (a_structure))->tv_nsec)
-
-#define timespec_struct_set_tv_nsec(a_structure,a_value) do {(((struct timespec*)(a_structure)))->tv_nsec = (a_value);}while(0)
-
-#define sizeof_timespec (sizeof(struct timespec))
-#define timeval_struct_get_tv_sec(a_structure) (((struct timeval*) (a_structure))->tv_sec)
-
-#define timeval_struct_set_tv_sec(a_structure,a_value) do {(((struct timeval*)(a_structure)))->tv_sec = (a_value);}while(0)
-
-#define timeval_struct_get_tv_usec(a_structure) (((struct timeval*) (a_structure))->tv_usec)
-
-#define timeval_struct_set_tv_usec(a_structure,a_value) do {(((struct timeval*)(a_structure)))->tv_usec = (a_value);}while(0)
-
-#define sizeof_timeval (sizeof(struct timeval))
 #define fd_set_struct_get_fds_bits(a_structure) (((struct *) (a_structure))->fds_bits)
 
 #define fd_set_struct_set_fds_bits(a_structure,a_value) do {(((struct *)(a_structure)))->fds_bits = (a_value);}while(0)
@@ -743,8 +724,6 @@
 #define group_struct_set_gr_mem(a_structure,a_value) do {(((struct group*)(a_structure)))->gr_mem = (a_value);}while(0)
 
 #define sizeof_group (sizeof(struct group))
-#define sizeof_file (sizeof(file))
-#define sizeof_file (sizeof(file))
 #define imaxdiv_t_struct_get_quot(a_structure) (((struct *) (a_structure))->quot)
 
 #define imaxdiv_t_struct_set_quot(a_structure,a_value) do {(((struct *)(a_structure)))->quot = (a_value);}while(0)
@@ -1242,52 +1221,6 @@
 #define sizeof_sched_param (sizeof(struct sched_param))
 #define sizeof_cpu_set_t (sizeof(cpu_set_t))
 #define sizeof_cpu_set_t (sizeof(cpu_set_t))
-#define tm_struct_get_tm_sec(a_structure) (((struct tm*) (a_structure))->tm_sec)
-
-#define tm_struct_set_tm_sec(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_sec = (a_value);}while(0)
-
-#define tm_struct_get_tm_min(a_structure) (((struct tm*) (a_structure))->tm_min)
-
-#define tm_struct_set_tm_min(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_min = (a_value);}while(0)
-
-#define tm_struct_get_tm_hour(a_structure) (((struct tm*) (a_structure))->tm_hour)
-
-#define tm_struct_set_tm_hour(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_hour = (a_value);}while(0)
-
-#define tm_struct_get_tm_mday(a_structure) (((struct tm*) (a_structure))->tm_mday)
-
-#define tm_struct_set_tm_mday(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_mday = (a_value);}while(0)
-
-#define tm_struct_get_tm_mon(a_structure) (((struct tm*) (a_structure))->tm_mon)
-
-#define tm_struct_set_tm_mon(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_mon = (a_value);}while(0)
-
-#define tm_struct_get_tm_year(a_structure) (((struct tm*) (a_structure))->tm_year)
-
-#define tm_struct_set_tm_year(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_year = (a_value);}while(0)
-
-#define tm_struct_get_tm_wday(a_structure) (((struct tm*) (a_structure))->tm_wday)
-
-#define tm_struct_set_tm_wday(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_wday = (a_value);}while(0)
-
-#define tm_struct_get_tm_yday(a_structure) (((struct tm*) (a_structure))->tm_yday)
-
-#define tm_struct_set_tm_yday(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_yday = (a_value);}while(0)
-
-#define tm_struct_get_tm_isdst(a_structure) (((struct tm*) (a_structure))->tm_isdst)
-
-#define tm_struct_set_tm_isdst(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_isdst = (a_value);}while(0)
-
-#define tm_struct_get_tm_gmtoff(a_structure) (((struct tm*) (a_structure))->tm_gmtoff)
-
-#define tm_struct_set_tm_gmtoff(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_gmtoff = (a_value);}while(0)
-
-#define tm_struct_get_tm_zone(a_structure) (((struct tm*) (a_structure))->tm_zone)
-
-#define tm_struct_set_tm_zone(a_structure,a_value) do {(((struct tm*)(a_structure)))->tm_zone = (a_value);}while(0)
-
-#define sizeof_tm (sizeof(struct tm))
-#define sizeof_itimerspec (sizeof(struct itimerspec))
 #define sizeof___pthread_unwind_buf_t (sizeof(__pthread_unwind_buf_t))
 #define passwd_struct_get_pw_name(a_structure) (((struct passwd*) (a_structure))->pw_name)
 
@@ -1463,50 +1396,6 @@
 #define regmatch_t_struct_set_rm_eo(a_structure,a_value) do {(((struct *)(a_structure)))->rm_eo = (a_value);}while(0)
 
 #define sizeof_regmatch_t (sizeof(regmatch_t))
-#define qelem_struct_get_q_forw(a_structure) (((struct qelem*) (a_structure))->q_forw)
-
-#define qelem_struct_set_q_forw(a_structure,a_value) do {(((struct qelem*)(a_structure)))->q_forw = (a_value);}while(0)
-
-#define qelem_struct_get_q_back(a_structure) (((struct qelem*) (a_structure))->q_back)
-
-#define qelem_struct_set_q_back(a_structure,a_value) do {(((struct qelem*)(a_structure)))->q_back = (a_value);}while(0)
-
-#define qelem_struct_get_q_data(a_structure) (((struct qelem*) (a_structure))->q_data)
-
-#define qelem_struct_set_q_data(a_structure,a_value) do {(((struct qelem*)(a_structure)))->q_data = (a_value);}while(0)
-
-#define sizeof_qelem (sizeof(struct qelem))
-#define entry_struct_get_key(a_structure) (((struct entry*) (a_structure))->key)
-
-#define entry_struct_set_key(a_structure,a_value) do {(((struct entry*)(a_structure)))->key = (a_value);}while(0)
-
-#define entry_struct_get_data(a_structure) (((struct entry*) (a_structure))->data)
-
-#define entry_struct_set_data(a_structure,a_value) do {(((struct entry*)(a_structure)))->data = (a_value);}while(0)
-
-#define sizeof_entry (sizeof(entry))
-#define entry_struct_get_key(a_structure) (((struct entry*) (a_structure))->key)
-
-#define entry_struct_set_key(a_structure,a_value) do {(((struct entry*)(a_structure)))->key = (a_value);}while(0)
-
-#define entry_struct_get_data(a_structure) (((struct entry*) (a_structure))->data)
-
-#define entry_struct_set_data(a_structure,a_value) do {(((struct entry*)(a_structure)))->data = (a_value);}while(0)
-
-#define sizeof_entry (sizeof(entry))
-#define hsearch_data_struct_get_table(a_structure) (((struct hsearch_data*) (a_structure))->table)
-
-#define hsearch_data_struct_set_table(a_structure,a_value) do {(((struct hsearch_data*)(a_structure)))->table = (a_value);}while(0)
-
-#define hsearch_data_struct_get_size(a_structure) (((struct hsearch_data*) (a_structure))->size)
-
-#define hsearch_data_struct_set_size(a_structure,a_value) do {(((struct hsearch_data*)(a_structure)))->size = (a_value);}while(0)
-
-#define hsearch_data_struct_get_filled(a_structure) (((struct hsearch_data*) (a_structure))->filled)
-
-#define hsearch_data_struct_set_filled(a_structure,a_value) do {(((struct hsearch_data*)(a_structure)))->filled = (a_value);}while(0)
-
-#define sizeof_hsearch_data (sizeof(struct hsearch_data))
 #define sizeof_sem_t (sizeof(sem_t))
 #define sizeof_sem_t (sizeof(sem_t))
 #define siginfo_t_struct_get_si_signo(a_structure) (((struct *) (a_structure))->si_signo)
@@ -2160,16 +2049,6 @@
 #define statvfs64_struct_set_f_namemax(a_structure,a_value) do {(((struct statvfs64*)(a_structure)))->f_namemax = (a_value);}while(0)
 
 #define sizeof_statvfs64 (sizeof(struct statvfs64))
-#define timezone_struct_get_tz_minuteswest(a_structure) (((struct timezone*) (a_structure))->tz_minuteswest)
-
-#define timezone_struct_set_tz_minuteswest(a_structure,a_value) do {(((struct timezone*)(a_structure)))->tz_minuteswest = (a_value);}while(0)
-
-#define timezone_struct_get_tz_dsttime(a_structure) (((struct timezone*) (a_structure))->tz_dsttime)
-
-#define timezone_struct_set_tz_dsttime(a_structure,a_value) do {(((struct timezone*)(a_structure)))->tz_dsttime = (a_value);}while(0)
-
-#define sizeof_timezone (sizeof(struct timezone))
-#define sizeof_itimerval (sizeof(struct itimerval))
 #define tms_struct_get_tms_utime(a_structure) (((struct tms*) (a_structure))->tms_utime)
 
 #define tms_struct_set_tms_utime(a_structure,a_value) do {(((struct tms*)(a_structure)))->tms_utime = (a_value);}while(0)
@@ -2302,8 +2181,6 @@
 
 #define sizeof_utmpx (sizeof(struct utmpx))
 #define sizeof_utmp (sizeof(struct utmp))
-#define sizeof_file (sizeof(file))
-#define sizeof___mbstate_t (sizeof(__mbstate_t))
 #define wordexp_t_struct_get_we_wordc(a_structure) (((struct *) (a_structure))->we_wordc)
 
 #define wordexp_t_struct_set_we_wordc(a_structure,a_value) do {(((struct *)(a_structure)))->we_wordc = (a_value);}while(0)
@@ -2332,13 +2209,8 @@
 #define sizeof_wordexp_t (sizeof(wordexp_t))
 #define sizeof_dir (sizeof(dir))
 #define sizeof_iface (sizeof(struct iface))
-#define set_daylight(a_value) daylight = (a_value);
-#define set_getdate_err(a_value) getdate_err = (a_value);
-#define set_timezone(a_value) timezone = (a_value);
-#define set_tzname(a_value) tzname = (a_value);
 #define set_re_syntax_options(a_value) re_syntax_options = (a_value);
 #define set_sys_siglist(a_value) sys_siglist = (a_value);
-#define set_signgam(a_value) signgam = (a_value);
 #define set_environ(a_value) environ = (a_value);
 #define set_optarg(a_value) optarg = (a_value);
 #define set_opterr(a_value) opterr = (a_value);

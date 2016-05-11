@@ -1,7 +1,0 @@
-[UNIX]
-gsl: "$(pkg-config --cflags gsl) -UGSL_RANGE_CHECK"
-
-[UNIX.gcc]
-gsl: "$(pkg-config --cflags gsl) -UGSL_RANGE_CHECK -DHAVE_INLINE"
--- gsl: "$(pkg-config --cflags gsl) -DGSL_RANGE_CHECK -DHAVE_INLINE"
-

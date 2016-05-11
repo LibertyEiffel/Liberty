@@ -1,6 +1,0 @@
-This LOCK file indicate that some "eiffeltest" process is still running in this directory.
-
-se test (eiffeltest): started onSunday November 23 22:22:49 2008
-
-If you think that it is wrong, just remove this file.
-Only one eiffeltest process can be run at-a-time in some directory.
