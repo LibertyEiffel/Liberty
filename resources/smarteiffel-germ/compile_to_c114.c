@@ -1166,7 +1166,7 @@ T2 _il=0;
 /*:RF3*//*RF3:put_string*/r121put_string(ms694_32Abc694A);
 /*:RF3*//*RF3:pretty*/r386pretty((T386*)((/*RF2:value_memory*/(C)->_value_memory/*T12p*//*:RF2*/)),INT32_C(2));
 /*:RF3*/if(((/*RF2:header_comment*/(C)->_header_comment/*T12p*//*:RF2*/))!=((void*)((void*)0))){
-_il=INT32_C(3);
+_il=/*RF8:+*/((int32_t)(/*`indent_level'*/a1))+(INT32_C(2))/*:RF8*/;
 /*RF3:set_indent_level*/r121set_indent_level(_il);
 /*:RF3*//*RF3:pretty*/r437pretty((T437*)((/*RF2:header_comment*/(C)->_header_comment/*T12p*//*:RF2*/)),_il);
 /*:RF3*/}

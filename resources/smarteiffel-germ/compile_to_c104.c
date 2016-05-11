@@ -2130,7 +2130,7 @@ if((/*RF4:line*/r351line((tmp2/*fcstrangeisnotunlock*/=(/*RF2:start_position*/((
 /*RF3:pretty*/r437pretty((T437*)((/*RF2:header_comment*/(C)->_header_comment/*T13pi*//*:RF2*/)),INT32_C(2));
 /*:RF3*/}
 else{
-_il=INT32_C(2);
+_il=/*RF8:+*/((int32_t)(/*`indent_level'*/a1))+(INT32_C(2))/*:RF8*/;
 /*RF3:set_indent_level*/r121set_indent_level(_il);
 /*:RF3*//*RF3:pretty*/r437pretty((T437*)((/*RF2:header_comment*/(C)->_header_comment/*T13pi*//*:RF2*/)),_il);
 /*:RF3*/}
