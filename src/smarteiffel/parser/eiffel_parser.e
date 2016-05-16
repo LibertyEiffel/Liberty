@@ -6177,7 +6177,7 @@ feature {}
                   error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment %
                   %operator. A dot can never be used for the left-hand side part of an assignment operator. %
                   %Valid left-hand side can be Result, some local or the name of an attribute of Current. %
-                  %See also http://SmartEiffel/wiki/en/Syntax_diagrams#Writable.php for details.")
+                  %See also http://wiki.liberty-eiffel.org/index.php/Syntax_diagrams#Writable for details.")
                   error_handler.print_as_fatal_error
                else
                   error_handler.append(once "A routine must be ended with %"end%".")
