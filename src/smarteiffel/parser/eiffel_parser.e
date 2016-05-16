@@ -3473,7 +3473,7 @@ feature {}
             create Result.make(sp, list)
          else
             error_handler.add_position(current_position)
-            error_handler.append(once "A missing client clause is interpreted as {ANY}. It is better to be explicit.")
+            error_handler.append(once "A missing client list is interpreted as {ANY}. It is better to be explicit.")
             error_handler.print_as_warning
             Result := omitted_client_list
          end
