@@ -920,6 +920,7 @@ feature {ACE_CHECK}
          else
             txt.append("   trace (no)%N")
          end
+         cpp.prepare_memory
          cpp.memory.ace_option(txt)
          if error_handler.style_warning then
             txt.append("   style_warning (yes)%N")
