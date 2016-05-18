@@ -616,7 +616,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "pthread_getconcurrency"
+                       feature_name: "pthread_getconcurrency()"
                }"
                end
 
@@ -1192,7 +1192,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "pthread_self"
+                       feature_name: "pthread_self()"
                }"
                end
 
@@ -1372,7 +1372,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "pthread_testcancel"
+                       feature_name: "pthread_testcancel()"
                }"
                end
 
@@ -1408,7 +1408,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "pthread_yield"
+                       feature_name: "pthread_yield()"
                }"
                end
 

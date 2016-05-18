@@ -40,7 +40,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "if_nameindex"
+                       feature_name: "if_nameindex()"
                }"
                end
 

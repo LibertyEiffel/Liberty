@@ -124,7 +124,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sched_yield"
+                       feature_name: "sched_yield()"
                }"
                end
 

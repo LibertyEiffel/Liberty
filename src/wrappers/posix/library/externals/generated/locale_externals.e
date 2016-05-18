@@ -40,7 +40,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "localeconv"
+                       feature_name: "localeconv()"
                }"
                end
 

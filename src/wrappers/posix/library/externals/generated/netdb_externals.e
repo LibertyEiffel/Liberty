@@ -16,7 +16,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "endhostent"
+                       feature_name: "endhostent()"
                }"
                end
 
@@ -28,7 +28,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "endnetent"
+                       feature_name: "endnetent()"
                }"
                end
 
@@ -40,7 +40,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "endnetgrent"
+                       feature_name: "endnetgrent()"
                }"
                end
 
@@ -52,7 +52,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "endprotoent"
+                       feature_name: "endprotoent()"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "endservent"
+                       feature_name: "endservent()"
                }"
                end
 
@@ -232,7 +232,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "gethostent"
+                       feature_name: "gethostent()"
                }"
                end
 
@@ -316,7 +316,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getnetent"
+                       feature_name: "getnetent()"
                }"
                end
 
@@ -412,7 +412,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getprotoent"
+                       feature_name: "getprotoent()"
                }"
                end
 
@@ -484,7 +484,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getservent"
+                       feature_name: "getservent()"
                }"
                end
 

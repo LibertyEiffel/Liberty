@@ -16,7 +16,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "endgrent"
+                       feature_name: "endgrent()"
                }"
                end
 
@@ -52,7 +52,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getgrent"
+                       feature_name: "getgrent()"
                }"
                end
 
@@ -160,7 +160,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "setgrent"
+                       feature_name: "setgrent()"
                }"
                end
 

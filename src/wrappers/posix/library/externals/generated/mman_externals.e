@@ -136,7 +136,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "munlockall"
+                       feature_name: "munlockall()"
                }"
                end
 

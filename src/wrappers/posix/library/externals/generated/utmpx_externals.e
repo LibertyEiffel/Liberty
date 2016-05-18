@@ -16,7 +16,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "endutxent"
+                       feature_name: "endutxent()"
                }"
                end
 
@@ -52,7 +52,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getutxent"
+                       feature_name: "getutxent()"
                }"
                end
 
@@ -100,7 +100,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "setutxent"
+                       feature_name: "setutxent()"
                }"
                end
 

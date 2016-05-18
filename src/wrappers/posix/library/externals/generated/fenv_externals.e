@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "fegetexcept"
+                       feature_name: "fegetexcept()"
                }"
                end
 
@@ -88,7 +88,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "fegetround"
+                       feature_name: "fegetround()"
                }"
                end
 

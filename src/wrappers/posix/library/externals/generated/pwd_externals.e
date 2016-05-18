@@ -16,7 +16,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "endpwent"
+                       feature_name: "endpwent()"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getpwent"
+                       feature_name: "getpwent()"
                }"
                end
 
@@ -148,7 +148,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "setpwent"
+                       feature_name: "setpwent()"
                }"
                end
 
