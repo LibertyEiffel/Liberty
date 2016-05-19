@@ -30,6 +30,10 @@ feature {ANY}
         -style_warning      Do print warnings about style violations
         -no_warning         Don't print any warnings
 
+      Message styles:
+         -flymake_mode      Display messages in a compact format suitable for
+                             processing by tools such as Emacs' Flymake mode
+
       Style (default is -default):
         -zen                Print as little as possible ("Current" only when
                              necessary, no end comments, compact printing)
@@ -37,7 +41,7 @@ feature {ANY}
         -end                Include end comments (implies -default)
         -parano             Print as much as possible (implies -end)
 
-           ]"
+   ]"
 
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
