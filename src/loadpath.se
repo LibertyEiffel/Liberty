@@ -2,3 +2,4 @@
 ./smarteiffel/loadpath.se
 ./tools/loadpath.se
 ./wrappers/loadpath.se
+./staging/loadpath.se

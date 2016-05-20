@@ -1,0 +1,41 @@
+system "RUN"
+   -- debug only.
+
+root
+   RUN: make
+
+default
+   assertion(no)
+   collect(yes)
+   debug(no)
+   trace(yes)
+
+cluster
+   liberty: "${path_liberty}src/loadpath.se"
+      default
+         assertion(no)
+      option
+         debug(yes): FIXED_STRING, HASHED_DICTIONARY
+         assertion(require): HASHED_DICTIONARY
+      end
+
+   runner: "${path_tools}generation/run/loadpath.se"
+      default
+         assertion(all)
+         debug("run.callstack")
+         debug("run.data")
+      end
+
+   smarteiffel: "${path_tools}loadpath.se"
+      default
+         assertion(no)
+      option
+         debug(yes): POSITION
+         debug("run_feature_for"): FEATURE_STAMP
+      end
+
+generate
+   no_strip(yes)
+   split("by_type")
+
+end -- system "RUN"

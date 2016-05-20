@@ -72,7 +72,7 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   short (type: TYPE)is
+   short (type: TYPE)
       local
          i: INTEGER
       do

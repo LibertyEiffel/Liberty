@@ -1,0 +1,47 @@
+system
+	"matrix_simple"
+
+root
+
+	MATRIX_SIMPLE: make
+
+default -- section of the system
+	assertion (all); 
+	-- Choose the appropriate value: boost, no, require, ensure, invariant, loop, check, all.
+	assertion_flat_check (no);
+	debug (yes);
+	trace (no);
+	collect (yes);
+	no_style_warning (no);
+	no_warning (no);
+	verbose (no);
+	manifest_string_trace (no);
+	high_memory_compiler (no);	
+	profile (no);
+	relax (no);
+
+cluster -- section
+	polka: "${eiffel_libraries}/eiffel-polka/loadpath.se"
+
+	matrix_simple: "."
+
+	-- Pull in SmartEiffel's standard library. Always put this last so 
+	-- that you can override options for parts of the library.
+
+	standard: "${path_lib}/loadpath.se"
+
+external -- section for elements written in another language
+
+
+generate -- section
+	no_strip(no);
+	no_split(no);
+	clean(no);
+
+	cc: "gcc"
+
+	c_compiler_options : "-DPOLKA_NUM=3"
+
+	linker_options : "-lgmp -lpolkag"
+
+end

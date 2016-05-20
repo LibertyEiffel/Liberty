@@ -583,7 +583,7 @@ feature {}
          if ft.file_exists("log.rc") then
             create in.connect_to("log.rc")
             if in.is_connected then
-               load(in, Void, Void, agent (a_in: TEXT_FILE_READ) is do a_in.disconnect end(in))
+               load(in, Void, Void, agent (a_in: TEXT_FILE_READ) do a_in.disconnect end(in))
             end
             if root = Void then
                std_error.put_line(once "Could not initialize the logging framework.%NPlease check your log.rc file or explicitly call LOG_CONFIGURATION.load")

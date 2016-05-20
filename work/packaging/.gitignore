@@ -1,1 +1,4 @@
 debs
+debs_amd64
+debs_i386
+debs_src

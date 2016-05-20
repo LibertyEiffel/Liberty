@@ -28,7 +28,7 @@ feature {ANY}
    total_time: INTEGER_64
 
 feature {ANY}
-   predefined_type_mark (tm: STRING; sp: POSITION): TYPE_MARK is
+   predefined_type_mark (tm: STRING; sp: POSITION): TYPE_MARK
       require
          tm /= Void
       do
@@ -718,7 +718,7 @@ feature {}
                when 'x' then
                   if first_digit_index /= pretty_view.count or else pretty_view.last /= '0' then
                      error_handler.add_position(current_position)
-                     error_handler.append(once "Erreur while reading a number.")
+                     error_handler.append(once "Error while reading a number.")
                      error_handler.print_as_fatal_error
                   end
                   pretty_view.extend(cc)
@@ -3473,7 +3473,7 @@ feature {}
             create Result.make(sp, list)
          else
             error_handler.add_position(current_position)
-            error_handler.append(once "A missing client clause is interpreted as {ANY}. It is better to be explicit.")
+            error_handler.append(once "A missing client list is interpreted as {ANY}. It is better to be explicit.")
             error_handler.print_as_warning
             Result := omitted_client_list
          end
@@ -4798,7 +4798,7 @@ feature {}
          end
       end
 
-   inline_agent_no_name: FEATURE_NAME is
+   inline_agent_no_name: FEATURE_NAME
       once
          create Result.unknown_position("__inline_agent__")
          Result.set_is_frozen
@@ -5175,7 +5175,9 @@ feature {}
                else
                   last_feature_declaration := tmp_feature.as_writable_attribute
                   ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
+                  if tmp_feature.header_comment = Void then
+                     last_feature_declaration.set_header_comment(get_comment)
+                  end
                end
             end
 
@@ -6175,7 +6177,7 @@ feature {}
                   error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment %
                   %operator. A dot can never be used for the left-hand side part of an assignment operator. %
                   %Valid left-hand side can be Result, some local or the name of an attribute of Current. %
-                  %See also http://SmartEiffel/wiki/en/Syntax_diagrams#Writable.php for details.")
+                  %See also http://wiki.liberty-eiffel.org/index.php/Syntax_diagrams#Writable for details.")
                   error_handler.print_as_fatal_error
                else
                   error_handler.append(once "A routine must be ended with %"end%".")

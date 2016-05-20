@@ -1,0 +1,3 @@
+Execution of "se test" started: Tuesday January 6 16:12:24 2009
+                    terminated: Tuesday January 6 16:13:17 2009
+53 (Elapsed seconds in "/media/FLASH/eiffel-libraries/trunk/xml/test/".)

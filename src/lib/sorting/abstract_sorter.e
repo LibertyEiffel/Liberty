@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class ABSTRACT_SORTER[X]
+deferred class ABSTRACT_SORTER[X_]
    --
    -- Some algorithms to sort any COLLECTION, using a given order relation
    -- in deferred methods `lt', `gt', `lte' and `gte'.
@@ -14,33 +14,33 @@ deferred class ABSTRACT_SORTER[X]
    --
 
 feature {} -- Auxiliary functions
-   lt (x, y: X): BOOLEAN
+   lt (x, y: X_): BOOLEAN
       deferred
       end
 
-   gt (x, y: X): BOOLEAN
+   gt (x, y: X_): BOOLEAN
       do
          Result := lt(y, x)
       end
 
-   lte (x, y: X): BOOLEAN
+   lte (x, y: X_): BOOLEAN
       do
          Result := not lt(y, x)
       end
 
-   gte (x, y: X): BOOLEAN
+   gte (x, y: X_): BOOLEAN
       do
          Result := not lt(x, y)
       end
 
 feature {ANY}
-   is_sorted (c: COLLECTION[X]): BOOLEAN
+   is_sorted (c: COLLECTION[X_]): BOOLEAN
          -- Is `c' already sorted ?
          -- Uses `lte' for comparison.
       require
          c /= Void
       local
-         i, c_upper: INTEGER; elt1, elt2: X
+         i, c_upper: INTEGER; elt1, elt2: X_
       do
          i := c.lower
          c_upper := c.upper
@@ -63,7 +63,7 @@ feature {ANY}
          c.is_equal(old c.twin)
       end
 
-   has (c: COLLECTION[X]; element: X): BOOLEAN
+   has (c: COLLECTION[X_]; element: X_): BOOLEAN
       require
          c /= Void
          is_sorted(c)
@@ -73,7 +73,7 @@ feature {ANY}
          Result = c.has(element)
       end
 
-   index_of (c: COLLECTION[X]; element: X): INTEGER
+   index_of (c: COLLECTION[X_]; element: X_): INTEGER
       require
          c /= Void
          is_sorted(c)
@@ -93,7 +93,7 @@ feature {ANY}
          c.has(element) implies c.item(Result).is_equal(element)
       end
 
-   add (c: COLLECTION[X]; element: X)
+   add (c: COLLECTION[X_]; element: X_)
          -- Add `element' in collection `c' keeping the sorted property.
       require
          c /= Void
@@ -105,7 +105,7 @@ feature {ANY}
          is_sorted(c)
       end
 
-   insert_index (c: COLLECTION[X]; element: X): INTEGER
+   insert_index (c: COLLECTION[X_]; element: X_): INTEGER
          -- retrieve the upper index for which gt
       require
          c /= Void
@@ -142,7 +142,7 @@ feature {ANY}
          Result.in_range(c.lower, c.upper + 1)
       end
 
-   sort (c: COLLECTION[X])
+   sort (c: COLLECTION[X_])
          -- Sort `c' using the default most efficient sorting algorithm
          -- already implemented.
       require
@@ -156,7 +156,7 @@ feature {ANY}
          is_sorted(c)
       end
 
-   quick_sort (c: COLLECTION[X])
+   quick_sort (c: COLLECTION[X_])
          -- Sort `c' using the quick sort algorithm.
       require
          c /= Void
@@ -167,14 +167,14 @@ feature {ANY}
          is_sorted(c)
       end
 
-   von_neuman_sort (c: COLLECTION[X])
+   von_neuman_sort (c: COLLECTION[X_])
          -- Sort `c' using the Von Neuman algorithm.
          -- This algorithm needs to create a second collection.
          -- Uses infix "lte" for comparison.
       require
          c /= Void
       local
-         src, dest, tmp: COLLECTION[X]; nb, count, d_count, c_count, lower, imax: INTEGER
+         src, dest, tmp: COLLECTION[X_]; nb, count, d_count, c_count, lower, imax: INTEGER
       do
          c_count := c.count
          if c_count > 1 then
@@ -215,7 +215,7 @@ feature {ANY}
          is_sorted(c)
       end
 
-   heap_sort (c: COLLECTION[X])
+   heap_sort (c: COLLECTION[X_])
          -- Sort `c' using the heap sort algorithm.
       require
          c /= Void
@@ -250,7 +250,7 @@ feature {ANY}
          is_sorted(c)
       end
 
-   bubble_sort (c: COLLECTION[X])
+   bubble_sort (c: COLLECTION[X_])
          -- Sort `c' using the bubble sort algorithm.
          -- Uses infix "<" for comparison.
       require
@@ -300,7 +300,7 @@ feature {ANY}
       end
 
 feature {}
-   von_neuman_line (src, dest: COLLECTION[X]; count, d_count, lower, imax: INTEGER)
+   von_neuman_line (src, dest: COLLECTION[X_]; count, d_count, lower, imax: INTEGER)
       require
          src /= dest
          src.lower = dest.lower
@@ -324,7 +324,7 @@ feature {}
          d_count >= dest.count implies is_sorted(dest)
       end
 
-   von_neuman_inner_sort (src, dest: COLLECTION[X]; sg1, count, imax: INTEGER)
+   von_neuman_inner_sort (src, dest: COLLECTION[X_]; sg1, count, imax: INTEGER)
       require
          src.valid_index(sg1)
       local
@@ -369,7 +369,7 @@ feature {}
          end
       end
 
-   heap_repair (c: COLLECTION[X]; c_lower, first, last: INTEGER)
+   heap_repair (c: COLLECTION[X_]; c_lower, first, last: INTEGER)
          -- Repair the heap from the node number `first'
          -- It considers that the last item of c is number `last'
          -- It supposes that children are heaps.
@@ -404,7 +404,7 @@ feature {}
          end
       end
 
-   quick_sort_region (c: COLLECTION[X]; left, right: INTEGER)
+   quick_sort_region (c: COLLECTION[X_]; left, right: INTEGER)
       local
          middle: INTEGER; i: INTEGER
       do

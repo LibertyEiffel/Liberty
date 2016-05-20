@@ -1,0 +1,4 @@
+MetadataBase and its heirs currently not wrapped.
+
+Unwrapped (C) functions:
+LLVMValueRef LLVMConstPointerNull(LLVMTypeRef Ty); // what's the proper usage?

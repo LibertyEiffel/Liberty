@@ -33,10 +33,14 @@ feature {ANY}
         -style_warning      Do print warnings about style violations
         -no_warning         Don't print any warnings
 
+      Message styles:
+         -flymake_mode      Display messages in a compact format suitable for
+                             processing by tools such as Emacs' Flymake mode
+
       Class lookup:
         -loadpath <file>    Specify an extra loadpath file to read
 
-      ]"
+   ]"
 
 feature {}
    make
@@ -122,8 +126,8 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING "Only the -version, -help, -no_warning, and -style_warning are%N%
-      %allowed in ACE file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -version, -help, -no_warning, -style_warning, and -flymake_mode%N%
+      %are allowed in ACE file mode.%N"
 
 end -- class CLASS_CHECK
 --

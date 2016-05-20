@@ -1,0 +1,4 @@
+eiffel_curl.h
+----------------------------------------------------------------
+ecurl_write_callback ECURL_INPUT_STREAM ecurl_callback
+ecurl_read_callback ECURL_OUTPUT_STREAM ecurl_callback

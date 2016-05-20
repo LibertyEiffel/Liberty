@@ -41,6 +41,10 @@ feature {ANY}
                              prototype or to deliver safe code. (Useful too for very
                              small computers.)
 
+      Message styles:
+         -flymake_mode      Display messages in a compact format suitable for
+                             processing by tools such as Emacs' Flymake mode
+
       Optimization and debugging levels (specify at most one; default is -all_check):
         -boost              Enable all optimizations,
                              but disable all run-time checks
@@ -86,7 +90,7 @@ feature {ANY}
                             have enough physical memory, compilation should
                             be faster (note: generated C code is not affected)
 
-      ]"
+   ]"
 
 feature {}
    make_shrink
@@ -286,7 +290,8 @@ feature {}
             or else is_relax_flag(arg)
       end
 
-   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version, -help and -relax are allowed in ACE%Nfile mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version, -help, -relax, and -flymake_mode are allowed%N%
+       %in ACE file mode.%N"
 
 end -- class COMPILE_TO_C
 --

@@ -154,25 +154,30 @@ feature {ANY}
          cecil_stream.disconnect
       end
 
-   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version and -help are allowed%Nin ACE file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version, -help, and -flymake_mode are allowed in%N%
+       %ACE file mode.%N"
 
    use_short_mode: BOOLEAN False
 
    usage: STRING "[
-   Usage: extract_internals [options] <RootClass> <RootProcedure> ...
-      or: extract_internals [options] <ACEfileName>.ace
+      Usage: extract_internals [options] <RootClass> <RootProcedure> ...
+         or: extract_internals [options] <ACEfileName>.ace
 
-    Option summary:
+       Option summary:
 
-    Information:
-      -help               Display this help information
-      -version            Display Liberty Eiffel version information
-      -verbose            Display detailed information about what
-                           extract_internals is doing
+       Information:
+         -help               Display this help information
+         -version            Display Liberty Eiffel version information
+         -verbose            Display detailed information about what
+                              extract_internals is doing
 
-    Warning levels:
-      -style_warning      Do print warnings about style violations
-      -no_warning         Don't print any warnings
+       Warning levels:
+         -style_warning      Do print warnings about style violations
+         -no_warning         Don't print any warnings
+
+       Message styles:
+          -flymake_mode      Display messages in a compact format suitable for
+                              processing by tools such as Emacs' Flymake mode
 
    ]"
 

@@ -114,7 +114,7 @@ feature {ANY}
          root_index := root_index + 1
       end
 
-   reset_roots is
+   reset_roots
       do
          root_index := 0
       end
@@ -920,6 +920,7 @@ feature {ACE_CHECK}
          else
             txt.append("   trace (no)%N")
          end
+         cpp.prepare_memory
          cpp.memory.ace_option(txt)
          if error_handler.style_warning then
             txt.append("   style_warning (yes)%N")

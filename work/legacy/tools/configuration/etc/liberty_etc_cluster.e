@@ -114,7 +114,7 @@ feature {LIBERTY_ETC_VISITOR_IMPL}
 
    check_cycles
       do
-         needs_memory.do_all(agent (n: LIBERTY_ETC_NEEDS) is do n.cluster.check_cycle(Current, n) end)
+         needs_memory.do_all(agent (n: LIBERTY_ETC_NEEDS) do n.cluster.check_cycle(Current, n) end)
       end
 
 feature {LIBERTY_ETC_CLUSTER}

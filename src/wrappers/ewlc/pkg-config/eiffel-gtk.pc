@@ -1,0 +1,15 @@
+# Eiffel wrapper library for GTK
+prefix=/home/paolo/Eiffel/eiffel-libraries   # this defines a variable
+libdir=${prefix}/eiffel-gtk/library
+foo_bar=Boogie!
+
+Name: Eiffel-GTK      # human-readable name
+Description: Eiffel wrapper library for the GTK (Gimp ToolKit) # human-readable description
+Version: 0.1.0
+URL: https://gna.org/projects/eiffel-libraries/
+Requires: gtk+-2.0
+## Conflicts: foobar <= 4.5
+## Libs: -L${libdir} -lgobject-1.3
+## Libs.private: -lm
+## Cflags: -I${includedir}/glib-2.0 -I${libdir}/glib/include
+

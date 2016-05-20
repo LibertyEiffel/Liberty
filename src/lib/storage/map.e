@@ -431,7 +431,7 @@ feature {ANY} -- Agents based features:
          if p ?:= action then
             p ::= action
          else
-            p := agent (v: V_; k: K_) is do action.call([v, k]) end (?, ?)
+            p := agent (v: V_; k: K_) do action.call([v, k]) end (?, ?)
          end
          for_each(p)
       end

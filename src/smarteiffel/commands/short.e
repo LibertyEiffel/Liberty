@@ -34,6 +34,10 @@ feature {ANY}
         -sort               Sort features alphabetically
         -short              Don't include inherited features
 
+      Message styles:
+         -flymake_mode      Display messages in a compact format suitable for
+                             processing by tools such as Emacs' Flymake mode
+
       Formatting (specify at most one; default is -plain):
         -plain, -pretty, -tex1, -tex2, -tex3, -html1, -html2, -html_css
                             Specify the style of formatting (see short.txt)
@@ -204,8 +208,8 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING "Only the -client, -version, -help, -no_warning, and -style_warning are%N%
-      %allowed in ACE file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -client, -version, -help, -no_warning, -style_warning, and%N%
+      %-flymake_mode are allowed in ACE file mode.%N"
 
 end -- class SHORT
 --

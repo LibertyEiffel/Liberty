@@ -74,7 +74,9 @@ feature {LOCAL_NAME_DEF}
             if is_used(type) then
                -- Well, it is a bad idea to rely on side-effects, but it is still allowed...
             else
-               error_handler.append(once "Unused local variable.")
+               error_handler.append(once "Unused local variable `")
+               error_handler.append(to_string)
+               error_handler.append(once "%'.")
                error_handler.add_position(start_position)
                error_handler.print_as_warning
             end

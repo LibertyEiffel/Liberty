@@ -21,7 +21,7 @@ create {ANY}
    make
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end

@@ -24,7 +24,7 @@ feature {ANY}
 feature {}
    fill_tagged_out_memory_flag: BOOLEAN
 
-   do_fill_tagged_out_memory is
+   do_fill_tagged_out_memory
       deferred
       end
 

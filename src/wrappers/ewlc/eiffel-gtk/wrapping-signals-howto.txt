@@ -1,0 +1,151 @@
+How to wrap unwrapped signals
+=============================
+
+Let's say we have a GTK C type named GtkCook, that has two signals;
+one named "provide-dish" that calls a function with this signature:
+
+gboolean provide_dish_callback (GtkCook *a_cook, int n_dishes, const gchar *dish_name, gpointer data);
+
+the other named "find-parking" with callback signature:
+
+void find_park_callback (GtkCook *a_cook, gpointer data);
+
+Simplifying a little each Eiffel feature will be compiled by
+SmartEiffel into a C function that will always take a pointer to the
+Current object as first parameter . At first it seems there is no way
+for GTK to invoke directly an Eiffel feature.
+
+Fortunately GObject signal API has the function
+g_signal_connect_swapped that will invoke a callback inverting a_cook
+and data. This way we tell GObject signal handler to invoke an Eiffel
+feature.
+
+This mean that the feature we pass to g_signal_connect_swapped must be
+a feature of the object pointer we pass to it, for a couple of reasons:
+
+1) otherwise we won't be able to obtain the address of our Eiffel
+   callback. We obtain it using the $ operator and it works only on
+   Current's features.
+
+2) otherwise GTK will invoke the feature with the wrong Current
+   object.
+
+I found useful to provide two kinds of callback/signal handling
+support: inheritance-based and agent-based.
+
+1) in inheritance-based will require the programmer end-user of
+   eiffel-gtk to inherit from GTK_COOK and redefine on_provide_dish,
+   then invoking enable_on_provide_dish when he/she would like to
+   activate the signal handler. This is not "absolutely" flexible but
+   it is simple to implement, it is as fast as C, and IMHO it helps
+   the programmer to make better object oriented designs.
+
+2) agent-based signal handling requires an helper class (i.e.:
+   PROVIDE_DISH_CALLBACK) that contains the actual callback. This
+   allow to use agents paying the cost of a creation of an ancillary
+   object.
+
+The inheritance based design has better performance, especially when
+only basic objects are passed around.
+
+
+The actual inheritance-recipe:
+==============================
+
+To add "find_parking" signal to GTK_COOK wrapper with the inheritance based
+technique you shall:
+
+1) makes GTK_COOK inheriting from G_SIGNALS that provide the `connect'
+   feature which hides the ugly low-lower details.
+
+2) add a constant string containing the name of the signal; this will
+   avoid re-allocation the signal string name over and over again. It
+   is constant, isn't it?
+
+3) provide in GTK_COOK an empty Eiffel feature like "on_find_parking"
+   that the user of eiffel-gtk will redefine, providing his own
+   implementation of the callback.
+
+4) the signal has no arguments other than the GTK object and the
+   data pointer (used for $Current): GTK can directly call the
+   Eiffel feature. In the case of our find-parking we will write:
+
+feature -- The "find-parking" signal
+	find_parking_signal_name: STRING is "find-parking"
+
+	on_find_parking is do end
+
+	enable_on_find_parking is
+			-- Connects "find-parking" signal to `on_find_parking' feature.
+		do
+			connect (Current, find_parking_signal_name, $on_find_parking)
+		end
+
+
+That's it. You made it! Congratulations....
+   
+The last point will also apply when the arguments passed are basic,
+expanded objects like int (INTEGER), gint64 (INTEGER_64), float
+(REAL_32), double (REAL_64), since GTK and Eiffel will use the same
+memory representation of the object (actually Eiffel will use C data
+model).
+
+Now let's repeat it with the more complex "provide-dish". 
+
+1,2,3) almost like "find-parking" signal; only on_provide_dish will have signature:
+
+       on_provide_dish (dishes_number: INTEGER; dish_name: STRING) is....
+
+4) provide an hidden (i.e. exported to none "{}") feature that will be
+   directly called by GTK, i.e. "hidden_provide_dish_callback (dishes:
+   INTEGER; name: POINTER; data: POINTER)". 
+
+   Note that it Eiffel feature has the same signature of the original
+   C callback, after trimming off the first argument which will be the
+   hidden pointer to Current.
+
+   This hidden feature will retrieve the Eiffel wrappers objects from
+   the pointers passed and create the STRINGS, then call the real
+   on_provide_dish; something like this:
+
+feature -- The "provide-dish" signal
+	provide_dish_signal_name: STRING is "provide-dish"
+
+	on_provide_dish is do end
+
+	enable_on_provide_dish is
+			-- Connects "provide-dish" signal to `on_provide_dish' feature.
+		do
+			connect (Current, provide_dish_signal_name, $hidden_provide_dish_callback)
+		end
+
+ feature {}
+   hidden_provide_dish_callback (dishes: INTEGER; name, data: POINTER) is
+     local dish_name: STRING
+     do
+       create dish_name.from_external_copy (name)
+       on_provide_dish (dishes,name)
+     end
+
+Finish!
+
+Some notes: strings shall be created with from_external_copy when GTK
+owns the passed string, otherwise Eiffel will free memory handled by
+GTK. Never try to sell something you don't own... Otherwise, i.e.:
+when GTK docs says that the string shall be freed by the programmer we
+can safely use from_external.
+
+In the case we were passed pointers to other g_objects we can retrieve
+the Eiffel object stored into it at creation time inserting
+G_OBJECT_RETRIEVER [SOME_GTK_WRAPPER] and then using one of its
+(magical 8) features, such as eiffel_wrapper_from_gobject_pointer.
+
+Study GTK_BUTTON and
+${eiffel_libraries}/eiffel-gtk/examples/hello/hello.ace to understand
+it better. I hope it is simple enought to understand it cleraly. It
+also show the agent-recipe, which I will describe later.
+
+The agent recipe:
+=================
+
+TODO. 

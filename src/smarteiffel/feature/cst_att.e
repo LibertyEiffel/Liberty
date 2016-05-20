@@ -63,7 +63,7 @@ feature {ANY}
          pretty_printer.put_string(once " ")
          pretty_constant_value(2)
          if header_comment /= Void then
-            il := pretty_printer.indent_level_for_header_comment_of_feature + 1
+            il := indent_level + pretty_printer.indent_level_for_header_comment_of_feature
             pretty_printer.set_indent_level(il)
             header_comment.pretty(il)
          elseif pretty_printer.print_end_of_feature then

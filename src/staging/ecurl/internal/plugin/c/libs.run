@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "libs:" $(curl-config --libs)

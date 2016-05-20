@@ -1,0 +1,93 @@
+2006-08-22  Paolo Redaelli  <tybor@gna.org>
+
+	* eiffel-gobject/library/g_value.e: Adding support for float (REAL_32)
+
+	* eiffel-gtk/library/gtk_scrollbar.e: Wrapping horizontal and vertical scrollbar
+
+2006-08-20  Paolo Redaelli  <tybor@gna.org>
+
+	* eiffel-gtk/library/gtk_main.e: Simulating once call in initialize
+
+	* eiffel-gtk/examples/tree/tree_demo.e: Using GTK instead of GTK_MAIN
+
+	* eiffel-gdk/library/gdk_drawable.e: Made GDK_DRAWABLE deferred.
+
+	* common/wrapper.e: Removed `Null' feature, which was just
+	syntactic sugar for programmers addicted to C. Use
+	`default_pointer' instead. Moved address_of and content_of
+	features into POINTER_HANDLING class; they're used in GTK_MAIN
+	which is not a WRAPPER.
+
+	* eiffel-gtk/library/gtk_main.e: Adding global-window-related features
+
+	* eiffel-glib/library/data_types/g_slist.e: Merged add_first and
+	prepend features. Merged add_last and append.
+
+2006-08-19  Paolo Redaelli  <tybor@gna.org>
+
+	* eiffel-glib/library/data_types/g_error.e: Inserted the full
+	description found in GLib documentation. It is still to be fully
+	Eiffellized.
+
+	* eiffel-gtk/library/gtk_font_selection_dialog.e: Fully implemented it.
+
+	* eiffel-gtk/library/gtk_toggle_action.e: Adding strings
+	preconditions.
+
+	* eiffel-gtk/library/gtk_toggle_button.e: Added precondition for
+	the string passed to with_label, with_mnemonic creation clauses.
+
+	* eiffel-gobject_library/g_object.e: put an explaning label to the
+	most elaborated precondition of from_external_pointer
+
+	* Adding gtk.is_initialized preconditions to each creation clause
+	of GTK+ effective classes.
+
+	* eiffel-gtk/library/gtk_object.e: some clean-up; inserting GTK
+	class
+
+2006-08-17  Paolo Redaelli  <tybor@gna.org>
+
+	* In all GTK+ G_OBJECT's heirs changed the code pattern "handle :=
+	gtk_foo_bar; store_eiffel_wrapper" into
+	"from_external_pointer (gtk_foo_bar)", that automatically store
+	the Eiffel object into the underlying GObject.
+
+	* common/shared_c_struct.e: Removed "undefine make". The idea is
+	that some C library could require the end-user to allocate some
+	structures passed to it.
+
+	* eiffel-gtk/library/gtk_frame.e: Removed wrong inheriting from
+	SHARED_C_STRUCT. GTK_BIN already inherits from it.
+
+	* all GTK+ classes: classes providing external calls,
+	enumerations, flags, low-level implementation such as object
+	retrieving from the underlying GObject struct are now (more
+	properly AFAIK) inserted instead of inherited.
+
+	* Adding struct_size to every GTK+ class
+
+2006-08-16  Paolo Redaelli  <tybor@gna.org>
+
+	* Fixed some documentation in GTK_TREE_STORE
+
+2006-08-15  Paolo Redaelli  <paolo@localhost>
+
+	* g_object.e: changed "feature {NONE}" into "feature {}" to avoid
+		      all the warnings with SmartEiffel 2.3 					 
+
+	* Added GTK_SCROLLED_WINDOW
+
+2006-08-15  Paolo Redaelli  <tybor@gna.org>
+
+	* changed "feature {NONE}" into "feature {}" to avoid all the
+	warnings with SmartEiffel 2.3
+
+	* Added GTK_SCROLLED_WINDOW
+
+	* Added GTK_STANDARD_ENUMERATIONS than inserts all the existing
+		GTK enums and implements all the missing one.
+
+	* Added GTK_WRAP_MODE, needed in GTK_TEXT_BUFFER
+
+	

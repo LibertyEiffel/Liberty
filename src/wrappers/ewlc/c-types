@@ -1,0 +1,75 @@
+
+In SE2.2, the mapping is:
+
+INTEGER_8     -> int8_t (defined at stdint.h, ISO C 99)
+INTEGER_16    -> int16_t 
+INTEGER_32    -> int32_t
+INTEGER_64    -> int64_t
+CHARACTER     -> unsigned char
+REAL_32       -> float
+REAL_64       -> double
+REAL_EXTENDED -> long double
+BOOLEAN       -> char
+POINTER       -> void*
+
+The intXXX_t are defined in GNU systems (linux glibc, cygwin, and
+similar) as:
+
+int8_t  -> signed char
+int16_t -> short int
+int32_t -> int
+int64_t -> long long int (in 32 bit machines)
+int64_t -> long int (in 64 bit machines)
+
+The following are aliases in SE:
+  INTEGER -> INTEGER_32  -- Bound to change in future versions of SE.
+  REAL    -> REAL_64
+
+So, correcting your table:
+> C Type  Eiffel type
+> char  CHARACTER
+Actually, signed char
+
+> int   INTEGER (or INTEGER_32?)
+right
+
+> float REAL_32 
+right
+
+> double        REAL (or REAL_64???)
+right. They are both the same
+
+> short int     INTEGER_16
+right
+
+> long int      INTEGER_64
+long int is 32-bit in 32-bit machines, so not in that case. see above
+
+> long double   ???
+REAL_EXTENDED
+
+> Then how do you deal with types that have different length under
+> different architectures (x86, x86-64, PPC, PPC64, x390, ARM et cetera)?
+
+AFAIK, the only issue should be with "long int". Most of current
+architectures/compiler have the same length for other types.
+
+
+/usr/include/glib-2.0/glib/gtypes.h:
+
+typedef char   gchar;
+typedef short  gshort;
+typedef long   glong;
+typedef int    gint;
+typedef gint   gboolean;
+
+typedef unsigned char   guchar;
+typedef unsigned short  gushort;
+typedef unsigned long   gulong;
+typedef unsigned int    guint;
+
+typedef float   gfloat;
+typedef double  gdouble;
+
+typedef void* gpointer;
+typedef const void *gconstpointer;
