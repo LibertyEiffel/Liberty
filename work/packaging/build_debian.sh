@@ -91,7 +91,7 @@ if [[ $deploy == FALSE ]]; then
         $LIBERTY_HOME/install.sh -plain -bootstrap
     fi
 
-    if [[ doc != TRUE ]]; then
+    if [[ $doc != TRUE ]]; then
         echo
         echo "Skipping doc"
     elif [[ -d $TARGET/doc ]]; then
