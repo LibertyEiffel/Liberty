@@ -7,7 +7,7 @@ Description: The Liberty Eiffel tutorial
  known as the GNU Eiffel compiler.
  Since the original maintainer lost interest, and the community has to
  be rebuilt with a new purpose, the name was also changed.
- Note that the name "Liberty" was chosen as a not-so-subtle to the
- Liberty Tower, which innards were designed by Gustave Eiffel, the
+ Note that the name "Liberty" was chosen as a not-so-subtle allusion to
+ the Liberty Tower, whose innards were designed by Gustave Eiffel, the
  French engineer.
  This package provides Eiffel files that may be used to learn the language.
