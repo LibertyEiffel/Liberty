@@ -1,7 +1,7 @@
 Package: liberty-eiffel-all
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, liberty-eiffel-core-libs (= #VERSION#), liberty-eiffel-extra-libs (= #VERSION#), liberty-eiffel-tools (= #VERSION#)
-Recommends: liberty-eiffel-core-doc (= #VERSION#), liberty-eiffel-extra-doc (= #VERSION#), liberty-eiffel-tools-doc (= #VERSION#), liberty-eiffel-tutorial (= #VERSION#)
+Recommends: liberty-eiffel-core-doc (= #VERSION#), liberty-eiffel-extra-doc (= #VERSION#), liberty-eiffel-tutorial (= #VERSION#)
 Suggests: liberty-eiffel-tools-src (= #VERSION#)
 Description: The Liberty Eiffel development suite
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
