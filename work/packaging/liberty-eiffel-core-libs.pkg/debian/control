@@ -3,13 +3,13 @@ Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: liberty-eiffel-tools (= #VERSION#)
 Suggests: libzmq3-dev (>= 4.0)
-Description: liberty-eiffel core libraries
+Description: Liberty Eiffel core libraries
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
  Since the original maintainer lost interest, and the community has to
  be rebuilt with a new purpose, the name was also changed.
- Note that the name "Liberty" was chosen as a not-so-subtle to the
- Liberty Tower, which innards were designed by Gustave Eiffel, the
+ Note that the name "Liberty" was chosen as a not-so-subtle allusion to
+ the Liberty Tower, whose innards were designed by Gustave Eiffel, the
  French engineer.
  This package provides the core libraries needed to compile even the
  most simple program.

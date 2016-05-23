@@ -11,7 +11,7 @@ deferred class ITERATOR[E_]
    -- To create a new iterator, use `new_iterator' in the
    -- corresponding data structure.
    --
-   -- See examples in directory SmartEiffel/tutorial/iterator.
+   -- See examples in directory tutorial/iterator.
    --
 
 feature {ANY}

@@ -91,7 +91,7 @@ if [[ $deploy == FALSE ]]; then
         $LIBERTY_HOME/install.sh -plain -bootstrap
     fi
 
-    if [[ doc != TRUE ]]; then
+    if [[ $doc != TRUE ]]; then
         echo
         echo "Skipping doc"
     elif [[ -d $TARGET/doc ]]; then
@@ -144,12 +144,18 @@ if [[ $deploy == FALSE ]]; then
             # customize debian/changelog
             sed 's/#SNAPSHOT#/'"$tag"'/g;s/#DATE#/'"$(date -R)"'/g' -i debian/changelog
 
+	    if [[ -e $debian/isdoc ]]; then
+		section=doc
+	    else
+		section=devel
+	    fi
+
             # customize debian/control
             mv debian/control debian/control~
             {
                 cat <<EOF
 Source: liberty-eiffel
-Section: devel
+Section: $section
 Priority: extra
 Maintainer: Cyril Adrian <cyril.adrian@gmail.com>
 Build-Depends: debhelper (>= 8.0.0), docbook-to-man, libgc-dev

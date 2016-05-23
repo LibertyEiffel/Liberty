@@ -436,7 +436,7 @@ feature {}
             Result := Result + 1
          end
          error_handler.extend('^')
-         error_handler.append(once "%NSee SmartEiffel/tutorial/external/C++ directory %
+         error_handler.append(once "%NSee tutorial/external/C++ directory %
          %for more information.%N (Internal state = ")
          error_handler.append(state.to_string)
          error_handler.extend(')')

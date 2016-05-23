@@ -739,7 +739,7 @@ feature {SE, ACE, COMMAND_LINE_TOOLS}
             echo.w_put_string(tmp_path)
             echo.w_put_string("%".%N")
          end
-         echo.w_put_string("You can also have a look at http://liberty-eiffel.blogspot.com/wiki/index.php/")
+         echo.w_put_string("You can also have a look at http://wiki.liberty-eiffel.org/index.php/")
          echo.w_put_string(command_name)
          echo.w_put_character('%N')
          die_with_code(exit_failure_code)

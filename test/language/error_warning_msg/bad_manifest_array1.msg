@@ -10,7 +10,7 @@ Line 12 column 14 in BAD_MANIFEST_ARRAY1 (/home/cadrian/Workspace/Dev/Liberty/te
              ^                           
 ------
 ****** Fatal Error: This obsolete manifest ARRAY creation is no
-longer supported. See our "SmartEiffel/tutorial/manifest_notation.e"
+longer supported. See our "tutorial/manifest_notation.e"
 in order to use the new notation.
 
 Line 12 column 14 in BAD_MANIFEST_ARRAY1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_manifest_array1.e):

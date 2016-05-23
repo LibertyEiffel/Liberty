@@ -7,7 +7,7 @@ deferred class NUMBER
    -- view of the client (do not use sub-classes names at all in the
    -- client code). In order to create NUMBERs without using concrete
    -- class name, the client code can inherit NUMBER_TOOLS. (See directory
-   -- ${SmartEiffel}/tutorial/number for example.)
+   -- tutorial/number for examples.)
    --
 
 inherit
