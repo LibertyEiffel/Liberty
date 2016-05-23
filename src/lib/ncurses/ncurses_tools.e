@@ -5,7 +5,7 @@ expanded class NCURSES_TOOLS
    --
    -- To share the access to the `ncurses' singleton.
    -- Just insert this class in order to use NCURSES.
-   -- See example in the SmartEiffel/tutorial/ncurses directory.
+   -- See example in the tutorial/ncurses directory.
    --
 
 feature {ANY}

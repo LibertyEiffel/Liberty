@@ -105,7 +105,7 @@ feature {ANY}
          -- will be changed if you `unread_character'). In that, it is different from `can_read_character'
          -- which is only a temporary state.
          --
-         -- Please refer to SmartEiffel FAQ or tutorial/io examples.
+         -- Please refer to the Liberty Eiffel FAQ or tutorial/io examples.
       deferred
       end
 

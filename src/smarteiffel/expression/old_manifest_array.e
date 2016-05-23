@@ -194,7 +194,7 @@ feature {ANY}
                error_handler.print_as_error
                error_handler.add_position(start_position)
                error_handler.append(once "This obsolete manifest ARRAY creation is no longer supported. %
-                                     %See our %"SmartEiffel/tutorial/manifest_notation.e%" %
+                                     %See our %"tutorial/manifest_notation.e%" %
                                      %in order to use the new notation.")
                error_handler.print_as_fatal_error
             end

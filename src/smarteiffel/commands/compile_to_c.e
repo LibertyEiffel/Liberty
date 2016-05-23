@@ -20,7 +20,7 @@ feature {ANY}
          or: compile_to_c [options] <ACEfileName>.ace
 
       For information about and examples of ACE files, have a look
-      in the SmartEiffel/tutorial/ace directory.
+      in the tutorial/ace directory.
 
       Most of the following options are not available when using
       an ACE file.
