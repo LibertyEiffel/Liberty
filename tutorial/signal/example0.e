@@ -1,7 +1,7 @@
 class EXAMPLE0
    -- Signal example0
    -- This example show use of SIGNAL_0. This signal only mean that an
-   -- event occured.
+   -- event occurred.
 
 create {ANY}
    make
@@ -21,7 +21,7 @@ feature {}
 
    register
          -- In real examples, other objects will connect to the event so
-         -- arbitrary function of they choise may be executed when the
+         -- arbitrary function of their choice may be executed when the
          -- event occur.
       do
          event.connect(agent io.put_string("Event occur...%N"))

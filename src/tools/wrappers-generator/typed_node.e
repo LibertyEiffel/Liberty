@@ -16,9 +16,6 @@ feature {ANY}
       end
 
    is_void: BOOLEAN  deferred
---		do
---			Result := types.at(dequalify(type)).is_void
---		end
 
    referree: C_TYPE
          -- The node referred by `type' in `types' dictionary.

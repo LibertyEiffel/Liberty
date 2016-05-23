@@ -40,7 +40,7 @@ feature {ANY}
 
    append_in (str: STRING; raw: BOOLEAN)
          -- Append the JSON string into `str'
-         -- If `raw' is True, append raw utf8 codes; otherwise, use '\u' sequences
+         -- If `raw' is True, append raw UTF-8 codes; otherwise, use '\u' sequences
       require
          str /= Void
       local
@@ -53,7 +53,7 @@ feature {ANY}
 
    write_to (str: OUTPUT_STREAM; raw: BOOLEAN)
          -- Write the JSON string to `str'
-         -- If `raw' is True, write raw utf8 codes; otherwise, use '\u' sequences
+         -- If `raw' is True, write raw UTF-8 codes; otherwise, use '\u' sequences
       require
          str.is_connected
       local
@@ -166,7 +166,7 @@ end -- class JSON_STRING
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

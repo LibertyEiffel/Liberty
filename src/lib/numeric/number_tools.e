@@ -60,7 +60,7 @@ feature {ANY}
 
    is_number (formula: ABSTRACT_STRING): BOOLEAN
          -- Is the `formula' a correct notation to create a NUMBER ?
-         -- Actually, any correct `formula' using a combination of litteral
+         -- Actually, any correct `formula' using a combination of literal
          -- integer constants with + - * / () and ! is a correct notation to
          -- create a NUMBER. Traditional priority rules are used for
          -- operators and the ! character denote the factorial computation.
@@ -380,7 +380,7 @@ end -- class NUMBER_TOOLS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

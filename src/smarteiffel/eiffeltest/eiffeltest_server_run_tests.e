@@ -485,7 +485,7 @@ feature {} -- Bad tests: tests that must fail
          cmd, h_file: STRING
       do
          -- Because the error may occurs during C code generation, we also check test for
-         -- the existance of the corresponding *.h file:
+         -- the existence of the corresponding *.h file:
          h_file := once "....."
          h_file.make_from_string(bad_file)
          h_file.remove_last

@@ -8,7 +8,7 @@ feature {}
       local
          count: INTEGER
       do
-         io.put_string("Using the MIN_STAND random number generator.%N%How many numbers ? ")
+         io.put_string("Using the PRESS_RANDOM_NUMBER_GENERATOR random number generator.%NHow many numbers? ")
          io.read_integer
          count := io.last_integer
          from

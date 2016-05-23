@@ -67,7 +67,7 @@ feature {ANY} -- Initialization:
          -- that can be matched. In that case, `match' will return the index
          -- of the matched string in that collection.
          --
-         -- Be aware that the procesing time is quite heavy during the
+         -- Be aware that the processing time is quite heavy during the
          -- initialization. It's the pay-off to make it really lighter
          -- matches. Don't use the string_pool for a one-time test, it's only
          -- useful in the long run.

@@ -3,8 +3,8 @@ class PYRAMID
    -- Solving the problem of the Pyramid for small pyramid only.
    --
    -- This program uses the back-tracking method.
-   -- Its goal is to try to fill a pyramid by making a substraction
-   -- between two succesive columns and to take its absolute value.
+   -- Its goal is to try to fill a pyramid by making a subtraction
+   -- between two successive columns and to take its absolute value.
    -- The result is put on the next line.
    -- Example:
    --  6   14   15   3   13

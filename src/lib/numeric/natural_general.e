@@ -37,7 +37,7 @@ feature {ANY}
       end
 
    infix "-" (other: like Current): like Current
-         -- Result of substracting `other'.
+         -- Result of subtracting `other'.
       external "built_in"
       end
 
@@ -52,7 +52,7 @@ feature {ANY}
       end
 
    infix "//" (other: like Current): like Current
-         -- Quotient of the euclidian division of `Current' by `other'.
+         -- Quotient of the Euclidian division of `Current' by `other'.
          -- The corresponding remainder is given by infix "\\".
          --
          -- See also infix "#//".
@@ -60,7 +60,7 @@ feature {ANY}
       end
 
    infix "\\" (other: like Current): like Current
-         -- Remainder of the euclidian division of `Current' by `other'.
+         -- Remainder of the Euclidian division of `Current' by `other'.
          -- By definition, `0 <= Result < other.abs'.
          --
          -- See also infix "#\\", infix "//".
@@ -193,7 +193,7 @@ feature {ANY} -- Conversions:
       end
 
    to_character: CHARACTER
-         -- Return the coresponding ASCII character.
+         -- Return the corresponding ASCII character.
          --
          -- See also `to_boolean', `to_number', `to_string'.
       deferred
@@ -368,7 +368,7 @@ end -- class NATURAL_GENERAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

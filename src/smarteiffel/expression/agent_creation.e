@@ -16,7 +16,7 @@ class AGENT_CREATION
    --          agent my_array.put(3, ?)           -- Only the first argument is open.
    --          agent {ARRAY[INTEGER]}.put         -- Target and all arguments are open.
    --
-   -- See also directely related classes: OPEN_OPERAND and CLOSED_OPERAND.
+   -- See also directly related classes: OPEN_OPERAND and CLOSED_OPERAND.
    --
 
 inherit
@@ -40,13 +40,13 @@ feature {ANY}
          -- Initialized with `original_function_call', the `code' will be more and more specialized as
          -- the compilation process is going on. Syntactically, it is always a FUNCTION_CALL. Then, it
          -- can be transformed into a PROCEDURE_CALL, as soon as the target is resolved. Finally, after
-         -- inlining of dynamic dipatch (after `inline_dynamic_dispatch_') this can be transformed
+         -- inlining of dynamic dispatch (after `inline_dynamic_dispatch_') this can be transformed
          -- accordingly, may be with a COMPOUND or a COMPOUND_EXPRESSION or anything else produced by
          -- inlining or simplify.
 
    open_operand_list: FAST_ARRAY[OPEN_OPERAND]
          -- If any, the ordered list of OPEN_OPERAND objects. As OPEN_OPERAND objects are never
-         -- twinned, `open_operand_list' is always uptodate.
+         -- twinned, `open_operand_list' is always up-to-date.
 
    closed_operand_list: FAST_ARRAY[CLOSED_OPERAND]
          -- If any, the ordered list of CLOSED_ARGUMENT objects which are also immutable objects

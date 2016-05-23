@@ -56,7 +56,7 @@ feature {}
          output_name := a_output_name
          file_path := a_file_path
          create {TEXT_FILE_WRITE} stream.connect_for_appending_to(a_file_path)
-         do_at_exit(agent is do if stream.is_connected then stream.disconnect end end)
+         do_at_exit(agent do if stream.is_connected then stream.disconnect end end)
          create {LOG_FILE_PASS_THROUGH} option.make
       ensure
          output_name = a_output_name
@@ -115,7 +115,7 @@ end -- class LOG_FILE_OPTIONS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

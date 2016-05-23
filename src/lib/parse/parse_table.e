@@ -130,7 +130,7 @@ feature {ANY}
 
    out_in_tagged_out_memory
       do
-         for_all_atoms(agent (atom: PARSE_ATOM[C_]) is do atom.out_in_tagged_out_memory; tagged_out_memory.extend('%N') end)
+         for_all_atoms(agent (atom: PARSE_ATOM[C_]) do atom.out_in_tagged_out_memory; tagged_out_memory.extend('%N') end)
       end
 
    pretty_print_on (stream: OUTPUT_STREAM)
@@ -202,7 +202,7 @@ end -- class PARSE_TABLE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

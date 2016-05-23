@@ -69,7 +69,7 @@ feature {} -- Type mangling
             Result := an_id
          end
          --debug
-         --      log(once "dequalify(@(1))=@(2)",<<an_id.out,Result.out>>)
+         --      log(once "dequalify(#(1))=#(2)" # an_id.out # Result.out)
          --end
       end
 
@@ -117,14 +117,14 @@ feature {} -- Constants
    footer: STRING "end%N"
 
    automatically_generated_header: STRING "[
-                -- This file has been created by wrapper-generator.
+                -- This file has been created by wrappers_generator.
                 -- Any change will be lost by the next execution of the tool.
 
                 ]"
 
    automatically_generated_c_file: STRING "[
                 /*
-                ** This file has been created by wrapper-generator.
+                ** This file has been created by wrappers_generator.
                 ** Any change will be lost by the next execution of the tool.
                 */
 
@@ -132,16 +132,15 @@ feature {} -- Constants
 
    automatically_patched_header: STRING "[
                 -- Th file has been automatically created combining the output file
-                -- of wrappers-generator @(1)
-                -- with the differences patches found into @(2)
+                -- of wrappers_generator #(1)
+                -- with the differences patches found into #(2)
 
                 -- Any change will be lost by the next execution of the tool.
 
                 ]"
-         -- Label
 
 end -- class SHARED_SETTINGS
--- Copyright (C) 2008-2016: ,2009 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

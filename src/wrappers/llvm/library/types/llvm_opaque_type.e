@@ -1,0 +1,35 @@
+class LLVM_OPAQUE_TYPE
+
+inherit LLVM_TYPE
+create {ANY} make, in_context, from_external_pointer
+feature {ANY} -- Creation
+   make is
+      do
+         handle:=llvmopaque_type
+      end
+
+   in_context (a_context: LLVM_CONTEXT) is
+      require a_context/=Void
+      do
+         handle:=llvmopaque_type_in_context(a_context.handle)
+      end
+
+invariant type_kind.is_opaque_type_kind
+end -- class LLVM_OPAQUE_TYPE
+
+-- Copyright 2009 Paolo Redaelli
+
+-- This file is part of LLVM wrappers for Liberty Eiffel.
+--
+-- This library is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, version 3 of the License.
+--
+-- Liberty Eiffel is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
+--

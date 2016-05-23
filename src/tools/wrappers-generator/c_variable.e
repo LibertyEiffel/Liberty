@@ -29,8 +29,8 @@ feature {ANY}
          if not has_wrapper then
             log("Variable `#(1)' does not have a wrapper type (address of query emitted anyway)%N" # c_string_name)
             buffer.reset
-            buffer.append(once "       -- Variable #(1) (at line #(2) in file #(3) does not have a wrapper type%N" #
-				c_string_name # line_row.to_utf8 # c_file.c_string_name )
+            buffer.append(once "       -- Variable #(1) in file %"#(2)%" does not have a wrapper type%N" #
+				c_string_name # c_file.c_string_name )
             -- TODO: provide the reason; using developer_exception_name
             -- triggers some recursion bug AFAIK. Paolo 2009-10-02
 
@@ -44,7 +44,9 @@ feature {ANY}
                                 %               }%"%N%
                                 %               end%N%N" # 
 								eiffel_feature(c_string_name) # c_string_name)
-            -- For debugging purpose the line where the node occurred were once printed in the comment, like th:
+            -- For debugging purpose the line where the node occurred were once
+            -- printed in the comment, like this:
+
             -- buffer.append(once
             -- "    address_of_#(1): POINTER%N%
             -- %            -- Address of #(1) (node at line #(2))%N%
@@ -55,7 +57,9 @@ feature {ANY}
             -- %                    feature_name: %"&#(3)%"%N%
             -- %            }%"%N%
             -- %            end%N%N" # eiffel_feature(c_string_name) # line_row.to_utf8 # c_string_name)
-            -- th feature has been removed to make the generated classes a little more stable, avoiding unnecessary changes.
+
+            -- this information is not printed anymore to make the generated
+            -- classes a little more stable, avoiding unnecessary changes.
          elseif not is_public then
             log(once "Skipping 'hidden' variable `#(1)'%N" # c_string_name)
             buffer.append(once "%T-- `hidden' variable #(1) skipped.%N" # c_string_name)

@@ -1,4 +1,4 @@
-indexing
+note
 	description: "."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
@@ -18,12 +18,6 @@ feature {} -- Creation
 		end
 
 feature	{ANY}
-	parameters_count: INTEGER is
-      obsolete "use parameter_count instead"
-      do
-         Result := parameter_count
-      end
-   
 	parameter_count: INTEGER is
 			-- The number of paramenters to be provided to execute the
 			-- statement. This number depends on `some_sql' passed to
@@ -31,12 +25,26 @@ feature	{ANY}
 		deferred
 		end
 
-	are_valid_parameters (some_parameters: TRAVERSABLE[VARIANT]): BOOLEAN is
+	are_valid_parameters (some_parameters: TRAVERSABLE[VARIANT]): BOOLEAN 
 			-- Are `some_parameters' valid for the current statement?
 		require
 			state: is_prepared
-		deferred
-		end
+       local
+         an_iter: ITERATOR[VARIANT]; j: INTEGER
+      do
+         Result := True;
+         from
+            an_iter := some_parameters.new_iterator;
+            an_iter.start;
+            j := 1;
+         until
+            an_iter.is_off or not Result
+         loop
+            Result := is_valid_parameter(an_iter.item, j);
+            j := j + 1;
+            an_iter.next;
+         end-- loop
+      end -- are_valid_parameters
 
 	is_valid_parameter (a_parameter: VARIANT; an_index: INTEGER): BOOLEAN is
 			-- Is `a_parameter' placeble in statement's `an_index'-th parameter?

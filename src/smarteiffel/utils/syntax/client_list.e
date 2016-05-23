@@ -21,7 +21,7 @@ create {ANY}
 
 feature {ANY}
    start_position: POSITION
-         -- Of the the opening bracket when list is really written.
+         -- Of the opening bracket when list is really written.
 
    is_omitted: BOOLEAN
       do

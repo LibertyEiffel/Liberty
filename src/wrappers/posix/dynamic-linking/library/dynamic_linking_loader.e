@@ -6,7 +6,7 @@ deferred class DYNAMIC_LINKING_LOADER
 	-- "clutter" you may use its expanded version, DL_LOADER.
 insert 
 	DL_FLAGS
-	DLFCNEXTERNALS
+	DLFCN_EXTERNALS
 
 feature {ANY} -- Queries
 	alreadey_loaded (a_library: ABSTRACT_STRING): BOOLEAN

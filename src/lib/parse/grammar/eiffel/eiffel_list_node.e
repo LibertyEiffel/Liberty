@@ -45,7 +45,7 @@ feature {EIFFEL_GRAMMAR}
       deferred
       ensure
          count = old count + 1
-         first = a_child -- because the grammer is right-recursive the last child is added first
+         first = a_child -- because the grammar is right-recursive the last child is added first
       end
 
 end -- class EIFFEL_LIST_NODE
@@ -56,7 +56,7 @@ end -- class EIFFEL_LIST_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

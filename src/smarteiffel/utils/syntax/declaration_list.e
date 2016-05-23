@@ -6,7 +6,7 @@ deferred class DECLARATION_LIST
    -- For a formal arguments list (FORMAL_ARG_LIST) or for a local
    -- variable list (LOCAL_VAR_LIST).
    --
-   -- Exemple :
+   -- Example :
    --
    --   foo, bar : ZOO; x : INTEGER
    --

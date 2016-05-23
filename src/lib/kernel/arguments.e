@@ -34,7 +34,7 @@ feature {ANY}
 
 feature {}
    frozen command_arguments: FAST_ARRAY[STRING]
-         -- Give acces to arguments command line including the command name at index 0.
+         -- Give access to arguments command line including the command name at index 0.
          -- This is a once function, so you can modify command-line arguments!
          -- (NOTE: just be sure not to remove the first argument, although you may change it)
       local
@@ -73,7 +73,7 @@ end -- class ARGUMENTS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

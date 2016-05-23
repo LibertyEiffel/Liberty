@@ -57,7 +57,7 @@ feature {ONCE_ROUTINE_POOL, PRECOMPUTABLE_ROUTINE_DETECTOR, HIDDEN_EXPRESSION_DE
       local
          feature_stamp: FEATURE_STAMP
       do
-         -- (At this step, we are sur to have a non Void call, because `default_create' is made
+         -- (At this step, we are sure to have a non Void call, because `default_create' is made
          -- as the default.)
          feature_stamp := call.feature_stamp
          Result ::= feature_stamp.anonymous_feature(type_to_create)

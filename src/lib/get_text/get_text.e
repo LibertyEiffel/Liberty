@@ -65,7 +65,7 @@ feature {ANY}
       end
 
    is_text_domain_set_up (domain_name: STRING): BOOLEAN
-         -- Is `Current' ready to translate messages from domaine
+         -- Is `Current' ready to translate messages from domain
          -- `domain_name'? The precise way of setting up a domain
          -- varies between implementations but will typically involve
          -- loading a message catalog.

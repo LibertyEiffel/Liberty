@@ -17,6 +17,7 @@ insert
    FFI_TYPES
    FFI_CIF_STRUCT
    FFI_EXTERNALS
+   FFI_MORE_EXTERNALS -- this is hand-written, those other inserts are generated
 
 create {ANY}
    prepare
@@ -106,17 +107,6 @@ feature {ANY} -- Status
 
    argument_types: ARRAYED_COLLECTION[POINTER]
          -- Pointers to the structures describing the function that will be called
-
-feature {} -- Implementation
-   default_abi: INTEGER_32
-         -- The enumeration value representing the default ABI. To be removed whenever support for different ABIs will be provided.
-      external "plug_in"
-      alias "{
-         location: "externals"
-         module_name: "plugin"
-         feature_name: "FFI_DEFAULT_ABI"
-         }"
-      end
 
 end -- class FFI_CALL
 

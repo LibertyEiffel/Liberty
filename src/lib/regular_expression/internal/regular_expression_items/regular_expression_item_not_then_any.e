@@ -4,7 +4,7 @@
 class REGULAR_EXPRESSION_ITEM_NOT_THEN_ANY
    --
    -- negate the node such that if node matches it makes
-   -- a backtrack but conversly if node fails, the character
+   -- a backtrack but conversely if node fails, the character
    -- is accepted (any character) and exploration continues.
    --
 
@@ -45,7 +45,7 @@ end -- class REGULAR_EXPRESSION_ITEM_NOT_THEN_ANY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

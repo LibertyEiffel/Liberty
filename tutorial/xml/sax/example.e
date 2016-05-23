@@ -117,7 +117,7 @@ feature {XML_PARSER}
       end
 
    entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING
-      do -- no entoty recognized
+      do -- no entity recognized
       end
 
    data (a_data: UNICODE_STRING; line, column: INTEGER)
@@ -133,7 +133,7 @@ feature {XML_PARSER}
 
    parse_error (line, column: INTEGER; message: STRING)
       do
-         at_error := True -- that's useless since we die, but respect the poscondition anyway ;-)
+         at_error := True -- that's useless since we die, but respect the postcondition anyway ;-)
          io.put_string(once "error at ")
          io.put_integer(line)
          io.put_string(once ", ")

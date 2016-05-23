@@ -5,7 +5,7 @@ class HASHED_STRING
    --
    -- To store one STRING with its already precomputed `hash_code' value in
    -- order to speed up  DICTIONARY / SET lookup. HASHED_STRING objects are
-   -- aliazed (as an example, there is only one instance for the "INTEGER"
+   -- aliased (as an example, there is only one instance for the "INTEGER"
    -- string with its associated `hash_code' value). Thus, should use only the
    -- basic = /= comparison for HASHED_STRING as for traditional aliased
    -- STRINGs. Actually, HASHED_STRING object are also allocated by the good

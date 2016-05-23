@@ -236,10 +236,10 @@ feature {} -- build
       end
 
    Repeat_infiny: INTEGER -1
-         -- Constant that means "infinite repitition".
+         -- Constant that means "infinite repetition".
 
    emit (item: BACKTRACKING_NODE)
-         -- Pushs 'item' on the stack.
+         -- Pushes 'item' on the stack.
          -- [..] -> [.., item]
       require
          item_not_void: item /= Void
@@ -509,7 +509,7 @@ feature {} -- build
          -- and replace it by a single item that is a or of all of them.
          -- The collection must not be empty.
          -- The order of evaluation will remain.
-         -- The binary or's tree is recurssive on right for efficiency.
+         -- The binary or's tree is recursive on right for efficiency.
          -- [.., Void, X] -> [.., X]
          -- [.., Void, Y, X] -> [.., Y or X]
          -- [.., Void, Z, Y, X] -> [.., Z or (Y or X)]
@@ -769,7 +769,7 @@ end -- class BACKTRACKING_REGULAR_EXPRESSION_BUILDER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -1,0 +1,5 @@
+Wrappers for the GooCanvas - a canvas widget for GTK+ that uses the cairo 2D library for drawing. 
+
+See http://live.gnome.org/GooCanvas for further informations and
+http://library.gnome.org/devel/goocanvas/unstable/ for reference manual.
+

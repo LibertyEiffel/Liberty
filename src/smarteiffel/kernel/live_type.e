@@ -57,7 +57,7 @@ feature {ANY}
          -- the compilation process will grow, following the `smart_eiffel.status' evolution.
          -- Thus, if the type of `Current' is a reference type, the `run_time_set' has only
          -- reference run classes elements. If the type of `Current' is an expanded type, the
-         -- `run_time_set' has only `Current' as a single element. Futhermore, the size of the
+         -- `run_time_set' has only `Current' as a single element. Furthermore, the size of the
          -- `run_time_set' depends on live assignments (as well as argument passing and creation
          -- statements) that are found in the live code.
 
@@ -321,7 +321,7 @@ feature {GENERATOR_GENERATING_TYPE}
 
 feature {RUN_FEATURE, LIVE_TYPE}
    registered (rf: RUN_FEATURE): BOOLEAN
-         -- Assertion pupose only.
+         -- Assertion purpose only.
       local
          i: INTEGER
       do
@@ -398,7 +398,7 @@ feature {SMART_EIFFEL} -- Collect:
 
    propagate_features
          -- This propagates in subtypes alive features detected while previous collect cycle, using
-         -- dynaminc binding. This means that a newly alive feature will become pending in all sub-types
+         -- dynamic binding. This means that a newly alive feature will become pending in all sub-types
          -- and then will be collected in the next collect cycle.
       require
          smart_eiffel.status.is_collecting

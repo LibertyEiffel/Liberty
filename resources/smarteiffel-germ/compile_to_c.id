@@ -289,7 +289,7 @@ assertion-level: boost
 parent-count: 2 inherit: 888 insert: 858 
 #
 |liberty_core:storage/loadpath.se:
-957 "COLLECTION[FIXED_STRING]" l
+958 "COLLECTION[FIXED_STRING]" l
 #
 303 "MAP" l
 class-path: "/home/r/Liberty/src/lib/storage/map.e"
@@ -303,39 +303,39 @@ class-name: STACK
 assertion-level: boost
 parent-count: 2 insert: 55 50 
 #
-941 "DICTIONARY[CECIL_FILE,STRING]" l
+942 "DICTIONARY[CECIL_FILE,STRING]" l
 #
-1432 "COLLECTION[C_GARBAGE_COLLECTOR_TAG]" l
+1433 "COLLECTION[C_GARBAGE_COLLECTOR_TAG]" l
 #
-1390 "DICTIONARY[INTEGER_32,INTEGER_32]" l
+1391 "DICTIONARY[INTEGER_32,INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/storage/dictionary.e"
 class-name: DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 303
-c-type: T1390 reference: yes
+c-type: T1391 reference: yes
 ref-status: dead 
 destination-graph-nodes: empty
 run-time-set-count: 1
 run-time-set:
-	AVL_DICTIONARY[INTEGER_32,INTEGER_32] (1389)
+	AVL_DICTIONARY[INTEGER_32,INTEGER_32] (1390)
 #
-1182 "SET[GRAPH_NODE]" l
+1183 "SET[GRAPH_NODE]" l
 #
-1340 "DICTIONARY[PLUGIN,STRING]" l
+1341 "DICTIONARY[PLUGIN,STRING]" l
 #
-1338 "SET[NATIVE_PLUG_IN]" l
+1339 "SET[NATIVE_PLUG_IN]" l
 #
-926 "DICTIONARY[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]" l
+927 "DICTIONARY[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]" l
 #
-1460 "STACK[EXPRESSION]" l
+1461 "STACK[EXPRESSION]" l
 #
-1011 "SET[TYPE]" l
+1012 "SET[TYPE]" l
 #
-1312 "COLLECTION[AVL_SET_NODE[LIVE_TYPE]]" l
+1313 "COLLECTION[AVL_SET_NODE[LIVE_TYPE]]" l
 #
-1055 "QUEUE[TYPE]" l
+1056 "QUEUE[TYPE]" l
 #
-962 "DICTIONARY[CLASSES,STRING]" l
+963 "DICTIONARY[CLASSES,STRING]" l
 #
 661 "QUEUE" l
 class-path: "/home/r/Liberty/src/lib/storage/queue.e"
@@ -343,19 +343,19 @@ class-name: QUEUE
 assertion-level: boost
 parent-count: 2 insert: 339 17 
 #
-1009 "STACK[ANONYMOUS_FEATURE]" l
+1010 "STACK[ANONYMOUS_FEATURE]" l
 #
-944 "STACK[STRING]" l
+945 "STACK[STRING]" l
 class-path: "/home/r/Liberty/src/lib/storage/stack.e"
 class-name: STACK
 assertion-level: boost
 parent-count: 2 insert: 55 50 
-c-type: T944 reference: yes
+c-type: T945 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	STACK[STRING] (944)
+	STACK[STRING] (945)
 #
 310 "DICTIONARY" l
 class-path: "/home/r/Liberty/src/lib/storage/dictionary.e"
@@ -363,28 +363,28 @@ class-name: DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 303
 #
-1058 "SET[ABSOLUTE_FEATURE_NAME]" l
+1059 "SET[ABSOLUTE_FEATURE_NAME]" l
 #
-1076 "DICTIONARY[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]" l
+1077 "DICTIONARY[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]" l
 #
-1002 "DICTIONARY[ANONYMOUS_FEATURE,FEATURE_STAMP]" l
+1003 "DICTIONARY[ANONYMOUS_FEATURE,FEATURE_STAMP]" l
 #
-932 "COLLECTION[STRING]" l
+933 "COLLECTION[STRING]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection.e"
 class-name: COLLECTION
 assertion-level: boost
 parent-count: 3 inherit: 43 44 48
-c-type: T932 reference: yes
+c-type: T933 reference: yes
 ref-status: dead 
 destination-graph-nodes: ->TRAVERSABLE[STRING]
 run-time-set-count: 2
 run-time-set:
-	FAST_ARRAY[STRING] (908)
-	ARRAY[STRING] (914)
+	FAST_ARRAY[STRING] (909)
+	ARRAY[STRING] (915)
 #
-1033 "DICTIONARY[MANIFEST_STRING,MANIFEST_STRING]" l
+1034 "DICTIONARY[MANIFEST_STRING,MANIFEST_STRING]" l
 #
-1018 "DICTIONARY[ANONYMOUS_FEATURE,TYPE]" l
+1019 "DICTIONARY[ANONYMOUS_FEATURE,TYPE]" l
 #
 309 "SIMPLE_DICTIONARY" l
 class-path: "/home/r/Liberty/src/lib/storage/simple_dictionary.e"
@@ -392,45 +392,45 @@ class-name: SIMPLE_DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 310
 #
-948 "DICTIONARY[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]" l
+949 "DICTIONARY[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]" l
 #
-966 "DICTIONARY[FAST_ARRAY[STRING],CLASS_NAME]" l
+967 "DICTIONARY[FAST_ARRAY[STRING],CLASS_NAME]" l
 #
-1396 "DICTIONARY[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]" l
+1397 "DICTIONARY[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]" l
 #
-1344 "STACK[AGENT_CREATION]" l
+1345 "STACK[AGENT_CREATION]" l
 #
-1034 "SET[STRING]" l
+1035 "SET[STRING]" l
 class-path: "/home/r/Liberty/src/lib/storage/set.e"
 class-name: SET
 assertion-level: boost
 parent-count: 2 inherit: 44 insert: 304 
-c-type: T1034 reference: yes
+c-type: T1035 reference: yes
 ref-status: dead 
 destination-graph-nodes: empty
 run-time-set-count: 1
 run-time-set:
-	HASHED_SET[STRING] (1035)
+	HASHED_SET[STRING] (1036)
 #
-971 "DICTIONARY[CLASS_TEXT,HASHED_STRING]" l
+972 "DICTIONARY[CLASS_TEXT,HASHED_STRING]" l
 #
-1019 "DICTIONARY[RUN_FEATURE,TYPE]" l
+1020 "DICTIONARY[RUN_FEATURE,TYPE]" l
 #
-940 "COLLECTION[POSITION]" l
+941 "COLLECTION[POSITION]" l
 #
-986 "COLLECTION[LOCAL_VAR_LIST]" l
+987 "COLLECTION[LOCAL_VAR_LIST]" l
 #
-970 "DICTIONARY[INTEGER_32,CLASS_NAME]" l
+971 "DICTIONARY[INTEGER_32,CLASS_NAME]" l
 #
-1341 "DICTIONARY[DICTIONARY[PLUGIN,STRING],STRING]" l
+1342 "DICTIONARY[DICTIONARY[PLUGIN,STRING],STRING]" l
 #
-927 "DICTIONARY[INTEGER_16,HASHED_STRING]" l
+928 "DICTIONARY[INTEGER_16,HASHED_STRING]" l
 #
-1153 "DICTIONARY[CLIENT_LIST,FEATURE_NAME]" l
+1154 "DICTIONARY[CLIENT_LIST,FEATURE_NAME]" l
 #
-1096 "COLLECTION[STRING_RECYCLING_ITEM]" l
+1097 "COLLECTION[STRING_RECYCLING_ITEM]" l
 #
-968 "SET[CLASS_NAME]" l
+969 "SET[CLASS_NAME]" l
 #
 716 "BIJECTIVE_DICTIONARY" l
 class-path: "/home/r/Liberty/src/lib/storage/bijective_dictionary.e"
@@ -438,13 +438,13 @@ class-name: BIJECTIVE_DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 303
 #
-1015 "DICTIONARY[HASHED_STRING,HASHED_STRING]" l
+1016 "DICTIONARY[HASHED_STRING,HASHED_STRING]" l
 #
-1032 "DICTIONARY[MANIFEST_STRING,STRING]" l
+1033 "DICTIONARY[MANIFEST_STRING,STRING]" l
 #
-1420 "COLLECTION[LIVE_TYPE]" l
+1421 "COLLECTION[LIVE_TYPE]" l
 #
-1042 "SET[AGENT_ARGS]" l
+1043 "SET[AGENT_ARGS]" l
 #
 56 "COLLECTION" l
 class-path: "/home/r/Liberty/src/lib/storage/collection.e"
@@ -452,7 +452,7 @@ class-name: COLLECTION
 assertion-level: boost
 parent-count: 3 inherit: 43 44 48
 #
-1427 "COLLECTION[RUN_FEATURE_2]" l
+1428 "COLLECTION[RUN_FEATURE_2]" l
 #
 347 "SET" l
 class-path: "/home/r/Liberty/src/lib/storage/set.e"
@@ -460,44 +460,44 @@ class-name: SET
 assertion-level: boost
 parent-count: 2 inherit: 44 insert: 304 
 #
-1059 "DICTIONARY[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]" l
+1060 "DICTIONARY[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]" l
 #
-1331 "COLLECTION[INTEGER_32]" l
+1332 "COLLECTION[INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection.e"
 class-name: COLLECTION
 assertion-level: boost
 parent-count: 3 inherit: 43 44 48
-c-type: T1331 reference: yes
+c-type: T1332 reference: yes
 ref-status: dead 
 destination-graph-nodes: empty
 run-time-set-count: 1
 run-time-set:
-	FAST_ARRAY[INTEGER_32] (920)
+	FAST_ARRAY[INTEGER_32] (921)
 #
-1108 "DICTIONARY[TEXT_FILE_READ,STRING]" l
+1109 "DICTIONARY[TEXT_FILE_READ,STRING]" l
 #
-985 "COLLECTION[FORMAL_ARG_LIST]" l
+986 "COLLECTION[FORMAL_ARG_LIST]" l
 #
-977 "STACK[TMP_FEATURE]" l
+978 "STACK[TMP_FEATURE]" l
 #
-1061 "DICTIONARY[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]" l
+1062 "DICTIONARY[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]" l
 #
-1060 "DICTIONARY[ANONYMOUS_FEATURE,FEATURE_NAME]" l
+1061 "DICTIONARY[ANONYMOUS_FEATURE,FEATURE_NAME]" l
 #
-921 "DICTIONARY[TYPE,HASHED_STRING]" l
+922 "DICTIONARY[TYPE,HASHED_STRING]" l
 #
-1106 "DICTIONARY[STRING,STRING]" l
+1107 "DICTIONARY[STRING,STRING]" l
 class-path: "/home/r/Liberty/src/lib/storage/dictionary.e"
 class-name: DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 303
-c-type: T1106 reference: yes
+c-type: T1107 reference: yes
 ref-status: dead 
 destination-graph-nodes: empty
 run-time-set-count: 2
 run-time-set:
-	HASHED_DICTIONARY[STRING,STRING] (910)
-	ORDERED_DICTIONARY[STRING,STRING] (1105)
+	HASHED_DICTIONARY[STRING,STRING] (911)
+	ORDERED_DICTIONARY[STRING,STRING] (1106)
 #
 |liberty_core:time/loadpath.se:low_level/
 492 "TIME_HANDLER" l
@@ -1712,62 +1712,62 @@ run-time-set:
 	FAKE_ARGUMENT (369)
 #
 |liberty_core:kernel/loadpath.se:
-1075 "WEAK_REFERENCE[HASHED_SET_NODE[HASHED_STRING]]" l
+1076 "WEAK_REFERENCE[HASHED_SET_NODE[HASHED_STRING]]" l
 #
-1204 "WEAK_REFERENCE[HASHED_SET_NODE[STRING]]" l
+1205 "WEAK_REFERENCE[HASHED_SET_NODE[STRING]]" l
 #
-1047 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]]" l
+1048 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]]" l
 #
-1455 "TUPLE[LOCAL_NAME_DEF]" l
+1456 "TUPLE[LOCAL_NAME_DEF]" l
 #
-1284 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TYPE_MARK,TYPE]]" l
+1285 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TYPE_MARK,TYPE]]" l
 #
-1007 "PROCEDURE[TUPLE[LIVE_TYPE]]" l
+1008 "PROCEDURE[TUPLE[LIVE_TYPE]]" l
 #
-1028 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]]" l
+1029 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]]" l
 #
-1446 "PROCEDURE[TUPLE[FEATURE_STAMP]]" l
+1447 "PROCEDURE[TUPLE[FEATURE_STAMP]]" l
 #
-1332 "FUNCTION[TUPLE[STRING],BOOLEAN]" l
+1333 "FUNCTION[TUPLE[STRING],BOOLEAN]" l
 class-path: "/home/r/Liberty/src/lib/kernel/function.e"
 class-name: FUNCTION
 assertion-level: boost
 parent-count: 1 inherit: 53
-c-type: T1332 reference: yes
+c-type: T1333 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	FUNCTION[TUPLE[STRING],BOOLEAN] (1332)
+	FUNCTION[TUPLE[STRING],BOOLEAN] (1333)
 #
-1093 "FUNCTION[TUPLE,ABSTRACT_STRING]" l
+1094 "FUNCTION[TUPLE,ABSTRACT_STRING]" l
 #
-1031 "WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]" l
+1032 "WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]" l
 #
-1162 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[INTEGER_8,CLASS_TEXT]]" l
+1163 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[INTEGER_8,CLASS_TEXT]]" l
 #
-1305 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[EXPRESSION,TYPE]]" l
+1306 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[EXPRESSION,TYPE]]" l
 #
-1315 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[RECYCLING_POOL[AVL_TREE_NODE_ANY],FIXED_STRING]]" l
+1316 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[RECYCLING_POOL[AVL_TREE_NODE_ANY],FIXED_STRING]]" l
 #
-1418 "PROCEDURE[TUPLE[TYPE,TYPE]]" l
+1419 "PROCEDURE[TUPLE[TYPE,TYPE]]" l
 #
-1453 "TUPLE[ARGUMENT_NAME_DEF,INTEGER_32]" l
+1454 "TUPLE[ARGUMENT_NAME_DEF,INTEGER_32]" l
 #
-1005 "PROCEDURE[TUPLE[LIVE_TYPE_EXTRA_COLLECTOR]]" l
+1006 "PROCEDURE[TUPLE[LIVE_TYPE_EXTRA_COLLECTOR]]" l
 #
-949 "WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE]" l
+950 "WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE]" l
 #
-1462 "SAFE_EQUAL[INTEGER_32]" l
+1463 "SAFE_EQUAL[INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/kernel/safe_equal.e"
 class-name: SAFE_EQUAL
 assertion-level: boost
 parent-count: 1 insert: 17 
-c-type: T1462 reference: no
+c-type: T1463 reference: no
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	SAFE_EQUAL[INTEGER_32] (1462)
+	SAFE_EQUAL[INTEGER_32] (1463)
 #
 28 "TUPLE 10" l
 class-path: "/home/r/Liberty/src/lib/kernel/tuple.e"
@@ -1781,17 +1781,17 @@ class-name: REFERENCE
 assertion-level: boost
 parent-count: 1 inherit: 38
 #
-1114 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]]" l
+1115 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]]" l
 #
-1287 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FEATURE_STAMP,TYPE]]" l
+1288 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FEATURE_STAMP,TYPE]]" l
 #
-1276 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TEXT_FILE_READ,STRING]]" l
+1277 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TEXT_FILE_READ,STRING]]" l
 #
-1335 "TUPLE[TYPE,TYPE]" l
+1336 "TUPLE[TYPE,TYPE]" l
 #
-990 "FUNCTION[TUPLE[RUN_FEATURE_2,RUN_FEATURE_2],BOOLEAN]" l
+991 "FUNCTION[TUPLE[RUN_FEATURE_2,RUN_FEATURE_2],BOOLEAN]" l
 #
-1067 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]]" l
+1068 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]]" l
 #
 287 "LOADED_HIERARCHIC_GRAPH_NODE" l
 class-path: "/home/r/Liberty/src/lib/kernel/loaded_hierarchic_graph_node.e"
@@ -1799,47 +1799,47 @@ class-name: LOADED_HIERARCHIC_GRAPH_NODE
 assertion-level: boost
 parent-count: 1 inherit: 288
 #
-1120 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]]" l
+1121 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]]" l
 #
-1181 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[GRAPH_NODE,TYPE]]" l
+1182 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[GRAPH_NODE,TYPE]]" l
 #
-1326 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[PROCESS_POSIX,INTEGER_32]]" l
+1327 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[PROCESS_POSIX,INTEGER_32]]" l
 #
-1415 "TUPLE[CLASS_TEXT]" l
+1416 "TUPLE[CLASS_TEXT]" l
 #
-1086 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]" l
+1087 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]" l
 #
-1006 "TUPLE[LIVE_TYPE_EXTRA_COLLECTOR]" l
+1007 "TUPLE[LIVE_TYPE_EXTRA_COLLECTOR]" l
 #
-1451 "TUPLE[ADDRESS_OF]" l
+1452 "TUPLE[ADDRESS_OF]" l
 #
-1208 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[MANIFEST_STRING,MANIFEST_STRING]]" l
+1209 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[MANIFEST_STRING,MANIFEST_STRING]]" l
 #
-1421 "PROCEDURE[TUPLE[NATIVE_PLUG_IN]]" l
+1422 "PROCEDURE[TUPLE[NATIVE_PLUG_IN]]" l
 #
-1311 "SAFE_EQUAL[LIVE_TYPE]" l
+1312 "SAFE_EQUAL[LIVE_TYPE]" l
 #
-1363 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TUPLE[TYPE,TYPE],TYPE]]" l
+1364 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TUPLE[TYPE,TYPE],TYPE]]" l
 #
-1089 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]]" l
+1090 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]]" l
 #
-1217 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FAST_ARRAY[AGENT_CREATION],TYPE]]" l
+1218 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FAST_ARRAY[AGENT_CREATION],TYPE]]" l
 #
-1448 "PROCEDURE[TUPLE[RUN_FEATURE]]" l
+1449 "PROCEDURE[TUPLE[RUN_FEATURE]]" l
 #
-1416 "PROCEDURE[TUPLE[CECIL_ENTRY]]" l
+1417 "PROCEDURE[TUPLE[CECIL_ENTRY]]" l
 #
-1077 "WEAK_REFERENCE[ANY_HASHED_SET_NODE]" l
+1078 "WEAK_REFERENCE[ANY_HASHED_SET_NODE]" l
 #
-1409 "PROCEDURE[TUPLE[CECIL_FILE]]" l
+1410 "PROCEDURE[TUPLE[CECIL_FILE]]" l
 #
-1454 "PROCEDURE[TUPLE[LOCAL_NAME_DEF]]" l
+1455 "PROCEDURE[TUPLE[LOCAL_NAME_DEF]]" l
 #
-1466 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TAGGED_INTEGER,INTEGER_32]]" l
+1467 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TAGGED_INTEGER,INTEGER_32]]" l
 #
-1329 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[PROCESS_WIN32,INTEGER_32]]" l
+1330 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[PROCESS_WIN32,INTEGER_32]]" l
 #
-1398 "WEAK_REFERENCE[LINKED_LIST_NODE[TUPLE[CHARACTER,INTEGER_32]]]" l
+1399 "WEAK_REFERENCE[LINKED_LIST_NODE[TUPLE[CHARACTER,INTEGER_32]]]" l
 #
 17 "ANY" l
 class-path: "/home/r/Liberty/src/lib/kernel/any.e"
@@ -1847,11 +1847,11 @@ class-name: ANY
 assertion-level: boost
 parent-count: 0
 #
-1008 "TUPLE[LIVE_TYPE]" l
+1009 "TUPLE[LIVE_TYPE]" l
 #
-1025 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]]" l
+1026 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]]" l
 #
-1459 "TUPLE[ASSERTION]" l
+1460 "TUPLE[ASSERTION]" l
 #
 288 "HIERARCHIC_GRAPH_NODE" l
 class-path: "/home/r/Liberty/src/lib/kernel/hierarchic_graph_node.e"
@@ -1859,17 +1859,17 @@ class-name: HIERARCHIC_GRAPH_NODE
 assertion-level: boost
 parent-count: 2 insert: 41 49 
 #
-1369 "WEAK_REFERENCE[HASHED_SET_NODE[NATIVE_PLUG_IN]]" l
+1370 "WEAK_REFERENCE[HASHED_SET_NODE[NATIVE_PLUG_IN]]" l
 #
-1397 "WEAK_REFERENCE[ANY_LINKED_LIST_NODE]" l
+1398 "WEAK_REFERENCE[ANY_LINKED_LIST_NODE]" l
 #
-1392 "TUPLE[CHARACTER,INTEGER_32]" l
+1393 "TUPLE[CHARACTER,INTEGER_32]" l
 #
-1270 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ORDERED_DICTIONARY[STRING,STRING],STRING]]" l
+1271 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ORDERED_DICTIONARY[STRING,STRING],STRING]]" l
 #
-1366 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TYPE,TYPE]]" l
+1367 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TYPE,TYPE]]" l
 #
-1422 "TUPLE[NATIVE_PLUG_IN]" l
+1423 "TUPLE[NATIVE_PLUG_IN]" l
 #
 6 "BOOLEAN" l
 class-path: "/home/r/Liberty/src/lib/kernel/boolean.e"
@@ -1883,19 +1883,19 @@ class-name: PLATFORM
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1205 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[MANIFEST_STRING,STRING]]" l
+1206 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[MANIFEST_STRING,STRING]]" l
 #
-1413 "TUPLE[NON_VOID_NO_DISPATCH]" l
+1414 "TUPLE[NON_VOID_NO_DISPATCH]" l
 #
-1223 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[HASHED_SET[TYPE],TYPE]]" l
+1224 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[HASHED_SET[TYPE],TYPE]]" l
 #
-1406 "PROCEDURE[TUPLE[MANIFEST_GENERIC]]" l
+1407 "PROCEDURE[TUPLE[MANIFEST_GENERIC]]" l
 #
-1220 "WEAK_REFERENCE[HASHED_SET_NODE[AGENT_ARGS]]" l
+1221 "WEAK_REFERENCE[HASHED_SET_NODE[AGENT_ARGS]]" l
 #
-1185 "WEAK_REFERENCE[HASHED_SET_NODE[TYPE]]" l
+1186 "WEAK_REFERENCE[HASHED_SET_NODE[TYPE]]" l
 #
-1281 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLUSTER_CLASS,HASHED_STRING]]" l
+1282 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLUSTER_CLASS,HASHED_STRING]]" l
 #
 60 "MEMORY" l
 class-path: "/home/r/Liberty/src/lib/kernel/memory.e"
@@ -1909,19 +1909,19 @@ class-name: PROCEDURE
 assertion-level: boost
 parent-count: 1 inherit: 53
 #
-1370 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[DICTIONARY[PLUGIN,STRING],STRING]]" l
+1371 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[DICTIONARY[PLUGIN,STRING],STRING]]" l
 #
-931 "REFERENCE[INTEGER_32]" l
+932 "REFERENCE[INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/kernel/reference.e"
 class-name: REFERENCE
 assertion-level: boost
 parent-count: 1 inherit: 38
-c-type: T931 reference: yes
+c-type: T932 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	REFERENCE[INTEGER_32] (931)
+	REFERENCE[INTEGER_32] (932)
 #
 18 "TUPLE" l
 class-path: "/home/r/Liberty/src/lib/kernel/tuple.e"
@@ -1929,43 +1929,43 @@ class-name: TUPLE
 assertion-level: boost
 parent-count: 1 inherit: 17
 #
-1241 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,TYPE]]" l
+1242 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,TYPE]]" l
 #
-1414 "PROCEDURE[TUPLE[CLASS_TEXT]]" l
+1415 "PROCEDURE[TUPLE[CLASS_TEXT]]" l
 #
-1264 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[SE_C_MODE,STRING]]" l
+1265 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[SE_C_MODE,STRING]]" l
 #
-1229 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]]" l
+1230 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]]" l
 #
-1412 "PROCEDURE[TUPLE[NON_VOID_NO_DISPATCH]]" l
+1413 "PROCEDURE[TUPLE[NON_VOID_NO_DISPATCH]]" l
 #
-911 "REFERENCE[DIRECTORY_NOTATION]" l
+912 "REFERENCE[DIRECTORY_NOTATION]" l
 #
-1213 "WEAK_REFERENCE[HASHED_SET_NODE[MANIFEST_GENERIC]]" l
+1214 "WEAK_REFERENCE[HASHED_SET_NODE[MANIFEST_GENERIC]]" l
 #
-1168 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_NAME]]" l
+1169 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_NAME]]" l
 #
-1101 "PROCEDURE[TUPLE]" l
+1102 "PROCEDURE[TUPLE]" l
 class-path: "/home/r/Liberty/src/lib/kernel/procedure.e"
 class-name: PROCEDURE
 assertion-level: boost
 parent-count: 1 inherit: 53
-c-type: T1101 reference: yes
+c-type: T1102 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	PROCEDURE[TUPLE] (1101)
+	PROCEDURE[TUPLE] (1102)
 #
-1232 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]]" l
+1233 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]]" l
 #
-1189 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[HASHED_STRING,HASHED_STRING]]" l
+1190 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[HASHED_STRING,HASHED_STRING]]" l
 #
-1388 "SAFE_EQUAL[POSITION]" l
+1389 "SAFE_EQUAL[POSITION]" l
 #
-1373 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[PLUGIN,STRING]]" l
+1374 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[PLUGIN,STRING]]" l
 #
-991 "TUPLE[RUN_FEATURE_2,RUN_FEATURE_2]" l
+992 "TUPLE[RUN_FEATURE_2,RUN_FEATURE_2]" l
 #
 38 "ANY_REFERENCE" l
 class-path: "/home/r/Liberty/src/lib/kernel/any_reference.e"
@@ -1973,28 +1973,28 @@ class-name: ANY_REFERENCE
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1359 "SAFE_EQUAL[STRING]" l
+1360 "SAFE_EQUAL[STRING]" l
 class-path: "/home/r/Liberty/src/lib/kernel/safe_equal.e"
 class-name: SAFE_EQUAL
 assertion-level: boost
 parent-count: 1 insert: 17 
-c-type: T1359 reference: no
+c-type: T1360 reference: no
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	SAFE_EQUAL[STRING] (1359)
+	SAFE_EQUAL[STRING] (1360)
 #
-1237 "WEAK_REFERENCE[HASHED_SET_NODE[ABSOLUTE_FEATURE_NAME]]" l
+1238 "WEAK_REFERENCE[HASHED_SET_NODE[ABSOLUTE_FEATURE_NAME]]" l
 #
-993 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]]" l
+994 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]]" l
 #
-1450 "PROCEDURE[TUPLE[ADDRESS_OF]]" l
+1451 "PROCEDURE[TUPLE[ADDRESS_OF]]" l
 #
-1424 "TUPLE[CECIL_FILE,STRING]" l
+1425 "TUPLE[CECIL_FILE,STRING]" l
 #
-1157 "WEAK_REFERENCE[HASHED_SET_NODE[LIVE_TYPE]]" l
+1158 "WEAK_REFERENCE[HASHED_SET_NODE[LIVE_TYPE]]" l
 #
-1119 "WEAK_REFERENCE[HASHED_SET_NODE[CLASS_NAME]]" l
+1120 "WEAK_REFERENCE[HASHED_SET_NODE[CLASS_NAME]]" l
 #
 755 "EXCEPTION" l
 class-path: "/home/r/Liberty/src/lib/kernel/exception.e"
@@ -2013,21 +2013,21 @@ run-time-set-count: 1
 run-time-set:
 	EXCEPTIONS (342)
 #
-945 "REFERENCE[STRING]" l
+946 "REFERENCE[STRING]" l
 class-path: "/home/r/Liberty/src/lib/kernel/reference.e"
 class-name: REFERENCE
 assertion-level: boost
 parent-count: 1 inherit: 38
-c-type: T945 reference: yes
+c-type: T946 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	REFERENCE[STRING] (945)
+	REFERENCE[STRING] (946)
 #
-1092 "REFERENCE[FIXED_STRING]" l
+1093 "REFERENCE[FIXED_STRING]" l
 #
-1274 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLUSTER,STRING]]" l
+1275 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLUSTER,STRING]]" l
 #
 304 "SAFE_EQUAL" l
 class-path: "/home/r/Liberty/src/lib/kernel/safe_equal.e"
@@ -2035,19 +2035,19 @@ class-name: SAFE_EQUAL
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1447 "TUPLE[FEATURE_STAMP]" l
+1448 "TUPLE[FEATURE_STAMP]" l
 #
-1194 "WEAK_REFERENCE[HASHED_BIJECTIVE_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]]" l
+1195 "WEAK_REFERENCE[HASHED_BIJECTIVE_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]]" l
 #
-1188 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[INTEGER_8,TYPE]]" l
+1189 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[INTEGER_8,TYPE]]" l
 #
-1333 "TUPLE[STRING]" l
+1334 "TUPLE[STRING]" l
 #
-1238 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]]" l
+1239 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]]" l
 #
-1246 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]]" l
+1247 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]]" l
 #
-1347 "REFERENCE[E_OLD]" l
+1348 "REFERENCE[E_OLD]" l
 #
 338 "WEAK_REFERENCE" l
 class-path: "/home/r/Liberty/src/lib/kernel/weak_reference.e"
@@ -2055,7 +2055,7 @@ class-name: WEAK_REFERENCE
 assertion-level: boost
 parent-count: 1 inherit: 38
 #
-1410 "TUPLE[CECIL_FILE]" l
+1411 "TUPLE[CECIL_FILE]" l
 #
 53 "ROUTINE" l
 class-path: "/home/r/Liberty/src/lib/kernel/routine.e"
@@ -2063,17 +2063,17 @@ class-name: ROUTINE
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1452 "PROCEDURE[TUPLE[ARGUMENT_NAME_DEF,INTEGER_32]]" l
+1453 "PROCEDURE[TUPLE[ARGUMENT_NAME_DEF,INTEGER_32]]" l
 #
-1417 "TUPLE[CECIL_ENTRY]" l
+1418 "TUPLE[CECIL_ENTRY]" l
 #
-1308 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]]" l
+1309 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]]" l
 #
-1298 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLIENT_LIST,FEATURE_NAME]]" l
+1299 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLIENT_LIST,FEATURE_NAME]]" l
 #
-909 "REFERENCE[CECIL_POOL]" l
+910 "REFERENCE[CECIL_POOL]" l
 #
-1197 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[RUN_FEATURE,TYPE]]" l
+1198 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[RUN_FEATURE,TYPE]]" l
 #
 19 "TUPLE 1" l
 class-path: "/home/r/Liberty/src/lib/kernel/tuple.e"
@@ -2093,7 +2093,7 @@ class-name: TUPLE 3
 assertion-level: boost
 parent-count: 1 inherit: 20
 #
-1261 "WEAK_REFERENCE[STRING]" l
+1262 "WEAK_REFERENCE[STRING]" l
 #
 22 "TUPLE 4" l
 class-path: "/home/r/Liberty/src/lib/kernel/tuple.e"
@@ -2131,9 +2131,9 @@ class-name: TUPLE 9
 assertion-level: boost
 parent-count: 1 inherit: 26
 #
-1165 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TAGGED_DATA,FIXED_STRING]]" l
+1166 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[TAGGED_DATA,FIXED_STRING]]" l
 #
-1070 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]]" l
+1071 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]]" l
 #
 298 "FUNCTION" l
 class-path: "/home/r/Liberty/src/lib/kernel/function.e"
@@ -2141,9 +2141,9 @@ class-name: FUNCTION
 assertion-level: boost
 parent-count: 1 inherit: 53
 #
-1449 "TUPLE[RUN_FEATURE]" l
+1450 "TUPLE[RUN_FEATURE]" l
 #
-1428 "PROCEDURE[TUPLE[RUN_FEATURE_2]]" l
+1429 "PROCEDURE[TUPLE[RUN_FEATURE_2]]" l
 #
 8 "POINTER" l
 class-path: "/home/r/Liberty/src/lib/kernel/pointer.e"
@@ -2151,45 +2151,45 @@ class-name: POINTER
 assertion-level: boost
 parent-count: 2 insert: 41 51 
 #
-1429 "TUPLE[RUN_FEATURE_2]" l
+1430 "TUPLE[RUN_FEATURE_2]" l
 #
-1318 "WEAK_REFERENCE[HASHED_SET_NODE[GRAPH_NODE]]" l
+1319 "WEAK_REFERENCE[HASHED_SET_NODE[GRAPH_NODE]]" l
 #
-1456 "PROCEDURE[TUPLE[CLOSED_OPERAND]]" l
+1457 "PROCEDURE[TUPLE[CLOSED_OPERAND]]" l
 #
-1443 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[AGENT_ARGS,STRING]]" l
+1444 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[AGENT_ARGS,STRING]]" l
 #
-1457 "TUPLE[CLOSED_OPERAND]" l
+1458 "TUPLE[CLOSED_OPERAND]" l
 #
-950 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[STRING,STRING]]" l
+951 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[STRING,STRING]]" l
 #
-1407 "TUPLE[MANIFEST_GENERIC]" l
+1408 "TUPLE[MANIFEST_GENERIC]" l
 #
-1196 "WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE]" l
+1197 "WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE]" l
 #
-1384 "WEAK_REFERENCE[HASHED_SET_NODE[FEATURE_STAMP]]" l
+1385 "WEAK_REFERENCE[HASHED_SET_NODE[FEATURE_STAMP]]" l
 #
-1111 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLASSES,STRING]]" l
+1112 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[CLASSES,STRING]]" l
 #
-1171 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_STAMP]]" l
+1172 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_STAMP]]" l
 #
-1423 "PROCEDURE[TUPLE[CECIL_FILE,STRING]]" l
+1424 "PROCEDURE[TUPLE[CECIL_FILE,STRING]]" l
 #
-1403 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]]" l
+1404 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]]" l
 #
-912 "REFERENCE[BOOLEAN]" l
+913 "REFERENCE[BOOLEAN]" l
 class-path: "/home/r/Liberty/src/lib/kernel/reference.e"
 class-name: REFERENCE
 assertion-level: boost
 parent-count: 1 inherit: 38
-c-type: T912 reference: yes
+c-type: T913 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	REFERENCE[BOOLEAN] (912)
+	REFERENCE[BOOLEAN] (913)
 #
-951 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]" l
+952 "WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]" l
 #
 31 "ARGUMENTS" l
 class-path: "/home/r/Liberty/src/lib/kernel/arguments.e"
@@ -2197,7 +2197,7 @@ class-name: ARGUMENTS
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1458 "PROCEDURE[TUPLE[ASSERTION]]" l
+1459 "PROCEDURE[TUPLE[ASSERTION]]" l
 #
 |liberty_core:io/loadpath.se:low_level/
 546 "BASIC_DIRECTORY" l
@@ -2248,18 +2248,18 @@ class-name: ABSTRACT_SORTER
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1419 "COLLECTION_SORTER[LIVE_TYPE]" l
+1420 "COLLECTION_SORTER[LIVE_TYPE]" l
 #
-943 "COLLECTION_SORTER[STRING]" l
+944 "COLLECTION_SORTER[STRING]" l
 class-path: "/home/r/Liberty/src/lib/sorting/collection_sorter.e"
 class-name: COLLECTION_SORTER
 assertion-level: boost
 parent-count: 1 insert: 550 
-c-type: T943 reference: no
+c-type: T944 reference: no
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	COLLECTION_SORTER[STRING] (943)
+	COLLECTION_SORTER[STRING] (944)
 #
 549 "COLLECTION_SORTER" l
 class-path: "/home/r/Liberty/src/lib/sorting/collection_sorter.e"
@@ -2267,22 +2267,22 @@ class-name: COLLECTION_SORTER
 assertion-level: boost
 parent-count: 1 insert: 550 
 #
-939 "REVERSE_COLLECTION_SORTER[POSITION]" l
+940 "REVERSE_COLLECTION_SORTER[POSITION]" l
 #
-1431 "COLLECTION_SORTER[C_GARBAGE_COLLECTOR_TAG]" l
+1432 "COLLECTION_SORTER[C_GARBAGE_COLLECTOR_TAG]" l
 #
-1330 "COLLECTION_SORTER[INTEGER_32]" l
+1331 "COLLECTION_SORTER[INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/sorting/collection_sorter.e"
 class-name: COLLECTION_SORTER
 assertion-level: boost
 parent-count: 1 insert: 550 
-c-type: T1330 reference: no
+c-type: T1331 reference: no
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	COLLECTION_SORTER[INTEGER_32] (1330)
+	COLLECTION_SORTER[INTEGER_32] (1331)
 #
-956 "COLLECTION_SORTER[FIXED_STRING]" l
+957 "COLLECTION_SORTER[FIXED_STRING]" l
 #
 721 "REVERSE_COLLECTION_SORTER" l
 class-path: "/home/r/Liberty/src/lib/sorting/reverse_collection_sorter.e"
@@ -2290,18 +2290,18 @@ class-name: REVERSE_COLLECTION_SORTER
 assertion-level: boost
 parent-count: 1 insert: 550 
 #
-989 "COMPARATOR_COLLECTION_SORTER[RUN_FEATURE_2]" l
+990 "COMPARATOR_COLLECTION_SORTER[RUN_FEATURE_2]" l
 #
-1426 "REVERSE_COLLECTION_SORTER[INTEGER_32]" l
+1427 "REVERSE_COLLECTION_SORTER[INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/sorting/reverse_collection_sorter.e"
 class-name: REVERSE_COLLECTION_SORTER
 assertion-level: boost
 parent-count: 1 insert: 550 
-c-type: T1426 reference: no
+c-type: T1427 reference: no
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	REVERSE_COLLECTION_SORTER[INTEGER_32] (1426)
+	REVERSE_COLLECTION_SORTER[INTEGER_32] (1427)
 #
 |liberty_core:net/loadpath.se:protocols/
 892 "HTTP_PROXY" l
@@ -2768,7 +2768,7 @@ assertion-level: boost
 parent-count: 1 insert: 17 
 #
 |liberty_core:abilities/loadpath.se:
-1128 "TRAVERSABLE[FORMAL_ARG_LIST]" l
+1129 "TRAVERSABLE[FORMAL_ARG_LIST]" l
 #
 43 "STORABLE" l
 class-path: "/home/r/Liberty/src/lib/abilities/storable.e"
@@ -2776,11 +2776,11 @@ class-name: STORABLE
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1130 "TRAVERSABLE[LOCAL_VAR_LIST]" l
+1131 "TRAVERSABLE[LOCAL_VAR_LIST]" l
 #
-1352 "TRAVERSABLE[ARGUMENT_NAME_DEF]" l
+1353 "TRAVERSABLE[ARGUMENT_NAME_DEF]" l
 #
-917 "TRAVERSABLE[LIVE_TYPE]" l
+918 "TRAVERSABLE[LIVE_TYPE]" l
 #
 50 "RECYCLABLE" l
 class-path: "/home/r/Liberty/src/lib/abilities/recyclable.e"
@@ -2788,7 +2788,7 @@ class-name: RECYCLABLE
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1354 "TRAVERSABLE[LOCAL_NAME_DEF]" l
+1355 "TRAVERSABLE[LOCAL_NAME_DEF]" l
 #
 48 "SEARCHABLE" l
 class-path: "/home/r/Liberty/src/lib/abilities/searchable.e"
@@ -2802,7 +2802,7 @@ class-name: HASHABLE
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1231 "TRAVERSABLE[TYPE_MARK]" l
+1232 "TRAVERSABLE[TYPE_MARK]" l
 #
 44 "TRAVERSABLE" l
 class-path: "/home/r/Liberty/src/lib/abilities/traversable.e"
@@ -2810,9 +2810,9 @@ class-name: TRAVERSABLE
 assertion-level: boost
 parent-count: 2 inherit: 45 47
 #
-1355 "TRAVERSABLE[DECLARATION]" l
+1356 "TRAVERSABLE[DECLARATION]" l
 #
-1353 "TRAVERSABLE[LOCAL_ARGUMENT_DEF]" l
+1354 "TRAVERSABLE[LOCAL_ARGUMENT_DEF]" l
 #
 47 "INDEXABLE" l
 class-path: "/home/r/Liberty/src/lib/abilities/indexable.e"
@@ -2838,18 +2838,18 @@ class-name: ITERABLE
 assertion-level: boost
 parent-count: 1 inherit: 46
 #
-1269 "TRAVERSABLE[STRING]" l
+1270 "TRAVERSABLE[STRING]" l
 class-path: "/home/r/Liberty/src/lib/abilities/traversable.e"
 class-name: TRAVERSABLE
 assertion-level: boost
 parent-count: 2 inherit: 45 47
-c-type: T1269 reference: yes
+c-type: T1270 reference: yes
 ref-status: dead 
 destination-graph-nodes: empty
 run-time-set-count: 2
 run-time-set:
-	FAST_ARRAY[STRING] (908)
-	ARRAY[STRING] (914)
+	FAST_ARRAY[STRING] (909)
+	ARRAY[STRING] (915)
 #
 42 "COMPARABLE" l
 class-path: "/home/r/Liberty/src/lib/abilities/comparable.e"
@@ -2857,7 +2857,7 @@ class-name: COMPARABLE
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1346 "TRAVERSABLE[WHEN_ITEM]" l
+1347 "TRAVERSABLE[WHEN_ITEM]" l
 #
 |smarteiffel:config/
 569 "SE_CONFIG" l
@@ -3178,6 +3178,12 @@ run-time-set:
 900 "COMPILE" l
 class-path: "/home/r/Liberty/src/smarteiffel/commands/compile.e"
 class-name: COMPILE
+assertion-level: boost
+parent-count: 1 inherit: 30
+#
+907 "ACE_CHECK" l
+class-path: "/home/r/Liberty/src/smarteiffel/commands/ace_check.e"
+class-name: ACE_CHECK
 assertion-level: boost
 parent-count: 1 inherit: 30
 #
@@ -3572,17 +3578,17 @@ class-name: ORDERED_DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 307
 #
-1105 "ORDERED_DICTIONARY[STRING,STRING]" l
+1106 "ORDERED_DICTIONARY[STRING,STRING]" l
 class-path: "/home/r/Liberty/src/smarteiffel/parser/ordered_dictionary.e"
 class-name: ORDERED_DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 307
-c-type: T1105 reference: yes
+c-type: T1106 reference: yes
 ref-status: live id-field: yes 
 destination-graph-nodes: ->DICTIONARY[STRING,STRING]
 run-time-set-count: 1
 run-time-set:
-	ORDERED_DICTIONARY[STRING,STRING] (1105)
+	ORDERED_DICTIONARY[STRING,STRING] (1106)
 #
 790 "TOKEN_BUFFER" l
 class-path: "/home/r/Liberty/src/smarteiffel/parser/token_buffer.e"
@@ -3607,7 +3613,7 @@ run-time-set-count: 1
 run-time-set:
 	TMP_FEATURE (467)
 #
-1104 "ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]" l
+1105 "ORDERED_DICTIONARY[ORDERED_DICTIONARY[STRING,STRING],STRING]" l
 #
 123 "PARSER_BUFFER" l
 class-path: "/home/r/Liberty/src/smarteiffel/parser/parser_buffer.e"
@@ -4750,7 +4756,7 @@ run-time-set:
 	EXEC_INPUT_STREAM_POSIX (873)
 #
 |liberty_core:storage/loadpath.se:bijective_dictionary/
-1017 "HASHED_BIJECTIVE_DICTIONARY[FEATURE_STAMP,FEATURE_NAME]" l
+1018 "HASHED_BIJECTIVE_DICTIONARY[FEATURE_STAMP,FEATURE_NAME]" l
 #
 715 "HASHED_BIJECTIVE_DICTIONARY" l
 class-path: "/home/r/Liberty/src/lib/storage/bijective_dictionary/hashed_bijective_dictionary.e"
@@ -4819,17 +4825,17 @@ class-name: ITERATOR_ON_LINKED_LIST
 assertion-level: boost
 parent-count: 1 inherit: 300
 #
-1268 "ITERATOR_ON_TRAVERSABLE[STRING]" l
+1269 "ITERATOR_ON_TRAVERSABLE[STRING]" l
 class-path: "/home/r/Liberty/src/lib/iterator/internal/iterator_on_traversable.e"
 class-name: ITERATOR_ON_TRAVERSABLE
 assertion-level: boost
 parent-count: 1 inherit: 300
-c-type: T1268 reference: yes
+c-type: T1269 reference: yes
 ref-status: live id-field: yes 
 destination-graph-nodes: ->ITERATOR[STRING]
 run-time-set-count: 1
 run-time-set:
-	ITERATOR_ON_TRAVERSABLE[STRING] (1268)
+	ITERATOR_ON_TRAVERSABLE[STRING] (1269)
 #
 827 "ITERATOR_ON_BIJECTIVE_DICTIONARY_KEYS" l
 class-path: "/home/r/Liberty/src/lib/iterator/internal/iterator_on_bijective_dictionary_keys.e"
@@ -4855,17 +4861,17 @@ class-name: ITERATOR_ON_TRAVERSABLE
 assertion-level: boost
 parent-count: 1 inherit: 300
 #
-1425 "ITERATOR_ON_DICTIONARY_KEYS[STRING,STRING]" l
+1426 "ITERATOR_ON_DICTIONARY_KEYS[STRING,STRING]" l
 class-path: "/home/r/Liberty/src/lib/iterator/internal/iterator_on_dictionary_keys.e"
 class-name: ITERATOR_ON_DICTIONARY_KEYS
 assertion-level: boost
 parent-count: 1 inherit: 300
-c-type: T1425 reference: yes
+c-type: T1426 reference: yes
 ref-status: live id-field: yes 
 destination-graph-nodes: ->ITERATOR[STRING]
 run-time-set-count: 1
 run-time-set:
-	ITERATOR_ON_DICTIONARY_KEYS[STRING,STRING] (1425)
+	ITERATOR_ON_DICTIONARY_KEYS[STRING,STRING] (1426)
 #
 838 "ITERATOR_ON_AVL_DICTIONARY_ITEMS" l
 class-path: "/home/r/Liberty/src/lib/iterator/internal/iterator_on_avl_dictionary_items.e"
@@ -4886,19 +4892,19 @@ assertion-level: boost
 parent-count: 1 inherit: 300
 #
 |liberty_core:iterator/loadpath.se:
-1098 "ITERATOR[STRING]" l
+1099 "ITERATOR[STRING]" l
 class-path: "/home/r/Liberty/src/lib/iterator/iterator.e"
 class-name: ITERATOR
 assertion-level: boost
 parent-count: 1 insert: 17 
-c-type: T1098 reference: yes
+c-type: T1099 reference: yes
 ref-status: dead 
 destination-graph-nodes: empty
 run-time-set-count: 3
 run-time-set:
 	C_SPLITTER_LEGACY_ITERATOR (824)
-	ITERATOR_ON_TRAVERSABLE[STRING] (1268)
-	ITERATOR_ON_DICTIONARY_KEYS[STRING,STRING] (1425)
+	ITERATOR_ON_TRAVERSABLE[STRING] (1269)
+	ITERATOR_ON_DICTIONARY_KEYS[STRING,STRING] (1426)
 #
 300 "ITERATOR" l
 class-path: "/home/r/Liberty/src/lib/iterator/iterator.e"
@@ -4907,13 +4913,13 @@ assertion-level: boost
 parent-count: 1 insert: 17 
 #
 |liberty_core:storage/loadpath.se:set/
-988 "HASHED_SET[LIVE_TYPE]" l
+989 "HASHED_SET[LIVE_TYPE]" l
 #
-1258 "HASHED_SET[GRAPH_NODE]" l
+1259 "HASHED_SET[GRAPH_NODE]" l
 #
-1056 "HASHED_SET[ABSOLUTE_FEATURE_NAME]" l
+1057 "HASHED_SET[ABSOLUTE_FEATURE_NAME]" l
 #
-1350 "HASHED_SET[FEATURE_STAMP]" l
+1351 "HASHED_SET[FEATURE_STAMP]" l
 #
 761 "ABSTRACT_AVL_SET" l
 class-path: "/home/r/Liberty/src/lib/storage/set/abstract_avl_set.e"
@@ -4921,23 +4927,23 @@ class-name: ABSTRACT_AVL_SET
 assertion-level: boost
 parent-count: 2 inherit: 347 insert: 724 
 #
-930 "HASHED_SET[HASHED_STRING]" l
+931 "HASHED_SET[HASHED_STRING]" l
 #
-1337 "HASHED_SET[NATIVE_PLUG_IN]" l
+1338 "HASHED_SET[NATIVE_PLUG_IN]" l
 #
-1012 "HASHED_SET[TYPE]" l
+1013 "HASHED_SET[TYPE]" l
 #
-1035 "HASHED_SET[STRING]" l
+1036 "HASHED_SET[STRING]" l
 class-path: "/home/r/Liberty/src/lib/storage/set/hashed_set.e"
 class-name: HASHED_SET
 assertion-level: boost
 parent-count: 1 inherit: 346
-c-type: T1035 reference: yes
+c-type: T1036 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: ->SET[STRING]
 run-time-set-count: 1
 run-time-set:
-	HASHED_SET[STRING] (1035)
+	HASHED_SET[STRING] (1036)
 #
 346 "ABSTRACT_HASHED_SET" l
 class-path: "/home/r/Liberty/src/lib/storage/set/abstract_hashed_set.e"
@@ -4945,13 +4951,13 @@ class-name: ABSTRACT_HASHED_SET
 assertion-level: boost
 parent-count: 2 inherit: 347 insert: 311 
 #
-1083 "AVL_SET[LIVE_TYPE]" l
+1084 "AVL_SET[LIVE_TYPE]" l
 #
-1345 "AVL_SET[POSITION]" l
+1346 "AVL_SET[POSITION]" l
 #
-1038 "HASHED_SET[MANIFEST_GENERIC]" l
+1039 "HASHED_SET[MANIFEST_GENERIC]" l
 #
-967 "HASHED_SET[CLASS_NAME]" l
+968 "HASHED_SET[CLASS_NAME]" l
 #
 345 "HASHED_SET" l
 class-path: "/home/r/Liberty/src/lib/storage/set/hashed_set.e"
@@ -4959,7 +4965,7 @@ class-name: HASHED_SET
 assertion-level: boost
 parent-count: 1 inherit: 346
 #
-1043 "HASHED_SET[AGENT_ARGS]" l
+1044 "HASHED_SET[AGENT_ARGS]" l
 #
 760 "AVL_SET" l
 class-path: "/home/r/Liberty/src/lib/storage/set/avl_set.e"
@@ -4968,7 +4974,7 @@ assertion-level: boost
 parent-count: 1 inherit: 761
 #
 |liberty_core:time/loadpath.se:
-907 "TIME_FORMATTER" l
+908 "TIME_FORMATTER" l
 class-path: "/home/r/Liberty/src/lib/time/time_formatter.e"
 class-name: TIME_FORMATTER
 assertion-level: boost
@@ -5393,47 +5399,47 @@ run-time-set:
 	PARTIALLY_FILLED_STRING (318)
 #
 |liberty_core:storage/loadpath.se:low_level/
-1116 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]]" l
+1117 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]]" l
 #
-1142 "NATIVE_ARRAY[ASSERTION]" l
+1143 "NATIVE_ARRAY[ASSERTION]" l
 #
-1293 "NATIVE_ARRAY[WHEN_ITEM]" l
+1294 "NATIVE_ARRAY[WHEN_ITEM]" l
 #
-1202 "NATIVE_ARRAY[HASHED_SET_NODE[STRING]]" l
+1203 "NATIVE_ARRAY[HASHED_SET_NODE[STRING]]" l
 #
-1066 "NATIVE_ARRAY[LIVE_TYPE]" l
+1067 "NATIVE_ARRAY[LIVE_TYPE]" l
 #
 9 "NATIVE_ARRAY[CHARACTER]" l
 #
-1283 "NATIVE_ARRAY[FORMAL_GENERIC_ARG]" l
+1284 "NATIVE_ARRAY[FORMAL_GENERIC_ARG]" l
 #
-1235 "NATIVE_ARRAY[HASHED_SET_NODE[ABSOLUTE_FEATURE_NAME]]" l
+1236 "NATIVE_ARRAY[HASHED_SET_NODE[ABSOLUTE_FEATURE_NAME]]" l
 #
-1027 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]]" l
+1028 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]]" l
 #
-1279 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLUSTER_CLASS,HASHED_STRING]]" l
+1280 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLUSTER_CLASS,HASHED_STRING]]" l
 #
-1323 "NATIVE_ARRAY[RENAME_PAIR]" l
+1324 "NATIVE_ARRAY[RENAME_PAIR]" l
 #
-1273 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLUSTER,STRING]]" l
+1274 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLUSTER,STRING]]" l
 #
-955 "NATIVE_ARRAY[HASHED_STRING]" l
+956 "NATIVE_ARRAY[HASHED_STRING]" l
 #
-1445 "NATIVE_ARRAY[INTERNAL_C_LOCAL]" l
+1446 "NATIVE_ARRAY[INTERNAL_C_LOCAL]" l
 #
-1256 "RECYCLING_POOL[AVL_TREE_NODE_ANY]" l
+1257 "RECYCLING_POOL[AVL_TREE_NODE_ANY]" l
 #
-1225 "NATIVE_ARRAY[FAST_ARRAY[CODE]]" l
+1226 "NATIVE_ARRAY[FAST_ARRAY[CODE]]" l
 #
-1309 "NATIVE_ARRAY[RUN_FEATURE_2]" l
+1310 "NATIVE_ARRAY[RUN_FEATURE_2]" l
 #
-1265 "NATIVE_ARRAY[PROCEDURE[TUPLE]]" l
+1266 "NATIVE_ARRAY[PROCEDURE[TUPLE]]" l
 #
-1402 "NATIVE_ARRAY[AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32]]" l
+1403 "NATIVE_ARRAY[AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32]]" l
 #
-1193 "NATIVE_ARRAY[HASHED_BIJECTIVE_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]]" l
+1194 "NATIVE_ARRAY[HASHED_BIJECTIVE_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]]" l
 #
-1186 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_8,TYPE]]" l
+1187 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_8,TYPE]]" l
 #
 747 "STRING_RECYCLING_ITEM_SORTER" l
 class-path: "/home/r/Liberty/src/lib/storage/low_level/string_recycling_item_sorter.e"
@@ -5446,47 +5452,47 @@ run-time-set-count: 1
 run-time-set:
 	STRING_RECYCLING_ITEM_SORTER (747)
 #
-1439 "NATIVE_ARRAY[FAST_ARRAY[CODE_CONTEXT]]" l
+1440 "NATIVE_ARRAY[FAST_ARRAY[CODE_CONTEXT]]" l
 #
-1227 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]]" l
+1228 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]]" l
 #
-1199 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RUN_FEATURE,TYPE]]" l
+1200 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RUN_FEATURE,TYPE]]" l
 #
-1444 "NATIVE_ARRAY[RUN_FEATURE_5]" l
+1445 "NATIVE_ARRAY[RUN_FEATURE_5]" l
 #
-1222 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_SET[TYPE],TYPE]]" l
+1223 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_SET[TYPE],TYPE]]" l
 #
-959 "NATIVE_ARRAY[CLASS_TEXT]" l
+960 "NATIVE_ARRAY[CLASS_TEXT]" l
 #
-1440 "NATIVE_ARRAY[RUN_FEATURE_6]" l
+1441 "NATIVE_ARRAY[RUN_FEATURE_6]" l
 #
-1357 "NATIVE_ARRAY[AGENT_CREATION]" l
+1358 "NATIVE_ARRAY[AGENT_CREATION]" l
 #
-1126 "NATIVE_ARRAY[FEATURE_TEXT]" l
+1127 "NATIVE_ARRAY[FEATURE_TEXT]" l
 #
-1401 "NATIVE_ARRAY[LINKED_LIST[TUPLE[CHARACTER,INTEGER_32]]]" l
+1402 "NATIVE_ARRAY[LINKED_LIST[TUPLE[CHARACTER,INTEGER_32]]]" l
 #
-1385 "NATIVE_ARRAY[ADDRESS_OF]" l
+1386 "NATIVE_ARRAY[ADDRESS_OF]" l
 #
-1310 "NATIVE_ARRAY[AVL_SET_NODE[LIVE_TYPE]]" l
+1311 "NATIVE_ARRAY[AVL_SET_NODE[LIVE_TYPE]]" l
 #
-1170 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_NAME]]" l
+1171 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_NAME]]" l
 #
-1138 "NATIVE_ARRAY[ARGUMENT_NAME_DEF]" l
+1139 "NATIVE_ARRAY[ARGUMENT_NAME_DEF]" l
 #
-1046 "NATIVE_ARRAY[TYPE_MARK]" l
+1047 "NATIVE_ARRAY[TYPE_MARK]" l
 #
-1250 "NATIVE_ARRAY[C_GARBAGE_COLLECTOR_TAG]" l
+1251 "NATIVE_ARRAY[C_GARBAGE_COLLECTOR_TAG]" l
 #
-1163 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TAGGED_DATA,FIXED_STRING]]" l
+1164 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TAGGED_DATA,FIXED_STRING]]" l
 #
-1325 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[PROCESS_POSIX,INTEGER_32]]" l
+1326 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[PROCESS_POSIX,INTEGER_32]]" l
 #
-1289 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FEATURE_STAMP,TYPE]]" l
+1290 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FEATURE_STAMP,TYPE]]" l
 #
-1245 "NATIVE_ARRAY[INTEGER_8]" l
+1246 "NATIVE_ARRAY[INTEGER_8]" l
 #
-1266 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ORDERED_DICTIONARY[STRING,STRING],STRING]]" l
+1267 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ORDERED_DICTIONARY[STRING,STRING],STRING]]" l
 #
 324 "STRING_RECYCLING_ITEM" l
 class-path: "/home/r/Liberty/src/lib/storage/low_level/string_recycling_item.e"
@@ -5499,23 +5505,23 @@ run-time-set-count: 1
 run-time-set:
 	STRING_RECYCLING_ITEM (324)
 #
-1201 "NATIVE_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]]" l
+1202 "NATIVE_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]]" l
 #
-1296 "NATIVE_ARRAY[CLOSED_OPERAND]" l
+1297 "NATIVE_ARRAY[CLOSED_OPERAND]" l
 #
-1139 "NATIVE_ARRAY[LOCAL_ARGUMENT_DEF]" l
+1140 "NATIVE_ARRAY[LOCAL_ARGUMENT_DEF]" l
 #
-1113 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASSES,STRING]]" l
+1114 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASSES,STRING]]" l
 #
-1230 "NATIVE_ARRAY[ANONYMOUS_FEATURE_MIXER]" l
+1231 "NATIVE_ARRAY[ANONYMOUS_FEATURE_MIXER]" l
 #
-1248 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]]" l
+1249 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]]" l
 #
-1234 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]]" l
+1235 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]]" l
 #
-1375 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[PLUGIN,STRING]]" l
+1376 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[PLUGIN,STRING]]" l
 #
-1178 "NATIVE_ARRAY[ANONYMOUS_FEATURE]" l
+1179 "NATIVE_ARRAY[ANONYMOUS_FEATURE]" l
 #
 59 "STRING_RECYCLING_POOL" l
 class-path: "/home/r/Liberty/src/lib/storage/low_level/string_recycling_pool.e"
@@ -5529,13 +5535,13 @@ run-time-set-count: 1
 run-time-set:
 	STRING_RECYCLING_POOL (59)
 #
-1263 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[SE_C_MODE,STRING]]" l
+1264 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[SE_C_MODE,STRING]]" l
 #
-1158 "NATIVE_ARRAY[EXTERNAL_ROUTINE]" l
+1159 "NATIVE_ARRAY[EXTERNAL_ROUTINE]" l
 #
-1091 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]]" l
+1092 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]]" l
 #
-1304 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[EXPRESSION,TYPE]]" l
+1305 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[EXPRESSION,TYPE]]" l
 #
 322 "ARRAYED_COLLECTION_HANDLER" l
 class-path: "/home/r/Liberty/src/lib/storage/low_level/arrayed_collection_handler.e"
@@ -5543,99 +5549,99 @@ class-name: ARRAYED_COLLECTION_HANDLER
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1367 "NATIVE_ARRAY[HASHED_SET_NODE[NATIVE_PLUG_IN]]" l
+1368 "NATIVE_ARRAY[HASHED_SET_NODE[NATIVE_PLUG_IN]]" l
 #
-1372 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[DICTIONARY[PLUGIN,STRING],STRING]]" l
+1373 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[DICTIONARY[PLUGIN,STRING],STRING]]" l
 #
-1176 "NATIVE_ARRAY[RUN_FEATURE]" l
+1177 "NATIVE_ARRAY[RUN_FEATURE]" l
 #
-1405 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]]" l
+1406 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]]" l
 #
-1200 "NATIVE_ARRAY[FEATURE_STAMP]" l
+1201 "NATIVE_ARRAY[FEATURE_STAMP]" l
 #
-1286 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE_MARK,TYPE]]" l
+1287 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE_MARK,TYPE]]" l
 #
-1243 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,TYPE]]" l
+1244 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,TYPE]]" l
 #
-1159 "NATIVE_ARRAY[INTEGER_64]" l
+1160 "NATIVE_ARRAY[INTEGER_64]" l
 #
-1082 "NATIVE_ARRAY[TAGGED_ERROR]" l
+1083 "NATIVE_ARRAY[TAGGED_ERROR]" l
 #
-1316 "NATIVE_ARRAY[HASHED_SET_NODE[GRAPH_NODE]]" l
+1317 "NATIVE_ARRAY[HASHED_SET_NODE[GRAPH_NODE]]" l
 #
-1177 "NATIVE_ARRAY[LIVE_TYPE_EXTRA_COLLECTOR]" l
+1178 "NATIVE_ARRAY[LIVE_TYPE_EXTRA_COLLECTOR]" l
 #
-1180 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[GRAPH_NODE,TYPE]]" l
+1181 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[GRAPH_NODE,TYPE]]" l
 #
-935 "RECYCLING_POOL[TAGGED_ERROR]" l
+936 "RECYCLING_POOL[TAGGED_ERROR]" l
 #
-933 "NATIVE_ARRAY[STRING]" l
+934 "NATIVE_ARRAY[STRING]" l
 #
-1073 "NATIVE_ARRAY[HASHED_SET_NODE[HASHED_STRING]]" l
+1074 "NATIVE_ARRAY[HASHED_SET_NODE[HASHED_STRING]]" l
 #
-1251 "NATIVE_ARRAY[ABSTRACT_STRING]" l
+1252 "NATIVE_ARRAY[ABSTRACT_STRING]" l
 #
-1207 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[MANIFEST_STRING,STRING]]" l
+1208 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[MANIFEST_STRING,STRING]]" l
 #
-1211 "NATIVE_ARRAY[HASHED_SET_NODE[MANIFEST_GENERIC]]" l
+1212 "NATIVE_ARRAY[HASHED_SET_NODE[MANIFEST_GENERIC]]" l
 #
-1136 "NATIVE_ARRAY[EXPRESSION]" l
+1137 "NATIVE_ARRAY[EXPRESSION]" l
 #
-1081 "NATIVE_ARRAY[POSITION]" l
+1082 "NATIVE_ARRAY[POSITION]" l
 #
-1254 "RECYCLING_POOL[AVL_SET_NODE[LIVE_TYPE]]" l
+1255 "RECYCLING_POOL[AVL_SET_NODE[LIVE_TYPE]]" l
 #
-1322 "NATIVE_ARRAY[INDEX_CLAUSE]" l
+1323 "NATIVE_ARRAY[INDEX_CLAUSE]" l
 #
-1376 "NATIVE_ARRAY[INLINE_MEMO]" l
+1377 "NATIVE_ARRAY[INLINE_MEMO]" l
 #
-1135 "NATIVE_ARRAY[PARENT_EDGE]" l
+1136 "NATIVE_ARRAY[PARENT_EDGE]" l
 #
-1313 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RECYCLING_POOL[AVL_TREE_NODE_ANY],FIXED_STRING]]" l
+1314 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RECYCLING_POOL[AVL_TREE_NODE_ANY],FIXED_STRING]]" l
 #
-1154 "NATIVE_ARRAY[EXPORT_ITEM]" l
+1155 "NATIVE_ARRAY[EXPORT_ITEM]" l
 #
-1244 "NATIVE_ARRAY[ARRAY[INTEGER_8]]" l
+1245 "NATIVE_ARRAY[ARRAY[INTEGER_8]]" l
 #
-1386 "NATIVE_ARRAY[POINTER]" l
+1387 "NATIVE_ARRAY[POINTER]" l
 #
-1226 "NATIVE_ARRAY[CODE]" l
+1227 "NATIVE_ARRAY[CODE]" l
 #
-1464 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TAGGED_INTEGER,INTEGER_32]]" l
+1465 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TAGGED_INTEGER,INTEGER_32]]" l
 #
-1365 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE,TYPE]]" l
+1366 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE,TYPE]]" l
 #
-1117 "NATIVE_ARRAY[HASHED_SET_NODE[CLASS_NAME]]" l
+1118 "NATIVE_ARRAY[HASHED_SET_NODE[CLASS_NAME]]" l
 #
-1122 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]]" l
+1123 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]]" l
 #
-1381 "NATIVE_ARRAY[E_OLD]" l
+1382 "NATIVE_ARRAY[E_OLD]" l
 #
-1029 "NATIVE_ARRAY[INTEGER_32]" l
+1030 "NATIVE_ARRAY[INTEGER_32]" l
 #
-1306 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]]" l
+1307 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]]" l
 #
-1294 "NATIVE_ARRAY[INSTRUCTION]" l
+1295 "NATIVE_ARRAY[INSTRUCTION]" l
 #
-1328 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[PROCESS_WIN32,INTEGER_32]]" l
+1329 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[PROCESS_WIN32,INTEGER_32]]" l
 #
-964 "NATIVE_ARRAY[CLUSTER]" l
+965 "NATIVE_ARRAY[CLUSTER]" l
 #
-1382 "NATIVE_ARRAY[HASHED_SET_NODE[FEATURE_STAMP]]" l
+1383 "NATIVE_ARRAY[HASHED_SET_NODE[FEATURE_STAMP]]" l
 #
-1438 "NATIVE_ARRAY[CODE_CONTEXT]" l
+1439 "NATIVE_ARRAY[CODE_CONTEXT]" l
 #
-1069 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]]" l
+1070 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]]" l
 #
-1143 "NATIVE_ARRAY[LOCAL_NAME_DEF]" l
+1144 "NATIVE_ARRAY[LOCAL_NAME_DEF]" l
 #
-1103 "NATIVE_ARRAY[CLASSES]" l
+1104 "NATIVE_ARRAY[CLASSES]" l
 #
-1087 "NATIVE_ARRAY[FIXED_STRING]" l
+1088 "NATIVE_ARRAY[FIXED_STRING]" l
 #
-1146 "NATIVE_ARRAY[WHEN_CLAUSE]" l
+1147 "NATIVE_ARRAY[WHEN_CLAUSE]" l
 #
-960 "NATIVE_ARRAY[INTEGER_16]" l
+961 "NATIVE_ARRAY[INTEGER_16]" l
 #
 305 "RECYCLING_POOL" l
 class-path: "/home/r/Liberty/src/lib/storage/low_level/recycling_pool.e"
@@ -5643,21 +5649,21 @@ class-name: RECYCLING_POOL
 assertion-level: boost
 parent-count: 2 insert: 54 17 
 #
-1361 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TUPLE[TYPE,TYPE],TYPE]]" l
+1362 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TUPLE[TYPE,TYPE],TYPE]]" l
 #
-1137 "NATIVE_ARRAY[TMP_FEATURE]" l
+1138 "NATIVE_ARRAY[TMP_FEATURE]" l
 #
-1260 "NATIVE_ARRAY[STRING_RECYCLING_ITEM]" l
+1261 "NATIVE_ARRAY[STRING_RECYCLING_ITEM]" l
 #
-995 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]]" l
+996 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]]" l
 #
-1292 "NATIVE_ARRAY[IFTHEN]" l
+1293 "NATIVE_ARRAY[IFTHEN]" l
 #
-1442 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[AGENT_ARGS,STRING]]" l
+1443 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[AGENT_ARGS,STRING]]" l
 #
-1379 "RECYCLING_POOL[AVL_SET_NODE[POSITION]]" l
+1380 "RECYCLING_POOL[AVL_SET_NODE[POSITION]]" l
 #
-1183 "NATIVE_ARRAY[HASHED_SET_NODE[TYPE]]" l
+1184 "NATIVE_ARRAY[HASHED_SET_NODE[TYPE]]" l
 #
 313 "NATIVE_ARRAY" l
 class-path: "/home/r/Liberty/src/lib/storage/low_level/native_array.e"
@@ -5665,75 +5671,75 @@ class-name: NATIVE_ARRAY
 assertion-level: boost
 parent-count: 1 insert: 304 
 #
-1257 "NATIVE_ARRAY[CECIL_ENTRY]" l
+1258 "NATIVE_ARRAY[CECIL_ENTRY]" l
 #
-1218 "NATIVE_ARRAY[HASHED_SET_NODE[AGENT_ARGS]]" l
+1219 "NATIVE_ARRAY[HASHED_SET_NODE[AGENT_ARGS]]" l
 #
-1387 "NATIVE_ARRAY[AVL_SET_NODE[POSITION]]" l
+1388 "NATIVE_ARRAY[AVL_SET_NODE[POSITION]]" l
 #
-1140 "NATIVE_ARRAY[DECLARATION]" l
+1141 "NATIVE_ARRAY[DECLARATION]" l
 #
-1224 "NATIVE_ARRAY[HASHED_SET[TYPE]]" l
+1225 "NATIVE_ARRAY[HASHED_SET[TYPE]]" l
 #
-1278 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TEXT_FILE_READ,STRING]]" l
+1279 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TEXT_FILE_READ,STRING]]" l
 #
-1300 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLIENT_LIST,FEATURE_NAME]]" l
+1301 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLIENT_LIST,FEATURE_NAME]]" l
 #
-1099 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]" l
+1100 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]" l
 #
-1295 "NATIVE_ARRAY[OPEN_OPERAND]" l
+1296 "NATIVE_ARRAY[OPEN_OPERAND]" l
 #
-1191 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_STRING,HASHED_STRING]]" l
+1192 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_STRING,HASHED_STRING]]" l
 #
-1302 "NATIVE_ARRAY[CREATION_CLAUSE]" l
+1303 "NATIVE_ARRAY[CREATION_CLAUSE]" l
 #
-1072 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]]" l
+1073 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]]" l
 #
-1160 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_8,CLASS_TEXT]]" l
+1161 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_8,CLASS_TEXT]]" l
 #
-1144 "NATIVE_ARRAY[MANIFEST_STRING]" l
+1145 "NATIVE_ARRAY[MANIFEST_STRING]" l
 #
-947 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[STRING,STRING]]" l
+948 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[STRING,STRING]]" l
 #
-1155 "NATIVE_ARRAY[HASHED_SET_NODE[LIVE_TYPE]]" l
+1156 "NATIVE_ARRAY[HASHED_SET_NODE[LIVE_TYPE]]" l
 #
-1216 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[AGENT_CREATION],TYPE]]" l
+1217 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[AGENT_CREATION],TYPE]]" l
 #
-1124 "NATIVE_ARRAY[FORMAL_ARG_LIST]" l
+1125 "NATIVE_ARRAY[FORMAL_ARG_LIST]" l
 #
-1084 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]" l
+1085 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]" l
 #
-1174 "NATIVE_ARRAY[TYPE]" l
+1175 "NATIVE_ARRAY[TYPE]" l
 #
-1380 "NATIVE_ARRAY[FAST_ARRAY[E_OLD]]" l
+1381 "NATIVE_ARRAY[FAST_ARRAY[E_OLD]]" l
 #
-1214 "NATIVE_ARRAY[NON_VOID_NO_DISPATCH]" l
+1215 "NATIVE_ARRAY[NON_VOID_NO_DISPATCH]" l
 #
-1301 "NATIVE_ARRAY[FEATURE_CLAUSE]" l
+1302 "NATIVE_ARRAY[FEATURE_CLAUSE]" l
 #
-1210 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[MANIFEST_STRING,MANIFEST_STRING]]" l
+1211 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[MANIFEST_STRING,MANIFEST_STRING]]" l
 #
-1173 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_STAMP]]" l
+1174 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_STAMP]]" l
 #
-1275 "NATIVE_ARRAY[TEXT_FILE_READ]" l
+1276 "NATIVE_ARRAY[TEXT_FILE_READ]" l
 #
-1240 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]]" l
+1241 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]]" l
 #
-1297 "NATIVE_ARRAY[IFTHEN_EXP]" l
+1298 "NATIVE_ARRAY[IFTHEN_EXP]" l
 #
-1125 "NATIVE_ARRAY[LOCAL_VAR_LIST]" l
+1126 "NATIVE_ARRAY[LOCAL_VAR_LIST]" l
 #
-1436 "RECYCLING_POOL[AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32]]" l
+1437 "RECYCLING_POOL[AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32]]" l
 #
-1024 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]]" l
+1025 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]]" l
 #
-1049 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]]" l
+1050 "NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]]" l
 #
-1102 "NATIVE_ARRAY[FEATURE_NAME]" l
+1103 "NATIVE_ARRAY[FEATURE_NAME]" l
 #
-1291 "NATIVE_ARRAY[REQUIRE_ASSERTION]" l
+1292 "NATIVE_ARRAY[REQUIRE_ASSERTION]" l
 #
-1259 "NATIVE_ARRAY[SE_CONFIG]" l
+1260 "NATIVE_ARRAY[SE_CONFIG]" l
 #
 |liberty_core:kernel/loadpath.se:internal/
 746 "NATIVE_ARRAY_INTERNALS" l
@@ -5784,121 +5790,121 @@ assertion-level: boost
 parent-count: 1 insert: 17 
 #
 |liberty_core:storage/loadpath.se:collection/
-1064 "ARRAY[INTEGER_8]" l
+1065 "ARRAY[INTEGER_8]" l
 #
-1127 "FAST_ARRAY[FORMAL_ARG_LIST]" l
+1128 "FAST_ARRAY[FORMAL_ARG_LIST]" l
 #
-920 "FAST_ARRAY[INTEGER_32]" l
+921 "FAST_ARRAY[INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/fast_array.e"
 class-name: FAST_ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 57 insert: 58 
-c-type: T920 reference: yes
+c-type: T921 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: ->COLLECTION[INTEGER_32]
 run-time-set-count: 1
 run-time-set:
-	FAST_ARRAY[INTEGER_32] (920)
+	FAST_ARRAY[INTEGER_32] (921)
 #
-992 "FAST_ARRAY[EXTERNAL_ROUTINE]" l
+993 "FAST_ARRAY[EXTERNAL_ROUTINE]" l
 #
-1088 "FAST_ARRAY[CECIL_ENTRY]" l
+1089 "FAST_ARRAY[CECIL_ENTRY]" l
 #
-908 "FAST_ARRAY[STRING]" l
+909 "FAST_ARRAY[STRING]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/fast_array.e"
 class-name: FAST_ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 57 insert: 58 
-c-type: T908 reference: yes
+c-type: T909 reference: yes
 ref-status: live id-field: yes 
 destination-graph-nodes: ->COLLECTION[STRING], ->TRAVERSABLE[STRING]
 run-time-set-count: 1
 run-time-set:
-	FAST_ARRAY[STRING] (908)
+	FAST_ARRAY[STRING] (909)
 #
-1463 "FAST_ARRAY[CHARACTER]" l
+1464 "FAST_ARRAY[CHARACTER]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/fast_array.e"
 class-name: FAST_ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 57 insert: 58 
-c-type: T1463 reference: yes
+c-type: T1464 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	FAST_ARRAY[CHARACTER] (1463)
+	FAST_ARRAY[CHARACTER] (1464)
 #
-1129 "FAST_ARRAY[LOCAL_VAR_LIST]" l
+1130 "FAST_ARRAY[LOCAL_VAR_LIST]" l
 #
-1290 "FAST_ARRAY[RENAME_PAIR]" l
+1291 "FAST_ARRAY[RENAME_PAIR]" l
 #
-1094 "RING_ARRAY[SE_CONFIG]" l
+1095 "RING_ARRAY[SE_CONFIG]" l
 #
-1348 "FAST_ARRAY[FAST_ARRAY[E_OLD]]" l
+1349 "FAST_ARRAY[FAST_ARRAY[E_OLD]]" l
 #
-974 "FAST_ARRAY[FEATURE_TEXT]" l
+975 "FAST_ARRAY[FEATURE_TEXT]" l
 #
-1134 "FAST_ARRAY[TYPE_MARK]" l
+1135 "FAST_ARRAY[TYPE_MARK]" l
 #
-938 "RING_ARRAY[TAGGED_ERROR]" l
+939 "RING_ARRAY[TAGGED_ERROR]" l
 #
-1045 "FAST_ARRAY[HASHED_SET[TYPE]]" l
+1046 "FAST_ARRAY[HASHED_SET[TYPE]]" l
 #
-1150 "FAST_ARRAY[CLOSED_OPERAND]" l
+1151 "FAST_ARRAY[CLOSED_OPERAND]" l
 #
-1109 "FAST_ARRAY[TEXT_FILE_READ]" l
+1110 "FAST_ARRAY[TEXT_FILE_READ]" l
 #
-961 "FAST_ARRAY[INTEGER_16]" l
+962 "FAST_ARRAY[INTEGER_16]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/fast_array.e"
 class-name: FAST_ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 57 insert: 58 
-c-type: T961 reference: yes
+c-type: T962 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	FAST_ARRAY[INTEGER_16] (961)
+	FAST_ARRAY[INTEGER_16] (962)
 #
-1433 "FAST_ARRAY[RUN_FEATURE_6]" l
+1434 "FAST_ARRAY[RUN_FEATURE_6]" l
 #
-987 "ARRAY[EXPORT_ITEM]" l
+988 "ARRAY[EXPORT_ITEM]" l
 #
-981 "FAST_ARRAY[ASSERTION]" l
+982 "FAST_ARRAY[ASSERTION]" l
 #
-1435 "FAST_ARRAY[RUN_FEATURE_5]" l
+1436 "FAST_ARRAY[RUN_FEATURE_5]" l
 #
-915 "FAST_ARRAY[CLUSTER]" l
+916 "FAST_ARRAY[CLUSTER]" l
 #
-1003 "FAST_ARRAY[RUN_FEATURE]" l
+1004 "FAST_ARRAY[RUN_FEATURE]" l
 #
-1041 "FAST_ARRAY[AGENT_CREATION]" l
+1042 "FAST_ARRAY[AGENT_CREATION]" l
 #
-1343 "FAST_ARRAY[INLINE_MEMO]" l
+1344 "FAST_ARRAY[INLINE_MEMO]" l
 #
-984 "FAST_ARRAY[WHEN_CLAUSE]" l
+985 "FAST_ARRAY[WHEN_CLAUSE]" l
 #
-1411 "ARRAY[FAST_ARRAY[CODE_CONTEXT]]" l
+1412 "ARRAY[FAST_ARRAY[CODE_CONTEXT]]" l
 #
-922 "ARRAY[TYPE_MARK]" l
+923 "ARRAY[TYPE_MARK]" l
 #
-1148 "FAST_ARRAY[INSTRUCTION]" l
+1149 "FAST_ARRAY[INSTRUCTION]" l
 #
-954 "FAST_ARRAY[FEATURE_NAME]" l
+955 "FAST_ARRAY[FEATURE_NAME]" l
 #
-1063 "ARRAY[ARRAY[INTEGER_8]]" l
+1064 "ARRAY[ARRAY[INTEGER_8]]" l
 #
-1249 "FAST_ARRAY[RUN_FEATURE_2]" l
+1250 "FAST_ARRAY[RUN_FEATURE_2]" l
 #
-913 "FAST_ARRAY[HASHED_STRING]" l
+914 "FAST_ARRAY[HASHED_STRING]" l
 #
-914 "ARRAY[STRING]" l
+915 "ARRAY[STRING]" l
 #
-975 "FAST_ARRAY[PARENT_EDGE]" l
+976 "FAST_ARRAY[PARENT_EDGE]" l
 #
-1050 "FAST_ARRAY[FAST_ARRAY[CODE]]" l
+1051 "FAST_ARRAY[FAST_ARRAY[CODE]]" l
 #
-1053 "FAST_ARRAY[ANONYMOUS_FEATURE_MIXER]" l
+1054 "FAST_ARRAY[ANONYMOUS_FEATURE_MIXER]" l
 #
 312 "ARRAY" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/array.e"
@@ -5906,41 +5912,41 @@ class-name: ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 57 insert: 58 
 #
-1358 "ARRAY[RUN_FEATURE_2]" l
+1359 "ARRAY[RUN_FEATURE_2]" l
 #
-934 "FAST_ARRAY[POSITION]" l
+935 "FAST_ARRAY[POSITION]" l
 #
-1166 "FAST_ARRAY[FEATURE_CLAUSE]" l
+1167 "FAST_ARRAY[FEATURE_CLAUSE]" l
 #
-978 "ARRAY[ARGUMENT_NAME_DEF]" l
+979 "ARRAY[ARGUMENT_NAME_DEF]" l
 #
-1349 "FAST_ARRAY[E_OLD]" l
+1350 "FAST_ARRAY[E_OLD]" l
 #
-1145 "FAST_ARRAY[IFTHEN]" l
+1146 "FAST_ARRAY[IFTHEN]" l
 #
-1079 "FAST_ARRAY[C_GARBAGE_COLLECTOR_TAG]" l
+1080 "FAST_ARRAY[C_GARBAGE_COLLECTOR_TAG]" l
 #
-1051 "FAST_ARRAY[CODE]" l
+1052 "FAST_ARRAY[CODE]" l
 #
-1360 "FAST_ARRAY[POINTER]" l
+1361 "FAST_ARRAY[POINTER]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/fast_array.e"
 class-name: FAST_ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 57 insert: 58 
-c-type: T1360 reference: yes
+c-type: T1361 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	FAST_ARRAY[POINTER] (1360)
+	FAST_ARRAY[POINTER] (1361)
 #
-979 "ARRAY[LOCAL_ARGUMENT_DEF]" l
+980 "ARRAY[LOCAL_ARGUMENT_DEF]" l
 #
-937 "FAST_ARRAY[FIXED_STRING]" l
+938 "FAST_ARRAY[FIXED_STRING]" l
 #
-1039 "FAST_ARRAY[NON_VOID_NO_DISPATCH]" l
+1040 "FAST_ARRAY[NON_VOID_NO_DISPATCH]" l
 #
-1151 "FAST_ARRAY[IFTHEN_EXP]" l
+1152 "FAST_ARRAY[IFTHEN_EXP]" l
 #
 821 "LINKED_LIST" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/linked_list.e"
@@ -5948,81 +5954,81 @@ class-name: LINKED_LIST
 assertion-level: boost
 parent-count: 2 inherit: 56 insert: 822 
 #
-1095 "FAST_ARRAY[STRING_RECYCLING_ITEM]" l
+1096 "FAST_ARRAY[STRING_RECYCLING_ITEM]" l
 #
-1030 "FAST_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]]" l
+1031 "FAST_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]]" l
 #
-996 "FAST_ARRAY[INTEGER_64]" l
+997 "FAST_ARRAY[INTEGER_64]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/fast_array.e"
 class-name: FAST_ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 57 insert: 58 
-c-type: T996 reference: yes
+c-type: T997 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	FAST_ARRAY[INTEGER_64] (996)
+	FAST_ARRAY[INTEGER_64] (997)
 #
-1065 "FAST_ARRAY[ANONYMOUS_FEATURE]" l
+1066 "FAST_ARRAY[ANONYMOUS_FEATURE]" l
 #
-1016 "FAST_ARRAY[TYPE]" l
+1017 "FAST_ARRAY[TYPE]" l
 #
-1393 "FAST_ARRAY[LINKED_LIST[TUPLE[CHARACTER,INTEGER_32]]]" l
+1394 "FAST_ARRAY[LINKED_LIST[TUPLE[CHARACTER,INTEGER_32]]]" l
 #
-1437 "FAST_ARRAY[INTERNAL_C_LOCAL]" l
+1438 "FAST_ARRAY[INTERNAL_C_LOCAL]" l
 #
-1021 "FAST_ARRAY[CLASS_TEXT]" l
+1022 "FAST_ARRAY[CLASS_TEXT]" l
 #
-1167 "FAST_ARRAY[CREATION_CLAUSE]" l
+1168 "FAST_ARRAY[CREATION_CLAUSE]" l
 #
-976 "FAST_ARRAY[EXPRESSION]" l
+977 "FAST_ARRAY[EXPRESSION]" l
 #
-958 "FAST_ARRAY[CLASSES]" l
+959 "FAST_ARRAY[CLASSES]" l
 #
-1022 "FAST_ARRAY[FEATURE_STAMP]" l
+1023 "FAST_ARRAY[FEATURE_STAMP]" l
 #
-925 "FAST_ARRAY[LIVE_TYPE]" l
+926 "FAST_ARRAY[LIVE_TYPE]" l
 #
-1319 "RING_ARRAY[INTEGER_32]" l
+1320 "RING_ARRAY[INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/ring_array.e"
 class-name: RING_ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 insert: 57 58 
-c-type: T1319 reference: yes
+c-type: T1320 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	RING_ARRAY[INTEGER_32] (1319)
+	RING_ARRAY[INTEGER_32] (1320)
 #
-1141 "FAST_ARRAY[REQUIRE_ASSERTION]" l
+1142 "FAST_ARRAY[REQUIRE_ASSERTION]" l
 #
-973 "RING_ARRAY[LOCAL_VAR_LIST]" l
+974 "RING_ARRAY[LOCAL_VAR_LIST]" l
 #
-1394 "FAST_ARRAY[AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32]]" l
+1395 "FAST_ARRAY[AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32]]" l
 #
-1004 "FAST_ARRAY[LIVE_TYPE_EXTRA_COLLECTOR]" l
+1005 "FAST_ARRAY[LIVE_TYPE_EXTRA_COLLECTOR]" l
 #
-983 "FAST_ARRAY[MANIFEST_STRING]" l
+984 "FAST_ARRAY[MANIFEST_STRING]" l
 #
-1001 "ARRAY[TYPE]" l
+1002 "ARRAY[TYPE]" l
 #
-1147 "FAST_ARRAY[WHEN_ITEM]" l
+1148 "FAST_ARRAY[WHEN_ITEM]" l
 #
-924 "ARRAY[INTEGER_32]" l
+925 "ARRAY[INTEGER_32]" l
 #
-1100 "RING_ARRAY[PROCEDURE[TUPLE]]" l
+1101 "RING_ARRAY[PROCEDURE[TUPLE]]" l
 #
-1377 "FAST_ARRAY[AVL_SET_NODE[POSITION]]" l
+1378 "FAST_ARRAY[AVL_SET_NODE[POSITION]]" l
 #
-1282 "FAST_ARRAY[INDEX_CLAUSE]" l
+1283 "FAST_ARRAY[INDEX_CLAUSE]" l
 #
-972 "RING_ARRAY[FORMAL_ARG_LIST]" l
+973 "RING_ARRAY[FORMAL_ARG_LIST]" l
 #
-1149 "FAST_ARRAY[OPEN_OPERAND]" l
+1150 "FAST_ARRAY[OPEN_OPERAND]" l
 #
-1408 "FAST_ARRAY[CODE_CONTEXT]" l
+1409 "FAST_ARRAY[CODE_CONTEXT]" l
 #
 55 "FAST_ARRAY" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/fast_array.e"
@@ -6030,17 +6036,17 @@ class-name: FAST_ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 57 insert: 58 
 #
-1430 "ARRAY[RUN_FEATURE]" l
+1431 "ARRAY[RUN_FEATURE]" l
 #
-1252 "FAST_ARRAY[AVL_SET_NODE[LIVE_TYPE]]" l
+1253 "FAST_ARRAY[AVL_SET_NODE[LIVE_TYPE]]" l
 #
-982 "ARRAY[LOCAL_NAME_DEF]" l
+983 "ARRAY[LOCAL_NAME_DEF]" l
 #
-980 "ARRAY[DECLARATION]" l
+981 "ARRAY[DECLARATION]" l
 #
-1351 "FAST_ARRAY[ADDRESS_OF]" l
+1352 "FAST_ARRAY[ADDRESS_OF]" l
 #
-1080 "FAST_ARRAY[ABSTRACT_STRING]" l
+1081 "FAST_ARRAY[ABSTRACT_STRING]" l
 #
 731 "DICTIONARY_KEY_TRAVERSER" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/dictionary_key_traverser.e"
@@ -6054,21 +6060,21 @@ class-name: RING_ARRAY
 assertion-level: boost
 parent-count: 3 inherit: 56 insert: 57 58 
 #
-1391 "LINKED_LIST[TUPLE[CHARACTER,INTEGER_32]]" l
+1392 "LINKED_LIST[TUPLE[CHARACTER,INTEGER_32]]" l
 class-path: "/home/r/Liberty/src/lib/storage/collection/linked_list.e"
 class-name: LINKED_LIST
 assertion-level: boost
 parent-count: 2 inherit: 56 insert: 822 
-c-type: T1391 reference: yes
+c-type: T1392 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	LINKED_LIST[TUPLE[CHARACTER,INTEGER_32]] (1391)
+	LINKED_LIST[TUPLE[CHARACTER,INTEGER_32]] (1392)
 #
-1356 "ARRAY[FEATURE_STAMP]" l
+1357 "ARRAY[FEATURE_STAMP]" l
 #
-1131 "ARRAY[FORMAL_GENERIC_ARG]" l
+1132 "ARRAY[FORMAL_GENERIC_ARG]" l
 #
 |smarteiffel:visitor/
 596 "USER_GENERIC_TYPE_MARK_VISITOR" l
@@ -9361,23 +9367,23 @@ assertion-level: boost
 parent-count: 1 inherit: 882
 #
 |liberty_core:storage/loadpath.se:dictionary/
-1010 "HASHED_DICTIONARY[GRAPH_NODE,TYPE]" l
+1011 "HASHED_DICTIONARY[GRAPH_NODE,TYPE]" l
 #
-1036 "HASHED_DICTIONARY[MANIFEST_STRING,STRING]" l
+1037 "HASHED_DICTIONARY[MANIFEST_STRING,STRING]" l
 #
-1339 "HASHED_DICTIONARY[DICTIONARY[PLUGIN,STRING],STRING]" l
+1340 "HASHED_DICTIONARY[DICTIONARY[PLUGIN,STRING],STRING]" l
 #
-1400 "HASHED_DICTIONARY[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]" l
+1401 "HASHED_DICTIONARY[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]" l
 #
-1110 "HASHED_DICTIONARY[TEXT_FILE_READ,STRING]" l
+1111 "HASHED_DICTIONARY[TEXT_FILE_READ,STRING]" l
 #
-1133 "HASHED_DICTIONARY[FEATURE_STAMP,TYPE]" l
+1134 "HASHED_DICTIONARY[FEATURE_STAMP,TYPE]" l
 #
-1175 "HASHED_DICTIONARY[EXPRESSION,TYPE]" l
+1176 "HASHED_DICTIONARY[EXPRESSION,TYPE]" l
 #
-1062 "HASHED_DICTIONARY[ANONYMOUS_FEATURE,TYPE]" l
+1063 "HASHED_DICTIONARY[ANONYMOUS_FEATURE,TYPE]" l
 #
-998 "HASHED_DICTIONARY[TAGGED_DATA,FIXED_STRING]" l
+999 "HASHED_DICTIONARY[TAGGED_DATA,FIXED_STRING]" l
 #
 301 "ENUMERATE" l
 class-path: "/home/r/Liberty/src/lib/storage/dictionary/enumerate.e"
@@ -9385,35 +9391,35 @@ class-name: ENUMERATE
 assertion-level: boost
 parent-count: 1 inherit: 302
 #
-942 "HASHED_DICTIONARY[CECIL_FILE,STRING]" l
+943 "HASHED_DICTIONARY[CECIL_FILE,STRING]" l
 #
-1013 "HASHED_DICTIONARY[INTEGER_8,TYPE]" l
+1014 "HASHED_DICTIONARY[INTEGER_8,TYPE]" l
 #
-1195 "HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]" l
+1196 "HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]" l
 #
-1037 "HASHED_DICTIONARY[MANIFEST_STRING,MANIFEST_STRING]" l
+1038 "HASHED_DICTIONARY[MANIFEST_STRING,MANIFEST_STRING]" l
 #
-1342 "HASHED_DICTIONARY[PLUGIN,STRING]" l
+1343 "HASHED_DICTIONARY[PLUGIN,STRING]" l
 #
-929 "HASHED_DICTIONARY[INTEGER_16,HASHED_STRING]" l
+930 "HASHED_DICTIONARY[INTEGER_16,HASHED_STRING]" l
 #
-999 "HASHED_DICTIONARY[ANONYMOUS_FEATURE,FEATURE_NAME]" l
+1000 "HASHED_DICTIONARY[ANONYMOUS_FEATURE,FEATURE_NAME]" l
 #
-1255 "HASHED_DICTIONARY[RECYCLING_POOL[AVL_TREE_NODE_ANY],FIXED_STRING]" l
+1256 "HASHED_DICTIONARY[RECYCLING_POOL[AVL_TREE_NODE_ANY],FIXED_STRING]" l
 #
-1152 "HASHED_DICTIONARY[CLIENT_LIST,FEATURE_NAME]" l
+1153 "HASHED_DICTIONARY[CLIENT_LIST,FEATURE_NAME]" l
 #
-919 "HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING]" l
+920 "HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING]" l
 #
-1078 "HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]" l
+1079 "HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]" l
 #
-1461 "HASHED_DICTIONARY[TAGGED_INTEGER,INTEGER_32]" l
+1462 "HASHED_DICTIONARY[TAGGED_INTEGER,INTEGER_32]" l
 #
-1320 "HASHED_DICTIONARY[PROCESS_POSIX,INTEGER_32]" l
+1321 "HASHED_DICTIONARY[PROCESS_POSIX,INTEGER_32]" l
 #
-1052 "HASHED_DICTIONARY[FEATURE_STAMP,FEATURE_NAME]" l
+1053 "HASHED_DICTIONARY[FEATURE_STAMP,FEATURE_NAME]" l
 #
-1334 "HASHED_DICTIONARY[TUPLE[TYPE,TYPE],TYPE]" l
+1335 "HASHED_DICTIONARY[TUPLE[TYPE,TYPE],TYPE]" l
 #
 308 "ABSTRACT_HASHED_DICTIONARY" l
 class-path: "/home/r/Liberty/src/lib/storage/dictionary/abstract_hashed_dictionary.e"
@@ -9421,7 +9427,7 @@ class-name: ABSTRACT_HASHED_DICTIONARY
 assertion-level: boost
 parent-count: 2 inherit: 309 insert: 311 
 #
-1434 "HASHED_DICTIONARY[AGENT_ARGS,STRING]" l
+1435 "HASHED_DICTIONARY[AGENT_ARGS,STRING]" l
 #
 723 "ABSTRACT_AVL_DICTIONARY" l
 class-path: "/home/r/Liberty/src/lib/storage/dictionary/abstract_avl_dictionary.e"
@@ -9441,57 +9447,57 @@ class-name: HASHED_DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 308
 #
-997 "HASHED_DICTIONARY[INTEGER_8,CLASS_TEXT]" l
+998 "HASHED_DICTIONARY[INTEGER_8,CLASS_TEXT]" l
 #
-1020 "HASHED_DICTIONARY[RUN_FEATURE,TYPE]" l
+1021 "HASHED_DICTIONARY[RUN_FEATURE,TYPE]" l
 #
-969 "HASHED_DICTIONARY[INTEGER_32,CLASS_NAME]" l
+970 "HASHED_DICTIONARY[INTEGER_32,CLASS_NAME]" l
 #
-1389 "AVL_DICTIONARY[INTEGER_32,INTEGER_32]" l
+1390 "AVL_DICTIONARY[INTEGER_32,INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/storage/dictionary/avl_dictionary.e"
 class-name: AVL_DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 723
-c-type: T1389 reference: yes
+c-type: T1390 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: ->DICTIONARY[INTEGER_32,INTEGER_32]
 run-time-set-count: 1
 run-time-set:
-	AVL_DICTIONARY[INTEGER_32,INTEGER_32] (1389)
+	AVL_DICTIONARY[INTEGER_32,INTEGER_32] (1390)
 #
-963 "HASHED_DICTIONARY[CLASSES,STRING]" l
+964 "HASHED_DICTIONARY[CLASSES,STRING]" l
 #
-1000 "HASHED_DICTIONARY[ANONYMOUS_FEATURE,FEATURE_STAMP]" l
+1001 "HASHED_DICTIONARY[ANONYMOUS_FEATURE,FEATURE_STAMP]" l
 #
-910 "HASHED_DICTIONARY[STRING,STRING]" l
+911 "HASHED_DICTIONARY[STRING,STRING]" l
 class-path: "/home/r/Liberty/src/lib/storage/dictionary/hashed_dictionary.e"
 class-name: HASHED_DICTIONARY
 assertion-level: boost
 parent-count: 1 inherit: 308
-c-type: T910 reference: yes
+c-type: T911 reference: yes
 ref-status: live id-field: yes 
 destination-graph-nodes: ->DICTIONARY[STRING,STRING]
 run-time-set-count: 1
 run-time-set:
-	HASHED_DICTIONARY[STRING,STRING] (910)
+	HASHED_DICTIONARY[STRING,STRING] (911)
 #
-936 "HASHED_DICTIONARY[FAST_ARRAY[FIXED_STRING],INTEGER_32]" l
+937 "HASHED_DICTIONARY[FAST_ARRAY[FIXED_STRING],INTEGER_32]" l
 #
-1057 "HASHED_DICTIONARY[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]" l
+1058 "HASHED_DICTIONARY[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]" l
 #
-1014 "HASHED_DICTIONARY[HASHED_STRING,HASHED_STRING]" l
+1015 "HASHED_DICTIONARY[HASHED_STRING,HASHED_STRING]" l
 #
-923 "HASHED_DICTIONARY[TYPE,HASHED_STRING]" l
+924 "HASHED_DICTIONARY[TYPE,HASHED_STRING]" l
 #
-1054 "HASHED_DICTIONARY[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]" l
+1055 "HASHED_DICTIONARY[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]" l
 #
-1097 "HASHED_DICTIONARY[SE_C_MODE,STRING]" l
+1098 "HASHED_DICTIONARY[SE_C_MODE,STRING]" l
 #
-916 "HASHED_DICTIONARY[RUN_FEATURE,NATIVE]" l
+917 "HASHED_DICTIONARY[RUN_FEATURE,NATIVE]" l
 #
-928 "HASHED_DICTIONARY[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]" l
+929 "HASHED_DICTIONARY[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]" l
 #
-1321 "HASHED_DICTIONARY[PROCESS_WIN32,INTEGER_32]" l
+1322 "HASHED_DICTIONARY[PROCESS_WIN32,INTEGER_32]" l
 #
 302 "ZIP" l
 class-path: "/home/r/Liberty/src/lib/storage/dictionary/zip.e"
@@ -9499,31 +9505,31 @@ class-name: ZIP
 assertion-level: boost
 parent-count: 2 inherit: 303 insert: 304 
 #
-1132 "HASHED_DICTIONARY[TYPE_MARK,TYPE]" l
+1133 "HASHED_DICTIONARY[TYPE_MARK,TYPE]" l
 #
-1107 "HASHED_DICTIONARY[CLUSTER,STRING]" l
+1108 "HASHED_DICTIONARY[CLUSTER,STRING]" l
 #
-965 "HASHED_DICTIONARY[FAST_ARRAY[STRING],CLASS_NAME]" l
+966 "HASHED_DICTIONARY[FAST_ARRAY[STRING],CLASS_NAME]" l
 #
-918 "HASHED_DICTIONARY[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]" l
+919 "HASHED_DICTIONARY[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]" l
 #
-1123 "HASHED_DICTIONARY[CLUSTER_CLASS,HASHED_STRING]" l
+1124 "HASHED_DICTIONARY[CLUSTER_CLASS,HASHED_STRING]" l
 #
-1040 "HASHED_DICTIONARY[FAST_ARRAY[AGENT_CREATION],TYPE]" l
+1041 "HASHED_DICTIONARY[FAST_ARRAY[AGENT_CREATION],TYPE]" l
 #
-1044 "HASHED_DICTIONARY[HASHED_SET[TYPE],TYPE]" l
+1045 "HASHED_DICTIONARY[HASHED_SET[TYPE],TYPE]" l
 #
-1336 "HASHED_DICTIONARY[TYPE,TYPE]" l
+1337 "HASHED_DICTIONARY[TYPE,TYPE]" l
 #
-953 "HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]" l
+954 "HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]" l
 #
 |liberty_core:exec/loadpath.se:waitpid/
-1271 "WAITPID_INPUT" l
+1272 "WAITPID_INPUT" l
 class-path: "/home/r/Liberty/src/lib/exec/waitpid/waitpid_input.e"
 class-name: WAITPID_INPUT
 assertion-level: boost
 parent-count: 2 inherit: 62 insert: 77 
-c-type: T1271 reference: yes
+c-type: T1272 reference: yes
 ref-status: dead 
 destination-graph-nodes: none
 run-time-set-count: 0
@@ -11272,13 +11278,13 @@ class-name: ANY_AVL_DICTIONARY_NODE
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1074 "HASHED_SET_NODE[HASHED_STRING]" l
+1075 "HASHED_SET_NODE[HASHED_STRING]" l
 #
-952 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]" l
+953 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]" l
 #
-1212 "HASHED_SET_NODE[MANIFEST_GENERIC]" l
+1213 "HASHED_SET_NODE[MANIFEST_GENERIC]" l
 #
-1378 "AVL_SET_NODE[POSITION]" l
+1379 "AVL_SET_NODE[POSITION]" l
 #
 759 "HASHED_SET_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/hashed_set_node.e"
@@ -11292,51 +11298,51 @@ class-name: HASH_TABLE_SIZE
 assertion-level: boost
 parent-count: 1 insert: 49 
 #
-1441 "HASHED_DICTIONARY_NODE[AGENT_ARGS,STRING]" l
+1442 "HASHED_DICTIONARY_NODE[AGENT_ARGS,STRING]" l
 #
-1399 "LINKED_LIST_NODE[TUPLE[CHARACTER,INTEGER_32]]" l
+1400 "LINKED_LIST_NODE[TUPLE[CHARACTER,INTEGER_32]]" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/linked_list_node.e"
 class-name: LINKED_LIST_NODE
 assertion-level: boost
 parent-count: 1 inherit: 876
-c-type: T1399 reference: yes
+c-type: T1400 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	LINKED_LIST_NODE[TUPLE[CHARACTER,INTEGER_32]] (1399)
+	LINKED_LIST_NODE[TUPLE[CHARACTER,INTEGER_32]] (1400)
 #
-1219 "HASHED_SET_NODE[AGENT_ARGS]" l
+1220 "HASHED_SET_NODE[AGENT_ARGS]" l
 #
-1327 "HASHED_DICTIONARY_NODE[PROCESS_WIN32,INTEGER_32]" l
+1328 "HASHED_DICTIONARY_NODE[PROCESS_WIN32,INTEGER_32]" l
 #
-1026 "HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]" l
+1027 "HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]" l
 #
-1048 "HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]" l
+1049 "HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]" l
 #
-1118 "HASHED_SET_NODE[CLASS_NAME]" l
+1119 "HASHED_SET_NODE[CLASS_NAME]" l
 #
-1324 "HASHED_DICTIONARY_NODE[PROCESS_POSIX,INTEGER_32]" l
+1325 "HASHED_DICTIONARY_NODE[PROCESS_POSIX,INTEGER_32]" l
 #
-1303 "HASHED_DICTIONARY_NODE[EXPRESSION,TYPE]" l
+1304 "HASHED_DICTIONARY_NODE[EXPRESSION,TYPE]" l
 #
-1228 "HASHED_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]" l
+1229 "HASHED_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]" l
 #
-946 "HASHED_DICTIONARY_NODE[STRING,STRING]" l
+947 "HASHED_DICTIONARY_NODE[STRING,STRING]" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/hashed_dictionary_node.e"
 class-name: HASHED_DICTIONARY_NODE
 assertion-level: boost
 parent-count: 1 inherit: 734
-c-type: T946 reference: yes
+c-type: T947 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	HASHED_DICTIONARY_NODE[STRING,STRING] (946)
+	HASHED_DICTIONARY_NODE[STRING,STRING] (947)
 #
-1172 "HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_STAMP]" l
+1173 "HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_STAMP]" l
 #
-1299 "HASHED_DICTIONARY_NODE[CLIENT_LIST,FEATURE_NAME]" l
+1300 "HASHED_DICTIONARY_NODE[CLIENT_LIST,FEATURE_NAME]" l
 #
 758 "ANY_HASHED_SET_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/any_hashed_set_node.e"
@@ -11348,7 +11354,7 @@ ref-status: dead
 destination-graph-nodes: none
 run-time-set-count: 0
 #
-1288 "HASHED_DICTIONARY_NODE[FEATURE_STAMP,TYPE]" l
+1289 "HASHED_DICTIONARY_NODE[FEATURE_STAMP,TYPE]" l
 #
 840 "AVL_DICTIONARY_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/avl_dictionary_node.e"
@@ -11356,7 +11362,7 @@ class-name: AVL_DICTIONARY_NODE
 assertion-level: boost
 parent-count: 1 inherit: 834
 #
-1236 "HASHED_SET_NODE[ABSOLUTE_FEATURE_NAME]" l
+1237 "HASHED_SET_NODE[ABSOLUTE_FEATURE_NAME]" l
 #
 830 "ANY_HASHED_BIJECTIVE_DICTIONARY_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/any_hashed_bijective_dictionary_node.e"
@@ -11380,15 +11386,15 @@ class-name: ARRAYED_COLLECTION
 assertion-level: boost
 parent-count: 1 inherit: 56
 #
-1371 "HASHED_DICTIONARY_NODE[DICTIONARY[PLUGIN,STRING],STRING]" l
+1372 "HASHED_DICTIONARY_NODE[DICTIONARY[PLUGIN,STRING],STRING]" l
 #
-1190 "HASHED_DICTIONARY_NODE[HASHED_STRING,HASHED_STRING]" l
+1191 "HASHED_DICTIONARY_NODE[HASHED_STRING,HASHED_STRING]" l
 #
-1277 "HASHED_DICTIONARY_NODE[TEXT_FILE_READ,STRING]" l
+1278 "HASHED_DICTIONARY_NODE[TEXT_FILE_READ,STRING]" l
 #
-1068 "HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]" l
+1069 "HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]" l
 #
-1242 "HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,TYPE]" l
+1243 "HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,TYPE]" l
 #
 832 "AVL_TREE_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/avl_tree_node.e"
@@ -11396,7 +11402,7 @@ class-name: AVL_TREE_NODE
 assertion-level: boost
 parent-count: 2 inherit: 833 insert: 725 
 #
-1233 "HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]" l
+1234 "HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE_MIXER,FEATURE_NAME]" l
 #
 831 "HASHED_BIJECTIVE_DICTIONARY_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/hashed_bijective_dictionary_node.e"
@@ -11404,19 +11410,19 @@ class-name: HASHED_BIJECTIVE_DICTIONARY_NODE
 assertion-level: boost
 parent-count: 1 inherit: 830
 #
-1112 "HASHED_DICTIONARY_NODE[CLASSES,STRING]" l
+1113 "HASHED_DICTIONARY_NODE[CLASSES,STRING]" l
 #
-1253 "AVL_SET_NODE[LIVE_TYPE]" l
+1254 "AVL_SET_NODE[LIVE_TYPE]" l
 #
-1215 "HASHED_DICTIONARY_NODE[FAST_ARRAY[AGENT_CREATION],TYPE]" l
+1216 "HASHED_DICTIONARY_NODE[FAST_ARRAY[AGENT_CREATION],TYPE]" l
 #
-1192 "HASHED_BIJECTIVE_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]" l
+1193 "HASHED_BIJECTIVE_DICTIONARY_NODE[FEATURE_STAMP,FEATURE_NAME]" l
 #
-1221 "HASHED_DICTIONARY_NODE[HASHED_SET[TYPE],TYPE]" l
+1222 "HASHED_DICTIONARY_NODE[HASHED_SET[TYPE],TYPE]" l
 #
-1187 "HASHED_DICTIONARY_NODE[INTEGER_8,TYPE]" l
+1188 "HASHED_DICTIONARY_NODE[INTEGER_8,TYPE]" l
 #
-1206 "HASHED_DICTIONARY_NODE[MANIFEST_STRING,STRING]" l
+1207 "HASHED_DICTIONARY_NODE[MANIFEST_STRING,STRING]" l
 #
 725 "AVL_CONSTANTS" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/avl_constants.e"
@@ -11424,35 +11430,35 @@ class-name: AVL_CONSTANTS
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1247 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]" l
+1248 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_SET_NODE],STRING]" l
 #
-1198 "HASHED_DICTIONARY_NODE[RUN_FEATURE,TYPE]" l
+1199 "HASHED_DICTIONARY_NODE[RUN_FEATURE,TYPE]" l
 #
-1465 "HASHED_DICTIONARY_NODE[TAGGED_INTEGER,INTEGER_32]" l
+1466 "HASHED_DICTIONARY_NODE[TAGGED_INTEGER,INTEGER_32]" l
 #
-1395 "AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32]" l
+1396 "AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32]" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/avl_dictionary_node.e"
 class-name: AVL_DICTIONARY_NODE
 assertion-level: boost
 parent-count: 1 inherit: 834
-c-type: T1395 reference: yes
+c-type: T1396 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32] (1395)
+	AVL_DICTIONARY_NODE[INTEGER_32,INTEGER_32] (1396)
 #
-1404 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]" l
+1405 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_LINKED_LIST_NODE],STRING]" l
 #
-1362 "HASHED_DICTIONARY_NODE[TUPLE[TYPE,TYPE],TYPE]" l
+1363 "HASHED_DICTIONARY_NODE[TUPLE[TYPE,TYPE],TYPE]" l
 #
-1314 "HASHED_DICTIONARY_NODE[RECYCLING_POOL[AVL_TREE_NODE_ANY],FIXED_STRING]" l
+1315 "HASHED_DICTIONARY_NODE[RECYCLING_POOL[AVL_TREE_NODE_ANY],FIXED_STRING]" l
 #
-1272 "HASHED_DICTIONARY_NODE[CLUSTER,STRING]" l
+1273 "HASHED_DICTIONARY_NODE[CLUSTER,STRING]" l
 #
-1023 "HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]" l
+1024 "HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]" l
 #
-1307 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]" l
+1308 "HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE],STRING]" l
 #
 865 "ANY_AVL_SET_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/any_avl_set_node.e"
@@ -11460,11 +11466,11 @@ class-name: ANY_AVL_SET_NODE
 assertion-level: boost
 parent-count: 1 insert: 17 
 #
-1169 "HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_NAME]" l
+1170 "HASHED_DICTIONARY_NODE[ANONYMOUS_FEATURE,FEATURE_NAME]" l
 #
-1285 "HASHED_DICTIONARY_NODE[TYPE_MARK,TYPE]" l
+1286 "HASHED_DICTIONARY_NODE[TYPE_MARK,TYPE]" l
 #
-1267 "HASHED_DICTIONARY_NODE[ORDERED_DICTIONARY[STRING,STRING],STRING]" l
+1268 "HASHED_DICTIONARY_NODE[ORDERED_DICTIONARY[STRING,STRING],STRING]" l
 #
 876 "ANY_LINKED_LIST_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/any_linked_list_node.e"
@@ -11476,9 +11482,9 @@ ref-status: dead
 destination-graph-nodes: none
 run-time-set-count: 0
 #
-1121 "HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]" l
+1122 "HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]" l
 #
-1179 "HASHED_DICTIONARY_NODE[GRAPH_NODE,TYPE]" l
+1180 "HASHED_DICTIONARY_NODE[GRAPH_NODE,TYPE]" l
 #
 834 "ABSTRACT_AVL_DICTIONARY_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/abstract_avl_dictionary_node.e"
@@ -11486,13 +11492,13 @@ class-name: ABSTRACT_AVL_DICTIONARY_NODE
 assertion-level: boost
 parent-count: 2 inherit: 832 835
 #
-1280 "HASHED_DICTIONARY_NODE[CLUSTER_CLASS,HASHED_STRING]" l
+1281 "HASHED_DICTIONARY_NODE[CLUSTER_CLASS,HASHED_STRING]" l
 #
-1209 "HASHED_DICTIONARY_NODE[MANIFEST_STRING,MANIFEST_STRING]" l
+1210 "HASHED_DICTIONARY_NODE[MANIFEST_STRING,MANIFEST_STRING]" l
 #
-1115 "HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]" l
+1116 "HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]" l
 #
-1184 "HASHED_SET_NODE[TYPE]" l
+1185 "HASHED_SET_NODE[TYPE]" l
 #
 822 "LINKED_COLLECTION" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/linked_collection.e"
@@ -11512,35 +11518,35 @@ class-name: LINKED_LIST_NODE
 assertion-level: boost
 parent-count: 1 inherit: 876
 #
-1085 "HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]" l
+1086 "HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]" l
 #
-1239 "HASHED_DICTIONARY_NODE[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]" l
+1240 "HASHED_DICTIONARY_NODE[FEATURE_STAMP,ABSOLUTE_FEATURE_NAME]" l
 #
-1156 "HASHED_SET_NODE[LIVE_TYPE]" l
+1157 "HASHED_SET_NODE[LIVE_TYPE]" l
 #
-1262 "HASHED_DICTIONARY_NODE[SE_C_MODE,STRING]" l
+1263 "HASHED_DICTIONARY_NODE[SE_C_MODE,STRING]" l
 #
-1161 "HASHED_DICTIONARY_NODE[INTEGER_8,CLASS_TEXT]" l
+1162 "HASHED_DICTIONARY_NODE[INTEGER_8,CLASS_TEXT]" l
 #
-994 "HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]" l
+995 "HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]" l
 #
-1364 "HASHED_DICTIONARY_NODE[TYPE,TYPE]" l
+1365 "HASHED_DICTIONARY_NODE[TYPE,TYPE]" l
 #
-1203 "HASHED_SET_NODE[STRING]" l
+1204 "HASHED_SET_NODE[STRING]" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/hashed_set_node.e"
 class-name: HASHED_SET_NODE
 assertion-level: boost
 parent-count: 1 inherit: 758
-c-type: T1203 reference: yes
+c-type: T1204 reference: yes
 ref-status: live id-field: no 
 destination-graph-nodes: none
 run-time-set-count: 1
 run-time-set:
-	HASHED_SET_NODE[STRING] (1203)
+	HASHED_SET_NODE[STRING] (1204)
 #
-1164 "HASHED_DICTIONARY_NODE[TAGGED_DATA,FIXED_STRING]" l
+1165 "HASHED_DICTIONARY_NODE[TAGGED_DATA,FIXED_STRING]" l
 #
-1071 "HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]" l
+1072 "HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]" l
 #
 867 "AVL_SET_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/avl_set_node.e"
@@ -11548,11 +11554,11 @@ class-name: AVL_SET_NODE
 assertion-level: boost
 parent-count: 1 inherit: 864
 #
-1090 "HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]" l
+1091 "HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]" l
 #
-1368 "HASHED_SET_NODE[NATIVE_PLUG_IN]" l
+1369 "HASHED_SET_NODE[NATIVE_PLUG_IN]" l
 #
-1317 "HASHED_SET_NODE[GRAPH_NODE]" l
+1318 "HASHED_SET_NODE[GRAPH_NODE]" l
 #
 735 "HASHED_DICTIONARY_NODE" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/hashed_dictionary_node.e"
@@ -11570,9 +11576,9 @@ ref-status: dead
 destination-graph-nodes: none
 run-time-set-count: 0
 #
-1383 "HASHED_SET_NODE[FEATURE_STAMP]" l
+1384 "HASHED_SET_NODE[FEATURE_STAMP]" l
 #
-1374 "HASHED_DICTIONARY_NODE[PLUGIN,STRING]" l
+1375 "HASHED_DICTIONARY_NODE[PLUGIN,STRING]" l
 #
 833 "AVL_TREE_NODE_ANY" l
 class-path: "/home/r/Liberty/src/lib/storage/internal/avl_tree_node_any.e"

@@ -116,7 +116,7 @@ feature {}
          end
 
          create {TEXT_FILE_WRITE} Result.connect_to(file_path)
-         do_at_exit(agent (file_: FILE_STREAM) is do if file_.is_connected then file_.disconnect end end (Result))
+         do_at_exit(agent (file_: FILE_STREAM) do if file_.is_connected then file_.disconnect end end (Result))
       ensure
          Result /= file
          Result.is_connected
@@ -204,7 +204,7 @@ end -- class LOG_FILE_ROTATED
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

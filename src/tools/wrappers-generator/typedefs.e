@@ -53,11 +53,17 @@ feature {ANY}
          end
 
          file.put_string(typedefs_features_header)
-         for_each(agent {C_TYPEDEF}.wrap_on(file))
+         for_each(agent (a_typedef:C_TYPEDEF) do
+            if a_typedef.is_to_be_emitted  then
+                log("Wrapping typedef #(1)%N" # a_typedef.c_string_name)
+                a_typedef.wrap_on(file) 
+            else 
+                log("Typedef '#(1)' (at line #(2)) is not to be emitted%N" # a_typedef.c_string_name # &a_typedef.line )
+            end
+         end(?))
          file.put_string(footer)
          file.disconnect
          file := Void
-         log(once " done.%N")
       end
 
    emit_variable_sized_typedefs
@@ -307,7 +313,8 @@ feature {} -- Actual size queries
       end
 
 end -- class TYPEDEFS
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

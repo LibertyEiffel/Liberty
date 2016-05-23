@@ -1,0 +1,106 @@
+system "hello"
+
+root HELLO: make
+
+default -- section of the system
+	assertion (all);
+		-- The default level of assertion checking for the system.
+		-- Choose the appropriate value: boost, no, require, ensure,
+		-- invariant, loop, check, all.
+
+	assertion_flat_check (no);
+		-- In flat mode each assertion will be executed in no_check mode.
+		-- This means that while checking assertion, no other assertion will
+		-- be checked. This mode has only sense in assertion modes from
+		-- require to debug.
+
+	debug (yes);
+		-- The default debug level for the system.
+		-- Choose yes, no, or any "key" you wish.
+
+	trace (no);
+		-- The default trace mode for the system. Choose yes or no.
+
+	collect (yes);
+		 -- Choose yes here to add garbage collector support to your system.
+		 -- Choose no here to indicate that you don't want the garbage collector
+		 -- to be included in your system; no is the equivalent of the -no_gc
+		 -- flag in traditional command line mode.
+
+	no_style_warning (no);
+		 -- My humble opinion is that you should always write no here.
+		 -- Yes is the equivalent of the -no_style_warning flag in traditional
+		 -- command line mode.
+
+	no_warning (no);
+		 -- My humble opinion is that you should always write no here.
+		 -- Yes is the equivalent of the -no_warning flag in traditional
+		 -- command line mode.
+
+	verbose (no);
+		 -- The equivalent of the -verbose flag. (Also note that the -verbose
+		 -- flag is still accepted in ACE file mode.)
+
+	manifest_string_trace (no);
+		 -- The equivalent of the -manifest_string_trace flag.
+
+	high_memory_compiler (no);	
+		 -- The equivalent of the -high_memory_compiler flag.
+
+	profile (no);
+		 -- The equivalent of the -profile flag.
+
+	relax (yes);
+		 -- The equivalent of the -relax flag.
+
+cluster -- section
+	common: "${eiffel_libraries}/common/library/loadpath.se"
+	gtk: "${eiffel_libraries}/eiffel-gtk/library/loadpath.se"
+	gdk: "${eiffel_libraries}/eiffel-gdk/library/loadpath.se"
+	glib: "${eiffel_libraries}/eiffel-glib/library/loadpath.se"
+	gobject: "${eiffel_libraries}/eiffel-gobject/library/loadpath.se"
+	pango: "${eiffel_libraries}/eiffel-pango/library/loadpath.se"
+	cairo: "${eiffel_libraries}/eiffel-cairo/library/loadpath.se"
+	hello_demo: "."
+
+	standard: "${path_lib}/loadpath.se"
+
+external -- section for elements written in another language
+
+generate -- section
+
+	no_strip(no);
+	-- Yes would mean that you don't want to run "strip" on the generated
+	-- executable. This is the equivalent of the -no_strip flag of the
+	-- traditional command line mode. (I.e. to use a C level debugger on your
+	-- system, you should choose yes here).
+
+	no_split(no);
+	-- Yes would mean that you want one big single C file for the complete
+	-- system, pinstead of the many small C files produced by default ("no").
+	-- This may be useful for delivery of the most efficient version. (Some
+	-- C compilers including gcc can then do better inlining.)
+
+	clean(no);
+	-- Yes would mean that you want to remove all generated C files, all
+	-- generated object files as well as other temporary files generated
+	-- during the compilation process. (See also command clean.)
+
+	-- The equivalent of the -cc flag of the traditional command line mode.
+	-- To select a different C compiler from the default, update and uncomment
+	-- the following line:
+	-- cc : "gcc"
+
+	-- To decide which C compiler options are to be passed, you need to use
+	-- this keyword as well as a good understanding of your C compiler.
+	-- Update and uncomment the following line:
+	c_compiler_options : "$(pkg-config --cflags gtk+-2.0)"
+
+	-- Some options are to be passed only to the linker. Update and uncomment
+	-- the following line:
+	linker_options : "$(pkg-config --libs gtk+-2.0)"
+
+	-- For the equivalent of the -gc_info flag of the traditional command line
+	-- mode, uncomment the following line:
+	-- gc_info (yes)
+end

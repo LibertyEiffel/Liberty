@@ -2,7 +2,7 @@
 -- See the full copyright at the end.
 --
 class POSIX_PATH_NAME
-   -- Operating system path name, posix notation
+   -- Operating system path name, POSIX notation
 
 inherit
    UNIXISH_PATH_NAME
@@ -108,7 +108,7 @@ feature {ANY} -- Access
          as_string: like to_string
       do
          -- A naive implementation, requiring an hidden allocation could be
-         -- Result := last; Result := Result.right(Result.last_index_of(extention_separator))
+         -- Result := last; Result := Result.right(Result.last_index_of(extension_separator))
          -- beside requiring "right"
          Result := once ""
          as_string := to_string -- let's cache the complete path as a string in the eventuality that an heir of POSIX_PATH_NAME redefine to_string into a computed feature (a function)
@@ -145,7 +145,7 @@ feature {ANY} -- Access
          scan.copy(to_string)
          -- Check for emptiness or too many slashes
          Result := not scan.is_empty and then not scan.has_prefix(once "///")
-         -- zero, one or two slashes allowed by posix
+         -- zero, one or two slashes allowed by POSIX
          -- Remove initial slashes
          from
          until
@@ -301,7 +301,7 @@ feature {PATH_JOINER}
          end
       end
 
-feature {} -- Auxiliar constants/onces
+feature {} -- Auxiliary constants/onces
    tmp: POSIX_PATH_NAME
       once
          create Result.make_empty
@@ -340,7 +340,7 @@ end -- class POSIX_PATH_NAME
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -8,7 +8,7 @@ class WAITPID_INPUT
    --
    -- If this stream is created then exiting children will send data in this channel.
    --
-   -- Each child sends exactly one empty line, plus "out-of-band" information containing the child pid and its
+   -- Each child sends exactly one empty line, plus "out-of-band" information containing the child PID and its
    -- exit status.
    --
 
@@ -176,7 +176,7 @@ end -- WAITPID_INPUT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

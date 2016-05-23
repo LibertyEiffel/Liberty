@@ -17,7 +17,7 @@ feature {ANY}
          -- and the variable value is copied into `value'.
          -- Under UNIX-like system, this is in fact the good way to know
          -- about some system environment variable.
-         -- Under Windows, this function also look in the system registery.
+         -- Under Windows, this function also look in the system registry.
       require
          variable /= Void
          value /= Void
@@ -38,7 +38,7 @@ feature {ANY}
          -- about the `variable' is available. Under-UNIX like system, this
          -- is in fact the good way to know about some system environment
          -- variable.
-         -- Under Windows, this function also look in the system registery.
+         -- Under Windows, this function also look in the system registry.
          --
          -- NOTE! since Liberty Eiffel "bell" (2015) the result is
          -- always the same (once) STRING, or Void.
@@ -62,7 +62,7 @@ feature {ANY}
 
    execute_command (system_command_line: ABSTRACT_STRING): INTEGER
          -- To execute a `system_command_line' as for example, "ls -l" on UNIX.
-         -- The `Result' depends of the actual operating system. As an exemple,
+         -- The `Result' depends of the actual operating system. As an example,
          -- this `execute' feature is under UNIX the equivalent of a `system' call.
       require
          only_one_command: not system_command_line.has('%N')
@@ -127,7 +127,7 @@ end -- class SYSTEM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

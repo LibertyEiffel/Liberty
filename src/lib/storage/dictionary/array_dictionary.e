@@ -10,7 +10,7 @@ class ARRAY_DICTIONARY[V_, K_]
 inherit
    DICTIONARY[V_, K_]
       redefine
-         new_iterator_on_items
+         new_iterator_on_items, copy
       end
 
 create {ANY}
@@ -170,6 +170,19 @@ feature {ANY} -- Other features:
          Result := keys_storage.item(keys_storage.first_index_of(k))
       end
 
+   copy (other: like Current)
+         -- Reinitialize by copying all associations of `other'.
+      do
+         if keys_storage /= Void then
+            keys_storage.copy(other.keys_storage)
+            items_storage.copy(other.items_storage)
+         else
+            keys_storage := other.keys_storage.twin
+            items_storage := other.items_storage.twin
+         end
+      end
+
+   
 feature {}
    make
       do
@@ -188,6 +201,7 @@ feature {}
          is_empty
       end
 
+feature {ARRAY_DICTIONARY}
    keys_storage: FAST_ARRAY[K_]
    items_storage: FAST_ARRAY[V_]
 
@@ -203,7 +217,7 @@ end -- class ARRAY_DICTIONARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

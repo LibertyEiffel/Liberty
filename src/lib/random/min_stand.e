@@ -7,7 +7,7 @@ obsolete "In release 2.3, the new name for this class is MINIMAL_RANDOM_NUMBER_G
 
    --
    -- Implements the Minimal Standard generator from Press et. al.
-   -- Numerical Recipies.
+   -- Numerical Recipes.
    --
 
 inherit
@@ -83,7 +83,7 @@ end -- class MIN_STAND
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

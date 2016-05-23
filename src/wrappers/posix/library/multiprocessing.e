@@ -8,7 +8,7 @@ feature {ANY}
 		-- Number of processors available in the machine
 		external "plug_in"
 		alias "{
-			location: "externals"
+			location: "externals/generated"
 			module_name: "plugin"
 			feature_name: "processors_count()"
 			}"

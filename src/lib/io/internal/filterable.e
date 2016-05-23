@@ -11,7 +11,7 @@ insert
 
 feature {ANY}
    is_connected: BOOLEAN
-         -- True if the stream is connected. Only in that case can data be transfered via this stream.
+         -- True if the stream is connected. Only in that case can data be transferred via this stream.
       deferred
       end
 
@@ -28,7 +28,7 @@ feature {ANY}
       end
 
    is_filtered: BOOLEAN
-         -- True if some filter is using this stream as backend. use that filter instead.
+         -- True if some filter is using this stream as backend. Use that filter instead.
       do
          Result := filter /= Void
       end
@@ -99,7 +99,7 @@ end -- class FILTERABLE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

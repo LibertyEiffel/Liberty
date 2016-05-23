@@ -128,7 +128,7 @@ feature {ANY} -- character classes
 
 feature {ANY} -- character class naming
    has_named_posix_item (name: STRING): BOOLEAN
-         -- True if 'name' is for a valid posix character class
+         -- True if 'name' is for a valid POSIX character class
       require
          name_not_void: name /= Void
       do
@@ -136,7 +136,7 @@ feature {ANY} -- character class naming
       end
 
    named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM
-         -- the item for the valid posix character class 'name'
+         -- the item for the valid POSIX character class 'name'
       require
          name_not_void: name /= Void
          good_name: has_named_posix_item(name)
@@ -147,7 +147,7 @@ feature {ANY} -- character class naming
       end
 
    has_named_perl_item (name: STRING): BOOLEAN
-         -- True if 'name' is for a valid perl character class
+         -- True if 'name' is for a valid Perl character class
       require
          name_not_void: name /= Void
       do
@@ -155,7 +155,7 @@ feature {ANY} -- character class naming
       end
 
    named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM
-         -- the item for the valid perl character class 'name'
+         -- the item for the valid Perl character class 'name'
       require
          name_not_void: name /= Void
          good_name: has_named_perl_item(name)
@@ -167,7 +167,7 @@ feature {ANY} -- character class naming
 
 feature {}
    internal_named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM
-         -- the item for a presumed posix character class 'name'
+         -- the item for a presumed POSIX character class 'name'
       require
          name_not_void: name /= Void
       do
@@ -206,7 +206,7 @@ feature {}
       end
 
    internal_named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM
-         -- the item for a presumed perl character class 'name'
+         -- the item for a presumed Perl character class 'name'
       require
          name_not_void: name /= Void
       do
@@ -251,7 +251,7 @@ end -- class REGULAR_EXPRESSION_ITEM_GLOBALS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

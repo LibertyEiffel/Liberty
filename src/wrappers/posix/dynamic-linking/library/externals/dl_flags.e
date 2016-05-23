@@ -1,5 +1,6 @@
 deferred class DL_FLAGS
 	-- Integer flag values used by DYNAMIC_SHARED_OBJECT
+
 feature {ANY} -- Validity
 	are_valid_dlflags (a_value: INTEGER): BOOLEAN
 		-- Are `a_value' valid flags to be used when creation a DYNAMIC_SHARED_OBJECT? 
@@ -18,7 +19,7 @@ feature {ANY} -- Required flags, either one must be specified
 	external "plug_in"
 	alias "{
 		location: "."
-		module_name: "plugin"
+		module_name: "generated/plugin"
 		feature_name: "RTLD_LAZY"
 		}"
 	end
@@ -28,7 +29,7 @@ feature {ANY} -- Required flags, either one must be specified
 	external "plug_in"
 	alias "{
 		location: "."
-		module_name: "plugin"
+		module_name: "generated/plugin"
 		feature_name: "RTLD_NOW"
 		}"
 	end
@@ -39,7 +40,7 @@ feature {ANY} -- Optional flags: zero of more of the following values may also b
 	external "plug_in"
 	alias "{
 		location: "."
-		module_name: "plugin"
+		module_name: "generated/plugin"
 		feature_name: "RTLD_GLOBAL"
 		}"
 	end
@@ -49,7 +50,7 @@ feature {ANY} -- Optional flags: zero of more of the following values may also b
 	external "plug_in"
 	alias "{
 		location: "."
-		module_name: "plugin"
+		module_name: "generated/plugin"
 		feature_name: "RTLD_LOCAL"
 		}"
 	end
@@ -59,7 +60,7 @@ feature {ANY} -- Optional flags: zero of more of the following values may also b
 	external "plug_in"
 	alias "{
 		location: "."
-		module_name: "plugin"
+		module_name: "generated/plugin"
 		feature_name: "RTLD_NODELETE"
 		}"
 	end
@@ -69,7 +70,7 @@ feature {ANY} -- Optional flags: zero of more of the following values may also b
 	external "plug_in"
 	alias "{
 		location: "."
-		module_name: "plugin"
+		module_name: "generated/plugin"
 		feature_name: "RTLD_NOLOAD"
 		}"
 	end
@@ -79,7 +80,7 @@ feature {ANY} -- Optional flags: zero of more of the following values may also b
 	external "plug_in"
 	alias "{
 		location: "."
-		module_name: "plugin"
+		module_name: "generated/plugin"
 		feature_name: "RTLD_DEEPBIND"
 		}"
 	end

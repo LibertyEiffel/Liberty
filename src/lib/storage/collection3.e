@@ -407,7 +407,7 @@ feature {ANY} -- Printing:
 feature {ANY} -- Miscellaneous features:
    occurrences (elt: E_): INTEGER
          -- Number of occurrences using `is_equal'.
-         -- See also `fast_occurrences' to choose the apropriate one.
+         -- See also `fast_occurrences' to choose the appropriate one.
       deferred
       ensure
          Result >= 0
@@ -415,7 +415,7 @@ feature {ANY} -- Miscellaneous features:
 
    fast_occurrences (elt: E_): INTEGER
          -- Number of occurrences using `='.
-         -- See also `occurrences' to choose the apropriate one.
+         -- See also `occurrences' to choose the appropriate one.
       deferred
       ensure
          Result >= 0
@@ -423,7 +423,7 @@ feature {ANY} -- Miscellaneous features:
 
    has (x: like item): BOOLEAN
          -- Search if a element x is in the array using `is_equal'.
-         -- See also `fast_has' to choose the apropriate one.
+         -- See also `fast_has' to choose the appropriate one.
       deferred
       end
 
@@ -435,7 +435,7 @@ feature {ANY} -- Miscellaneous features:
    replace_all (old_value, new_value: like item)
          -- Replace all occurrences of the element `old_value' by `new_value'
          -- using `is_equal' for comparison.
-         -- See also `fast_replace_all' to choose the apropriate one.
+         -- See also `fast_replace_all' to choose the appropriate one.
       deferred
       ensure
          count = old count
@@ -445,7 +445,7 @@ feature {ANY} -- Miscellaneous features:
    fast_replace_all (old_value, new_value: like item)
          -- Replace all occurrences of the element `old_value' by `new_value'
          -- using operator `=' for comparison.
-         -- See also `replace_all' to choose the apropriate one.
+         -- See also `replace_all' to choose the appropriate one.
       deferred
       ensure
          count = old count
@@ -504,7 +504,7 @@ end -- class COLLECTION3
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

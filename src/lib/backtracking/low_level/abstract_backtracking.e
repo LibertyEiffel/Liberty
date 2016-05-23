@@ -5,7 +5,7 @@ deferred class ABSTRACT_BACKTRACKING
    --
    -- This class is intended to explore structures that match the and/or
    -- pattern. The and/or pattern is found for example in the evaluation of
-   -- the regular expressions, in the evaluation of prolog queries, in
+   -- the regular expressions, in the evaluation of Prolog queries, in
    -- solving some generic problem of artificial intelligence.
    --
    -- The instances of the class inheriting ABSTRACT_BACKTRACKING are
@@ -69,13 +69,13 @@ insert
 
 feature {ANY} -- Common client features
    search_first
-         -- Resets all and searchs the first solution.
+         -- Resets all and searches the first solution.
          -- The current state must be set. It is the
          -- first state, the root of the search.
          -- When the feature returns, 'search_is_success' must be
          -- checked to know if a solution was found.
          -- When search_is_success=False, it means that there
-         -- is no solution at all. Conversly, if search_is_success=True,
+         -- is no solution at all. Conversely, if search_is_success=True,
          -- then the first solution is found and 'search_next'
          -- can be called to get the next solution if it exists.
       do
@@ -90,11 +90,11 @@ feature {ANY} -- Common client features
       end
 
    search_next
-         -- Searchs the next solution.
+         -- Searches the next solution.
          -- When the feature returns, 'search_is_success' must be
          -- checked to know if a solution was found.
          -- When search_is_success=False at the end, it means that there
-         -- is no more solution. Conversly, if search_is_success=True,
+         -- is no more solution. Conversely, if search_is_success=True,
          -- then a solution is found and 'search_next'
          -- can be called again to get the next solution.
       require
@@ -470,7 +470,7 @@ end -- class ABSTRACT_BACKTRACKING
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -1,0 +1,17 @@
+Wrappers for Low Level Virtual Machine (www.llvm.org)
+
+Currently based on the C bindings; wrapping an object oriented infrastructure
+throught bindings that are meant to be used in a strictly non-OO language
+imposes some compromises, like "exposing" C_ARRAYs or providing iterator-based
+only access. This should be fixed with a direct interface with C++ after
+bootstrap or after wrappers-generator tool will be upgraded to deal with C++.
+
+Currently a new wrapper is created everytime a new pointer is received from the
+C library. This is obviously not efficient and does not allow to have
+collections of wrappers of LLVM objects otherwise we will violate several
+COLLECTION postcondition like those of put feature, but allows for the wrappers
+to be a thin layer above the C API in order to avoid strange bugs.
+
+Ideally it should be possible to avoid the usage of wrapper objects.
+
+Copyright 2009 Paolo Redaelli

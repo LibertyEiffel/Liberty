@@ -4,7 +4,7 @@
 class CYGWIN_DIRECTORY_NOTATION
    -- The Cygwin like file path notation looks like:
    --   //C/SmartEiffel/sys/system.se
-   --|*** I've never sen this notation. My cygwin uses plain old unix
+   --|*** I've never seen this notation. My cygwin uses plain old unix
    --|*** notation, windows drives are mapped to /cygdrive/c/ etc...
    --|*** <FM-23/03/2003>
    --|*** AFAIR that's the old b20 series <CAD 2005.11.18>
@@ -173,7 +173,7 @@ end -- class CYGWIN_DIRECTORY_NOTATION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

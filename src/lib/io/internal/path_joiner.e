@@ -6,7 +6,7 @@ deferred class PATH_JOINER
    --
    -- A typical session goes like this:
    -- # call `start_join' describing you drive (if any) and whether you are absolute or relative
-   -- # Repeatedly call the `join_xxx' procedures to desribe yourself, more significant elements first (i.e.
+   -- # Repeatedly call the `join_xxx' procedures to describe yourself, more significant elements first (i.e.
    --   generally left-to-right)
    -- # call `end_join'
    --
@@ -93,7 +93,7 @@ end -- class PATH_JOINER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

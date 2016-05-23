@@ -4,14 +4,14 @@
 expanded class BASIC_DIRECTORY
    --
    -- Very low-level basic tools for file-system directory handling and file path manipulation.  This class
-   -- intended to be platform independant as much as possible. In order to remove from the client side the
+   -- intended to be platform independent as much as possible. In order to remove from the client side the
    -- burden of file path computation, this class tries to compute automatically the system file notation
    -- using argument(s) of some of the very first call(s).  As soon as the system notation has been properly
    -- detected, the result is internally memorized for all objects of type BASIC_DIRECTORY in a common private
    -- buffer. Besides the low-level nature of operations one can found in this class, all file path
    -- manipulations are done in a smart way (except when the system file path notation has not been detected
    -- automatically, which is quite uncommon). As an example, even if the directory separator is internally
-   -- detected, this information is _intentionaly_ kept private to avoid low-level manipulation from the
+   -- detected, this information is _intentionally_ kept private to avoid low-level manipulation from the
    -- client side. Finally, this class is expanded in order to avoid as much as possible memory allocations.
    --
    -- Also consider high level facade class DIRECTORY if you don't want to deal directly with low level
@@ -190,7 +190,7 @@ feature {ANY} -- File path handling tools:
 
    compute_subdirectory_with (parent_path, entry_name: ABSTRACT_STRING)
          -- Try to compute in the `last_entry' buffer the new subdirectory path obtained when trying to
-         -- concatenate smartly `parent_path' whith some `entry_name'. When this fails the `last_entry' buffer
+         -- concatenate smartly `parent_path' with some `entry_name'. When this fails the `last_entry' buffer
          -- `is_empty' after this call. This operation does not perform any disk access. Whatever the result,
          -- `parent_path' and `entry_name' are left unchanged.
       require
@@ -215,7 +215,7 @@ feature {ANY} -- File path handling tools:
 
    compute_file_path_with (parent_path, file_name: ABSTRACT_STRING)
          -- Try to compute in the `last_entry' buffer the new file path obtained when trying to concatenate
-         -- smartly `parent_path' whith some `file_name'. When this fails the `last_entry' buffer `is_empty'
+         -- smartly `parent_path' with some `file_name'. When this fails the `last_entry' buffer `is_empty'
          -- after this call. This operation does not perform any disk access. Whatever the result,
          -- `parent_path' and `file_name' are left unchanged.
       require
@@ -718,7 +718,7 @@ end -- class BASIC_DIRECTORY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

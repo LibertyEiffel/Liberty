@@ -5,12 +5,12 @@ class DECLARATION_GROUP
    --
    -- When a group of variable have the same type mark.
    --
-   -- Exemple 1 :
+   -- Example 1 :
    --         local
    --           foo, bar : ZOO
    --           --------------
    --
-   -- Exemple 2 :
+   -- Example 2 :
    --         bip(foo, bar : ZOO)
    --             --------------
    --

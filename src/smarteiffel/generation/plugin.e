@@ -18,7 +18,7 @@ insert
 
 feature {SYSTEM_TOOLS}
    try_auto_init
-         -- try to write init code for this plugin, provided all dependancies are satisfied.
+         -- try to write init code for this plugin, provided all dependencies are satisfied.
       require
          not auto_init_done
       deferred

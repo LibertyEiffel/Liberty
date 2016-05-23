@@ -9,7 +9,7 @@ class LINKED_LIST[E_]
    -- `add_last' is really efficient too, actually, the total number of elements (i.e. `count') as well as a
    -- reference to the last cell is also cached automatically. Keep in mind that LINKED_LIST uses a one way
    -- linked storage from `lower' to `upper', so traversing a LINKED_LIST from `upper' to `lower' will be
-   -- extremely time consumming (also consider TWO_WAY_LINKED_LIST).
+   -- extremely time consuming (also consider TWO_WAY_LINKED_LIST).
    --
 
 inherit
@@ -613,7 +613,7 @@ end -- class LINKED_LIST
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

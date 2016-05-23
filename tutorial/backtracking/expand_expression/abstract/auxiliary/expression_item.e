@@ -1,7 +1,7 @@
 -- See the Copyright notice at the end of this file.
 --
 class EXPRESSION_ITEM
-   -- very raw class to make the expresion tree
+   -- very raw class to make the expression tree
    -- not any safety check is done, be careful
    -- no comment
 

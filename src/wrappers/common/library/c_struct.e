@@ -1,4 +1,4 @@
-indexing
+note
    description: "Wrapper for a generic C structure"
    copyright:
       "[

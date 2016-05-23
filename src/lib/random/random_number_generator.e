@@ -20,7 +20,7 @@ feature {ANY}
 
    with_seed (seed_value: INTEGER)
          -- Create (or reset) the random number generator with an explicit `seed_value'.
-         -- By using and explicit `seed_value', one can replay more than once the very same hasardous 
+         -- By using and explicit `seed_value', one can replay more than once the very same hazardous 
          -- sequence.
          --
          -- See also `make'.
@@ -87,7 +87,7 @@ end -- class RANDOM_NUMBER_GENERATOR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

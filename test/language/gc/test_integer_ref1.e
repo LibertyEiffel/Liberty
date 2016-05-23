@@ -9,7 +9,8 @@ create {}
 feature {ANY}
    make
       local
-         any: ANY; i: INTEGER
+         any: ANY_REFERENCE
+         i: INTEGER
       do
          from
             i := 10000000

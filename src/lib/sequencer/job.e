@@ -25,9 +25,9 @@ feature {JOB, LOOP_ITEM}
 
 feature {LOOP_ITEM}
    prepare (events: EVENTS_SET)
-         -- Use `events' to descibe condition that make this job ready to `continue'.
+         -- Use `events' to describe condition that make this job ready to `continue'.
          -- `events' describe the conditions to be satisfied before
-         -- runing this job for one more step.
+         -- running this job for one more step.
       require
          events /= Void
          not events.queryable
@@ -37,7 +37,7 @@ feature {LOOP_ITEM}
 
    is_ready (events: EVENTS_SET): BOOLEAN
          -- Check if this job is ready to continue his work.
-         -- `events' describe the events which occured.
+         -- `events' describe the events which occurred.
       require
          events /= Void
          events.queryable
@@ -87,7 +87,7 @@ end -- class JOB
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

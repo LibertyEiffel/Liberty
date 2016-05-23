@@ -109,7 +109,7 @@ feature {FEATURE_ACCUMULATOR}
          --
          -- There are two major pitfalls:
          --
-         -- 1. `context_type' *is* being built. Hence there is no associatied `anonymous_feature' per se (yet). We have to ask the
+         -- 1. `context_type' *is* being built. Hence there is no associated `anonymous_feature' per se (yet). We have to ask the
          -- `feature_accumlator' a TYPE_MARK (the result of a feature of `context_type'). On the other hand, the "like
          -- featurename" types can be easily adapted since they exist.
          --

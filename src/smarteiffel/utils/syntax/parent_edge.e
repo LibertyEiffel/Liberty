@@ -21,7 +21,7 @@ create {ANY}
    make
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
@@ -125,7 +125,7 @@ feature {TYPE}
          Result := rename_list.item(i)
       end
 
-feature {PARENT_EDGE, VISITOR} -- Optionnal list in syntaxical order:
+feature {PARENT_EDGE, VISITOR} -- Optional list in syntactical order:
    rename_list: RENAME_LIST
 
    export_list: EXPORT_LIST

@@ -680,7 +680,7 @@ feature {REQUIRE_ASSERTION, REQUIRE_ASSERTION_VISITOR, ANONYMOUS_FEATURE_MIXER}
    local_require: ASSERTION_LIST
 
    direct_parents_require: FAST_ARRAY[REQUIRE_ASSERTION]
-         -- if `local_require' failed, then every parent has to succed
+         -- if `local_require' failed, then every parent has to succeed
 
 feature {}
    make (sp: like start_position; else_flag: BOOLEAN; hc: like header_comment; l: FAST_ARRAY[ASSERTION])

@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "Iterator over a C_ARRAY."
    copyright:
@@ -21,6 +21,9 @@ indexing
                02110-1301 USA
          ]"
 class ITERATOR_ON_C_ARRAY[ITEM_ -> C_STRUCT]
+    -- TODO: this class is conceptually obsolete as it actually duplicates
+    -- ITERATOR_ON_COLLECTION, or more precisely ITERATOR_ON_TRAVERSABLE. It
+    -- could and should be easily removed 
 
 inherit
    ITERATOR[ITEM_]
@@ -61,5 +64,14 @@ feature {ANY} --
       do
          i := i + 1
       end
+
+feature {ANY}
+   iterable_generation: INTEGER
+      do
+         Result := array.generation
+      end
+
+   generation: INTEGER
+
 
 end -- class ITERATOR_ON_C_ARRAY

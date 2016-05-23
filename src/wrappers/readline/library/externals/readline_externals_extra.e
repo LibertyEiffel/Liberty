@@ -15,7 +15,7 @@ feature {} -- External calls
       external "plug_in"
       alias "{
          location: "."
-         module_name: "plugin"
+         module_name: "generated/plugin"
          feature_name: "get_rl_attempted_completion_object()"
       }"
       end
@@ -25,7 +25,7 @@ feature {} -- External calls
       external "plug_in"
       alias "{
          location: "."
-         module_name: "plugin"
+         module_name: "generated/plugin"
          feature_name: "set_rl_attempted_completion_object"
       }"
       end
@@ -35,7 +35,7 @@ feature {} -- External calls
       external "plug_in"
       alias "{
          location: "."
-         module_name: "plugin"
+         module_name: "generated/plugin"
          feature_name: "rl_handler"
       }"
       end
@@ -45,7 +45,7 @@ feature {} -- External calls
       external "plug_in"
       alias "{
          location: "."
-         module_name: "plugin"
+         module_name: "generated/plugin"
          feature_name: "rl_register_job"
       }"
       end

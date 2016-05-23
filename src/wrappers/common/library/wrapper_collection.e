@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "A wrapper that is a collection of other wrappers."
    copyright:

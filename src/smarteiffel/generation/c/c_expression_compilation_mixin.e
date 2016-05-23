@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class C_EXPRESSION_COMPILATION_MIXIN[C_->CODE]
-   -- Produce the C code to access the value (user's expanded are no longuer pointer).
+   -- Produce the C code to access the value (user's expanded are no longer pointer).
 
 inherit
    EXPRESSION_VISITOR

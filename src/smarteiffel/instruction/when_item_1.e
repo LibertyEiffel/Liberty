@@ -5,7 +5,7 @@ class WHEN_ITEM_1
    --
    -- To store a single value of a when clause in an inspect instruction.
    --
-   -- Exemple :
+   -- Example :
    --          inspect ...
    --              when foo, bar, then ...
    --

@@ -6,7 +6,6 @@ basic_directory/loadpath.se
 exec/
 external/loadpath.se
 external_tool/
-gcd/
 hanoi/loadpath.se
 io/
 iterator/loadpath.se

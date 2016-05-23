@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "Generic enumeration"
    copyright:

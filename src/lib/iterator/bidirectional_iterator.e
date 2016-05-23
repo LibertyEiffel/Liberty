@@ -2,7 +2,7 @@
 -- See the full copyright at the end.
 --
 deferred class BIDIRECTIONAL_ITERATOR[E_]
-   -- An iterator that allows to traverse a COLLETION forward and backward.
+   -- An iterator that allows to traverse a COLLECTION forward and backward.
 
    -- Those COLLECTIONs can be iterated back and forth even if its items are
    -- not COMPARABLE. For example a two-way list of three-dimensional points
@@ -37,7 +37,7 @@ end -- class BIDIRECTIONAL_ITERATOR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

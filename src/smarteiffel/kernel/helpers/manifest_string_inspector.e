@@ -5,7 +5,7 @@ class MANIFEST_STRING_INSPECTOR
    --|
    --| *** I am quite sure that this class is not so useful. All the stuff should be now included into
    --| the INSPECT_STATEMENT class. Please, consider do the removal job... or replace this comment
-   --| with an explaination telling us why this MANIFEST_STRING_INSPECTOR is still useful.
+   --| with an explanation telling us why this MANIFEST_STRING_INSPECTOR is still useful.
    --| *** Dom. May 20th 2008 ***
    --|
    --| Dominique is right (once again). This object has no own state but borrows its state from its

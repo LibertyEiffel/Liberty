@@ -1,9 +1,9 @@
-indexing
+note
    description:
       "Access to the C errno variable"
    copyright:
       "[
-               Copyright (C) 2010-2016: ,2012,2013 Paolo Redaelli
+               Copyright (C) 2010-2016: Paolo Redaelli
 
                This library is free software; you can redistribute it and/or
                modify it under the terms of the GNU Lesser General Public License
@@ -34,7 +34,7 @@ feature {}
          -- number of last error
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "errno"
       }"
@@ -44,7 +44,7 @@ feature {}
          -- Argument list too long (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "E2BIG"
       }"
@@ -54,7 +54,7 @@ feature {}
          -- Permission denied (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EACCES"
       }"
@@ -64,7 +64,7 @@ feature {}
          -- Address already in use (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EADDRINUSE"
       }"
@@ -74,7 +74,7 @@ feature {}
          -- Address not available (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EADDRNOTAVAIL"
       }"
@@ -84,7 +84,7 @@ feature {}
          -- Address family not supported (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EAFNOSUPPORT"
       }"
@@ -94,7 +94,7 @@ feature {}
          -- Resource temporarily unavailable (may be the same value as EWOULDBLOCK) (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EAGAIN"
       }"
@@ -104,7 +104,7 @@ feature {}
          -- Connection already in progress (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EALREADY"
       }"
@@ -114,7 +114,7 @@ feature {}
          -- Invalid exchange
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EBADE"
       }"
@@ -124,7 +124,7 @@ feature {}
          -- Bad file descriptor (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EBADF"
       }"
@@ -134,7 +134,7 @@ feature {}
          -- File descriptor in bad state
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EBADFD"
       }"
@@ -144,7 +144,7 @@ feature {}
          -- Bad message (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EBADMSG"
       }"
@@ -154,7 +154,7 @@ feature {}
          -- Invalid request descriptor
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EBADR"
       }"
@@ -164,7 +164,7 @@ feature {}
          -- Invalid request code
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EBADRQC"
       }"
@@ -174,7 +174,7 @@ feature {}
          -- Invalid slot
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EBADSLT"
       }"
@@ -184,7 +184,7 @@ feature {}
          -- Device or resource busy (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EBUSY"
       }"
@@ -194,7 +194,7 @@ feature {}
          -- Operation canceled (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ECANCELED"
       }"
@@ -204,7 +204,7 @@ feature {}
          -- No child processes (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ECHILD"
       }"
@@ -214,7 +214,7 @@ feature {}
          -- Channel number out of range
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ECHRNG"
       }"
@@ -224,7 +224,7 @@ feature {}
          -- Communication error on send
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ECOMM"
       }"
@@ -234,7 +234,7 @@ feature {}
          -- Connection aborted (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ECONNABORTED"
       }"
@@ -244,7 +244,7 @@ feature {}
          -- Connection refused (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ECONNREFUSED"
       }"
@@ -254,7 +254,7 @@ feature {}
          -- Connection reset (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ECONNRESET"
       }"
@@ -264,7 +264,7 @@ feature {}
          -- Resource deadlock avoided (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EDEADLK"
       }"
@@ -274,7 +274,7 @@ feature {}
          -- Synonym for EDEADLK
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EDEADLOCK"
       }"
@@ -284,7 +284,7 @@ feature {}
          -- Destination address required (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EDESTADDRREQ"
       }"
@@ -294,7 +294,7 @@ feature {}
          -- Mathematics argument out of domain of function (POSIX.1, C99)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EDOM"
       }"
@@ -304,7 +304,7 @@ feature {}
          -- Disk quota exceeded (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EDQUOT"
       }"
@@ -314,7 +314,7 @@ feature {}
          -- File exists (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EEXIST"
       }"
@@ -324,7 +324,7 @@ feature {}
          -- Bad address (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EFAULT"
       }"
@@ -334,7 +334,7 @@ feature {}
          -- File too large (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EFBIG"
       }"
@@ -344,7 +344,7 @@ feature {}
          -- Host is down
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EHOSTDOWN"
       }"
@@ -354,7 +354,7 @@ feature {}
          -- Host is unreachable (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EHOSTUNREACH"
       }"
@@ -364,7 +364,7 @@ feature {}
          -- Identifier removed (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EIDRM"
       }"
@@ -374,7 +374,7 @@ feature {}
          -- Illegal byte sequence (POSIX.1, C99)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EILSEQ"
       }"
@@ -384,7 +384,7 @@ feature {}
          -- Operation in progress (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EINPROGRESS"
       }"
@@ -394,7 +394,7 @@ feature {}
          -- Interrupted function call (POSIX.1); see signal(7).
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EINTR"
       }"
@@ -404,7 +404,7 @@ feature {}
          -- Invalid argument (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EINVAL"
       }"
@@ -414,7 +414,7 @@ feature {}
          -- Input/output error (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EIO"
       }"
@@ -424,7 +424,7 @@ feature {}
          -- Socket is connected (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EISCONN"
       }"
@@ -434,7 +434,7 @@ feature {}
          -- Is a directory (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EISDIR"
       }"
@@ -444,7 +444,7 @@ feature {}
          -- Is a named type file
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EISNAM"
       }"
@@ -454,7 +454,7 @@ feature {}
          -- Key has expired
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EKEYEXPIRED"
       }"
@@ -464,7 +464,7 @@ feature {}
          -- Key was rejected by service
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EKEYREJECTED"
       }"
@@ -474,7 +474,7 @@ feature {}
          -- Key has been revoked
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EKEYREVOKED"
       }"
@@ -484,7 +484,7 @@ feature {}
          -- Level 2 halted
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EL2HLT"
       }"
@@ -494,7 +494,7 @@ feature {}
          -- Level 2 not synchronized
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EL2NSYNC"
       }"
@@ -504,7 +504,7 @@ feature {}
          -- Level 3 halted
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EL3HLT"
       }"
@@ -514,7 +514,7 @@ feature {}
          -- Level 3 halted
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EL3RST"
       }"
@@ -524,7 +524,7 @@ feature {}
          -- Cannot access a needed shared library
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ELIBACC"
       }"
@@ -534,7 +534,7 @@ feature {}
          -- Accessing a corrupted shared library
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ELIBBAD"
       }"
@@ -544,7 +544,7 @@ feature {}
          -- Attempting to link in too many shared libraries
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ELIBMAX"
       }"
@@ -554,7 +554,7 @@ feature {}
          -- lib section in a.out corrupted
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ELIBSCN"
       }"
@@ -564,7 +564,7 @@ feature {}
          -- Cannot exec a shared library directly
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ELIBEXEC"
       }"
@@ -574,7 +574,7 @@ feature {}
          -- Too many levels of symbolic links (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ELOOP"
       }"
@@ -584,7 +584,7 @@ feature {}
          -- Wrong medium type
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EMEDIUMTYPE"
       }"
@@ -594,7 +594,7 @@ feature {}
          -- Too many open files (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EMFILE"
       }"
@@ -604,7 +604,7 @@ feature {}
          -- Too many links (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EMLINK"
       }"
@@ -614,7 +614,7 @@ feature {}
          -- Message too long (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EMSGSIZE"
       }"
@@ -624,7 +624,7 @@ feature {}
          -- Multihop attempted (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EMULTIHOP"
       }"
@@ -634,7 +634,7 @@ feature {}
          -- Filename too long (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENAMETOOLONG"
       }"
@@ -644,7 +644,7 @@ feature {}
          -- Network is down (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENETDOWN"
       }"
@@ -654,7 +654,7 @@ feature {}
          -- Connection aborted by network (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENETRESET"
       }"
@@ -664,7 +664,7 @@ feature {}
          -- Network unreachable (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENETUNREACH"
       }"
@@ -674,7 +674,7 @@ feature {}
          -- Too many open files in system (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENFILE"
       }"
@@ -684,7 +684,7 @@ feature {}
          -- No buffer space available (POSIX.1 (XSI STREAMS option))
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOBUFS"
       }"
@@ -694,7 +694,7 @@ feature {}
          -- No message is available on the STREAM head read queue (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENODATA"
       }"
@@ -704,7 +704,7 @@ feature {}
          -- No such device (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENODEV"
       }"
@@ -714,7 +714,7 @@ feature {}
          -- No such file or directory (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOENT"
       }"
@@ -724,7 +724,7 @@ feature {}
          -- Exec format error (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOEXEC"
       }"
@@ -734,7 +734,7 @@ feature {}
          -- Required key not available
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOKEY"
       }"
@@ -744,7 +744,7 @@ feature {}
          -- No locks available (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOLCK"
       }"
@@ -754,7 +754,7 @@ feature {}
          -- Link has been severed (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOLINK"
       }"
@@ -764,7 +764,7 @@ feature {}
          -- No medium found
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOMEDIUM"
       }"
@@ -774,7 +774,7 @@ feature {}
          -- Not enough space (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOMEM"
       }"
@@ -784,7 +784,7 @@ feature {}
          -- No message of the desired type (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOMSG"
       }"
@@ -794,7 +794,7 @@ feature {}
          -- Machine is not on the network
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENONET"
       }"
@@ -804,7 +804,7 @@ feature {}
          -- Package not installed
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOPKG"
       }"
@@ -814,7 +814,7 @@ feature {}
          -- Protocol not available (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOPROTOOPT"
       }"
@@ -824,7 +824,7 @@ feature {}
          -- No space left on device (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOSPC"
       }"
@@ -834,7 +834,7 @@ feature {}
          -- No STREAM resources (POSIX.1 (XSI STREAMS option))
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOSR"
       }"
@@ -844,7 +844,7 @@ feature {}
          -- Not a STREAM (POSIX.1 (XSI STREAMS option))
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOSTR"
       }"
@@ -854,7 +854,7 @@ feature {}
          -- Function not implemented (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOSYS"
       }"
@@ -864,7 +864,7 @@ feature {}
          -- Block device required
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOTBLK"
       }"
@@ -874,7 +874,7 @@ feature {}
          -- The socket is not connected (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOTCONN"
       }"
@@ -884,7 +884,7 @@ feature {}
          -- Not a directory (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOTDIR"
       }"
@@ -894,7 +894,7 @@ feature {}
          -- Directory not empty (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOTEMPTY"
       }"
@@ -904,7 +904,7 @@ feature {}
          -- Not a socket (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOTSOCK"
       }"
@@ -914,7 +914,7 @@ feature {}
          -- Operation not supported (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOTSUP"
       }"
@@ -924,7 +924,7 @@ feature {}
          -- Inappropriate I/O control operation (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOTTY"
       }"
@@ -934,7 +934,7 @@ feature {}
          -- Name not unique on network
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENOTUNIQ"
       }"
@@ -944,7 +944,7 @@ feature {}
          -- No such device or address (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ENXIO"
       }"
@@ -954,7 +954,7 @@ feature {}
          -- Operation not supported on socket (POSIX.1) (ENOTSUP  and  EOPNOTSUPP  have the same value on Linux, but according to POSIX.1 these error values should be distinct.)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EOPNOTSUPP"
       }"
@@ -964,7 +964,7 @@ feature {}
          -- Value too large to be stored in data type (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EOVERFLOW"
       }"
@@ -974,7 +974,7 @@ feature {}
          -- Operation not permitted (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EPERM"
       }"
@@ -984,7 +984,7 @@ feature {}
          -- Protocol family not supported
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EPFNOSUPPORT"
       }"
@@ -994,7 +994,7 @@ feature {}
          -- Broken pipe (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EPIPE"
       }"
@@ -1004,7 +1004,7 @@ feature {}
          -- Protocol error (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EPROTO"
       }"
@@ -1014,7 +1014,7 @@ feature {}
          -- Protocol not supported (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EPROTONOSUPPORT"
       }"
@@ -1024,7 +1024,7 @@ feature {}
          -- Protocol wrong type for socket (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EPROTOTYPE"
       }"
@@ -1034,7 +1034,7 @@ feature {}
          -- Result too large (POSIX.1, C99)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ERANGE"
       }"
@@ -1044,7 +1044,7 @@ feature {}
          -- Remote address changed
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EREMCHG"
       }"
@@ -1054,7 +1054,7 @@ feature {}
          -- Object is remote
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EREMOTE"
       }"
@@ -1064,7 +1064,7 @@ feature {}
          -- Remote I/O error
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EREMOTEIO"
       }"
@@ -1074,7 +1074,7 @@ feature {}
          -- Interrupted system call should be restarted
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ERESTART"
       }"
@@ -1084,7 +1084,7 @@ feature {}
          -- Read-only file system (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EROFS"
       }"
@@ -1094,7 +1094,7 @@ feature {}
          -- Cannot send after transport endpoint shutdown
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ESHUTDOWN"
       }"
@@ -1104,7 +1104,7 @@ feature {}
          -- Invalid seek (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ESPIPE"
       }"
@@ -1114,7 +1114,7 @@ feature {}
          -- Socket type not supported
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ESOCKTNOSUPPORT"
       }"
@@ -1124,7 +1124,7 @@ feature {}
          -- No such process (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ESRCH"
       }"
@@ -1134,7 +1134,7 @@ feature {}
          -- Stale file handle (POSIX.1)   This error can occur for NFS and for other file systems
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ESTALE"
       }"
@@ -1144,7 +1144,7 @@ feature {}
          -- Streams pipe error
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ESTRPIPE"
       }"
@@ -1154,7 +1154,7 @@ feature {}
          -- Timer expired (POSIX.1 (XSI STREAMS option))   (POSIX.1 says "STREAM ioctl(2) timeout")
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ETIME"
       }"
@@ -1164,7 +1164,7 @@ feature {}
          -- Connection timed out (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ETIMEDOUT"
       }"
@@ -1174,7 +1174,7 @@ feature {}
          -- Text file busy (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ETXTBSY"
       }"
@@ -1184,7 +1184,7 @@ feature {}
          -- Structure needs cleaning
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EUCLEAN"
       }"
@@ -1194,7 +1194,7 @@ feature {}
          -- Protocol driver not attached
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EUNATCH"
       }"
@@ -1204,7 +1204,7 @@ feature {}
          -- Too many users
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EUSERS"
       }"
@@ -1214,7 +1214,7 @@ feature {}
          -- Operation would block (may be same value as EAGAIN) (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EWOULDBLOCK"
       }"
@@ -1224,7 +1224,7 @@ feature {}
          -- Improper link (POSIX.1)
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EXDEV"
       }"
@@ -1234,7 +1234,7 @@ feature {}
          -- Exchange full
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "EXFULL"
       }"

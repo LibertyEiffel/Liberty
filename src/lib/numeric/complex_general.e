@@ -108,7 +108,7 @@ feature {ANY}
    hash_code: INTEGER
       do
          Result := (real + imaginary).hash_code
-         -- Note: it is debatabe if such an hash code implementation is actually useful.
+         -- Note: it is debatable if such an hash code implementation is actually useful.
       end
 
    real_sign: INTEGER_8
@@ -183,7 +183,7 @@ feature {ANY} -- Polar representation
          not is_zero
       do
          not_yet_implemented
-         -- Pi is not converted automaticaaly to A_SIZE
+         -- Pi is not converted automatically to A_SIZE
          -- inspect real.sign
          -- when  1 then Result := imaginary.atan2(real) -- same as (imaginary/real).atan
          -- when -1 then
@@ -245,7 +245,7 @@ end -- class COMPLEX_GENERAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

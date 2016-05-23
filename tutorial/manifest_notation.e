@@ -3,8 +3,8 @@ class MANIFEST_NOTATION
    -- To know more or to discover manifest notation syntax and semantic, you
    -- can just read this file, or even better, run this code under our debugger:
    --
-   --           compile -sedb manifest_notation
-   --
+   --           se c -sedb manifest_notation -o manifest_notation
+   --           ./manifest_notation
 
 create {ANY}
    make
@@ -301,7 +301,7 @@ feature {}
          check
             real_64 = 35.5
          end
-         -- You can ommit the fractional part when using scientific notation:
+         -- You can omit the fractional part when using scientific notation:
          check
             3E2 = 300.0
          end

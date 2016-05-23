@@ -20,7 +20,7 @@ feature {ANY}
       end
 
    is_implicit_current: BOOLEAN
-         -- Is it an implicit Current (i.e., not explicitely written)?
+         -- Is it an implicit Current (i.e., not explicitly written)?
       deferred
       ensure
          Result implies is_current
@@ -156,7 +156,7 @@ feature {ANY}
 
    non_void_no_dispatch_type (type: TYPE): TYPE
          -- A non Void `Result' indicates that `Current' cannot be Void and that `Current' drives
-         -- exactely to a single possible dynamic TYPE.
+         -- exactly to a single possible dynamic TYPE.
       require
          type /= Void
          smart_eiffel.status.collecting_done

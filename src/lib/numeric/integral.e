@@ -47,7 +47,7 @@ feature {ANY}
       end
 
    infix "//" (other: like Current): like Current
-         -- Quotient of the euclidian division of `Current' by `other'.
+         -- Quotient of the Euclidian division of `Current' by `other'.
          -- The corresponding remainder is given by infix "\\".
          --
          -- See also infix "#//".
@@ -61,7 +61,7 @@ feature {ANY}
       end
 
    infix "\\" (other: like Current): like Current
-         -- Remainder of the euclidian division of `Current' by `other'.
+         -- Remainder of the Euclidian division of `Current' by `other'.
          -- By definition, `zero <= Result < other.abs'.
          --
          -- See also infix "#\\", infix "//".
@@ -307,7 +307,7 @@ feature {ANY} -- Conversions:
       end
 
    to_character: CHARACTER
-         -- Return the coresponding ASCII character.
+         -- Return the corresponding ASCII character.
          --
          -- See also `to_boolean', `to_number', `to_string', `to_hexadecimal'.
       require
@@ -514,7 +514,7 @@ feature {ANY} -- Modular arithmetic (these wrap around on overflow)
          -- Integer division of `Current' by `other'.
          --
          -- According to the ANSI C99: if `Current' and `other' are both non-negative, the `Result' is the
-         -- quotient of the euclidian division; but this is not the general case, the `Result' value is the
+         -- quotient of the Euclidian division; but this is not the general case, the `Result' value is the
          -- algebraic quotient `Current/other' with any fractional part discarded. (This is often called
          -- "truncated toward zero"). So, the corresponding remainder value only verify the expression
          -- `remainder.abs < other.abs'.
@@ -533,7 +533,7 @@ feature {ANY} -- Modular arithmetic (these wrap around on overflow)
          -- Remainder of the integer division of `Current' by `other'.
          -- According to the ANSI C99:
          --   * if `Current' and `other' are both non-negative,
-         --     the `Result' is the remainder of the euclidian division.
+         --     the `Result' is the remainder of the Euclidian division.
          --   * but this is not the general case,
          --     `Result' as the same sign as `Current' and only verify
          --     the expression `Result.abs < other.abs'.
@@ -566,7 +566,7 @@ end -- class INTEGRAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

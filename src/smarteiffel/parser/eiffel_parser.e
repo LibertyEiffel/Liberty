@@ -28,7 +28,7 @@ feature {ANY}
    total_time: INTEGER_64
 
 feature {ANY}
-   predefined_type_mark (tm: STRING; sp: POSITION): TYPE_MARK is
+   predefined_type_mark (tm: STRING; sp: POSITION): TYPE_MARK
       require
          tm /= Void
       do
@@ -426,7 +426,7 @@ feature {}
    Instruction_syntax_flag: INTEGER_8          1
          -- Any possible complex instruction.
    Atomic_syntax_flag: INTEGER_8               2
-         -- Simple value whith not dot.
+         -- Simple value with no dot.
    When_inspect_syntax_flag: INTEGER_8         3
          -- Expression in "when" part of "inspect".
 
@@ -718,7 +718,7 @@ feature {}
                when 'x' then
                   if first_digit_index /= pretty_view.count or else pretty_view.last /= '0' then
                      error_handler.add_position(current_position)
-                     error_handler.append(once "Erreur while reading a number.")
+                     error_handler.append(once "Error while reading a number.")
                      error_handler.print_as_fatal_error
                   end
                   pretty_view.extend(cc)
@@ -893,10 +893,10 @@ feature {}
                      error_handler.append_integer(digit_count)
                      error_handler.add_position(current_position)
                      error_handler.append(
-                         " digits). You must use exactely 2, 4, 8 or 16 digits only. A 2 digits value %
-                         %denote an INTEGER_8, a 4 digits value denote an INTEGER_16, a 8 digits value %
-                         %denote an INTEGER_32, and, finally, a 16 digits value denote an INTEGER_64. %
-                         %(See examples in file %"SmartEiffel/tutorial/hexadecimal.e%".)")
+                         " digits). You must use exactly 2, 4, 8 or 16 digits only. A 2 digit value %
+                         %denotes an INTEGER_8, a 4 digit value denotes an INTEGER_16, an 8 digit value %
+                         %denotes an INTEGER_32, and, finally, a 16 digit value denotes an INTEGER_64. %
+                         %(See examples in file %"tutorial/manifest_notation.e%".)")
                      error_handler.print_as_fatal_error
                   end
                   if pretty_view.first /= '{' then
@@ -1794,7 +1794,7 @@ feature {}
                         pretty_view.extend(cc); next_char
                         if not cc.is_hexadecimal_digit then
                            error_handler.add_position(current_position)
-                           error_handler.append(once "Must use exactely two hexadecimal digit for a CHARACTER constant.")
+                           error_handler.append(once "Must use exactly two hexadecimal digits for a CHARACTER constant.")
                            error_handler.print_as_error
                         end
                         ascii_code := ascii_code * 16 + cc.hexadecimal_value
@@ -1810,6 +1810,10 @@ feature {}
                            error_handler.print_as_error
                         end
                         value := ascii_code.to_character
+                     else
+                        error_handler.add_position(current_position)
+                        error_handler.append(em38)
+                        error_handler.print_as_fatal_error
                      end
                   when '1' .. '9' then
                      ascii_code := cc.decimal_value
@@ -3469,7 +3473,7 @@ feature {}
             create Result.make(sp, list)
          else
             error_handler.add_position(current_position)
-            error_handler.append(once "A missing client clause is interpreted as {ANY}. It is better to be explicit.")
+            error_handler.append(once "A missing client list is interpreted as {ANY}. It is better to be explicit.")
             error_handler.print_as_warning
             Result := omitted_client_list
          end
@@ -4794,7 +4798,7 @@ feature {}
          end
       end
 
-   inline_agent_no_name: FEATURE_NAME is
+   inline_agent_no_name: FEATURE_NAME
       once
          create Result.unknown_position("__inline_agent__")
          Result.set_is_frozen
@@ -5171,7 +5175,9 @@ feature {}
                else
                   last_feature_declaration := tmp_feature.as_writable_attribute
                   ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
+                  if tmp_feature.header_comment = Void then
+                     last_feature_declaration.set_header_comment(get_comment)
+                  end
                end
             end
 
@@ -5521,12 +5527,12 @@ feature {}
       end
 
    a_instruction: BOOLEAN
-         --  ++ instruction -> check | debug | conditionnal | retry |
+         --  ++ instruction -> check | debug | conditional | retry |
          --  ++                inspect | loop | old_creation |
          --  ++                c_inline_c | c_inline_h |
          --  ++                create_instruction |
          --  ++                assignment_or_procedure_call [":=" expression ]
-         --  ++                expresison [":=" expression ]
+         --  ++                expression [":=" expression ]
          --  ++
       local
          dummy: BOOLEAN
@@ -6171,7 +6177,7 @@ feature {}
                   error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment %
                   %operator. A dot can never be used for the left-hand side part of an assignment operator. %
                   %Valid left-hand side can be Result, some local or the name of an attribute of Current. %
-                  %See also http://SmartEiffel/wiki/en/Syntax_diagrams#Writable.php for details.")
+                  %See also http://wiki.liberty-eiffel.org/index.php/Syntax_diagrams#Writable for details.")
                   error_handler.print_as_fatal_error
                else
                   error_handler.append(once "A routine must be ended with %"end%".")

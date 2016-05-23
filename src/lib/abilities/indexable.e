@@ -5,7 +5,7 @@ deferred class INDEXABLE[E_]
    --
    -- An `INDEXABLE[E_]' is a finite readable sequence of objects of type E_.
    --
-   -- A good performance should always be obtained by sequentially acessing an `INDEXABLE' with increasing
+   -- A good performance should always be obtained by sequentially accessing an `INDEXABLE' with increasing
    -- indexes (from `lower' to `upper'), as demonstrated in the following code snippet :
    --
    --  from
@@ -190,7 +190,7 @@ end -- class INDEXABLE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

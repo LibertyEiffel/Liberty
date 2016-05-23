@@ -1,14 +1,15 @@
 class C_UNION
 
 inherit
-   C_TYPE
-   IDENTIFIED_NODE
-   CONTEXTED_NODE
+    IDENTIFIED_NODE undefine set_name end
+   CONTEXTED_NODE undefine set_name end
+
        -- hence also a STORABLE_NODE, a NAMED_NODE
       -- and a WRAPPER_CLASS
   COMPOSED_NODE
 
-   FILED_NODE
+   FILED_NODE undefine set_name end
+
       -- TODO: since it's both named and filed it could also be a MOVABLE_NODE
 
 insert NAME_CONVERTER

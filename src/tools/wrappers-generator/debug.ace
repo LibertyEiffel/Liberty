@@ -1,7 +1,7 @@
 -- This file is a template for building an ACE file for your own project.
 -- Copy this file into your working directory (the directory used to
 -- run the SmartEiffel compiler) and edit it.
-system "wrappers-generator.debug"
+system "wrappers_generator.debug"
 root WRAPPERS_GENERATOR: make
 
 default -- section of the system
@@ -27,7 +27,7 @@ cluster -- section
 
    lib: "${path_liberty}/src/lib/loadpath.se"
       default
-         assertion(require)
+         assertion(boost)
       option
          -- debug(all): FIXED_STRING -- `debug_string' is very useful
          -- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME

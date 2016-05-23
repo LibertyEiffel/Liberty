@@ -148,15 +148,10 @@ bootstrap() {
 bin: $TARGET/bin
 sys: $LIBERTY_HOME/sys
 short: $LIBERTY_HOME/resources/short
-os: UNIX
-flavor: $(if grep -qi '^cygwin' /proc/version; then
-   echo Cygwin
-else
-   echo Linux
-fi
-)
+os: ${OS}
+flavor: ${flavor}
 tag: 3
-jobs: $((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
+jobs: ${jobs}
 
 [Environment]
 path_liberty: $LIBERTY_HOME/
@@ -190,7 +185,9 @@ mock: mock
 pretty: pretty
 short: short
 test: eiffeltest
-wrap: wrappers-generator
+test_ng: eiffeltest_ng
+test_server: eiffeltest_server
+wrap: wrappers_generator
 x_int: extract_internals
 
 [boost]
@@ -198,12 +195,12 @@ x_int: extract_internals
 -- smarteiffel_options: -no_strip
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O2 -fno-gcse
+c_compiler_options: -pipe -O2
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -O2 -fno-gcse
+cpp_compiler_options: -pipe -O2
 cpp_linker_path: $CC
 cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 
@@ -222,7 +219,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [require_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -234,7 +231,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [ensure_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -246,7 +243,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [invariant_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -258,7 +255,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [loop_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -270,7 +267,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [all_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -282,7 +279,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [debug_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -g
+c_compiler_options: -pipe -g -O1
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -408,10 +405,10 @@ EOF
 5  no  se
 6  bdw clean
 7  bdw ace_check
-8  no  eiffeltest
+8  bdw eiffeltest
 9  no  mock
-#9  bdw eiffeltest_ng
-#10 bdw eiffeltest_server
+9  bdw eiffeltest_ng
+10 bdw eiffeltest_server
 EOF
     {
         grep -v '^#' |
@@ -434,6 +431,7 @@ EOF
 14 no  finder
 15 bdw  eiffeldoc
 16 no  extract_internals
+17 no  wrappers_generator
 EOF
 
     {
@@ -489,12 +487,12 @@ compile_plugins() {
 generate_wrappers() {
     title "Generating wrappers"
     cd $TARGET/bin
-    cd wrappers-generator.d
+    cd wrappers_generator.d
     n=$(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile | wc -l)
     n=$((n+1))
     progress 30 0 $n "Building the wrappers generator"
-    run ../se c -verbose wrappers-generator.ace
-    cd .. && test -e wrappers-generator || ln -s wrappers-generator.d/wrappers-generator .
+    run ../se c -verbose wrappers_generator.ace
+    cd .. && test -e wrappers_generator || ln -s wrappers_generator.d/wrappers_generator .
     i=1
     for f in $(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile); do
         cd ${f%/Makefile}
@@ -606,15 +604,17 @@ mock: mock
 pretty: pretty
 short: short
 test: eiffeltest
-wrap: wrappers-generator
+test_ng: eiffeltest_ng
+test_server: eiffeltest_server
+wrap: wrappers_generator
 x_int: extract_internals
 
 [boost]
 c_compiler_type: gcc
-c_compiler_options: -pipe -O2 -fno-gcse
+c_compiler_options: -pipe -O2
 c_linker_options: -Xlinker -\${hyphen}no-as-needed
 cpp_compiler_type: g++
-cpp_compiler_options: -pipe -O2 -fno-gcse
+cpp_compiler_options: -pipe -O2
 cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
 
 [no_check]

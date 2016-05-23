@@ -44,14 +44,14 @@ feature {ANY}
          fn: STRING
       do
          fn := c_file.c_string_name
-         Result := file_exists(fn) and (global or else headers.has(fn))
+         Result := not emitted and then is_named and then file_exists(fn) and (global or else headers.has(fn)) and then not avoided_symbols.has(c_string_name)
       end
 
    emit_wrapper
       local
          filename: STRING; path: POSIX_PATH_NAME
       do
-         if is_public then
+          if is_to_be_emitted then
             create path.make_from_string(directory)
             path.add_last(eiffel_name.as_lower + once ".e")
             filename := path.to_string
@@ -65,8 +65,9 @@ feature {ANY}
             output.flush
             output.disconnect
          else
-            log(once "Skipping enum `#(1)'.%N" # c_name.as_utf8)
+            log(once "Skipping enum `#(1)'.%N" # c_string_name) 
          end
+         emitted:=True
       end
 
    emit_header
@@ -76,6 +77,10 @@ feature {ANY}
          buffer.append(eiffel_name)
          buffer.append_new_line
          emit_description_on(class_descriptions.reference_at(c_string_name), buffer)
+         buffer.append(once "[
+            
+            -- Wrapper of enum #(1) defined in file #(2)
+            ]" # c_string_name # c_file.c_string_name )
          buffer.append(once "%Ninsert ENUM%N%Ncreate {ANY} default_create%N")
          buffer.print_on(output)
       end

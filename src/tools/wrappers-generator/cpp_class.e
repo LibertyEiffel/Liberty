@@ -7,11 +7,10 @@ class CPP_CLASS
 
 
 inherit
-   C_TYPE
-      -- strictly speaking a C++ class hardly is a C type. Here we use "C type" as a synonim for "C/C++ type" which includes the concept of class. Anyone wiser than me could fix this little note and point you to a more correct definition of this wide concept.
-   CONTEXTED_NODE
-   FILED_NODE
+   CONTEXTED_NODE 
+    undefine set_name end
    IDENTIFIED_NODE
+    undefine set_name end
    COMPOSED_NODE -- hence NAMED, WRAPPER_CLASS
     redefine
         emit_wrapper, is_to_be_emitted
@@ -90,6 +89,7 @@ feature {ANY}
                log(once "Struct #(1) skipped%N" # c_string_name )
             end
          end
+         emitted := True
       end
 
    suffix: STRING "_CLASS"

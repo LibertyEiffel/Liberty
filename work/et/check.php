@@ -31,6 +31,26 @@ if (file_exists($timesHistory)) {
 }
 $times = timesArray($times);
 
+// adds two warning/error counts
+// if $a and $b have the same sign, the sum is returned
+// other wise the positive (=the error count) is returnd
+function warnErrAdd($a, $b) {
+   if ($a <= 0) {
+      if ($b < 0) {
+         $result = $a + $b;
+      }else{
+         $result = $b;
+      }
+   } else {
+      if ($b >= 0) {
+         $result = $a + $b;
+      } else {
+         $result = $a;
+      }
+   }
+   return $result;
+}
+
 // ends current stage and terminates ET
 // call for stages where continuing is not useful
 function failed(){
@@ -174,7 +194,7 @@ mkdir($stageout, 0755);
 copy($activeJsonObj, $stageout . "/saved.serialjson");
 
 if (substage("git pull")) {
-   if (execute("cd $LibertyBase && git fetch origin && git checkout $gitBranch && git merge --ff-only FETCH_HEAD") != 0) {
+   if (execute("cd $LibertyBase && git fetch origin && git checkout $gitBranch && git clean -f && git merge --ff-only FETCH_HEAD") != 0) {
       failed();
    }
    endsubstage();
@@ -248,7 +268,7 @@ function tutorialDir($dir) {
             if ($ret > 0) {
                $curRes = $ret;
             } else {
-               $curRes = 0 - exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+               $curRes = 0 - exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
             }
             if ($curRes > 0 || $result == 0) {
                $result = $curRes;
@@ -273,7 +293,7 @@ function tutorialDir($dir) {
                if ($ret > 0) {
                   $curRes = $ret;
                } else {
-                  $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+                  $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
                   $curRes = -$warnCnt;
                   if (file_exists("$dir/output")) {
                      $ret = execute("$dir/$exe > $dir/$exe.out && diff -u $dir/output $dir/$exe.out");
@@ -363,10 +383,10 @@ function testDir($dir) {
          }
          $res = execute("se test -flat $dir");
          if ($res == 0) {
-            $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
+            $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
             $res = -$warnCnt;
          } else {
-            $res += exec("grep " . escapeshellarg("Abnormal:") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
+            $res += exec("grep -i " . escapeshellarg("Abnormal:") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
          }
       } else {
          file_put_contents("$stagedir/err.txt", "missing eiffeltest directory - please add to repository");
@@ -392,6 +412,75 @@ if (substage("TestSuite")) {
    testDir("$LibertyBase/test");
    endsubstage();
 }
+
+// generate the wrapper $name
+function genWrapper($name) {
+   global $LibertyBase;
+   $result = 0;
+
+   if (substage($name)) {
+      $result = execute("cd $LibertyBase/src/wrappers && make " . $name, $ulimit_time = 3600);
+      endsubstage();
+   }
+   return $result;
+}
+
+if (substage("wrappers")) {
+   $wrapperresult = 0;
+   if (substage("generate wrappers")) {
+      $genresult =                        genWrapper("common");
+      $genresult = warnErrAdd($genresult, genWrapper("ffi"));
+      $genresult = warnErrAdd($genresult, genWrapper("posix"));
+      $genresult = warnErrAdd($genresult, genWrapper("posix/dynamic-linking"));
+      $genresult = warnErrAdd($genresult, genWrapper("readline"));
+      $genresult = warnErrAdd($genresult, genWrapper("xml"));
+      $genresult = warnErrAdd($genresult, genWrapper("zmq"));
+      $wrapperresult = $genresult;
+      
+      file_put_contents($stagedir ."/result.txt", $wrapperresult);
+      endsubstage();
+   }
+
+   if (substage("compile examples")) {
+      $result = 0;
+      foreach (glob("$LibertyBase/src/wrappers/*/examples/*_example.e") as $filename) {
+         if (is_file($filename) && preg_match("/(.*)\.e$/", $filename)) {
+            $class = strtoupper(basename($filename, ".e"));
+            $dir = dirname($filename);
+            
+            if (substage($class)) {
+               $ret = execute("cd $dir && se c --clean -o " . strtolower(basename($filename, ".e")) . " " . $class, $ulimit_time = 3600);
+
+               if ($ret > 0) {
+                  $curRes = $ret;
+               } else {
+                  $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+                  $curRes = -$warnCnt;
+               }
+               file_put_contents($stagedir ."/result.txt", $curRes);
+               $result =  warnErrAdd($result, $curRes);
+
+               endsubstage();
+            }
+         }
+      }
+      file_put_contents($stagedir ."/result.txt", $result);
+      $wrapperresult =  warnErrAdd($wrapperresult, $result);
+
+      endsubstage();
+   }
+
+   if (substage("cleanup wrappers")) {
+      $result = execute("cd $LibertyBase && git checkout -f -- src/wrappers", $ulimit_time = 3600);
+      $wrapperresult =  warnErrAdd($wrapperresult, $result);
+
+      endsubstage();
+   }
+   
+   file_put_contents($stagedir ."/result.txt", $wrapperresult);
+   endsubstage();
+}
+
 
 file_put_contents("$stageout/current_stage.txt","");
 

@@ -126,7 +126,7 @@ feature {RUN_FEATURE_3}
       end
 
    is_empty_or_null_body: BOOLEAN
-         -- The body is empty or has only unreacheable code.
+         -- The body is empty or has only unreachable code.
       local
          rb: INSTRUCTION
       do

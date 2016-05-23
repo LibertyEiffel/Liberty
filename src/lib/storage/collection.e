@@ -389,7 +389,7 @@ feature {ANY} -- Looking and comparison:
    same_items (other: COLLECTION[E_]): BOOLEAN
          -- Do both collections have the same items? The basic `=' is used
          -- for comparison of items and indices are not considered (for
-         -- example this routine may yeld True with `Current' indexed in
+         -- example this routine may yield True with `Current' indexed in
          -- range [1..2] and `other' indexed in range [2..3]).
          --
          -- See also `is_equal', `fast_is_equal'.
@@ -539,7 +539,7 @@ end -- class COLLECTION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -853,7 +853,7 @@ feature {INSPECT_STATEMENT_VISITOR}
          -- a sequence of "if... else if ... else ...").
       do
          --*** For the time being, this a naive implementation, because
-         -- we may also  consider wich C compiler is used (see in
+         -- we may also  consider which C compiler is used (see in
          -- `system_tools'). If someone want to do this, I think we should add a
          -- new function named `use_c_switch_statement' in system_tools.
          -- Just post the fix in the mailing list.

@@ -1,5 +1,5 @@
 class EIFFELDOC_LIKE
-   -- This example illustrats how to make a tool that works like eiffeldoc.
+   -- This example illustrates how to make a tool that works like eiffeldoc.
    -- It lists all the classes of all clusters
    --*** Currently broken. You'll probably want to use CLUSTER.read_classes and then find some way to get at the
    --*** data in CLUSTER.pool . ACE.for_all and ACE.for_all_clusters may be helpful in the process. <FM-30/07/2007>

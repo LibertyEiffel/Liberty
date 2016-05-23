@@ -22,7 +22,7 @@ feature {ANY}
             container_type.fields.add_last(Current)
          else
             -- Fields may be part of a composed type that will be not be wrapped, for example PThread structures when wrapping GObject introspection facilities. Therefore its container will not be present in the composed types!
-            log("Ignoring field @(1) of @(2) in %"@(3)%"%N" # c_string_name # context.to_utf8)
+            log("Ignoring field #(1) of #(2) in %"#(3)%"%N" # c_string_name # context.to_utf8)
          end
       end
 
@@ -34,8 +34,31 @@ feature {ANY}
    is_void: BOOLEAN False
 
    has_wrapper: BOOLEAN
+      local field_type: C_TYPE
       do
-         Result := types.at(dequalify(type)).has_wrapper
+          -- You may want to write "Result := types.at(dequalify(type)).has_wrapper" but that's simplicistic
+          field_type := types.reference_at(dequalify(type))
+          if field_type/=Void then
+              Result:=field_type.has_wrapper
+          end
+      rescue
+          log("C_FIELD.has_wrapper failed%N")
+          print_run_time_stack
+          die_with_code (exit_failure_code)
+          -- if type/=Void then
+          --     field_type := types.at(dequalify(type))
+          --     if field_type /= Void then
+          --         Result := field_type.has_wrapper
+          --     else
+          --         log(once "Warning: C field #(1) in line  #(2) is of an unknown type!%N"
+          --         # c_string_name # &line )
+          --         Result := False
+          --     end
+          -- else
+          --     log(once "Warning: C field #(1) in line #(2) is typeless!%N"
+          --     # c_string_name # &line )
+          --     Result := False
+          -- end
       end
 
    wrapper_type: STRING
@@ -69,13 +92,13 @@ feature {ANY}
          setter, getter, getter_description, setter_description: STRING; eiffel_field: ABSTRACT_STRING
       do
 		  if is_anonymous then
-			  log(once "Anonymous field in structure #(1) at line #(2): not wrappable." # a_structure_name # &line_row)
+			  log(once "Anonymous field in #(1) at line #(2): not wrappable." # a_structure_name # &line_row)
 			  queries.append(once "%T-- Anonymous field at line #(1).%N" # &line_row)
 		  elseif not is_public then
-			  log(once "private field #(1) in structure #(2) not wrapped." # c_string_name # a_structure_name)
+			  log(once "Private field #(1) in #(2) not wrapped." # c_string_name # a_structure_name)
 			  queries.append(once "%T-- Unwrapped private field #(1).%N" # c_string_name)
 		  elseif not has_wrapper then
-			  log(once "Field #(1) in structure #(2) doesn't have a wrapper." # c_string_name # a_structure_name)
+			  log(once "Field #(1) in #(2) doesn't have a wrapper.%N" # c_string_name # a_structure_name)
 			  queries.append(once "%T-- Unwrappable field #(1).%N"#c_string_name)
 			  -- doesn't have a valid wrapper
 		  else -- we can actually wrap it

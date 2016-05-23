@@ -26,7 +26,7 @@ feature {}
          a8 := 127.to_natural_8
          assert((a8 |<< 7) = 128.to_natural_8)
 
-
+         
          a16 := 5.to_natural_16
          assert((a16 |<< 1) = 10.to_natural_16)
 
@@ -57,6 +57,9 @@ feature {}
 
          a32 := 127.to_natural_32
          assert((a32 |<< 7) = 0x3f80.to_natural_32)
+
+         assert(a32 = a32.to_natural_32)
+         a32 := a32.to_natural_32
 
 
          a64 := 4711.to_natural_64

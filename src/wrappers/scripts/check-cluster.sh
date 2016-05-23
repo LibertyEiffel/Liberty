@@ -12,7 +12,7 @@ CORRECT_CLASSES=correct-classes
 WRONG_EXAMPLES=examples-with-errors
 CORRECT_EXAMPLES=correct-examples
 
-
+export WRONG_CLASSES CORRECT_CLASSES WRONG_EXAMPLES CORRECT_EXAMPLES
 
 check_position () {
 	if [ ! $eiffel_libraries ] 
@@ -76,7 +76,7 @@ changed_classes_first () {
 	# touch $TIMESTAMP
 }
 
-check_class () {
+check-class () {
     RESULT=$(mktemp -t check-class-XXXXX)
     CLASS=$1
 
@@ -84,7 +84,7 @@ check_class () {
     if se class_check $CLASS >$RESULT 2>&1
     then 
         echo correct.
-        WRONG_CLASSES="$CLASS $WRONG_CLASSES"
+        echo >>$CORRECT_CLASSES $CLASS 
     else 
         echo contains errors.
         cat $RESULT
@@ -93,7 +93,7 @@ check_class () {
     rm --force $RESULT
 }
 
-export -f check_class # to satisfy parallel command; this command is bash specific.
+export -f check-class # to satisfy parallel command; this command is bash specific.
 
 check_classes () {
 	# check all the library classes
@@ -110,7 +110,7 @@ check_classes () {
         then 
             echo Using parallel command
             changed_classes_first | 
-            parallel --no-notice class_check {} 2>&1
+            parallel --no-notice check-class {} 2>&1
         else
             for CLASS in $( changed_classes_first ) # $( wrong_and_correct_classes )
             do

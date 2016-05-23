@@ -7,11 +7,13 @@ create
 	{ANY} make
 
 feature {ANY}
+    make do end -- absolutely nothing
 
 feature {SQLITE_PREPARED_STATEMENT} 
 	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) is
+        local res: INTEGER
 		do
-			res := sqlite3_bind_null(a_statement.handle, an_integer)
+			res := sqlite3_bind_null(a_statement.handle, 0)
 		end
 		 
 feature {ANY}

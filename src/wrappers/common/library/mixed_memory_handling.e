@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "Wrapper for a generic C structure, that is shared with external code, handle will not be freed on dispose of the Eiffel wrapper object, if is_shared is true"
    copyright:

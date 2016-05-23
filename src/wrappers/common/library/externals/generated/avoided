@@ -1,0 +1,14 @@
+basename
+index
+memchr
+memrchr
+rawmemchr
+rindex
+strcasestr
+strchr
+strchrnul
+strpbrk
+strrchr
+strstr
+idtype_t
+

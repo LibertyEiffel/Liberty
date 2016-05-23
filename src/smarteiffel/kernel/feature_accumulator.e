@@ -804,7 +804,7 @@ feature {}
    features_dictionary: DICTIONARY[ANONYMOUS_FEATURE_MIXER, FEATURE_NAME]
 
    feature_stamps_memory: HASHED_DICTIONARY[FEATURE_STAMP, FEATURE_NAME]
-         -- To be sure to create exactely one FEATURE_STAMP for one feature name.
+         -- To be sure to create exactly one FEATURE_STAMP for one feature name.
 
    seeds_of_current_feature, insert_seeds_of_current_feature: SET[ABSOLUTE_FEATURE_NAME]
 

@@ -36,7 +36,7 @@ feature {ANY}
                   -- this further test may be buggy and enum.prefix_length < c_string_name.count then
                   stored_eiffel_name.remove_head(enum.longest_prefix)
                else
-                  log("#(1) enumeration values: value '#(2)' (at line #(3))  the longest prefix: keeping name to avoid problems%N"
+                   log("#(1) enumeration values: value '#(2)' (at line #(3)) is the longest prefix: keeping name to avoid problems%N"
 	                  # enum.values.count.to_string # c_string_name # line.out)
                end
             else log("The parent of C_ENUM_VALUE at line #(1) not a C_ENUM!%N" # line.out)
@@ -145,11 +145,9 @@ feature {} -- Implementation
    stored_eiffel_name: STRING
 
 end -- class C_ENUM_VALUE
-<<<<<<< HEAD
--- Copyright 2008,2009,2010, 2015 Paolo Redaelli
-=======
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
->>>>>>> 05f0c9b18fc14142423c64d6627f47dd4bfe3012
+
+-- Copyright (C) 2008-2016: Paolo Redaelli
+
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

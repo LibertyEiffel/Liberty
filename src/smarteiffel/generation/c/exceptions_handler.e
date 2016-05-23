@@ -14,7 +14,7 @@ create {ANY}
 
 feature {ANY}
    used: BOOLEAN
-         -- Indicate wheter the live code uses EXCEPTIONS or not.
+         -- Indicate whether the live code uses EXCEPTIONS or not.
 
 feature {C_CODE_COMPILER}
    bad_inspect_value (p: POSITION)

@@ -1,6 +1,6 @@
 class EXAMPLE2
-   -- Second exemple that show how to do multiple cooperative jobs in
-   -- parallel. The job is created with inline create and paramter
+   -- Second example that show how to do multiple cooperative jobs in
+   -- parallel. The job is created with inline create and parameter
    -- given to the job.
 
 create {ANY}

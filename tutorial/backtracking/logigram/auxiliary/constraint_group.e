@@ -97,7 +97,7 @@ feature {}
       local
          i: INTEGER
       do
-         -- check if logic constraints are ok
+         -- check if logic constraints are OK
          from
             i := logic.lower
          until
@@ -107,7 +107,7 @@ feature {}
          end
 
          if i > logic.upper then
-            -- logics constraints are ok
+            -- logics constraints are OK
             -- then build the mask corresponding to the couple constraints
             builder.clear
             from

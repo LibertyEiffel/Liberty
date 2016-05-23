@@ -3,7 +3,7 @@
 --
 deferred class PARSER_IMAGE
    --
-   -- Please inherit from this class if you want objects to be returned from parser tokernizers.
+   -- Please inherit from this class if you want objects to be returned from parser tokenisers.
    --
 
 end -- class PARSER_IMAGE
@@ -14,7 +14,7 @@ end -- class PARSER_IMAGE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -3,7 +3,7 @@ The "log.new" file must be identical to the "log.ref" file.
 The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
-Found 74 test_* files.
+Found 76 test_* files.
 Found 0 bad_* files.
 Found 0 subdirectories.
 --------------------------------------------------------------------------------
@@ -547,6 +547,186 @@ se c -no_split -boost -bdw_gc test_array2.e -o test_array2.exe
 Running (-no_split -boost -bdw_gc) "test_array2.exe".
 se clean test_array2.e
 Removing (-no_split -boost -bdw_gc) "test_array2.exe".
+se c -boost test_array2_subclass.e -o test_array2_subclass.exe
+Running (-boost) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-boost) "test_array2_subclass.exe".
+se c -flat_check -all_check -debug test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -all_check -debug) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -all_check -debug) "test_array2_subclass.exe".
+se c -no_check test_array2_subclass.e -o test_array2_subclass.exe
+Running (-no_check) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-no_check) "test_array2_subclass.exe".
+se c -flat_check -require_check test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -require_check) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -require_check) "test_array2_subclass.exe".
+se c -flat_check -ensure_check test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -ensure_check) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -ensure_check) "test_array2_subclass.exe".
+se c -flat_check -invariant_check test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -invariant_check) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -invariant_check) "test_array2_subclass.exe".
+se c -flat_check -loop_check test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -loop_check) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -loop_check) "test_array2_subclass.exe".
+se c -flat_check -all_check test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -all_check) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -all_check) "test_array2_subclass.exe".
+Excluded command: "se c -no_gc -boost test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -boost -debug test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -no_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -require_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -invariant_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -loop_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -all_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe
+Running (-boost -bdw_gc) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-boost -bdw_gc) "test_array2_subclass.exe".
+se c -boost -debug -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe
+Running (-boost -debug -bdw_gc) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-boost -debug -bdw_gc) "test_array2_subclass.exe".
+se c -no_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe
+Running (-no_check -bdw_gc) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-no_check -bdw_gc) "test_array2_subclass.exe".
+se c -flat_check -require_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -require_check -bdw_gc) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -require_check -bdw_gc) "test_array2_subclass.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_array2_subclass.exe".
+se c -flat_check -loop_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -loop_check -bdw_gc) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -loop_check -bdw_gc) "test_array2_subclass.exe".
+se c -flat_check -all_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe
+Running (-flat_check -all_check -bdw_gc) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-flat_check -all_check -bdw_gc) "test_array2_subclass.exe".
+Excluded command: "se c -all_check -debug test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -all_check -debug".
+se c -require_check test_array2_subclass.e -o test_array2_subclass.exe
+Running (-require_check) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-require_check) "test_array2_subclass.exe".
+Excluded command: "se c -ensure_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -all_check".
+Excluded command: "se c -no_gc -require_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -invariant_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -loop_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -all_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe
+Running (-require_check -bdw_gc) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-require_check -bdw_gc) "test_array2_subclass.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -all_check".
+Excluded command: "se c -profile -boost test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -debug test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -boost test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -no_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -require_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -ensure_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -invariant_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -loop_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -all_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -require_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -ensure_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -invariant_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -loop_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -all_check test_array2_subclass.e -o test_array2_subclass.exe".
+By excluded.lst:  "se c -profile".
+se c -no_split -boost test_array2_subclass.e -o test_array2_subclass.exe
+Running (-no_split -boost) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-no_split -boost) "test_array2_subclass.exe".
+se c -no_split -no_gc -boost test_array2_subclass.e -o test_array2_subclass.exe
+Running (-no_split -no_gc -boost) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-no_split -no_gc -boost) "test_array2_subclass.exe".
+se c -no_split -boost -bdw_gc test_array2_subclass.e -o test_array2_subclass.exe
+Running (-no_split -boost -bdw_gc) "test_array2_subclass.exe".
+se clean test_array2_subclass.e
+Removing (-no_split -boost -bdw_gc) "test_array2_subclass.exe".
 se c -boost test_array2a.e -o test_array2a.exe
 Running (-boost) "test_array2a.exe".
 se clean test_array2a.e
@@ -1087,6 +1267,186 @@ se c -no_split -boost -bdw_gc test_array3.e -o test_array3.exe
 Running (-no_split -boost -bdw_gc) "test_array3.exe".
 se clean test_array3.e
 Removing (-no_split -boost -bdw_gc) "test_array3.exe".
+se c -boost test_array3_subclass.e -o test_array3_subclass.exe
+Running (-boost) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-boost) "test_array3_subclass.exe".
+se c -flat_check -all_check -debug test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -all_check -debug) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -all_check -debug) "test_array3_subclass.exe".
+se c -no_check test_array3_subclass.e -o test_array3_subclass.exe
+Running (-no_check) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-no_check) "test_array3_subclass.exe".
+se c -flat_check -require_check test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -require_check) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -require_check) "test_array3_subclass.exe".
+se c -flat_check -ensure_check test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -ensure_check) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -ensure_check) "test_array3_subclass.exe".
+se c -flat_check -invariant_check test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -invariant_check) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -invariant_check) "test_array3_subclass.exe".
+se c -flat_check -loop_check test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -loop_check) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -loop_check) "test_array3_subclass.exe".
+se c -flat_check -all_check test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -all_check) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -all_check) "test_array3_subclass.exe".
+Excluded command: "se c -no_gc -boost test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -boost -debug test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -no_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -require_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -invariant_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -loop_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -flat_check -all_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+se c -boost -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe
+Running (-boost -bdw_gc) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-boost -bdw_gc) "test_array3_subclass.exe".
+se c -boost -debug -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe
+Running (-boost -debug -bdw_gc) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-boost -debug -bdw_gc) "test_array3_subclass.exe".
+se c -no_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe
+Running (-no_check -bdw_gc) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-no_check -bdw_gc) "test_array3_subclass.exe".
+se c -flat_check -require_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -require_check -bdw_gc) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -require_check -bdw_gc) "test_array3_subclass.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -ensure_check".
+se c -flat_check -invariant_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -invariant_check -bdw_gc) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_array3_subclass.exe".
+se c -flat_check -loop_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -loop_check -bdw_gc) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -loop_check -bdw_gc) "test_array3_subclass.exe".
+se c -flat_check -all_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe
+Running (-flat_check -all_check -bdw_gc) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-flat_check -all_check -bdw_gc) "test_array3_subclass.exe".
+Excluded command: "se c -all_check -debug test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -all_check -debug".
+se c -require_check test_array3_subclass.e -o test_array3_subclass.exe
+Running (-require_check) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-require_check) "test_array3_subclass.exe".
+Excluded command: "se c -ensure_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -all_check".
+Excluded command: "se c -no_gc -require_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -ensure_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -invariant_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -loop_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+Excluded command: "se c -no_gc -all_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -no_gc".
+se c -require_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe
+Running (-require_check -bdw_gc) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-require_check -bdw_gc) "test_array3_subclass.exe".
+Excluded command: "se c -ensure_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -ensure_check".
+Excluded command: "se c -invariant_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -invariant_check".
+Excluded command: "se c -loop_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -loop_check".
+Excluded command: "se c -all_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -all_check".
+Excluded command: "se c -profile -boost test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -debug test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -boost test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -no_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -require_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -ensure_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -invariant_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -loop_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_gc -all_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -boost -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -no_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -require_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -ensure_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -invariant_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -loop_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -all_check -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -require_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -ensure_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -invariant_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -loop_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+Excluded command: "se c -profile -flat_check -all_check test_array3_subclass.e -o test_array3_subclass.exe".
+By excluded.lst:  "se c -profile".
+se c -no_split -boost test_array3_subclass.e -o test_array3_subclass.exe
+Running (-no_split -boost) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-no_split -boost) "test_array3_subclass.exe".
+se c -no_split -no_gc -boost test_array3_subclass.e -o test_array3_subclass.exe
+Running (-no_split -no_gc -boost) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-no_split -no_gc -boost) "test_array3_subclass.exe".
+se c -no_split -boost -bdw_gc test_array3_subclass.e -o test_array3_subclass.exe
+Running (-no_split -boost -bdw_gc) "test_array3_subclass.exe".
+se clean test_array3_subclass.e
+Removing (-no_split -boost -bdw_gc) "test_array3_subclass.exe".
 se c -boost test_array4.e -o test_array4.exe
 Running (-boost) "test_array4.exe".
 se clean test_array4.e

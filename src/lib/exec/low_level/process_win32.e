@@ -196,7 +196,7 @@ feature {}
          end
       end
 
-feature {EXEC_INPUT_STREAM_WIN32, EXEC_OUTPUT_STREAM_WIN32} -- plugin lowlevel data
+feature {EXEC_INPUT_STREAM_WIN32, EXEC_OUTPUT_STREAM_WIN32} -- plugin low-level data
    data: POINTER
 
 feature {} -- plugin features
@@ -292,7 +292,7 @@ end -- class PROCESS_WIN32
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

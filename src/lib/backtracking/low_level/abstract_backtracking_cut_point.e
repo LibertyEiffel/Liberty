@@ -5,7 +5,7 @@ class ABSTRACT_BACKTRACKING_CUT_POINT
    --
    -- Instances of that class are used by the ABSTRACT_BACKTRACKING
    -- to record "cut points" data. A cut point is an indication of
-   -- up to wich alternative are to be removed from the exploration.
+   -- up to which alternative are to be removed from the exploration.
    --
    -- Instances of that class are inserted in the continuation path
    -- to be retrieved by dynamic cast during calls to cut.
@@ -49,7 +49,7 @@ end -- class ABSTRACT_BACKTRACKING_CUT_POINT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

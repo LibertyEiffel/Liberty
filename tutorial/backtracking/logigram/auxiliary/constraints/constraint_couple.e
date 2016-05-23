@@ -29,7 +29,7 @@ feature {ANY}
       end
 
    build_masks (builder: MASK_BUILDER)
-         -- creation of the mask for the constaint
+         -- creation of the mask for the constraint
       deferred
       end
 

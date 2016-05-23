@@ -14,7 +14,7 @@ feature {ANY}
          -- True if the JSON text must be prettily indented, False if no extra space should be emitted
 
    raw: BOOLEAN
-         -- True if utf-8 characters can be emitted, False if '\u' sequences are emitted instead
+         -- True if UTF-8 characters can be emitted, False if '\u' sequences are emitted instead
 
    set_pretty (enable: BOOLEAN)
       do
@@ -185,7 +185,7 @@ end -- class JSON_ENCODER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

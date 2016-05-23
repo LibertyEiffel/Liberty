@@ -3,7 +3,7 @@
 --
 class EIFFELTEST_CLIENT_CONDUCTOR
    --
-   -- As in any good orchester, there must be a conductor
+   -- As in any good orchestra, there must be a conductor
    --
    -- The eiffeltest conductor starts the servers and distributes
    -- work among them by scanning subdirectories

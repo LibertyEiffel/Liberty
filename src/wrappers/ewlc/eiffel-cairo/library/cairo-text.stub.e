@@ -1,0 +1,397 @@
+note
+	description: "."
+	copyright: "[
+					Copyright (C) 2007 Paolo Redaelli, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+	wrapped_version: "1.2.4"
+
+class FOO
+
+inherit
+	(SHARED_?)C_STRUCT
+
+insert
+	FOO_EXTERNALS
+
+create {ANY} make, from_external_pointer
+
+feature {} -- Creation
+
+	--   Link: Cairo: A Vector Graphics Library (start)
+	--   Link: Drawing (parent)
+	--   Link: Transformations (previous)
+	--   Link: Fonts (next)
+	--   Link: Part I. Tutorial (part)
+	--   Link: Part II. Reference (part)
+	--   Link: Drawing (chapter)
+	--   Link: Fonts (chapter)
+	--   Link: Surfaces (chapter)
+	--   Link: Utilities (chapter)
+	--   Link: Index (index)
+	--   Link: Index of new symbols in 1.2 (index)
+	--   Link: Appendix A. Creating a language binding for cairo (appendix)
+	--
+	--   Prev Up Home             Cairo: A Vector Graphics Library             Next
+	--   Top  |  Description
+	--
+	--   Text
+	--
+	--   Text -- Rendering text and sets of glyphs
+	--
+	--Synopsis
+	--
+	--
+	--
+	--
+	--             cairo_glyph_t;
+	-- enum        cairo_font_slant_t;
+	-- enum        cairo_font_weight_t;
+	-- void        cairo_select_font_face          (cairo_t *cr,
+	--                                              const char *family,
+	--                                              cairo_font_slant_t slant,
+	--                                              cairo_font_weight_t weight);
+	-- void        cairo_set_font_size             (cairo_t *cr,
+	--                                              double size);
+	-- void        cairo_set_font_matrix           (cairo_t *cr,
+	--                                              const cairo_matrix_t *matrix);
+	-- void        cairo_get_font_matrix           (cairo_t *cr,
+	--                                              cairo_matrix_t *matrix);
+	-- void        cairo_set_font_options          (cairo_t *cr,
+	--                                              const cairo_font_options_t *options);
+	-- void        cairo_get_font_options          (cairo_t *cr,
+	--                                              cairo_font_options_t *options);
+	-- void        cairo_show_text                 (cairo_t *cr,
+	--                                              const char *utf8);
+	-- void        cairo_show_glyphs               (cairo_t *cr,
+	--                                              cairo_glyph_t *glyphs,
+	--                                              int num_glyphs);
+	-- cairo_font_face_t* cairo_get_font_face      (cairo_t *cr);
+	-- void        cairo_font_extents              (cairo_t *cr,
+	--                                              cairo_font_extents_t *extents);
+	-- void        cairo_set_font_face             (cairo_t *cr,
+	--                                              cairo_font_face_t *font_face);
+	-- void        cairo_set_scaled_font           (cairo_t *cr,
+	--                                              const cairo_scaled_font_t *scaled_font);
+	-- void        cairo_text_extents              (cairo_t *cr,
+	--                                              const char *utf8,
+	--                                              cairo_text_extents_t *extents);
+	-- void        cairo_glyph_extents             (cairo_t *cr,
+	--                                              cairo_glyph_t *glyphs,
+	--                                              int num_glyphs,
+	--                                              cairo_text_extents_t *extents);
+	--
+	--Description
+	--
+	--Details
+	--
+	--  cairo_glyph_t
+	--
+	-- typedef struct {
+	--   unsigned long        index;
+	--   double               x;
+	--   double               y;
+	-- } cairo_glyph_t;
+	--
+	--   The cairo_glyph_t structure holds information about a single glyph when
+	--   drawing or measuring text. A font is (in simple terms) a collection of
+	--   shapes used to draw text. A glyph is one of these shapes. There can be
+	--   multiple glyphs for a single character (alternates to be used in different
+	--   contexts, for example), or a glyph can be a ligature of multiple
+	--   characters. Cairo doesn't expose any way of converting input text into
+	--   glyphs, so in order to use the Cairo interfaces that take arrays of
+	--   glyphs, you must directly access the appropriate underlying font system.
+	--
+	--   Note that the offsets given by x and y are not cumulative. When drawing or
+	--   measuring text, each glyph is individually positioned with respect to the
+	--   overall origin
+	--
+	--   double x; the offset in the X direction between the origin used for
+	--             drawing or measuring the string and the origin of this glyph.
+	--   double y; the offset in the Y direction between the origin used for
+	--             drawing or measuring the string and the origin of this glyph.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum cairo_font_slant_t
+	--
+	-- typedef enum _cairo_font_slant {
+	--   CAIRO_FONT_SLANT_NORMAL,
+	--   CAIRO_FONT_SLANT_ITALIC,
+	--   CAIRO_FONT_SLANT_OBLIQUE
+	-- } cairo_font_slant_t;
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum cairo_font_weight_t
+	--
+	-- typedef enum _cairo_font_weight {
+	--   CAIRO_FONT_WEIGHT_NORMAL,
+	--   CAIRO_FONT_WEIGHT_BOLD
+	-- } cairo_font_weight_t;
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_select_font_face ()
+	--
+	-- void        cairo_select_font_face          (cairo_t *cr,
+	--                                              const char *family,
+	--                                              cairo_font_slant_t slant,
+	--                                              cairo_font_weight_t weight);
+	--
+	--   Selects a family and style of font from a simplified description as a
+	--   family name, slant and weight. This function is meant to be used only for
+	--   applications with simple font needs: Cairo doesn't provide for operations
+	--   such as listing all available fonts on the system, and it is expected that
+	--   most applications will need to use a more comprehensive font handling and
+	--   text layout library in addition to cairo.
+	--
+	--   cr :     a cairo_t
+	--   family : a font family name, encoded in UTF-8
+	--   slant :  the slant for the font
+	--   weight : the weight for the font
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_font_size ()
+	--
+	-- void        cairo_set_font_size             (cairo_t *cr,
+	--                                              double size);
+	--
+	--   Sets the current font matrix to a scale by a factor of size, replacing any
+	--   font matrix previously set with cairo_set_font_size() or
+	--   cairo_set_font_matrix(). This results in a font size of size user space
+	--   units. (More precisely, this matrix will result in the font's em-square
+	--   being a size by size square in user space.)
+	--
+	--   cr :   a cairo_t
+	--   size : the new font size, in user space units
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_font_matrix ()
+	--
+	-- void        cairo_set_font_matrix           (cairo_t *cr,
+	--                                              const cairo_matrix_t *matrix);
+	--
+	--   Sets the current font matrix to matrix. The font matrix gives a
+	--   transformation from the design space of the font (in this space, the
+	--   em-square is 1 unit by 1 unit) to user space. Normally, a simple scale is
+	--   used (see cairo_set_font_size()), but a more complex font matrix can be
+	--   used to shear the font or stretch it unequally along the two axes
+	--
+	--   cr :     a cairo_t
+	--   matrix : a cairo_matrix_t describing a transform to be applied to the
+	--            current font.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_font_matrix ()
+	--
+	-- void        cairo_get_font_matrix           (cairo_t *cr,
+	--                                              cairo_matrix_t *matrix);
+	--
+	--   Stores the current font matrix into matrix. See cairo_set_font_matrix().
+	--
+	--   cr :     a cairo_t
+	--   matrix : return value for the matrix
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_font_options ()
+	--
+	-- void        cairo_set_font_options          (cairo_t *cr,
+	--                                              const cairo_font_options_t *options);
+	--
+	--   Sets a set of custom font rendering options for the cairo_t. Rendering
+	--   options are derived by merging these options with the options derived from
+	--   underlying surface; if the value in options has a default value (like
+	--   CAIRO_ANTIALIAS_DEFAULT), then the value from the surface is used.
+	--
+	--   cr :      a cairo_t
+	--   options : font options to use
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_font_options ()
+	--
+	-- void        cairo_get_font_options          (cairo_t *cr,
+	--                                              cairo_font_options_t *options);
+	--
+	--   Retrieves font rendering options set via cairo_set_font_options. Note that
+	--   the returned options do not include any options derived from the
+	--   underlying surface; they are literally the options passed to
+	--   cairo_set_font_options().
+	--
+	--   cr :      a cairo_t
+	--   options : a cairo_font_options_t object into which to store the retrieved
+	--             options. All existing values are overwritten
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_show_text ()
+	--
+	-- void        cairo_show_text                 (cairo_t *cr,
+	--                                              const char *utf8);
+	--
+	--   A drawing operator that generates the shape from a string of UTF-8
+	--   characters, rendered according to the current font_face, font_size
+	--   (font_matrix), and font_options.
+	--
+	--   This function first computes a set of glyphs for the string of text. The
+	--   first glyph is placed so that its origin is at the current point. The
+	--   origin of each subsequent glyph is offset from that of the previous glyph
+	--   by the advance values of the previous glyph.
+	--
+	--   After this call the current point is moved to the origin of where the next
+	--   glyph would be placed in this same progression. That is, the current point
+	--   will be at the origin of the final glyph offset by its advance values.
+	--   This allows for easy display of a single logical string with multiple
+	--   calls to cairo_show_text().
+	--
+	--   NOTE: The cairo_show_text() function call is part of what the cairo
+	--   designers call the "toy" text API. It is convenient for short demos and
+	--   simple programs, but it is not expected to be adequate for the most
+	--   serious of text-using applications. See cairo_show_glyphs() for the "real"
+	--   text display API in cairo.
+	--
+	--   cr :   a cairo context
+	--   utf8 : a string of text encoded in UTF-8
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_show_glyphs ()
+	--
+	-- void        cairo_show_glyphs               (cairo_t *cr,
+	--                                              cairo_glyph_t *glyphs,
+	--                                              int num_glyphs);
+	--
+	--   cr :
+	--   glyphs :
+	--   num_glyphs :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_font_face ()
+	--
+	-- cairo_font_face_t* cairo_get_font_face      (cairo_t *cr);
+	--
+	--   Gets the current font face for a cairo_t.
+	--
+	--   cr :      a cairo_t
+	--   Returns : the current font object. Can return NULL on out-of-memory or if
+	--             the context is already in an error state. This object is owned
+	--             by cairo. To keep a reference to it, you must call
+	--             cairo_font_face_reference().
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_font_extents ()
+	--
+	-- void        cairo_font_extents              (cairo_t *cr,
+	--                                              cairo_font_extents_t *extents);
+	--
+	--   Gets the font extents for the currently selected font.
+	--
+	--   cr :      a cairo_t
+	--   extents : a cairo_font_extents_t object into which the results will be
+	--             stored.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_font_face ()
+	--
+	-- void        cairo_set_font_face             (cairo_t *cr,
+	--                                              cairo_font_face_t *font_face);
+	--
+	--   Replaces the current cairo_font_face_t object in the cairo_t with
+	--   font_face. The replaced font face in the cairo_t will be destroyed if
+	--   there are no other references to it.
+	--
+	--   cr :        a cairo_t
+	--   font_face : a cairo_font_face_t, or NULL to restore to the default font
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_scaled_font ()
+	--
+	-- void        cairo_set_scaled_font           (cairo_t *cr,
+	--                                              const cairo_scaled_font_t *scaled_font);
+	--
+	--   Replaces the current font face, font matrix, and font options in the
+	--   cairo_t with those of the cairo_scaled_font_t. Except for some
+	--   translation, the current CTM of the cairo_t should be the same as that of
+	--   the cairo_scaled_font_t, which can be accessed using
+	--   cairo_scaled_font_get_ctm().
+	--
+	--   cr :          a cairo_t
+	--   scaled_font : a cairo_scaled_font_t
+	--
+	--   Since 1.2
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_text_extents ()
+	--
+	-- void        cairo_text_extents              (cairo_t *cr,
+	--                                              const char *utf8,
+	--                                              cairo_text_extents_t *extents);
+	--
+	--   Gets the extents for a string of text. The extents describe a user-space
+	--   rectangle that encloses the "inked" portion of the text, (as it would be
+	--   drawn by cairo_show_text()). Additionally, the x_advance and y_advance
+	--   values indicate the amount by which the current point would be advanced by
+	--   cairo_show_text().
+	--
+	--   Note that whitespace characters do not directly contribute to the size of
+	--   the rectangle (extents.width and extents.height). They do contribute
+	--   indirectly by changing the position of non-whitespace characters. In
+	--   particular, trailing whitespace characters are likely to not affect the
+	--   size of the rectangle, though they will affect the x_advance and y_advance
+	--   values.
+	--
+	--   cr :      a cairo_t
+	--   utf8 :    a string of text, encoded in UTF-8
+	--   extents : a cairo_text_extents_t object into which the results will be
+	--             stored
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_glyph_extents ()
+	--
+	-- void        cairo_glyph_extents             (cairo_t *cr,
+	--                                              cairo_glyph_t *glyphs,
+	--                                              int num_glyphs,
+	--                                              cairo_text_extents_t *extents);
+	--
+	--   Gets the extents for an array of glyphs. The extents describe a user-space
+	--   rectangle that encloses the "inked" portion of the glyphs, (as they would
+	--   be drawn by cairo_show_glyphs()). Additionally, the x_advance and
+	--   y_advance values indicate the amount by which the current point would be
+	--   advanced by cairo_show_glyphs.
+	--
+	--   Note that whitespace glyphs do not contribute to the size of the rectangle
+	--   (extents.width and extents.height).
+	--
+	--   cr :         a cairo_t
+	--   glyphs :     an array of cairo_glyph_t objects
+	--   num_glyphs : the number of elements in glyphs
+	--   extents :    a cairo_text_extents_t object into which the results will be
+	--                stored
+
+end -- class FOO

@@ -85,12 +85,13 @@ feature {ANY}
                   log(once "Anchored query #(2) for typedef #(1)%N" # c_string_name # query_name)
 
 				  buffer.append(once "       #(1): #(2)%N%
-							  %               -- typedef #(3)%N%
+							  %               -- typedef #(3) from #(4)%N%
 							  %               -- Empty by design, used for anchored declarations.%N%
 							  %       do%N%
 							  %       ensure Result.is_default%N%
 							  %       end%N%
-							  %%N" # query_name # wrapper_type # c_string_name)
+							  %%N" # query_name # wrapper_type # c_string_name 
+                              # c_file.c_string_name )
 			  else
 				  buffer.append(once "%T-- #(1) unwrappable: no wrapper type.%N" # c_string_name)
                   -- TODO: add the case of typedef to void
@@ -104,15 +105,32 @@ feature {ANY}
       end -- invariant name.is_equal(once U"Typedef")
 
 feature {ANY}
-   emit_wrapper
-      do
-         -- Nothing, wrappers of C typedefs are handled in TYPEDEF collection.
-      end
+    emit_wrapper
+    local a_composed_type: COMPOSED_NODE
+    do
+        if a_composed_type ?:= referree then
+            log("Emitting wrapper for typedef #(1)%N" # c_string_name)
+            a_composed_type ::= referree 
+            if a_composed_type /=Void then
+                if not a_composed_type.is_named then
+                    log("Referred #(1) is anonymous, forcingly setting its name to #(2)%N" # 
+                    a_composed_type.c_type # c_string_name)
+                    a_composed_type.set_name(c_string_name)
+                end
+                a_composed_type.emit_wrapper  
+            else
+                log(" typedef #(1) has no referree node%N" # c_string_name)
+            end
+        else
+            log("No wrapper for typedef #(1)%N" # c_string_name)
+        end
+        emitted := True
+    end
 
    suffix: STRING ""
 
 end -- class C_TYPEDEF
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016:  Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

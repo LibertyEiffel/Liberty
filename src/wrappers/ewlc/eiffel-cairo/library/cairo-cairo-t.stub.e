@@ -1,0 +1,1212 @@
+note
+	description: "."
+	copyright: "[
+					Copyright (C) 2007 Paolo Redaelli, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+	wrapped_version: "1.2.4"
+
+class FOO
+
+inherit
+	(SHARED_?)C_STRUCT
+
+insert
+	FOO_EXTERNALS
+
+create {ANY} make, from_external_pointer
+
+feature {} -- Creation
+
+	--   Link: Cairo: A Vector Graphics Library (start)
+	--   Link: Drawing (parent)
+	--   Link: Drawing (previous)
+	--   Link: Paths (next)
+	--   Link: Part I. Tutorial (part)
+	--   Link: Part II. Reference (part)
+	--   Link: Drawing (chapter)
+	--   Link: Fonts (chapter)
+	--   Link: Surfaces (chapter)
+	--   Link: Utilities (chapter)
+	--   Link: Index (index)
+	--   Link: Index of new symbols in 1.2 (index)
+	--   Link: Appendix A. Creating a language binding for cairo (appendix)
+	--
+	--   Prev Up Home             Cairo: A Vector Graphics Library             Next
+	--   Top  |  Description
+	--
+	--   cairo_t
+	--
+	--   cairo_t -- The cairo drawing context
+	--
+	--Synopsis
+	--
+	--
+	--
+	--
+	-- typedef     cairo_t;
+	-- cairo_t*    cairo_create                    (cairo_surface_t *target);
+	-- cairo_t*    cairo_reference                 (cairo_t *cr);
+	-- void        cairo_destroy                   (cairo_t *cr);
+	-- cairo_status_t cairo_status                 (cairo_t *cr);
+	-- void        cairo_save                      (cairo_t *cr);
+	-- void        cairo_restore                   (cairo_t *cr);
+	-- cairo_surface_t* cairo_get_target           (cairo_t *cr);
+	-- void        cairo_push_group                (cairo_t *cr);
+	-- void        cairo_push_group_with_content   (cairo_t *cr,
+	--                                              cairo_content_t content);
+	-- cairo_pattern_t* cairo_pop_group            (cairo_t *cr);
+	-- void        cairo_pop_group_to_source       (cairo_t *cr);
+	-- cairo_surface_t* cairo_get_group_target     (cairo_t *cr);
+	-- void        cairo_set_source_rgb            (cairo_t *cr,
+	--                                              double red,
+	--                                              double green,
+	--                                              double blue);
+	-- void        cairo_set_source_rgba           (cairo_t *cr,
+	--                                              double red,
+	--                                              double green,
+	--                                              double blue,
+	--                                              double alpha);
+	-- void        cairo_set_source                (cairo_t *cr,
+	--                                              cairo_pattern_t *source);
+	-- void        cairo_set_source_surface        (cairo_t *cr,
+	--                                              cairo_surface_t *surface,
+	--                                              double x,
+	--                                              double y);
+	-- cairo_pattern_t* cairo_get_source           (cairo_t *cr);
+	-- enum        cairo_antialias_t;
+	-- void        cairo_set_antialias             (cairo_t *cr,
+	--                                              cairo_antialias_t antialias);
+	-- cairo_antialias_t cairo_get_antialias       (cairo_t *cr);
+	-- void        cairo_set_dash                  (cairo_t *cr,
+	--                                              const double *dashes,
+	--                                              int num_dashes,
+	--                                              double offset);
+	-- enum        cairo_fill_rule_t;
+	-- void        cairo_set_fill_rule             (cairo_t *cr,
+	--                                              cairo_fill_rule_t fill_rule);
+	-- cairo_fill_rule_t cairo_get_fill_rule       (cairo_t *cr);
+	-- enum        cairo_line_cap_t;
+	-- void        cairo_set_line_cap              (cairo_t *cr,
+	--                                              cairo_line_cap_t line_cap);
+	-- cairo_line_cap_t cairo_get_line_cap         (cairo_t *cr);
+	-- enum        cairo_line_join_t;
+	-- void        cairo_set_line_join             (cairo_t *cr,
+	--                                              cairo_line_join_t line_join);
+	-- cairo_line_join_t cairo_get_line_join       (cairo_t *cr);
+	-- void        cairo_set_line_width            (cairo_t *cr,
+	--                                              double width);
+	-- double      cairo_get_line_width            (cairo_t *cr);
+	-- void        cairo_set_miter_limit           (cairo_t *cr,
+	--                                              double limit);
+	-- double      cairo_get_miter_limit           (cairo_t *cr);
+	-- enum        cairo_operator_t;
+	-- void        cairo_set_operator              (cairo_t *cr,
+	--                                              cairo_operator_t op);
+	-- cairo_operator_t cairo_get_operator         (cairo_t *cr);
+	-- void        cairo_set_tolerance             (cairo_t *cr,
+	--                                              double tolerance);
+	-- double      cairo_get_tolerance             (cairo_t *cr);
+	-- void        cairo_clip                      (cairo_t *cr);
+	-- void        cairo_clip_preserve             (cairo_t *cr);
+	-- void        cairo_reset_clip                (cairo_t *cr);
+	-- void        cairo_fill                      (cairo_t *cr);
+	-- void        cairo_fill_preserve             (cairo_t *cr);
+	-- void        cairo_fill_extents              (cairo_t *cr,
+	--                                              double *x1,
+	--                                              double *y1,
+	--                                              double *x2,
+	--                                              double *y2);
+	-- cairo_bool_t cairo_in_fill                  (cairo_t *cr,
+	--                                              double x,
+	--                                              double y);
+	-- void        cairo_mask                      (cairo_t *cr,
+	--                                              cairo_pattern_t *pattern);
+	-- void        cairo_mask_surface              (cairo_t *cr,
+	--                                              cairo_surface_t *surface,
+	--                                              double surface_x,
+	--                                              double surface_y);
+	-- void        cairo_paint                     (cairo_t *cr);
+	-- void        cairo_paint_with_alpha          (cairo_t *cr,
+	--                                              double alpha);
+	-- void        cairo_stroke                    (cairo_t *cr);
+	-- void        cairo_stroke_preserve           (cairo_t *cr);
+	-- void        cairo_stroke_extents            (cairo_t *cr,
+	--                                              double *x1,
+	--                                              double *y1,
+	--                                              double *x2,
+	--                                              double *y2);
+	-- cairo_bool_t cairo_in_stroke                (cairo_t *cr,
+	--                                              double x,
+	--                                              double y);
+	-- void        cairo_copy_page                 (cairo_t *cr);
+	-- void        cairo_show_page                 (cairo_t *cr);
+	--
+	--
+	--Description
+	--
+	--   cairo_t is the main object used when drawing with cairo. To draw with
+	--   cairo, you create a cairo_t, set the target surface, and drawing options
+	--   for the cairo_t, create shapes with functions like cairo_move_to() and
+	--   cairo_line_to(), and then draw shapes with cairo_stroke() or cairo_fill().
+	--
+	--   cairo_t's can be pushed to a stack via cairo_save(). They may then safely
+	--   be changed, without loosing the current state. Use cairo_restore() to
+	--   restore to the saved state.
+	--
+	--Details
+	--
+	--  cairo_t
+	--
+	-- typedef struct _cairo cairo_t;
+	--
+	--   A cairo_t contains the current state of the rendering device, including
+	--   coordinates of yet to be drawn shapes.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_create ()
+	--
+	-- cairo_t*    cairo_create                    (cairo_surface_t *target);
+	--
+	--   Creates a new cairo_t with all graphics state parameters set to default
+	--   values and with target as a target surface. The target surface should be
+	--   constructed with a backend-specific function such as
+	--   cairo_image_surface_create() (or any other cairo_<backend>_surface_create
+	--   variant).
+	--
+	--   This function references target, so you can immediately call
+	--   cairo_surface_destroy() on it if you don't need to maintain a separate
+	--   reference to it.
+	--
+	--   target :  target surface for the context
+	--   Returns : a newly allocated cairo_t with a reference count of 1. The
+	--             initial reference count should be released with cairo_destroy()
+	--             when you are done using the cairo_t. This function never returns
+	--             NULL. If memory cannot be allocated, a special cairo_t object
+	--             will be returned on which cairo_status() returns
+	--             CAIRO_STATUS_NO_MEMORY. You can use this object normally, but no
+	--             drawing will be done.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_reference ()
+	--
+	-- cairo_t*    cairo_reference                 (cairo_t *cr);
+	--
+	--   Increases the reference count on cr by one. This prevents cr from being
+	--   destroyed until a matching call to cairo_destroy() is made.
+	--
+	--   cr :      a cairo_t
+	--   Returns : the referenced cairo_t.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_destroy ()
+	--
+	-- void        cairo_destroy                   (cairo_t *cr);
+	--
+	--   Decreases the reference count on cr by one. If the result is zero, then cr
+	--   and all associated resources are freed. See cairo_reference().
+	--
+	--   cr : a cairo_t
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_status ()
+	--
+	-- cairo_status_t cairo_status                 (cairo_t *cr);
+	--
+	--   Checks whether an error has previously occurred for this context.
+	--
+	--   cr :      a cairo context
+	--   Returns : the current status of this context, see cairo_status_t
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_save ()
+	--
+	-- void        cairo_save                      (cairo_t *cr);
+	--
+	--   Makes a copy of the current state of cr and saves it on an internal stack
+	--   of saved states for cr. When cairo_restore() is called, cr will be
+	--   restored to the saved state. Multiple calls to cairo_save() and
+	--   cairo_restore() can be nested; each call to cairo_restore() restores the
+	--   state from the matching paired cairo_save().
+	--
+	--   It isn't necessary to clear all saved states before a cairo_t is freed. If
+	--   the reference count of a cairo_t drops to zero in response to a call to
+	--   cairo_destroy(), any saved states will be freed along with the cairo_t.
+	--
+	--   cr : a cairo_t
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_restore ()
+	--
+	-- void        cairo_restore                   (cairo_t *cr);
+	--
+	--   Restores cr to the state saved by a preceding call to cairo_save() and
+	--   removes that state from the stack of saved states.
+	--
+	--   cr : a cairo_t
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_target ()
+	--
+	-- cairo_surface_t* cairo_get_target           (cairo_t *cr);
+	--
+	--   Gets the target surface for the cairo context as passed to cairo_create().
+	--
+	--   This function will always return a valid pointer, but the result can be a
+	--   "nil" surface if cr is already in an error state, (ie. cairo_status() !=
+	--   CAIRO_STATUS_SUCCESS). A nil surface is indicated by
+	--   cairo_surface_status() != CAIRO_STATUS_SUCCESS.
+	--
+	--   cr :      a cairo context
+	--   Returns : the target surface. This object is owned by cairo. To keep a
+	--             reference to it, you must call cairo_surface_reference().
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_push_group ()
+	--
+	-- void        cairo_push_group                (cairo_t *cr);
+	--
+	--   Temporarily redirects drawing to an intermediate surface known as a group.
+	--   The redirection lasts until the group is completed by a call to
+	--   cairo_pop_group() or cairo_pop_group_to_source(). These calls provide the
+	--   result of any drawing to the group as a pattern, (either as an explicit
+	--   object, or set as the source pattern).
+	--
+	--   This group functionality can be convenient for performing intermediate
+	--   compositing. One common use of a group is to render objects as opaque
+	--   within the group, (so that they occlude each other), and then blend the
+	--   result with translucence onto the destination.
+	--
+	--   Groups can be nested arbitrarily deep by making balanced calls to
+	--   cairo_push_group()/cairo_pop_group(). Each call pushes/pops the new target
+	--   group onto/from a stack.
+	--
+	--   The cairo_push_group() function calls cairo_save() so that any changes to
+	--   the graphics state will not be visible outside the group, (the pop_group
+	--   functions call cairo_restore()).
+	--
+	--   By default the intermediate group will have a content type of
+	--   CAIRO_CONTENT_COLOR_ALPHA. Other content types can be chosen for the group
+	--   by using cairo_push_group_with_content() instead.
+	--
+	--   As an example, here is how one might fill and stroke a path with
+	--   translucence, but without any portion of the fill being visible under the
+	--   stroke:
+	--
+	-- cairo_push_group (cr);
+	-- cairo_set_source (cr, fill_pattern);
+	-- cairo_fill_preserve (cr);
+	-- cairo_set_source (cr, stroke_pattern);
+	-- cairo_stroke (cr);
+	-- cairo_pop_group_to_source (cr);
+	-- cairo_paint_with_alpha (cr, alpha);
+	--
+	--   cr : a cairo context
+	--
+	--   Since 1.2
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_push_group_with_content ()
+	--
+	-- void        cairo_push_group_with_content   (cairo_t *cr,
+	--                                              cairo_content_t content);
+	--
+	--   Temporarily redirects drawing to an intermediate surface known as a group.
+	--   The redirection lasts until the group is completed by a call to
+	--   cairo_pop_group() or cairo_pop_group_to_source(). These calls provide the
+	--   result of any drawing to the group as a pattern, (either as an explicit
+	--   object, or set as the source pattern).
+	--
+	--   The group will have a content type of content. The ability to control this
+	--   content type is the only distinction between this function and
+	--   cairo_push_group() which you should see for a more detailed description of
+	--   group rendering.
+	--
+	--   cr :      a cairo context
+	--   content : a cairo_content_t indicating the type of group that will be
+	--             created
+	--
+	--   Since 1.2
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_pop_group ()
+	--
+	-- cairo_pattern_t* cairo_pop_group            (cairo_t *cr);
+	--
+	--   Terminates the redirection begun by a call to cairo_push_group() or
+	--   cairo_push_group_with_content() and returns a new pattern containing the
+	--   results of all drawing operations performed to the group.
+	--
+	--   The cairo_pop_group() function calls cairo_restore(), (balancing a call to
+	--   cairo_save() by the push_group function), so that any changes to the
+	--   graphics state will not be visible outside the group.
+	--
+	--   cr :      a cairo context
+	--   Returns : a newly created (surface) pattern containing the results of all
+	--             drawing operations performed to the group. The caller owns the
+	--             returned object and should call cairo_pattern_destroy() when
+	--             finished with it.
+	--
+	--   Since 1.2
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_pop_group_to_source ()
+	--
+	-- void        cairo_pop_group_to_source       (cairo_t *cr);
+	--
+	--   Terminates the redirection begun by a call to cairo_push_group() or
+	--   cairo_push_group_with_content() and installs the resulting pattern as the
+	--   source pattern in the given cairo context.
+	--
+	--   The behavior of this function is equivalent to the sequence of operations:
+	--
+	-- cairo_pattern_t *group = cairo_pop_group (cr);
+	-- cairo_set_source (cr, group);
+	-- cairo_pattern_destroy (group);
+	--
+	--   but is more convenient as their is no need for a variable to store the
+	--   short-lived pointer to the pattern.
+	--
+	--   The cairo_pop_group() function calls cairo_restore(), (balancing a call to
+	--   cairo_save() by the push_group function), so that any changes to the
+	--   graphics state will not be visible outside the group.
+	--
+	--   cr : a cairo context
+	--
+	--   Since 1.2
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_group_target ()
+	--
+	-- cairo_surface_t* cairo_get_group_target     (cairo_t *cr);
+	--
+	--   Gets the target surface for the current group as started by the most
+	--   recent call to cairo_push_group() or cairo_push_group_with_content().
+	--
+	--   This function will return NULL if called "outside" of any group rendering
+	--   blocks, (that is, after the last balancing call to cairo_pop_group() or
+	--   cairo_pop_group_to_source()).
+	--
+	--   cr :      a cairo context
+	--   Returns : the target group surface, or NULL if none. This object is owned
+	--             by cairo. To keep a reference to it, you must call
+	--             cairo_surface_reference().
+	--
+	--   Since 1.2
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_source_rgb ()
+	--
+	-- void        cairo_set_source_rgb            (cairo_t *cr,
+	--                                              double red,
+	--                                              double green,
+	--                                              double blue);
+	--
+	--   Sets the source pattern within cr to an opaque color. This opaque color
+	--   will then be used for any subsequent drawing operation until a new source
+	--   pattern is set.
+	--
+	--   The color components are floating point numbers in the range 0 to 1. If
+	--   the values passed in are outside that range, they will be clamped.
+	--
+	--   cr :    a cairo context
+	--   red :   red component of color
+	--   green : green component of color
+	--   blue :  blue component of color
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_source_rgba ()
+	--
+	-- void        cairo_set_source_rgba           (cairo_t *cr,
+	--                                              double red,
+	--                                              double green,
+	--                                              double blue,
+	--                                              double alpha);
+	--
+	--   Sets the source pattern within cr to a translucent color. This color will
+	--   then be used for any subsequent drawing operation until a new source
+	--   pattern is set.
+	--
+	--   The color and alpha components are floating point numbers in the range 0
+	--   to 1. If the values passed in are outside that range, they will be
+	--   clamped.
+	--
+	--   cr :    a cairo context
+	--   red :   red component of color
+	--   green : green component of color
+	--   blue :  blue component of color
+	--   alpha : alpha component of color
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_source ()
+	--
+	-- void        cairo_set_source                (cairo_t *cr,
+	--                                              cairo_pattern_t *source);
+	--
+	--   Sets the source pattern within cr to source. This pattern will then be
+	--   used for any subsequent drawing operation until a new source pattern is
+	--   set.
+	--
+	--   Note: The pattern's transformation matrix will be locked to the user space
+	--   in effect at the time of cairo_set_source(). This means that further
+	--   modifications of the current transformation matrix will not affect the
+	--   source pattern. See cairo_pattern_set_matrix().
+	--
+	--   XXX: I'd also like to direct the reader's attention to some
+	--   (not-yet-written) section on cairo's imaging model. How would I do that if
+	--   such a section existed? (cworth).
+	--
+	--   cr :     a cairo context
+	--   source : a cairo_pattern_t to be used as the source for subsequent drawing
+	--            operations.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_source_surface ()
+	--
+	-- void        cairo_set_source_surface        (cairo_t *cr,
+	--                                              cairo_surface_t *surface,
+	--                                              double x,
+	--                                              double y);
+	--
+	--   This is a convenience function for creating a pattern from surface and
+	--   setting it as the source in cr with cairo_set_source().
+	--
+	--   The x and y parameters give the user-space coordinate at which the surface
+	--   origin should appear. (The surface origin is its upper-left corner before
+	--   any transformation has been applied.) The x and y patterns are negated and
+	--   then set as translation values in the pattern matrix.
+	--
+	--   Other than the initial translation pattern matrix, as described above, all
+	--   other pattern attributes, (such as its extend mode), are set to the
+	--   default values as in cairo_pattern_create_for_surface(). The resulting
+	--   pattern can be queried with cairo_get_source() so that these attributes
+	--   can be modified if desired, (eg. to create a repeating pattern with
+	--   cairo_pattern_set_extend()).
+	--
+	--   cr :      a cairo context
+	--   surface : a surface to be used to set the source pattern
+	--   x :       User-space X coordinate for surface origin
+	--   y :       User-space Y coordinate for surface origin
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_source ()
+	--
+	-- cairo_pattern_t* cairo_get_source           (cairo_t *cr);
+	--
+	--   Gets the current source pattern for cr.
+	--
+	--   cr :      a cairo context
+	--   Returns : the current source pattern. This object is owned by cairo. To
+	--             keep a reference to it, you must call cairo_pattern_reference().
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum cairo_antialias_t
+	--
+	-- typedef enum _cairo_antialias {
+	--     CAIRO_ANTIALIAS_DEFAULT,
+	--     CAIRO_ANTIALIAS_NONE,
+	--     CAIRO_ANTIALIAS_GRAY,
+	--     CAIRO_ANTIALIAS_SUBPIXEL
+	-- } cairo_antialias_t;
+	--
+	--   Specifies the type of antialiasing to do when rendering text or shapes.
+	--
+	--   CAIRO_ANTIALIAS_DEFAULT  Use the default antialiasing for the subsystem
+	--                            and target device
+	--   CAIRO_ANTIALIAS_NONE     Use a bilevel alpha mask
+	--   CAIRO_ANTIALIAS_GRAY     Perform single-color antialiasing (using shades
+	--                            of gray for black text on a white background, for
+	--                            example).
+	--   CAIRO_ANTIALIAS_SUBPIXEL Perform antialiasing by taking advantage of the
+	--                            order of subpixel elements on devices such as LCD
+	--                            panels
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_antialias ()
+	--
+	-- void        cairo_set_antialias             (cairo_t *cr,
+	--                                              cairo_antialias_t antialias);
+	--
+	--   Set the antialiasing mode of the rasterizer used for drawing shapes. This
+	--   value is a hint, and a particular backend may or may not support a
+	--   particular value. At the current time, no backend supports
+	--   CAIRO_ANTIALIAS_SUBPIXEL when drawing shapes.
+	--
+	--   Note that this option does not affect text rendering, instead see
+	--   cairo_font_options_set_antialias().
+	--
+	--   cr :        a cairo_t
+	--   antialias : the new antialiasing mode
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_antialias ()
+	--
+	-- cairo_antialias_t cairo_get_antialias       (cairo_t *cr);
+	--
+	--   Gets the current shape antialiasing mode, as set by
+	--   cairo_set_shape_antialias().
+	--
+	--   cr :      a cairo context
+	--   Returns : the current shape antialiasing mode.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_dash ()
+	--
+	-- void        cairo_set_dash                  (cairo_t *cr,
+	--                                              const double *dashes,
+	--                                              int num_dashes,
+	--                                              double offset);
+	--
+	--   Sets the dash pattern to be used by cairo_stroke(). A dash pattern is
+	--   specified by dashes, an array of positive values. Each value provides the
+	--   length of alternate "on" and "off" portions of the stroke. The offset
+	--   specifies an offset into the pattern at which the stroke begins.
+	--
+	--   Each "on" segment will have caps applied as if the segment were a separate
+	--   sub-path. In particular, it is valid to use an "on" length of 0.0 with
+	--   CAIRO_LINE_CAP_ROUND or CAIRO_LINE_CAP_SQUARE in order to distributed dots
+	--   or squares along a path.
+	--
+	--   Note: The length values are in user-space units as evaluated at the time
+	--   of stroking. This is not necessarily the same as the user space at the
+	--   time of cairo_set_dash().
+	--
+	--   If num_dashes is 0 dashing is disabled.
+	--
+	--   If num_dashes is 1 a symmetric pattern is assumed with alternating on and
+	--   off portions of the size specified by the single value in dashes.
+	--
+	--   If any value in dashes is negative, or if all values are 0, then cairo_t
+	--   will be put into an error state with a status of
+	--   CAIRO_STATUS_INVALID_DASH.
+	--
+	--   cr :         a cairo context
+	--   dashes :     an array specifying alternate lengths of on and off stroke
+	--                portions
+	--   num_dashes : the length of the dashes array
+	--   offset :     an offset into the dash pattern at which the stroke should
+	--                start
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum cairo_fill_rule_t
+	--
+	-- typedef enum _cairo_fill_rule {
+	--     CAIRO_FILL_RULE_WINDING,
+	--     CAIRO_FILL_RULE_EVEN_ODD
+	-- } cairo_fill_rule_t;
+	--
+	--   cairo_fill_rule_t is used to select how paths are filled. For both fill
+	--   rules, whether or not a point is included in the fill is determined by
+	--   taking a ray from that point to infinity and looking at intersections with
+	--   the path. The ray can be in any direction, as long as it doesn't pass
+	--   through the end point of a segment or have a tricky intersection such as
+	--   intersecting tangent to the path. (Note that filling is not actually
+	--   implemented in this way. This is just a description of the rule that is
+	--   applied.)
+	--
+	--   New entries may be added in future versions.
+	--
+	--   CAIRO_FILL_RULE_WINDING  If the path crosses the ray from left-to-right,
+	--                            counts +1. If the path crosses the ray from right
+	--                            to left, counts -1. (Left and right are
+	--                            determined from the perspective of looking along
+	--                            the ray from the starting point.) If the total
+	--                            count is non-zero, the point will be filled.
+	--   CAIRO_FILL_RULE_EVEN_ODD Counts the total number of intersections, without
+	--                            regard to the orientation of the contour. If the
+	--                            total number of intersections is odd, the point
+	--                            will be filled.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_fill_rule ()
+	--
+	-- void        cairo_set_fill_rule             (cairo_t *cr,
+	--                                              cairo_fill_rule_t fill_rule);
+	--
+	--   Set the current fill rule within the cairo context. The fill rule is used
+	--   to determine which regions are inside or outside a complex (potentially
+	--   self-intersecting) path. The current fill rule affects both cairo_fill and
+	--   cairo_clip. See cairo_fill_rule_t for details on the semantics of each
+	--   available fill rule.
+	--
+	--   cr :        a cairo_t
+	--   fill_rule : a fill rule, specified as a cairo_fill_rule_t
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_fill_rule ()
+	--
+	-- cairo_fill_rule_t cairo_get_fill_rule       (cairo_t *cr);
+	--
+	--   Gets the current fill rule, as set by cairo_set_fill_rule().
+	--
+	--   cr :      a cairo context
+	--   Returns : the current fill rule.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum cairo_line_cap_t
+	--
+	-- typedef enum _cairo_line_cap {
+	--     CAIRO_LINE_CAP_BUTT,
+	--     CAIRO_LINE_CAP_ROUND,
+	--     CAIRO_LINE_CAP_SQUARE
+	-- } cairo_line_cap_t;
+	--
+	--   enumeration for style of line-endings
+	--
+	--   CAIRO_LINE_CAP_BUTT   start(stop) the line exactly at the start(end) point
+	--   CAIRO_LINE_CAP_ROUND  use a round ending, the center of the circle is the
+	--                         end point
+	--   CAIRO_LINE_CAP_SQUARE use squared ending, the center of the square is the
+	--                         end point
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_line_cap ()
+	--
+	-- void        cairo_set_line_cap              (cairo_t *cr,
+	--                                              cairo_line_cap_t line_cap);
+	--
+	--   Sets the current line cap style within the cairo context. See
+	--   cairo_line_cap_t for details about how the available line cap styles are
+	--   drawn.
+	--
+	--   As with the other stroke parameters, the current line cap style is
+	--   examined by cairo_stroke(), cairo_stroke_extents(), and
+	--   cairo_stroke_to_path(), but does not have any effect during path
+	--   construction.
+	--
+	--   cr :       a cairo context, as a cairo_t
+	--   line_cap : a line cap style, as a cairo_line_cap_t
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_line_cap ()
+	--
+	-- cairo_line_cap_t cairo_get_line_cap         (cairo_t *cr);
+	--
+	--   Gets the current line cap style, as set by cairo_set_line_cap().
+	--
+	--   cr :      a cairo context
+	--   Returns : the current line cap style.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum cairo_line_join_t
+	--
+	-- typedef enum _cairo_line_join {
+	--     CAIRO_LINE_JOIN_MITER,
+	--     CAIRO_LINE_JOIN_ROUND,
+	--     CAIRO_LINE_JOIN_BEVEL
+	-- } cairo_line_join_t;
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_line_join ()
+	--
+	-- void        cairo_set_line_join             (cairo_t *cr,
+	--                                              cairo_line_join_t line_join);
+	--
+	--   Sets the current line join style within the cairo context. See
+	--   cairo_line_join_t for details about how the available line join styles are
+	--   drawn.
+	--
+	--   As with the other stroke parameters, the current line join style is
+	--   examined by cairo_stroke(), cairo_stroke_extents(), and
+	--   cairo_stroke_to_path(), but does not have any effect during path
+	--   construction.
+	--
+	--   cr :        a cairo context, as a cairo_t
+	--   line_join : a line joint style, as a cairo_line_join_t
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_line_join ()
+	--
+	-- cairo_line_join_t cairo_get_line_join       (cairo_t *cr);
+	--
+	--   Gets the current line join style, as set by cairo_set_line_join().
+	--
+	--   cr :      a cairo context
+	--   Returns : the current line join style.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_line_width ()
+	--
+	-- void        cairo_set_line_width            (cairo_t *cr,
+	--                                              double width);
+	--
+	--   Sets the current line width within the cairo context. The line width value
+	--   specifies the diameter of a pen that is circular in user space, (though
+	--   device-space pen may be an ellipse in general due to
+	--   scaling/shear/rotation of the CTM).
+	--
+	--   Note: When the description above refers to user space and CTM it refers to
+	--   the user space and CTM in effect at the time of the stroking operation,
+	--   not the user space and CTM in effect at the time of the call to
+	--   cairo_set_line_width(). The simplest usage makes both of these spaces
+	--   identical. That is, if there is no change to the CTM between a call to
+	--   cairo_set_line_with() and the stroking operation, then one can just pass
+	--   user-space values to cairo_set_line_width() and ignore this note.
+	--
+	--   As with the other stroke parameters, the current line width is examined by
+	--   cairo_stroke(), cairo_stroke_extents(), and cairo_stroke_to_path(), but
+	--   does not have any effect during path construction.
+	--
+	--   The default line width value is 2.0.
+	--
+	--   cr :    a cairo_t
+	--   width : a line width
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_line_width ()
+	--
+	-- double      cairo_get_line_width            (cairo_t *cr);
+	--
+	--   cr :      a cairo context
+	--   Returns : the current line width value exactly as set by
+	--             cairo_set_line_width(). Note that the value is unchanged even if
+	--             the CTM has changed between the calls to cairo_set_line_width()
+	--             and cairo_get_line_width().
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_miter_limit ()
+	--
+	-- void        cairo_set_miter_limit           (cairo_t *cr,
+	--                                              double limit);
+	--
+	--   cr :
+	--   limit :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_miter_limit ()
+	--
+	-- double      cairo_get_miter_limit           (cairo_t *cr);
+	--
+	--   Gets the current miter limit, as set by cairo_set_miter_limit().
+	--
+	--   cr :      a cairo context
+	--   Returns : the current miter limit.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum cairo_operator_t
+	--
+	-- typedef enum _cairo_operator {
+	--     CAIRO_OPERATOR_CLEAR,
+	--
+	--     CAIRO_OPERATOR_SOURCE,
+	--     CAIRO_OPERATOR_OVER,
+	--     CAIRO_OPERATOR_IN,
+	--     CAIRO_OPERATOR_OUT,
+	--     CAIRO_OPERATOR_ATOP,
+	--
+	--     CAIRO_OPERATOR_DEST,
+	--     CAIRO_OPERATOR_DEST_OVER,
+	--     CAIRO_OPERATOR_DEST_IN,
+	--     CAIRO_OPERATOR_DEST_OUT,
+	--     CAIRO_OPERATOR_DEST_ATOP,
+	--
+	--     CAIRO_OPERATOR_XOR,
+	--     CAIRO_OPERATOR_ADD,
+	--     CAIRO_OPERATOR_SATURATE
+	-- } cairo_operator_t;
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_operator ()
+	--
+	-- void        cairo_set_operator              (cairo_t *cr,
+	--                                              cairo_operator_t op);
+	--
+	--   Sets the compositing operator to be used for all drawing operations. See
+	--   cairo_operator_t for details on the semantics of each available
+	--   compositing operator.
+	--
+	--   XXX: I'd also like to direct the reader's attention to some
+	--   (not-yet-written) section on cairo's imaging model. How would I do that if
+	--   such a section existed? (cworth).
+	--
+	--   cr : a cairo_t
+	--   op : a compositing operator, specified as a cairo_operator_t
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_operator ()
+	--
+	-- cairo_operator_t cairo_get_operator         (cairo_t *cr);
+	--
+	--   Gets the current compositing operator for a cairo context.
+	--
+	--   cr :      a cairo context
+	--   Returns : the current compositing operator.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_tolerance ()
+	--
+	-- void        cairo_set_tolerance             (cairo_t *cr,
+	--                                              double tolerance);
+	--
+	--   Sets the tolerance used when converting paths into trapezoids. Curved
+	--   segments of the path will be subdivided until the maximum deviation
+	--   between the original path and the polygonal approximation is less than
+	--   tolerance. The default value is 0.1. A larger value will give better
+	--   performance, a smaller value, better appearance. (Reducing the value from
+	--   the default value of 0.1 is unlikely to improve appearance significantly.)
+	--
+	--   cr :        a cairo_t
+	--   tolerance : the tolerance, in device units (typically pixels)
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_get_tolerance ()
+	--
+	-- double      cairo_get_tolerance             (cairo_t *cr);
+	--
+	--   Gets the current tolerance value, as set by cairo_set_tolerance().
+	--
+	--   cr :      a cairo context
+	--   Returns : the current tolerance value.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_clip ()
+	--
+	-- void        cairo_clip                      (cairo_t *cr);
+	--
+	--   Establishes a new clip region by intersecting the current clip region with
+	--   the current path as it would be filled by cairo_fill() and according to
+	--   the current fill rule (see cairo_set_fill_rule()).
+	--
+	--   After cairo_clip, the current path will be cleared from the cairo context.
+	--
+	--   The current clip region affects all drawing operations by effectively
+	--   masking out any changes to the surface that are outside the current clip
+	--   region.
+	--
+	--   Calling cairo_clip() can only make the clip region smaller, never larger.
+	--   But the current clip is part of the graphics state, so a temporary
+	--   restriction of the clip region can be achieved by calling cairo_clip()
+	--   within a cairo_save()/cairo_restore() pair. The only other means of
+	--   increasing the size of the clip region is cairo_reset_clip().
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_clip_preserve ()
+	--
+	-- void        cairo_clip_preserve             (cairo_t *cr);
+	--
+	--   Establishes a new clip region by intersecting the current clip region with
+	--   the current path as it would be filled by cairo_fill() and according to
+	--   the current fill rule (see cairo_set_fill_rule()).
+	--
+	--   Unlike cairo_clip(), cairo_clip_preserve preserves the path within the
+	--   cairo context.
+	--
+	--   The current clip region affects all drawing operations by effectively
+	--   masking out any changes to the surface that are outside the current clip
+	--   region.
+	--
+	--   Calling cairo_clip() can only make the clip region smaller, never larger.
+	--   But the current clip is part of the graphics state, so a temporary
+	--   restriction of the clip region can be achieved by calling cairo_clip()
+	--   within a cairo_save()/cairo_restore() pair. The only other means of
+	--   increasing the size of the clip region is cairo_reset_clip().
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_reset_clip ()
+	--
+	-- void        cairo_reset_clip                (cairo_t *cr);
+	--
+	--   Reset the current clip region to its original, unrestricted state. That
+	--   is, set the clip region to an infinitely large shape containing the target
+	--   surface. Equivalently, if infinity is too hard to grasp, one can imagine
+	--   the clip region being reset to the exact bounds of the target surface.
+	--
+	--   Note that code meant to be reusable should not call cairo_reset_clip() as
+	--   it will cause results unexpected by higher-level code which calls
+	--   cairo_clip(). Consider using cairo_save() and cairo_restore() around
+	--   cairo_clip() as a more robust means of temporarily restricting the clip
+	--   region.
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_fill ()
+	--
+	-- void        cairo_fill                      (cairo_t *cr);
+	--
+	--   A drawing operator that fills the current path according to the current
+	--   fill rule, (each sub-path is implicitly closed before being filled). After
+	--   cairo_fill, the current path will be cleared from the cairo context. See
+	--   cairo_set_fill_rule() and cairo_fill_preserve().
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_fill_preserve ()
+	--
+	-- void        cairo_fill_preserve             (cairo_t *cr);
+	--
+	--   A drawing operator that fills the current path according to the current
+	--   fill rule, (each sub-path is implicitly closed before being filled).
+	--   Unlike cairo_fill(), cairo_fill_preserve preserves the path within the
+	--   cairo context.
+	--
+	--   See cairo_set_fill_rule() and cairo_fill().
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_fill_extents ()
+	--
+	-- void        cairo_fill_extents              (cairo_t *cr,
+	--                                              double *x1,
+	--                                              double *y1,
+	--                                              double *x2,
+	--                                              double *y2);
+	--
+	--   cr :
+	--   x1 :
+	--   y1 :
+	--   x2 :
+	--   y2 :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_in_fill ()
+	--
+	-- cairo_bool_t cairo_in_fill                  (cairo_t *cr,
+	--                                              double x,
+	--                                              double y);
+	--
+	--   Tests whether the given point is on the area filled by doing a
+	--   cairo_stroke() operation on cr given the current path and filling
+	--   parameters.
+	--
+	--   See cairo_fill(), cairo_set_fill_rule() and cairo_fill_preserve().
+	--
+	--   cr :      a cairo context
+	--   x :       X coordinate of the point to test
+	--   y :       Y coordinate of the point to test
+	--   Returns :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_mask ()
+	--
+	-- void        cairo_mask                      (cairo_t *cr,
+	--                                              cairo_pattern_t *pattern);
+	--
+	--   A drawing operator that paints the current source using the alpha channel
+	--   of pattern as a mask. (Opaque areas of pattern are painted with the
+	--   source, transparent areas are not painted.)
+	--
+	--   cr :      a cairo context
+	--   pattern : a cairo_pattern_t
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_mask_surface ()
+	--
+	-- void        cairo_mask_surface              (cairo_t *cr,
+	--                                              cairo_surface_t *surface,
+	--                                              double surface_x,
+	--                                              double surface_y);
+	--
+	--   A drawing operator that paints the current source using the alpha channel
+	--   of surface as a mask. (Opaque areas of surface are painted with the
+	--   source, transparent areas are not painted.)
+	--
+	--   cr :        a cairo context
+	--   surface :   a cairo_surface_t
+	--   surface_x : X coordinate at which to place the origin of surface
+	--   surface_y : Y coordinate at which to place the origin of surface
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_paint ()
+	--
+	-- void        cairo_paint                     (cairo_t *cr);
+	--
+	--   A drawing operator that paints the current source everywhere within the
+	--   current clip region.
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_paint_with_alpha ()
+	--
+	-- void        cairo_paint_with_alpha          (cairo_t *cr,
+	--                                              double alpha);
+	--
+	--   A drawing operator that paints the current source everywhere within the
+	--   current clip region using a mask of constant alpha value alpha. The effect
+	--   is similar to cairo_paint(), but the drawing is faded out using the alpha
+	--   value.
+	--
+	--   cr :    a cairo context
+	--   alpha : alpha value, between 0 (transparent) and 1 (opaque)
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_stroke ()
+	--
+	-- void        cairo_stroke                    (cairo_t *cr);
+	--
+	--   A drawing operator that strokes the current path according to the current
+	--   line width, line join, line cap, and dash settings. After cairo_stroke,
+	--   the current path will be cleared from the cairo context. See
+	--   cairo_set_line_width(), cairo_set_line_join(), cairo_set_line_cap(),
+	--   cairo_set_dash(), and cairo_stroke_preserve().
+	--
+	--   Note: Degenerate segments and sub-paths are treated specially and provide
+	--   a useful result. These can result in two different situations:
+	--
+	--   1. Zero-length "on" segments set in cairo_set_dash(). If the cap style is
+	--   CAIRO_LINE_CAP_ROUND or CAIRO_LINE_CAP_SQUARE then these segments will be
+	--   drawn as circular dots or squares respectively. In the case of
+	--   CAIRO_LINE_CAP_SQUARE, the orientation of the squares is determined by the
+	--   direction of the underlying path.
+	--
+	--   2. A sub-path created by cairo_move_to() followed by either a
+	--   cairo_close_path() or one or more calls to cairo_line_to() to the same
+	--   coordinate as the cairo_move_to(). If the cap style is
+	--   CAIRO_LINE_CAP_ROUND then these sub-paths will be drawn as circular dots.
+	--   Note that in the case of CAIRO_LINE_CAP_SQUARE a degenerate sub-path will
+	--   not be drawn at all, (since the correct orientation is indeterminate).
+	--
+	--   In no case will a cap style of CAIRO_LINE_CAP_BUTT cause anything to be
+	--   drawn in the case of either degenerate segments or sub-paths.
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_stroke_preserve ()
+	--
+	-- void        cairo_stroke_preserve           (cairo_t *cr);
+	--
+	--   A drawing operator that strokes the current path according to the current
+	--   line width, line join, line cap, and dash settings. Unlike cairo_stroke(),
+	--   cairo_stroke_preserve preserves the path within the cairo context.
+	--
+	--   See cairo_set_line_width(), cairo_set_line_join(), cairo_set_line_cap(),
+	--   cairo_set_dash(), and cairo_stroke_preserve().
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_stroke_extents ()
+	--
+	-- void        cairo_stroke_extents            (cairo_t *cr,
+	--                                              double *x1,
+	--                                              double *y1,
+	--                                              double *x2,
+	--                                              double *y2);
+	--
+	--   cr :
+	--   x1 :
+	--   y1 :
+	--   x2 :
+	--   y2 :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_in_stroke ()
+	--
+	-- cairo_bool_t cairo_in_stroke                (cairo_t *cr,
+	--                                              double x,
+	--                                              double y);
+	--
+	--   Tests whether the given point is on the area stroked by doing a
+	--   cairo_stroke() operation on cr given the current path and stroking
+	--   parameters.
+	--
+	--   See cairo_stroke, cairo_set_line_width(), cairo_set_line_join(),
+	--   cairo_set_line_cap(), cairo_set_dash(), and cairo_stroke_preserve().
+	--
+	--   cr :      a cairo context
+	--   x :       X coordinate of the point to test
+	--   y :       Y coordinate of the point to test
+	--   Returns :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_copy_page ()
+	--
+	-- void        cairo_copy_page                 (cairo_t *cr);
+	--
+	--   Emits the current page for backends that support multiple pages, but
+	--   doesn't clear it, so, the contents of the current page will be retained
+	--   for the next page too. Use cairo_show_page() if you want to get an empty
+	--   page after the emission.
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_show_page ()
+	--
+	-- void        cairo_show_page                 (cairo_t *cr);
+	--
+	--   Emits and clears the current page for backends that support multiple
+	--   pages. Use cairo_copy_page() if you don't want to clear the page.
+	--
+	--   cr : a cairo context
+
+end -- class FOO

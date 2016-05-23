@@ -3,7 +3,7 @@
 --
 class READLINE_INPUT_STREAM
    --
-   -- An input stream where the data is read from CLI using GNU readline.
+   -- An input stream where the data is read from CLI using GNU Readline.
    --
    -- NOTE: the history is a singleton so there is really no point in creating more than
    -- one readline stream...
@@ -129,7 +129,7 @@ end -- class READLINE_INPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

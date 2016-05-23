@@ -15,12 +15,12 @@ create {ANY}
    make
 
 feature {ANY}
-   liberty_authors: STRING "P.REDAELLI"
-   liberty_dates: STRING "2008-2014"
+   liberty_authors: STRING "Paolo Redaelli"
+   liberty_dates: STRING "2008-2016"
 
    make
       do
-         log(once "wrappers generator rel 0.3 2014-07-19%N")
+         log(once "wrappers generator%N")
          process_arguments
          log(once "Loading XML file: ")
          create tree.make(input.url)
@@ -205,7 +205,7 @@ feature {ANY}
                         std_error.put_string(once "'")
                         std_error.put_string(a_string)
                         std_error.put_string(once "', ")
-                     end)
+                     end(?))
                   std_error.put_new_line
                end
             end
@@ -267,8 +267,6 @@ feature {ANY}
       do
          std_error.put_line(once "wrappers-generator [--verbose|-v] [--local] [--global] [--directory dir] output.gcc-xml filenames....%N%
          %%N%
-         %   Version 2013-05-07%N%
-         %%N%
          %   --local %N%
          %      produces functions, structures and enumeration%N%
          %      classes only for the given files. Otherwise all the%N%
@@ -318,6 +316,9 @@ feature {ANY}
          %      Turn on verbose output, printing information about the%N%
          %      ongoing operations.%N%
          %%N%
+         %   -V --version%N%
+         %      Print version and exits%N%
+         %%N%
          % The basename of the provided XML file made by gccxml will be used %N%
          % as prefix for the typedef class and proprocessor symbol.%N")
          die_with_code(exit_success_code)
@@ -325,7 +326,7 @@ feature {ANY}
 
 end -- class WRAPPERS_GENERATOR
 -- class WRAPPER_GENERATOR
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

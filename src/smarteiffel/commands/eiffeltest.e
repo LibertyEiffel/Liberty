@@ -447,7 +447,7 @@ time to run all tests of some directory or, for example, when one does not want 
 compile some Eiffel test code with all compilations modes.
 Each line of the "excluded.lst" file is a new entry which can exclude zero, one, or
 many actions from the log file.
-The easyest way to exclude one action from the log file is to copy the line of the
+The easiest way to exclude one action from the log file is to copy the line of the
 action you want to avoid in the "excluded.lst". Just update your "excluded.lst"
 file and re-run again "eiffeltest" and the corresponding action won't be executed.
 Actually, as soon as an entry of "excluded.lst" is the prefix of an action, this
@@ -819,7 +819,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
 
          -- Because the error may occurs during C code generation, we also check test for
-         -- the existance of the corresponding *.h file:
+         -- the existence of the corresponding *.h file:
          h_file := bad_file.twin
          h_file.remove_last
          h_file.add_last('h')

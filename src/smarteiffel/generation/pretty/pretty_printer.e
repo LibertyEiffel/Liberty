@@ -255,7 +255,7 @@ feature {ANY}
       end
 
    skip_two_lines
-         -- Add two empty lines in the ouput only if it is necessary. (See also `skip_one_line'.)
+         -- Add two empty lines in the output only if it is necessary. (See also `skip_one_line'.)
       do
          if buffer.is_empty then
             buffer.extend('%N')
@@ -524,7 +524,7 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
 
 feature {ANY} -- To run `pretty' in a STRING buffer:
    code_in (client_buffer: STRING; code: CODE)
-         -- After this call, the prettyfied version of `code' has been appended in the `client_buffer'.
+         -- After this call, the prettified version of `code' has been appended in the `client_buffer'.
       require
          client_buffer /= Void
          code /= Void
@@ -541,7 +541,7 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
       end
 
    expression_in (client_buffer: STRING; expression: EXPRESSION)
-         -- After this call, the prettyfied version of `expression' has been appended in the `client_buffer'.
+         -- After this call, the prettified version of `expression' has been appended in the `client_buffer'.
       require
          client_buffer /= Void
          expression /= Void
@@ -558,7 +558,7 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
       end
 
    instruction_in (client_buffer: STRING; instruction: INSTRUCTION)
-         -- After this call, the prettyfied version of `instruction' has been appended in the `client_buffer'.
+         -- After this call, the prettified version of `instruction' has been appended in the `client_buffer'.
       require
          client_buffer /= Void
          instruction /= Void

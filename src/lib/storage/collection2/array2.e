@@ -3,7 +3,7 @@
 --
 class ARRAY2[E_]
    --
-   -- General prurpose, resizable, two dimensional array.
+   -- General purpose, resizable, two dimensional array.
    --
 
 inherit
@@ -25,11 +25,9 @@ feature {ARRAY2}
    capacity: INTEGER
          -- Number of elements in `storage'.
 
-feature {ANY} -- Creation / modification:
-   make (line_min, line_max, column_min, column_max: INTEGER)
-         -- Reset all bounds `line_minimum' / `line_maximum' / `column_minimum' and
-         -- `column_maximum' using arguments as new values.
-         -- All elements are set to the default value of type E_.
+   set_limits(line_min, line_max, column_min, column_max: INTEGER)
+      -- set lower1,2 and upper1,2 to the given values and alloc 
+      -- storage if necessary
       require
          line_min <= line_max + 1
          column_min <= column_max + 1
@@ -38,11 +36,35 @@ feature {ANY} -- Creation / modification:
          upper1 := line_max
          lower2 := column_min
          upper2 := column_max
-         if capacity >= count then
-            storage.clear_all(count - 1)
-         else
-            capacity := count
+
+         if count > capacity then
             storage := storage.calloc(count)
+            capacity := count
+         end
+      ensure
+         lower1_set: lower1 = line_min
+         lower2_set: upper1 = line_max
+         upper1_set: lower2 = column_min
+         upper2_set: upper2 = column_max
+         sufficient_storage: capacity >= count
+      end
+   
+feature {ANY} -- Creation / modification:
+   make (line_min, line_max, column_min, column_max: INTEGER)
+         -- Reset all bounds `line_minimum' / `line_maximum' / `column_minimum' and
+         -- `column_maximum' using arguments as new values.
+         -- All elements are set to the default value of type E_.
+      require
+         line_min <= line_max + 1
+         column_min <= column_max + 1
+      local
+         old_capacity: INTEGER
+      do
+         old_capacity := capacity
+         set_limits(line_min, line_max, column_min, column_max)
+         if old_capacity >= count then
+            -- clear only if storage was reallocated
+            storage.clear_all(count - 1)
          end
       ensure
          line_minimum = line_min
@@ -146,7 +168,9 @@ feature {ANY} -- Resizing:
       local
          tmp: like Current; l, c: INTEGER
       do
-         create tmp.make(line_min, line_max, column_min, column_max)
+         tmp := standard_twin
+         tmp.set_limits(line_min, line_max, column_min, column_max)
+
          --|*** It may be possible to avoid this creation when :
          --|    new `capacity' <= old `capacity'
          --|*** May be improved a lot.
@@ -230,7 +254,9 @@ feature {ANY} -- Implementation of others feature from COLLECTION2:
       local
          i, j, k: INTEGER
       do
-         create Result.make(line_min, line_max, column_min, column_max)
+         Result := standard_twin
+         Result.set_limits(line_min, line_max, column_min, column_max)
+
          from
             i := line_min
             k := 0
@@ -302,14 +328,7 @@ feature {ANY} --  Looking and comparison:
 
    copy (other: like Current)
       do
-         lower1 := other.lower1
-         upper1 := other.upper1
-         lower2 := other.lower2
-         upper2 := other.upper2
-         if capacity < count then
-            capacity := count
-            storage := storage.calloc(count)
-         end
+         set_limits(other.lower1, other.upper1, other.lower2, other.upper2)
          storage.copy_from(other.storage, count - 1)
       end
 
@@ -407,7 +426,7 @@ end -- class ARRAY2
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

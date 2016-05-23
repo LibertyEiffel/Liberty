@@ -18,4 +18,3 @@ feature {ANY}
       end
 
 end -- class EXAMPLE6
--- class EXAMPLE5

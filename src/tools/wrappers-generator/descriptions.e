@@ -168,7 +168,7 @@ feature {ANY} -- Queries
          if dictionary /= Void then
             Result := dictionary.reference_at(a_feature_name)
             -- debug
-            --      log(once "feature_description(%"@(1)%",%"@(2)%")=%"@(3)%"%N",<<a_class_name,a_feature_name,formatted_description(Result)>>)
+            --      log(once "feature_description(%"#(1)%",%"#(2)%")=%"#(3)%"%N"#a_class_name#a_feature_name#formatted_description(Result))
             -- end
          end
       end

@@ -10,7 +10,7 @@ expanded class NATIVE_ARRAY[E_]
    -- Note: this class is the basic support for most of our high-level arrays-like classes: STRING,
    -- ARRAY, FAST_ARRAY as well as MUTABLE_BIG_INTEGER. Each class using some attribute of some
    -- NATIVE_ARRAY  type needs an attribute named `capacity' with value set to the size of the
-   -- actual NATIVE_ARRAY. Value has to be ajusted after each calloc/realloc/create_from.
+   -- actual NATIVE_ARRAY. Value has to be adjusted after each calloc/realloc/create_from.
    --
 
 insert
@@ -451,7 +451,7 @@ feature {ANY} -- Removing:
 feature {ANY} -- Replacing:
    replace_all (old_value, new_value: like item; upper: INTEGER)
          -- Replace all occurrences of the element `old_value' by `new_value' using `is_equal' for comparison.
-         -- See also `fast_replace_all' to choose the apropriate one.
+         -- See also `fast_replace_all' to choose the appropriate one.
       require
          upper >= -1
       local
@@ -472,7 +472,7 @@ feature {ANY} -- Replacing:
    fast_replace_all (old_value, new_value: like item; upper: INTEGER)
          -- Replace all occurrences of the element `old_value' by `new_value'
          -- using basic `=' for comparison.
-         -- See also `replace_all' to choose the apropriate one.
+         -- See also `replace_all' to choose the appropriate one.
       require
          upper >= -1
       local
@@ -664,7 +664,7 @@ feature {ANY} -- Other:
 
    occurrences (element: like item; upper: INTEGER): INTEGER
          -- Number of occurrences of `element' in range [0 .. `upper'] using `is_equal' for comparison.
-         -- See also `fast_occurrences' to chose the apropriate one.
+         -- See also `fast_occurrences' to chose the appropriate one.
       require
          upper >= -1
       local
@@ -684,7 +684,7 @@ feature {ANY} -- Other:
 
    slice_occurrences (element: like item; lower, upper: INTEGER): INTEGER
          -- Number of occurrences of `element' in range [`lower' .. `upper'] using `is_equal' for comparison.
-         -- See also `slice_fast_occurrences' to chose the apropriate one.
+         -- See also `slice_fast_occurrences' to chose the appropriate one.
       require
          lower >= 0
          upper >= lower - 1
@@ -705,7 +705,7 @@ feature {ANY} -- Other:
 
    fast_occurrences (element: like item; upper: INTEGER): INTEGER
          -- Number of occurrences of `element' in range [0 .. `upper'] using basic "=" for comparison.
-         -- See also `occurrences' to chose the apropriate one.
+         -- See also `occurrences' to chose the appropriate one.
       require
          upper >= -1
       local
@@ -726,7 +726,7 @@ feature {ANY} -- Other:
    slice_fast_occurrences (element: like item; lower, upper: INTEGER): INTEGER
          -- Number of occurrences of `element' in range [`lower' .. `upper']
          -- using basic "=" for comparison.
-         -- See also `slice_occurrences' to chose the apropriate one.
+         -- See also `slice_occurrences' to chose the appropriate one.
       require
          lower >= 0
          upper >= lower - 1
@@ -827,7 +827,7 @@ end -- class NATIVE_ARRAY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

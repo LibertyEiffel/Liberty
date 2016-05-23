@@ -14,7 +14,7 @@ feature {ANY}
       -- where constraints are grouped around coupled variables
 
    unbound: CONSTRAINT_GROUP
-      -- the constarints that are not bound to any variable
+      -- the constraints that are not bound to any variable
 
    make
          -- creation

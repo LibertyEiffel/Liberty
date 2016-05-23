@@ -5,7 +5,7 @@ class EIFFELDOC_COMMENT_STATE_IN_URL
    --
    -- Handle URLs which must be put in single brackets: first the URL, then a possible label after a space.
    --
-   -- Non-bracketted URLS such as http://liberty-eiffel.blogspot.com are also handled.
+   -- Non-bracketed URLS such as http://liberty-eiffel.blogspot.com are also handled.
    --
 
 inherit

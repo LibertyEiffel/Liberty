@@ -67,8 +67,8 @@ feature {ANY}
          --              are_members_wrapped:=True
          --              -- Each gccxml node will query its containing namespace to see if it shall be wrapped.
          --      else -- directory still doesn't exists, we cannot wrap its content.
-         --              log("Namespace `@(1)' would be wrapped into `@(2)', but it is not a directory or could not be created: its contents shall not be wrapped.%N",
-         --              <<c_string_name, path.to_string>>)
+         --              log("Namespace `#(1)' would be wrapped into `#(2)', but it is not a directory or could not be created: its contents shall not be wrapped.%N"
+         --              # c_string_name # path.to_string)
          --      end
       end
 
@@ -79,7 +79,7 @@ feature {} -- Implementation
    cached_path: PATH_NAME
 
 end -- class C_NAMESPACE
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

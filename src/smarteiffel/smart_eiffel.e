@@ -20,7 +20,7 @@ insert
 
 feature {ANY}
    liberty_authors: STRING "C.ADRIAN, P.REDAELLI, R.MACK"
-   liberty_dates: STRING "2011-2015"
+   liberty_dates: STRING "2011-2016"
 
    copyright: ABSTRACT_STRING
       once
@@ -502,7 +502,7 @@ feature {CODE_PRINTER}
          -- All the known agent switches during the generation
 
    type_dictionary: DICTIONARY[TYPE, HASHED_STRING]
-         -- When looking for a TYPE using it's name (ie. FOO[BAR] is stored at key whith name "FOO[BAR]").
+         -- When looking for a TYPE using it's name (ie. FOO[BAR] is stored at key with name "FOO[BAR]").
       once
          create {HASHED_DICTIONARY[TYPE, HASHED_STRING]} Result.with_capacity(1024)
       end

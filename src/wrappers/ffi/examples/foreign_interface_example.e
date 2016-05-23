@@ -4,10 +4,12 @@ class FOREIGN_INTERFACE_EXAMPLE
 	-- comfortable as possible from the strongly-typed Liberty world.
 
 	-- Invokes "puts" C to print "Hello Liberty" and "Hello again" strings.
-
+	
 insert 
+    ANY -- To get copy, default_create and is_equal
 	FFI_TYPES
-	ANY -- To reobtain copy, default_create and is_equal.
+    FFI_MORE_EXTERNALS
+
 create {ANY} make
 
 feature {ANY} -- Creating
@@ -20,7 +22,7 @@ feature {ANY} -- Creating
 		args.set(<<types.create_string("Hello Liberty!")>>)
 		res := call.item(args)
 
-		-- print("Result of last call is "+call_result.out+"%N")
+		print("Result of last call is "+res.out+"%N")
 	end
 
 feature {ANY} 

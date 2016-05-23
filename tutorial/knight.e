@@ -2,7 +2,7 @@ class KNIGHT
    --
    -- The classic KNIGHT problem on a N times N square chessboard. The knight have to pass on
    -- all places of the chessboard once a time. For instance, here is solution for a 7 X 7
-   -- chesboard, knigth starting at position <1,1>:
+   -- chessboard, knight starting at position <1,1>:
    --
    --            1   28   37   24    3   26   17
    --           36   39    2   27   18   11    4
@@ -150,7 +150,7 @@ feature {}
 
 feature {ANY}
    print_on (file: OUTPUT_STREAM)
-         -- Display the cheesboard.
+         -- Display the chessboard.
       local
          line, column: INTEGER; separator: STRING
       do

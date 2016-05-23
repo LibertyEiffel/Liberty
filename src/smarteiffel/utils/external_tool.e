@@ -75,7 +75,7 @@ feature {}
          -- - restricts VWEQ checks when we have sure positive (remember we don't scan all the program then)
          -- BUT:
          -- - keeps comments (otherwise they're cut out), and merges them in case of feature merge
-         -- - keeps the real aspect of manifests tringsm as written in the code (otherwise, only a compiled
+         -- - keeps the real aspect of manifest strings as written in the code (otherwise, only a compiled
          --   version is kept)
       deferred
       end

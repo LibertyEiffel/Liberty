@@ -13,10 +13,6 @@ include "functions.php";
 //       - provide a diff between history
 //       - somehow "store" the visible divs over reload and navigation
 
-// todo: move "all" stage content into separate site loads to prevent a big index.html download with "everything green" and none caring about the details
-// => CAD: not sure about that; I often download the latest history for offline use, if I need to download more files it is less useful
-// Rmk: for me one big site is also acceptable. And the size decreases - the more tests are fixed. My concerns were majorly about the page size / load time. -> we shoulde remove this todo
-
 include "$templates/head.html";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && array_key_exists("token", $_POST)) {

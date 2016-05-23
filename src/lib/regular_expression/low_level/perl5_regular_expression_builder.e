@@ -25,7 +25,7 @@ feature {ANY} -- options
       end
 
    set_no_extended_ligibility
-         -- Desactivate extended ligibility.
+         -- Deactivate extended ligibility.
       do
          has_extended_ligibility := False
       ensure
@@ -145,8 +145,8 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
       end
 
    parse_group
-         -- Parses a group. A group is either a posix group
-         -- or an extanded pattern group.
+         -- Parses a group. A group is either a POSIX group
+         -- or an extended pattern group.
       local
          saved_is_case_insensitive, saved_does_match_line_boundary, saved_does_any_match_newline,
          saved_has_extended_ligibility: BOOLEAN
@@ -331,14 +331,14 @@ feature {} -- parsing
                   set_error(once "unsupported forward group number")
                end
             when 'p' then
-               -- positive posix indication
+               -- positive POSIX indication
                read_character
                parse_posix_indication
                if not has_error then
                   set_recorded_item(unemit)
                end
             when 'P' then
-               -- negative posix indication
+               -- negative POSIX indication
                read_character
                parse_posix_indication
                if not has_error then
@@ -541,7 +541,7 @@ end -- class PERL5_REGULAR_EXPRESSION_BUILDER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

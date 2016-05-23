@@ -8,11 +8,24 @@ create {ANY}
 
 feature {ANY}
    test
+    local s: STRING
       do
+         s:="CamelCase"
+         insert_underscores(s)
          check
-            insert_underscores("CamelCase") ~ "Camel_Case"
-            insert_underscores("Camel_Case") ~ "Camel_Case"
-            insert_underscores("IOChannel") ~ "IO_Channel"
+             s ~ "Camel_Case"
+         end
+
+         s:="Camel_Case"
+         insert_underscores(s)
+         check 
+             s ~ "Camel_Case"
+         end
+
+         s := "IOChannel"
+         insert_underscores(s)
+         check
+            s ~ "IOChannel"
          end
       end
 

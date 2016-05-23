@@ -3,7 +3,7 @@
 --
 deferred class INSTRUCTION
    --
-   -- For all differents kinds of Eiffel instruction.
+   -- For all different kinds of Eiffel instructions.
    --
 
 inherit

@@ -618,7 +618,7 @@ feature {ANY} -- Testing and Conversion:
          -- the range `Minimum_real' ... `Maximum_real'. Parsing is done
          -- positive. That means if `Minimum_real.abs' is not equal to
          -- `Maximum_real' it will not work correctly. Furthermore the
-         -- arithmetric package used must support the value 'inf' for a
+         -- arithmetic package used must support the value 'inf' for a
          -- number greater than Maximum_real.
          -- `Result' is True if and only if the following two conditions
          -- hold:
@@ -769,7 +769,7 @@ feature {ANY} -- Testing and Conversion:
 
    to_real: REAL
          -- Conversion to the corresponding REAL value. The string must looks like a REAL (or like an
-         -- INTEGER because the fractionnal part is optional). For an exact definition see 'is_real'.
+         -- INTEGER because the fractional part is optional). For an exact definition see 'is_real'.
          -- Note that this conversion might not be exact.
       require
          represents_a_real: is_real
@@ -923,7 +923,7 @@ feature {ANY} -- Testing and Conversion:
       end
 
    binary_to_integer: INTEGER
-         -- Assume there is enougth space in the INTEGER to store
+         -- Assume there is enough space in the INTEGER to store
          -- the corresponding decimal value.
       require
          is_bit
@@ -1061,7 +1061,7 @@ feature {ANY} -- Concatenation
          create {PARTIALLY_FILLED_STRING} Result.from_string_and_arg(Current, a_value)
       end
 
-feature {ANY} -- Case convertion
+feature {ANY} -- Case conversion
    as_lower: STRING
          -- New object with all letters in lower case.
          --
@@ -1405,7 +1405,7 @@ end -- class ABSTRACT_STRING
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

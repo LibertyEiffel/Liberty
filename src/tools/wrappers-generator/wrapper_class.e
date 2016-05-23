@@ -10,16 +10,24 @@ inherit
       end
 
 feature {ANY}
-   emit_wrapper
-      deferred
-      end
+    emit_wrapper
+    deferred
+    ensure emitted
+    end
 
-   compute_eiffel_name
+    compute_eiffel_name
       do
-         cached_eiffel_name := eiffel_class_name(c_string_name, suffix)
+          if has_assigned_name then
+              cached_eiffel_name := eiffel_class_name(assigned_name, suffix)
+          elseif is_named then
+              cached_eiffel_name := eiffel_class_name(c_string_name, suffix)
+          else 
+              create cached_eiffel_name.make_from_string(once "ANONYMOUS_GCCXML_ELEMENT_AT_L@(1)_R@(2)" # &line # &column)
+          end
+          -- TODO: 2016-02-08 PR this is becoming an horrible spaghetti code!
       end
 
-   suffix: STRING
+  suffix: STRING
       deferred
       end
 
@@ -27,7 +35,8 @@ feature {} -- Implementation
    output: TERMINAL_OUTPUT_STREAM
 
 end -- class WRAPPER_CLASS
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

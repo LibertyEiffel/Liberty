@@ -23,7 +23,7 @@ feature {ANY}
 
 feature {}
         rank: INTEGER
-                        -- To find the the corresponding name in the `feature_text' (i.e.
+                        -- To find the corresponding name in the `feature_text' (i.e.
                         -- in most cases, this is simply one, because people are not
                         -- used to have a lot of synonyms).
 

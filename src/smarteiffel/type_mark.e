@@ -182,7 +182,7 @@ feature {ANY} -- Others:
       end
 
    is_reference: BOOLEAN
-         -- Is a a reference type mark?
+         -- Is a reference type mark?
       require
          is_static
       deferred
@@ -374,7 +374,7 @@ feature {ANY} -- Others:
       end
 
    frozen is_agent: BOOLEAN
-         -- Is the writtent type mark some agent type mark ("ROUTINE[...]", "PROCEDURE[...]", "FUNCTION[...]" or
+         -- Is the written type mark some agent type mark ("ROUTINE[...]", "PROCEDURE[...]", "FUNCTION[...]" or
          -- "PREDICATE[...]")?
       do
          Result := {AGENT_TYPE_MARK} ?:= Current

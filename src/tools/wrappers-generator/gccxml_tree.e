@@ -143,23 +143,24 @@ feature {ANY} -- Wrappers emittions
       local
          destination: ABSTRACT_STRING; file: C_FILE
       do
-         destination := moved.reference_at(a_feature.c_string_name)
-         if destination /= Void then
-            -- user required move
-            file := files_by_name.reference_at(destination)
-            log(once "Moving #(1) into #(2) as requested.%N"
-			# a_feature.c_string_name # file.c_string_name)
-         else
-            -- a_feature belong to the file as declared in the gcc-xml file
-            file := files.reference_at(a_feature.c_file.id)
-            log(once "Moving #(1) from #(2) into #(3).%N" 
-            # a_feature.c_string_name # a_feature.c_file.c_string_name # file.c_string_name)
+          if not a_feature.is_anonymous then
+             destination := moved.reference_at(a_feature.c_string_name)
+             if destination /= Void then
+                -- user required move
+                file := files_by_name.reference_at(destination)
+                log(once "Moving #(1) into #(2) as requested.%N"
+                # a_feature.c_string_name # file.c_string_name)
+             else
+                -- a_feature belong to the file as declared in the gcc-xml file
+                file := files.reference_at(a_feature.c_file.id)
+                log(once "Moving #(1) from #(2) into #(3).%N" 
+                # a_feature.c_string_name # a_feature.c_file.c_string_name # file.c_string_name)
+             end
+             check
+                file /= Void
+             end
+             file.features.add_last(a_feature)
          end
-
-         check
-            file /= Void
-         end
-         file.features.add_last(a_feature)
       end
 
 feature {ANY}
@@ -214,6 +215,7 @@ feature {ANY}
                create words.from_string(file.last_string)
                words.read_word
                if not words.last_string.is_empty then
+                   -- twin is used because last_string is reused. Otherwise the symbols will change once stored. And this is bad, like crossing rays.
                   symbol := words.last_string.twin
                   words.read_word
                   if not words.last_string.is_empty then

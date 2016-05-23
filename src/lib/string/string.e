@@ -641,14 +641,15 @@ feature {ANY} -- Modification:
 feature {ANY} -- Other features:
    substring (start_index, end_index: INTEGER): like Current
       local
-         c: INTEGER
+         new_count: INTEGER
+         new_store: like storage
       do
-         c := end_index - start_index + 1
-         create Result.make(c)
-         if c > 0 then
-            Result.set_count(c)
-            Result.storage.slice_copy(0, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
-         end
+         new_count := end_index - start_index + 1
+         new_store := new_store.calloc(new_count + 1)
+         new_store.slice_copy(0, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
+
+         Result := standard_twin
+         Result.from_external_sized(new_store.to_external, new_count)
       end
 
    extend_multiple (c: CHARACTER; n: INTEGER)
@@ -1024,7 +1025,7 @@ end -- class STRING
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

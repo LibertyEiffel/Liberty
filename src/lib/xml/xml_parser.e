@@ -5,7 +5,7 @@ class XML_PARSER
    -- The standard SmartEiffel XML parser. It is able to parse any well-formed WML document, and also can
    -- validate a document containing a DTD.
    --
-   -- Note that this parser is not namespace-aware, nor daoes it validate documents using a Schema. Classes
+   -- Note that this parser is not namespace-aware, nor does it validate documents using a Schema. Classes
    -- to that avail must be built on top of this parser.
    --
    -- See http://www.w3.org/TR/2006/REC-xml11-20060816/
@@ -606,24 +606,26 @@ feature {}
       local
          buf: like buffer
       do
-         io.put_string(once "connect_buffer(%"")
-         io.put_string(a_url.out)
-         io.put_string(once "%", ")
-         if a_face_url = Void then
-            io.put_string(once "Void")
-         else
-            io.put_character('"')
-            io.put_string(a_face_url.out)
-            io.put_character('"')
-         end
-         io.put_string(once ", ")
-         if a_entity_name = Void then
-            io.put_line(once "Void)")
-         else
-            io.put_character('"')
-            io.put_string(a_entity_name.as_utf8)
-            io.put_line(once "%")")
-         end
+          debug
+              io.put_string(once "connect_buffer(%"")
+              io.put_string(a_url.out)
+              io.put_string(once "%", ")
+              if a_face_url = Void then
+                  io.put_string(once "Void")
+              else
+                  io.put_character('"')
+                  io.put_string(a_face_url.out)
+                  io.put_character('"')
+              end
+              io.put_string(once ", ")
+              if a_entity_name = Void then
+                  io.put_line(once "Void)")
+              else
+                  io.put_character('"')
+                  io.put_string(a_entity_name.as_utf8)
+                  io.put_line(once "%")")
+              end
+          end
 
          if not closed_buffers.is_empty then
             buf := closed_buffers.item
@@ -682,8 +684,9 @@ feature {}
       require
          not open_buffers.is_empty
       do
-         io.put_line(once "disconnect_buffer")
-
+          debug
+            io.put_line(once "disconnect_buffer")
+          end
          buffer.disconnect
          if open_buffers.top.entity /= Void then
             callbacks.close_entity_url(open_buffers.top.entity, open_buffers.top.url)
@@ -713,7 +716,7 @@ end -- class XML_PARSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

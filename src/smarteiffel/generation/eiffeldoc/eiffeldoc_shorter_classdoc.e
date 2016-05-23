@@ -550,7 +550,7 @@ feature {}
                echo.put_string(context_class_text.name.to_string)
                echo.put_new_line
             else
-               --|*** Huh? Why look up the fs in context.type? That's where it's freaking comming from! <FM-18/03/2006>
+               --|*** Huh? Why look up the fs in context.type? That's where it's freaking coming from! <FM-18/03/2006>
                --fs := fs.resolve_dynamic_binding_for(context.type)
                fn := context.type.get_feature_name(fs)
                do_print := not found_features.has(fs) and then (fn.start_position.class_text /= class_any or else context_class_text = class_any)

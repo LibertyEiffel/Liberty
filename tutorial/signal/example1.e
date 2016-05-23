@@ -15,7 +15,7 @@ feature {}
       do
          create a.make
          a.value_changed.connect(agent foo(?))
-         -- a.value_changed.connect(agent foo); -- syntaxically equivalent
+         -- a.value_changed.connect(agent foo); -- syntactically equivalent
          a.set_val(3)
          a.set_val(5)
       end

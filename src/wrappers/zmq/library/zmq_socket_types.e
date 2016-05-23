@@ -6,8 +6,8 @@ feature {} -- Socket types
 	zmq_p2p: INTEGER_32
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_P2P"
 		}"
 		end
@@ -15,8 +15,8 @@ feature {} -- Socket types
 	zmq_pub: INTEGER_32
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_PUB"
 		}"
 		end
@@ -24,8 +24,8 @@ feature {} -- Socket types
 	zmq_sub: INTEGER_32
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_SUB"
 		}"
 		end
@@ -33,8 +33,8 @@ feature {} -- Socket types
 	zmq_req: INTEGER_32
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_REQ"
 		}"
 		end
@@ -42,8 +42,8 @@ feature {} -- Socket types
 	zmq_rep: INTEGER_32
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_REP"
 		}"
 		end
@@ -51,8 +51,8 @@ feature {} -- Socket types
 	zmq_dealer: INTEGER_32
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_DEALER"
 		}"
 		end
@@ -60,8 +60,8 @@ feature {} -- Socket types
 	zmq_router: INTEGER_32 
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_ROUTER"
 		}"
 		end
@@ -69,8 +69,8 @@ feature {} -- Socket types
 	zmq_pull: INTEGER_32
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_PULL"
 		}"
 		end
@@ -78,8 +78,8 @@ feature {} -- Socket types
 	zmq_push: INTEGER_32
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_PUSH"
 		}"
 		end
@@ -87,8 +87,8 @@ feature {} -- Socket types
 	zmq_pair: INTEGER_32
 		external "plug_in"
 		alias "{
-			location: "."
-			module_name: "externals/plugin"
+			location: "externals/generated"
+			module_name: "plugin"
 			feature_name: "ZMQ_PAIR"
 		}"
 		end

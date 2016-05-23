@@ -1,0 +1,132 @@
+* When receiving a pointer to a GObject and we know for sure its
+  effective type we have two choices: we can use a factory that
+  retrieves the main wrapper if it exists or create it by necessity,
+  but the code is not so straightforward and requires processing or we
+  can instead create another wrapper; the first solution uses less
+  memory but requires more computing, the latter would tend to use
+  more memory, putting the actual burden of memory handling on the
+  garbage collector. I haven't made benchmarks but I suspect that the
+  first best in memory-tight enviroments, for example my brand-new
+  Nokia N800.
+
+* There are a lot of G_OBJECT_FACTORY scattered throught the
+   code. While the code is (erhm should) be correct it feels not
+   efficient. Perhaps a shared singleton called SHARED_FACTORIES could
+   group at least some of them, achieving some memory efficiency; some
+   of them have been grouped in GTK_FACTORIES
+
+* When NATURAL_32 will be available in SmartEiffel the first thing to
+   fix is G_TYPE.g_type and all the gtype_... function calls that now
+   use an INTEGER_64. Many G_TYPE_EXTERNAL calls are now inlined with
+   type casting at C level. Change the invariant of G_TYPE_EXTERNALS
+   from "g_type_is_at_least_32_bit: g_type.object_size >= 4" to
+   "g_type_is_32_bit: g_type.object_size = 4". 
+
+* Classes that accepts collection of GTypes must pass a
+   COLLECTION[INTEGER_32] instead of a COLLECTION[INTEGER_64]
+   (COLLECTION[like gtype] is no allowed). This is required until
+   NATURAL_32 is available; otherwise programs will fail in a
+   non-obvious fashion, i.e. the C function that accepts the
+   collection and should return the GObject actually returns
+   NULL. I discovered it fro GtkTreeStore
+
+* Fix and make examples for
+  * GtkAssistant
+  * GtkAboutDialog
+  * GtkArrow
+  * GtkCellRendererSpin
+  * GtkCellView
+  * GtkIconTheme
+
+* Still not compiling at all
+  * GTK_ACCEL_LABEL_EXTERNALS
+  * GTK_LAYOUT
+  * GTK_PRINT_* , PAPER*, PAGE*
+  * GTK_RADIO_MENU_ITEM
+
+* resolve conflicts in:
+ eiffel-gtk/library/gtk_tree_view.e 
+eiffel-gtk/library/gtk_image_menu_item.e
+eiffel-gtk/library/gtk_calendar.e
+eiffel-gtk/library/gtk_text_buffer.e
+eiffel-gtk/library/gtk_hscale.e
+
+* in any effective class heir of G_OBJECT (i.e. GTK_FOO) there should
+   be an invariant is_gtk_foo to be sure that handle actually points
+   to a real GtkFoo C structure
+
+    * I think that un-defining make in SHARED_C_STRUCT is not right;
+   for at least a couple of reasons: 
+
+1. it makes each and every subclass that does not have a
+   parameter-less creation clause a deferred class. While it is true
+   that it is perfectly possible to write "feature make is do end" in
+   those heirs, it is a sign of unproper design. Many GTK+ widgets
+   (i.e. GTK_ACTION and its heirs) does not have parameterless
+   creation clauses.  
+
+2. AFAIK it is perfectly feasible that a C library require the end
+   user and then its Eiffel 3. wrapper to allocate a shared,
+   uninitialized structure and then pass to it.
+
+    * I removed all usage of {NONE}, replacing it with {} as suggested
+   by SE-SVN.
+
+
+* Implement a common way to handle GError. Currently wrapper classes
+   ignores it (i.e. GDK_PIXBUF)
+
+* make all deferred classes inheriting from ANY and undefining
+   is_equal and copy.
+
+* implement strongly typed version of G_OBJECT property setters and
+  getters. Ideally those Eiffels version should not rely on
+  g_object_set and g_object_get C functions that hide the GValue
+  handling and do many tests and checks that are automatically
+  enforced by static typing or that are handled by Eiffel
+  preconditions.
+
+* G_VALUE should be expanded and shall 
+
+* Turn G_PARAM_SPEC into a deferred class and provide strongly-typed
+heirs, such as G_PARAM_SPEC_BOOLEAN.
+
+* Many GTK classes has many properties with the same name and the same
+type. As far as I know an efficient, smart and correct Eiffel
+implementation of those should be to create deferred XXX_PROPERTY
+classes with xxx and set_xxx features. Ideally those classes could
+also use some cached G_PARAM_SPECs objects that could be stored into
+GTK singleton as hidden features.
+
+* GTK_SCROLLBAR horizontal and vertical. used in GTK_SCROLLED_WINDOW
+
+* Many object properties has direct getter setter. Wrapping this provide a faster way to access those properties. It should be clearly stated
+
+* Uncomplete wrapping: 
+  GTK_ACTION
+
+* While wrapping C libraries I keep encountering constant C strings
+   (const char*) (i.e. "const char *get_foo (GObject
+   *an_object);"). . Usually I write :
+
+ foo: STRING is
+   do
+      create Result.from_external_copy (external_get_foo (a_pointer))
+   end
+
+   While this is correct AFAIK it is not that efficient, since it
+   reallocate memory every time foo is accessed.
+
+   Usually such strings are almost always used read-only. Is there a
+   code pattern or a class that allow to stress out or model better
+   this "constantness"?
+
+   CONST_STRING has been created to address this need. The code
+   pattern is:
+
+ foo: STRING is
+   do
+      create {CONST_STRING} Result.from_external (external_get_foo (a_pointer))
+   end
+
+we should check if such a code pattern is a performance bottleneck

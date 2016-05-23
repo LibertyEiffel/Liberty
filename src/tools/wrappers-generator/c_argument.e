@@ -26,14 +26,31 @@ feature {ANY}
       end
 
    has_wrapper: BOOLEAN
+      local dequalified: UNICODE_STRING; actual_type: C_TYPE
       do
-         Result := types.at(dequalify(type)).has_wrapper
+         -- Previously it was "Result := types.at(dequalify(type)).has_wrapper" but that's too brittle
+         check type/=Void end -- unnecessary when we will have attached types
+         dequalified := dequalify(type)
+         if dequalified /= Void then
+             actual_type := types.reference_at(dequalified)
+             if actual_type/=Void then
+                 Result := actual_type.has_wrapper
+             else
+                 check 
+                     Result=False
+                 end
+             end
+         else
+             check
+                 Result=False
+             end
+         end
       rescue
-         log("has_wrapper failed. Known typesi:%N")
+         log("has_wrapper failed. Known types:%N")
          types.for_each_item(agent (a_type: C_TYPE)
             do
                io.put_string(a_type.out)
-            end)
+            end(?))
 
          print_run_time_stack
          die_with_code(5)

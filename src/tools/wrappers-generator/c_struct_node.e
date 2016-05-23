@@ -2,13 +2,13 @@ class C_STRUCT_NODE
    -- A "Struct" node of an XML file made by gccxml.
 
 inherit
-   C_TYPE
-   IDENTIFIED_NODE
-   CONTEXTED_NODE
+    IDENTIFIED_NODE undefine set_name end
+    CONTEXTED_NODE undefine set_name end
    COMPOSED_NODE
       -- hence also a STORABLE_NODE, a NAMED_NODE
       -- and a WRAPPER_CLASS
-   FILED_NODE
+   FILED_NODE undefine set_name end
+
       -- TODO: since it's both named and filed it could also be a MOVABLE_NODE
 
 insert
@@ -40,7 +40,11 @@ feature {ANY}
    c_type: STRING
       do
           Result := once "struct"
-          -- Note: 2016-01-01 I cannot work out why this query depends on the value of the artificial attribute; I inspected the XML made by castxml but coulnd't find any feasible reason 
+          -- Note: 2016-01-01 I cannot work out why this query were once
+          -- written as if it depended on the value of the artificial
+          -- attribute; I inspected the XML made by castxml but coulnd't find
+          -- any feasible reason; I leave here it here commented out
+
           -- if is_artificial then
           --    Result := once "struct"
           -- else

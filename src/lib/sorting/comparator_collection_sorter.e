@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class COMPARATOR_COLLECTION_SORTER[X]
+expanded class COMPARATOR_COLLECTION_SORTER[X_]
    --
    -- Some algorithms to sort any COLLECTION using an external comparator.
    --
@@ -26,7 +26,7 @@ expanded class COMPARATOR_COLLECTION_SORTER[X]
    --
 
 insert
-   ABSTRACT_SORTER[X]
+   ABSTRACT_SORTER[X_]
       redefine default_create
       end
 
@@ -39,15 +39,15 @@ feature {ANY}
          comparator := a_comparator
       end
 
-   comparator: PREDICATE[TUPLE[X, X]]
+   comparator: PREDICATE[TUPLE[X_, X_]]
 
 feature {}
-   lt (x, y: X): BOOLEAN
+   lt (x, y: X_): BOOLEAN
       do
          Result := comparator.item([x, y])
       end
 
-   default_comparator (x, y: X): BOOLEAN
+   default_comparator (x, y: X_): BOOLEAN
       do
          Result := True -- does not sort by default (sort algorithms are conservative)
       end
@@ -70,7 +70,7 @@ end -- class COMPARATOR_COLLECTION_SORTER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

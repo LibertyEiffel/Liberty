@@ -3,7 +3,7 @@
 --
 class CLASS_TEXT
    --
-   -- Syntactical representation of one class text: there is exactely one
+   -- Syntactical representation of one class text: there is exactly one
    -- instance of this class for each used Eiffel class file.
    --
 
@@ -38,7 +38,7 @@ feature {ANY}
          -- Access to the corresponding file (full file path).
 
    cluster: CLUSTER
-         -- The `cluster' used to load the class (also gives acces to the directory path).
+         -- The `cluster' used to load the class (also gives access to the directory path).
 
    heading_comment1: COMMENT
          -- Comment before keyword `class'.

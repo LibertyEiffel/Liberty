@@ -21,7 +21,7 @@ feature {ANY} -- Various exceptions codes:
          -- Exception code for inspect statement. This exception occurs when Void is passed as the expression
          -- to inspect ("inspect on STRING only).
          -- This exception also occurs when the inspected value selects no branch (when the keyword "else"
-         -- not used, one "when" branch _must_ be selected).  some value which is not one of the inspect
+         -- not used, one "when" branch _must_ be selected).  Some value which is not one of the inspect
          -- constants, if there is no Else_part
 
    Loop_invariant: INTEGER 5
@@ -52,7 +52,7 @@ feature {ANY} -- Various exceptions codes:
          -- Exception code for feature applied to Void reference
 
    System_level_type_error: INTEGER 14
-         -- Exception code for the system-level type error (this kind of error mostly arise whith covariant
+         -- Exception code for the system-level type error (this kind of error mostly arise with covariant
          -- redefinition).
 
    exception_name: STRING
@@ -208,7 +208,7 @@ end -- class EXCEPTIONS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

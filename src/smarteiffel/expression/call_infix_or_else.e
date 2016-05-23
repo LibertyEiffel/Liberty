@@ -48,7 +48,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
          create internal_local2.make(sp, Current, feature_name.to_string, True)
          code_accumulator.current_context.add_last(create {ASSIGNMENT}.make(internal_local2, left))
-         -- New context for the righ-hand side:
+         -- New context for the right-hand side:
          code_accumulator.open_new_context
          arg1.inline_dynamic_dispatch_(code_accumulator, type)
          right := code_accumulator.current_context.last.to_expression

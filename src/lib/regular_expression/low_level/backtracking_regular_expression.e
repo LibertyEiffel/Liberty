@@ -79,7 +79,7 @@ feature {ANY} -- common
 
    matches_only_current_position: BOOLEAN
          -- Does the matching occur only from current position?
-         -- If that falg is True then:
+         -- If that flag is True then:
          --   * if match succeeds then position is advanced
          --   * if match fails the position remains
          --
@@ -166,7 +166,7 @@ feature {} -- backtracked search
          end
       end
 
-feature {REGULAR_EXPRESSION_ITEM} -- context managment
+feature {REGULAR_EXPRESSION_ITEM} -- context management
    context_type_frame: INTEGER -1
 
    context_frame_cut: INTEGER -2
@@ -510,7 +510,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- matching facilities
          end
       end
 
-feature {REGULAR_EXPRESSION_ITEM} -- positionnal predicates
+feature {REGULAR_EXPRESSION_ITEM} -- positional predicates
    is_begin_of_text: BOOLEAN
          -- True if at begin of the text
       do
@@ -619,7 +619,7 @@ end -- class BACKTRACKING_REGULAR_EXPRESSION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

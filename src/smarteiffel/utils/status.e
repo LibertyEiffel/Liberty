@@ -85,7 +85,7 @@ feature {}
    --
    -- `inlining_dynamic_dispatch'
    -- All feature calls are replaced by monomorphic calls and dynamic
-   -- dispatch is implemented with ordinary inspect instructon.
+   -- dispatch is implemented with ordinary inspect instruction.
    --
    -- `adapting_features'
    -- The adapt process has just started. The goal of this step is to create the RUN_FEATUREs with

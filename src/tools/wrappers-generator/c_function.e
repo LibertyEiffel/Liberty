@@ -38,7 +38,7 @@ feature {ANY}
 
    return_type: C_TYPE
       do
-         Result := types.at(returns)
+         Result := types.reference_at(returns)
       end
 
    compute_eiffel_name
@@ -72,9 +72,10 @@ feature {ANY}
          -- wrappable? The variadic part of the function, the ellipsis ("...")
          -- is ignored.
       local
-         i: INTEGER_32
+         i: INTEGER_32; a_return_type: C_TYPE
       do
-         Result := return_type.is_void or return_type.has_wrapper -- return_type.referree.has_wrapper
+         a_return_type := return_type
+         Result := a_return_type/=Void and then (a_return_type.is_void or a_return_type.has_wrapper) -- return_type.referree.has_wrapper
          if Result then
             -- Check for
             from
@@ -90,7 +91,7 @@ feature {ANY}
 
    is_to_be_emitted: BOOLEAN
       do
-         not_yet_implemented
+          Result := not avoided_symbols.has(c_string_name)
       end
 
    wrap_on (a_stream: OUTPUT_STREAM)
@@ -98,8 +99,8 @@ feature {ANY}
          if not is_wrappable then
 			log("Function `#(1)' is  not wrappable%N" #  c_string_name)
             buffer.reset
-            buffer.append(once "       -- function #(1) (at line #(2) in file #(3) is not wrappable%N" #
-					c_string_name # line_row.to_utf8 # c_file.c_string_name)
+            buffer.append(once "       -- unwrappable function #(1) in file `#(2)'%N" #
+					c_string_name # c_file.c_string_name)
             -- TODO: provide the reason; using developer_exception_name
             -- triggers some recursion bug AFAIK. Paolo 2009-10-02
          elseif not is_public then
@@ -111,7 +112,7 @@ feature {ANY}
             buffer.append(once "%T-- function #(1) in unwrapped namespace #(2) skipped.%N" #
 				c_string_name # namespace.c_string_name)
          elseif avoided_symbols.has(c_string_name) then
-            log(once "Skipping function `#(1)' as requested.%N" # c_string_name)
+             log(once "Function `#(1)' is among the avoided symbols: not wrapping as requested.%N" # c_string_name)
             buffer.append(once "%T-- function #(1) skipped as requested.%N" # c_string_name)
          else
             log(once "Function #(1)" # c_string_name)
@@ -130,7 +131,9 @@ feature {ANY}
          -- with lines shorter that 'description_lenght' characters.
          -- local description: COLLECTION[STRING];  word: STRING; iter: ITERATOR[STRING];  length,new_length: INTEGER
       do
-         -- TODO: implement C_FUNCTION.append_description%N")
+         -- TODO: complete C_FUNCTION.append_description
+         buffer.append(once "%N%T%T-- function #(1) (in `#(2)')%N" #
+					c_string_name # c_file.c_string_name)
          -- description := feature_description(class_name, name)
          -- if description/=Void then
          --      from
@@ -212,12 +215,19 @@ feature {ANY}
    append_body
          -- Append the body of function to `buffer'
       local
-         actual_c_symbol, description: ABSTRACT_STRING
+         description: ABSTRACT_STRING
+         feature_name: ABSTRACT_STRING
       do
          if is_variadic then
             description := c_string_name & variadic_function_note
          else
             description := c_string_name
+         end
+         if has_arguments then 
+            feature_name := c_string_name
+         else
+            -- Handle the case of parameterless C functions like fork or getpid
+            feature_name := c_string_name|"()"
          end
          buffer.append(once "%
                         %               -- #(1)%N%
@@ -228,7 +238,7 @@ feature {ANY}
                         %                       feature_name: %"#(2)%"%N%
                         %               }%"%N%
                         %               end%N%N" #
-						description # c_string_name)
+                        description # feature_name)
          -- For debugging purpose the line where the node occurred were once printed in the comment, like th:
          -- buffer.append(once "%
          -- %            -- #(1) (node at line #(3))%N%

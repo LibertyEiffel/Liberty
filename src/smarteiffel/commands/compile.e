@@ -36,6 +36,10 @@ feature {ANY}
         -style_warning      Do print warnings about style violations
         -no_warning         Don't print any warnings
 
+      Message styles:
+         -flymake_mode      Display messages in a compact format suitable for
+                             processing by tools such as Emacs' Flymake mode
+
       Optimization and debugging levels (specify at most one; default is -all_check):
         -boost              Enable all optimizations,
                              but disable all run-time checks
@@ -438,7 +442,8 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version, -help, -clean, and -relax are allowed%Nin ACE file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version, -help, -clean, -relax, and -flymake_mode are%N%
+      %allowed in ACE file mode.%N"
 
 end -- class COMPILE
 --

@@ -203,7 +203,7 @@ feature {ANY}
       end
 
    a_include: STRING
-         -- Always return some file name wich may looks like a file to include: "....foo.h" or <...foo.h>.
+         -- Always return some file name which may looks like a file to include: "....foo.h" or <...foo.h>.
          -- When the file name is not properly brace with "..." or <...>, the standard "..." are automatically
          -- added.
       require

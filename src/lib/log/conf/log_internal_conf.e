@@ -583,7 +583,7 @@ feature {}
          if ft.file_exists("log.rc") then
             create in.connect_to("log.rc")
             if in.is_connected then
-               load(in, Void, Void, agent (a_in: TEXT_FILE_READ) is do a_in.disconnect end(in))
+               load(in, Void, Void, agent (a_in: TEXT_FILE_READ) do a_in.disconnect end(in))
             end
             if root = Void then
                std_error.put_line(once "Could not initialize the logging framework.%NPlease check your log.rc file or explicitly call LOG_CONFIGURATION.load")
@@ -639,7 +639,7 @@ end -- class LOG_INTERNAL_CONF
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -2,9 +2,9 @@
 -- See the full copyright at the end.
 --
 class PERL
-   -- This class allows to have an embedded perl interpreter in you program.
+   -- This class allows to have an embedded Perl interpreter in you program.
    -- With this interpreter, you can "execute" any line as you would
-   -- do in some perl script, even lines such as "use strict;" or
+   -- do in some Perl script, even lines such as "use strict;" or
    -- "use somepackage", lines with "require" (in perlfunc) and "do"
    -- (in perlfunc to include external Perl files). See tutorial/perl for use examples.
    --
@@ -17,7 +17,7 @@ class PERL
    -- Note that current release does not allow to have multiple
    -- interpreters running, so this class is a singleton. If you need
    -- multiple interpreters, documentation is available in manual
-   -- perlembed (provided in standard perl documentation and
+   -- perlembed (provided in standard Perl documentation and
    -- available on the net). Please contribute and send your changes!
 
 insert
@@ -73,10 +73,10 @@ feature {ANY} -- Perl code execution
          last_result := eval_expression(command.to_external, True)
       end
 
-feature {ANY} -- Reading values from perl
+feature {ANY} -- Reading values from Perl
    existant_variable (variable_name: STRING): BOOLEAN
-         -- Check if some perl variable with the name `variable_name' does
-         -- exist. It's not related to the `undef' perl value.
+         -- Check if some Perl variable with the name `variable_name' does
+         -- exist. It's not related to the `undef' Perl value.
          --
          -- See also `defined_variable', `read_variable'.
       require
@@ -87,8 +87,8 @@ feature {ANY} -- Reading values from perl
       end
 
    defined_variable (variable_name: STRING): BOOLEAN
-         -- Returns `True' if the perl variable with the name `variable_name' does
-         -- not have the perl `undef' value.
+         -- Returns `True' if the Perl variable with the name `variable_name' does
+         -- not have the Perl `undef' value.
          --
          -- See also `existant_variable', `read_variable'.
       require
@@ -100,7 +100,7 @@ feature {ANY} -- Reading values from perl
       end
 
    read_variable (variable_name: STRING)
-         -- Read the perl variable with name `variable_name'. The
+         -- Read the Perl variable with name `variable_name'. The
          -- result is available with last_* functions.
          --
          -- See also: `last_integer', `last_real', `last_string'...
@@ -217,7 +217,7 @@ end -- class PERL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

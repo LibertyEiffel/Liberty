@@ -26,7 +26,7 @@ feature {ANY}
          -- In this mode cursor may blink in a more special or in a more visible way.
 
    valid_cursor_visibility (code: INTEGER): BOOLEAN
-         -- Chack that code is one of `invisible_cursor_mode', `default_visible_cursor_mode'
+         -- Check that code is one of `invisible_cursor_mode', `default_visible_cursor_mode'
          -- or `special_visible_cursor_mode'.
       do
          inspect
@@ -51,7 +51,7 @@ end -- class NCURSES_TOOLS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

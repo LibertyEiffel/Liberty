@@ -11,7 +11,7 @@ insert
 
 feature {ANY}
    register (public_id: UNICODE_STRING; a_url: STRING)
-         -- Register the public DTD `public_id' as having a local couterpart file in the given `local_path'.
+         -- Register the public DTD `public_id' as having a local counterpart file in the given `local_path'.
       require
          valid_public_id: not public_id.is_empty
          valid_url: valid_url(a_url)
@@ -93,7 +93,7 @@ end -- class XML_DTD_PUBLIC_REPOSITORY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

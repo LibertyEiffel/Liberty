@@ -3,7 +3,7 @@
 --
 class ARRAY3[E_]
    --
-   -- General prurpose, resizable, three dimensional array.
+   -- General purpose, resizable, three dimensional array.
    --
 
 inherit
@@ -26,6 +26,36 @@ feature {ARRAY3}
 
    capacity: INTEGER
          -- Number of elements in `storage'.
+   
+   set_limits(line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER)
+      -- set lower1,2,3 and upper1,2,3 to the given values and alloc storage if necessary
+      require
+         line_min <= line_max + 1
+         column_min <= column_max + 1
+         depth_min <= depth_max + 1
+      do
+         lower1 := line_min
+         upper1 := line_max
+         lower2 := column_min
+         upper2 := column_max
+         lower3 := depth_min
+         upper3 := depth_max
+         count1 := upper1 - lower1 + 1
+         count2 := upper2 - lower2 + 1
+         count3 := upper3 - lower3 + 1
+         count := count1 * count2 * count3
+
+         if count > capacity then
+            storage := storage.calloc(count)
+            capacity := count
+         end
+      ensure
+         lower1_set: lower1 = line_min
+         lower2_set: upper1 = line_max
+         upper1_set: lower2 = column_min
+         upper2_set: upper2 = column_max
+         sufficient_storage: capacity >= count
+      end
 
 feature {ANY} -- Creation / modification:
    make (line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER)
@@ -175,7 +205,9 @@ feature {ANY} -- Resizing:
       local
          tmp: like Current; l, c, d: INTEGER
       do
-         create tmp.make(line_min, line_max, column_min, column_max, depth_min, depth_max)
+         tmp := standard_twin
+         tmp.set_limits(line_min, line_max, column_min, column_max, depth_min, depth_max)
+
          -- It may be possible to avoid this creation when :
          --    new `capacity' <= old `capacity'
          from
@@ -252,7 +284,9 @@ feature {ANY} -- Implementation of others feature from COLLECTION3:
       local
          i, j, k, n: INTEGER
       do
-         create Result.make(line_min, line_max, column_min, column_max, depth_min, depth_max)
+         Result := standard_twin
+         Result.set_limits(line_min, line_max, column_min, column_max, depth_min, depth_max)
+         
          from
             i := line_min
             k := 0
@@ -299,7 +333,7 @@ feature {ANY} --  Looking and comparison:
 
    has (x: like item): BOOLEAN
          -- Search if a element x is in the array using `equal'.
-         -- See also `fast_has' to choose the apropriate one.
+         -- See also `fast_has' to choose the appropriate one.
       do
          if count > 0 then
             Result := storage.first_index_of(x, count - 1) <= count - 1
@@ -332,20 +366,8 @@ feature {ANY} --  Looking and comparison:
 
    copy (other: like Current)
       do
-         lower1 := other.lower1
-         upper1 := other.upper1
-         lower2 := other.lower2
-         upper2 := other.upper2
-         lower3 := other.lower3
-         upper3 := other.upper3
-         count := other.count
-         count1 := other.count1
-         count2 := other.count2
-         count3 := other.count3
-         if capacity < count then
-            capacity := count
-            storage := storage.calloc(count)
-         end
+         set_limits(other.lower1, other.upper1, other.lower2, other.upper2, other.lower3, other.upper3)
+
          storage.copy_from(other.storage, count - 1)
       end
 
@@ -384,7 +406,7 @@ end -- class ARRAY3
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

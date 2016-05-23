@@ -78,6 +78,8 @@ feature {} -- Implementation
                is_public: cached_eiffel_name.first /= '_'
                not cached_eiffel_name.has_substring("__")
             end
+         elseif has_assigned_name then
+            cached_eiffel_name := eiffel_feature(assigned_name)
          else
             -- Actually trying to wrap a nameless element that is not
             -- identified by its position in a file is quite hopeless. We
@@ -85,10 +87,10 @@ feature {} -- Implementation
             -- gccxml file as unique id. Quite a shameless trick, but I guess
             -- that such elements are quite esoteric and unreachable and
             -- unusable also on C level.
-            create cached_eiffel_name.make_from_string(once "anonymous_gccxml_element_at_l@(1)_r@(2)" # &line # &column)
+            create cached_eiffel_name.make_from_string(once "anonymous_gccxml_element_at_line_#(1)_r#(2)" # &line # &column)
             -- TODO once we have convert this create will be mimicked by a simple assignment.
             -- It could also be written like this:
-            -- cached_eiffel_name := (once "anonymous_gccxml_element_at_l@(1)_r@(2)" # &line # &column).string
+            -- cached_eiffel_name := (once "anonymous_gccxml_element_at_l#(1)_r#(2)" # &line # &column).string
          end
       ensure
          cached_eiffel_name /= Void

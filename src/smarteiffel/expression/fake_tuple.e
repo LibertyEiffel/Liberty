@@ -3,8 +3,8 @@
 --
 class FAKE_TUPLE
    --
-   -- Pseudo expression used to avoid creation of TUPLEs while lauching agents.
-   -- Also important to check arguments passing more stricly.
+   -- Pseudo expression used to avoid creation of TUPLEs while launching agents.
+   -- Also important to check arguments passing more strictly.
    --
 
 inherit

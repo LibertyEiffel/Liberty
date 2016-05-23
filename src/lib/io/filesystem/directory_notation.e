@@ -26,7 +26,7 @@ feature {ANY}
    to_subdirectory_with (parent_path, entry_name: STRING)
          -- Try to compute in `parent_path' the new subdirectory path
          -- obtained when trying to concatenate smartly `parent_path'
-         -- whith some `entry_name'. When this fails, `parent_path'
+         -- with some `entry_name'. When this fails, `parent_path'
          -- `is_empty' after this call. This operation does not
          -- perform any disk access.
       require
@@ -39,7 +39,7 @@ feature {ANY}
 
    to_file_path_with (parent_path, file_name: STRING)
          -- Try to compute in `parent_path' the new file path obtained
-         -- when trying to concatenate smartly `parent_path' whith
+         -- when trying to concatenate smartly `parent_path' with
          -- some `file_name'. When this fails, `parent_path'
          -- `is_empty' after this call. This operation does not
          -- perform any disk access.
@@ -53,7 +53,7 @@ feature {ANY}
 
    to_subpath_with (parent_path, subpath: STRING)
          -- Try to compute in `parent_path' the new file path obtained
-         -- when trying to concatenate smartly `parent_path' whith
+         -- when trying to concatenate smartly `parent_path' with
          -- some `subpath'. When this fails, `parent_path'
          -- `is_empty' after this call. This operation does not
          -- perform any disk access.
@@ -166,7 +166,7 @@ feature {ANY}
       end
 
    to_current_directory (directory: STRING)
-         -- Put the realtive directory representing the current
+         -- Put the relative directory representing the current
          -- working directory into directory. Not to be confused with
          -- the absolute path of the current working directory at a
          -- given time. This operation does not perform any disk
@@ -199,7 +199,7 @@ feature {ANY}
          -- Does `path' represent a syntactically valid directory
          -- path? For many Systems, there may be no syntactical
          -- difference between file paths and directory paths, in
-         -- that cas there is no difference between
+         -- that case there is no difference between
          -- `is_valid_directory_path' and `is_valid_path'.
       deferred
       ensure
@@ -250,7 +250,7 @@ end -- class DIRECTORY_NOTATION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software
+-- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

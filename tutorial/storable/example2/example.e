@@ -1,7 +1,7 @@
 class EXAMPLE
    --
    -- Simple example to start with STORABLEs.
-   -- Here you wil learn how to store/retrieve two ARRAYs in an xml file.
+   -- Here you will learn how to store/retrieve two ARRAYs in an xml file.
    --
 
 create {ANY}

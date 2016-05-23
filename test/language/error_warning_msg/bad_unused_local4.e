@@ -12,7 +12,7 @@ create {ANY}
 feature {ANY}
    make
       local
-         a: AUX_UNUSED_LOCAL4
+         unused: AUX_UNUSED_LOCAL4
       do
       end
 
