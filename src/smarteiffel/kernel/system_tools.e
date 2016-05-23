@@ -728,18 +728,9 @@ feature {SE, ACE, COMMAND_LINE_TOOLS}
          echo.w_put_string(command_name)
          echo.w_put_string("'.%N")
          echo.w_put_string(command_line_help_summary)
-         if sys_directory /= Void then
-            tmp_path.copy(sys_directory)
-            parent_directory(tmp_path)
-            subdirectory(tmp_path, "man")
-            tmp_path.append(command_name)
-            tmp_path.append(".txt")
-            echo.w_put_string("If Liberty Eiffel is correctly installed, you should find%N%
-                              %more information in the file %"")
-            echo.w_put_string(tmp_path)
-            echo.w_put_string("%".%N")
-         end
-         echo.w_put_string("You can also have a look at http://wiki.liberty-eiffel.org/index.php/")
+         echo.w_put_character('%N')
+         echo.w_put_string("Further information for this command can be found at:%N")
+         echo.w_put_string("      http://wiki.liberty-eiffel.org/index.php/")
          echo.w_put_string(command_name)
          echo.w_put_character('%N')
          die_with_code(exit_failure_code)
