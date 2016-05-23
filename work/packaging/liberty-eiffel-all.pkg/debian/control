@@ -3,7 +3,7 @@ Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, liberty-eiffel-core-libs (= #VERSION#), liberty-eiffel-extra-libs (= #VERSION#), liberty-eiffel-tools (= #VERSION#)
 Recommends: liberty-eiffel-core-doc (= #VERSION#), liberty-eiffel-extra-doc (= #VERSION#), liberty-eiffel-tutorial (= #VERSION#)
 Suggests: liberty-eiffel-tools-src (= #VERSION#)
-Description: The Liberty Eiffel development suite
+Description: Liberty Eiffel development suite
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.
  Since the original maintainer lost interest, and the community has to
