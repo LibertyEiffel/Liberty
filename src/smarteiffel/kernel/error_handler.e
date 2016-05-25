@@ -489,7 +489,7 @@ feature {}
          echo.w_put_character('%N')
          echo.w_put_character('%N')
          if positions.count >= 2 then
-            echo.w_put_string(once "The source lines involved by the message are the following:%N%N")
+            echo.w_put_string(once "The source lines relevant to this message are the following:%N%N")
          end
          display_lines
          echo.w_put_string(once "------%N")
