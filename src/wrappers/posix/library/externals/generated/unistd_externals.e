@@ -208,7 +208,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "endusershell"
+                       feature_name: "endusershell()"
                }"
                end
 
@@ -420,7 +420,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "fork"
+                       feature_name: "fork()"
                }"
                end
 
@@ -480,7 +480,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "get_current_dir_name"
+                       feature_name: "get_current_dir_name()"
                }"
                end
 
@@ -516,7 +516,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getdtablesize"
+                       feature_name: "getdtablesize()"
                }"
                end
 
@@ -528,7 +528,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getegid"
+                       feature_name: "getegid()"
                }"
                end
 
@@ -540,7 +540,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "geteuid"
+                       feature_name: "geteuid()"
                }"
                end
 
@@ -552,7 +552,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getgid"
+                       feature_name: "getgid()"
                }"
                end
 
@@ -576,7 +576,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "gethostid"
+                       feature_name: "gethostid()"
                }"
                end
 
@@ -600,7 +600,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getlogin"
+                       feature_name: "getlogin()"
                }"
                end
 
@@ -624,7 +624,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getpagesize"
+                       feature_name: "getpagesize()"
                }"
                end
 
@@ -661,7 +661,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getpgrp"
+                       feature_name: "getpgrp()"
                }"
                end
 
@@ -673,7 +673,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getpid"
+                       feature_name: "getpid()"
                }"
                end
 
@@ -685,7 +685,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getppid"
+                       feature_name: "getppid()"
                }"
                end
 
@@ -733,7 +733,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getuid"
+                       feature_name: "getuid()"
                }"
                end
 
@@ -745,7 +745,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getusershell"
+                       feature_name: "getusershell()"
                }"
                end
 
@@ -877,7 +877,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "pause"
+                       feature_name: "pause()"
                }"
                end
 
@@ -1141,7 +1141,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "setpgrp"
+                       feature_name: "setpgrp()"
                }"
                end
 
@@ -1201,7 +1201,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "setsid"
+                       feature_name: "setsid()"
                }"
                end
 
@@ -1225,7 +1225,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "setusershell"
+                       feature_name: "setusershell()"
                }"
                end
 
@@ -1285,7 +1285,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sync"
+                       feature_name: "sync()"
                }"
                end
 
@@ -1405,7 +1405,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "ttyslot"
+                       feature_name: "ttyslot()"
                }"
                end
 
@@ -1465,7 +1465,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "vfork"
+                       feature_name: "vfork()"
                }"
                end
 
@@ -1477,7 +1477,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "vhangup"
+                       feature_name: "vhangup()"
                }"
                end
 

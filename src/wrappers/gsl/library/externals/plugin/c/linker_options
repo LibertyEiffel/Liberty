@@ -1,2 +1,0 @@
-[UNIX]
-gsl: "-Xlinker --no-as-needed $(pkg-config --libs gsl)"

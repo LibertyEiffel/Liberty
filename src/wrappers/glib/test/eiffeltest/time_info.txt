@@ -1,9 +1,0 @@
-<<<<<<< .mine
-Execution of "se test" started: Sunday November 23 21:21:0 2008
-                    terminated: Sunday November 23 21:22:12 2008
-72 (Elapsed seconds in "/media/TESI ELENA/eiffel-libraries/trunk/eiffel-glib/test/".)
-=======
-Execution of "se test" started: Sunday November 23 22:48:31 2008
-                    terminated: Sunday November 23 22:49:39 2008
-68 (Elapsed seconds in "/home/r/eiffel/eiffel-libraries/trunk/eiffel-glib/test/".)
->>>>>>> .r1093

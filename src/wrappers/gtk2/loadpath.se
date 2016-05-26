@@ -1,6 +1,0 @@
-../common/loadpath.se
-./library/loadpath.se
-../glib/loadpath.se
-../gdk2/loadpath.se
-../gobject/loadpath.se
-../pango/loadpath.se
