@@ -1,6 +1,7 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GVALUE_STRUCT
+-- Wrapper of struct _GValue defined in file /usr/include/glib-2.0/gobject/gvalue.h
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -63,10 +64,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__GValue"
+                       feature_name: "sizeof_gvalue"
                }"
                end
 
 end -- class GVALUE_STRUCT
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.

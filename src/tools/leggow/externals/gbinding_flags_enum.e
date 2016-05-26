@@ -1,7 +1,8 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 expanded class GBINDING_FLAGS_ENUM
 
+-- Wrapper of enum GBindingFlags defined in file /usr/include/glib-2.0/gobject/gbinding.h
 insert ENUM
 
 create {ANY} default_create

@@ -1,6 +1,7 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GTYPE_INTERFACE_STRUCT
+-- Wrapper of struct _GTypeInterface defined in file /usr/include/glib-2.0/gobject/gtype.h
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -63,10 +64,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__GTypeInterface"
+                       feature_name: "sizeof_gtype_interface"
                }"
                end
 
 end -- class GTYPE_INTERFACE_STRUCT
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.

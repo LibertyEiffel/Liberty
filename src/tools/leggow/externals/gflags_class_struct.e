@@ -1,6 +1,7 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GFLAGS_CLASS_STRUCT
+-- Wrapper of struct _GFlagsClass defined in file /usr/include/glib-2.0/gobject/genums.h
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -88,10 +89,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__GFlagsClass"
+                       feature_name: "sizeof_gflags_class"
                }"
                end
 
 end -- class GFLAGS_CLASS_STRUCT
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.

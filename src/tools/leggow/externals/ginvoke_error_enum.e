@@ -1,7 +1,8 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 expanded class GINVOKE_ERROR_ENUM
 
+-- Wrapper of enum GInvokeError defined in file /usr/include/gobject-introspection-1.0/gifunctioninfo.h
 insert ENUM
 
 create {ANY} default_create

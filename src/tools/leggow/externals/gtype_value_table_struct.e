@@ -1,6 +1,7 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GTYPE_VALUE_TABLE_STRUCT
+-- Wrapper of struct _GTypeValueTable defined in file /usr/include/glib-2.0/gobject/gtype.h
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -207,10 +208,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__GTypeValueTable"
+                       feature_name: "sizeof_gtype_value_table"
                }"
                end
 
 end -- class GTYPE_VALUE_TABLE_STRUCT
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.

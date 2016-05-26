@@ -1,6 +1,7 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GTYPE_MODULE_CLASS_STRUCT
+-- Wrapper of struct _GTypeModuleClass defined in file /usr/include/glib-2.0/gobject/gtypemodule.h
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -160,10 +161,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__GTypeModuleClass"
+                       feature_name: "sizeof_gtype_module_class"
                }"
                end
 
 end -- class GTYPE_MODULE_CLASS_STRUCT
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.

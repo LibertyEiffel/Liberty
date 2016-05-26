@@ -1,6 +1,7 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GSIGNAL_INVOCATION_HINT_STRUCT
+-- Wrapper of struct _GSignalInvocationHint defined in file /usr/include/glib-2.0/gobject/gsignal.h
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -87,10 +88,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__GSignalInvocationHint"
+                       feature_name: "sizeof_gsignal_invocation_hint"
                }"
                end
 
 end -- class GSIGNAL_INVOCATION_HINT_STRUCT
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.

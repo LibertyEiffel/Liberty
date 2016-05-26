@@ -63,12 +63,18 @@ feature {ANY} -- Wrapper
 
 
 feature {ANY}
-	symbol: FIXED_STRING is
-		-- The symbol of the function; the symbol is the name of the exported function, suitable to be used as an argument to g_module_symbol().
-    local ptr: POINTER
-	do
-        ptr:=g_function_info_get_symbol(handle)
-		create Result.from_external(ptr)
+   symbol: FIXED_STRING 
+      -- The symbol of the function; the symbol is the name of the exported function, suitable to be used as an argument to g_module_symbol().
+   local ptr: POINTER
+   do
+      ptr:=g_function_info_get_symbol(handle)
+      if ptr.is_not_null then 
+         create Result.from_external(ptr)
+      else
+         -- raise ("anonymous symbol in a function") 
+         log.warning.put_line(once "anonymous symbol in function ")
+         Result := (once "").intern
+      end
 	ensure not_void: Result/=Void
 	end
    

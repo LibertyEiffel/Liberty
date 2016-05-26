@@ -1,4 +1,4 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GIENUMINFO_EXTERNALS
 
@@ -9,6 +9,8 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	g_enum_info_get_error_domain (an_info: POINTER): POINTER 
+
+		-- function g_enum_info_get_error_domain (in `/usr/include/gobject-introspection-1.0/gienuminfo.h')
                -- g_enum_info_get_error_domain
                external "plug_in"
                alias "{
@@ -19,6 +21,8 @@ feature {} -- External calls
                end
 
 	g_enum_info_get_method (an_info: POINTER; a_n: INTEGER): POINTER 
+
+		-- function g_enum_info_get_method (in `/usr/include/gobject-introspection-1.0/gienuminfo.h')
                -- g_enum_info_get_method
                external "plug_in"
                alias "{
@@ -29,6 +33,8 @@ feature {} -- External calls
                end
 
 	g_enum_info_get_n_methods (an_info: POINTER): INTEGER 
+
+		-- function g_enum_info_get_n_methods (in `/usr/include/gobject-introspection-1.0/gienuminfo.h')
                -- g_enum_info_get_n_methods
                external "plug_in"
                alias "{
@@ -39,6 +45,8 @@ feature {} -- External calls
                end
 
 	g_enum_info_get_n_values (an_info: POINTER): INTEGER 
+
+		-- function g_enum_info_get_n_values (in `/usr/include/gobject-introspection-1.0/gienuminfo.h')
                -- g_enum_info_get_n_values
                external "plug_in"
                alias "{
@@ -49,6 +57,8 @@ feature {} -- External calls
                end
 
 	g_enum_info_get_storage_type (an_info: POINTER): INTEGER 
+
+		-- function g_enum_info_get_storage_type (in `/usr/include/gobject-introspection-1.0/gienuminfo.h')
                -- g_enum_info_get_storage_type
                external "plug_in"
                alias "{
@@ -59,6 +69,8 @@ feature {} -- External calls
                end
 
 	g_enum_info_get_value (an_info: POINTER; a_n: INTEGER): POINTER 
+
+		-- function g_enum_info_get_value (in `/usr/include/gobject-introspection-1.0/gienuminfo.h')
                -- g_enum_info_get_value
                external "plug_in"
                alias "{
@@ -69,6 +81,8 @@ feature {} -- External calls
                end
 
 	g_value_info_get_value (an_info: POINTER): like long 
+
+		-- function g_value_info_get_value (in `/usr/include/gobject-introspection-1.0/gienuminfo.h')
                -- g_value_info_get_value
                external "plug_in"
                alias "{

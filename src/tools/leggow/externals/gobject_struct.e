@@ -1,6 +1,7 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GOBJECT_STRUCT
+-- Wrapper of struct _GObject defined in file /usr/include/glib-2.0/gobject/gobject.h
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -64,10 +65,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__GObject"
+                       feature_name: "sizeof_gobject"
                }"
                end
 
 end -- class GOBJECT_STRUCT
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.

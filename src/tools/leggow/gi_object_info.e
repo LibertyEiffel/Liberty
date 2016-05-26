@@ -37,7 +37,8 @@ feature {ANY} -- Wrapper
 		properties_text: STRING; 
         a_name, a_count: ABSTRACT_STRING
     do
-        -- debug std_error.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) end
+       std_error.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) 
+       --std_error. log.trace.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) 
 		create properties_text.with_capacity( 2048 )
         a_name := name; a_count := &properties_count 
 		log.info.put_string("Object #(1) with #(2) properties: " # name # & properties_count )
