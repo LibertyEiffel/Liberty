@@ -1,8 +1,14 @@
-liberty-eiffel (2016.05#SNAPSHOT#) unstable; urgency=low
+liberty-eiffel (2016~dev#SNAPSHOT#) unstable; urgency=low
+
+  * Glenn Curtiss
+
+-- Raphael Mack <ramack@raphael-mack.de>  #DATE#
+
+liberty-eiffel (2016.05~release) unstable; urgency=low
 
   * Alexander Graham Bell
 
- -- Raphael Mack <ramack@raphael-mack.de>  #DATE#
+ -- Raphael Mack <ramack@raphael-mack.de>  Thu, 26 May 2016 20:37:40 +0200
 
 liberty-eiffel (2013.11) unstable; urgency=low
 
