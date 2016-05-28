@@ -1,6 +1,6 @@
 ****** Fatal Error: Unable to solve cyclic anchored types.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 10 column 4 in BAD_LIKE5 (/home/colnet/SmartEiffel/work/lib_test3/bad_like5.e):
    a: like b;

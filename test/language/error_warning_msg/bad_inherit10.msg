@@ -1,7 +1,7 @@
 ****** Fatal Error: Cyclic inheritance graph: AUX_INHERIT10B,
 BAD_INHERIT10, AUX_INHERIT10A, AUX_INHERIT10B, ...
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 9 column 4 in BAD_INHERIT10 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit10.e):
    AUX_INHERIT10A -- (Parent dans le cycle.)

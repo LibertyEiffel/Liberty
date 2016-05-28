@@ -7,7 +7,7 @@ procedure with no arguments. For expanded class with no creation
 clause, the `default_create' procedure is the one used for automatic
 initialization.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 16 column 7 in BAD_EXPANDED2 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_expanded2.e):
    e: AUX_EXPANDED2

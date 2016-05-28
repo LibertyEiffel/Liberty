@@ -2,7 +2,7 @@
 another "like <argument>" type mark. (One level of indirection
 is always possible and always better ;-)
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 14 column 17 in BAD_LIKE14 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_like14.e):
    method (foo: like zoo; zoo: INTEGER)

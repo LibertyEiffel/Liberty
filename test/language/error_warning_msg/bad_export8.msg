@@ -6,7 +6,7 @@ Line 15 column 17 in BAD_EXPORT8 (/home/r/Liberty/test/language/error_warning_ms
 ------
 ****** Fatal Error: This feature is only exported to {INTROUVABLE}.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 9 column 10 in BAD_EXPORT8 (/home/r/Liberty/test/language/error_warning_msg/bad_export8.e):
 feature {INTROUVABLE} -- To be sure that this place is in the error message.

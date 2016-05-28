@@ -2,7 +2,7 @@
 Because an attribute cannot be undefined (using an undefine clause),
 you may consider to modify parents themselves. May be.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 7 column 4 in BAD_INHERIT18 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit18.e):
    AUX_INHERIT18A

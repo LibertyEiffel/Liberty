@@ -1,7 +1,7 @@
 ****** Fatal Error: The feature called has 1 formal argument while
 the actual argument list has 3 arguments.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 16 column 30 in BAD_CALL9 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_call9.e):
          string.append_string(to_string, i + 1, to_string.count)

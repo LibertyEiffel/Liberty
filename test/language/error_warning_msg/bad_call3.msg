@@ -1,6 +1,6 @@
 ****** Error: Feature found is not a procedure.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 14 column 14 in BAD_CALL3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_call3.e):
          foo.max(foo)

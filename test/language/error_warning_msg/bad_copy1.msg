@@ -1,7 +1,7 @@
 ****** Fatal Error: Cannot pass `Current' which is of type BAD_COPY1
 into formal type AUX_COPY1.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 97 column 17 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
    copy (other: like Current)

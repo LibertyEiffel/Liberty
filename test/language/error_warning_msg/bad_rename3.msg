@@ -2,7 +2,7 @@
 called a concrete feature here is a feature which is not deferred.
 You may consider to undefine one feature. May be.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 214 column 11 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
    frozen print (some: STRING)

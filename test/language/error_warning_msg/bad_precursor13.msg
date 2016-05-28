@@ -1,7 +1,7 @@
 ****** Fatal Error: Cannot pass `bidule' which is of type REAL_64
 into formal type NUMERIC.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 18 column 20 in BAD_PRECURSOR13 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_precursor13.e):
          Precursor(bidule)

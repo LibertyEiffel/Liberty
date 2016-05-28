@@ -25,7 +25,7 @@ Line 12 column 32 in BAD_AGENT24 (/home/et/Liberty/test/language/error_warning_m
 ****** Fatal Error: Cannot pass `[Void]' which is of type TUPLE[ANY]
 into formal type TUPLE[CHARACTER].
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 12 column 31 in BAD_AGENT24 (/home/et/Liberty/test/language/error_warning_msg/bad_agent24.e):
          (agent proc(?)).call([Void])

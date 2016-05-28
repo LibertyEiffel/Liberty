@@ -6,7 +6,7 @@ Line 12 column 16 in AUX_EXPORT1B (/home/r/Liberty/test/language/error_warning_m
 ------
 ****** Warning: The client list computed from the "export" clauses is narrower than the one from the conforming parent(s) for AUX_EXPORT1A.`make'. This can lead to catcalls! The final export list is {}.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 7 column 14 in AUX_EXPORT1A (/home/r/Liberty/test/language/error_warning_msg/aux_export1a.e):
       export {NONE} make
@@ -29,7 +29,7 @@ Line 7 column 15 in AUX_EXPORT1A (/home/r/Liberty/test/language/error_warning_ms
 ------
 ****** Fatal Error: This feature is only exported to {}.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 7 column 14 in AUX_EXPORT1A (/home/r/Liberty/test/language/error_warning_msg/aux_export1a.e):
       export {NONE} make

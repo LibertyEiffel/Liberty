@@ -1,7 +1,7 @@
 ****** Fatal Error: The feature called has 1 formal argument while
 the actual argument list has 2 arguments.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 14 column 24 in BAD_CALL4 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_call4.e):
          foo := foo.max(foo, foo)

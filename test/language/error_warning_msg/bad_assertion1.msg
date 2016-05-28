@@ -1,7 +1,7 @@
 ****** Fatal Error: Keyword "end" expected at the end of check
 clause.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 14 column 10 in BAD_ASSERTION1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_assertion1.e):
          check

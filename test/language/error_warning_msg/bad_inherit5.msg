@@ -1,7 +1,7 @@
 ****** Fatal Error: Class COLLECTION is a generic class (missing
 actual generic).
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 6 column 9 in BAD_INHERIT5 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit5.e):
 inherit COLLECTION;

@@ -1,7 +1,7 @@
 ****** Warning: A formal generic argument should not use the name
 of some existing class (VCFG).
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 4 column 16 in COMPARABLE (/home/cadrian/Workspace/Dev/Liberty/src/lib/abilities/comparable.e):
 deferred class COMPARABLE

@@ -1,7 +1,7 @@
 ****** Error: TUPLE type expected for open arguments of agent
 type.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 12 columns 26, 36 in BAD_AGENT19 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_agent19.e):
          agent1, agent2: PROCEDURE[STRING]
@@ -10,7 +10,7 @@ Line 12 columns 26, 36 in BAD_AGENT19 (/home/cadrian/Workspace/Dev/Liberty/test/
 ****** Error: TUPLE type expected for open arguments of agent
 type.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 345 column 44 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
    frozen tagged_out_memory_ref: REFERENCE[STRING]

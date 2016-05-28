@@ -1,6 +1,6 @@
 ****** Error: Same identifier appears twice (local/closure).
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 9 column 10 in BAD_CLOSURE02 (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_closure02.e):
          a: INTEGER

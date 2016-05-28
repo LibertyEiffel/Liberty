@@ -1,7 +1,7 @@
 ****** Fatal Error: A frozen feature must not be redefined. What
 is frozen _is_ frozen.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 8 column 16 in BAD_REDEFINE5 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine5.e):
       redefine frozen_routine

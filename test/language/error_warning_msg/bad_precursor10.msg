@@ -1,7 +1,7 @@
 ****** Error: This Precursor call is ambiguous because the type
 AUX_PRECURSOR10 is inherited more than once.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 10 column 4 in BAD_PRECURSOR10 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_precursor10.e):
    AUX_PRECURSOR10 redefine foo end

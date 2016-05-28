@@ -1,7 +1,7 @@
 ****** Fatal Error: The feature called has no formal argument
 while the actual argument list has 1 argument.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 12 column 14 in BAD_CONSTANT7 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_constant7.e):
          if f(5).out = Void then

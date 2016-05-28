@@ -4,7 +4,7 @@ What's called a concrete feature here is a feature which is not
 deferred. You may consider to add a redefine or an undefine. May
 be.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 17 column 4 in STRING (/home/cadrian/Workspace/Dev/Liberty/src/lib/string/string.e):
    make, with_capacity (needed_capacity: INTEGER)

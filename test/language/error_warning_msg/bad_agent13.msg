@@ -1,7 +1,7 @@
 ****** Error: TUPLE type expected for open arguments of agent
 type.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 4 column 7 in BAD_AGENT13 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_agent13.e):
 class BAD_AGENT13
@@ -13,7 +13,7 @@ Line 14 column 13 in BAD_AGENT13 (/home/cadrian/Workspace/Dev/Liberty/test/langu
 ****** Error: TUPLE type expected for open arguments of agent
 type.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 4 column 7 in BAD_AGENT13 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_agent13.e):
 class BAD_AGENT13

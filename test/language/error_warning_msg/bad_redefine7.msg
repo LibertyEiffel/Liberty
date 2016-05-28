@@ -2,7 +2,7 @@
 of feature path in BAD_REDEFINE7 because there is a local definition
 in this class. Redefine has been automatically added. Please check.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 8 column 4 in BAD_REDEFINE7 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine7.e):
    AUX_REDEFINE7B;

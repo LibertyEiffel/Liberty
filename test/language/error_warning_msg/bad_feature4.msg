@@ -1,6 +1,6 @@
 ****** Error: Feature found is a procedure.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 13 column 10 in BAD_FEATURE4 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_feature4.e):
          test_1.f

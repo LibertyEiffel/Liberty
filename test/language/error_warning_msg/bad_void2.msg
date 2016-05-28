@@ -25,7 +25,7 @@ Line 14 column 16 in BAD_VOID2 (/home/et/Liberty/test/language/error_warning_msg
 ****** Fatal Error:  Bad assignment. Cannot assign `[Void]' which
 is of type TUPLE[ANY] into `c' which is of type TUPLE[STRING].
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 14 columns 10, 15 in BAD_VOID2 (/home/et/Liberty/test/language/error_warning_msg/bad_void2.e):
          c := [Void]

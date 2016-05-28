@@ -12,7 +12,7 @@ Line 14 column 10 in BAD_IF2 (/home/cadrian/Workspace/Dev/Liberty/test/language/
 ------
 ****** Warning: Keyword "end" added to finish this "if" statement.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 17 column 10 in BAD_IF2 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_if2.e):
          if True then

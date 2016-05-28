@@ -2,7 +2,7 @@
 called a concrete feature here is a feature which is not deferred.
 You may consider to undefine one feature. May be.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 7 column 4 in BAD_INHERIT4 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit4.e):
    AUX_SELECT

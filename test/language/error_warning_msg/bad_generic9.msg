@@ -1,7 +1,7 @@
 ****** Fatal Error: Wrong number of generic arguments (compare
 usage and definition below).
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 12 column 13 in BAD_GENERIC9 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_generic9.e):
          a: AUX_GENERIC9[INTEGER]

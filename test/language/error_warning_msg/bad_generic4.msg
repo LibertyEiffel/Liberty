@@ -1,7 +1,7 @@
 ****** Fatal Error: Class LINKED_LIST is a generic class (missing
 actual generic).
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 17 column 18 in BAD_GENERIC4 (/home/persocad/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_generic4.e):
          create {LINKED_LIST} m.make;

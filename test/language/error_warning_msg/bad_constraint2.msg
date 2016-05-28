@@ -1,7 +1,7 @@
 ****** Error: Actual generic derivation CHARACTER must insert
 NUMERIC which is the generic constraint.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 12 column 13 in BAD_CONSTRAINT2 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_constraint2.e):
          a: AUX_CONSTRAINT_A[CHARACTER]
@@ -12,7 +12,7 @@ class AUX_CONSTRAINT_A[X_ -> NUMERIC]
 ------
 ****** Fatal Error:  Constraint Generic Violation.
 
-The source lines involved by the message are the following:
+The source lines relevant to this message are the following:
 
 Line 12 column 13 in BAD_CONSTRAINT2 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_constraint2.e):
          a: AUX_CONSTRAINT_A[CHARACTER]
