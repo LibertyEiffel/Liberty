@@ -10,7 +10,7 @@ Line 14 column 10 in BAD_IF2 (/home/cadrian/Workspace/Dev/Liberty/test/language/
          else
          ^   
 ------
-****** Warning: Keyword "end" added to finish this "if" statement.
+****** Warning: Added missing "end" keyword to finish this "if" instruction.
 
 The source lines relevant to this message are the following:
 

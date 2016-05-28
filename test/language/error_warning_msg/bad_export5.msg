@@ -1,4 +1,4 @@
-****** Warning: A missing client clause is interpreted as {ANY}. It is better to be explicit.
+****** Warning: A missing client list is interpreted as {ANY}. It is better to be explicit.
 
 Line 6 column 4 in AUX_EXPORT5A (/home/r/Liberty/test/language/error_warning_msg/aux_export5a.e):
    f

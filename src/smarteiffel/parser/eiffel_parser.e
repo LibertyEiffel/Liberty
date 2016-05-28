@@ -1052,7 +1052,7 @@ feature {}
                      optional_list.add_last(last_expression)
                      if not skip1(',') then
                         error_handler.add_position(current_position)
-                        error_handler.append(once "Missing %",%" added.")
+                        error_handler.append(em5)
                         error_handler.print_as_warning
                      end
                   else
@@ -1099,16 +1099,16 @@ feature {}
                      elseif semicolon_count > 0 then
                         if (item_list.count #\\ semicolon_count) > 0 then
                            error_handler.add_position(current_position)
-                           error_handler.append(once "Missing %",%" added.")
+                           error_handler.append(em5)
                            error_handler.print_as_warning
                         else
                            error_handler.add_position(current_position)
-                           error_handler.append(once "Missing %";%" added.")
+                           error_handler.append(em6)
                            error_handler.print_as_warning
                         end
                      else
                         error_handler.add_position(current_position)
-                        error_handler.append(once "Missing %",%" added.")
+                        error_handler.append(em5)
                         error_handler.print_as_warning
                      end
                   elseif skip2('>', '>') then
@@ -1365,7 +1365,7 @@ feature {}
                      state := 5
                   elseif cc = ',' then
                      error_handler.add_position(current_position)
-                     error_handler.append(once "Substitute with %";%".")
+                     error_handler.append(once "Replaced %",%" with %";%".")
                      error_handler.print_as_warning
                      ok := skip1(',')
                      state := 0
@@ -1527,7 +1527,7 @@ feature {}
                else
                   if cc = ';' then
                      error_handler.add_position(current_position)
-                     error_handler.append(once "Substitute with %",%".")
+                     error_handler.append(once "Replaced %";%" with %",%".")
                      error_handler.print_as_warning
                      ok := skip1(';')
                   else
@@ -1554,7 +1554,7 @@ feature {}
                   p := last_type_mark.start_position
                   go_back_at(p.line, p.column)
                   error_handler.add_position(current_position)
-                  error_handler.append(once "Added missing %":%" semicolon before this type mark.")
+                  error_handler.append(once "Added missing %":%" before this type mark.")
                   error_handler.print_as_warning
                   state := S_waiting_for_a_type_mark
                else
@@ -1584,7 +1584,7 @@ feature {}
             when S_waiting_for_optional_colon then
                if cc = ',' then
                   error_handler.add_position(current_position)
-                  error_handler.append(once "Substitute with %";%".")
+                  error_handler.append(once "Replaced %",%" with %";%".")
                   error_handler.print_as_warning
                   ok := skip1(',')
                   state := S_waiting_for_the_first_name_of_a_group
@@ -3502,7 +3502,7 @@ feature {}
                   state := 4
                elseif cc = ',' then
                   error_handler.add_position(current_position)
-                  error_handler.append(em7)
+                  error_handler.append(em12)
                   error_handler.print_as_style_warning
                   ok := skip1(',')
                else
@@ -3515,7 +3515,7 @@ feature {}
                   state := 2
                elseif cc = ',' then
                   error_handler.add_position(current_position)
-                  error_handler.append(em7)
+                  error_handler.append(em12)
                   error_handler.print_as_style_warning
                   ok := skip1(',')
                elseif cc = '}' then
@@ -3773,7 +3773,7 @@ feature {}
                elseif not a_keyword(fz_end) then
                   error_handler.add_position(sp1)
                   error_handler.add_position(current_position)
-                  error_handler.append(once "Added %"end%" to finish this %"if%" statement.")
+                  error_handler.append(once "Added missing %"end%" keyword to finish this %"if%" instruction.")
                   error_handler.print_as_warning
                end
                last_instruction := ifthenelse
@@ -3788,7 +3788,7 @@ feature {}
                if not a_keyword(fz_end) then
                   error_handler.add_position(sp1)
                   error_handler.add_position(current_position)
-                  error_handler.append(once "Keyword %"end%" added to finish this %"if%" statement.")
+                  error_handler.append(once "Added missing %"end%" keyword to finish this %"if%" instruction.")
                   error_handler.print_as_warning
                end
                create {IFTHEN} last_instruction.make(sp1, expression1, then_part1)
@@ -4035,10 +4035,9 @@ feature {}
          comments := get_comment
          if not a_feature_name_list then
             error_handler.add_position(sp)
-            error_handler.append(once "Actually, a creation list must not be empty. You must have at least the %
-                                 %`default_create' procedure inherited from ANY. The `default_create' indicates %
-                                 %that one can also create an object with no creation procedure. %
-                                 %The `default_create' has been added here automatically.")
+            error_handler.append(once "Added missing `default_create'. Actually, a creation list must not be empty. %
+                                 %You must have at least the `default_create' procedure inherited from ANY. The %
+                                 %`default_create' indicates that one can also create an object with no creation procedure.")
             error_handler.print_as_warning
             create last_feature_name.simple_feature_name(as_default_create, sp)
             create last_feature_name_list.make_1(last_feature_name)
@@ -4068,7 +4067,7 @@ feature {}
                   end
                elseif a_feature_name then
                   error_handler.add_position(last_feature_name.start_position)
-                  error_handler.append(once "Missing %",%" added.")
+                  error_handler.append(em5)
                   error_handler.print_as_warning
                   a_conversion_clause
                else
@@ -4108,7 +4107,7 @@ feature {}
             a_conversion_list
             if not skip1(')') then
                error_handler.add_position(current_position)
-               error_handler.append(once "Added missing %")%"")
+               error_handler.append(em28)
                error_handler.print_as_warning
             end
             Result := True
@@ -4880,7 +4879,7 @@ feature {}
                   state := 1
                elseif cc = ',' then
                   error_handler.add_position(current_position)
-                  error_handler.append(em7)
+                  error_handler.append(em12)
                   error_handler.print_as_style_warning
                   ok := skip1(',')
                else
@@ -5111,7 +5110,7 @@ feature {}
                end
             elseif a_type_mark(False) then
                error_handler.add_position(pos(start_line, start_column))
-               error_handler.append(once "Added ':' before type mark.")
+               error_handler.append(once "Added missing %":%" before this type mark.")
                error_handler.print_as_warning
                inside_function_flag := True
                tmp_feature.set_type(last_type_mark)
@@ -5444,7 +5443,7 @@ feature {}
                next_char
             else
                error_handler.add_position(current_position)
-               error_handler.append(once "Character '%%%"' inserted after %"infix%".")
+               error_handler.append(once "Added missing '%%%"' after %"infix%".")
                error_handler.print_as_warning
             end
             if a_binary(sp) then
@@ -5456,7 +5455,7 @@ feature {}
             end
             if not skip1('%"') then
                error_handler.add_position(current_position)
-               error_handler.append(once "Character '%%%"' inserted.")
+               error_handler.append(once "Added missing '%%%"'.")
                error_handler.print_as_warning
             end
          end
@@ -5519,7 +5518,7 @@ feature {}
                inspect_statement.set_else_compound(else_start_position, else_compound)
             elseif not a_keyword(fz_end) then
                error_handler.add_position(current_position)
-               error_handler.append(once "Added %"end%" for inspect instruction.")
+               error_handler.append(once "Added missing %"end%" keyword to finish this %"inspect%" instruction.")
                error_handler.print_as_warning
             end
             last_instruction := inspect_statement
@@ -5832,7 +5831,7 @@ feature {}
                keyword_position := pos(start_line, start_column)
                is_expanded := last_class_text.is_expanded
                if is_expanded then
-                  error_handler.append(once "An expanded class cannot inherit from other classes, it can only have an %"insert%" clause (replaced).")
+                  error_handler.append(once "Replaced %"inherit%" with %"insert%". An expanded class cannot inherit from other classes, it can only have an %"insert%" clause.")
                   error_handler.add_position(keyword_position)
                   error_handler.print_as_warning
                   create insert_list.with_capacity(4)
@@ -5971,7 +5970,7 @@ feature {}
             end
             if needs_end then
                error_handler.add_position(current_position)
-               error_handler.append(once "Keyword %"end%" added to terminate inherit/insert parent.")
+               error_handler.append(once "Added missing %"end%" keyword to terminate inherit/insert parent.")
                error_handler.print_as_warning
             end
          end
@@ -6032,7 +6031,7 @@ feature {}
                next_char
             else
                error_handler.add_position(current_position)
-               error_handler.append(once "Character '%%%"' inserted after %"prefix%".")
+               error_handler.append(once "Added missing '%%%"' after %"prefix%".")
                error_handler.print_as_warning
             end
             if a_unary(sp) then
@@ -6044,7 +6043,7 @@ feature {}
             end
             if not skip1('%"') then
                error_handler.add_position(current_position)
-               error_handler.append(once "Character '%%%"' inserted.")
+               error_handler.append(once "Added missing '%%%"'.")
                error_handler.print_as_warning
             end
          end
@@ -6770,7 +6769,7 @@ feature {}
                   state := 1
                elseif cc = ',' then
                   error_handler.add_position(current_position)
-                  error_handler.append(em7)
+                  error_handler.append(em12)
                   error_handler.print_as_style_warning
                   ok := skip1(',')
                else

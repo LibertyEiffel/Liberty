@@ -1,5 +1,4 @@
-****** Warning: Keyword "end" added to terminate inherit/insert
-parent.
+****** Warning: Added missing "end" keyword to terminate inherit/insert parent.
 
 Line 11 column 1 in BAD_INHERIT9 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit9.e):
 create {}

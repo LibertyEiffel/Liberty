@@ -680,11 +680,9 @@ feature {}
 
    em4: STRING "Error in inspect."
 
-   em5: STRING "Added %",%"."
+   em5: STRING "Added missing %",%"."
 
-   em6: STRING "Added %";%"."
-
-   em7: STRING "Unexpected comma (deleted)."
+   em6: STRING "Added missing %";%"."
 
    em8: STRING "Unexpected new line in manifest string."
 
@@ -704,7 +702,7 @@ feature {}
 
    em17: STRING "Unexpected character."
 
-   em18: STRING "Useless keyword deleted."
+   em18: STRING "Deleted useless keyword."
 
    em19: STRING "Added missing brackets to enclose the previous %"once%" manifest STRING."
 
@@ -722,11 +720,11 @@ feature {}
 
    em26_2: STRING "Same identifier appears twice (local/closure)."
 
-   em27: STRING "Added %"(%"."
+   em27: STRING "Added missing %"(%"."
 
-   em28: STRING "Added %")%"."
+   em28: STRING "Added missing %")%"."
 
-   em29: STRING "Added %":%"."
+   em29: STRING "Added missing %":%"."
 
    em30: STRING "Expected %"[%" (to start generic argument list)."
 

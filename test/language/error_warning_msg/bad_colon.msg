@@ -1,4 +1,4 @@
-****** Warning: Added ",".
+****** Warning: Added missing ",".
 
 Line 12 column 24 in BAD_COLON (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_colon.e):
          fonction(1, 2 3);
