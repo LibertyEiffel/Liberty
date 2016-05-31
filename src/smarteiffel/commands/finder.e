@@ -22,7 +22,7 @@ feature {ANY}
       The finder command tells you where the class <ClassName> is by
       printing the complete path of the corresponding file.
       Hint: to see the search path used, just run finder with
-      some non-existent class name.%
+      some non-existent class name.
 
       This command may also be useful in shell scripts to check if the
       source file exists. (Use the exit status.)
