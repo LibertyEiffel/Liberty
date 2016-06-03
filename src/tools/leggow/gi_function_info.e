@@ -120,7 +120,7 @@ feature {ANY}
 		end
 	end
 
-	-- TODO: shall "g_function_info_invoke" be wrapped? It could be useful to implement an interpreter but since LibertyEiffel currently "only" provides a compiler it is debatable if it's useful.
+	-- TODO: shall "g_function_info_invoke" be wrapped? It could be useful to implement an interpreter but since Liberty Eiffel currently "only" provides a compiler it is debatable if it's useful.
 
 	--
 	-- gboolean            g_function_info_invoke              (GIFunctionInfo *info,

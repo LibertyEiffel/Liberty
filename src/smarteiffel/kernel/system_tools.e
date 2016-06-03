@@ -108,7 +108,7 @@ feature { SERC_FACTORY}
                                        %If you prefer that way, set the %"")
                echo.w_put_string(fz_seconf)
                echo.w_put_string(once "%" environment variable%N%
-                                       %with the absolute path of your own hand-made LibertyEiffel%N%
+                                       %with the absolute path of your own hand-made Liberty Eiffel%N%
                                        %configuration file.%N")
                if not is_install then
                   die_with_code(exit_failure_code)

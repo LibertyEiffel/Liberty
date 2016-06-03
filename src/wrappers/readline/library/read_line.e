@@ -39,7 +39,7 @@ feature {ANY} -- Read line
 
    completion: READ_LINE_COMPLETION
       local
-         c: READLINE_CECIL -- we need that indirection to force LibertyEiffel to "see" the assignment READLINE_CECIL -> READ_LINE_COMPLETION
+         c: READLINE_CECIL -- we need that indirection to force Liberty Eiffel to "see" the assignment READLINE_CECIL -> READ_LINE_COMPLETION
       once
          create {READ_LINE_COMPLETION} c.make
          Result ::= c
