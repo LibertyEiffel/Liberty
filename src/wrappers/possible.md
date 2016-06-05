@@ -2,6 +2,7 @@
 
 ## Numerical libraries
 
+* libfixmath Fixed precision math, useful to implement monetary types
 * The GNU Multiple Precision Arithmetic Library https://gmplib.org/
 * MPFR: multiple-precision floating-point computations with correct rounding. http://www.mpfr.org/
 * Mpc: complex numbers with arbitrarily high precision and correct rounding of the result. 
