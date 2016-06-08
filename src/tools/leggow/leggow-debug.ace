@@ -1,0 +1,37 @@
+-- This file is a template for building an ACE file for your own project.
+-- Copy this file into your working directory (the directory used to
+-- run the SmartEiffel compiler) and edit it.
+system "leggow.debug"
+root LEGGOW: main
+
+default -- section of the system
+   assertion (require); -- or boost, no, require, ensure, invariant, loop, check, all.
+   assertion_flat_check (no);
+   debug (yes);
+   trace (no);
+   collect (yes);
+   -- no_style_warning (no);
+   no_warning (no);
+   verbose (no);
+   manifest_string_trace (no); -- yes);
+   high_memory_compiler (yes);
+   profile (no);
+cluster -- section
+   leggow: "${path_liberty}/src/tools/leggow/loadpath.se"
+      default
+         assertion (all)
+      end
+   lib: "${path_liberty}/src/lib/loadpath.se"
+      default
+         assertion(boost)
+      end
+    common_wrappers: "${path_liberty}/src/wrappers/common/loadpath.se"
+        default
+            assertion(boost)
+        end
+external -- section for elements written in another language
+generate -- section
+   no_strip(no);
+   no_split(no);
+   clean(no);
+end

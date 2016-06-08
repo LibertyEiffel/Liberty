@@ -1,0 +1,9 @@
+system "leggow.boost"
+root LEGGOW: main
+default -- section of the system
+   assertion (boost);
+cluster -- section
+   leggow: "${path_liberty}/src/tools/leggow/loadpath.se"
+   lib: "${path_liberty}/src/lib/loadpath.se"
+   common_wrappers: "${path_liberty}/src/wrappers/common/loadpath.se"
+end

@@ -46,7 +46,9 @@ inherit GI_BASE_INFO
 
 feature {ANY}
 	emit_wrapper is
-		do
+    local path: POSIX_PATH_NAME
+    do
+       create path.
 			("Class: #(1)%N" # name).print_on(std_output)
 			methods_iter.for_each(agent (x: GI_FUNCTION_INFO) is 
 				do
