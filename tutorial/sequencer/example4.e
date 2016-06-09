@@ -1,8 +1,8 @@
 class EXAMPLE4
-   -- This example show that you can enter new loop and when it
-   -- terminates, the halted loop continue. Loops are managed in stack.
+   -- This example show that you can enter a new loop and when it
+   -- terminates, the halted loop continues. Loops are managed on a stack.
    -- This is like opening some modal window, others elements from the
-   -- interface doesn't work until the modal window is closed.
+   -- interface don't work until the modal window is closed.
    -- NOTE: in real life applications, jobs will probably be complex. In
    -- this case you have to write a class for that job, inheriting from
    -- BACKGROUND_JOB or PERIODIC_JOB instead of just using SIMPLE_* versions.
