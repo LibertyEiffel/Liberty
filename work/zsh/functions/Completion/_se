@@ -1,0 +1,233 @@
+#compdef se
+
+typeset -ga _se_info_options _se_warning_options _se_debug_options _se_compilation_options
+
+_se_classes() {
+  local expl cluster_paths
+  eval ${(F)${${(f)"$(se -environment)"}##\#*}/#/local }
+  cluster_paths=(${${(e)${${${(M)${(f)"$(se find -verbose does_not_exist 2>/dev/null)"}#*[0-9]## class(|es) \(+[0-9]##)}#*+ }%:*}/(#b)([^:]#):/\${$match[1]}}//loadpath.se(:|)/})
+  _wanted classes expl 'Eiffel class' _path_files -W cluster_paths -F '*(/)' -g '*.e(-.:r)' -M 'm:{[:upper:]}={[:lower:]}'
+}
+
+_se_c_modes() {
+  local expl modes
+  modes=(${=${${(M)${(f)"$(_call_program c-modes se -environment 2>/dev/null)"}##SE_C_MODES=*}#*\"}%\"*})
+  _wanted c-modes expl "C mode" compadd -a modes
+}
+
+_se_c_compilers() {
+  local expl compilers
+  compilers=(${${(f)"$(_call_program compilers se c -cc does_not_exist 2>&1)"}[3,-1]})
+  _wanted compilers expl "C compiler" compadd -a compilers
+}
+
+_se_info_options=(
+    '-verbose[display detailed information about what the program is doing]'
+    '(- *)-version[display Liberty Eiffel version information]'
+    '(- *)-help[display help information]'
+)
+
+_se_warning_options=(
+    '(-no-warning)-style-warning[print warnings about style violations]'
+    "(-style_warning)-no-warning[don't print any warnings]"
+)
+
+# TODO: exclusions
+_se_debug_options=(
+  '-boost[enable all optimizations, but disable all run-time checks]'
+  '-no_check[enable Void target and system-level checking]'
+  '-require_check[enable precondition checking (implies -no_check)]'
+  '-ensure_check[enable postcondition checking (implies -require_check)]'
+  '-invariant_check[enable class invariant checking (implies -ensure_check)]'
+  '-loop_check[enable loop variant and invariant checking (implies -invariant_check)]'
+  "-all_check[enable 'check' blocks (implies -loop_check)]"
+  "-debug[enable 'debug' blocks]"
+  '-flat_check[each assertion will be executed in no_check mode]'
+)
+
+_se_compilation_options=(
+  "(-c_mode)-cc[specify the C compiler to use]:C compiler:_se_c_compilers"
+  "(-cc)-c_mode[specify a C mode to use. This option is incompatible with -cc]:C mode:_se_c_modes"
+  '*-cecil[take CECIL information from specified file]:Cecil file:_files -g "*.se(-.)"'
+  '-o[put the executable program into the specified file]:executable filename:_files -g "^*.(c|h)(-.)"'
+  "-no_main[don't include a main() in the generated executable]"
+  '-no_gc[disable garbage collection]'
+  '-bdw_gc[use Boehm-Demers-Weiser conservative GC]'
+  '-gc_info[enable status messages from the garbage collector]'
+  "-no_strip[don't run 'strip' on the generated executable]"
+  '-no_split[generate only one C file]'
+  '-split[select the split mode]:split mode:(no legacy by_type)'
+  '-sedb[enable sedb, the Liberty Eiffel debugger]'
+  '-profile[generates profile on Eiffel calls at program exit]'
+  '-manifest_string_trace[enable the trace support to track non-once manifest string creation]'
+  "-no_rescue[don't compile rescue sections]"
+)
+
+_se_ace_check() {
+  _arguments -A "-*" : \
+    '(- 1)-version[display Liberty Eiffel version information]' \
+    '(- 1)-help[display help information]' \
+    '(-)1:ACE file:_files -g "*.ace(-.)"'
+}
+
+_se_c() {
+  _arguments -A "-*" : \
+    "${_se_debug_options[@]}" \
+    "${_se_compilation_options[@]}" \
+    "-clean[run the 'clean' command at the end]" \
+    '-high_memory_compiler[allow the compile_to_c to use more memory]' \
+    '-jobs[run up to the specified number of instances of the C compiler in parallel]:number of jobs:]' \
+    '-loadpath[specify an extra loadpath file to read]:loadpath file:_files -g "*.se(-.)"' \
+    "-flymake_mode[display messages in a compact format suitable for processing by tools such as Emacs' Flymake mode]" \
+    "${_se_warning_options[@]}" \
+    "${_se_info_options[@]}" \
+    '(-)*: : _alternative "files:ACE file:_files -g \"*.ace(-.)\"" "files:Eiffel class:_se_classes"'
+}
+
+_se_c2c() {
+  _arguments -A "-*" : \
+    "${_se_debug_options[@]}" \
+    "${_se_compilation_options[@]}" \
+    '-high_memory_compiler[allow the compile_to_c to use more memory]' \
+    '-loadpath[specify an extra loadpath file to read]:loadpath file:_files -g "*.se(-.)"' \
+    "-flymake_mode[display messages in a compact format suitable for processing by tools such as Emacs' Flymake mode]" \
+    '-relax[performs less checks by considering less dead code, hence using less memory and less compilation time]' \
+    "${_se_warning_options[@]}" \
+    "${_se_info_options[@]}" \
+    '(-)*: : _alternative "files:ACE file:_files -g \"*.ace(-.)\"" "files:Eiffel class:_se_classes"'
+}
+
+_se_class_check() {
+  _arguments -A "-*" : \
+    "-flymake_mode[display messages in a compact format suitable for processing by tools such as Emacs' Flymake mode]" \
+    '-loadpath[specify an extra loadpath file to read]:loadpath file:_files -g "*.se(-.)"' \
+    "${_se_warning_options[@]}" \
+    "${_se_info_options[@]}" \
+    '1:Eiffel class: _se_classes'
+}
+
+_se_clean() {
+  _arguments -A "-*" : \
+    '-no_remove[print the name of files that would be removed, but do not remove them]' \
+    "${_se_info_options[@]}" \
+    '(-)*::Eiffel class:_files -g "*.e(-.)"'
+}
+
+_se_doc() {
+  _arguments -A "-*" : \
+    '-title[specify a title for the generated documentation]:title:' \
+    '-short-title[specify an abbreviated form of -title]:short title:' \
+    '-js[specify a JavaScript file to use]:JavaScript file:_files -g "*.js(-.)"' \
+    '-css[specify a style sheet to use]:CSS file:_files -g "*.css(-.)"' \
+    '*-menu[define a menu item (in the header Ariadne thread)]:URL:_urls:title:' \
+    '-menu_separator[specify the text that will be put between the menu items]:separator text:' \
+    '-ariadne_separator[specify the text that will be put between the Ariadne thread items]:separator text:' \
+    '-depends[generate dependant classes even if their cluster pruned]' \
+    '-wiki_prefix[specify the wiki home URL for wiki words]:wiki URL:_urls' \
+    "*-prune[exclude the specified cluster from the generated documentation]:cluster:" \
+    '*-remote[use the documentation at the specified URL for the specified cluster]:cluster: :remote url:_urls' \
+    "${_se_info_options[@]}" \
+    '(-)*: : _alternative "ACE file:files:_files -g \"*.ace(-.)\"" "loadpath file:files:_files -g \"*.se(-.)\""'
+}
+
+_se_find() {
+  _arguments -A "-*" : \
+    '-loadpath[specify an extra loadpath file to read]:loadpath file:_files -g "*.se(-.)"' \
+    '-raw[do not display the cluster name]' \
+    "${_se_info_options[@]}" \
+    '(-)*:Eiffel class file:_se_classes'
+}
+
+_se_pretty() {
+  local styles="-zen -default -end -parano"
+  _arguments -A "-*" : \
+    "($styles)-zen[print as little as possible (\"Current\" only when necessary, no end comments, compact printing)]" \
+    "($styles)-default[print using the default style options]" \
+    "($styles)-end[include end comments (implies -default)]" \
+    "($styles)-parano[print as much as possible (implies -end)]" \
+    "-flymake_mode[display messages in a compact format suitable for processing by tools such as Emacs' Flymake mode]" \
+    "${_se_warning_options[@]}" \
+    "${_se_info_options[@]}" \
+    '(-)1:Eiffel class file:_files -g "*.e(-.)"'
+}
+
+_se_short() {
+  local fmt_options
+  fmt_options="-plain -pretty -tex1 -tex2 -tex3 -html1 -html2 -html-css"
+  _arguments -A "-*" : \
+    "($fmt_options)-plain[formatting (default: -plain)]" \
+    "($fmt_options)-pretty[formatting (default: -plain)]" \
+    "($fmt_options)-tex1[formatting (default: -plain)]" \
+    "($fmt_options)-tex2[formatting (default: -plain)]" \
+    "($fmt_options)-tex3[formatting (default: -plain)]" \
+    "($fmt_options)-html1[formatting (default: -plain)]" \
+    "($fmt_options)-html2[formatting (default: -plain)]" \
+    "($fmt_options)-html-css[formatting (default: -plain)]" \
+    '(-all_clients)-client[specify the class whom the point of view is taken of]:class name:_files -g \"*.e(-.:r:u)\"' \
+    '(-client)-all_clients[to display all features even those which are not exported]' \
+    '-sort[sort features alphabetically]' \
+    "-short[don't include inherited features]" \
+    '-loadpath[specify an extra loadpath file to read]:loadpath file:_files -g "*.se(-.)"' \
+    "-flymake_mode[display messages in a compact format suitable for processing by tools such as Emacs' Flymake mode]" \
+    "${_se_warning_options[@]}" \
+    "${_se_info_options[@]}" \
+    '(-)*:Eiffel class name:_se_classes'
+}
+
+_se_test() {
+  _arguments -A "-*" : \
+    '-force[to force automatic creation of the eiffeltest directory (useful while creating new test directories)]' \
+    "-flat[launch only tests in the current directory (don't recurse)]" \
+    '-check[only check the log.new file (called by -flat, not so useful otherwise)]' \
+    '-boost[only launch boost tests (useful for quick checks)]' \
+    "${_se_info_options[@]}" \
+    '(-)*:test directory:_directories'
+}
+
+_se_command() {
+  local se_cmds
+  se_cmds=(
+    # just the release distributed commands for now
+    ace_check:"check the syntax of an ACE file"
+    c:"compile the Eiffel source and create an executable program"
+    c2c:"compile the Eiffel source to ANSI C code"
+    class_check:"check the syntax and semantics of a class file"
+    clean:"remove files generated by Liberty Eiffel Tools"
+    doc:"generate API documentation for a project"
+    find:"find a class file in the file system"
+    pretty:"pretty print a class source file"
+    short:"display the contract/interface view of a class"
+    test:"run a suite of tests"
+    x_int:"generate object marshalling support files"
+  )
+
+  if (( CURRENT == 1 )); then
+    _describe -t commands "se commands" se_cmds
+  else
+    local curcontext="$curcontext" ret
+
+    cmd="${${se_cmds[(r)$words[1]:*]%%:*}}"
+
+    if (( $#cmd )); then
+      curcontext="${curcontext%:*:*}:se-${cmd}:"
+      _call_function ret _se_$cmd || _message 'no more arguments'
+    else
+      _message "unknown se command: $words[1]"
+    fi
+
+    return ret
+
+  fi
+}
+
+_se() {
+  _arguments -A "-*" : \
+    "(- *)-environment[get a scriptable environment for Liberty Eiffel]:C mode:_se_c_modes" \
+    '(- *)'{-v,-version}'[display Liberty Eiffel version information for each tool]' \
+    '(- *)'{-h,-help}'[display this help information]' \
+    '*::se command:_se_command'
+}
+
+_se "$@"
+
+# vim: set sw=2 sts=2 et:
