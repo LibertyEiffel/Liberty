@@ -16,7 +16,7 @@ feature {ANY}
 
       do
          if (not argument_count.in_range(1, 2)) or else not argument(1).is_integer then
-            io.put_string(once "usage: print_position <IntegerManglingofPosition> [*.id]")
+            io.put_string(once "Usage: print_position <IntegerManglingofPosition> [*.id]")
             die_with_code(exit_failure_code)
          end
          integer_32 := argument(1).to_integer

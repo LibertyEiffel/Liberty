@@ -22,20 +22,22 @@ feature {ANY}
    command_line_help_summary: STRING "[
       Usage: mock [options] <ClassName>
 
+      Generate mock object test support files.
+
       Option summary:
 
       Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
-        -verbose            Display detailed information about what the
-                             program is doing
+        -verbose            Display detailed information about what the program is
+                             doing
 
       Warning levels:
-        -style_warning      Do print warnings about style violations
+        -style_warning      Print warnings about style violations
         -no_warning         Don't print any warnings
 
       Message styles:
-         -flymake_mode      Display messages in a compact format suitable for
+        -flymake_mode       Display messages in a compact format suitable for
                              processing by tools such as Emacs' Flymake mode
 
       Class lookup:
@@ -43,10 +45,9 @@ feature {ANY}
 
       Mock generation:
         -mock <file>        Specify the name of the "MOCK" class file
-                            (the class name is derived from the file name)
-
+                             (the class name is derived from the file name)
         -expect <file>      Specify the name of the "EXPECT" class file
-                            (the class name is derived from the file name)
+                             (the class name is derived from the file name)
 
    ]"
 

@@ -21,16 +21,18 @@ feature {ANY}
    command_line_help_summary: STRING "[
       Usage: class_check [options] <ClassName>
 
+      Check the syntax and semantics of a class file.
+
       Option summary:
 
       Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
-        -verbose            Display detailed information about what the
-                             program is doing
+        -verbose            Display detailed information about what the program is
+                             doing
 
       Warning levels:
-        -style_warning      Do print warnings about style violations
+        -style_warning      Print warnings about style violations
         -no_warning         Don't print any warnings
 
       Message styles:

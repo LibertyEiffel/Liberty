@@ -123,39 +123,40 @@ feature {}
          i, n, c: INTEGER
       once
          Result := "[
-                    Usage: se <command> <options>
-                           se -help
-                           se -environment {<c_mode>}
+            Usage: se <command> [<args>]
+                   se -environment {<c_mode>}
+                   se -version
+                   se -help
 
-                    se is the front-end to all Liberty Eiffel tools. It is usually followed by a
-                    command and the arguments of that command.
+            se is the front-end to all Liberty Eiffel tools. It is usually followed by a
+            command and the arguments of that command.
 
-                    In all tools, you can write your options either X style (single-dashed),
-                    GNU style (double-dashed) or Windows style (slashed). These three options
-                    are the same:
-                                      -verbose   --verbose   /verbose
+            In all tools, you can write your options either X style (single-dashed), GNU
+            style (double-dashed) or Windows style (slashed). These three options are the
+            same:
+                              -verbose   --verbose   /verbose
 
-                    To get help on a particular command, type
+            To get help on a particular command, type
 
-                       se <command> -help
+               se <command> -help
 
-                    You already found out about this help:
+            You already found out about this help:
 
-                       se -help
+               se -help
 
-                    To get a scriptable environment for Liberty Eiffel, type
+            To get a scriptable environment for Liberty Eiffel, type
 
-                       se -environment
+               se -environment
 
-                    This will give you some variables that point to parts of the Liberty Eiffel
-                    distribution, along with all the known tools. You can also give a C mode as
-                    second argument; it will give details about the command lines of the given
-                    C mode.
+            This will give you some variables that point to parts of the Liberty Eiffel
+            distribution, along with all the known tools. You can also give a C mode as
+            second argument; it will give details about the command lines of the given C
+            mode.
 
-                    The available commands are:
+            The available commands are:
 
 
-                    ]"
+         ]"
          from
             i := plugins.lower
          until
@@ -178,14 +179,14 @@ feature {}
          end
          Result.append("[
 
-                        Should you have any question about Liberty Eiffel, feel free to contact us
-                        by e-mail:
-                              liberty-eiffel@gnu.org
+            Should you have any question about Liberty Eiffel, feel free to contact us by
+            e-mail:
+                  liberty-eiffel@gnu.org
 
-                        You can also visit our web site:
-                              http://www.liberty-eiffel.org
+            You can also visit our web site:
+                  http://www.liberty-eiffel.org
 
-                        ]")
+         ]")
       end
 
    print_all_version_numbers (version_arg: STRING)

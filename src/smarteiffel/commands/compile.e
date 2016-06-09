@@ -18,31 +18,33 @@ feature {ANY}
    command_line_help_summary: STRING "[
       Usage: compile [options] <RootClass> <RootProcedure> ...
          or: compile [options] <ACEfileName>.ace
-      For information about and examples of ACE files, have a look
-      in the tutorial/ace directory.
 
-      Most of the following options are not available when using
-      an ACE file.
+      Compile the Eiffel source and create an executable program.
+
+      For information about and examples of ACE files, have a look in the
+      tutorial/ace directory.
+
+      Most of the following options are not available when using an ACE file.
 
       Option summary:
 
       Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
-        -verbose            Display detailed information about what the
-                             compiler is doing
+        -verbose            Display detailed information about what the compiler is
+                             doing
 
       Warning levels:
-        -style_warning      Do print warnings about style violations
+        -style_warning      Print warnings about style violations
         -no_warning         Don't print any warnings
 
       Message styles:
          -flymake_mode      Display messages in a compact format suitable for
                              processing by tools such as Emacs' Flymake mode
 
-      Optimization and debugging levels (specify at most one; default is -all_check):
-        -boost              Enable all optimizations,
-                             but disable all run-time checks
+      Optimization and debugging levels (specify one only; default is -all_check):
+        -boost              Enable all optimizations, but disable all run-time
+                             checks
         -no_check           Enable Void target and system-level checking
         -require_check      Enable precondition checking (implies -no_check)
         -ensure_check       Enable postcondition checking (implies -require_check)
@@ -51,8 +53,11 @@ feature {ANY}
                              (implies -invariant_check)
         -all_check          Enable 'check' blocks (implies -loop_check)
         -debug              Enable 'debug' blocks
-        -flat_check         Each assertion will be executed in no_check mode
-                            Use with any mode from require_check to debug_check
+        -flat_check         Each assertion will be executed in no_check mode. Use
+                             with any mode from require_check to all_check.
+
+      Class lookup:
+        -loadpath <file>    Specify an extra loadpath file to read
 
       C compilation and run-time system:
         -cc <command>       Specify the C compiler to use
@@ -67,25 +72,24 @@ feature {ANY}
         -gc_info            Enable status messages from the garbage collector
         -no_strip           Don't run 'strip' on the generated executable
         -no_split           Generate only one C file
-        -split <split mode> Selects the split mode
-                             Either 'no', 'legacy', or 'by_type'
+        -split <split mode> Select the split mode
+                             (either 'no', 'legacy', or 'by_type')
         -sedb               Enable sedb, the Liberty Eiffel debugger
         -profile            Generates profile on Eiffel calls at program exit
         -manifest_string_trace
-                            Enable the trace support to track non-once
-                            manifest string creation
+                            Enable the trace support to track non-once manifest
+                             string creation
         -clean              Run the 'clean' command at the end
-        -loadpath <file>    Specify an extra loadpath file to read
         -no_rescue          Don't compile rescue sections
 
       Miscellaneous:
         -high_memory_compiler
-                            Allow the compile_to_c to use more memory; if you
-                            have enough physical memory, compilation should
-                            be faster (note: generated C code is not affected)
-        -jobs <num>         Run up to <num> instances of the c compiler in parallel
-                            (defaults to the number of jobs in General section of
-                            the configuration file)
+                            Allow the compile_to_c to use more memory; if you have
+                             enough physical memory, compilation should be faster
+                             (note: generated C code is not affected)
+        -jobs <num>         Run up to <num> instances of the C compiler in parallel
+                             (defaults to the number of jobs in General section of
+                             the configuration file)
 
    ]"
 

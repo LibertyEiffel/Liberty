@@ -238,31 +238,48 @@ feature {EIFFELDOC}
    command_help: STRING
       do
          Result := once "[
-                         -title             the title of the generated documentation
+            Generate API documentation for a project.
 
-                         -js                the javascript file to use
+            Option summary:
 
-                         -css               the stylesheet to use
+            Information:
+              -help               Display this help information
+              -version            Display Liberty Eiffel version information
+              -verbose            Display detailed information about what the program is
+                                   doing
 
-                         -menu              a menu item (in the header Ariadne thread)
-                                            - its address
-                                            - its displayed title
-                                            There may be more than one menu item; the ordering
-                                            implied by the command line.
+            Titles:
+              -title <title>      Specify a title for the generated documentation
+              -short_title <title>
+                                  Specify an abbreviated form of -title, used in menus
 
-                         -menu_separator    a text that will be put between the menu items
+            Resource files:
+              -js <file>          Specify a JavaScript file to use. If a proper JavaScript
+                                   file is not given, the 'navigation' will not be
+                                   possible (except for browsers which are not CSS
+                                   compliant).
+              -css <file>         Specify the style sheet to use
 
-                         -ariadne_separator a text that will be put between the ariadne thread items
+            Menu items and separators:
+              -menu <url> <title> Define a menu item (in the header Ariadne thread)
+                                   - its address
+                                   - its displayed title
+                                   There may be more than one menu item; the ordering
+                                   implied by the command line.
+              -menu_separator <text>
+                                  Specify the text to be inserted between menu items
+              -ariadne_separator <text>
+                                  Specify the text to be inserted between Ariadne thread
+                                   items
 
-                         -depends           generate dependant classes even if their cluster
-                                            pruned
+            Wiki words:
+              -wiki_prefix <url>  Specify the wiki home URL for wiki words
 
-                         -wiki_prefix       the wiki home URL for wiki words
+            Cluster management:
+              -depends            Generate dependant classes even if their cluster is
+                                   pruned
 
-                         If a proper JavaScript file is not given with the -js flag, the 'navigation'
-                         will not be possible (except for browser which are not CSS compliant).
-
-                         ]"
+         ]"
       end
 
 feature {}

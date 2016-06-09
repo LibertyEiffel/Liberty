@@ -19,17 +19,21 @@ feature {ANY}
    command_line_help_summary: STRING "[
       Usage: eiffeltest [options] <DirectoryPath>
 
+      Run a suite of tests.
+
       Option summary:
 
         -force              To force automatic creation of the eiffeltest directory
-                            (useful while creating new test directories)
+                             (useful while creating new test directories)
 
       Information:
         -help               Display this help information (no test run)
-        -version            Display Liberty Eiffel version information (no test run)
-        -verbose            Display detailed information about what eiffeltest is doing
+        -version            Display Liberty Eiffel version information
+                             (no test run)
+        -verbose            Display detailed information about what the program is
+                             doing
 
-      ]"
+   ]"
 
 feature {}
    directory_path: STRING
