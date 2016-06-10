@@ -2,7 +2,7 @@ class EXAMPLE5
    --
    -- There is also a `for_all' routine in COLLECTION (i.e. ARRAY,
    -- FAST_ARRAY, LINKED_LIST, TWO_WAY_LINKED_LIST).
-   -- You can watch the result using sedb, the SmartEiffel DeBugger.
+   -- You can watch the result using sedb, the Liberty Eiffel DeBugger.
    --
 
 create {ANY}
