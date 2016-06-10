@@ -94,22 +94,20 @@ feature { SERC_FACTORY}
                if seconf /= fz_conf_undefined then
                   echo.w_put_string(once "The environment variable %"")
                   echo.w_put_string(fz_seconf)
-                  echo.w_put_string(once "%" does not contain name of a valid file.%N")
+                  echo.w_put_string(once "%" is not set to the name of a valid file.%N")
                end
                echo.w_put_string(once "No default configuration file for Liberty Eiffel was found.%N%
-                                      %Please just re-run the Liberty Eiffel installation program.%N%
-                                      %On Unix-like system, just %"cd%" to the Liberty Eiffel directory and%N%
-                                      %then, type %"make%".%N%
-                                      %On Windows-like system, re-run the %"install.exe%" of Liberty Eiffel.%N%
-                                      %Note: if you prefer, you can still rely on the %"")
+                                      %%N%
+                                      %Please re-run the installation program.%N%
+                                      %For Unix-like systems, %"cd%" to the Liberty Eiffel directory and then type %N%
+                                      %%"./install.sh%".%N%
+                                      %For Windows-like systems, run the %"install.exe%" program.%N%
+                                      %%N%
+                                      %Note: if you prefer, you can set the %"")
                echo.w_put_string(fz_seconf)
-               echo.w_put_string(once "%" environment%N%
-                                       %variable whatever the kind of your operating system is.%N%
-                                       %If you prefer that way, set the %"")
-               echo.w_put_string(fz_seconf)
-               echo.w_put_string(once "%" environment variable%N%
-                                       %with the absolute path of your own hand-made Liberty Eiffel%N%
-                                       %configuration file.%N")
+               echo.w_put_string(once "%" environment variable to the %N%
+                                       %absolute path of a custom configuration file. %
+                                       %This works on all operating systems.%N")
                if not is_install then
                   die_with_code(exit_failure_code)
                end
