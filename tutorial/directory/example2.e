@@ -2,7 +2,7 @@ class EXAMPLE2
    --
    -- This example shows how to manipulate files and directories without
    -- ever relying to any explicit pathname manipulation (that is, we may
-   -- need to bufferize some pathname, but never to scan it, cut it, build
+   -- need to buffer some pathname, but never to scan it, cut it, build
    -- it and so on)
    --
 

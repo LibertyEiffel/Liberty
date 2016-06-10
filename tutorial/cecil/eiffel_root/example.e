@@ -1,6 +1,6 @@
 class EXAMPLE
    --
-   -- The Eiffel program is running first, then call the C program which is in charge to call the
+   -- The Eiffel program is running first, then calls the C program which is in charge of calling the
    -- Eiffel feature `show_values'.
    -- Note that the Eiffel root object is not passed to the C world. Thus, the C code uses
    -- predefined `eiffel_root_object' to access the very first created Eiffel object.
