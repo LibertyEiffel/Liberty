@@ -1,6 +1,6 @@
 class REDIRECTION_EXAMPLE
    --
-   -- How to redirect `std_input_stream', `std_output_stream' and `std_error_stream'.
+   -- Shows how to redirect `std_input_stream', `std_output_stream' and `std_error_stream'.
    --
 
 create {ANY}

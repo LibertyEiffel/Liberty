@@ -1,6 +1,6 @@
 class TEXT_FILE_READ_EXAMPLE
    --
-   -- This example reads a text file character by character and output each character on the screen.
+   -- This example reads a text file character by character and puts each character on the screen.
    --
    -- If you compile and run this class in the current working directory, you'll see this file !
    --

@@ -2,7 +2,7 @@ class MEMORY_EXAMPLE2
    --
    -- Here is a little cookbook for people using very large computers.
    -- We suppose here that the goal is to minimize execution time (i.e.
-   -- we suppose now that you have a _lot_ of available memory).
+   -- we suppose that in this case you have a _lot_ of available memory).
    --
    -- Note: it is usually interesting to compare the execution time of this
    -- example with/without the SmartEiffel garbage collector:

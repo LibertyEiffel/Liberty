@@ -1,7 +1,7 @@
 class EXAMPLE3
-   -- This example show how to use periodic jobs.
+   -- This example shows how to use periodic jobs.
    -- The user will see a rolling stick, it's position will change 10
-   -- times per second. Every 3 seconds the program print the progress report.
+   -- times per second. Every 3 seconds the program prints the progress report.
 
 create {ANY}
    make

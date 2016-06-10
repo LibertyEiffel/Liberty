@@ -1,5 +1,5 @@
 class SERIAL
-   -- This example show how to use TERMINAL_SETTINGS.
+   -- This example shows how to use TERMINAL_SETTINGS.
    -- it reads and modifies baud rates of terminal settings, compare with stty
 
 insert

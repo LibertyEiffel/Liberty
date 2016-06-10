@@ -1,5 +1,5 @@
 class EXAMPLE2
-   -- Second example that show how to do multiple cooperative jobs in
+   -- Second example that shows how to do multiple cooperative jobs in
    -- parallel. The job is created with inline create and parameter
    -- given to the job.
 

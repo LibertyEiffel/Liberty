@@ -1,5 +1,5 @@
 class STREAM_READ_LINE
-   -- This example show how to use read_line.
+   -- This example shows how to use read_line.
    -- The reading pattern is different from the one used with read_character.
    -- It HAS to be different.
 
@@ -18,8 +18,8 @@ feature {}
          loop
             tfr.read_line
             if tfr.end_of_input then
-               -- The last line of the file does not end with a new
-               -- line character. Remove this test if you don't care.
+               -- The last line of the file does not end with a newline
+               -- character. Remove this test if you don't care.
                std_output.put_string(tfr.last_string)
             else
                std_output.put_line(tfr.last_string)
