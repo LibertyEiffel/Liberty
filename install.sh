@@ -191,8 +191,6 @@ wrap: wrappers_generator
 x_int: extract_internals
 
 [boost]
--- c_compiler_type: tcc
--- smarteiffel_options: -no_strip
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
 c_compiler_options: -pipe -O2
