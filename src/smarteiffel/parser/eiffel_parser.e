@@ -372,7 +372,7 @@ feature {}
          elseif a_keyword(fz_creation) then
             error_handler.add_position(pos(l, c))
             error_handler.append(once "The keyword 'creation' is now replaced by 'create'. Please update your code.")
-            error_handler.print_as_warning --| **** TODO: make it a warning (in Bell), then an error (in Curtiss); then remove the keyword (in Curtiss+1)
+            error_handler.print_as_fatal_error --| **** TODO: remove the keyword (in Dennis)
             Result := True
          end
       end
