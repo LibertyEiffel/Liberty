@@ -1,3 +1,3 @@
-How to perform external calls (see also external.hlp):
+How to perform external calls:
     - Directory C is for C external calls.
     - Directory C++ is for C++ external calls.
