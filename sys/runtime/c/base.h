@@ -369,11 +369,6 @@ typedef int_least8_t int8_t;
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
-/* ELATE is a virtual OS with a little endian Virtual Processor */
-#  if defined(__ELATE__)
-#    define BYTE_ORDER      LITTLE_ENDIAN
-#  endif
-
 /* Miscellaneous little endian */
 #  if defined(wrltitan)
 #    define BYTE_ORDER      LITTLE_ENDIAN

@@ -35,8 +35,8 @@ feature { SERC_FACTORY}
    system_list: FAST_ARRAY[STRING]
       once
          Result := {FAST_ARRAY[STRING]         <<unix_system, windows_system, cygwin_system, beos_system,
-                                         macintosh_system, amiga_system, dos_system,
-                                         os2_system, open_vms_system, elate_system>> }
+                                         macintosh_system, dos_system,
+                                         os2_system, open_vms_system>> }
       end
 
    compiler_list: FAST_ARRAY[STRING]
@@ -141,8 +141,6 @@ feature {}
                   set_system_name(windows_system)
                elseif basic_directory.macintosh_notation then
                   set_system_name(macintosh_system)
-               elseif basic_directory.amiga_notation then
-                  set_system_name(amiga_system)
                elseif basic_directory.openvms_notation then
                   set_system_name(open_vms_system)
                end
@@ -187,8 +185,6 @@ feature {}
          elseif c_compiler = dice then
             add_external_lib(libm)
          elseif c_compiler = vbcc then
-            if amiga_system = system_name then
-               add_external_lib(once "mieee")
             else
                add_external_lib(libm)
             end
@@ -471,8 +467,6 @@ feature {ANY}
             Result := once ".com"
          elseif os2_system = system_name then
             Result := once ".CMD"
-         elseif elate_system = system_name then
-            Result := once ".scf"
          else
             Result := once ".make"
          end
@@ -493,8 +487,6 @@ feature {ANY}
             Result := exe_suffix
          elseif cygwin_system = system_name then
             Result := exe_suffix
-         elseif elate_system = system_name then
-            Result := once ".00"
          else
             create Result.make(4)
          end
@@ -1685,7 +1677,6 @@ feature {}
 
             create is_unix_like.set_item(s = unix_system or else
                                          s = cygwin_system or else
-                                         s = elate_system or else
                                          s = beos_system)
          end
       end
@@ -1707,14 +1698,10 @@ feature {}
             create {UNIX_DIRECTORY_NOTATION} notation
          elseif s = macintosh_system then
             create {MACINTOSH_DIRECTORY_NOTATION} notation
-         elseif s = amiga_system then
-            create {AMIGA_DIRECTORY_NOTATION} notation
          elseif s = open_vms_system then
             create {OPENVMS_DIRECTORY_NOTATION} notation
          elseif s = cygwin_system then
             create {CYGWIN_DIRECTORY_NOTATION} notation
-         elseif s = elate_system then
-            create {UNIX_DIRECTORY_NOTATION} notation
          else
             check
                False

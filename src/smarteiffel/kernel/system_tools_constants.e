@@ -14,15 +14,11 @@ feature {SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
 
    macintosh_system: STRING "Macintosh"
 
-   amiga_system: STRING "Amiga"
-
    dos_system: STRING "DOS"
 
    os2_system: STRING "OS2"
 
    open_vms_system: STRING "OpenVMS"
-
-   elate_system: STRING "Elate"
 
 feature {} -- Currently handled C/C++ compiler list:
    gcc: STRING "gcc"
