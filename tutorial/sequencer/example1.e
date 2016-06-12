@@ -1,5 +1,5 @@
 class EXAMPLE1
-   -- Simple example that show how to do multiple cooperative jobs in parallel.
+   -- Simple example that shows how to do multiple cooperative jobs in parallel.
 
 create {ANY}
    make

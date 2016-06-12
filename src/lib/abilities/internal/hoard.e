@@ -40,7 +40,7 @@ feature {ANY} -- Agent-based features:
          -- Apply `action' to every item of `Current'.
          --
          -- See also `for_all', `exists', `aggregate'.
-      obsolete "This feature is not secure because it accepts a FUNCTION, the result of which is lost. Plese use `for_each` instead."
+      obsolete "Use `for_each` instead. This feature is not secure because it accepts a FUNCTION, the result of which is lost."
       require
          action /= Void
       local

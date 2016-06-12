@@ -13,32 +13,54 @@ create {ANY}
    make
 
 feature {ANY} -- options
+   has_extended_legibility: BOOLEAN
+         -- Is the extended legibility active?
+
    has_extended_ligibility: BOOLEAN
-         -- Is the extended ligibility active?
+      obsolete "Use `has_extended_legibility' instead."
+      do
+         Result := has_extended_legibility
+      end
+
+   set_extended_legibility
+         -- Activate extended legibility.
+      do
+         has_extended_legibility := True
+      ensure
+         definition: has_extended_legibility = True
+      end
 
    set_extended_ligibility
-         -- Activate extended ligibility.
+      obsolete "Use `set_extended_legibility' instead."
       do
-         has_extended_ligibility := True
+         set_extended_legibility
       ensure
-         definition: has_extended_ligibility = True
+         definition: has_extended_legibility = True
+      end
+
+   set_no_extended_legibility
+         -- Deactivate extended legibility.
+      do
+         has_extended_legibility := False
+      ensure
+         definition: has_extended_legibility = False
       end
 
    set_no_extended_ligibility
-         -- Deactivate extended ligibility.
+      obsolete "Use `set_no_extended_legibility' instead."
       do
-         has_extended_ligibility := False
+         set_no_extended_legibility
       ensure
-         definition: has_extended_ligibility = False
+         definition: has_extended_legibility = False
       end
 
    set_default_options
          -- Set the default options
       do
          Precursor
-         set_no_extended_ligibility
+         set_no_extended_legibility
       ensure then
-         not has_extended_ligibility
+         not has_extended_legibility
       end
 
 feature {PERL5_REGULAR_EXPRESSION_BUILDER} -- scanning
@@ -68,7 +90,7 @@ feature {PERL5_REGULAR_EXPRESSION_BUILDER} -- scanning
                end
                has_unterminated_comment := not stop
                stop := False
-            elseif has_extended_ligibility then
+            elseif has_extended_legibility then
                inspect
                   last_character
                when ' ', '%T', '%N', '%R' then
@@ -127,18 +149,18 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
    parse_alternative
       local
          saved_is_case_insensitive, saved_does_match_line_boundary, saved_does_any_match_newline,
-         saved_has_extended_ligibility: BOOLEAN
+         saved_has_extended_legibility: BOOLEAN
       do
          has_unterminated_comment := False
          saved_is_case_insensitive := is_case_insensitive
          saved_does_match_line_boundary := does_match_line_boundary
          saved_does_any_match_newline := does_any_match_newline
-         saved_has_extended_ligibility := has_extended_ligibility
+         saved_has_extended_legibility := has_extended_legibility
          Precursor
          is_case_insensitive := saved_is_case_insensitive
          does_match_line_boundary := saved_does_match_line_boundary
          does_any_match_newline := saved_does_any_match_newline
-         has_extended_ligibility := saved_has_extended_ligibility
+         has_extended_legibility := saved_has_extended_legibility
          if has_unterminated_comment then
             set_error(once "unterminated comment sequence (?#...")
          end
@@ -149,7 +171,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          -- or an extended pattern group.
       local
          saved_is_case_insensitive, saved_does_match_line_boundary, saved_does_any_match_newline,
-         saved_has_extended_ligibility: BOOLEAN
+         saved_has_extended_legibility: BOOLEAN
       do
          if valid_next_character and then next_character = '?' then
             parse_extended_pattern
@@ -157,12 +179,12 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
             saved_is_case_insensitive := is_case_insensitive
             saved_does_match_line_boundary := does_match_line_boundary
             saved_does_any_match_newline := does_any_match_newline
-            saved_has_extended_ligibility := has_extended_ligibility
+            saved_has_extended_legibility := has_extended_legibility
             Precursor
             is_case_insensitive := saved_is_case_insensitive
             does_match_line_boundary := saved_does_match_line_boundary
             does_any_match_newline := saved_does_any_match_newline
-            has_extended_ligibility := saved_has_extended_ligibility
+            has_extended_legibility := saved_has_extended_legibility
          end
       end
 
@@ -393,7 +415,7 @@ feature {} -- parsing
          followed_with_question_mark: valid_next_character and next_character = '?'
       local
          dont_restore, saved_is_case_insensitive, saved_does_match_line_boundary, saved_does_any_match_newline,
-         saved_has_extended_ligibility: BOOLEAN
+         saved_has_extended_legibility: BOOLEAN
       do
          -- skip known characters
          read_character
@@ -402,7 +424,7 @@ feature {} -- parsing
          saved_is_case_insensitive := is_case_insensitive
          saved_does_match_line_boundary := does_match_line_boundary
          saved_does_any_match_newline := does_any_match_newline
-         saved_has_extended_ligibility := has_extended_ligibility
+         saved_has_extended_legibility := has_extended_legibility
          -- read the flags
          read_modifiers(True)
          if not end_of_input and then last_character = '-' then
@@ -470,7 +492,7 @@ feature {} -- parsing
                   is_case_insensitive := saved_is_case_insensitive
                   does_match_line_boundary := saved_does_match_line_boundary
                   does_any_match_newline := saved_does_any_match_newline
-                  has_extended_ligibility := saved_has_extended_ligibility
+                  has_extended_legibility := saved_has_extended_legibility
                end
                read_character
             end
@@ -523,7 +545,7 @@ feature {} -- parsing
                does_any_match_newline := level
                read_character
             when 'x' then
-               has_extended_ligibility := level
+               has_extended_legibility := level
                read_character
             else
                stop := True

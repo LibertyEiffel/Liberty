@@ -163,21 +163,23 @@ feature {ANY}
       Usage: extract_internals [options] <RootClass> <RootProcedure> ...
          or: extract_internals [options] <ACEfileName>.ace
 
-       Option summary:
+      Generate object marshalling support files.
 
-       Information:
-         -help               Display this help information
-         -version            Display Liberty Eiffel version information
-         -verbose            Display detailed information about what
-                              extract_internals is doing
+      Option summary:
 
-       Warning levels:
-         -style_warning      Do print warnings about style violations
-         -no_warning         Don't print any warnings
+      Information:
+        -help               Display this help information
+        -version            Display Liberty Eiffel version information
+        -verbose            Display detailed information about what the program is
+                             doing
 
-       Message styles:
-          -flymake_mode      Display messages in a compact format suitable for
-                              processing by tools such as Emacs' Flymake mode
+      Warning levels:
+        -style_warning      Print warnings about style violations
+        -no_warning         Don't print any warnings
+
+      Message styles:
+         -flymake_mode      Display messages in a compact format suitable for
+                             processing by tools such as Emacs' Flymake mode
 
    ]"
 

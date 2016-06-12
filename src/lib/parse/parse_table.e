@@ -5,7 +5,7 @@ class PARSE_TABLE[C_ -> PARSE_CONTEXT]
    --
    -- A parsing table (aka Grammar).
    --
-   -- The only way to create a parse table is to use SmartEiffel's manifest notation.
+   -- The only way to create a parse table is to use Liberty Eiffel's manifest notation.
    --
    -- The structure of this notation is:
    --

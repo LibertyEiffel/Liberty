@@ -8,7 +8,7 @@ deferred class SINGLETON
    --
    -- Usage: insert SINGLETON, that's all.
    --
-   -- For examples, look at the tools cluster of SmartEiffel.
+   -- For examples, look at the tools cluster of Liberty Eiffel.
    --
    -- WARNING: double-check if the object is really a singleton in the conceptual sense.
    --          The singleton pattern is often used in wrong place. See for example:

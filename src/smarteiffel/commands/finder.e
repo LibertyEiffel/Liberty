@@ -19,25 +19,26 @@ feature {ANY}
       Usage: finder [options] <ClassName>
          or: finder [options] <ACEfileName>.ace <ClassName>
 
-      The finder command tells you where the class <ClassName> is by
-      printing the complete path of the corresponding file.
-      Hint: to see the search path used, just run finder with
-      some non-existent class name.
+      Find a class file in the file system.
 
-      This command may also be useful in shell scripts to check if the
-      source file exists. (Use the exit status.)
+      The finder command tells you where the class <ClassName> is by printing the
+      complete path of the corresponding file.  Hint: to see the search path used,
+      just run finder with the -verbose flag and some non-existent class name.
+
+      This command may also be useful in shell scripts to check if the source file
+      exists. (Use the exit status.)
 
       Option summary:
 
       Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
-        -verbose            Display detailed information about what the
-                             program is doing
+        -verbose            Display detailed information about what the program is
+                             doing
+        -raw                Do not display the cluster name
 
       Class lookup:
         -loadpath <file>    Specify an extra loadpath file to read
-        -raw                Does not display the cluster name
 
       ]"
 

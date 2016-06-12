@@ -44,7 +44,7 @@ feature {ANY}
       end
 
    value: INTEGER
-      obsolete "use `item' instead"
+      obsolete "Use `item' instead."
       do
          Result := item
       end

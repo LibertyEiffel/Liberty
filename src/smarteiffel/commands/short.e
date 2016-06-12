@@ -19,16 +19,18 @@ feature {ANY}
       Usage: short [format] [options] <ClassName>
          or: short [format] [options] <ACEfileName>.ace <ClassName>
 
+      Display the interface/contract view of a class.
+
       Option summary:
 
       Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
-        -verbose            Display detailed information about what the
-                             program is doing
+        -verbose            Display detailed information about what the program is
+                             doing
 
       Warning levels:
-        -style_warning      Do print warnings about style violations
+        -style_warning      Print warnings about style violations
         -no_warning         Don't print any warnings
 
         -sort               Sort features alphabetically
@@ -40,11 +42,11 @@ feature {ANY}
 
       Formatting (specify at most one; default is -plain):
         -plain, -pretty, -tex1, -tex2, -tex3, -html1, -html2, -html_css
-                            Specify the style of formatting (see short.txt)
+                            Specify the style of formatting
 
       Point of view:
         -client <class>     Specify the class whom the point of view is taken of
-        -all_clients        To display all features even those which are not exported
+        -all_clients        Display all features even those which are not exported
 
       Class lookup:
         -loadpath <file>    Specify an extra loadpath file to read

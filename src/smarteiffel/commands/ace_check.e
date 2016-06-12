@@ -18,13 +18,15 @@ feature {ANY}
    command_line_help_summary: STRING "[
       Usage: ace_check [options] <ACEfileName>.ace
 
-      The ace_check command helps you to check the syntax of your ACE file.
+      Check the syntax of an ACE file.
 
       Option summary:
+
+      Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
 
-        ]"
+   ]"
 
 feature {}
    make

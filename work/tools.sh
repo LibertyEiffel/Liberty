@@ -154,7 +154,14 @@ progress() {
     current=$2
     max=$3
     label="$4"
+
     echo '~~~~ '$label' ~~~~' >> $LOG
+    # no cut label as workaround for mawk bug https://github.com/ThomasDickey/original-mawk/issues/42
+    labsize=${#label}
+    if [ $labsize -gt 50 ]; then
+        label=${label:0:50}"..."
+    fi
+
     if test $plain = TRUE; then
         awk -v max=$max -v cur=$current '
             BEGIN {
@@ -165,7 +172,7 @@ progress() {
         col=`expr \`tput cols\` - $size - 11`
         tput setaf 0
         tput sgr0
-        # For perceived performance, use a non-minear progress bar
+        # For perceived performance, use a non-linear progress bar
         # See http://blog.codinghorror.com/actual-performance-perceived-performance/
         # (Linear is still available if $linear is non-zero)
         awk -v max=$max -v cur=$current -v size=$size -v col=$col -v linear=0$linear '

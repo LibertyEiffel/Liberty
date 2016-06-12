@@ -18,15 +18,17 @@ feature {ANY}
    command_line_name: STRING "sedb"
 
    command_line_help_summary: STRING "[
-                    Usage: sedb -help
-                           sedb -version
-                           sedb <directory>
+      Usage: sedb [options] <DirectoryPath>
 
-                    sedb is used to talk to SmartEiffel's debugger when it is used with
-                    named pipes. That is especially useful when debugging multi-process
-                    programs.
+      sedb is used to talk to SmartEiffel's debugger when it is used with named
+      pipes. That is especially useful when debugging multi-process programs.
 
-                                         ]"
+      Option summary:
+
+      Information:
+        -help               Display this help information
+        -version            Display Liberty Eiffel version information
+   ]"
 
 feature {}
    make

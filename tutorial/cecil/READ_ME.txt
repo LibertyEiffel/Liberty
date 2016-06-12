@@ -1,4 +1,1 @@
-How to call Eiffel feature from C (see cecil.hlp).
-For external acces from Java hand-written code, see examples 
-in directory JVM.
-
+These demos show how to call Eiffel features from C (see cecil.hlp).

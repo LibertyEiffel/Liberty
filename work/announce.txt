@@ -1,12 +1,12 @@
 Dear Eiffel users, hackers, and believers,
 
-We are happy to announce the birth Liberty Eiffel.
+We are happy to announce the birth of Liberty Eiffel.
 
 Liberty Eiffel is born from a simple idea: the Open Source and Free
 Software community needs a free-as-in-freedom Eiffel compiler that
 tries to follow the principles that made Eiffel so appealing.
 
-SmartEiffel is an academic project; as such it is a tool for its
+SmartEiffel was an academic project; as such it was a tool for its
 developers to test and prove ideas that made their way into papers;
 such a goal naturally requires the development model to follow the
 rules of the academia, for example keeping all the coding in-house.
@@ -41,7 +41,7 @@ SmartEiffel, but with different goals:
 
 - be available on most platforms.
 
-Liberty is a community-driven project. You are invited to participate
+Liberty is a community-driven project. We invite you to participate
 and test your own ideas. It's very easy: the code is shared on github.
 
 Liberty is only beginning. We need you.

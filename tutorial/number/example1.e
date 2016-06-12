@@ -1,6 +1,6 @@
 class EXAMPLE1
    --
-   -- To start with NUMBERs, just compile an run it :
+   -- To start with NUMBERs, just compile and run it :
    --
    --            compile -o example1 -boost example1
    --

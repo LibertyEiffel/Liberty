@@ -95,7 +95,7 @@ feature {}
 
     Information:
       -help               Display this help information
-      -version            Display SmartEiffel version information
+      -version            Display Liberty Eiffel version information
       -verbose            Display detailed information about what
                            compiler_like is doing
 

@@ -25,11 +25,10 @@ feature {ANY}
       Usage: run [options] <RootClass> <RootProcedure> ...
          or: run [options] <ACEfileName>.ace
 
-      For information about and examples of ACE files, have a look
-      in the tutorial/ace directory.
+      For information about and examples of ACE files, have a look in the
+      tutorial/ace directory.
 
-      Most of the following options are not available when using
-      an ACE file.
+      Most of the following options are not available when using an ACE file.
 
       Option summary:
 
@@ -40,18 +39,18 @@ feature {ANY}
                              doing
 
       Warning and Error levels:
-        -style_warning      Do print warnings about style violations
+        -style_warning      Print warnings about style violations
         -no_warning         Don't print any warnings
-        -relax              Performs less checks by considering less dead code, hence
-                             using less memory and less compilation time. Useful to
-                             prototype or to deliver safe code. (Useful too for very
-                             small computers.)
+        -relax              Performs less checks by considering less dead code,
+                             hence using less memory and less compilation time.
+                             Useful to prototype or to deliver safe code. (Useful
+                             too for very small computers.)
 
       Message styles:
          -flymake_mode      Display messages in a compact format suitable for
                              processing by tools such as Emacs' Flymake mode
 
-      Optimization and debugging levels (specify at most one; default is -all_check):
+      Optimization and debugging levels (specify one only; default is -all_check):
         -no_check           Enable Void target and system-level checking
         -require_check      Enable precondition checking (implies -no_check)
         -ensure_check       Enable postcondition checking (implies -require_check)
@@ -60,8 +59,8 @@ feature {ANY}
                              (implies -invariant_check)
         -all_check          Enable 'check' blocks (implies -loop_check)
         -debug              Enable 'debug' blocks
-        -flat_check         Each assertion will be executed in no_check mode
-                            Use with any mode from require_check to all_check
+        -flat_check         Each assertion will be executed in no_check mode.
+                             Use with any mode from require_check to all_check
         -no_rescue          Don't compile rescue sections
 
       Class lookup:
@@ -69,11 +68,11 @@ feature {ANY}
 
       Miscellaneous:
         -high_memory_compiler
-                            Allow the compile_to_c to use more memory; if you
-                             have enough physical memory, compilation should
-                             be faster (note: generated C code is not affected)
+                            Allow the compile_to_c to use more memory; if you have
+                             enough physical memory, compilation should be faster
+                             (note: generated C code is not affected)
 
-      ]"
+   ]"
 
 feature {}
    make

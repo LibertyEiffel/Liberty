@@ -2,7 +2,7 @@
 
 Some patterns I find useful when developing in Liberty Eiffel.
 
-Those patterns nicely complement the standard GoF patterns.
+These patterns nicely complement the standard GoF patterns.
 
 ------------------------------------------------------------------------------
 Typed Derivation
@@ -88,10 +88,10 @@ Some objects share a common base type, but we need to distinguish some
 instances with a special role. For some reason we want the objects to
 share the same runtime type.
 
-That kind of visitor helps differenciating instances. The agent is
+This kind of visitor helps differentiating instances. The agent is
 registered at the creation of ITEM and depends on the object itself.
 
-Those objects should be immutable (at least conceptually; their
+These objects should be immutable (at least conceptually; their
 creation cycle may be complex).
 
 Note: usually the "agent {VISITOR}.visit_xx" is encapsulated in a once

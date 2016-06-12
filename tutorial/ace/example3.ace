@@ -3,7 +3,7 @@
 --               compile example3.ace
 --
 -- In his example, only one class (the root class) is traced by the 
--- SmartEiffel debugger.
+-- Liberty Eiffel debugger.
 --
 system
    "number2" -- Because this is also the example2 of tutorial/number

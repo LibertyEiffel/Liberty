@@ -26,14 +26,16 @@ feature {ANY}
    command_line_name: STRING "eiffeltest_server"
 
    command_line_help_summary: STRING "[
-      Usage: eiffeltest_server <port>
+      Usage: eiffeltest_server [options] <Port>
 
       Information:
         -help               Display this help information (no test run)
-        -version            Display Liberty Eiffel version information (no test run)
-        -verbose            Display detailed information about what eiffeltest is doing
+        -version            Display Liberty Eiffel version information
+                             (no test run)
+        -verbose            Display detailed information about what the program is
+                             doing
 
-      ]"
+   ]"
 
 feature {}
    port: INTEGER

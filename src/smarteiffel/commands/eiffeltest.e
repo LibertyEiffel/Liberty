@@ -18,23 +18,25 @@ feature {ANY}
    command_line_help_summary: STRING "[
       Usage: eiffeltest [options] <DirectoryPath>
 
+      Run a suite of tests.
+
       Option summary:
         -force              To force automatic creation of the eiffeltest directory
-                            (useful while creating new test directories)
-
-        -flat               Launch only tests in the current directory (don't recurse)
-
-        -check              Only check the log.new file (called by -flat, not so
-                            useful otherwise)
-
+                             (useful while creating new test directories)
+        -flat               Only launch tests in the current directory
+                             (don't recurse)
+        -check              Only check the log.new file
+                             (called by -flat, not so useful otherwise)
         -boost              Only launch boost tests (useful for quick checks)
 
       Information:
         -help               Display this help information (no test run)
-        -version            Display Liberty Eiffel version information (no test run)
-        -verbose            Display detailed information about what eiffeltest is doing
+        -version            Display Liberty Eiffel version information
+                             (no test run)
+        -verbose            Display detailed information about what the program is
+                             doing
 
-      ]"
+   ]"
 
 feature {}
    directory_path: STRING

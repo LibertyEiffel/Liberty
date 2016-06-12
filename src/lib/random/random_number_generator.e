@@ -4,7 +4,7 @@
 deferred class RANDOM_NUMBER_GENERATOR
    --
    -- Common abstract definition of a random number generator.
-   -- The SmartEiffel library provides two implementations: MINIMAL_RANDOM_NUMBER_GENERATOR, and 
+   -- The Liberty Eiffel library provides two implementations: MINIMAL_RANDOM_NUMBER_GENERATOR, and 
    -- PRESS_RANDOM_NUMBER_GENERATOR. Most applications can safely rely on MINIMAL_RANDOM_NUMBER_GENERATOR. 
    -- If you really need high quality randomizing, consider PRESS_RANDOM_NUMBER_GENERATOR. 
    --

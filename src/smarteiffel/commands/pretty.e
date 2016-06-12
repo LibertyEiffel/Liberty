@@ -18,16 +18,18 @@ feature {ANY}
    command_line_help_summary: STRING "[
       Usage: pretty [options] <SourceFilePath> ...
 
+      Pretty print a class source file.
+
       Option summary:
 
       Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
-        -verbose            Display detailed information about what the programe
+        -verbose            Display detailed information about what the program
                              doing
 
       Warning levels:
-        -style_warning      Do print warnings about style violations
+        -style_warning      Print warnings about style violations
         -no_warning         Don't print any warnings
 
       Message styles:

@@ -11,7 +11,7 @@ inherit
 
 feature {ANY}
    is_equal (other: like Current): BOOLEAN
-         -- Redefined because SmartEiffel's default is_equal generates bad code in some strange situations
+         -- Redefined because Liberty Eiffel's default is_equal generates bad code in some strange situations
       do
          Result := position = other.position
             and then image.is_equal(other.image)

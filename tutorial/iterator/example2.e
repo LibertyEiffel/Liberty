@@ -1,6 +1,6 @@
 class EXAMPLE2
    --
-   -- Using an ITERATOR traverse some random collection of INTEGER.
+   -- Using an ITERATOR to traverse a random collection of INTEGER.
    --
 
 create {ANY}

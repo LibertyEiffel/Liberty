@@ -1,6 +1,6 @@
 class EXAMPLE3
-   -- This example show that using TUPLE you are able to send a signal
-   -- with arbitrary number of informations using SIGNAL_1
+   -- This example shows that by using TUPLE you are able to send a signal
+   -- with an arbitrary amount of information using SIGNAL_1
    -- Of course it is simpler to use SIGNAL_2 for 2 variables.
    -- NOTE: you can un-register your procedure from the signal. Have a look
    -- at `last_connect_id' and `disconnect' in signal_*.e

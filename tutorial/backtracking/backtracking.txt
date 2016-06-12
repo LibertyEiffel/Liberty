@@ -1,15 +1,15 @@
-tutorial of lib/backtracking
+Tutorial of lib/backtracking
 ############################
 
-The cluster lib/backtracking provides a usefull abstraction to implements
-all kinds of backtracking algorithms or and/or tree exploration.
+The cluster lib/backtracking provides a useful abstraction to implement
+all kinds of backtracking algorithms or and/or tree explorations.
 
 The tutorial backtracking/expand_expression
 ===========================================
 
 The main class, ABSTRACT_BACKTRACKING,
-implements the abstract algorithm that explorate a virtual and/or tree.
-It defines the basic data used for the exploration and the way the exploration
+implements the abstract algorithm that explore a virtual and/or tree.
+It defines the basic data used for the explorations and the way the exploration
 is done. The tutorial [expand_expression] shows its use.
 
 That tutorial expands the expressions that are entered at its input.
@@ -31,18 +31,18 @@ The tutorial backtracking/logigram
 ==================================
 
 A tutorial that shows how to solve problems 
-sometimes called logigrams. The logigrams
+that sometimes are called logigrams. The logigrams
 are made of a set of items (persons, date, places, ...)
-grouped into categories and set of true propositions 
+grouped into categories and sets of true propositions 
 about the items. From these propositions you must deduce
 how the given items are combined together.
 
 Here is an example: there are 3 women, Marie, Julie and Eve of
 the 19th century. We know that:
- - The one that have no child is born in 1804 and is not Marie.
- - Julie dont have exactly one child and have less children than Marie.
- - The one that have 2 children is not born in 1805 and is not Eve.
-Which woman is born in 1806? How many children had she?
+ - The one who has no child was born in 1804 and she is not Marie.
+ - Julie doesn't have exactly one child and has less children than Marie.
+ - The one who had 2 children was not born in 1805 and she is not Eve.
+Which woman is born in 1806? How many children did she have?
 
 The tutorial backtracking/tiny_parse
 ==============================
@@ -57,7 +57,7 @@ WORK IN PROGRESS NOTHING TO SEE HERE
 Some other examples
 ===================
 
-The cluster regular_expression use the cluster bactracking.
+The cluster regular_expression uses the cluster bactracking.
 Just take a look at it.
 
 .end

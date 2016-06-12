@@ -1,9 +1,9 @@
 class EXAMPLE1
    -- Signal example1
-   -- This example show signal which carry an integer value.
-   -- You may imagine that A is scrollbar and that you need to be
-   -- informed each time the value (position) change so that you can
-   -- correctly redraw at the new place.
+   -- This example shows a signal which carries an integer value.
+   -- You may imagine that A is a scrollbar and that you need to be
+   -- informed each time the value (position) changes so that you can
+   -- correctly redraw it at the new place.
 
 create {ANY}
    make

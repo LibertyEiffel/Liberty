@@ -1,16 +1,16 @@
-Signals are a way for objects communication (design pattern observer).
+Signals are a way for communication between object using the 'observer' design pattern.
 
-When to use: when an object change it's state and that may be interesting for some other object. In this case it emits signal.
+Use it to inform another object when an object's state changes by emitting a signal.
 
 How to use:
--source: emit a signal when an object may be interested in, whatever zero, one or more objects is concerned.
--connection: just tell which procedure to execute when this signal from this object is emitted. Any number of connection may be made on a sigle signal. In this case, procedure are executed in registration order. If one of them register a new procedure on working signal, it will be executed next time the signal occur. It's permitted to un-register a procedure which will not be called if not already executed (useful for procedure who need not to be called any more, it may un-register itself).
+-source: emit a signal to zero, one or more objects that are interested in this signal.
+-connection: just tell which procedure to execute when this object emits this signal. Any number of connections may be made on a sigle signal. In this case, procedures are executed in registration order. If one of them registers a new procedure on a working signal, it will be executed next time the signal occurs. It's permitted to un-register a procedure which will not be called again if not already executed (useful for procedures who need not to be called anymore, it may un-register itself).
 -data: values of any type may be associated with signals or no data (two INTEGERs for example).
 
 Comments:
--data are more useful when they are basic types (INTEGER, STRING...)
+-data is more useful when they are of some basic type (INTEGER, STRING...)
 -thanks to signals, objects may be designed more independently.
 -an object may connect two objects via signals, even if they don't know each other (ex: a:A may connect signal new_string from b:B to procedure io.put_string, OUTPUT_STREAM doesn't know B nor B knows OUTPUT_STREAM).
--signals are pure eiffel design with full static inference type check. Safe ;-)
--simplicity (self-gratification ;-): use of signals do not need to write extra-classes, nor extra-code. JUST DECLARE SIGNALS AND EMIT THEM, USERS HAVE ONLY TO CONNECT SIGNALS YOU DECLARED!
+-signals are a pure Eiffel design with full static inference type check. Safe ;-)
+-simplicity (self-gratification ;-): use of signals does not require extra classes to be written, nor extra-code. JUST DECLARE SIGNALS AND EMIT THEM, USERS ONLY HAVE TO CONNECT SIGNALS YOU DECLARED!
 -read this file twice, each sentence must be kept in mind.

@@ -1,7 +1,7 @@
 class EXAMPLE
    --
-   -- The Eiffel program is running first, create an empty STRING which is passed to the C world.
-   -- The C program then modify the Eiffel STRING calling the Eiffel feature `extend' of class STRING.
+   -- The Eiffel program is running first, creates an empty STRING which is passed to the C world.
+   -- The C program then modifies the Eiffel STRING calling the Eiffel feature `extend' of class STRING.
    -- Finally, the modified STRING is printed.
    --
    -- To compile this example, use command:

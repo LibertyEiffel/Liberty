@@ -22,7 +22,7 @@ feature {}
 
 feature {ANY}
    from_dictionary (map_: like map)
-      obsolete "Use map.keys instead"
+      obsolete "Use MAP#`keys' instead."
       do
          from_map(map)
       end

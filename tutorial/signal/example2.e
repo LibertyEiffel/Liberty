@@ -7,12 +7,12 @@ class EXAMPLE2
    -- d: 3 5
    -- e: 7 7
    -- f: 9 9
-   -- This example show that you may connect two objects, even if they
-   -- don't know each other and they don't have been written for.
-   -- This class connect two objects of A type so that they stay
+   -- This example shows that you may connect two objects, even if they
+   -- don't know each other and they don't have been written for that.
+   -- This class connects two objects of type A so that they stay
    -- synchronized. You may imagine that one is a cursor and the other
    -- is a spin button, both represent the same quantity. So you want
-   -- that each change on one of them update the value shown by the other.
+   -- that each change on one of them updates the value shown by the other.
 
 create {ANY}
    make

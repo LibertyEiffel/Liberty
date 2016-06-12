@@ -15,7 +15,7 @@ create {ANY}
    make
 
 feature {ANY}
-   liberty_authors: STRING "Paolo Redaelli"
+   liberty_authors: STRING "P.REDAELLI"
    liberty_dates: STRING "2008-2016"
 
    make
@@ -72,6 +72,7 @@ feature {ANY}
 
    process_arguments
          -- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits.
+         --| TODO: Why isn't this using COMMAND_LINE_TOOLS? --djk
       local
          arg, gccxml_prefix, standard_typedefs: STRING; i: INTEGER
       do
@@ -97,15 +98,18 @@ feature {ANY}
                i > argument_count
             loop
                arg := argument(i)
-               if arg.is_equal(once "--local") then
+               if arg.has_prefix(once "--") then
+                  arg.remove_first
+               end
+               if arg.is_equal(once "-local") then
                   settings.set_global(False)
-               elseif arg.is_equal(once "--global") then
+               elseif arg.is_equal(once "-global") then
                   settings.set_global(True)
-               elseif arg.is_equal(once "--emit-standard-typedefs") then
+               elseif arg.is_equal(once "-emit-standard-typedefs") then
                   settings.use_standard_typedefs
-               elseif arg.is_equal(once "--apply-patches") then
+               elseif arg.is_equal(once "-apply-patches") then
                   not_yet_implemented
-               elseif arg.is_equal(once "--descriptions") then
+               elseif arg.is_equal(once "-descriptions") then
                   i := i + 1
                   if i <= argument_count then
                      descriptions := argument(i)
@@ -113,7 +117,7 @@ feature {ANY}
                      std_error.put_line(once "No description file given.")
                      print_usage
                   end
-               elseif arg.is_equal(once "--standard-typedefs") then
+               elseif arg.is_equal(once "-standard-typedefs") then
                   i := i + 1
                   if i <= argument_count then
                      if is_valid_class_name(argument(i)) then
@@ -125,7 +129,7 @@ feature {ANY}
                      std_error.put_line(once "Name of class containing standard typedefs not given")
                      print_usage
                   end
-               elseif arg.is_equal(once "--flags") then
+               elseif arg.is_equal(once "-flags") then
                   i := i + 1
                   if i <= argument_count then
                      flags := argument(i)
@@ -133,7 +137,7 @@ feature {ANY}
                      std_error.put_line(once "No flags file given")
                      print_usage
                   end
-               elseif arg.is_equal(once "--avoided") then
+               elseif arg.is_equal(once "-avoided") then
                   i := i + 1
                   if i <= argument_count then
                      avoided := argument(i)
@@ -141,7 +145,7 @@ feature {ANY}
                      std_error.put_line(once "No avoided file given")
                      print_usage
                   end
-               elseif arg.is_equal(once "--moved") then
+               elseif arg.is_equal(once "-moved") then
                   not_yet_implemented
                   i := i + 1
                   if i <= argument_count then
@@ -150,13 +154,16 @@ feature {ANY}
                      std_error.put_line(once "No moved functions file given")
                      print_usage
                   end
-               elseif arg.is_equal(once "--version") or else arg.is_equal(once "-v") then
+               elseif arg.is_equal(once "-version") or else arg.is_equal(once "-v") then
                   print_version
                   die_with_code(0)
-               elseif arg.is_equal(once "--verbose") then
+               elseif arg.is_equal(once "-help") or else arg.is_equal(once "-h") then
+                  print_usage
+                  die_with_code(0)
+               elseif arg.is_equal(once "-verbose") then
                   settings.set_verbose(True)
                   -- TODO: re-enable grouping output on standard output
-                  -- elseif arg.is_equal(once "--on-standard-output") then
+                  -- elseif arg.is_equal(once "-on-standard-output") then
                   --    settings.set_directory(Void)
                else
                   if file_exists(arg) then
@@ -173,7 +180,7 @@ feature {ANY}
                         i := i + 1
                      end
                   else
-                     std_error.put_string(once "Input file does not ext: ")
+                     std_error.put_string(once "Input file does not exist: ")
                      std_error.put_line(arg)
                      print_usage
                   end
@@ -265,62 +272,71 @@ feature {ANY}
 
    print_usage
       do
-         std_error.put_line(once "wrappers-generator [--verbose|-v] [--local] [--global] [--directory dir] output.gcc-xml filenames....%N%
-         %%N%
-         %   --local %N%
-         %      produces functions, structures and enumeration%N%
-         %      classes only for the given files. Otherwise all the%N%
-         %      necessary file will be created. This is the default Only%N%
-         %      the last global and local flag will be considered.%N%
-         %%N%
-         %   --global emits wrappers for every features found in the XML%N%
-         %      file. For usual wrappers it  normally not needed.%N%
-         %      Only the last global and local flag will be considered.%N%
-         %%N%
-         %   --flags flag-file%N%
-         %      Read a list of enumeration that will be forcefully wrapped as %N%
-         %      a flag. In fact sometimes there is no way to dtinguh when%N%
-         %      an enumeration is used as-it-is or to contain flags. If this%N%
-         %       option  not used the program will look for the %"flags%" file.%N%
-         %%N%
-         %   --moved moved-file%N%
-         %      Read from `moved-file' a list of functions with the Liberty class they%N%
-         %      wrapped in; sometimes actual function declaration  not made in a public%N%
-         %      header but in hidden places, i.e. memcpy. If this option is not given the%N%
-         %      program will look into file %"moved%".%N%
-         %%N%
-         %   --descriptions descriptions-file%N%
-         %      Apply the descriptions found in the description-file. Each line contains%N%
-         %      the description of a class or of a class' feature. The syntax for a class %N%
-         %      description  `CLASS description', for a feature description  %N%
-         %      `CLASS.feature description' Trailing and leading spaces are trimmed; line%N%
-         %      starting with `--' are ignored. If this option is not given the program%N%
-         %      will look into file %"descriptions%".%N%
-         %%N%
-         %   --standard-typedefs CLASS_NAME%N%
-         %      Use %"CLASS_NAME%" as the class containing the wrappers for defined typedefs%N%
-         %      If not given the default %"STANDARD_C_LIBRARY_TYPES%" will be used.%N%
-         %%N%
-         %   --emit-standard-typedefs%N%
-         %      Emit dummy queries useful for anchored declarations (i.e. %"like long%")%N%
-         %      for C types that can have different sizes on different architectures and for%N%
-         %      the typedefs defined in the C99 standard.%N%
-         %      If this flag is not given the class containing the defined typedefs will insert%N%
-         %      the CLASS_NAME defined with %"--standard-typedefs%" option.%N%
-         %%N%
-         %   --avoided a_file_name%N%
-         %      Do not wrap the symbols found in `a_file_name'. If this option is not %N%
-         %      given the program will look into file %"avoided%".%N%
-         %%N%
-         %   -v --verbose%N%
-         %      Turn on verbose output, printing information about the%N%
-         %      ongoing operations.%N%
-         %%N%
-         %   -V --version%N%
-         %      Print version and exits%N%
-         %%N%
-         % The basename of the provided XML file made by gccxml will be used %N%
-         % as prefix for the typedef class and proprocessor symbol.%N")
+         std_error.put_line(once "[
+            Usage: wrappers-generator [--verbose|-v] [--local] [--global] [--directory dir] output.gcc-xml filenames...
+
+            Option summary:
+
+            Information:
+              -h -help            Display this help information
+              -V -version         Display Liberty Eiffel version information
+              -v -verbose         Display detailed information about what the program is
+                                   doing
+
+            C features selection:
+              -local              Produce functions, structures and enumeration classes
+                                   only for the given files. Otherwise all the necessary
+                                   files will be created. This is the default. Only the
+                                   last global and local flag will be considered.
+              -global             Emits wrappers for every feature found in the XML file.
+                                   For usual wrappers it is normally not needed. Only the
+                                   last global and local flag will be considered.
+
+            Enumerations as flags:
+              -flags <file>       Read a list of enumerations that will be forcefully
+                                   wrapped as a flag. In fact sometimes there is no way to
+                                   distinguish when an enumeration is used as-it-is or to
+                                   contain flags. If this option is not given the program
+                                   will use the "flags" file if present.
+
+            Eiffel header comments:
+              -descriptions <file>
+                                  Apply the descriptions found in <file>. Each line
+                                   contains the description of a class or of a class'
+                                   feature. The syntax for a class description is
+                                   `CLASS description', for a feature description
+                                   `CLASS.feature description'. Trailing and leading
+                                   spaces are trimmed from each line. If this option is
+                                   not given the program will use the "descriptions" file
+                                   if present.
+
+            Typedefs:
+              -standard-typedefs <CLASS_NAME>
+                                  Use <CLASS_NAME> as the class containing the wrappers
+                                  for defined typedefs. If not given the default
+                                  "STANDARD_C_LIBRARY_TYPES" will be used.
+              -emit-standard-typedefs
+                                  Emit dummy queries useful for anchored declarations
+                                   (i.e. "like long") for C types that can have different
+                                   sizes on different architectures and for the typedefs
+                                   defined in the C99 standard.  If this flag is not given
+                                   the class containing the defined typedefs will insert
+                                   the CLASS_NAME defined with "-standard-typedefs"
+                                   option.
+
+            Symbol selection:
+              -moved <file>       Read from <file> a list of functions with the Liberty
+                                   class they wrapped in; sometimes function declarations
+                                   aren't made in a public header but in hidden places,
+                                   i.e. memcpy. If this option is not given the program
+                                   will use the "moved" file if present.
+              -avoided <file>     Do not wrap the symbols found in <file>. If this option
+                                   is not given the program will use the "avoided" file if
+                                   present.
+
+            The basename of the provided XML file made by gccxml will be used as prefix
+            for the typedef class and preprocessor symbol.
+         ]")
          die_with_code(exit_success_code)
       end
 

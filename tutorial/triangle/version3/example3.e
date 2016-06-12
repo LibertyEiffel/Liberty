@@ -1,6 +1,6 @@
 class EXAMPLE3
    -- Let's start to copy and to compare objects... you may also run
-   -- this example step-by-step using the SmartEiffel Debugger (-sedb).
+   -- this example step-by-step using the Liberty Eiffel Debugger (-sedb).
 
 create {ANY}
    main

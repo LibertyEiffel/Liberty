@@ -3,7 +3,7 @@
 --
 class WINDOWS_DIRECTORY_NOTATION
    -- The Windows like file path notation looks like:
-   --   C:\SmartEiffel\sys\system.se
+   --   C:\LibertyEiffel\sys\system.se
 
 inherit
    PATH_NAME_NOTATION

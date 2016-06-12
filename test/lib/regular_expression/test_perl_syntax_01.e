@@ -114,7 +114,7 @@ feature {}
                when 'i' then
                   factory.set_case_insensitive
                when 'x' then
-                  factory.set_extended_ligibility
+                  factory.set_extended_legibility
                when 'm' then
                   factory.set_match_line_boundary
                when 's' then

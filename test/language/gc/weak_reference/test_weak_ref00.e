@@ -1,4 +1,4 @@
--- This file is part of LibertyEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class TEST_WEAK_REF00

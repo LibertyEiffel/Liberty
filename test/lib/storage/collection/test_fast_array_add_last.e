@@ -1,4 +1,4 @@
--- This file is part of LibertyEiffel, the new incarnation of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel, the new incarnation of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 
 class TEST_FAST_ARRAY_ADD_LAST
@@ -27,7 +27,7 @@ end -- class TEST_FAST_ARRAY_ADD_LAST
 
 -- Copyright notice below. Please read.
 --
--- LibertyEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
 -- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
 -- SmartEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have

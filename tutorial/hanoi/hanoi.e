@@ -25,7 +25,7 @@ feature {ANY}
    make
       do
          if argument_count = 0 then
-            io.put_string("Number of discus: ")
+            io.put_string("Number of disks: ")
             io.flush
             io.read_integer
             nb := io.last_integer

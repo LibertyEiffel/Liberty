@@ -23,7 +23,7 @@ feature {ANY}
          path1, path2: STRING
       do
          if argument_count < 2 then
-            io.put_string("usage: same_files <path1> <path2>%N")
+            io.put_string("Usage: same_files <path1> <path2>%N")
             die_with_code(exit_failure_code)
          end
          path1 := argument(1)

@@ -5,7 +5,7 @@ deferred class COLLECTION3[E_]
    --
    -- Abstract definition of a 3 dimensional collection of elements of type E_.
    --
-   -- The SmartEiffel standard library provides two implementations of COLLECTION3: ARRAY3 and FIXED_ARRAY3.
+   -- The Liberty Eiffel standard library provides two implementations of COLLECTION3: ARRAY3 and FIXED_ARRAY3.
    -- All implementations have exactly the same behavior. Switching from one implementation to another only
    -- change the memory used and the execution time.
    --
@@ -337,7 +337,7 @@ feature {ANY} -- Looking and comparison:
          -- Do both collections have the same `lower', `upper', and
          -- items?
          -- Feature `is_equal' is used for comparison of items.
-      obsolete "is_equal now does that."
+      obsolete "Use `is_equal' instead."
       do
          Result := is_equal(other)
       end

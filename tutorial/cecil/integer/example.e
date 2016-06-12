@@ -1,6 +1,6 @@
 class EXAMPLE
    --
-   -- The Eiffel program is running first, then call the C program which is in charge to add
+   -- The Eiffel program is running first, then calls the C program, which is in charge of adding
    -- two INTEGERs using the infix "+" feature of class INTEGER.
    --
    -- To compile this example, use command:

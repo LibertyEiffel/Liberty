@@ -24,7 +24,7 @@ feature {ANY}
       local
          long_loop: INTEGER; foo: STRING
       do
-         -- Just enable now the `low_memory_strategy' at the beginning
+         -- Just enable the `low_memory_strategy' here at the beginning
          -- of the execution of your main:
          set_low_memory_strategy
          from

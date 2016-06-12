@@ -492,42 +492,42 @@ feature {DIRECTORY_NOTATION_HANDLER}
 
    unix_notation: BOOLEAN
          -- The Unix like file path notation looks like:
-         --   /SmartEiffel/sys/system.se
+         --   /LibertyEiffel/sys/system.se
       do
          Result := {UNIX_DIRECTORY_NOTATION} ?:= system_notation
       end
 
    windows_notation: BOOLEAN
          -- The Windows like file path notation looks like:
-         --   C:\SmartEiffel\sys\system.se
+         --   C:\LibertyEiffel\sys\system.se
       do
          Result := {WINDOWS_DIRECTORY_NOTATION} ?:= system_notation
       end
 
    cygwin_notation: BOOLEAN
          -- The Cygwin like file path notation looks like:
-         --   //C/SmartEiffel/sys/system.se
+         --   //C/LibertyEiffel/sys/system.se
       do
          Result := {CYGWIN_DIRECTORY_NOTATION} ?:= system_notation
       end
 
    amiga_notation: BOOLEAN
          -- The Amiga file path notation looks like:
-         --   DEV:SmartEiffel/sys/system.se
+         --   DEV:LibertyEiffel/sys/system.se
       do
          Result := {AMIGA_DIRECTORY_NOTATION} ?:= system_notation
       end
 
    macintosh_notation: BOOLEAN
          -- The Macintosh file path notation looks like:
-         --   :SmartEiffel:sys:system.se
+         --   :LibertyEiffel:sys:system.se
       do
          Result := {MACINTOSH_DIRECTORY_NOTATION} ?:= system_notation
       end
 
    openvms_notation: BOOLEAN
          -- The VMS file path notation looks like:
-         --    DISK:[SmartEiffel.sys]system.se
+         --    DISK:[LibertyEiffel.sys]system.se
          -- The current working directory notation is:
          --    DISK:[]
          -- The equivalent of Unix .. is :

@@ -539,7 +539,7 @@ feature {ANY} -- Miscellaneous:
 
 feature {ANY} -- Looping:
    times (repeat: PROCEDURE[TUPLE[like Current]])
-         -- Repeats the procedure from 1 to Current. As for any SmartEiffel agent the open argument may be
+         -- Repeats the procedure from 1 to Current. As for any Liberty Eiffel agent the open argument may be
          -- safely ignored. You may also build your agent with closed arguments.
          --
          -- See also `loop_to', `loop_from'
@@ -561,7 +561,7 @@ feature {ANY} -- Looping:
       end
 
    loop_to (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]])
-         -- Repeats the procedure from Current to `bound'. As for any SmartEiffel agent the open argument may
+         -- Repeats the procedure from Current to `bound'. As for any Liberty Eiffel agent the open argument may
          -- be safely ignored. You may also build your agent with closed arguments.
          --
          -- See also `times', `loop_from'
@@ -580,7 +580,7 @@ feature {ANY} -- Looping:
       end
 
    loop_from (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]])
-         -- Repeats the procedure from `bound' to Current. As for any SmartEiffel agent the open argument may
+         -- Repeats the procedure from `bound' to Current. As for any Liberty Eiffel agent the open argument may
          -- be safely ignored. You may also build your agent with closed arguments.
          --
          -- See also `times', `loop_to'
@@ -591,7 +591,7 @@ feature {ANY} -- Looping:
       end
 
    loop_up_to (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]])
-         -- Repeats the procedure from Current to a greater `bound'. As for any SmartEiffel agent the open
+         -- Repeats the procedure from Current to a greater `bound'. As for any Liberty Eiffel agent the open
          -- argument may be safely ignored. You may also build your agent with closed arguments.
          --
          -- See also `loop_to', `loop_down_to'
@@ -609,7 +609,7 @@ feature {ANY} -- Looping:
       end
 
    loop_down_to (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]])
-         -- Repeats the procedure from Current to a lower `bound'. As for any SmartEiffel agent the open
+         -- Repeats the procedure from Current to a lower `bound'. As for any Liberty Eiffel agent the open
          -- argument may be safely ignored. You may also build your agent with closed arguments.
          --
          -- See also `loop_to', `loop_down_to'
