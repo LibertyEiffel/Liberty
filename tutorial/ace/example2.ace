@@ -35,8 +35,8 @@ cluster
         -- The description of the first cluster starts with its name 
         -- just folowed by the path of the directory:
 	demos_cluster: "${path_tutorial}"
-                       -- The ${path_tutorial} variable is set in the
-                       -- configuration file (.serc or system.se)
+	       -- The ${path_tutorial} variable is set in the
+	       -- configuration file (.serc or system.se)
            end 
 	
         -- The string cluster:
@@ -59,7 +59,7 @@ cluster
                assertion (require): STD_INPUT
            end
 
-        -- SmartEiffel's standard library. Always put this last so 
+        -- Liberty Eiffel's standard library. Always put this last so
         -- that you can override options for parts of the library.
         standard: "${path_liberty_core}/loadpath.se"
            default

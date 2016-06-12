@@ -1,6 +1,6 @@
 class EXAMPLE1
    --
-   -- How to do pattern matching with SmartEiffel:
+   -- How to do pattern matching with Liberty Eiffel:
    --
    --            compile -o example1 -boost example1
    --

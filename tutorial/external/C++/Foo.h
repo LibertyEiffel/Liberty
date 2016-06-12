@@ -1,4 +1,4 @@
-// Basic C++ class to test the SmartEiffel C++ interface
+// Basic C++ class to test the Liberty Eiffel C++ interface
 class Foo {
 
 private:

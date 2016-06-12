@@ -3,7 +3,7 @@
 --
 class MACINTOSH_DIRECTORY_NOTATION
    -- The Macintosh file path notation looks like:
-   --   :SmartEiffel:sys:system.se
+   --   :LibertyEiffel:sys:system.se
 
 inherit
    DIRECTORY_NOTATION

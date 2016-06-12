@@ -10,7 +10,7 @@ feature {} -- called by the plugin using CECIL
 
 feature {COROUTINE}
    fix_dumb_cecil
-         -- Because there is a bug somewhere in SmartEiffel, ensures that the CECIL code is correctly
+         -- Because there is a bug somewhere in Liberty Eiffel, ensures that the CECIL code is correctly
          -- generated.
       do
       end

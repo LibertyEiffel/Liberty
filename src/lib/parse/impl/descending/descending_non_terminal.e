@@ -5,7 +5,7 @@ class DESCENDING_NON_TERMINAL
    --
    -- A non-terminal meant to be put in a PARSE_TABLE.
    --
-   -- The only way to create a non-terminal is to use SmartEiffel's manifest notation.
+   -- The only way to create a non-terminal is to use Liberty Eiffel's manifest notation.
    --
    -- The structure of this notation is:
    --

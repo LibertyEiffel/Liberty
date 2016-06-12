@@ -367,7 +367,7 @@ feature {} -- Various useful tools:
 
    frozen sedb_breakpoint
          -- May be used in combination with option "-sedb" of command
-         -- `compile_to_c' to set a breakpoint for sedb, the SmartEiffel debugger.
+         -- `compile_to_c' to set a breakpoint for sedb, the Liberty Eiffel debugger.
       external "built_in"
       end
 

@@ -1,6 +1,6 @@
 class EXAMPLE2
    --
-   -- How to do substitution with SmartEiffel:
+   -- How to do substitution with Liberty Eiffel:
    --
    --            compile -o example2 -boost example2
    --

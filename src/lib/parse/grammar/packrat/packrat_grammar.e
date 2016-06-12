@@ -275,7 +275,7 @@ feature {ANY}
 
    error: PARSE_ERROR
 
-feature {} -- reducer proxy (because SmartEiffel crashes if the agents are built in the once method)
+feature {} -- reducer proxy (because Liberty Eiffel crashes if the agents are built in the once method)
    reducer: PACKRAT_REDUCER
 
    reduce_nonterminal_def

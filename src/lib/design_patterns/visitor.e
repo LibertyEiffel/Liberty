@@ -7,7 +7,7 @@ deferred class VISITOR
    -- its "visit" feature that visits the corresponding node of a Composite (and each node must inherit from
    -- VISITABLE).
    --
-   -- For examples, look at the tools/visitor cluster of SmartEiffel.
+   -- For examples, look at the tools/visitor cluster of Liberty Eiffel.
    --
    -- See also http://www.objectmentor.com/resources/articles/acv.pdf
    --

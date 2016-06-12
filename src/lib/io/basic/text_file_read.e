@@ -9,7 +9,7 @@ class TEXT_FILE_READ
    -- screen first and then, just changing of instance (STD_INPUT/TEXT_FILE_READ), doing the
    -- same in a file.
    --
-   -- Input stream usage is available in tutorial/io and SmartEiffel FAQ.
+   -- Input stream usage is available in tutorial/io and Liberty Eiffel FAQ.
    --
 
 inherit

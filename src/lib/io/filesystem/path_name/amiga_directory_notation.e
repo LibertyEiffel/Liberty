@@ -3,7 +3,7 @@
 --
 class AMIGA_DIRECTORY_NOTATION
    -- The Amiga file path notation looks like:
-   --   DEV:SmartEiffel/sys/system.se
+   --   DEV:LibertyEiffel/sys/system.se
 
 inherit
    DIRECTORY_NOTATION

@@ -5,7 +5,7 @@ class MEMORY_EXAMPLE2
    -- we suppose that in this case you have a _lot_ of available memory).
    --
    -- Note: it is usually interesting to compare the execution time of this
-   -- example with/without the SmartEiffel garbage collector:
+   -- example with/without the Liberty Eiffel garbage collector:
    --    compile -boost        example2
    --    compile -boost -no_gc example2
    --
