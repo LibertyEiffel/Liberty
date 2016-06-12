@@ -24,7 +24,7 @@ class ZMQ_PUB_SOCKET
         --
         --         ZMQ_HWM option action       Drop
         --
-inherit ZMQ_SENDING_SOCKET creation {ZMQ_CONTEXT} from_external_pointer
+inherit ZMQ_SENDING_SOCKET create {ZMQ_CONTEXT} from_external_pointer
 invariant -- type=zmq_pub
 end  -- class ZMQ_PUB_SOCKET
 
