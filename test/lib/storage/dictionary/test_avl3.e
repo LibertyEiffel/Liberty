@@ -1,4 +1,4 @@
--- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- This file is part of Liberty Eiffel - The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AVL3
@@ -18,7 +18,7 @@ feature {ANY}
          from
             i := 0
          until
-            i = n
+            i = n - 1
          loop
             rng.next
             r := rng.last_real
