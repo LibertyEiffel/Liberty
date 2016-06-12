@@ -15,7 +15,7 @@ feature {} -- parsing
    parse_extended_pattern
       local
          dont_restore, saved_is_case_insensitive, saved_does_match_line_boundary, saved_does_any_match_newline,
-         saved_has_extended_ligibility: BOOLEAN
+         saved_has_extended_legibility: BOOLEAN
       do
          -- skip known characters
          read_character
@@ -24,7 +24,7 @@ feature {} -- parsing
          saved_is_case_insensitive := is_case_insensitive
          saved_does_match_line_boundary := does_match_line_boundary
          saved_does_any_match_newline := does_any_match_newline
-         saved_has_extended_ligibility := has_extended_ligibility
+         saved_has_extended_legibility := has_extended_legibility
          -- read the flags
          read_modifiers(True)
          if not end_of_input and then last_character = '-' then
@@ -94,7 +94,7 @@ feature {} -- parsing
                   is_case_insensitive := saved_is_case_insensitive
                   does_match_line_boundary := saved_does_match_line_boundary
                   does_any_match_newline := saved_does_any_match_newline
-                  has_extended_ligibility := saved_has_extended_ligibility
+                  has_extended_legibility := saved_has_extended_legibility
                end
                read_character
             end

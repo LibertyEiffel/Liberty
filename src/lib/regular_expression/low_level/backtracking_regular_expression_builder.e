@@ -311,7 +311,7 @@ feature {} -- build
       require
          group_greater_than_zero: last_group_count > 0
          group_stack_not_empty: not group_stack.is_empty
-         enougth_data: stack.count > 0
+         enough_data: stack.count > 0
       local
          x: BACKTRACKING_NODE_AND_LIST; y: BACKTRACKING_NODE
       do
@@ -333,7 +333,7 @@ feature {} -- build
          -- Push the "begin of group" item and update the
          -- group indicators
          -- [..] -> [.., begin_group(i)]
-      obsolete "Now use declare_group/emit_group (feb 2006)."
+      obsolete "Use `declare_group'/`emit_group' instead (February 2006)."
       do
          last_group_count := last_group_count + 1
          group_stack.add_last(last_group_count)
@@ -351,7 +351,7 @@ feature {} -- build
          -- Push the "end of group" item and update the
          -- group indicators
          -- [..] -> [.., end_group(i)]
-      obsolete "Now use declare_group/emit_group (feb 2006)."
+      obsolete "Use `declare_group'/`emit_group' instead (February 2006)."
       require
          group_greater_than_zero: last_group_count > 0
          group_stack_not_empty: not group_stack.is_empty
@@ -598,7 +598,7 @@ feature {} -- build
          -- [.., X] -> [.., not(X)]
          -- (where not(X) is like (X and (CUT and FALSE)) or TRUE)
       require
-         enougth_data: stack.count > 0
+         enough_data: stack.count > 0
       local
          node, x: BACKTRACKING_NODE
       do
@@ -615,7 +615,7 @@ feature {} -- build
          -- [.., X] -> [.., not(X)]
          -- (where not(X) is like (X and (CUT and FALSE)) or ANY)
       require
-         enougth_data: stack.count > 0
+         enough_data: stack.count > 0
       local
          node, x: BACKTRACKING_NODE
       do
@@ -631,7 +631,7 @@ feature {} -- build
          -- Replaces the top of the stack by true or it
          -- [.., X] -> [.., true or X]
       require
-         enougth_data: stack.count > 0
+         enough_data: stack.count > 0
       local
          node, x: BACKTRACKING_NODE
       do
@@ -647,7 +647,7 @@ feature {} -- build
          -- Replaces the top of the stack by it or true
          -- [.., X] -> [.., X or true]
       require
-         enougth_data: stack.count > 0
+         enough_data: stack.count > 0
       local
          node, x: BACKTRACKING_NODE
       do
@@ -692,7 +692,7 @@ feature {} -- build
          -- or of maximal length. That feature
          -- is reset to its default (False) value.
       require
-         enougth_data: stack.count > 0
+         enough_data: stack.count > 0
          mini_is_valid: mini >= 0 and then mini /= Repeat_infiny
          maxi_is_valid: maxi = Repeat_infiny or else maxi >= mini
          not_droping: mini = 0 implies maxi /= 0
@@ -744,7 +744,7 @@ feature {} -- build
 
    emit_looking
       require
-         enougth_data: stack.count > 0
+         enough_data: stack.count > 0
          is_looking: is_looking_around
       local
          node, x: BACKTRACKING_NODE

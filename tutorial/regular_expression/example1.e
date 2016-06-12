@@ -1,6 +1,6 @@
 class EXAMPLE1
    --
-   -- How to do pattern matching with SmartEiffel:
+   -- How to do pattern matching with Liberty Eiffel:
    --
    --            compile -o example1 -boost example1
    --
@@ -13,8 +13,11 @@ feature {ANY}
       local
          factory: REGULAR_EXPRESSION_BUILDER; number: REGULAR_EXPRESSION; tmp: STRING
       do
+         factory.set_extended_legibility
          -- Create the regular expression from the pattern.
-         number := factory.convert_posix_pattern("[0-9]+")
+         number := factory.convert_perl_pattern("[
+               [0-9]+ # one or more digits
+         ]")
          check
          -- The given pattern is valid. Else, consult
          -- factory.last_error_message and factory.last_error_position

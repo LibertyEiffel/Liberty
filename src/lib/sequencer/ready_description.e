@@ -2,7 +2,7 @@
 -- See the full copyright at the end.
 --
 class READY_DESCRIPTION
-obsolete "Please use EVENTS_SET instead"
+obsolete "Use EVENTS_SET instead."
 
 inherit
    EVENTS_SET

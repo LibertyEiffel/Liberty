@@ -3,7 +3,7 @@
 --
 class UNIX_DIRECTORY_NOTATION
    -- The Unix like file path notation looks like:
-   --   /SmartEiffel/sys/system.se
+   --   /LibertyEiffel/sys/system.se
 
 inherit
    PATH_NAME_NOTATION

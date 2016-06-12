@@ -51,8 +51,8 @@ feature {CLASS_TEXT}
    visit_class_text (visited: CLASS_TEXT)
       do
          if enter_class_text(visited) then
-            if not visitting_class_texts.has(visited) then
-               visitting_class_texts.add(visited)
+            if not visiting_class_texts.has(visited) then
+               visiting_class_texts.add(visited)
                if visited.parent_lists /= Void then
                   visited.parent_lists.accept(Current)
                end
@@ -65,7 +65,7 @@ feature {CLASS_TEXT}
                if visited.class_invariant /= Void then
                   visited.class_invariant.accept(Current)
                end
-               visitting_class_texts.remove(visited)
+               visiting_class_texts.remove(visited)
             end
             exit_class_text(visited)
          end
@@ -81,9 +81,16 @@ feature {}
       do
       end
 
-   visitting_class_texts: SET[CLASS_TEXT]
+   visiting_class_texts: SET[CLASS_TEXT]
       once
          create {HASHED_SET[CLASS_TEXT]} Result.make
+      end
+
+   visitting_class_texts: SET[CLASS_TEXT]
+      obsolete
+         "Use `visiting_class_texts' instead."
+      once
+         Result := visiting_class_texts
       end
 
 feature {PARENT_LISTS}
@@ -573,9 +580,16 @@ feature {NO_DISPATCH}
       end
 
 feature {TYPE}
-   visitting_types: SET[TYPE]
+   visiting_types: SET[TYPE]
       once
          create {HASHED_SET[TYPE]} Result.make
+      end
+
+   visitting_types: SET[TYPE]
+      obsolete
+         "Use `visiting_types' instead."
+      once
+         Result := visiting_types
       end
 
    visit_type (visited: TYPE)
@@ -583,8 +597,8 @@ feature {TYPE}
          i: INTEGER; gl: ARRAY[TYPE]
       do
          if enter_type(visited) then
-            if not visitting_types.has(visited) then
-               visitting_types.add(visited)
+            if not visiting_types.has(visited) then
+               visiting_types.add(visited)
                visited.class_text.accept(Current)
                if visited.is_generic then
                   gl := visited.generic_list
@@ -614,7 +628,7 @@ feature {TYPE}
                      visited.agent_result.accept(Current)
                   end
                end
-               visitting_types.remove(visited)
+               visiting_types.remove(visited)
             end
             exit_type(visited)
          end
@@ -964,9 +978,16 @@ feature {CST_ATT_CHARACTER}
       end
 
 feature {}
-   visitting_anonymous_features: HASHED_SET[POINTER]
+   visiting_anonymous_features: HASHED_SET[POINTER]
       once
          create Result.make
+      end
+
+   visitting_anonymous_features: HASHED_SET[POINTER]
+      obsolete
+         "Use `visiting_anonymous_features' instead."
+      once
+         Result := visiting_anonymous_features
       end
 
    visit_anonymous_feature (visited: ANONYMOUS_FEATURE)
@@ -974,10 +995,10 @@ feature {}
          visited_pointer: POINTER
       do
          visited_pointer := visited.to_pointer
-         if not visitting_anonymous_features.has(visited_pointer) then
-            visitting_anonymous_features.add(visited_pointer)
+         if not visiting_anonymous_features.has(visited_pointer) then
+            visiting_anonymous_features.add(visited_pointer)
             do_visit_anonymous_feature(visited)
-            visitting_anonymous_features.remove(visited_pointer)
+            visiting_anonymous_features.remove(visited_pointer)
          end
       end
 
@@ -994,9 +1015,16 @@ feature {}
          end
       end
 
-   visitting_effective_routines: HASHED_SET[POINTER]
+   visiting_effective_routines: HASHED_SET[POINTER]
       once
          create Result.make
+      end
+
+   visitting_effective_routines: HASHED_SET[POINTER]
+      obsolete
+         "Use `visiting_effective_routines' instead."
+      once
+         Result := visiting_effective_routines
       end
 
    visit_effective_routine (visited: EFFECTIVE_ROUTINE)
@@ -1004,10 +1032,10 @@ feature {}
          visited_pointer: POINTER
       do
          visited_pointer := visited.to_pointer
-         if not visitting_effective_routines.has(visited_pointer) then
-            visitting_effective_routines.add(visited_pointer)
+         if not visiting_effective_routines.has(visited_pointer) then
+            visiting_effective_routines.add(visited_pointer)
             do_visit_effective_routine(visited)
-            visitting_effective_routines.remove(visited_pointer)
+            visiting_effective_routines.remove(visited_pointer)
          end
       end
 

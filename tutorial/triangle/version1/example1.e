@@ -1,5 +1,5 @@
 class EXAMPLE1
-   -- To execute this example with the SmartEiffel debugger,
+   -- To execute this example with the Liberty Eiffel debugger,
    -- compile with:
    --                  compile -sedb example1
 

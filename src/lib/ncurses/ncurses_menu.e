@@ -56,7 +56,7 @@ feature {ANY}
    has_border: BOOLEAN
 
    get_choice: E_
-      obsolete "use read_choice and last_choice"
+      obsolete "Use `read_choice' and `last_choice' instead."
       do
          read_choice
          if valid_choice then

@@ -33,10 +33,10 @@ feature {ANY} -- Building REGULAR_EXPRESSION
       require
          p /= Void
       do
-         if has_extended_ligibility then
-            perl5_builder.set_extended_ligibility
+         if has_extended_legibility then
+            perl5_builder.set_extended_legibility
          else
-            perl5_builder.set_no_extended_ligibility
+            perl5_builder.set_no_extended_legibility
          end
          Result := convert_backtracking_pattern(p, perl5_builder)
       ensure
@@ -52,10 +52,10 @@ feature {ANY} -- Building REGULAR_EXPRESSION
       require
          p /= Void
       do
-         if has_extended_ligibility then
-            python_builder.set_extended_ligibility
+         if has_extended_legibility then
+            python_builder.set_extended_legibility
          else
-            python_builder.set_no_extended_ligibility
+            python_builder.set_no_extended_legibility
          end
          Result := convert_backtracking_pattern(p, python_builder)
       ensure
@@ -141,23 +141,48 @@ feature {ANY} -- options
          definition: does_match_line_boundary = False and does_match_text_boundary = True
       end
 
+   has_extended_legibility: BOOLEAN
+         -- Is the extended legibility active?
+
    has_extended_ligibility: BOOLEAN
-         -- Is the extended ligibility active?
+         obsolete
+            "Use `has_extended_legibility' instead."
+         do
+            Result := has_extended_legibility
+         end
+
+   set_extended_legibility
+         -- Activate extended legibility.
+      do
+         has_extended_legibility := True
+      ensure
+         definition: has_extended_legibility = True
+      end
 
    set_extended_ligibility
-         -- Activate extended ligibility.
+      obsolete
+         "Use `set_extended_legibility' instead."
       do
-         has_extended_ligibility := True
+         set_extended_legibility
       ensure
-         definition: has_extended_ligibility = True
+         definition: has_extended_legibility = True
+      end
+
+   set_no_extended_legibility
+         -- Deactivate extended legibility.
+      do
+         has_extended_legibility := False
+      ensure
+         definition: has_extended_legibility = False
       end
 
    set_no_extended_ligibility
-         -- Deactivate extended ligibility.
+      obsolete
+         "Use `set_no_extended_legibility' instead."
       do
-         has_extended_ligibility := False
+         set_no_extended_legibility
       ensure
-         definition: has_extended_ligibility = False
+         definition: has_extended_legibility = False
       end
 
    set_default_options
@@ -166,12 +191,12 @@ feature {ANY} -- options
          set_case_sensitive
          set_any_dont_match_newline
          set_match_text_boundary
-         set_no_extended_ligibility
+         set_no_extended_legibility
       ensure
          is_case_sensitive
          not does_any_match_newline
          does_match_text_boundary
-         not has_extended_ligibility
+         not has_extended_legibility
       end
 
 feature {ANY} -- Error informations

@@ -11,7 +11,7 @@ deferred class COLLECTION[E_]
    -- `last', and `remove_last'). One can also use a COLLECTION as a queue (as an example, by using
    -- `add_last', `first' and `remove_first'). See also class QUEUE and STACK.
    --
-   -- The SmartEiffel standard library provides five implementations of COLLECTION: ARRAY, FAST_ARRAY,
+   -- The Liberty Eiffel standard library provides five implementations of COLLECTION: ARRAY, FAST_ARRAY,
    -- RING_ARRAY, LINKED_LIST and TWO_WAY_LINKED_LIST. Except for creations all implementations have
    -- exactly the same behavior. Switching from one implementation to another only change the memory used
    -- and the execution time (see header comment of ARRAY, FAST_ARRAY, RING_ARRAY, LINKED_LIST and
@@ -166,7 +166,7 @@ feature {ANY} -- Adding:
          -- Append `other' to Current.
          --
          -- See also `add_last', `add_first', `add'.
-      obsolete "use append_traversable instead"
+      obsolete "Use `append_traversable' instead."
       require
          other /= Void
       do
@@ -373,7 +373,7 @@ feature {ANY} -- Looking and comparison:
          -- Do both collections have the same `lower', `upper', and
          -- items?
          -- Feature `is_equal' is used for comparison of items.
-      obsolete "is_equal now does that."
+      obsolete "Use `is_equal' instead."
       do
          Result := is_equal(other)
       end

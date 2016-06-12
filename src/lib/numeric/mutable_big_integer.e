@@ -1972,7 +1972,7 @@ feature {ANY} -- Printing:
       end
 
    is_printable: BOOLEAN
-         -- True if decimal view of `Current' is short enougth
+         -- True if decimal view of `Current' is short enough
          -- to be put in a STRING.
       do
          --|*** MUST BE REWRITE (Vincent Croizier, 14/07/04) ***

@@ -6,7 +6,7 @@ deferred class INPUT_STREAM
    -- An input stream is a flow of characters that can be read from some source (be it an Eiffel object or an
    -- external object)
    --
-   -- Input stream usage is available in tutorial/io and SmartEiffel FAQ.
+   -- Input stream usage is available in tutorial/io and Liberty Eiffel FAQ.
    --
 
 inherit

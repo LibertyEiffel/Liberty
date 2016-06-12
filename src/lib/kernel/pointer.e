@@ -73,7 +73,7 @@ feature {ANY}
    to_any: ANY
          -- Dangerous forced conversion. This function assume that `Current'
          -- is really a reference to some Eiffel allocated object.
-      obsolete "Use STORABLE instead"
+      obsolete "Use STORABLE instead."
       do
          Result := pointer_to_any(Current)
       end

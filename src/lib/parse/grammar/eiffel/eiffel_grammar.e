@@ -3,7 +3,7 @@
 --
 class EIFFEL_GRAMMAR
    --
-   -- An extended Eiffel grammar. It supports all the SmartEiffel standard grammar with some extensions:
+   -- An extended Eiffel grammar. It supports all the Liberty Eiffel standard grammar with some extensions:
    -- * the '''indexing''' clause may be used in a feature (somewhat like ECMA's note)
    -- * the '''separate''' keyword is supported
    --
@@ -644,7 +644,7 @@ feature {}
       end
 
    parse_string (buffer: MINI_PARSER_BUFFER): TYPED_EIFFEL_IMAGE[STRING]
-         -- the algorithm is a bit less strict than SmartEiffel's
+         -- the algorithm is a bit less strict than Liberty Eiffel's
       local
          old_position, start_position: like position; i, t, state, code, scale: INTEGER; c: CHARACTER; image, parsed, end_tag: STRING; unicode: BOOLEAN
       do

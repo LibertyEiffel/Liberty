@@ -5,7 +5,7 @@
 void write_integer_attribute(int*attribute) {
   /* 
      Assume an Eiffel INTEGER is really mapped as a C int.
-     Have a look is ${SmartEiffel}/sys/runtime/base.h
+     Have a look is sys/runtime/base.h
      One can also use the -cecil interface to be always compatible.
   */
   *attribute=2;

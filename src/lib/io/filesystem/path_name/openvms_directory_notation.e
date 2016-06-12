@@ -3,7 +3,7 @@
 --
 class OPENVMS_DIRECTORY_NOTATION
    -- The VMS file path notation looks like:
-   --    DISK:[SmartEiffel.sys]system.se
+   --    DISK:[LibertyEiffel.sys]system.se
    -- The current working directory notation is:
    --    DISK:[]
    -- The equivalent of Unix .. is :
