@@ -13,8 +13,13 @@ feature {ANY}
       local
          factory: REGULAR_EXPRESSION_BUILDER; number: REGULAR_EXPRESSION; tmp: STRING
       do
+         factory.set_extended_legibility
+         io.put_line(factory.has_extended_legibility.out)
+
          -- Create the regular expression from the pattern.
-         number := factory.convert_posix_pattern("[0-9]+")
+         number := factory.convert_perl_pattern("[
+               [0-9]+ # one or more digits
+         ]")
          check
          -- The given pattern is valid. Else, consult
          -- factory.last_error_message and factory.last_error_position
