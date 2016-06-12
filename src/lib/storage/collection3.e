@@ -337,7 +337,7 @@ feature {ANY} -- Looking and comparison:
          -- Do both collections have the same `lower', `upper', and
          -- items?
          -- Feature `is_equal' is used for comparison of items.
-      obsolete "is_equal now does that."
+      obsolete "Use `is_equal' instead."
       do
          Result := is_equal(other)
       end

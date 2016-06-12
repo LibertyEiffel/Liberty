@@ -166,7 +166,7 @@ feature {ANY} -- Adding:
          -- Append `other' to Current.
          --
          -- See also `add_last', `add_first', `add'.
-      obsolete "use append_traversable instead"
+      obsolete "Use `append_traversable' instead."
       require
          other /= Void
       do
@@ -373,7 +373,7 @@ feature {ANY} -- Looking and comparison:
          -- Do both collections have the same `lower', `upper', and
          -- items?
          -- Feature `is_equal' is used for comparison of items.
-      obsolete "is_equal now does that."
+      obsolete "Use `is_equal' instead."
       do
          Result := is_equal(other)
       end

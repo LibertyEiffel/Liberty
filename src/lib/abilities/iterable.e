@@ -22,7 +22,7 @@ feature {ANY} -- Other features:
       end
 
    frozen get_new_iterator: like new_iterator
-      obsolete "Please use new_iterator instead. This SmartEiffel historic feature is badly named."
+      obsolete "Use `new_iterator' instead. This historical SmartEiffel feature is badly named."
       do
          Result := new_iterator
       end

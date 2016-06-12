@@ -210,7 +210,7 @@ feature {ANY} -- Writing:
       end
 
    slice (line_min, line_max, column_min, column_max: INTEGER): like Current
-      obsolete "Use sub_collection2 instead"
+      obsolete "Use `sub_collection2' instead."
       require
          valid_index(line_min, column_min)
          valid_index(line_max, column_max)

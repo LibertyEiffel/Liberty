@@ -36,7 +36,7 @@ feature {ANY}
       end
 
    to_integer: INTEGER_8
-      obsolete "Now use `to_integer_8' instead (march 2006)."
+      obsolete "Use `to_integer_8' instead (March 2006)."
       do
          Result := to_integer_8
       end

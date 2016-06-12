@@ -434,7 +434,7 @@ feature {ANY} -- The Guru section:
          -- basic types: BOOLEAN, CHARACTER, INTEGER, REAL or POINTER.
          --
          -- Warning: this feature will be obsolete in release 2.4.
-      obsolete "Since november 2007 this feature is obsolete (and will be removed soon)."
+      obsolete "This feature is obsolete and will be removed soon (November 2007)."
       external "built_in"
       end
 

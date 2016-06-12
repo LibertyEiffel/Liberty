@@ -333,7 +333,7 @@ feature {} -- build
          -- Push the "begin of group" item and update the
          -- group indicators
          -- [..] -> [.., begin_group(i)]
-      obsolete "Now use declare_group/emit_group (feb 2006)."
+      obsolete "Use `declare_group'/`emit_group' instead (February 2006)."
       do
          last_group_count := last_group_count + 1
          group_stack.add_last(last_group_count)
@@ -351,7 +351,7 @@ feature {} -- build
          -- Push the "end of group" item and update the
          -- group indicators
          -- [..] -> [.., end_group(i)]
-      obsolete "Now use declare_group/emit_group (feb 2006)."
+      obsolete "Use `declare_group'/`emit_group' instead (February 2006)."
       require
          group_greater_than_zero: last_group_count > 0
          group_stack_not_empty: not group_stack.is_empty
