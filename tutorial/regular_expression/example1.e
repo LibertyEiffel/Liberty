@@ -14,8 +14,6 @@ feature {ANY}
          factory: REGULAR_EXPRESSION_BUILDER; number: REGULAR_EXPRESSION; tmp: STRING
       do
          factory.set_extended_legibility
-         io.put_line(factory.has_extended_legibility.out)
-
          -- Create the regular expression from the pattern.
          number := factory.convert_perl_pattern("[
                [0-9]+ # one or more digits
