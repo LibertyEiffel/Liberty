@@ -47,8 +47,6 @@ feature {} -- Currently handled C/C++ compiler list:
 
    ccc: STRING "ccc"
 
-   vpcc: STRING "vpcc"
-
    open_vms_cc: STRING "OpenVMS_CC"
 
    tcc: STRING "tcc"

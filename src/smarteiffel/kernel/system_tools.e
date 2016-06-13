@@ -41,7 +41,7 @@ feature { SERC_FACTORY}
 
    compiler_list: FAST_ARRAY[STRING]
       once
-         Result := {FAST_ARRAY[STRING] << gcc, gpp, lcc_win32, cc, wcl386, bcc32, cl, sas_c, dice, vbcc, ccc, open_vms_cc, tcc, distcc >> }
+         Result := {FAST_ARRAY[STRING] << gcc, gpp, lcc_win32, cc, wcl386, bcc32, cl, dice, vbcc, ccc, open_vms_cc, tcc, distcc >> }
       end
 
    c_plus_plus_compiler_list: FAST_ARRAY[STRING]
@@ -177,10 +177,6 @@ feature {}
          elseif c_compiler = bcc32 then
             -- add_external_lib(libm)
          elseif c_compiler = cl then
-         elseif c_compiler = sas_c then
-            -- math library is included automatically if
-            -- "Math=..." was specified (as it is in
-            -- default `sas_c_compiler_options')
          elseif c_compiler = dice then
             add_external_lib(libm)
          elseif c_compiler = vbcc then
@@ -379,7 +375,7 @@ feature {SE, COMPILE}
       local
          n: STRING
       do
-         if c_compiler = lcc_win32 or else c_compiler = sas_c then
+         if c_compiler = lcc_win32 then
             n := name + lnk_suffix
             echo.file_removing(n)
          end
@@ -507,8 +503,6 @@ feature {ANY}
             Result := obj_suffix
          elseif c_compiler = cl then
             Result := obj_suffix
-         elseif c_compiler = sas_c then
-            Result := o_suffix
          elseif c_compiler = dice then
             Result := o_suffix
          elseif c_compiler = vbcc then
@@ -1158,13 +1152,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, external_header_path)
             append_token(Result, c_flag)
             append_token(Result, c_file_name)
-         elseif c_compiler = sas_c then
-            Result.append(c_compiler_path)
-            append_token(Result, sas_c_compiler_options(True))
-            append_token(Result, c_compiler_options)
-            append_token(Result, c_plugin_compiler_options)
-            append_token(Result, external_header_path)
-            append_token(Result, c_file_name)
          elseif c_compiler = dice then
             Result.append(c_compiler_path)
             append_token(Result, c_compiler_options)
@@ -1314,22 +1301,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, external_lib_path)
             append_token(Result, external_lib)
             add_lib_math
-         elseif c_compiler = sas_c then
-            Result.append(c_linker_path)
-            --|*** CAD: ?? append_token(Result,sas_c_compiler_options(True))
-            --|*** CAD: ?? append_token(Result,c_compiler_options)
-            append_token(Result, external_header_path)
-            append_token(Result, c_linker_options)
-            append_token(Result, c_name)
-            Result.append(once "#1#2#3#4#5#6#7#8#9#?.o")
-            append_token(Result, external_c_files)
-            append_token(Result, external_c_plus_plus_files)
-            append_token(Result, external_object_files)
-            append_token(Result, external_lib)
-            add_executable_name(Result)
-            if not no_strip then
-               Result.append(once " StripDebug")
-            end
          elseif c_compiler = dice then
             Result.append(c_linker_path)
             append_token(Result, external_header_path)
@@ -1405,40 +1376,7 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
          end
       end
 
-feature {} -- SAS/c support functions:
-   Scoptions_exists: BOOLEAN
-         -- Is there a file "SCOPTIONS" in the current directory?
-      once
-         Result := (create {FILE_TOOLS}).is_readable(once "SCOPTIONS")
-      end
 
-   sas_c_compiler_options (split: BOOLEAN): STRING
-         -- C compiler options or "" if no SCOPTIONS exists.
-         -- If `split' is True, "Data=Far" is used, otherwise
-         -- "Data=Auto".
-      do
-         if Scoptions_exists then
-            Result := once ""
-         else
-            create Result.make(0)
-            Result.append(once "Math=IEEE Parameters=Both Code=Far")
-            -- cause bloat, but avoid linker errors
-            if split then
-               Result.append(once " Data=Far")
-            else
-               Result.append(once " Data=Auto")
-            end
-            Result.append(once " Ignore=93,194,304")
-            -- ignore the following warnings:
-            --        93: no reference to identifier X
-            -- 194: too much local data for NEAR reference,
-            --            some changed to FAR (only with Data=Auto)
-            -- 304: dead assignment eliminated
-            Result.append(once " NoVersion NoIcons")
-            -- avoid cluttering the display with messages and
-            -- the current directory with icon files
-         end
-      end
 
 feature {ACE}
    read_loadpath_files
@@ -1913,8 +1851,6 @@ feature {}
             Result := bcc32
          elseif compiler = cl then
             Result := cl
-         elseif compiler = sas_c then
-            Result := sas_c
          elseif compiler = dice then
             Result := dcc
          elseif compiler = vbcc then
@@ -1963,8 +1899,6 @@ feature {}
             Result := bcc32
          elseif compiler = cl then
             Result := cl
-         elseif compiler = sas_c then
-            Result := sas_c
          elseif compiler = dice then
             Result := dcc
          elseif compiler = vbcc then
@@ -2258,11 +2192,6 @@ feature {}
                append_token(cmd, once "/fe=")
                cmd.append(executable_name)
                add_x_suffix(cmd)
-            elseif c_compiler = sas_c then
-               executable_name := ace.root_class_name.to_string.twin
-               executable_name.to_lower
-               cmd.append(once " To ")
-               append_token(cmd, executable_name)
             elseif c_compiler = dice then
                append_token(cmd, o_flag)
                append_token(cmd, executable_name)
@@ -2311,9 +2240,6 @@ feature {}
                append_token(cmd, once "/Fe")
                cmd.append(executable_name)
                add_x_suffix(cmd)
-            elseif c_compiler = sas_c then
-               cmd.append(once " To ")
-               append_token(cmd, executable_name)
             elseif c_compiler = dice then
                append_token(cmd, o_flag)
                append_token(cmd, executable_name)
