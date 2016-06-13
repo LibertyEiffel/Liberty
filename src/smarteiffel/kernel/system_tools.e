@@ -41,15 +41,14 @@ feature { SERC_FACTORY}
 
    compiler_list: FAST_ARRAY[STRING]
       once
-         Result := {FAST_ARRAY[STRING] << gcc, gpp, lcc_win32, cc, wcl386, bcc32, cl, sas_c, dice, vbcc,
-                                          ccc, vpcc, open_vms_cc, tcc, distcc >> }
+         Result := {FAST_ARRAY[STRING] << gcc, gpp, lcc_win32, cc, wcl386, bcc32, cl, sas_c, dice, vbcc, ccc, open_vms_cc, tcc, distcc >> }
       end
 
    c_plus_plus_compiler_list: FAST_ARRAY[STRING]
          -- Compilers (among `compiler_list') which can handle C++
       once
-         Result := {FAST_ARRAY[STRING] << gpp, cc_pp, cl, bcc32, wcl386, vpcc, distcc, fz_none -- special no-C++ compiler
-                                          >> }
+         Result := {FAST_ARRAY[STRING] << gpp, cc_pp, cl, bcc32, wcl386, distcc, fz_none -- special no-C++ compiler
+         >> }
       end
 
    set_system_name (name: STRING)
@@ -190,7 +189,6 @@ feature {}
             end
          elseif c_compiler = ccc then
             add_external_lib(libcpml)
-         elseif c_compiler = vpcc then
          elseif c_compiler = open_vms_cc then
          elseif c_compiler = tcc then
             add_external_lib(libm)
@@ -516,8 +514,6 @@ feature {ANY}
          elseif c_compiler = vbcc then
             Result := o_suffix
          elseif c_compiler = ccc then
-            Result := o_suffix
-         elseif c_compiler = vpcc then
             Result := o_suffix
          elseif c_compiler = open_vms_cc then
             Result := obj_suffix
@@ -1190,13 +1186,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, external_header_path)
             append_token(Result, c_flag)
             append_token(Result, c_file_name)
-         elseif c_compiler = vpcc then
-            Result.append(c_compiler_path)
-            append_token(Result, c_compiler_options)
-            append_token(Result, c_plugin_compiler_options)
-            append_token(Result, external_header_path)
-            append_token(Result, c_flag)
-            append_token(Result, c_file_name)
          elseif c_compiler = open_vms_cc then
             -- BdB: external_header_path to be added here somehow
             Result.append(once "cc/warning=disable=(embedcomment,longextern) ")
@@ -1371,17 +1360,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, external_object_files)
             append_token(Result, external_lib)
          elseif c_compiler = ccc then
-            Result.append(c_linker_path)
-            append_token(Result, external_header_path)
-            append_token(Result, c_linker_options)
-            append_token(Result, external_lib_path)
-            add_executable_name(Result)
-            append_tokens(Result, objects)
-            append_token(Result, external_c_files)
-            append_token(Result, external_c_plus_plus_files)
-            append_token(Result, external_object_files)
-            append_token(Result, external_lib)
-         elseif c_compiler = vpcc then
             Result.append(c_linker_path)
             append_token(Result, external_header_path)
             append_token(Result, c_linker_options)
@@ -1943,8 +1921,6 @@ feature {}
             Result := vc
          elseif compiler = ccc then
             Result := ccc
-         elseif compiler = vpcc then
-            Result := vpcc
          elseif compiler = open_vms_cc then
             Result := open_vms_cc
          elseif compiler = tcc then
@@ -1995,8 +1971,6 @@ feature {}
             Result := vc
          elseif compiler = ccc then
             Result := ccc
-         elseif compiler = vpcc then
-            Result := vpcc
          elseif compiler = open_vms_cc then
             Result := open_vms_cc
          elseif compiler = tcc then
@@ -2295,9 +2269,6 @@ feature {}
             elseif c_compiler = vbcc then
                append_token(cmd, o_flag)
                append_token(cmd, executable_name)
-            elseif c_compiler = vpcc then
-               append_token(cmd, o_flag)
-               append_token(cmd, executable_name)
             elseif c_compiler = open_vms_cc then
                append_token(cmd, executable_name)
             elseif c_compiler = tcc then
@@ -2352,10 +2323,6 @@ feature {}
                append_token(cmd, executable_name)
                add_x_suffix(cmd)
             elseif c_compiler = ccc then
-               append_token(cmd, o_flag)
-               append_token(cmd, executable_name)
-               add_x_suffix(cmd)
-            elseif c_compiler = vpcc then
                append_token(cmd, o_flag)
                append_token(cmd, executable_name)
                add_x_suffix(cmd)
