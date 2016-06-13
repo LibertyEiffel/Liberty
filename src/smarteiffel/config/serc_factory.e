@@ -23,12 +23,10 @@ feature {ANY}
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
             xdg.set_package("liberty-eiffel")
-            
-               def.set_os(unix_system)
-               if file_tools.is_readable("/etc/issue") then
-                  def.set_flavor("Linux")
-               end
-            
+            def.set_os(unix_system)
+            if file_tools.is_readable("/etc/issue") then
+               def.set_flavor("Linux")
+            end          
             add_to_chain(chain, "/etc/serc", "    ")
             add_to_chain(chain, "/etc/xdg/liberty-eiffel", "    ")
             add_to_chain(chain, "/etc/liberty-eiffel", "    ")
