@@ -23,24 +23,25 @@ feature {ANY}
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
             xdg.set_package("liberty-eiffel")
-            def.set_os(unix_system)
-            if file_tools.is_readable("/etc/issue") then
-               def.set_flavor("Linux")
+            
+               def.set_os(unix_system)
+               if file_tools.is_readable("/etc/issue") then
+                  def.set_flavor("Linux")
+               end
+            
+            add_to_chain(chain, "/etc/serc", "    ")
+            add_to_chain(chain, "/etc/xdg/liberty-eiffel", "    ")
+            add_to_chain(chain, "/etc/liberty-eiffel", "    ")
+            add_to_chain(chain, "/usr/local/etc/liberty-eiffel", "    ")
+            add_to_chain(chain, xdg.config_home, "    ")
+            s := home_env
+            if s /= Void then
+               s.append("/.serc")
+               add_to_chain(chain, s, "    ")
+               s.remove_suffix("/.serc")
+               s.append("/.liberty-eiffel")
+               add_to_chain(chain, s, "    ")
             end
-         end
-         add_to_chain(chain, "/etc/serc", "    ")
-         add_to_chain(chain, "/etc/xdg/liberty-eiffel", "    ")
-         add_to_chain(chain, "/etc/liberty-eiffel", "    ")
-         add_to_chain(chain, "/usr/local/etc/liberty-eiffel", "    ")
-         add_to_chain(chain, xdg.config_home, "    ")
-         s := home_env
-         if s /= Void then
-            s.append("/.serc")
-            add_to_chain(chain, s, "    ")
-            s.remove_suffix("/.serc")
-            s.append("/.liberty-eiffel")
-            add_to_chain(chain, s, "    ")
-         end
          elseif basic_directory.windows_notation then
             add_to_chain(chain, "C:\\SE.CFG", "    ")
             add_to_chain(chain, "C:\\LIBERTY.CFG", "    ")
@@ -63,6 +64,8 @@ feature {ANY}
             def.set_os(windows_system)
          elseif basic_directory.macintosh_notation then
             def.set_os(macintosh_system)
+         elseif basic_directory.amiga_notation then
+            def.set_os(amiga_system)
          elseif basic_directory.openvms_notation then
             def.set_os(open_vms_system)
          end
