@@ -39,15 +39,7 @@ feature {} -- Currently handled C/C++ compiler list:
 
    cl: STRING "cl"
 
-   sas_c: STRING "sc"
-
-   dice: STRING "dice"
-
-   vbcc: STRING "vbcc"
-
    ccc: STRING "ccc"
-
-   vpcc: STRING "vpcc"
 
    open_vms_cc: STRING "OpenVMS_CC"
 

@@ -7,6 +7,8 @@ Those people hold the project copyright.
 --  * Cyril Adrian    <cyril dot adrian at gmail dot com>
 --  * Paolo Redaelli  <paolo dot redaelli at gmail dot com>
 --  * Raphael Mack    <ramack at raphael minus mack dot de>
+--  * Doug Kearns     <dougkearns at gmail dot com>
+--  * Hans Zwakenberg <hz at ocean minus consulting dot de>
 
 Except where stated otherwise, the following licenses apply to the
 source files:
@@ -52,11 +54,9 @@ On most src/smarteiffel and sys files (GPLv2+ license):
 ======================================================================
 NOTEWORTHY CONTRIBUTORS:
 
-Except where stated above, those people don't hold any copyright on
-the project.
+Except where stated above, those people don't hold any copyright on the project.
 
-We feel we must thank all those who laid out the path that leads to
-Liberty.
+We feel we must thank all those who laid out the path that leads to Liberty.
 
 In particular we would like to thank:
 
@@ -66,9 +66,5 @@ In particular we would like to thank:
                        sequencer library)
    * Frederic MERIZEN (for the internals implementation and library)
    * Philippe COUCAUD (for the original GC)
-
-
-- the EWLC team
-
 
 ======================================================================

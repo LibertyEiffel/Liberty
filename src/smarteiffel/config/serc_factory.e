@@ -23,17 +23,10 @@ feature {ANY}
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
             xdg.set_package("liberty-eiffel")
-            if file_tools.is_readable("/sys/rc") and file_tools.is_readable("/lang") then
-               st.set_system_name(elate_system)
-               def.set_os(elate_system)
-               add_to_chain(chain, "/lang/eiffel/.serc", "    ")
-               add_to_chain(chain, "/lang/eiffel/.liberty-eiffel", "    ")
-            else
-               def.set_os(unix_system)
-               if file_tools.is_readable("/etc/issue") then
-                  def.set_flavor("Linux")
-               end
-            end
+            def.set_os(unix_system)
+            if file_tools.is_readable("/etc/issue") then
+               def.set_flavor("Linux")
+            end          
             add_to_chain(chain, "/etc/serc", "    ")
             add_to_chain(chain, "/etc/xdg/liberty-eiffel", "    ")
             add_to_chain(chain, "/etc/liberty-eiffel", "    ")
@@ -48,29 +41,27 @@ feature {ANY}
                add_to_chain(chain, s, "    ")
             end
          elseif basic_directory.windows_notation then
-            add_to_chain(chain, "C:\SE.CFG", "    ")
-            add_to_chain(chain, "C:\LIBERTY.CFG", "    ")
+            add_to_chain(chain, "C:\\SE.CFG", "    ")
+            add_to_chain(chain, "C:\\LIBERTY.CFG", "    ")
             s := allusersprofile_env
             if s /= Void then
-               s.append("\Liberty-Eiffel")
+               s.append("\\Liberty-Eiffel")
                add_to_chain(chain, s, "    ")
             end
             s := userprofile_env
             if s /= Void then
-               s.append("\SE.CFG")
+               s.append("\\SE.CFG")
                add_to_chain(chain, s, "    ")
-               s.remove_suffix("\SE.CFG")
-               s.append("\LIBERTY.CFG")
+               s.remove_suffix("\\SE.CFG")
+               s.append("\\LIBERTY.CFG")
                add_to_chain(chain, s, "    ")
-               s.remove_suffix("\LIBERTY.CFG")
-               s.append("\Liberty-Eiffel")
+               s.remove_suffix("\\LIBERTY.CFG")
+               s.append("\\Liberty-Eiffel")
                add_to_chain(chain, s, "    ")
             end
             def.set_os(windows_system)
          elseif basic_directory.macintosh_notation then
             def.set_os(macintosh_system)
-         elseif basic_directory.amiga_notation then
-            def.set_os(amiga_system)
          elseif basic_directory.openvms_notation then
             def.set_os(open_vms_system)
          end
