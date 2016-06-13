@@ -62,8 +62,6 @@ feature {ANY}
             def.set_os(windows_system)
          elseif basic_directory.macintosh_notation then
             def.set_os(macintosh_system)
-         elseif basic_directory.amiga_notation then
-            def.set_os(amiga_system)
          elseif basic_directory.openvms_notation then
             def.set_os(open_vms_system)
          end
