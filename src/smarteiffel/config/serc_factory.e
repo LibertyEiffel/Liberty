@@ -41,13 +41,16 @@ feature {ANY}
                add_to_chain(chain, s, "    ")
             end
          elseif basic_directory.windows_notation then
-            add_to_chain(chain, "C:\\SE.CFG", "    ")
-            add_to_chain(chain, "C:\\LIBERTY.CFG", "    ")
-            s := allusersprofile_env
-            if s /= Void then
-               s.append("\\Liberty-Eiffel")
-               add_to_chain(chain, s, "    ")
-            end
+			-- HZ: turned the following into comments, as root-dir access is 
+			--       not allowed on Windows (at least not without admin access rights).
+			--       Remove all these comments after successful testing.
+            -- add_to_chain(chain, "C:\\SE.CFG", "    ")
+            -- add_to_chain(chain, "C:\\LIBERTY.CFG", "    ")
+            -- s := allusersprofile_env
+            -- if s /= Void then
+            --    s.append("\\Liberty-Eiffel")
+            --    add_to_chain(chain, s, "    ")
+            -- end
             s := userprofile_env
             if s /= Void then
                s.append("\\SE.CFG")
