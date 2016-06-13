@@ -42,22 +42,22 @@ feature {ANY}
             add_to_chain(chain, s, "    ")
          end
          elseif basic_directory.windows_notation then
-            add_to_chain(chain, "C:\SE.CFG", "    ")
-            add_to_chain(chain, "C:\LIBERTY.CFG", "    ")
+            add_to_chain(chain, "C:\\SE.CFG", "    ")
+            add_to_chain(chain, "C:\\LIBERTY.CFG", "    ")
             s := allusersprofile_env
             if s /= Void then
-               s.append("\Liberty-Eiffel")
+               s.append("\\Liberty-Eiffel")
                add_to_chain(chain, s, "    ")
             end
             s := userprofile_env
             if s /= Void then
-               s.append("\SE.CFG")
+               s.append("\\SE.CFG")
                add_to_chain(chain, s, "    ")
-               s.remove_suffix("\SE.CFG")
-               s.append("\LIBERTY.CFG")
+               s.remove_suffix("\\SE.CFG")
+               s.append("\\LIBERTY.CFG")
                add_to_chain(chain, s, "    ")
-               s.remove_suffix("\LIBERTY.CFG")
-               s.append("\Liberty-Eiffel")
+               s.remove_suffix("\\LIBERTY.CFG")
+               s.append("\\Liberty-Eiffel")
                add_to_chain(chain, s, "    ")
             end
             def.set_os(windows_system)
