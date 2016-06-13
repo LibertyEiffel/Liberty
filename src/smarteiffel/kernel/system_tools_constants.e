@@ -39,8 +39,6 @@ feature {} -- Currently handled C/C++ compiler list:
 
    cl: STRING "cl"
 
-   vbcc: STRING "vbcc"
-
    ccc: STRING "ccc"
 
    open_vms_cc: STRING "OpenVMS_CC"
