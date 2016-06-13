@@ -41,7 +41,7 @@ feature { SERC_FACTORY}
 
    compiler_list: FAST_ARRAY[STRING]
       once
-         Result := {FAST_ARRAY[STRING] << gcc, gpp, lcc_win32, cc, wcl386, bcc32, cl, dice, vbcc, ccc, open_vms_cc, tcc, distcc >> }
+         Result := {FAST_ARRAY[STRING] << gcc, gpp, lcc_win32, cc, wcl386, bcc32, cl, vbcc, ccc, open_vms_cc, tcc, distcc >> }
       end
 
    c_plus_plus_compiler_list: FAST_ARRAY[STRING]
@@ -177,8 +177,6 @@ feature {}
          elseif c_compiler = bcc32 then
             -- add_external_lib(libm)
          elseif c_compiler = cl then
-         elseif c_compiler = dice then
-            add_external_lib(libm)
          elseif c_compiler = vbcc then
             else
                add_external_lib(libm)
@@ -503,8 +501,6 @@ feature {ANY}
             Result := obj_suffix
          elseif c_compiler = cl then
             Result := obj_suffix
-         elseif c_compiler = dice then
-            Result := o_suffix
          elseif c_compiler = vbcc then
             Result := o_suffix
          elseif c_compiler = ccc then
@@ -1152,13 +1148,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, external_header_path)
             append_token(Result, c_flag)
             append_token(Result, c_file_name)
-         elseif c_compiler = dice then
-            Result.append(c_compiler_path)
-            append_token(Result, c_compiler_options)
-            append_token(Result, c_plugin_compiler_options)
-            append_token(Result, external_header_path)
-            append_token(Result, c_flag)
-            append_token(Result, c_file_name)
          elseif c_compiler = vbcc then
             Result.append(c_compiler_path)
             append_token(Result, c_compiler_options)
@@ -1300,23 +1289,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, c_linker_options)
             append_token(Result, external_lib_path)
             append_token(Result, external_lib)
-            add_lib_math
-         elseif c_compiler = dice then
-            Result.append(c_linker_path)
-            append_token(Result, external_header_path)
-            append_token(Result, c_linker_options)
-            append_token(Result, external_lib_path)
-            add_executable_name(Result)
-            append_tokens(Result, objects)
-            append_token(Result, external_c_files)
-            append_token(Result, external_c_plus_plus_files)
-            append_token(Result, external_object_files)
-            append_token(Result, external_lib)
-            if no_strip then
-               -- no typo; "-s" means "include symbol table",
-               -- not "strip debug information"
-               append_token(Result, once "-s -d1")
-            end
             add_lib_math
          elseif c_compiler = vbcc then
             Result.append(c_linker_path)
@@ -1851,8 +1823,6 @@ feature {}
             Result := bcc32
          elseif compiler = cl then
             Result := cl
-         elseif compiler = dice then
-            Result := dcc
          elseif compiler = vbcc then
             Result := vc
          elseif compiler = ccc then
@@ -1899,8 +1869,6 @@ feature {}
             Result := bcc32
          elseif compiler = cl then
             Result := cl
-         elseif compiler = dice then
-            Result := dcc
          elseif compiler = vbcc then
             Result := vc
          elseif compiler = ccc then
@@ -2192,9 +2160,6 @@ feature {}
                append_token(cmd, once "/fe=")
                cmd.append(executable_name)
                add_x_suffix(cmd)
-            elseif c_compiler = dice then
-               append_token(cmd, o_flag)
-               append_token(cmd, executable_name)
             elseif c_compiler = vbcc then
                append_token(cmd, o_flag)
                append_token(cmd, executable_name)
@@ -2239,10 +2204,6 @@ feature {}
             elseif c_compiler = cl then
                append_token(cmd, once "/Fe")
                cmd.append(executable_name)
-               add_x_suffix(cmd)
-            elseif c_compiler = dice then
-               append_token(cmd, o_flag)
-               append_token(cmd, executable_name)
                add_x_suffix(cmd)
             elseif c_compiler = vbcc then
                append_token(cmd, o_flag)
