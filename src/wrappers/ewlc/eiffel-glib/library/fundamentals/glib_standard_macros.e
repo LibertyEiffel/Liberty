@@ -18,7 +18,6 @@ class GLIB_STANDARD_MACROS
 
 
 -- #define     G_OS_WIN32
--- #define     G_OS_BEOS
 -- #define     G_OS_UNIX
 
 -- #define     G_DIR_SEPARATOR
@@ -55,11 +54,7 @@ class GLIB_STANDARD_MACROS
 -- #define G_OS_WIN32
 
 -- This macro is defined only on Windows. So you can bracket Windows-specific code in "#ifdef G_OS_WIN32".
--- G_OS_BEOS
 
--- #define G_OS_BEOS
-
--- This macro is defined only on BeOS. So you can bracket BeOS-specific code in "#ifdef G_OS_BEOS".
 -- G_OS_UNIX
 
 -- #define G_OS_UNIX

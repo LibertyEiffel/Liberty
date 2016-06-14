@@ -6,7 +6,7 @@ class SYSTEM_TOOLS
    -- Singleton object to handle system dependant information.
    -- This singleton is shared via the GLOBALS.`system_tools' once function.
    --
-   -- Only this object is supposed to handle contents of the `SmartEiffel'
+   -- Only this object is supposed to handle contents of the `Liberty'
    -- system environment variable.
    --
    -- You may also want to customize this class in order to support a
@@ -34,7 +34,7 @@ create {ANY}
 feature { SERC_FACTORY}
    system_list: FAST_ARRAY[STRING]
       once
-         Result := {FAST_ARRAY[STRING]         <<unix_system, windows_system, cygwin_system, beos_system,
+         Result := {FAST_ARRAY[STRING]         <<unix_system, windows_system, cygwin_system,
                                          macintosh_system, dos_system,
                                          os2_system, open_vms_system>> }
       end
@@ -171,8 +171,7 @@ feature {C_PRETTY_PRINTER}
 feature {}
    add_lib_math_do_it_again
       do
-         if beos_system = system_name then
-         elseif c_compiler = gcc or else c_compiler = gpp or else c_compiler = distcc then
+         if c_compiler = gcc or else c_compiler = gpp or else c_compiler = distcc then
             add_external_lib(libm)
          elseif c_compiler = bcc32 then
             -- add_external_lib(libm)
@@ -1539,8 +1538,7 @@ feature {}
                                         s = os2_system)
 
             create is_unix_like.set_item(s = unix_system or else
-                                         s = cygwin_system or else
-                                         s = beos_system)
+                                         s = cygwin_system)
          end
       end
 
@@ -1557,8 +1555,6 @@ feature {}
             create {UNIX_DIRECTORY_NOTATION} notation
          elseif s = windows_system or else s = dos_system or else s = os2_system then
             create {WINDOWS_DIRECTORY_NOTATION} notation
-         elseif s = beos_system then
-            create {UNIX_DIRECTORY_NOTATION} notation
          elseif s = macintosh_system then
             create {MACINTOSH_DIRECTORY_NOTATION} notation
          elseif s = open_vms_system then
