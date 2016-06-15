@@ -1,21 +1,22 @@
 -- To launch the compilation with this file, just type:
--- 
+--
 --               compile example3.ace
 --
--- In his example, only one class (the root class) is traced by the 
--- Liberty Eiffel debugger.
+-- In this example, only one class (the root class) is traced by the Liberty
+-- Eiffel debugger.
 --
 system
-   "number2" -- Because this is also the example2 of tutorial/number
+      -- Because this is also the second example of tutorial/number
+   "number2"
 
 root
 
-   EXAMPLE2 : make
+   EXAMPLE2: make
 
 default
 
    verbose (no);
-       --   yes is the equivalent of the -verbose flag.
+      -- Yes is the equivalent of the -verbose flag
 
    assertion (no);
 

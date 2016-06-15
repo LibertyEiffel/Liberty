@@ -1,69 +1,70 @@
 -- To launch the compilation with this file, just type:
--- 
+--
 --               compile example2.ace
 --
--- This second example contains more constructs and options of ACE files.
--- In this example, all classes are not compiled with the same level of 
--- assertions checking.
--- Actually most "pure" Eiffel project should be handled this way.
--- Also note that the -verbose option flag is compatible with the
--- ACE file mode, hence the following command is also allowed:
+-- This second example contains more constructs and options available to ACE
+-- files.
+--
+-- In this example, classes are compiled with different levels of assertions
+-- checking.  Most "pure" Eiffel project should be handled this way.
+--
+-- Also note that the -verbose option flag is compatible with the ACE file
+-- mode, hence the following command is also allowed:
 --
 --               compile -verbose example2.ace
 --
-
-system 
-    "pyramid" -- is the name for the executable
+system
+      -- The name for the executable
+   "pyramid"
 
 root
-    PYRAMID: make
-    -- To indicate that the execution will start in procedure "make" of 
-    -- class PYRAMID.
+      -- To indicate that the execution will start in procedure `make' of class
+      -- PYRAMID
+   PYRAMID: make
 
-default -- The default section:
+default
+   assertion (loop)
+      -- To select the default assertion level to be verified
+      -- Try to change this "loop" keyword for example.
 
-   -- To select the default assertion level to be verified: 
-   assertion (loop) -- Try to change this "loop" keyword for example.
+   collect (yes)
+      -- To include or to exclude the Garbage Collector
+      -- Yes or No is a valid answer here.
 
-   -- To include or to exclude the Garbage Collector:
-   collect (yes) -- Yes or No is a valid answer here.
-
--- The default section is finished, the next keyword starts the 
--- cluster section.    
 cluster
 
-        -- The description of the first cluster starts with its name 
-        -- just folowed by the path of the directory:
-	demos_cluster: "${path_tutorial}"
-	       -- The ${path_tutorial} variable is set in the
-	       -- configuration file (.serc or system.se)
-           end 
-	
-        -- The string cluster:
-        standard : "${path_liberty_core}/string"
-           default
-               assertion (require)
-           option
-               -- To override the previously defined level
-               -- for some classes of this cluster:
-               assertion (ensure): STRING
-           end 
+   demos_cluster: "${path_tutorial}"
+         -- The description of the first cluster starts with its name just
+         -- followed by the path of the directory
+         -- The ${path_tutorial} variable is set in the configuration file
+         -- (liberty.se)
+      end
 
-        -- The basic io cluster:
-        basic_io : "${path_liberty_core}/io/basic" 
-           default
-               assertion (ensure)
-           option
-               -- To override the previously defined level
-               -- for some classes of this cluster:
-               assertion (require): STD_INPUT
-           end
+   standard : "${path_liberty_core}/string"
+         -- The string cluster
+      default
+          assertion (require)
+      option
+          assertion (ensure): STRING
+             -- To override the previously defined level for some classes of
+             -- this cluster
+      end
 
-        -- Liberty Eiffel's standard library. Always put this last so
-        -- that you can override options for parts of the library.
-        standard: "${path_liberty_core}/loadpath.se"
-           default
-               assertion (ensure)
-	   end
+   basic_io : "${path_liberty_core}/io/basic"
+         -- The basic io cluster
+      default
+          assertion (ensure)
+      option
+          assertion (require): STD_INPUT
+             -- To override the previously defined level for some classes of
+             -- this cluster
+      end
+
+   standard: "${path_liberty_core}/loadpath.se"
+         -- Liberty Eiffel's standard library. Always put this last so that you
+         -- can override options for parts of the library.
+      default
+          assertion (ensure)
+      end
 
 end
