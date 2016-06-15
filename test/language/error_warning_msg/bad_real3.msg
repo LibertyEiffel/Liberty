@@ -1,12 +1,10 @@
-****** Warning: Removed that non-significant digit in integral
-part or real constant.
+****** Warning: Removed non-significant digit(s) from integral part of real constant.
 
 Line 15 column 17 in BAD_REAL3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_real3.e):
          r64 := 000.5             -- <-- Normal warning #1 here
                 ^                                              
 ------
-****** Warning: Removed that non-significant digit in integral
-part or real constant.
+****** Warning: Removed non-significant digit(s) from integral part of real constant.
 
 Line 16 column 26 in BAD_REAL3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_real3.e):
          r32 := {REAL_32 00.5 }   -- <-- Normal warning #2 here
