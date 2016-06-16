@@ -757,7 +757,7 @@ feature {}
             when S_inside_a_real_just_after_the_dot then
                if pretty_view.item(first_digit_index) = '0' and then   pretty_view.count - 1 /= first_digit_index then
                   error_handler.add_position(pos(line, column - pretty_view.count + first_digit_index - 1))
-                  error_handler.append(once "Removed that non-significant digit in integral part or real constant.")
+                  error_handler.append(once "Removed non-significant digit(s) from integral part of real constant.")
                   error_handler.print_as_style_warning
                   from
                   until

@@ -41,13 +41,6 @@ feature {ANY}
                add_to_chain(chain, s, "    ")
             end
          elseif basic_directory.windows_notation then
-            add_to_chain(chain, "C:\\SE.CFG", "    ")
-            add_to_chain(chain, "C:\\LIBERTY.CFG", "    ")
-            s := allusersprofile_env
-            if s /= Void then
-               s.append("\\Liberty-Eiffel")
-               add_to_chain(chain, s, "    ")
-            end
             s := userprofile_env
             if s /= Void then
                s.append("\\SE.CFG")
@@ -96,7 +89,7 @@ feature {SYSTEM_TOOLS}
       end
 
    userprofile_env: STRING
-         -- Windows variable for the users profile directory. This variable is always set on Windows NT, 2000 and XP
+         -- Windows variable for the users profile directory. This variable is always set on Windows NT, XP and later
       once
          Result := env("USERPROFILE")
       end

@@ -18,7 +18,7 @@ feature {ANY}
          from
             i := 0
          until
-            i = n - 1
+            i = n
          loop
             rng.next
             r := rng.last_real

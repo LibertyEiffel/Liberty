@@ -3,7 +3,7 @@
 --
 class ASSERTION
    --
-   -- To store one assertion whatever its positioning: require, ensure, class invariant, loop
+   -- Stores one assertion whatever its positioning: require, ensure, class invariant, loop
    -- invariant, require else, etc.
    --
 
@@ -80,7 +80,7 @@ feature {ANY}
          check
             False -- This one must never be called.
          end
-         not_yet_implemented -- To be warned as well in -boost mode.
+         not_yet_implemented -- To be warned in -boost mode as well.
       end
 
    short_target (type: TYPE)
@@ -88,7 +88,7 @@ feature {ANY}
          check
             False -- This one must never be called.
          end
-         not_yet_implemented -- To be warned as well in -boost mode.
+         not_yet_implemented -- To be warned in -boost mode as well.
       end
 
    short_hooks (type: TYPE; h01, r01, h02, r02, h03, r03, h04, r04, h05, r05, h06, r06, h07, r07, h08, r08, h09,

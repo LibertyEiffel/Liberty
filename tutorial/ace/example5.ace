@@ -1,7 +1,9 @@
--- An example to get the most optimized system.
-system "number2"
+-- An example to build the most optimized system.
+system
+   "number2"
 
-root EXAMPLE2 : make
+root
+   EXAMPLE2: make
 
 default
 
@@ -20,7 +22,6 @@ generate
    no_split(no);
    no_strip(no);
    clean(no);
-
    c_mode: all_check;
 
 end

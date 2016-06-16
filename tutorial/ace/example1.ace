@@ -1,26 +1,46 @@
--- An ACE file can avoid using command arguments to compile some system.
--- ACE means Assembly of Classes in Eiffel.
+-- An ACE file defines the environment for a project, together with its root
+-- class and initial creation procedure.
+--
+-- ACE is an abbreviation of Assembly of Classes in Eiffel.
+--
+-- Use of an ACE file obviates the need for specifying many options on the
+-- command line and ensures consistency between successive compilations or
+-- other operations on the project. Such consistency makes it easier to test
+-- and debug, since changes from one compilation to the next are guaranteed to
+-- be limited to coding changes rather than to changes in the compilation
+-- environment.
 --
 -- To launch the compilation with this ACE file, just type:
--- 
+--
 --               compile example1.ace
 --
--- This is a very simple example with very small ACE file:
+-- This is a very simple example with the most basic ACE file.
 --
-system 
-    "hello" -- is the name for the executable
+system
+       -- The system section is introduced by the keyword system followed by
+       -- the name to be given to the executable program which will be produced
+       -- by a compilation. The system name should be enclosed in double
+       -- quotes.
+   "hello"
 
 root
-    HELLO_WORLD: main
-    -- To indicate that the execution will start in procedure "main" of 
-    -- class HELLO_WORLD.
+       -- The root section defines the root class of the system and the initial
+       -- creation procedure. The creation procedure is the routine which is
+       -- executed first when the executable program is run; it is equivalent
+       -- to main() in a C program. This procedure must be a procedure in the
+       -- root class and must be declared as a creation procedure in that
+       -- class.
+   HELLO_WORLD: main
 
 cluster
-	-- In this simple example, a cluster is a simple directory path. 
-        -- The compiler will only search Eiffel source code in the following
-        -- clusters. The order is important, because the first one is the good 
-        -- one. Also note that one may only use the / character as the
-	-- directory separator:
-	"${path_tutorial}"
-        "${path_liberty_core}/loadpath.se"
+       -- The cluster section is introduced by the keyword cluster and defines
+       -- an ordered list of clusters. Roughly speaking, a cluster can be
+       -- considered as a directory in which Eiffel source files are to be
+       -- searched for. The order of this list of clusters is important because
+       -- clusters are considered sequentially when searching for an Eiffel
+       -- source file. The first class file found in the search is the one that
+       -- will be used.  Also note that one may only use the / character as the
+       -- directory separator.
+   "${path_tutorial}"
+   "${path_liberty_core}/loadpath.se"
 end

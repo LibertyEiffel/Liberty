@@ -10,13 +10,9 @@ feature {SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
 
    cygwin_system: STRING "Cygwin"
 
-   beos_system: STRING "BeOS"
-
    macintosh_system: STRING "Macintosh"
 
    dos_system: STRING "DOS"
-
-   os2_system: STRING "OS2"
 
    open_vms_system: STRING "OpenVMS"
 

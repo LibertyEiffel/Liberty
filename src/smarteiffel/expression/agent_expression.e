@@ -3,8 +3,8 @@
 --
 class AGENT_EXPRESSION
    --
-   -- See AGENT_CREATION first just because AGENT_CREATION is the first step in an agent's life.
-   -- The second step is an AGENT_EXPRESSION which correspond to the actual call of some delayed
+   -- See AGENT_CREATION first because AGENT_CREATION is the first step in an agent's life.
+   -- The second step is an AGENT_EXPRESSION which corresponds to the actual call of some delayed
    -- expression. At this time we are supposed to provide the missing arguments. Here are some example of
    -- AGENT_EXPRESSIONs:
    --
