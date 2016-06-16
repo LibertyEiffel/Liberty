@@ -523,7 +523,9 @@ feature {ANY} -- Miscellaneous:
 
    divisible (other: like Current): BOOLEAN
       do
-         Result := other /= 0
+         if other /= 0 then 
+            Result := (Current #\\ other) = 0
+         end
       end
 
    is_equal (other: like Current): BOOLEAN
