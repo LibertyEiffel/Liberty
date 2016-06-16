@@ -35,8 +35,7 @@ feature { SERC_FACTORY}
    system_list: FAST_ARRAY[STRING]
       once
          Result := {FAST_ARRAY[STRING]         <<unix_system, windows_system, cygwin_system,
-                                         macintosh_system, dos_system,
-                                         os2_system, open_vms_system>> }
+                                         macintosh_system, dos_system, open_vms_system>> }
       end
 
    compiler_list: FAST_ARRAY[STRING]
@@ -452,8 +451,6 @@ feature {ANY}
             Result := once ".bat"
          elseif open_vms_system = system_name then
             Result := once ".com"
-         elseif os2_system = system_name then
-            Result := once ".CMD"
          else
             Result := once ".make"
          end
@@ -468,8 +465,6 @@ feature {ANY}
          elseif open_vms_system = system_name then
             Result := exe_suffix
             Result.to_upper
-         elseif os2_system = system_name then
-            Result := exe_suffix
          elseif windows_system = system_name then
             Result := exe_suffix
          elseif cygwin_system = system_name then
@@ -882,8 +877,6 @@ feature {C_PRETTY_PRINTER}
                add_x_suffix(Result)
             elseif unix_system = system_name then
                Result.append(once "a.out")
-            elseif os2_system = system_name then
-               Result.append(once "a.exe")
             elseif c_compiler = gcc or else c_compiler = gpp or else c_compiler = distcc then
                Result.extend('a')
                add_x_suffix(Result)
@@ -1534,8 +1527,7 @@ feature {}
          if is_win_like = Void then
             s := system_name
             create is_win_like.set_item(s = windows_system or else
-                                        s = dos_system or else
-                                        s = os2_system)
+                                        s = dos_system )
 
             create is_unix_like.set_item(s = unix_system or else
                                          s = cygwin_system)
@@ -1553,7 +1545,7 @@ feature {}
          if s = Void then
          elseif s = unix_system then
             create {UNIX_DIRECTORY_NOTATION} notation
-         elseif s = windows_system or else s = dos_system or else s = os2_system then
+         elseif s = windows_system or else s = dos_system then
             create {WINDOWS_DIRECTORY_NOTATION} notation
          elseif s = macintosh_system then
             create {MACINTOSH_DIRECTORY_NOTATION} notation
@@ -1809,8 +1801,6 @@ feature {}
             Result := explicit_strip_path
          elseif unix_system = system_name then
             Result := once "strip"
-         elseif os2_system = system_name then
-            Result := once "emxbind -qs"
          elseif c_compiler = gcc or else c_compiler = gpp or else c_compiler = distcc then
             Result := once "strip"
          end

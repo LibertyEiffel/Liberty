@@ -14,8 +14,6 @@ feature {SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
 
    dos_system: STRING "DOS"
 
-   os2_system: STRING "OS2"
-
    open_vms_system: STRING "OpenVMS"
 
 feature {} -- Currently handled C/C++ compiler list:
