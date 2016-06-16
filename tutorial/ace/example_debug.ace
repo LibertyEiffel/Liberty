@@ -5,30 +5,28 @@ root
    EXAMPLE_DEBUG: make
 
 default
-   -- Default debug keys (multiple keys are allowed)
+      -- Default debug keys (multiple keys are allowed)
    debug("trace 1")
    debug("trace 2")
 
 cluster
    local: "."
       option
-         -- Debug keys can be specified on a per-class basis
-	 -- This overrides the default debug keys
-	 -- (multiple keys are also allowed here)
-	 debug("trace 3"): EXAMPLE_DEBUG
-	 debug("trace 4"): EXAMPLE_DEBUG
+            -- Debug keys can be specified on a per-class basis. This overrides
+            -- the default debug keys (multiple keys are also allowed here).
+         debug("trace 3"): EXAMPLE_DEBUG
+         debug("trace 4"): EXAMPLE_DEBUG
       end
 
    aux: "aux_example_debug"
       default
-         -- Debug keys can also be given on a per-cluster basis
-	 -- This also overrides the default debug keys
-	 -- (Guess what? You can also use multiple keys here. Isn't
-	 --  life great!)
+            -- Debug keys can also be given on a per-cluster basis. This also
+            -- overrides the default debug keys (Guess what? You can also use
+            -- multiple keys here. Isn't life great!).
          debug("trace 5")
          debug("trace 6")
       option
-	 -- Cluster-level debug keys can still be overriden per class.
+            -- Cluster-level debug keys can still be overridden per class
          debug("trace 7"): AUX_EXAMPLE_DEBUG_B
       end
 
