@@ -14,7 +14,7 @@ feature {ANY}
 
    make
       do
-         io.put_string("Sum of all naturals divisible for 3 or 5 lower than 1000 is: ")
+         io.put_string("Sum of all naturals divisible by 3 or 5 lower than 1000 is: ")
          io.put_line((low |..| high).aggregate(
             agent (progressive, i: INTEGER): INTEGER
                do
