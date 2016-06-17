@@ -35,7 +35,7 @@ feature { SERC_FACTORY}
    system_list: FAST_ARRAY[STRING]
       once
          Result := {FAST_ARRAY[STRING]         <<unix_system, windows_system, cygwin_system,
-                                         macintosh_system, dos_system, open_vms_system>> }
+                                         dos_system, open_vms_system>> }
       end
 
    compiler_list: FAST_ARRAY[STRING]
@@ -137,8 +137,6 @@ feature {}
                   set_system_name(cygwin_system)
                elseif basic_directory.windows_notation then
                   set_system_name(windows_system)
-               elseif basic_directory.macintosh_notation then
-                  set_system_name(macintosh_system)
                elseif basic_directory.openvms_notation then
                   set_system_name(open_vms_system)
                end
@@ -1547,8 +1545,6 @@ feature {}
             create {UNIX_DIRECTORY_NOTATION} notation
          elseif s = windows_system or else s = dos_system then
             create {WINDOWS_DIRECTORY_NOTATION} notation
-         elseif s = macintosh_system then
-            create {MACINTOSH_DIRECTORY_NOTATION} notation
          elseif s = open_vms_system then
             create {OPENVMS_DIRECTORY_NOTATION} notation
          elseif s = cygwin_system then
