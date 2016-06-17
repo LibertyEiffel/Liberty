@@ -11,7 +11,7 @@ feature {ANY}
       end
    
    periods_per_second: INTEGER
-         --  The number of clock periods per seconds.
+         -- The number of clock periods per seconds.
       require
          value >= 0
       do
