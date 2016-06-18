@@ -16,7 +16,7 @@ feature {ANY} -- GUI elements
 	toolbar: GTK_TOOLBAR
 
 feature {ANY} -- Initialisation
-	make is
+	make
 		do
 			gtk.initialize
 			create window.make
@@ -61,7 +61,7 @@ feature {ANY} -- Initialisation
 		end
 
 feature {ANY} -- Agents
-	on_destroy (a_gtk_object: GTK_OBJECT) is
+	on_destroy (a_gtk_object: GTK_OBJECT)
 		do
 			print ("on destroy has been called%N")
 			gtk.quit

@@ -37,7 +37,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (tree_path, instance: POINTER) is
+	callback (tree_path, instance: POINTER)
 		local
 			tree_path_obj: GTK_TREE_PATH
 		do
@@ -51,7 +51,7 @@ feature {ANY}
 			procedure.call ([tree_path_obj, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
@@ -59,7 +59,7 @@ feature {ANY}
 		end
 
 	connect (an_object: GTK_TREE_MODEL;
-				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
+				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]])
 		do
 			debug
 				print ("ROW_DELETED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

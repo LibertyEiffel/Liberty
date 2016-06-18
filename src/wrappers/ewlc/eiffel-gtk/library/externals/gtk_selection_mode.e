@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_selection_mode (a_mode: INTEGER): BOOLEAN is
+	is_valid_gtk_selection_mode (a_mode: INTEGER): BOOLEAN
 		do
 			Result:=((a_mode = gtk_selection_none) or else
 						(a_mode = gtk_selection_single) or else
@@ -35,19 +35,19 @@ feature {} -- enum
 						(a_mode = gtk_selection_multiple))
 		end
 
-	gtk_selection_none: INTEGER is
+	gtk_selection_none: INTEGER
 			-- 	No selection is possible.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SELECTION_NONE"
 		end
 
-	gtk_selection_single: INTEGER is
+	gtk_selection_single: INTEGER
 			-- 	Zero or one element may be selected.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SELECTION_SINGLE"
 		end
 
-	gtk_selection_browse: INTEGER is
+	gtk_selection_browse: INTEGER
 			-- Exactly one element is selected. In some circumstances,
 			-- such as initially or during a search operation, it's
 			-- possible for no element to be selected with
@@ -58,7 +58,7 @@ feature {} -- enum
 		alias "GTK_SELECTION_BROWSE"
 		end
 
-	gtk_selection_multiple: INTEGER is
+	gtk_selection_multiple: INTEGER
 			-- Any number of elements may be selected. Clicks toggle the
 			-- state of an item. Any number of elements may be
 			-- selected. The Ctrl key may be used to enlarge the

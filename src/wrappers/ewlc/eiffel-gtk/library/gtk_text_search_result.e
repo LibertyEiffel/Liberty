@@ -33,25 +33,25 @@ insert
 create {ANY} default_create, copy
 
 feature {} -- Creation
-	default_create is
+	default_create
 		do
 			create match_start.make
 			create match_end.make
 		end
 	
 feature {ANY}
-	set_found (a_setting: BOOLEAN) is
+	set_found (a_setting: BOOLEAN)
 		do
 			found:=a_setting
 		end
 
-	is_equal (another: like Current): BOOLEAN is
+	is_equal (another: like Current): BOOLEAN
 		do
 			Result:=(match_start.is_equal(another.match_start) and
 						match_end.is_equal(another.match_end))
 		end
 
-	copy (another: like Current) is
+	copy (another: like Current)
 		do
 			found:=another.found
 			create match_start.copy(another.match_start)

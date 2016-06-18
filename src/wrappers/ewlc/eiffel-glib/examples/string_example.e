@@ -9,7 +9,7 @@ class STRING_EXAMPLE
 create {ANY} make
 feature {ANY}
 	string: G_STRING
-	make is
+	make
 		local i: INTEGER; c: CHARACTER
 		do
 			create string.make (10)

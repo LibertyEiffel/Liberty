@@ -35,12 +35,12 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Externals
 
-	curl_slist_free_all (list: POINTER) is
+	curl_slist_free_all (list: POINTER)
 			-- void curl_slist_free_all(struct curl_slist *);
 		external "C use <curl/curl.h>"
 		end
 
-	curl_slist_append(list: POINTER; str: POINTER): POINTER is
+	curl_slist_append(list: POINTER; str: POINTER): POINTER
 			-- struct curl_slist *curl_slist_append(struct curl_slist *,
 			--                                      const char *);
 		external "C use <curl/curl.h>"

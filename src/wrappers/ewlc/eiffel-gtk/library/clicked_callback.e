@@ -48,14 +48,14 @@ feature {ANY}
 			procedure.call ([object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: O; a_procedure: like procedure) is
+	connect (an_object: O; a_procedure: like procedure)
 		do
 			debug
 				print ("CLICKED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

@@ -40,7 +40,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {ANY} -- enum
 
-	is_valid_pango_direction (a_direction: INTEGER) : BOOLEAN is
+	is_valid_pango_direction (a_direction: INTEGER) : BOOLEAN
 		do
 			Result:=((a_direction = pango_direction_ltr) or else
 			         (a_direction = pango_direction_rtl) or else
@@ -51,43 +51,43 @@ feature {ANY} -- enum
 			         (a_direction = pango_direction_neutral))
 		end
 
-	pango_direction_ltr: INTEGER is
+	pango_direction_ltr: INTEGER
 			-- A strong left-to-right direction
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_DIRECTION_LTR"
 		end
 
-	pango_direction_rtl: INTEGER is
+	pango_direction_rtl: INTEGER
 			-- A strong right-to-left direction
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_DIRECTION_RTL"
 		end
 
-	pango_direction_ttb_ltr: INTEGER is
+	pango_direction_ttb_ltr: INTEGER
 			-- Deprecated value; treated the same as pango_direction_rtl.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_DIRECTION_TTB_LTR"
 		end
 
-	pango_direction_ttb_rtl: INTEGER is
+	pango_direction_ttb_rtl: INTEGER
 			-- Deprecated value; treated the same as pango_direction_ltr.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_DIRECTION_TTB_RTL"
 		end
 
-	pango_direction_weak_ltr: INTEGER is
+	pango_direction_weak_ltr: INTEGER
 			-- A weak left-to-right direction
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_DIRECTION_WEAK_LTR"
 		end
 
-	pango_direction_weak_rtl: INTEGER is
+	pango_direction_weak_rtl: INTEGER
 			-- A weak right-to-left direction
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_DIRECTION_WEAK_RTL"
 		end
 
-	pango_direction_neutral: INTEGER is
+	pango_direction_neutral: INTEGER
 			-- No direction specified
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_DIRECTION_NEUTRAL"

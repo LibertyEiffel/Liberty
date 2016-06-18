@@ -35,14 +35,14 @@ inherit WRAPPER -- WRAPPER_HANDLER
 create {ANY}  make
 
 feature {GTS_OBJECT} -- Implementation
-	make (a_function: PREDICATE[ANY, TUPLE[GTS_OBJECT]]) is
+	make (a_function: PREDICATE[ANY, TUPLE[GTS_OBJECT]])
 		do
 			function := a_function
 		end
 	
 	function: PREDICATE[ANY, TUPLE[GTS_OBJECT]]
 
-	low_level_callback (object: POINTER; gts_object: GTS_SURFACE): INTEGER is
+	low_level_callback (object: POINTER; gts_object: GTS_SURFACE): INTEGER
 			-- Low level callback will be called by GTK; it will call
 			-- `callback'.
 		do
@@ -50,12 +50,12 @@ feature {GTS_OBJECT} -- Implementation
 			Result:=function.item([gts_object]).to_integer
 		end 
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result:= silly_workaround($low_level_callback)
 		end
 
-	silly_workaround(a_foo: POINTER): POINTER is
+	silly_workaround(a_foo: POINTER): POINTER
 			-- silly workaround because currently SmartEiffel allows to use $ only
 			-- in feature calls
 		do
@@ -65,15 +65,15 @@ feature {GTS_OBJECT} -- Implementation
 feature {}
 	-- Dummy implementation of unneeded features. TODO: refine this
 	-- crude hack
-	dispose is do end
+	dispose do end
 	
 feature {ANY} 
-	is_equal (another: like Current): BOOLEAN is
+	is_equal (another: like Current): BOOLEAN
 		do
 			not_yet_implemented
 		end
 	
-	copy (another: like Current) is
+	copy (another: like Current)
 		do
 			not_yet_implemented
 		end

@@ -43,7 +43,7 @@ insert
 create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
-	make (a_v1, a_v2: GTS_VERTEX) is
+	make (a_v1, a_v2: GTS_VERTEX)
 		require
 			v1_not_void: a_v1 /= Void
 			v2_not_void: a_v2 /= Void
@@ -55,7 +55,7 @@ feature {} -- Creation
 		end
 	
 feature {ANY}
-	v1: GTS_VERTEX is
+	v1: GTS_VERTEX
 		local p: POINTER
 		do
 			p:=get_v1(handle)
@@ -67,7 +67,7 @@ feature {ANY}
 			end
 		end
 
-	v2: GTS_VERTEX is
+	v2: GTS_VERTEX
 		local p: POINTER
 		do
 			p:=get_v2(handle)
@@ -80,12 +80,12 @@ feature {ANY}
 		end
 
 feature {ANY}
-	is_equal (another: GTS_SEGMENT): BOOLEAN is
+	is_equal (another: GTS_SEGMENT): BOOLEAN
 		do
 			Result:=(gts_segments_are_identical(handle, another.handle).to_boolean)
 		end
 
-	is_intersecting (another: GTS_SEGMENT): INTEGER is
+	is_intersecting (another: GTS_SEGMENT): INTEGER
 			-- `gts_in' if Current and `another' are intersecting, `gts_on' if
 			-- one of the endpoints of Current (resp. `another') lies on `another'
 			-- (resp. s1), `gts_out' otherwise.
@@ -96,7 +96,7 @@ feature {ANY}
 		ensure is_valid_intersection(Result)
 		end
 
-	duplicate: like Current is
+	duplicate: like Current
 			-- the first GtsSegment different from s which shares the same
 			-- endpoints or Void if there is none.
 		local ptr: POINTER
@@ -107,32 +107,32 @@ feature {ANY}
 			end
 		end
 
-	is_ok: BOOLEAN is
+	is_ok: BOOLEAN
 			-- Is Current GTS_SEGMENT not degenerate (i.e. v1 /= v2) and not
 			-- duplicate, FALSE otherwise.
 		do
 			Result:=(gts_segment_is_ok(handle).to_boolean)
 		end
 
-	midvertex: GTS_VERTEX is
+	midvertex: GTS_VERTEX
 		do
 			create Result.from_external_pointer(gts_segment_midvertex (handle, gts_vertex_class))
 		ensure not_void: Result /= Void
 		end
 	
-	is_touching (another: GTS_SEGMENT): BOOLEAN is
+	is_touching (another: GTS_SEGMENT): BOOLEAN
 			-- Are Current and `another' touching?
 		do
 			Result:=gts_segments_touch(handle,another.handle).to_boolean
 		end
 
-	connects (edge_1, edge_2: GTS_EDGE): BOOLEAN is
+	connects (edge_1, edge_2: GTS_EDGE): BOOLEAN
 			-- Does Current connect `edge_1' with `edge_2'?
 		do
 			Result:=gts_segment_connect(handle,edge_1.handle,edge_2.handle).to_boolean
 		end
 
-	intersection (a_triangle: GTS_TRIANGLE; boundary: BOOLEAN): GTS_POINT is
+	intersection (a_triangle: GTS_TRIANGLE; boundary: BOOLEAN): GTS_POINT
 			-- Checks if segment intersects `a_triangle'. If this is the case,
 			-- creates the new point intersection.
 		
@@ -185,13 +185,13 @@ feature {} -- unwrapped code
 	-- a pointer to test.
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsSegment)"
 		end
 
 feature {} -- Implementation
-	vertex_creation_notice: STRING is
+	vertex_creation_notice: STRING
 		"[
 		 A GTS_SEGMENT created a GTS_VERTEX wrapper for either v1 or v2.
 		 ]"

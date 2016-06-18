@@ -26,19 +26,19 @@ deferred class CAIRO_FONT_WEIGHT
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_font_weight (a_weight: INTEGER): BOOLEAN is
+	is_valid_font_weight (a_weight: INTEGER): BOOLEAN
 		do
 			Result := ((a_weight = cairo_font_weight_normal) or else
 						(a_weight = cairo_font_weight_bold))
 		end
 
-	cairo_font_weight_normal: INTEGER is
+	cairo_font_weight_normal: INTEGER
 			-- Normal font weight
 		external "C macro use <pango.h>"
 		alias "CAIRO_FONT_WEIGHT_BOLD"
 		end
 
-	cairo_font_weight_bold: INTEGER is
+	cairo_font_weight_bold: INTEGER
 			--  Bold font weight
 		external "C macro use <pango.h>"
 		alias "CAIRO_FONT_WEIGHT_BOLD"

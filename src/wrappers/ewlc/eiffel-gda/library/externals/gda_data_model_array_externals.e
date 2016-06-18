@@ -8,28 +8,28 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_data_model_array_clear (a_model: POINTER) is
+	gda_data_model_array_clear (a_model: POINTER)
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_array_set_n_columns (a_model: POINTER; a_cols: INTEGER_32) is
+	gda_data_model_array_set_n_columns (a_model: POINTER; a_cols: INTEGER_32)
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_array_copy_model (a_src: POINTER; an_error: POINTER): POINTER is
+	gda_data_model_array_copy_model (a_src: POINTER; an_error: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_array_new (a_cols: INTEGER_32): POINTER is
+	gda_data_model_array_new (a_cols: INTEGER_32): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_array_new_with_g_types (a_cols: INTEGER_32; ): POINTER is
+	gda_data_model_array_new_with_g_types (a_cols: INTEGER_32; ): POINTER
 			-- Variadic call
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_array_get_type: INTEGER_32 is
+	gda_data_model_array_get_type: INTEGER_32
 			-- Variadic call
 		external "C use <library/externals/all-gda-includes.h>"
 		end

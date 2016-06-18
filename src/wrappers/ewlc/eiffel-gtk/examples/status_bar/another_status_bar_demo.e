@@ -9,7 +9,7 @@ feature {ANY} -- GUI elements
 	statusbar: GTK_STATUS_BAR
 
 feature {ANY} -- Initialisation
-	make is
+	make
 		do
 			gtk.initialize
 			create window.make
@@ -40,13 +40,13 @@ feature {ANY} -- Initialisation
 feature {ANY} counter: INTEGER
 feature {ANY} -- Agents
 
-	on_push_clicked (a_button: GTK_BUTTON) is
+	on_push_clicked (a_button: GTK_BUTTON)
 		do
 			counter:=counter+1
 			print ("Pushing message n."+counter.out+"%N")
 			statusbar.push("This is message number "+counter.out)
 		end
-	on_pop_clicked (a_button: GTK_BUTTON) is
+	on_pop_clicked (a_button: GTK_BUTTON)
 		do
 			if statusbar.is_empty then
 				print ("Statusbar empty: cannot pop any message%N")
@@ -56,7 +56,7 @@ feature {ANY} -- Agents
 			end
 		end
 
-	on_destroy (a_gtk_object: GTK_OBJECT) is
+	on_destroy (a_gtk_object: GTK_OBJECT)
 		do
 			print ("on destroy has been called%N")
 			gtk.quit

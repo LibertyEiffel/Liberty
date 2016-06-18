@@ -28,23 +28,23 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_tooltips_new: POINTER is
+	gtk_tooltips_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tooltips_enable (a_handle: POINTER) is
+	gtk_tooltips_enable (a_handle: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tooltips_disable (a_handle: POINTER) is
+	gtk_tooltips_disable (a_handle: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tooltips_set_delay (a_handle: POINTER; a_delay: INTEGER) is
+	gtk_tooltips_set_delay (a_handle: POINTER; a_delay: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tooltips_set_tip (a_handle, a_widget, a_tip_text, a_tip_private: POINTER) is
+	gtk_tooltips_set_tip (a_handle, a_widget, a_tip_text, a_tip_private: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 

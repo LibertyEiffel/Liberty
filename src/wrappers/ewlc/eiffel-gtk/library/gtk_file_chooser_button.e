@@ -42,7 +42,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	from_title (a_title: STRING; an_action: INTEGER) is
+	from_title (a_title: STRING; an_action: INTEGER)
 			-- Creates a new file-selecting button widget.
 			-- a_title : 	the title of the browse dialog.
 			-- an_action : 	the open mode for the widget.
@@ -82,7 +82,7 @@ feature {} -- Creation
 
 feature {ANY}
 
-	title: STRING is
+	title: STRING
 			-- Retrieves the title of the browse dialog used by button.
 			-- The returned value should not be modified or freed.
 		do

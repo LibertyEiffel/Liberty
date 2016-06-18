@@ -17,7 +17,7 @@ feature {SQLITE_DATABASE}
         end
 
 feature {SQLITE_PREPARED_STATEMENT} 
-	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) is
+	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER)
 		local res: INTEGER
 		do
 			res := sqlite3_bind_text (a_statement.handle, 
@@ -29,7 +29,7 @@ feature {SQLITE_PREPARED_STATEMENT}
 		end
 		 
 feature {ANY}
-	type: INTEGER is
+	type: INTEGER
 		do
 			Result := sqlite_text
 		end

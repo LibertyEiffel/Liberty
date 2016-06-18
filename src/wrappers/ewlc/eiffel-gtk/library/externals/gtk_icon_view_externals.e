@@ -24,67 +24,67 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_icon_view_new: POINTER is
+	gtk_icon_view_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_new_with_model (a_model: POINTER): POINTER  is
+	gtk_icon_view_new_with_model (a_model: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_get_model (handle: POINTER): POINTER is
+	gtk_icon_view_get_model (handle: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_set_model (handle, a_model: POINTER) is
+	gtk_icon_view_set_model (handle, a_model: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_get_text_column (handle: POINTER): INTEGER is
+	gtk_icon_view_get_text_column (handle: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_set_text_column (handle: POINTER; a_column: INTEGER) is
+	gtk_icon_view_set_text_column (handle: POINTER; a_column: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_get_markup_column (handle: POINTER): INTEGER is
+	gtk_icon_view_get_markup_column (handle: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_set_markup_column (handle: POINTER; a_column: INTEGER) is
+	gtk_icon_view_set_markup_column (handle: POINTER; a_column: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_get_pixbuf_column (handle: POINTER): INTEGER is
+	gtk_icon_view_get_pixbuf_column (handle: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_set_pixbuf_column (handle: POINTER; a_column: INTEGER) is
+	gtk_icon_view_set_pixbuf_column (handle: POINTER; a_column: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_enable_model_drag_source (handle: POINTER; a_start_button_mask: INTEGER; a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER) is
+	gtk_icon_view_enable_model_drag_source (handle: POINTER; a_start_button_mask: INTEGER; a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_enable_model_drag_dest (handle, a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER) is
+	gtk_icon_view_enable_model_drag_dest (handle, a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_unset_model_drag_source (handle: POINTER) is
+	gtk_icon_view_unset_model_drag_source (handle: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_unset_model_drag_dest (handle: POINTER) is
+	gtk_icon_view_unset_model_drag_dest (handle: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_set_reorderable (handle: POINTER; a_boolean: INTEGER) is
+	gtk_icon_view_set_reorderable (handle: POINTER; a_boolean: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_get_reorderable (handle: POINTER): INTEGER is
+	gtk_icon_view_get_reorderable (handle: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -92,15 +92,15 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_get_cursor (handle, a_gtktreepath, a_gtkcellrenderer: POINTER): INTEGER is
+	gtk_icon_view_get_cursor (handle, a_gtktreepath, a_gtkcellrenderer: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_get_item_width (handle: POINTER): INTEGER is
+	gtk_icon_view_get_item_width (handle: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_view_set_item_width (handle: POINTER; a_width: INTEGER) is
+	gtk_icon_view_set_item_width (handle: POINTER; a_width: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 

@@ -38,7 +38,7 @@ insert GTK_CELL_RENDERER_ACCEL_MODE
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkCellRendererAccel.
 		do
 			from_external_pointer(gtk_cell_renderer_accel_new)
@@ -157,12 +157,12 @@ feature {ANY} -- Signals
 	--   Since 2.10
 
 feature {} -- External calls
-	gtk_cell_renderer_accel_new: POINTER is
+	gtk_cell_renderer_accel_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 		
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererAccel)"
 		end

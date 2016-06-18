@@ -27,40 +27,40 @@ insert
 
 feature {} -- External calls
 
-	gtk_frame_new (a_label: POINTER): POINTER is
+	gtk_frame_new (a_label: POINTER): POINTER
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_frame_set_label (frame, a_label: POINTER) is
+	gtk_frame_set_label (frame, a_label: POINTER)
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_frame_set_label_widget (frame,label_widget: POINTER) is
+	gtk_frame_set_label_widget (frame,label_widget: POINTER)
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_frame_set_label_align (frame: POINTER; xalign, yalign: REAL) is
+	gtk_frame_set_label_align (frame: POINTER; xalign, yalign: REAL)
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_frame_set_shadow_type (frame: POINTER; gtkshadowtype: INTEGER) is
+	gtk_frame_set_shadow_type (frame: POINTER; gtkshadowtype: INTEGER)
 		require is_valid_gtk_shadow_type (gtkshadowtype)
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_frame_get_label (frame: POINTER): POINTER is
+	gtk_frame_get_label (frame: POINTER): POINTER
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_frame_get_label_align (frame, xalign, yalign: POINTER) is
+	gtk_frame_get_label_align (frame, xalign, yalign: POINTER)
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_frame_get_label_widget (frame: POINTER): POINTER is
+	gtk_frame_get_label_widget (frame: POINTER): POINTER
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_frame_get_shadow_type (frame: POINTER): INTEGER is
+	gtk_frame_get_shadow_type (frame: POINTER): INTEGER
 		external "C use  <gtk/gtk.h>"
 		ensure is_valid_gtk_shadow_type (Result)
 		end

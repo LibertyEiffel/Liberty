@@ -32,13 +32,13 @@ inherit GTK_SCROLLBAR
 create {ANY} make, with_adjustment, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new horizontal scrollbar; a new adjustment is also created.
 		do
 			from_external_pointer (gtk_hscrollbar_new (default_pointer))
 		end
 	
-	with_adjustment (an_adjustment: GTK_ADJUSTMENT) is
+	with_adjustment (an_adjustment: GTK_ADJUSTMENT)
 			-- Creates a new horizontal scrollbar using `an_adjustment'.
 		require
 			adjustment_not_void: an_adjustment /= Void
@@ -48,7 +48,7 @@ feature {} -- Creation
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHSCrollbar)"
 		end

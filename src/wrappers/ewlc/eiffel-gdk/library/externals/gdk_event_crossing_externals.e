@@ -25,43 +25,43 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gdk_event_crossing_get_subwindow (ptr: POINTER): POINTER is
+	gdk_event_crossing_get_subwindow (ptr: POINTER): POINTER
 		external "C struct GdkEventCrossing get subwindow use <gdk/gdk.h>"
 		end
 
-	gdk_event_crossing_get_time (ptr: POINTER): INTEGER is
+	gdk_event_crossing_get_time (ptr: POINTER): INTEGER
 		external "C struct GdkEventCrossing get time use <gdk/gdk.h>"
 		end
 
-	gdk_event_crossing_get_x (ptr: POINTER): REAL_64 is
+	gdk_event_crossing_get_x (ptr: POINTER): REAL_64
 		external "C struct GdkEventCrossing get x use <gdk/gdk.h>"
 		end
 
-	gdk_event_crossing_get_y (ptr: POINTER): REAL_64 is
+	gdk_event_crossing_get_y (ptr: POINTER): REAL_64
 		external "C struct GdkEventCrossing get y use <gdk/gdk.h>"
 		end
 
-	gdk_event_crossing_get_x_root (ptr: POINTER): REAL_64 is
+	gdk_event_crossing_get_x_root (ptr: POINTER): REAL_64
 		external "C struct GdkEventCrossing get x_root use <gdk/gdk.h>"
 		end
 
-	gdk_event_crossing_get_y_root (ptr: POINTER): REAL_64 is
+	gdk_event_crossing_get_y_root (ptr: POINTER): REAL_64
 		external "C struct GdkEventCrossing get y_root use <gdk/gdk.h>"
 		end
 
-	gdk_event_crossing_get_mode (ptr: POINTER): INTEGER is
+	gdk_event_crossing_get_mode (ptr: POINTER): INTEGER
 		external "C struct GdkEventCrossing get mode use <gdk/gdk.h>"
 		end
 
-	gdk_event_crossing_get_focus (ptr: POINTER): INTEGER is
+	gdk_event_crossing_get_focus (ptr: POINTER): INTEGER
 		external "C struct GdkEventCrossing get focus use <gdk/gdk.h>"
 		end
 
-	gdk_event_crossing_get_detail (ptr: POINTER): INTEGER is
+	gdk_event_crossing_get_detail (ptr: POINTER): INTEGER
 		external "C struct GdkEventCrossing get detail use <gdk/gdk.h>"
 		end
 
-	gdk_event_crossing_get_state (ptr: POINTER): INTEGER is
+	gdk_event_crossing_get_state (ptr: POINTER): INTEGER
 		external "C struct GdkEventCrossing get state use <gdk/gdk.h>"
 		end
 

@@ -30,7 +30,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	gdk_colorspace_rgb: INTEGER is
+	gdk_colorspace_rgb: INTEGER
 		external "C macro use <gdk-pixbuf/gdk-pixbuf.h>"
 		alias "GDK_COLORSPACE_RGB"
 		end

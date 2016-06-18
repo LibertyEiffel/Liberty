@@ -52,7 +52,7 @@ create {ANY} empty, universe, from_constraints, from_frame, copy, from_external_
 
 feature {} -- Creation
 
-	empty (a_dimension: INTEGER) is
+	empty (a_dimension: INTEGER)
 			-- Creates an empty polyhedron of affine dimension
 			-- `a_dimension', in minimized form.
 		require
@@ -63,7 +63,7 @@ feature {} -- Creation
 			dimension = a_dimension
 		end
 
-	universe (a_dimension: INTEGER) is
+	universe (a_dimension: INTEGER)
 			-- Creates an universe polyhedron of affine dimension
 			-- `a_dimension', in minimized form.
 		require
@@ -74,7 +74,7 @@ feature {} -- Creation
 			dimension = a_dimension
 		end
 
-	from_constraints (a_matrix: POLKA_MATRIX) is
+	from_constraints (a_matrix: POLKA_MATRIX)
 			-- Creates a polyhedron defined by the constraints stored in
 			-- `a_matrix'. The dimension of the polyhedron is equal to the
 			-- number of columns of the matrix minus `polka_dec'.
@@ -98,7 +98,7 @@ feature {} -- Creation
 			dimension = a_matrix.columns - polka_dec
 		end
 
-	from_frame (a_frame: POLKA_MATRIX) is
+	from_frame (a_frame: POLKA_MATRIX)
 			-- Creates a polyhedron defined by the generators stored in
 			-- `a_matrix'. The same remarks as in `from_constraints' holds.
 			-- The defined polyhedra have to be included in \xi >= 0 or
@@ -119,20 +119,20 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	copy (other: like Current) is
+	copy (other: like Current)
 			-- Makes a copy of the polyhedron `other'.
 			-- Referenced elements are recursively duplicated.
 		do
 			from_external_pointer (poly_copy (other.handle))
 		end
 
-	print_to_stdout is
+	print_to_stdout
 			-- Prints the Current polyhedron on standard output.
 		do
 			poly_print (handle)
 		end
 
-	minimize is
+	minimize
 			-- Computes the minimal representation of the polyhedron.
 			-- Once minimized, both constraints and generators are
 			-- available, as such as the saturation matrix and the
@@ -141,7 +141,7 @@ feature {ANY} -- Operations
 			poly_minimize (handle)
 		end
 
-	canonicalize is
+	canonicalize
 			-- If `strict' is false, same effect as `minimize',
 			-- but ensures also normalization of equalities and lines
 			-- spaces (with Gauss elimination). Otherwise, normalizes the
@@ -156,7 +156,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Access
 
-	constraints: POLKA_MATRIX is
+	constraints: POLKA_MATRIX
 			-- Return the matrix of constraints of the polyhedron,
 			-- when this matrix is available, or Void if not.
 			-- The obtained set of constraints may not be minimal.
@@ -171,7 +171,7 @@ feature {ANY} -- Access
 			Result /= Void implies Result.columns = dimension + polka_dec
 		end
 
-	frame: POLKA_MATRIX is
+	frame: POLKA_MATRIX
 			-- Return the matrix of generators of the polyhedron, if
 			-- available, or Void if not. The obtained set of generators
 			-- may not be minimal.
@@ -192,7 +192,7 @@ feature {ANY} -- Access
 --const satmat_t* poly_satF (const poly_t* po)
 			-- Return the saturation matrix, whose rows are indexed by constraints and columns by generators. The same remarks as above holds.
 
-	dimension: INTEGER is
+	dimension: INTEGER
 			-- Return the (affine) dimension of the Current polyhedron
 			-- (i.e., without taking into accound the additional columns of
 			-- vectors and matrices).
@@ -202,7 +202,7 @@ feature {ANY} -- Access
 			Result > 0
 		end
 
-	n_equations: INTEGER is
+	n_equations: INTEGER
 			-- Return the dimension of the equality space, i.e. the
 			-- number of linearly independant equations satisfied by the
 			-- polyhedron. Require minimization.
@@ -212,7 +212,7 @@ feature {ANY} -- Access
 			Result >= 0 -- FIXME: ?????
 		end
 
-	n_lines: INTEGER is
+	n_lines: INTEGER
 			-- Return the dimension of the lineality space, i.e. the
 			-- number of linearly independant lines included in the
 			-- polyhedron. Require minimization.
@@ -222,7 +222,7 @@ feature {ANY} -- Access
 			Result >= 0 -- FIXME: ?????
 		end
 
-	n_constraints: INTEGER is
+	n_constraints: INTEGER
 			-- Return the number of constraints in minimal form.
 		do
 			Result := poly_nbconstraints (handle)
@@ -230,7 +230,7 @@ feature {ANY} -- Access
 			Result >= 0 -- FIXME: ?????
 		end
 
-	n_frames: INTEGER is
+	n_frames: INTEGER
 			-- Return the number of generators in minimal form.
 		do
 			Result := poly_nbframes (handle)
@@ -240,26 +240,26 @@ feature {ANY} -- Access
 
 feature {ANY} -- Predicates
 
-	is_minimal: BOOLEAN is
+	is_minimal: BOOLEAN
 			-- Says if the polyhedron is minimized. Doesn't imply any
 			-- computation.
 		do
 			Result := poly_is_minimal (handle).to_boolean
 		end
 
-	is_empty: BOOLEAN is
+	is_empty: BOOLEAN
 			-- Tests if the polyedron is empty. Can imply minimization.
 		do
 			Result := poly_is_empty (handle).to_boolean
 		end
 
-	is_universe: BOOLEAN is
+	is_universe: BOOLEAN
 			-- Tests if the polyhedron is the universe one. Imply minimization.
 		do
 			Result := poly_is_universe (handle).to_boolean
 		end
 
-	is_empty_lazy: INTEGER is
+	is_empty_lazy: INTEGER
 			-- This function tests emptiness without minimize the
 			-- polyhedron. As a result, the answer can be: I don't know
 			-- (tbool_bottom).
@@ -269,7 +269,7 @@ feature {ANY} -- Predicates
 			is_valid_tbool (Result)
 		end
 
-	versus_constraint (a_constraint: ARRAY [PKINT]): INTEGER is
+	versus_constraint (a_constraint: ARRAY [PKINT]): INTEGER
 			-- Tests the relation between the polyhedron and the
 			-- constraint, which must have the same dimension. If the
 			-- constraint is an inequality the result has the following
@@ -298,7 +298,7 @@ feature {ANY} -- Predicates
 			is_valid_tbool (Result)
 		end
 
-	is_generator_included_in (a_generator: ARRAY [PKINT]): BOOLEAN is
+	is_generator_included_in (a_generator: ARRAY [PKINT]): BOOLEAN
 			-- Tests if `a_generator' is included in the polyhedron.
 			-- The function may minimize the polyhedron in order to get its
 			-- constraints.
@@ -311,7 +311,7 @@ feature {ANY} -- Predicates
 			Result := poly_is_generator_included_in (default_pointer, handle).to_boolean
 		end
 
-	is_included_in (other: like Current): BOOLEAN is
+	is_included_in (other: like Current): BOOLEAN
 			-- Tests the inclusion of Current in `other'.
 			-- This function may minimize the two polyhedra.
 		require
@@ -321,7 +321,7 @@ feature {ANY} -- Predicates
 			Result := poly_is_included_in (handle, other.handle).to_boolean
 		end
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 			-- Tests the equality of two polyhedra. Requires minimal
 			-- form for both polyhedra.
 		do
@@ -335,7 +335,7 @@ feature {ANY} -- Intersection and Convex Hull -- Strict version
 		-- These functions return polyhedra in minimal form and their
 		-- parameters are minimized when it is not already the case.
 
-	intersection (other: like Current): like Current  is
+	intersection (other: like Current): like Current
 			-- Return the intersection of the Current polyhedra with
 			-- `other'. The function choose one of the polyhedron as
 			-- starting point, and adds to it the constraints of the other
@@ -351,7 +351,7 @@ feature {ANY} -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-	intersection_array (polys: ARRAY [POLY]): like Current  is
+	intersection_array (polys: ARRAY [POLY]): like Current
 			-- Return the intersection of the (non-empty) array of
 			-- polyhedra `polys'. The function chooses one of the
 			-- polyhedron as starting point, and adds to it the constraints
@@ -380,7 +380,7 @@ feature {ANY} -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-	add_constraints (some_constraints: POLKA_MATRIX): like Current  is
+	add_constraints (some_constraints: POLKA_MATRIX): like Current
 			-- Return the intersection of the polyhedron with the set of
 			-- constraints given by `some_constraints'. The matrix may be
 			-- sorted by the function `sort_rows'.
@@ -394,7 +394,7 @@ feature {ANY} -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-	add_constraint (a_constraint: ARRAY [PKINT]): like Current  is
+	add_constraint (a_constraint: ARRAY [PKINT]): like Current
 			-- Return the intersection of the polyhedron with the
 			-- constraint given by `a_cosntraint'.
 		require
@@ -419,7 +419,7 @@ feature {ANY} -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-	convex_hull (other: like Current): like Current is
+	convex_hull (other: like Current): like Current
 			-- Return the convex hull of Current and `other'. The
 			-- function choose one of the polyhedron as starting point, and
 			-- adds to it the generators of the other one. One chooses the
@@ -435,7 +435,7 @@ feature {ANY} -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-	convex_hull_array (polys: ARRAY [POLY]): like Current is
+	convex_hull_array (polys: ARRAY [POLY]): like Current
 			-- Return the convex hull of the (non-empty) array of
 			-- polyhedra `polys'. The function choose one of the
 			-- polyhedron as starting point, and adds to it the generators
@@ -464,7 +464,7 @@ feature {ANY} -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-	add_frame (a_frame: POLKA_MATRIX): like Current is
+	add_frame (a_frame: POLKA_MATRIX): like Current
 			-- Return the convex hull of the polyhedron and the set of
 			-- generators given by `a_frame'. The matrix may be sorted by
 			-- the function `sort_rows'.
@@ -478,7 +478,7 @@ feature {ANY} -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-	add_generator (a_generator: ARRAY [PKINT]): like Current  is
+	add_generator (a_generator: ARRAY [PKINT]): like Current
 			-- Return the convex hull of the polyhedron and the
 			-- generator given by `a_generator'.
 		require
@@ -520,7 +520,7 @@ feature {ANY} -- Intersection and Convex Hull -- Lazy version
 
 feature {ANY} --  Linear transformations -- Single variable/expression
 
-	assign_variable (a_variable: INTEGER; an_assignment: ARRAY [PKINT]): like Current is
+	assign_variable (a_variable: INTEGER; an_assignment: ARRAY [PKINT]): like Current
 			-- This function applies to the polyhedron the linear
 			-- transformation x'_rank := \sum_{i=0}^{dim-1} a_i/d x_i + b/d
 			-- with rank the rank of the variable (rank 0 corresponding to
@@ -541,7 +541,7 @@ feature {ANY} --  Linear transformations -- Single variable/expression
 			Result.dimension = dimension
 		end
 
-	substitute_variable (a_variable: INTEGER; a_substitution: ARRAY [PKINT]): like Current is
+	substitute_variable (a_variable: INTEGER; a_substitution: ARRAY [PKINT]): like Current
 			-- This function applies to the polyhedron the linear
 			-- substitution x'_rank <- \sum_{i=0}^{dim-1} a_i/d x_i + b/d
 			-- with rank denoting the rank of the variable (rank 0
@@ -563,7 +563,7 @@ feature {ANY} --  Linear transformations -- Single variable/expression
 
 feature {} --  Linear transformations -- Several variables/expressions
 
-	assign_variables (some_assignments: ARRAY [EQUATION]): like Current is
+	assign_variables (some_assignments: ARRAY [EQUATION]): like Current
 			-- Computes the image of Current by the parallel assignment of
 			-- eqn[i].var by eqn[i].expr, for i between 0 and size-1. The
 			-- array eqn is supposed to be sorted w.r.t. the field .var.
@@ -583,7 +583,7 @@ feature {} --  Linear transformations -- Several variables/expressions
 			Result.dimension = dimension
 		end
 
-	substitute_variables (some_substitutions: ARRAY [EQUATION]): like Current is
+	substitute_variables (some_substitutions: ARRAY [EQUATION]): like Current
 			-- Computes the image of poly by the parallel substitution
 			-- of eqn[i].expr by eqn[i].expr, for i between 0 and size-1.
 			-- The array eqn is supposed to be sorted w.r.t. the field
@@ -604,7 +604,7 @@ feature {} --  Linear transformations -- Several variables/expressions
 		end
 
 feature {WRAPPER_HANDLER} -- Destruction
-	free_handle is
+	free_handle
 			-- release the external memory
 		do
 			poly_free (handle)
@@ -612,7 +612,7 @@ feature {WRAPPER_HANDLER} -- Destruction
    
 feature {} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <polka/poly.h>"
 		alias "sizeof (poly_t)"
 		end

@@ -25,7 +25,7 @@ inherit CAIRO_PATTERN
 
 feature {} -- Creation
 
-	make_linear (x0,y0,x1,y1: REAL) is
+	make_linear (x0,y0,x1,y1: REAL)
 			-- Create a new linear gradient along the line defined by
 			-- (x0, y0) and (x1, y1). Before using the gradient pattern,
 			-- a number of color stops should be defined using
@@ -52,7 +52,7 @@ feature {} -- Creation
 			-- cairo_pattern_status().
 		end
 
-	make_radial (cx0,cy0,radius0,cx1,cy1,radius1: REAL) is
+	make_radial (cx0,cy0,radius0,cx1,cy1,radius1: REAL)
 			--   Creates a new radial gradient cairo_pattern_t between
 			--   the two circles defined by (x0, y0, c0) and (x1, y1,
 			--   c0). Before using the gradient pattern, a number of
@@ -83,7 +83,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	add_color_stop_rgb (an_offset, a_red, a_green, a_blue: REAL) is
+	add_color_stop_rgb (an_offset, a_red, a_green, a_blue: REAL)
 			-- Adds an opaque color stop to a gradient pattern. The
 			-- offset specifies the location along the gradient's control
 			-- vector. For example, a linear gradient's control vector is
@@ -108,7 +108,7 @@ feature {ANY}
 			cairo_pattern_add_color_stop_rgb(handle,an_offset,a_red,a_green,a_blue)
 		end
 
-	add_color_stop_rgba (an_offset, a_red, a_green, a_blue, an_alpha: REAL) is
+	add_color_stop_rgba (an_offset, a_red, a_green, a_blue, an_alpha: REAL)
 			-- Adds a translucent color stop to a gradient
 			-- pattern. `an_offset' specifies the location along the
 			-- gradient's control vector. For example, a linear

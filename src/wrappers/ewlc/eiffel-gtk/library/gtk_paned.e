@@ -57,7 +57,7 @@ inherit
 insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 feature {ANY}
-	add1 (a_child: GTK_WIDGET) is
+	add1 (a_child: GTK_WIDGET)
 			-- Adds a child to the top or left pane with default
 			-- parameters. This is equivalent to pack1 (a_child, False,
 			-- True).
@@ -66,7 +66,7 @@ feature {ANY}
 			gtk_paned_add1 (handle, a_child.handle)
 		end
 
-	add2 (a_child: GTK_WIDGET) is
+	add2 (a_child: GTK_WIDGET)
 			-- Adds a child to the bottom or right pane with default
 			-- parameters. This is equivalent to pack (a_child, True,
 			-- True).
@@ -75,7 +75,7 @@ feature {ANY}
 			gtk_paned_add2 (handle, a_child.handle)
 		end
 
-	pack1 (a_child: GTK_WIDGET; resize, shrink: BOOLEAN) is
+	pack1 (a_child: GTK_WIDGET; resize, shrink: BOOLEAN)
 			-- Adds  'a_child' to the top or left pane.
 
 			-- 'a_child': the child to add
@@ -90,7 +90,7 @@ feature {ANY}
 			gtk_paned_pack1 (handle, a_child.handle, resize.to_integer, shrink.to_integer)
 		end
 
-	pack2 (a_child: GTK_WIDGET; resize, shrink: BOOLEAN) is
+	pack2 (a_child: GTK_WIDGET; resize, shrink: BOOLEAN)
 			-- Adds  'a_child' to the bottom or right pane.
 
 			-- 'a_child': the child to add
@@ -105,26 +105,26 @@ feature {ANY}
 			gtk_paned_pack2 (handle, a_child.handle, resize.to_integer, shrink.to_integer)
 		end
 
-	child1: GTK_WIDGET is
+	child1: GTK_WIDGET
 			-- The first child of the paned widget; Void if not set.
 		do
 			Result := wrapper_or_void(gtk_paned_get_child1(handle))
 		end
 
-	child: GTK_WIDGET is
+	child: GTK_WIDGET
 			-- The second child of the paned widget; Void if not set.
 		do
 			Result := wrapper_or_void(gtk_paned_get_child1(handle))
 		end
 
 feature {ANY} -- Divider position
-	unset_position is
+	unset_position
 			-- Unsets the position of the divider between the two panes.
 		do
 			gtk_paned_set_position (handle, -1)
 		end
 
-	set_position (a_position: INTEGER) is
+	set_position (a_position: INTEGER)
 			-- Sets the position of the divider between the two panes.
 		require positive_position: a_position >= 0
 		do
@@ -132,7 +132,7 @@ feature {ANY} -- Divider position
 		ensure value_set: position = a_position
 		end
 	
-	position: INTEGER is
+	position: INTEGER
 			-- the position of the divider between the two panes.
 		do
 			Result := gtk_paned_get_position (handle)
@@ -293,35 +293,35 @@ feature {ANY} -- Signal Details
 --             gboolean    user_function      (GtkPaned *paned, gpointer  user_data)      : Run last / Action
 
 feature {} -- External calls
-	gtk_paned_add1 (a_paned, a_child: POINTER) is
+	gtk_paned_add1 (a_paned, a_child: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_paned_add2 (a_paned, a_child: POINTER) is
+	gtk_paned_add2 (a_paned, a_child: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_paned_pack1 (a_paned, a_child: POINTER; resize, shrink: INTEGER) is
+	gtk_paned_pack1 (a_paned, a_child: POINTER; resize, shrink: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_paned_pack2 (a_paned, a_child: POINTER; resize, shrink: INTEGER) is
+	gtk_paned_pack2 (a_paned, a_child: POINTER; resize, shrink: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_paned_get_child1 (a_paned: POINTER): POINTER is
+	gtk_paned_get_child1 (a_paned: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_paned_get_child2 (a_paned: POINTER): POINTER is
+	gtk_paned_get_child2 (a_paned: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_paned_set_position (a_paned: POINTER; a_position: INTEGER) is
+	gtk_paned_set_position (a_paned: POINTER; a_position: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_paned_get_position (a_paned: POINTER): INTEGER is
+	gtk_paned_get_position (a_paned: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 end

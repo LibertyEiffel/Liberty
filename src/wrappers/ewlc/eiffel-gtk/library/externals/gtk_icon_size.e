@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_icon_size (an_icon_size: INTEGER): BOOLEAN is
+	is_valid_gtk_icon_size (an_icon_size: INTEGER): BOOLEAN
 		do
 			Result:=((an_icon_size = gtk_icon_size_invalid) or else
 						(an_icon_size = gtk_icon_size_menu) or else
@@ -36,43 +36,43 @@ feature {} -- enum
 						(an_icon_size = gtk_icon_size_dialog))
 		end
 
-	gtk_icon_size_invalid: INTEGER is
+	gtk_icon_size_invalid: INTEGER
 			-- GTK_ICON_SIZE_INVALID
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ICON_SIZE_INVALID"
 		end
 
-	gtk_icon_size_menu: INTEGER is
+	gtk_icon_size_menu: INTEGER
 			-- GTK_ICON_SIZE_MENU
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ICON_SIZE_MENU"
 		end
 
-	gtk_icon_size_small_toolbar: INTEGER is
+	gtk_icon_size_small_toolbar: INTEGER
 			-- GTK_ICON_SIZE_SMALL_TOOLBAR
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ICON_SIZE_SMALL_TOOLBAR"
 		end
 
-	gtk_icon_size_large_toolbar: INTEGER is
+	gtk_icon_size_large_toolbar: INTEGER
 			-- GTK_ICON_SIZE_LARGE_TOOLBAR
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ICON_SIZE_LARGE_TOOLBAR"
 		end
 
-	gtk_icon_size_button: INTEGER is
+	gtk_icon_size_button: INTEGER
 			-- GTK_ICON_SIZE_BUTTON
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ICON_SIZE_BUTTON"
 		end
 
-	gtk_icon_size_dnd: INTEGER is
+	gtk_icon_size_dnd: INTEGER
 			-- GTK_ICON_SIZE_DND
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ICON_SIZE_DND"
 		end
 
-	gtk_icon_size_dialog: INTEGER is
+	gtk_icon_size_dialog: INTEGER
 			-- GTK_ICON_SIZE_DIALOG
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ICON_SIZE_DIALOG"

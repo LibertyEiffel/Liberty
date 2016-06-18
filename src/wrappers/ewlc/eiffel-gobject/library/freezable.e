@@ -27,32 +27,32 @@ deferred class FREEZABLE
 insert ANY undefine copy, is_equal, fill_tagged_out_memory end
 
 feature {ANY}
-	freeze is
+	freeze
 		-- Forbid further changes to Current until thaw is invoked
 	do
 		state := state.bit_set(freezed_bit)
 	end
 
-	thaw is
+	thaw
 		-- Allow changes to Current
 	do
 		state := state.bit_reset(freezed_bit)
 	end
 
-	petrify is
+	petrify
 		do
 			state := state.bit_set(freezed_bit)
 			state := state.bit_set(petrified_bit)
 		end
 
-	is_freezed: BOOLEAN is
+	is_freezed: BOOLEAN
 		do
 			Result := (state.bit_test(freezed_bit) or 
 			state.bit_test(petrified_bit))
 			-- Oh yeah it could have been written a-la C. 
 		end
 
-	is_petrified: BOOLEAN is
+	is_petrified: BOOLEAN
 		do
 			Result := state.bit_test(petrified_bit)
 		end

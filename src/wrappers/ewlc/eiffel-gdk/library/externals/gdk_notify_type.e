@@ -30,41 +30,41 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gdk_notify_type (a_notify_type: INTEGER) : BOOLEAN is
+	is_valid_gdk_notify_type (a_notify_type: INTEGER) : BOOLEAN
 		do
 			Result := a_notify_type.in_range (gdk_notify_ancestor,
 			                                  gdk_notify_unknown)
 		end
 
-	gdk_notify_ancestor: INTEGER is
+	gdk_notify_ancestor: INTEGER
 			-- the window is entered from an ancestor or left towards an
 			-- ancestor.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_NOTIFY_ANCESTOR"
 		end
 
-	gdk_notify_virtual: INTEGER is
+	gdk_notify_virtual: INTEGER
 			-- the pointer moves between an ancestor and an inferior of the
 			-- window.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_NOTIFY_VIRTUAL"
 		end
 
-	gdk_notify_inferior: INTEGER is
+	gdk_notify_inferior: INTEGER
 			-- the window is entered from an inferior or left towards an
 			-- inferior.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_NOTIFY_INFERIOR"
 		end
 
-	gdk_notify_nonlinear: INTEGER is
+	gdk_notify_nonlinear: INTEGER
 			-- the window is entered from or left towards a window which is
 			-- neither an ancestor nor an inferior.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_NOTIFY_NONLINEAR"
 		end
 
-	gdk_notify_nonlinear_virtual: INTEGER is
+	gdk_notify_nonlinear_virtual: INTEGER
 			-- the pointer moves between two windows which are not ancestors of
 			-- each other and the window is part of the ancestor chain between
 			-- one of these windows and their least common ancestor.
@@ -72,7 +72,7 @@ feature {} -- enum
 		alias "GDK_NOTIFY_NONLINEAR_VIRTUAL"
 		end
 
-	gdk_notify_unknown: INTEGER is
+	gdk_notify_unknown: INTEGER
 			-- an unknown type of enter/leave event occurred.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_NOTIFY_UNKNOWN"

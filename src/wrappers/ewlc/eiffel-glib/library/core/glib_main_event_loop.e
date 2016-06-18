@@ -931,7 +931,7 @@ expanded class GLIB_MAIN_EVENT_LOOP
 
 feature {ANY} -- Operations
 
-	source_remove (tag: INTEGER) is
+	source_remove (tag: INTEGER)
 			-- Removes the source with the given id `tag' from the default
 			-- main context. The id of a GSource is given by 
 			-- g_source_get_id(), or will be returned by the functions 
@@ -947,7 +947,7 @@ feature {ANY} -- Operations
 
 feature {} -- Externals
 
-	g_source_remove (tag: INTEGER): INTEGER is
+	g_source_remove (tag: INTEGER): INTEGER
 		external "C use <glib.h>"
 		alias "g_source_remove"
 		end

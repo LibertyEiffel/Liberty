@@ -27,13 +27,13 @@ inherit GTS_OBJECT
 
 feature {ANY} 
 
-	is_contained (a_container: GTS_CONTAINER): BOOLEAN is
+	is_contained (a_container: GTS_CONTAINER): BOOLEAN
 		require container_not_void: a_container /= Void
 		do
 			Result := (gts_containee_is_contained (handle, a_container.handle)).to_boolean
 		end
 
-	replace_with (a_replacement: GTS_CONTAINEE) is
+	replace_with (a_replacement: GTS_CONTAINEE)
 		require replacemente_not_void: a_replacement /= Void
 		do
 			gts_containee_replace (handle, a_replacement.handle)
@@ -163,22 +163,22 @@ feature {} -- External calls
 --  #define     GTS_CONTAINEE                   (obj)
 --  #define     GTS_IS_CONTAINEE                (obj)
 
-	gts_containee_class: POINTER is
+	gts_containee_class: POINTER
 			--  GtsContaineeClass* gts_containee_class      (void);
 		external "C use <gts.h>"
 		end
 
-	gts_containee_new (klass: POINTER): POINTER is
+	gts_containee_new (klass: POINTER): POINTER
 			-- GtsContainee* gts_containee_new (GtsContaineeClass *klass);
 		external "C use <gts.h>"
 		end
 
-	gts_containee_is_contained (an_item, a_container: POINTER): INTEGER is
+	gts_containee_is_contained (an_item, a_container: POINTER): INTEGER
 			-- gboolean gts_containee_is_contained (GtsContainee *item, GtsContainer *c);
 		external "C use <gts.h>"
 		end
 
-	gts_containee_replace (an_item, a_with: POINTER) is
+	gts_containee_replace (an_item, a_with: POINTER)
 			-- void gts_containee_replace (GtsContainee *item, GtsContainee *with);
 		external "C use <gts.h>"
 		end
@@ -188,7 +188,7 @@ feature {} -- External calls
 -- #define GTS_SLIST_CONTAINEE (obj)
 -- #define GTS_IS_SLIST_CONTAINEE (obj)
  
-	gts_slist_containee_class: POINTER is
+	gts_slist_containee_class: POINTER
 			-- GtsSListContaineeClass* gts_slist_containee_class;
 		external "C use <gts.h>"
 		end

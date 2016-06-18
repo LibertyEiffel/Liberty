@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = copyfmt_event_low_level)  or else
 				(a_value = erase_event_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_copyfmt_event is
+	set_copyfmt_event
 		do
 			value := copyfmt_event_low_level
 		end
 
-	set_erase_event is
+	set_erase_event
 		do
 			value := erase_event_low_level
 		end
 
-	set_imbue_event is
+	set_imbue_event
 		do
 			value := imbue_event_low_level
 		end
 
 feature {ANY} -- Queries
-	is_copyfmt_event: BOOLEAN is
+	is_copyfmt_event: BOOLEAN
 		do
 			Result := (value=copyfmt_event_low_level)
 		end
 
-	is_erase_event: BOOLEAN is
+	is_erase_event: BOOLEAN
 		do
 			Result := (value=erase_event_low_level)
 		end
 
-	is_imbue_event: BOOLEAN is
+	is_imbue_event: BOOLEAN
 		do
 			Result := (value=imbue_event_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	copyfmt_event_low_level: INTEGER is
+	copyfmt_event_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	erase_event_low_level: INTEGER is
+	erase_event_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	imbue_event_low_level: INTEGER is
+	imbue_event_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

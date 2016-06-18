@@ -40,7 +40,7 @@ insert
 create {ANY} make_rgb, make_rgba, from_external_pointer
 
 feature {} -- Creation
-	make_rgb (a_red, a_green, a_blue: REAL) is
+	make_rgb (a_red, a_green, a_blue: REAL)
 			-- Creates a new cairo_pattern_t corresponding to an opaque
 			-- color. The color components are floating point numbers in
 			-- the range 0 to 1. If the values passed in are outside that
@@ -62,7 +62,7 @@ feature {} -- Creation
 										 (a_red, a_green, a_blue))
 		end
 	
-	make_rgba (a_red, a_green, a_blue, an_alpha: REAL) is
+	make_rgba (a_red, a_green, a_blue, an_alpha: REAL)
 			-- Creates a new pattern corresponding to a translucent
 			-- color. The color components are floating point numbers in
 			-- the range 0 to 1. If the values passed in are outside that
@@ -87,7 +87,7 @@ feature {} -- Creation
 
 feature {ANY} -- Access
 
-	status: INTEGER is
+	status: INTEGER
 			-- Pattern status; useful to check whether an error has
 			-- previously occurred for this pattern.
 		do
@@ -143,7 +143,7 @@ feature {ANY} -- Access
 	--   pattern : a cairo_pattern_t
 	--   matrix :  return value for the matrix
 
-	type: INTEGER is
+	type: INTEGER
 			-- This function returns the type a pattern. See CAIRO_PATTERN_TYPE
 			-- for available types.
 		do
@@ -152,7 +152,7 @@ feature {ANY} -- Access
 			is_valid_pattern_type (Result)
 		end
 
-	set_filter (a_filter: INTEGER) is
+	set_filter (a_filter: INTEGER)
 			-- Sets the filter to be used for resizing when using this pattern.
 			-- See CAIRO_FILTER for details on each filter.
 		require
@@ -161,7 +161,7 @@ feature {ANY} -- Access
 			cairo_pattern_set_filter (handle, a_filter)
 		end
 
-	filter: INTEGER is
+	filter: INTEGER
 			-- Gets the current filter for a pattern. See CAIRO_FILTER for
 			-- details on each filter.
 		do
@@ -170,7 +170,7 @@ feature {ANY} -- Access
 			is_valid_filter (Result)
 		end
 
-	set_extend (a_extend: INTEGER) is
+	set_extend (a_extend: INTEGER)
 			-- Sets the mode to be used for drawing outside the area of a
 			-- pattern. See CAIRO_EXTEND for details on the semantics of each
 			-- extend strategy.
@@ -180,7 +180,7 @@ feature {ANY} -- Access
 			cairo_pattern_set_extend (handle, a_extend)
 		end
 
-	extend: INTEGER is
+	extend: INTEGER
 			-- Gets the current extend mode for a pattern. See CAIRO_EXTEND for
 			-- details on the semantics of each extend strategy.
 		do
@@ -190,7 +190,7 @@ feature {ANY} -- Access
 		end
 
 feature {ANY} -- Memory handling
-	unref is
+	unref
 			-- Decreases the reference count on pattern by one. If the
 			-- result is zero, then pattern and all associated resources
 			-- are freed. See `ref'
@@ -198,7 +198,7 @@ feature {ANY} -- Memory handling
 			cairo_pattern_destroy(handle)
 		end
 
-	ref is
+	ref
 			-- Increases the reference count on pattern by one. This
 			-- prevents pattern from being destroyed until a matching
 			-- call to cairo_pattern_destroy() is made.

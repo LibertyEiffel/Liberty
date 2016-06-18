@@ -34,27 +34,27 @@ deferred class CAIRO_HINT_METRICS
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_hint_metrics (a_metrics: INTEGER): BOOLEAN is
+	is_valid_hint_metrics (a_metrics: INTEGER): BOOLEAN
 		do
 			Result := ((a_metrics = cairo_hint_metrics_default) or else
 						(a_metrics = cairo_hint_metrics_off) or else
 						(a_metrics = cairo_hint_metrics_on))
 		end
 
-	cairo_hint_metrics_default: INTEGER is
+	cairo_hint_metrics_default: INTEGER
 			-- Hint metrics in the default manner for the font backend
 			-- and target device
 		external "C macro use <cairo.h>"
 		alias "CAIRO_HINT_METRICS_DEFAULT"
 		end
 
-	cairo_hint_metrics_off: INTEGER is
+	cairo_hint_metrics_off: INTEGER
 			-- Do not hint font metrics
 		external "C macro use <cairo.h>"
 		alias "CAIRO_HINT_METRICS_OFF"
 		end
 
-	cairo_hint_metrics_on: INTEGER is
+	cairo_hint_metrics_on: INTEGER
 			-- Hint font metrics
 		external "C macro use <cairo.h>"
 		alias "CAIRO_HINT_METRICS_ON"

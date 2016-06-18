@@ -30,7 +30,7 @@ feature {ANY} -- Widgets
 	message_dialog_popped_out_counter: INTEGER
 
 feature {ANY} -- Callbacks
-	message_dialog_clicked (a_button: GTK_BUTTON) is
+	message_dialog_clicked (a_button: GTK_BUTTON)
 		local 
 		do
 			create dialog.make (window, 

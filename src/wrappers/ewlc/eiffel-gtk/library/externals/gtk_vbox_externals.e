@@ -26,7 +26,7 @@ deferred class GTK_VBOX_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gtk_vbox_new (homogeneous, spacing: INTEGER): POINTER is
+	gtk_vbox_new (homogeneous, spacing: INTEGER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 

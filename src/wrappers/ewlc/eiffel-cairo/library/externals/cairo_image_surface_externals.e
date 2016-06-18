@@ -30,42 +30,42 @@ inherit ANY
 
 feature {} -- External calls
 
-	cairo_image_surface_create (a_format, a_width, a_height: INTEGER): POINTER is
+	cairo_image_surface_create (a_format, a_width, a_height: INTEGER): POINTER
 		external "C use <cairo.h>"
 		end
 
 	cairo_image_surface_create_for_data (some_data: POINTER; a_format, a_width,
-	                                     a_height, a_stride: INTEGER): POINTER is
+	                                     a_height, a_stride: INTEGER): POINTER
 		external "C use <cairo.h>"
 		end
 
-	cairo_image_surface_get_data (a_surface: POINTER): POINTER is
+	cairo_image_surface_get_data (a_surface: POINTER): POINTER
 		external "C use <cairo.h>"
 		end
 
-	cairo_image_surface_get_format (a_surface: POINTER): INTEGER is
+	cairo_image_surface_get_format (a_surface: POINTER): INTEGER
 		external "C use <cairo.h>"
 		end
 
-	cairo_image_surface_get_width (a_surface: POINTER): INTEGER is
+	cairo_image_surface_get_width (a_surface: POINTER): INTEGER
 		external "C use <cairo.h>"
 		end
 
-	cairo_image_surface_get_height (a_surface: POINTER): INTEGER is
+	cairo_image_surface_get_height (a_surface: POINTER): INTEGER
 		external "C use <cairo.h>"
 		end
 
-	cairo_image_surface_get_stride (a_surface: POINTER): INTEGER is
+	cairo_image_surface_get_stride (a_surface: POINTER): INTEGER
 		external "C use <cairo.h>"
 		end
 
 feature {} -- PNG Support
 
-	cairo_image_surface_create_from_png (a_filename: POINTER): POINTER is
+	cairo_image_surface_create_from_png (a_filename: POINTER): POINTER
 		external "C use <cairo.h>"
 		end
 
-	cairo_surface_write_to_png   (a_surface, a_filename: POINTER): INTEGER is
+	cairo_surface_write_to_png   (a_surface, a_filename: POINTER): INTEGER
 		external "C use <cairo.h>"
 		end
 

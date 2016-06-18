@@ -16,7 +16,7 @@ insert
 	WRAPPER_HANDLER
 	
 feature {ANY}
-	glib_log (a_domain, a_message: STRING; a_log_level: INTEGER) is
+	glib_log (a_domain, a_message: STRING; a_log_level: INTEGER)
 			-- Logs an error or debugging message. If `a_log_level' has
 			-- been set as fatal, the `abort' function is called to
 			-- terminate the program.
@@ -31,7 +31,7 @@ feature {ANY}
 			g_log (null_or_string(a_domain), a_log_level, a_message.to_external)
 		end
 	
-	glib_message (a_message: STRING) is
+	glib_message (a_message: STRING)
 			-- log a normal message.
 		require message_not_void: a_message /= Void
 		do
@@ -57,7 +57,7 @@ feature {ANY}
 	-- fatal errors, for example.  ... : format string, followed by
 	-- parameters to insert into the format string (as with printf())
 	
-	glib_error (an_error: STRING) is
+	glib_error (an_error: STRING)
 			-- A convenience function/macro to log an error
 			-- message. Error messages are always fatal, resulting in a
 			-- call to abort() to terminate the application. This
@@ -192,7 +192,7 @@ feature {} -- Unwrapped
 -- format : 	the message format. See the printf() documentation.
 -- args : 	the parameters to insert into the format string.
 feature {} -- External calls
-	g_log_domain: POINTER is
+	g_log_domain: POINTER
 			-- #define G_LOG_DOMAIN ((gchar*) 0)
 		
 			-- Defines the log domain. For applications, this is
@@ -212,76 +212,76 @@ feature {} -- External calls
 	-- void (*GLogFunc) (const gchar *log_domain, GLogLevelFlags
 	-- log_level, const gchar *message, gpointer user_data);
 
-	g_log (a_log_domain: POINTER; a_log_level: INTEGER; a_format: POINTER) is
+	g_log (a_log_domain: POINTER; a_log_level: INTEGER; a_format: POINTER)
 		external "C use <glib.h>"
 		end
 		
 	-- g_logv (a_log_domain: POINTER; a_log_level: INTEGER; a *format,
 	-- va_list args);
 	
-	g_message (a_message: POINTER) is
+	g_message (a_message: POINTER)
 			-- #define g_message
 		external "C macro use <glib.h>"
 		alias "g_message"
 		end
 
-	g_warning (a_message: POINTER) is
+	g_warning (a_message: POINTER)
 			-- #define g_warning
 		external "C macro use <glib.h>"
 		alias "g_warning"
 		end
 
-	g_critical (a_message: POINTER) is
+	g_critical (a_message: POINTER)
 			-- #define g_critical
 		external "C macro use <glib.h>"
 		alias "g_critical"
 		end
 	
-	g_error (a_message: POINTER) is
+	g_error (a_message: POINTER)
 			-- #define g_error
 		external "C macro use <glib.h>"
 		alias "g_error"
 		end
 
-	g_debug (a_message: POINTER) is
+	g_debug (a_message: POINTER)
 			-- #define g_debug
 		external "C macro use <glib.h>"
 		alias "g_debug"
 		end
 
-	g_log_set_handler (a_log_domain: POINTER; a_log_levels: INTEGER; a_log_func, some_data: POINTER): INTEGER is
+	g_log_set_handler (a_log_domain: POINTER; a_log_levels: INTEGER; a_log_func, some_data: POINTER): INTEGER
 			-- guint g_log_set_handler (const gchar *log_domain,
 			-- GLogLevelFlags log_levels, GLogFunc log_func, gpointer
 			-- user_data);
 		external "C use <glib.h>"
 		end
 
-	g_log_remove_handler (a_log_domain: POINTER; an_handler_id: INTEGER) is
+	g_log_remove_handler (a_log_domain: POINTER; an_handler_id: INTEGER)
 			-- void g_log_remove_handler (const gchar *log_domain, guint
 			-- handler_id);
 		external "C use <glib.h>"
 		end
 
-	g_log_set_always_fatal (a_fatal_mask: INTEGER): INTEGER is
+	g_log_set_always_fatal (a_fatal_mask: INTEGER): INTEGER
 			-- GLogLevelFlags g_log_set_always_fatal (GLogLevelFlags
 			-- fatal_mask);
 		external "C use <glib.h>"
 		end
 
-	g_log_set_fatal_mask (a_log_domain: POINTER; a_fatal_mask: INTEGER): INTEGER is
+	g_log_set_fatal_mask (a_log_domain: POINTER; a_fatal_mask: INTEGER): INTEGER
 			-- GLogLevelFlags g_log_set_fatal_mask (const gchar
 			-- *log_domain, GLogLevelFlags fatal_mask);
 		external "C use <glib.h>"
 		end
 
-	g_log_default_handler (a_log_domain: POINTER; a_log_level: INTEGER; a_message, some_unused_data: POINTER) is
+	g_log_default_handler (a_log_domain: POINTER; a_log_level: INTEGER; a_message, some_unused_data: POINTER)
 			-- void g_log_default_handler (const gchar *log_domain,
 			-- GLogLevelFlags log_level, const gchar *message, gpointer
 			-- unused_data);
 		external "C use <glib.h>"
 		end
 
-	g_log_set_default_handler (a_log_func, some_data: POINTER): INTEGER is
+	g_log_set_default_handler (a_log_func, some_data: POINTER): INTEGER
 			-- GLogFunc g_log_set_default_handler (GLogFunc log_func,
 			-- gpointer user_data);
 		external "C use <glib.h>"

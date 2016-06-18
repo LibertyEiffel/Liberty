@@ -27,7 +27,7 @@ class GDK_TYPE_EXTERNALS
 
 feature {} -- External calls
 
-	gdk_type_pixbuf: INTEGER is
+	gdk_type_pixbuf: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GDK_TYPE_PIXBUF"
 		end

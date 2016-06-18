@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = gda_data_model_access_random) or else 
 				(a_value = gda_data_model_access_cursor_forward) or else 
@@ -19,126 +19,126 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_random is
+	default_create, set_random
 		do
 			value := gda_data_model_access_random
 		end
 
-	set_cursor_forward is
+	set_cursor_forward
 		do
 			value := gda_data_model_access_cursor_forward
 		end
 
-	set_cursor_backward is
+	set_cursor_backward
 		do
 			value := gda_data_model_access_cursor_backward
 		end
 
-	set_cursor is
+	set_cursor
 		do
 			value := gda_data_model_access_cursor
 		end
 
-	set_insert_external is
+	set_insert_external
 		do
 			value := gda_data_model_access_insert
 		end
 
-	set_update is
+	set_update
 		do
 			value := gda_data_model_access_update
 		end
 
-	set_delete is
+	set_delete
 		do
 			value := gda_data_model_access_delete
 		end
 
-	set_write is
+	set_write
 		do
 			value := gda_data_model_access_write
 		end
 
 
 feature {ANY} -- Queries
-	is_random: BOOLEAN is
+	is_random: BOOLEAN
 		do
 			Result := (value=gda_data_model_access_random)
 		end
 
-	is_cursor_forward: BOOLEAN is
+	is_cursor_forward: BOOLEAN
 		do
 			Result := (value=gda_data_model_access_cursor_forward)
 		end
 
-	is_cursor_backward: BOOLEAN is
+	is_cursor_backward: BOOLEAN
 		do
 			Result := (value=gda_data_model_access_cursor_backward)
 		end
 
-	is_cursor: BOOLEAN is
+	is_cursor: BOOLEAN
 		do
 			Result := (value=gda_data_model_access_cursor)
 		end
 
-	is_insert_external: BOOLEAN is
+	is_insert_external: BOOLEAN
 		do
 			Result := (value=gda_data_model_access_insert)
 		end
 
-	is_update: BOOLEAN is
+	is_update: BOOLEAN
 		do
 			Result := (value=gda_data_model_access_update)
 		end
 
-	is_delete: BOOLEAN is
+	is_delete: BOOLEAN
 		do
 			Result := (value=gda_data_model_access_delete)
 		end
 
-	is_write: BOOLEAN is
+	is_write: BOOLEAN
 		do
 			Result := (value=gda_data_model_access_write)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gda_data_model_access_random: INTEGER is
+	gda_data_model_access_random: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_RANDOM"
 		end
 
-	gda_data_model_access_cursor_forward: INTEGER is
+	gda_data_model_access_cursor_forward: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_CURSOR_FORWARD"
 		end
 
-	gda_data_model_access_cursor_backward: INTEGER is
+	gda_data_model_access_cursor_backward: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_CURSOR_BACKWARD"
 		end
 
-	gda_data_model_access_cursor: INTEGER is
+	gda_data_model_access_cursor: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_CURSOR"
 		end
 
-	gda_data_model_access_insert: INTEGER is
+	gda_data_model_access_insert: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_INSERT"
 		end
 
-	gda_data_model_access_update: INTEGER is
+	gda_data_model_access_update: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_UPDATE"
 		end
 
-	gda_data_model_access_delete: INTEGER is
+	gda_data_model_access_delete: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_DELETE"
 		end
 
-	gda_data_model_access_write: INTEGER is
+	gda_data_model_access_write: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_WRITE"
 		end

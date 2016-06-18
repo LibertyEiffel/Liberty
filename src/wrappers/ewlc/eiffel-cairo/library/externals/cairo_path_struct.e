@@ -59,34 +59,34 @@ feature {} -- Structure getter/setter calls
 	--  cairo_path_t
 	--
 	--   cairo_status_t status;   the current error status
-	get_status (a_struct: POINTER): INTEGER is
+	get_status (a_struct: POINTER): INTEGER
 		external "C struct cairo_path_t get status use <cairo.h>"
 		end
 
-	set_status (a_struct: POINTER; a_status: INTEGER) is
+	set_status (a_struct: POINTER; a_status: INTEGER)
 		external "C struct cairo_path_t set status use <cairo.h>"
 		end
 
 	--   cairo_path_data_t *data; the elements in the path
-	get_data (a_struct: POINTER): POINTER is
+	get_data (a_struct: POINTER): POINTER
 		external "C struct cairo_path_t get data use <cairo.h>"
 		end
 
-	set_data (a_struct: POINTER; a_data: POINTER) is
+	set_data (a_struct: POINTER; a_data: POINTER)
 		external "C struct cairo_path_t set data use <cairo.h>"
 		end
 
 	--   int num_data;            the number of elements in the data array
-		get_num_data (a_struct: POINTER): INTEGER is
+		get_num_data (a_struct: POINTER): INTEGER
 		external "C struct cairo_path_t get num_data use <cairo.h>"
 		end
 
-	set_num_data (a_struct: POINTER; a_num_data: INTEGER) is
+	set_num_data (a_struct: POINTER; a_num_data: INTEGER)
 		external "C struct cairo_path_t set num_data use <cairo.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <cairo.h>"
 		alias "sizeof(cairo_path_t)"
 		end

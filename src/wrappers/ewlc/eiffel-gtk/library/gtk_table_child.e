@@ -30,7 +30,7 @@ inherit
 create {ANY} from_external_pointer
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTableChild)"
 		end

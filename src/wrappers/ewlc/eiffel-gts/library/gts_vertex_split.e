@@ -37,7 +37,7 @@ insert
 create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
-	make (a_vertex: GTS_VERTEX; an_object, another_object: GTS_OBJECT) is
+	make (a_vertex: GTS_VERTEX; an_object, another_object: GTS_OBJECT)
 			-- Creates a new GtsSplit which would collapse `an_object'
 			-- and `another_object' into `a_vertex'. The collapse itself
 			-- is not performed. `an_object' and `another_object' can be
@@ -49,7 +49,7 @@ feature {} -- Creation
 		end
 	
 feature {ANY}
-	collapse (an_heap: GTS_EXTENDED_BINARY_HEAP[GTS_EDGE]) is
+	collapse (an_heap: GTS_EXTENDED_BINARY_HEAP[GTS_EDGE])
 			-- Collapses the vertex split. Any new edge created during
 			-- the process will be of class of `item'. If `an_heap' is
 			-- not Void, the new edges will be inserted into it and the
@@ -58,7 +58,7 @@ feature {ANY}
 			gts_split_collapse (handle, gts_edge_class, null_or(an_heap))
 		end
 
-	expand (a_surface: GTS_SURFACE) is
+	expand (a_surface: GTS_SURFACE)
 			-- Expands the vertex split vs adding the newly created faces
 			-- to s. Any new edge will be of class klass.
 		
@@ -69,14 +69,14 @@ feature {ANY}
 			gts_split_expand(handle,a_surface.handle,gts_edge_class)
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- the maximum height of the vertex split tree having Current as root.
 		obsolete "Should be NATURAL, since it is a guint"
 		do
 			Result:=gts_split_height(handle)
 		end
 	
-	traverse (an_order, a_depth: INTEGER; a_function: PROCEDURE[TUPLE[GTS_VERTEX_SPLIT[EDGE]]]) is
+	traverse (an_order, a_depth: INTEGER; a_function: PROCEDURE[TUPLE[GTS_VERTEX_SPLIT[EDGE]]])
 			-- Traverses the GtsSplit tree having Current as root. Calls
 			-- `a_function' for each GtsSplit of the tree in the order
 			-- specified by `an_order'. If order is set to `g_pre_order'
@@ -100,7 +100,7 @@ feature {ANY}
 									  );
 		end
 feature {ANY}
-	v1: GTS_VERTEX is
+	v1: GTS_VERTEX
 			-- the first vertex of the edge collapsed by Current.
 		local a_pointer: POINTER
 		do
@@ -111,7 +111,7 @@ feature {ANY}
 			end
 		end
 
-	v2: GTS_VERTEX is
+	v2: GTS_VERTEX
 			-- the second vertex of the edge collapsed by Current.
 		local a_pointer: POINTER
 		do

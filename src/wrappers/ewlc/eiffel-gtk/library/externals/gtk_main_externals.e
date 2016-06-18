@@ -26,11 +26,11 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- external calls
 
-	gtk_set_locale: POINTER is
+	gtk_set_locale: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_disable_setlocale is
+	gtk_disable_setlocale
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -42,12 +42,12 @@ feature {} -- external calls
 --		external "C use <gtk/gtk.h>"
 --	end
 
-	gtk_init (argc, argv: POINTER) is
+	gtk_init (argc, argv: POINTER)
 		-- (int *argc, char ***argv)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_init_check (argc,argv: POINTER): INTEGER is
+	gtk_init_check (argc,argv: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -68,30 +68,30 @@ feature {} -- external calls
 --		external "C use <gtk/gtk.h>"
 --	end
 
-	gtk_events_pending: INTEGER is
+	gtk_events_pending: INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_main is
+	gtk_main
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_main_level: INTEGER is
+	gtk_main_level: INTEGER
 		-- TODO: obsolete "gtk_main_level: INTEGER shall be NATURAL"
 		external "C use <gtk/gtk.h>"
 		ensure Result>=0
 		end
 
-	gtk_main_quit is
+	gtk_main_quit
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_main_iteration_external: INTEGER is
+	gtk_main_iteration_external: INTEGER
 		external "C use <gtk/gtk.h>"
 		alias "gtk_main_iteration"
 		end
 
-	gtk_main_iteration_do (blocking: INTEGER): INTEGER is
+	gtk_main_iteration_do (blocking: INTEGER): INTEGER
 			-- Runs a single iteration of the mainloop. If no events are
 			-- available either return or block dependent on the value of
 			-- blocking.  blocking : TRUE if you want GTK+ to block if no

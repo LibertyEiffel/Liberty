@@ -55,7 +55,7 @@ feature {} -- Creation
 	--   Returns : a new GtkSourceTagStyle.
 
 feature {ANY}
-	copy (another: like Current) is
+	copy (another: like Current)
 			-- Makes a copy of the given style.
 		do
 			from_external_pointer(gtk_source_tag_style_copy(handle))
@@ -66,22 +66,22 @@ feature {} -- External calls
 	--                     ;
 	-- enum                GtkSourceTagStyleMask;
 	-- #define             GTK_TYPE_SOURCE_TAG_STYLE
-	gtk_source_tag_style_get_type: INTEGER is
+	gtk_source_tag_style_get_type: INTEGER
 		external "C use <gtksourceview/gtksourcetagstyle.h>"
 		end
 
-	gtk_source_tag_style_new: POINTER is
+	gtk_source_tag_style_new: POINTER
 			-- GtkSourceTagStyle* gtk_source_tag_style_new (void);
 		external "C use <gtksourceview/gtksourcetagstyle.h>"
 		end
 	
-	gtk_source_tag_style_copy (a_style: POINTER): POINTER is 
+	gtk_source_tag_style_copy (a_style: POINTER): POINTER
 			-- GtkSourceTagStyle* gtk_source_tag_style_copy (const
 			-- GtkSourceTagStyle *style);
 		external "C use <gtksourceview/gtksourcetagstyle.h>"
 		end
 
-	free (a_style: POINTER) is
+	free (a_style: POINTER)
 			-- void gtk_source_tag_style_free (GtkSourceTagStyle *style);
 		external "C use <gtksourceview/gtksourcetagstyle.h>"
 		alias "gtk_source_tag_style_free"
@@ -122,7 +122,7 @@ feature {} --  enum GtkSourceTagStyleMask
 	-- } GtkSourceTagStyleMask;
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtksourceview/gtksourcetagstyle.h>"
 		alias "sizeof(GtkSourceTagStyle)"
 		end

@@ -48,7 +48,7 @@ insert
 create {ANY} main
 
 feature {ANY} 
-	main is
+	main
 		do
 			initialize_external_tool
 			build_gui
@@ -56,13 +56,13 @@ feature {ANY}
 			gtk.run_main_loop 
 		end
 
-	initialize_external_tool is
+	initialize_external_tool
 		do
 			root_class_name := as_any
 			bootstrap
 		end
 
-	build_documentation is
+	build_documentation
 			-- Builds the GTK_TREE_MODELs used		
 		do
 			-- local text_iterator: ITERATOR[HASHED_STRING]; name: STRING
@@ -109,7 +109,7 @@ feature {ANY} -- Classes and clusters storage
 			-- `classes_by_cluster'; the class/cluster name, its hashed
 			-- string object, a boolean set to True for clusters.
 	
-	tree_store_columns: ARRAY[INTEGER_32] is
+	tree_store_columns: ARRAY[INTEGER_32]
 			-- The columns used in the `classes_by_name' and
 			-- `classes_by_cluster' models.
 
@@ -125,7 +125,7 @@ feature {ANY} -- Classes and clusters storage
 
 		end
 	
-	class_text_buffers: HASHED_DICTIONARY[EIFFEL_DOCUMENTATION_TEXT_BUFFER,HASHED_STRING] is
+	class_text_buffers: HASHED_DICTIONARY[EIFFEL_DOCUMENTATION_TEXT_BUFFER,HASHED_STRING]
 		once
 			create Result.make
 		end
@@ -138,7 +138,7 @@ feature {ANY} -- Clusters and classes list
 			-- All the known classes
 	
 feature {ANY} -- 
-	on_fatal_error is
+	on_fatal_error
 		do
 			io.put_string(once "Fatal error:%N")			
 		end
@@ -149,7 +149,7 @@ feature {ANY} --
 	directory: DIRECTORY 
 			-- The directory used in `visit_cluster'
 	
-	visit_cluster (a_cluster: CLUSTER) is
+	visit_cluster (a_cluster: CLUSTER)
 			-- Visit `a_cluster', add its hashed name to `clusters' and
 			-- add the hashed name of its classes to `classes';
 			-- CLASS_TEXT instances are not created by this features,
@@ -232,7 +232,7 @@ feature {ANY} --
 			end
 		end
 
-	show_class (an_hashed_class_name: HASHED_STRING) is
+	show_class (an_hashed_class_name: HASHED_STRING)
 			-- Show the documentation of the class named
 			-- `an_hashed_class_name'. If the documentation of the class
 			-- hasn't already been generated, generate if.
@@ -253,7 +253,7 @@ feature {ANY} --
 			text_view.set_buffer(class_documentation)
 		end
 	
-	documentation_for (an_hashed_class_name: HASHED_STRING): EIFFEL_DOCUMENTATION_TEXT_BUFFER is
+	documentation_for (an_hashed_class_name: HASHED_STRING): EIFFEL_DOCUMENTATION_TEXT_BUFFER
 			-- The documentation of the class named
 			-- `an_hashed_class_name'. If it hasn't already been make a 
 			-- new text buffer is created and it's content is stored 
@@ -276,13 +276,13 @@ feature {ANY} --
 		end
 	
 feature {ANY} -- External tool
-	parse_arguments is
+	parse_arguments
 		do
 			-- local argi: INTEGER; arg: STRING
 			print("parse arguments only called in non-ace mode%N")
 		end
 
-	is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+	is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
 		do
 			-- This is called by smart_eiffel.ace from a loop similar to the one in parse_arguments
 			Result := is_version_flag(arg)
@@ -298,7 +298,7 @@ feature {ANY} -- External tool
 	usage: STRING is "Please write a proper usage description."
 
 feature {ANY}
-	is_valid_class_name (name: STRING): BOOLEAN is
+	is_valid_class_name (name: STRING): BOOLEAN
 			-- Does it follow the syntactic rules for a class name?  I.e. an uppercase letter followed by
 			-- optional uppercase letters, digits and underscores.
 		require name_not_void: name /= Void
@@ -319,7 +319,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- User interface
-	build_gui is
+	build_gui
 		do
 			gtk.initialize
 			make
@@ -331,7 +331,7 @@ feature {ANY} -- User interface
 			show_all
 		end
 
-	update_user_interface is
+	update_user_interface
 			-- Keep the user interface updated: do a main iteration of
 			-- the GTK main loop until all user interface events have
 			-- been processed. This feature is meant to be called when
@@ -345,7 +345,7 @@ feature {ANY} -- User interface
 feature {ANY} -- Text constants
 	window_title: STRING is "Eiffel documentation"
 	ace_chooser_title: STRING is "Assembly of Classes in Eiffel"
-	please_select_something_string: STRING is 
+	please_select_something_string: STRING
 		"<big><big>Please pick either a <b><big>loadpath</big></b> or an <b><big>ACE</big></b> <small>(<b>A</b>ssembly of <b>C</b>lasses in <b>E</b>iffel)</small> file. WEll, actually there is the ACE file passed as argument</big></big>"
 
 feature {ANY} -- Syntactic sugar
@@ -366,7 +366,7 @@ feature {ANY} -- Feature sorting labels
 	sorted_by_usage_feature: STRING is "Most viewed first"
 	
 feature {ANY} -- Widgets
-	main_box: GTK_VBOX is
+	main_box: GTK_VBOX
 			-- The main box: above the ace file chooser, below the rest
 		local load_button: GTK_BUTTON
 		once
@@ -382,7 +382,7 @@ feature {ANY} -- Widgets
 			load_button.connect_clicked_signal_to(agent on_load_ace_button)			
 		end
 	
-	tree_text_box: GTK_HPANED is
+	tree_text_box: GTK_HPANED
 			-- The box containing the classes tree on the left above the
 			-- combo to choose the fittest sorting; on the right the
 			-- class viewer
@@ -392,7 +392,7 @@ feature {ANY} -- Widgets
 			Result.pack2(text_scrolled_window,True,True) -- ok to resize and to shrink
 		end
 	
-	tree_box: GTK_VBOX is
+	tree_box: GTK_VBOX
 			-- The vertival box containing the classes tree and
 			-- sort-selection combo box.
 		once
@@ -401,7 +401,7 @@ feature {ANY} -- Widgets
 			Result.pack_start(tree_sort_selector, False, True, spaceless)
 		end
 
-	ace_chooser: GTK_FILE_CHOOSER_BUTTON is
+	ace_chooser: GTK_FILE_CHOOSER_BUTTON
 			-- The button to choose the ace file
 		once
 			create Result.from_title(ace_chooser_title, gtk_file_chooser_action_open)
@@ -411,7 +411,7 @@ feature {ANY} -- Widgets
 			Result.set_width_chars(ace_chooser_title.count)
 		end
 			
-	text_scrolled_window: GTK_SCROLLED_WINDOW is
+	text_scrolled_window: GTK_SCROLLED_WINDOW
 			-- The container of the `text_view' as child widget adds
 			-- scrollbars to it, so the gtk-eiffel-doc window does not
 			-- expand too much when documentation with long lines is
@@ -423,7 +423,7 @@ feature {ANY} -- Widgets
 			Result.add(text_view)
 		end
 
-	text_view: GTK_TEXT_VIEW is
+	text_view: GTK_TEXT_VIEW
 		once 
 			create Result.make
 			Result.set_editable(False)
@@ -431,7 +431,7 @@ feature {ANY} -- Widgets
 			Result.set_wrap_mode(gtk_wrap_word)
 		end
 	
-	classes_scrolled_window: GTK_SCROLLED_WINDOW is
+	classes_scrolled_window: GTK_SCROLLED_WINDOW
 			-- The container that containing `class_text' as child widget 
 			-- adds scrollbars to it, so the gtk-eiffel-doc window 
 			-- will not be thousand lines long.
@@ -442,19 +442,19 @@ feature {ANY} -- Widgets
 			Result.add(classes_tree)
 		end
 	
-	classes_tree: GTK_TREE_VIEW is
+	classes_tree: GTK_TREE_VIEW
 			-- The class tree
 		once
 			create Result.make
 			Result.insert_column (class_name_column, class_name_column_n)
 		end
 	
-	text_renderer: GTK_CELL_RENDERER is
+	text_renderer: GTK_CELL_RENDERER
 		once
 			create {GTK_CELL_RENDERER_TEXT} Result.make
 		end
 
-	class_name_column: GTK_TREE_VIEW_COLUMN is
+	class_name_column: GTK_TREE_VIEW_COLUMN
 		once
 			create Result.make
 			Result.set_title ("Name")
@@ -462,7 +462,7 @@ feature {ANY} -- Widgets
 			Result.add_attribute (text_renderer, "text", class_name_column_n)
 		end
 	
-	tree_sort_selector: GTK_COMBO_BOX is
+	tree_sort_selector: GTK_COMBO_BOX
 			-- The combo box that allow the user to choose the fittest sorting.
 		once
 			create Result.with_text_only
@@ -471,7 +471,7 @@ feature {ANY} -- Widgets
 			Result.append_text(sorted_by_usage)
 		end
 	
-	nothing_selected_label: GTK_LABEL is
+	nothing_selected_label: GTK_LABEL
 			-- The label showed when no ACE or loadpath file are
 			-- selected. 
 		once
@@ -480,7 +480,7 @@ feature {ANY} -- Widgets
 			Result.set_alignment(0.5,0.5) -- i.e. centered
 		end
 
-	progress_bar: GTK_PROGRESS_BAR is
+	progress_bar: GTK_PROGRESS_BAR
 			-- The bar used to show the progress of clusters and classes processing
 		once
 			create Result.make
@@ -488,14 +488,14 @@ feature {ANY} -- Widgets
 		end
 	
 feature {ANY} -- File filters
-	ace_filter: GTK_FILE_FILTER is
+	ace_filter: GTK_FILE_FILTER
 		once
 			create Result.make
 			Result.set_name(once "Assembly of Classes in Eiffel (ACE)")
 			Result.add_pattern(once "*.ace")
 		end
 
-	loadpath_filter: GTK_FILE_FILTER is
+	loadpath_filter: GTK_FILE_FILTER
 		once
 			create Result.make
 			Result.set_name(once "Loadpath")
@@ -503,19 +503,19 @@ feature {ANY} -- File filters
 		end
 
 feature {ANY}  -- Callbacks
-	on_destroy is
+	on_destroy
 		do
 			print ("Eiffel doc window is being destroyed%N")
 			gtk.quit
 		end
 
-	on_load_ace_button(a_button: GTK_BUTTON) is
+	on_load_ace_button(a_button: GTK_BUTTON)
 		do
 			io.put_line(once "(Re) build documentation")
 			build_documentation
 		end
 
-	on_changed (a_selection: GTK_TREE_SELECTION) is
+	on_changed (a_selection: GTK_TREE_SELECTION)
 		local
 			hashed_name: HASHED_STRING; a_value: G_VALUE
 			a_model: GTK_TREE_MODEL; an_iter: GTK_TREE_ITER
@@ -594,7 +594,7 @@ feature {ANY}  -- Callbacks
 	-- 		end
 	
 feature {} -- Dirty tricks 
-	pointer_to_hashed_string (a_pointer: POINTER): HASHED_STRING is
+	pointer_to_hashed_string (a_pointer: POINTER): HASHED_STRING
 			-- Forced (DANGEROUS!) conversion of `a_pointer' into an
 			-- HASHED_STRING; `a_pointer' must have been obtained with
 			-- `to_pointer' used on a real HASHED_STRING. This feature is

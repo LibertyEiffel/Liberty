@@ -19,7 +19,7 @@ create {ANY}
 	
 feature {ANY}
 
-	make is
+	make
 		local
 			db: SQLITE_DATABASE
 			file_name: STRING

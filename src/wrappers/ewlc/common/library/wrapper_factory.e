@@ -36,7 +36,7 @@ deferred class WRAPPER_FACTORY [ITEM->WRAPPER]
 inherit WRAPPER_HANDLER 
 
 feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
-	wrapper (a_pointer: POINTER): ITEM is
+	wrapper (a_pointer: POINTER): ITEM
 			-- The wrapper for `a_pointer'. It could be newly created or
 			-- retrieved from a cache, a dictionary, from the underlying
 			-- object, depending on the implementation.
@@ -50,7 +50,7 @@ feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
 			correct: Result.handle=a_pointer
 		end
 
-	wrapper_or_void (a_pointer: POINTER): ITEM is
+	wrapper_or_void (a_pointer: POINTER): ITEM
 			-- A wrapper for `a_pointer' or Void if `a_pointer' is
 			-- default_pointer (NULL in C). A commodity feature to
 			-- replace the following code snippet:

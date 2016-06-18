@@ -60,7 +60,7 @@ feature {ANY} -- Basic Types: standard GLib types, defined for ease-of-use and p
 	--  typedef     gsize;
 	--  typedef     gssize;
 
-	gboolean: INTEGER is	
+	gboolean: INTEGER
 			-- The standard boolean typein Glib type system. Variables of
 			-- this type should only contain the value TRUE (i.e. 1) or
 			-- FALSE (i.e. 0).
@@ -140,12 +140,12 @@ feature {ANY} -- Basic Types: standard GLib types, defined for ease-of-use and p
 	--    Corresponds to the standard C unsigned short type. Values of this type can
 	--    range from 0 to G_MAXUSHORT.
 
-	glong_size: INTEGER is
+	glong_size: INTEGER
 		external "C use <glib.h>"
 		alias "sizeof(glong)"
 		end
 	
-	glong: INTEGER is
+	glong: INTEGER
 			--  typedef long   glong;
 		
 			-- Corresponds to the standard C long type. Values of this type can
@@ -252,7 +252,7 @@ feature {ANY} -- Basic Types: standard GLib types, defined for ease-of-use and p
 	--    Corresponds to the standard C double type. Values of this type can range
 	--    from -G_MAXDOUBLE to G_MAXDOUBLE.
 
-	gsize: INTEGER is
+	gsize: INTEGER
 			-- An unsigned 32-bit integer intended to represent sizes of
 			-- data structures.
 
@@ -263,7 +263,7 @@ feature {ANY} -- Basic Types: standard GLib types, defined for ease-of-use and p
 			-- empty by design
 		end
 
-	gssize: INTEGER is
+	gssize: INTEGER
 			-- A signed 32-bit integer intended to represent sizes of
 			-- data structures.
 

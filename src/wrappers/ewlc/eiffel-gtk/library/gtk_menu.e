@@ -88,7 +88,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is 
+	make
 			-- Creates a new GtkMenu.
 		require gtk_initialized: gtk.is_initialized
 		do
@@ -103,7 +103,7 @@ feature {ANY}
 	-- gtk_menu_set_screen (handle, a_screen.handle)
 	--end
 
-	reorder_child (a_child: GTK_WIDGET; a_new_position: INTEGER) is
+	reorder_child (a_child: GTK_WIDGET; a_new_position: INTEGER)
 			-- Moves GtkMenuItem `a_child' to `a_new_position' within the
 			-- GtkMenu.Positions are numbered from 0 to n-1.
 		require 
@@ -113,7 +113,7 @@ feature {ANY}
 		end
  
 	attach (a_child: GTK_WIDGET; 
-			  left_attach, right_attach, top_attach, bottom_attach: INTEGER) is
+			  left_attach, right_attach, top_attach, bottom_attach: INTEGER)
 			-- Adds a new GtkMenuItem to a (table) menu. The number of
 			-- 'cells' that an item will occupy is specified by
 			-- left_attach, right_attach, top_attach and
@@ -148,7 +148,7 @@ feature {ANY}
 		end
 
 	-- TODO: understand then wrap popup (a_parent_shell, a_parent_item:
-	-- GTK_WIDGET; a) is do
+	-- GTK_WIDGET; a) do
 
 	-- void gtk_menu_popup (GtkMenu *menu, GtkWidget
 	-- *parent_menu_shell, GtkWidget *parent_menu_item,
@@ -238,7 +238,7 @@ feature {ANY}
 
 	-- -----------------------------------------------------------------------
 
-	set_title (a_title: STRING) is
+	set_title (a_title: STRING)
 			-- Sets `a_title' as the title for the menu. The title is
 			-- displayed when the menu is shown as a tearoff menu.
 		require title_not_void: a_title /= Void
@@ -246,7 +246,7 @@ feature {ANY}
 			gtk_menu_set_title (handle, a_title.to_external)
 		end
 
-	title: STRING is
+	title: STRING
 			-- the title of the menu. See `set_title'. Can be Void if
 			-- the menu has no title set on it.
 		local ptr: POINTER
@@ -258,25 +258,25 @@ feature {ANY}
 			end
 		end
 
-	is_torn_off: BOOLEAN is
+	is_torn_off: BOOLEAN
 		-- Is the menu currently torn off.
 		do
 			Result := gtk_menu_get_tearoff_state (handle).to_boolean
 		end
 
-	popdown is
+	popdown
 			-- Removes the menu from the screen.
 		do
 			gtk_menu_popdown (handle)
 		end
 
-	reposition is
+	reposition
 			-- Repositions the menu according to its position function.
 		do
 			gtk_menu_reposition (handle)
 		end
 
-	active_item: GTK_WIDGET is
+	active_item: GTK_WIDGET
 			-- the selected menu item from the menu. This is used by the
 			-- GtkOptionMenu. If a selection has not yet been made, the
 			-- first menu item is selected.
@@ -284,7 +284,7 @@ feature {ANY}
 			Result := wrapper(gtk_menu_get_active (handle))
 		end
 
-	set_active (an_index: INTEGER) is
+	set_active (an_index: INTEGER)
 			-- Selects the specified menu item within the menu. This is
 			-- used by the GtkOptionMenu and should not be used by anyone
 			-- else. `an_index' is values are from 0 to n-1.
@@ -294,7 +294,7 @@ feature {ANY}
 			gtk_menu_set_active (handle, an_index)
 		end
 
-	set_tearoff is
+	set_tearoff
 			-- Changes the tearoff state of the menu. A menu is normally
 			-- displayed as drop down menu which persists as long as the
 			-- menu is active. It can also be displayed as a tearoff menu
@@ -304,7 +304,7 @@ feature {ANY}
 		ensure is_torn_off
 		end
 
-	unset_tearoff is
+	unset_tearoff
 			-- Changes the tearoff state of the menu. A menu is normally
 			-- displayed as drop down menu which persists as long as the
 			-- menu is active. It can also be displayed as a tearoff menu
@@ -562,7 +562,7 @@ feature {ANY} -- Signal Details
 	-- arg1 :
 	-- user_data : user data set when the signal handler was connected.
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenu)"
 		end

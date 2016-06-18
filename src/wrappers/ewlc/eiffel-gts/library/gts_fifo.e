@@ -29,12 +29,12 @@ inherit
 create {ANY}  make, from_external_pointer
 
 feature {ANY} 
-	make is
+	make
 		do
 			from_external_pointer(gts_fifo_new)
 		end
 
-	push (an_item: ITEM) is
+	push (an_item: ITEM)
 			-- Push `an_item' into fifo.
 		require item_not_void: an_item /=Void
 		do
@@ -42,7 +42,7 @@ feature {ANY}
 		ensure pushed: count = old count + 1
 		end
 
-	pop: ITEM is
+	pop: ITEM
 			-- removes the first element in fifo
 		require not_empty: not is_empty
 		do
@@ -50,7 +50,7 @@ feature {ANY}
 			Result.from_external_pointer(gts_fifo_pop(handle))
 		end
 
-	top: ITEM is
+	top: ITEM
 		-- the first element in fifo
 		require not_empty: not is_empty
 		do
@@ -58,13 +58,13 @@ feature {ANY}
 			Result.from_external_pointer(gts_fifo_top(handle))
 		end
 
-	is_empty: BOOLEAN is
+	is_empty: BOOLEAN
 			-- Is FIFO empty?
 		do
 			Result:=gts_fifo_is_empty(handle).to_boolean
 		end
 
-	count: INTEGER is
+	count: INTEGER
 			-- the number of elements in fifo.
 
 			-- TODO: should be NATURAL
@@ -84,20 +84,20 @@ feature {ANY}
 	-- data :  user data to be passed to func.
 
 
-	reverse is
+	reverse
 			--    Reverses the order of elements in fifo.
 		do
 			gts_fifo_reverse(handle)
 		end
 
-	print_on (a_file: OUTPUT_STREAM) is
+	print_on (a_file: OUTPUT_STREAM)
 			-- Writes the content of fifo on `a_file'.
 		require file_not_void: a_file /= Void
 		do
 			gts_fifo_write (handle, a_file.stream_pointer)
 		end
 
-	dispose is
+	dispose
 			-- Frees all the memory allocated for fifo.
 		do
 			gts_fifo_destroy(handle)
@@ -106,60 +106,60 @@ feature {ANY}
 feature {} -- External calls
 -- #include <gts.h>
 
-	gts_fifo_new: POINTER is
+	gts_fifo_new: POINTER
 			-- GtsFifo* gts_fifo_new (void);
 		external "C use <gts.h>"
 		end
 
-	gts_fifo_push (a_fifo, a_data: POINTER) is
+	gts_fifo_push (a_fifo, a_data: POINTER)
 			--  void gts_fifo_push (GtsFifo *fifo, gpointer data);
 		external "C use <gts.h>"
 		end
 
-	gts_fifo_pop (a_fifo: POINTER): POINTER is
+	gts_fifo_pop (a_fifo: POINTER): POINTER
 			--  gpointer gts_fifo_pop (GtsFifo *fifo);
 		external "C use <gts.h>"
 		end
 
-	gts_fifo_top (a_fifo: POINTER): POINTER is
+	gts_fifo_top (a_fifo: POINTER): POINTER
 			--  gpointer gts_fifo_top (GtsFifo *fifo);
 		external "C use <gts.h>"
 		end
 	
-	gts_fifo_size (a_fifo: POINTER): INTEGER is
+	gts_fifo_size (a_fifo: POINTER): INTEGER
 			--  guint gts_fifo_size (GtsFifo *fifo);
 
 			-- TODO: should be NATURAL
 		external "C use <gts.h>"
 		end
 
-	gts_fifo_foreach (a_fifo, a_func, a_data: POINTER) is
+	gts_fifo_foreach (a_fifo, a_func, a_data: POINTER)
 			--  void gts_fifo_foreach (GtsFifo *fifo, GtsFunc func, gpointer data);
 		external "C use <gts.h>"
 		end
 	
-	gts_fifo_is_empty (a_fifo: POINTER): INTEGER is
+	gts_fifo_is_empty (a_fifo: POINTER): INTEGER
 			--  gboolean gts_fifo_is_empty (GtsFifo *fifo);
 		external "C use <gts.h>"
 		end
 
-	gts_fifo_reverse (a_fifo: POINTER) is
+	gts_fifo_reverse (a_fifo: POINTER)
 			--  void gts_fifo_reverse (GtsFifo *fifo);
 		external "C use <gts.h>"
 		end
 
-	gts_fifo_write (a_fifo, a_fp: POINTER) is
+	gts_fifo_write (a_fifo, a_fp: POINTER)
 			--  void gts_fifo_write (GtsFifo *fifo, FILE *fp);
 		external "C use <gts.h>"
 		end
 	
-	gts_fifo_destroy (a_fifo: POINTER) is
+	gts_fifo_destroy (a_fifo: POINTER)
 			--  void gts_fifo_destroy (GtsFifo *fifo);
 		external "C use <gts.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
  external "C inline use <gts.h>"
  alias "sizeof(GtsFifo)"
  end

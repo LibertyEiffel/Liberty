@@ -109,7 +109,7 @@ create {ANY} from_external_pointer
 
 feature {} -- Creation
 
-	dispose is
+	dispose
 			-- Immediately releases all memory associated with
 			-- path. 
 		
@@ -125,7 +125,7 @@ feature {} -- Creation
 	-- TODO: features to manually build a path, instead of getting it 
 	-- from a context.
 
-	append (another: CAIRO_PATH) is
+	append (another: CAIRO_PATH)
 			-- Append `another' path onto the current path. The path may
 			-- be either the return value from one of `copy_path' or
 			-- `copy_path_flat' or it may be constructed manually. See
@@ -486,7 +486,7 @@ feature {} -- Creation
 
 feature {ANY} -- Access
 
-	status: INTEGER is
+	status: INTEGER
 		-- The current error status
 		do
 			Result := cairo_path_get_status (handle)

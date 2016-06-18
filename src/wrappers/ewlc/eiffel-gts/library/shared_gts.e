@@ -29,7 +29,7 @@ insert
 	
 feature {ANY} 
 
-	vertices_from_segments (some_segments: G_SLIST[GTS_SEGMENT]): G_SLIST[GTS_VERTEX] is
+	vertices_from_segments (some_segments: G_SLIST[GTS_SEGMENT]): G_SLIST[GTS_VERTEX]
 			-- a list of the vertices of `some_segments'. Each element in the list
 			-- is unique (no duplicates).
 		do
@@ -38,7 +38,7 @@ feature {ANY}
 		end
 	
 	
-	merge_vertices (some_vertices: G_LIST[GTS_VERTEX]; an_epsilon: REAL): G_LIST[GTS_VERTEX] is
+	merge_vertices (some_vertices: G_LIST[GTS_VERTEX]; an_epsilon: REAL): G_LIST[GTS_VERTEX]
 			-- For each vertex in `some_vertices' look if there are any vertex of
 			-- vertices contained in a box centered on the vertex of size
 			-- 2*epsilon. If there are and if check is not NULL and returns TRUE,
@@ -56,7 +56,7 @@ feature {ANY}
 			-- gboolean (*check) (GtsVertex *, GtsVertex *));
 		end
 
-	segments_from_vertices (some_vertices: G_SLIST[GTS_VERTEX]): G_SLIST[GTS_SEGMENT] is
+	segments_from_vertices (some_vertices: G_SLIST[GTS_VERTEX]): G_SLIST[GTS_SEGMENT]
 			-- a list of unique GtsSegment which have one of their vertices in
 			-- vertices.
 		do
@@ -65,7 +65,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Edge features
-	edges_from_vertices (some_vertices: G_SLIST[GTS_VERTEX]; a_parent: GTS_SURFACE): G_SLIST[GTS_EDGE] is
+	edges_from_vertices (some_vertices: G_SLIST[GTS_VERTEX]; a_parent: GTS_SURFACE): G_SLIST[GTS_EDGE]
 			-- a list of unique GtsEdge which have one of their vertices
 			-- in `some_vertices' and are used by a face of `a_parent'.
 		require 
@@ -78,7 +78,7 @@ feature {ANY} -- Edge features
 		end
 
 feature {ANY} -- Triangle related 
-	are_folded (some_triangles: G_SLIST[GTS_TRIANGLE]; a_vertex, another_vertex: GTS_VERTEX; a_max: REAL): BOOLEAN is
+	are_folded (some_triangles: G_SLIST[GTS_TRIANGLE]; a_vertex, another_vertex: GTS_VERTEX; a_max: REAL): BOOLEAN
 			-- Does any pair of `some_triangles' make an angle larger
 			-- than a maximum value? All triangles must share `a_vertex'
 			-- and `another_vertex' as vertices.  `a_max' os the maximum
@@ -92,7 +92,7 @@ feature {ANY} -- Triangle related
 		end			
 
 
-	triangles_from_edges (some_edges: G_SLIST[GTS_EDGE]):	G_SLIST[GTS_EDGE] is
+	triangles_from_edges (some_edges: G_SLIST[GTS_EDGE]):	G_SLIST[GTS_EDGE]
 			-- A list of unique triangles which have one of their edges
 			-- in `some_edges'.
 		local a_pointer: POINTER
@@ -103,7 +103,7 @@ feature {ANY} -- Triangle related
 		end
 	
 feature {ANY} -- Face related
-	faces_from_edges (some_edges: G_SLIST[GTS_EDGE]; a_surface: GTS_SURFACE): G_SLIST[GTS_EDGE] is
+	faces_from_edges (some_edges: G_SLIST[GTS_EDGE]; a_surface: GTS_SURFACE): G_SLIST[GTS_EDGE]
 			-- A list of unique faces which belong to `a_surface' and
 			-- have one of their edges in `some_edges'.
 		require edges_not_void: some_edges /= Void
@@ -115,32 +115,32 @@ feature {ANY} -- Face related
 		end
 
 feature {} -- Factories
-	vertex_factory: ARCHETYPE_FACTORY[GTS_VERTEX] is
+	vertex_factory: ARCHETYPE_FACTORY[GTS_VERTEX]
 		once
 			create Result.with_archetype(create {GTS_VERTEX}.dummy)
 		end
 
-	edge_factory: ARCHETYPE_FACTORY[GTS_EDGE] is
+	edge_factory: ARCHETYPE_FACTORY[GTS_EDGE]
 		once
 			create Result.with_archetype(create {GTS_EDGE}.dummy)
 		end
 
-	segment_factory: ARCHETYPE_FACTORY[GTS_SEGMENT] is
+	segment_factory: ARCHETYPE_FACTORY[GTS_SEGMENT]
 		once
 			create Result.with_archetype(create {GTS_SEGMENT}.dummy)
 		end
 
-	triangle_factory: ARCHETYPE_FACTORY[GTS_TRIANGLE] is
+	triangle_factory: ARCHETYPE_FACTORY[GTS_TRIANGLE]
 		once
 			create Result.with_archetype(create {GTS_TRIANGLE}.dummy)
 		end
 
 feature {} -- External calls
-	gts_faces_from_edges (some_edges, a_surface: POINTER): POINTER is
+	gts_faces_from_edges (some_edges, a_surface: POINTER): POINTER
 		external "C use <gts.h>"
 		end
 	
-	gts_triangles_from_edges (some_edges: POINTER): POINTER is
+	gts_triangles_from_edges (some_edges: POINTER): POINTER
 		external "C use <gts.h>"
 		end	
 

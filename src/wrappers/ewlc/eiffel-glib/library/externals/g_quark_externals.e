@@ -11,24 +11,24 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- external calls
 
-	g_quark_from_string (string: POINTER): INTEGER_32 is
+	g_quark_from_string (string: POINTER): INTEGER_32
 		external "C use <glib.h>"
 		end
 
-	g_quark_to_string (quark: INTEGER_32): POINTER is
+	g_quark_to_string (quark: INTEGER_32): POINTER
 		external "C use <glib.h>"
 		alias "(void*)g_quark_to_string"
 		end
 
-	g_quark_try_string (string: POINTER): INTEGER_32 is
+	g_quark_try_string (string: POINTER): INTEGER_32
 		external "C use <glib.h>"
 		end
 
-	g_intern_string (string: POINTER): INTEGER_32 is
+	g_intern_string (string: POINTER): INTEGER_32
 		external "C use <glib.h>"
 		end
 
-	g_intern_static_string (string: POINTER): INTEGER_32 is
+	g_intern_static_string (string: POINTER): INTEGER_32
 		external "C use <glib.h>"
 		end
 

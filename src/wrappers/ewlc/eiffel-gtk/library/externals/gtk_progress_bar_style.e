@@ -26,19 +26,19 @@ deferred class GTK_PROGRESS_BAR_STYLE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_progress_bar_style (a_style :INTEGER): BOOLEAN is
+	is_valid_gtk_progress_bar_style (a_style :INTEGER): BOOLEAN
 		do	
 			Result:=((a_style = gtk_progress_continuous) or else
 						(a_style = gtk_progress_discrete))
 		end
 
-	gtk_progress_continuous: INTEGER is
+	gtk_progress_continuous: INTEGER
 			-- The progress bar grows in a smooth, continuous manner.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PROGRESS_CONTINUOUS"
 		end
 
-	gtk_progress_discrete: INTEGER is
+	gtk_progress_discrete: INTEGER
 			-- The progress bar grows in discrete, visible blocks.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PROGRESS_DISCRETE"

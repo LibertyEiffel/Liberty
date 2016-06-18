@@ -24,27 +24,27 @@ deferred class GTK_PRINT_ERROR
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_print_error (an_error :INTEGER): BOOLEAN is
+	is_valid_gtk_print_error (an_error :INTEGER): BOOLEAN
 		do	
 			Result:=((an_error = gtk_print_error_general) or else
 						(an_error = gtk_print_error_internal_error) or else
 						(an_error = gtk_print_error_nomem))
 		end
 
-	gtk_print_error_general: INTEGER is
+	gtk_print_error_general: INTEGER
 				-- GTK_PRINT_ERROR_GENERAL
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_ERROR_GENERAL"
 		end
 
-	gtk_print_error_internal_error: INTEGER is
+	gtk_print_error_internal_error: INTEGER
 		
 				-- GTK_PRINT_ERROR_INTERNAL_ERROR
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_ERROR_INTERNAL_ERROR"
 		end
 
-	gtk_print_error_nomem: INTEGER is
+	gtk_print_error_nomem: INTEGER
 				-- GTK_PRINT_ERROR_NOMEM
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_ERROR_NOMEM"

@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_tree_view_drop_position (a_position: INTEGER): BOOLEAN is
+	is_valid_gtk_tree_view_drop_position (a_position: INTEGER): BOOLEAN
 		do
 			Result:=((a_position=gtk_tree_view_drop_before) or else
 						(a_position = gtk_tree_view_drop_after) or else
@@ -35,25 +35,25 @@ feature {} -- enum
 						(a_position = gtk_tree_view_drop_into_or_after))
 		end
 
-	gtk_tree_view_drop_before: INTEGER is
+	gtk_tree_view_drop_before: INTEGER
 			-- drop before this row 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_VIEW_DROP_BEFORE"
 		end
 
-	gtk_tree_view_drop_after: INTEGER is
+	gtk_tree_view_drop_after: INTEGER
 			--  drop after this row 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_VIEW_DROP_AFTER"
 		end
 
-	gtk_tree_view_drop_into_or_before: INTEGER is
+	gtk_tree_view_drop_into_or_before: INTEGER
 			--  drop as a child of this row (with fallback to before or after if into is not possible)
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_VIEW_DROP_INTO_OR_BEFORE"
 		end
 
-	gtk_tree_view_drop_into_or_after: INTEGER is
+	gtk_tree_view_drop_into_or_after: INTEGER
 			--  drop as a child of this row (with fallback to before or after if into is not possible)
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_VIEW_DROP_INTO_OR_AFTER"

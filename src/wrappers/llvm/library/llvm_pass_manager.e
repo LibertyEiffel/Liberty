@@ -9,7 +9,7 @@ insert CORE_EXTERNALS
 create {ANY} from_external_pointer
 
 feature {ANY} 
-	struct_size: like size_t is
+	struct_size: like size_t
 		do
 			not_yet_implemented
 		end

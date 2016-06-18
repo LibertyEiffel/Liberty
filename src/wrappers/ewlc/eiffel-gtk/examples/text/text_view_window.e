@@ -6,7 +6,7 @@ create {ANY} make
 
 feature {ANY}
 
-	make is
+	make
 		local
 			big: GTK_TEXT_TAG
 		do
@@ -38,7 +38,7 @@ feature {ANY} -- Widgets
 									]"
 
 feature {ANY}  -- Callbacks
-	on_destroy is
+	on_destroy
 		do
 			print ("Text view demo ending%N")
 			gtk.quit

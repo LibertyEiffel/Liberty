@@ -32,7 +32,7 @@ deferred class LLVM_INSTRUCTION
 inherit LLVM_USER
 
 feature {ANY} -- TODO: Important Public Members of the Instruction class
-	parent: LLVM_BASIC_BLOCK is
+	parent: LLVM_BASIC_BLOCK
 		-- The parent block containing Current instruction
 	do
 		create Result.from_external_pointer(llvmget_param_parent(handle))

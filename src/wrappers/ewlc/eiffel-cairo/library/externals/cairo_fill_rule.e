@@ -35,13 +35,13 @@ deferred class CAIRO_FILL_RULE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_fill_rule (a_rule: INTEGER): BOOLEAN is
+	is_valid_fill_rule (a_rule: INTEGER): BOOLEAN
 		do	
 			Result:=((a_rule = cairo_fill_rule_winding) or else
 						(a_rule = cairo_fill_rule_even_odd))
 		end
 	
-	cairo_fill_rule_winding: INTEGER is
+	cairo_fill_rule_winding: INTEGER
 			-- If the path crosses the ray from left-to-right, counts
 			-- +1. If the path crosses the ray from right to left, counts
 			-- -1. (Left and right are determined from the perspective of
@@ -51,7 +51,7 @@ feature {ANY}  -- enum
 		alias "CAIRO_FILL_RULE_WINDING"
 		end
 
-	cairo_fill_rule_even_odd: INTEGER is
+	cairo_fill_rule_even_odd: INTEGER
 			-- Counts the total number of intersections, without regard
 			-- to the orientation of the contour. If the total number of
 			-- intersections is odd, the point will be filled.

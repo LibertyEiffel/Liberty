@@ -17,7 +17,7 @@ feature {} -- Representation
 
 feature {} -- Creation
 
-	setup is
+	setup
 		require
 			is_valid
 		once
@@ -25,7 +25,7 @@ feature {} -- Creation
 		end
 
 	make (flags: INTEGER; name, version: STRING;
-	      client_parms: XMLRPC_CLIENT_PARMS) is
+	      client_parms: XMLRPC_CLIENT_PARMS)
 			-- Current implementation ignores `client_parms' and uses a
 			-- null pointer instead.
 			
@@ -50,12 +50,12 @@ feature {} -- Creation
 
 feature {} -- Destruction
 
-	teardown is
+	teardown
 		once
 			xmlrpc_client_teardown_global_const
 		end
 
-	dispose is
+	dispose
 		do
 			teardown
 			xmlrpc_client_destroy (handle)
@@ -64,7 +64,7 @@ feature {} -- Destruction
 
 feature {ANY} -- Representation
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 		require
 			env /= Void
 			env.handle.is_not_null
@@ -75,7 +75,7 @@ feature {ANY} -- Representation
 feature {ANY} -- Operations
 
 	call (server_info: XMLRPC_SERVER_INFO; method_name: STRING;
-	      params: XMLRPC_VALUE_ARRAY): XMLRPC_VALUE is
+	      params: XMLRPC_VALUE_ARRAY): XMLRPC_VALUE
 		require
 			server_info /= Void
 			method_name /= Void
@@ -88,7 +88,7 @@ feature {ANY} -- Operations
 			create Result.from_external_pointer (res_ptr) -- XXX ver esto
 		end
 
-	default_transport: STRING is
+	default_transport: STRING
 		do
 			create Result.from_external (xmlrpc_client_get_default_transport (handle))
 		end

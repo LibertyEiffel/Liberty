@@ -33,27 +33,27 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_target_entry_get_target (handle: POINTER): POINTER is
+	gtk_target_entry_get_target (handle: POINTER): POINTER
 		external "C struct GtkTargetEntry get target use <gtk/gtk.h>"
 		end
 
-	gtk_target_entry_get_flags (handle: POINTER): INTEGER is
+	gtk_target_entry_get_flags (handle: POINTER): INTEGER
 		external "C struct GtkTargetEntry get flags use <gtk/gtk.h>"
 		end
 
-	gtk_target_entry_get_info (handle: POINTER): INTEGER is
+	gtk_target_entry_get_info (handle: POINTER): INTEGER
 		external "C struct GtkTargetEntry get info use <gtk/gtk.h>"
 		end
 
-	gtk_target_entry_set_target (handle, a_target: POINTER) is
+	gtk_target_entry_set_target (handle, a_target: POINTER)
 		external "C struct GtkTargetEntry set target use <gtk/gtk.h>"
 		end
 
-	gtk_target_entry_set_flags (handle: POINTER; some_flags: INTEGER) is
+	gtk_target_entry_set_flags (handle: POINTER; some_flags: INTEGER)
 		external "C struct GtkTargetEntry set flags use <gtk/gtk.h>"
 		end
 
-	gtk_target_entry_set_info (handle: POINTER; some_info: INTEGER) is
+	gtk_target_entry_set_info (handle: POINTER; some_info: INTEGER)
 		external "C struct GtkTargetEntry set info use <gtk/gtk.h>"
 		end
 

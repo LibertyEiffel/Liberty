@@ -24,7 +24,7 @@ deferred class HAS_FORWARD_STEPPER_PROPERTY
 inherit GTK_OBJECT 
 feature {ANY} -- TODO: The  "has-forward-stepper" style property
 
-	has_forward_stepper: BOOLEAN is
+	has_forward_stepper: BOOLEAN
 			-- Is the standard forward arrow button displayed?  Default
 			-- value: True
 		do
@@ -34,7 +34,7 @@ feature {ANY} -- TODO: The  "has-forward-stepper" style property
 feature {} -- Implementation
 	has_forward_stepper_property_property_name: STRING is "has-forward-stepper"
 
-	has_forward_stepper_pspec: G_PARAM_SPEC is
+	has_forward_stepper_pspec: G_PARAM_SPEC
 		require has_property (has_forward_stepper_property_property_name)
 		once
 			create Result.from_external_pointer

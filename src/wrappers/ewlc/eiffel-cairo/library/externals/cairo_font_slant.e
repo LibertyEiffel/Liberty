@@ -26,26 +26,26 @@ deferred class CAIRO_FONT_SLANT
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_font_slant (a_slant: INTEGER): BOOLEAN is
+	is_valid_font_slant (a_slant: INTEGER): BOOLEAN
 		do
 			Result := ((a_slant = cairo_font_slant_normal) or else
 						(a_slant = cairo_font_slant_italic) or else
 						(a_slant = cairo_font_slant_oblique))
 		end
 
-	cairo_font_slant_normal: INTEGER is
+	cairo_font_slant_normal: INTEGER
 			-- Upright font style
 		external "C macro use <pango.h>"
 		alias "CAIRO_FONT_SLANT_NORMAL"
 		end
 
-	cairo_font_slant_italic: INTEGER is
+	cairo_font_slant_italic: INTEGER
 			-- 	Italic font style
 		external "C macro use <pango.h>"
 		alias "CAIRO_FONT_SLANT_ITALIC"
 		end
 
-	cairo_font_slant_oblique: INTEGER is
+	cairo_font_slant_oblique: INTEGER
 			-- Oblique font style
 		external "C macro use <pango.h>"
 		alias "CAIRO_FONT_SLANT_OBLIQUE"

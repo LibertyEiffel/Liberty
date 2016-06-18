@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = div_by_zero_low_level)  or else
 				(a_value = inexact_low_level)  or else
@@ -19,69 +19,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_div_by_zero is
+	set_div_by_zero
 		do
 			value := div_by_zero_low_level
 		end
 
-	set_inexact is
+	set_inexact
 		do
 			value := inexact_low_level
 		end
 
-	set_invalid_op is
+	set_invalid_op
 		do
 			value := invalid_op_low_level
 		end
 
-	set_ok is
+	set_ok
 		do
 			value := ok_low_level
 		end
 
-	set_overflow is
+	set_overflow
 		do
 			value := overflow_low_level
 		end
 
-	set_underflow is
+	set_underflow
 		do
 			value := underflow_low_level
 		end
 
 feature {ANY} -- Queries
-	is_div_by_zero: BOOLEAN is
+	is_div_by_zero: BOOLEAN
 		do
 			Result := (value=div_by_zero_low_level)
 		end
 
-	is_inexact: BOOLEAN is
+	is_inexact: BOOLEAN
 		do
 			Result := (value=inexact_low_level)
 		end
 
-	is_invalid_op: BOOLEAN is
+	is_invalid_op: BOOLEAN
 		do
 			Result := (value=invalid_op_low_level)
 		end
 
-	is_ok: BOOLEAN is
+	is_ok: BOOLEAN
 		do
 			Result := (value=ok_low_level)
 		end
 
-	is_overflow: BOOLEAN is
+	is_overflow: BOOLEAN
 		do
 			Result := (value=overflow_low_level)
 		end
 
-	is_underflow: BOOLEAN is
+	is_underflow: BOOLEAN
 		do
 			Result := (value=underflow_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	div_by_zero_low_level: INTEGER is
+	div_by_zero_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inexact_low_level: INTEGER is
+	inexact_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_op_low_level: INTEGER is
+	invalid_op_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ok_low_level: INTEGER is
+	ok_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	overflow_low_level: INTEGER is
+	overflow_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	underflow_low_level: INTEGER is
+	underflow_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

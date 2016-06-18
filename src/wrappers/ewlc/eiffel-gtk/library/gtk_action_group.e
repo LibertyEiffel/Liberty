@@ -50,7 +50,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make (a_name: STRING) is
+	make (a_name: STRING)
 			-- Creates a new GtkActionGroup object. `a_name' is used as
 			-- the name of the action group and it is used when
 			-- associating keybindings with the actions.
@@ -59,7 +59,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} 
-	name: CONST_STRING is
+	name: CONST_STRING
 			-- the name of the action group.
 		do
 			create Result.from_external(gtk_action_group_get_name(handle))
@@ -657,72 +657,72 @@ feature {ANY} -- TODO: Signals
 
 	--   Since 2.4
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkActionGroup)"
 		end
 
 feature {} -- External calls
-	gtk_action_group_new (a_name: POINTER): POINTER is
+	gtk_action_group_new (a_name: POINTER): POINTER
 			-- GtkActionGroup* gtk_action_group_new (const gchar *name);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_get_name (an_action_group: POINTER): POINTER is
+	gtk_action_group_get_name (an_action_group: POINTER): POINTER
 			-- const gchar* gtk_action_group_get_name (GtkActionGroup
 			-- *action_group);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_get_sensitive (an_action_group: POINTER): INTEGER is
+	gtk_action_group_get_sensitive (an_action_group: POINTER): INTEGER
 			-- gboolean gtk_action_group_get_sensitive (GtkActionGroup
 			-- *action_group);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_set_sensitive (an_action_group: POINTER; a_sensitive: INTEGER) is
+	gtk_action_group_set_sensitive (an_action_group: POINTER; a_sensitive: INTEGER)
 			-- void gtk_action_group_set_sensitive (GtkActionGroup
 			-- *action_group, gboolean sensitive);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_get_visible (an_action_group: POINTER): INTEGER is
+	gtk_action_group_get_visible (an_action_group: POINTER): INTEGER
 			-- gboolean gtk_action_group_get_visible (GtkActionGroup
 			-- *action_group);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_set_visible (an_action_group: POINTER; a_setting: INTEGER) is
+	gtk_action_group_set_visible (an_action_group: POINTER; a_setting: INTEGER)
 			-- void gtk_action_group_set_visible (GtkActionGroup
 			-- *action_group, gboolean visible);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_get_action (an_action_group, a_action_name: POINTER): POINTER is
+	gtk_action_group_get_action (an_action_group, a_action_name: POINTER): POINTER
 			-- GtkAction*  gtk_action_group_get_action (GtkActionGroup *action_group, const gchar *action_name);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_list_actions (an_action_group: POINTER): POINTER is
+	gtk_action_group_list_actions (an_action_group: POINTER): POINTER
 			-- GList* gtk_action_group_list_actions (GtkActionGroup
 			-- *action_group);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_add_action (an_action_group, an_action: POINTER) is
+	gtk_action_group_add_action (an_action_group, an_action: POINTER)
 			-- void gtk_action_group_add_action (GtkActionGroup
 			-- *action_group, GtkAction *action);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_add_action_with_accel (an_action_group, an_action, an_accelerator: POINTER) is
+	gtk_action_group_add_action_with_accel (an_action_group, an_action, an_accelerator: POINTER)
 			-- void gtk_action_group_add_action_with_accel
 			-- (GtkActionGroup *action_group, GtkAction *action, const
 			-- gchar *accelerator);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_remove_action (an_action_group, an_action: POINTER) is
+	gtk_action_group_remove_action (an_action_group, an_action: POINTER)
 			-- void gtk_action_group_remove_action (GtkActionGroup
 			-- *action_group, GtkAction *action);
 		external "C use <gtk/gtk.h>"
@@ -730,7 +730,7 @@ feature {} -- External calls
 
 	--             GtkActionEntry;
 	
-	gtk_action_group_add_actions (an_action_group, some_entries: POINTER; guint_n_entries: INTEGER; user_data: POINTER) is
+	gtk_action_group_add_actions (an_action_group, some_entries: POINTER; guint_n_entries: INTEGER; user_data: POINTER)
 			-- void gtk_action_group_add_actions (GtkActionGroup
 			-- *action_group, const GtkActionEntry *entries, guint
 			-- n_entries, gpointer user_data);
@@ -739,7 +739,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_action_group_add_actions_full (an_action_group, some_entries: POINTE; guint_n_entries: INTEGER; user_data, gdestroynotify: POINTER) is
+	gtk_action_group_add_actions_full (an_action_group, some_entries: POINTE; guint_n_entries: INTEGER; user_data, gdestroynotify: POINTER)
 			-- void gtk_action_group_add_actions_full (GtkActionGroup
 			-- *action_group, const GtkActionEntry *entries, guint
 			-- n_entries, gpointer user_data, GDestroyNotify destroy);
@@ -750,7 +750,7 @@ feature {} -- External calls
 
 	--             GtkToggleActionEntry;
 
-	gtk_action_group_add_toggle_actions (an_action_group, some_entrires: POINTER; guint_n_entries: INTEGER; user_data: POINTER) is
+	gtk_action_group_add_toggle_actions (an_action_group, some_entrires: POINTER; guint_n_entries: INTEGER; user_data: POINTER)
 			-- void gtk_action_group_add_toggle_actions (GtkActionGroup
 			-- *action_group, const GtkToggleActionEntry *entries, guint
 			-- n_entries, gpointer user_data);
@@ -759,7 +759,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_action_group_add_toggle_actions_full (an_action_group, some_entries: POINTER; guint_n_entries: INTEGER; user_data, gdestroynotify: POINTER) is
+	gtk_action_group_add_toggle_actions_full (an_action_group, some_entries: POINTER; guint_n_entries: INTEGER; user_data, gdestroynotify: POINTER)
 			-- void gtk_action_group_add_toggle_actions_full
 			-- (GtkActionGroup *action_group, const GtkToggleActionEntry
 			-- *entries, guint n_entries, gpointer user_data,
@@ -771,7 +771,7 @@ feature {} -- External calls
 
 	-- GtkRadioActionEntry;
 	
-	gtk_action_group_add_radio_actions (an_action_group, some_entries: POINTER; guint_n_entries, a_value: INTEGER; on_change_gcallback, user_data: POINTER) is
+	gtk_action_group_add_radio_actions (an_action_group, some_entries: POINTER; guint_n_entries, a_value: INTEGER; on_change_gcallback, user_data: POINTER)
 			-- void gtk_action_group_add_radio_actions (GtkActionGroup
 			-- *action_group, const GtkRadioActionEntry *entries, guint
 			-- n_entries, gint value, GCallback on_change, gpointer
@@ -781,7 +781,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_action_group_add_radio_actions_full (an_action_group, some_entries: POINTER; guint_n_entries, a_value: INTEGER; on_change_gcallback, user_data, gdestroynotify: POINTER) is
+	gtk_action_group_add_radio_actions_full (an_action_group, some_entries: POINTER; guint_n_entries, a_value: INTEGER; on_change_gcallback, user_data, gdestroynotify: POINTER)
 			-- void gtk_action_group_add_radio_actions_full
 			-- (GtkActionGroup *action_group, const GtkRadioActionEntry
 			-- *entries, guint n_entries, gint value, GCallback
@@ -791,20 +791,20 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_set_translate_func (an_action_group, a_gtktranslatefunc, some_data, a_gtkdestroynotify: POINTER) is
+	gtk_action_group_set_translate_func (an_action_group, a_gtktranslatefunc, some_data, a_gtkdestroynotify: POINTER)
 			-- void gtk_action_group_set_translate_func (GtkActionGroup
 			-- *action_group, GtkTranslateFunc func, gpointer data,
 			-- GtkDestroyNotify notify);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_action_group_set_translation_domain (an_action_group, a_domain: POINTER) is
+	gtk_action_group_set_translation_domain (an_action_group, a_domain: POINTER)
 			-- void gtk_action_group_set_translation_domain
 			-- (GtkActionGroup *action_group, const gchar *domain);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_action_group_translate_string (an_action_group, a_string: POINTER): POINTER is
+	gtk_action_group_translate_string (an_action_group, a_string: POINTER): POINTER
 			-- const gchar* gtk_action_group_translate_string
 			-- (GtkActionGroup *action_group, const gchar *string);
 		external "C use <gtk/gtk.h>"

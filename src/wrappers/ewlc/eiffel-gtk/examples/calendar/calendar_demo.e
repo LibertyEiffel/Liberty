@@ -9,7 +9,7 @@ insert
 
 create {ANY} make
 feature {ANY}
-	make is
+	make
 		do
 			gtk.initialize -- instead of "initialize_gtk"
 			build
@@ -21,7 +21,7 @@ feature {ANY}
 	calendar: GTK_CALENDAR
 	window_title: STRING is "Calendar demo"
 
-	build is
+	build
 		do
 			create window.make
 			create calendar.make
@@ -31,7 +31,7 @@ feature {ANY}
 			window.connect_to_destroy_signal(agent on_quit)
 		end
 
-	on_quit(a_widget: GTK_OBJECT) is
+	on_quit(a_widget: GTK_OBJECT)
 		do
 			print ("Choosen date is "+calendar.date.to_string+"%N")
 			gtk.quit

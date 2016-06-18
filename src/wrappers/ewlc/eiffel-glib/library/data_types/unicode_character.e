@@ -52,13 +52,13 @@ insert
 feature {ANY} -- Code	
 	code: INTEGER 
 
-	set_code (a_code: INTEGER) is
+	set_code (a_code: INTEGER)
 		do
 			code := a_code
 		end
 
 feature {ANY} 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 			-- Is Current a valid Unicode character? Some possible
 			-- integer values of Current will not be valid. 0 is
 			-- considered a valid character, though it's normally a
@@ -67,19 +67,19 @@ feature {ANY}
 			Result:=g_unichar_validate(code).to_boolean
 		end
 
-	is_alphanumeric: BOOLEAN is
+	is_alphanumeric: BOOLEAN
 			-- Is Current character alphanumeric?
 		do
 			Result:=g_unichar_isalnum(code).to_boolean
 		end
 
-	is_alphabetic: BOOLEAN is
+	is_alphabetic: BOOLEAN
 			-- Is Current an alphabetic character (i.e.: a letter)?
 		do
 			Result:=g_unichar_isalpha(code).to_boolean
 		end
 
-	is_control: BOOLEAN is
+	is_control: BOOLEAN
 			-- Is Current a control character?
 		
 		do
@@ -87,14 +87,14 @@ feature {ANY}
 		end
 
 
-	is_digit: BOOLEAN is
+	is_digit: BOOLEAN
 			-- Is Current a digit? This covers ASCII 0-9 and also digits in other
 			-- languages/scripts. 
 		do
 			Result:=g_unichar_isdigit(code).to_boolean
 		end
 
-	is_graph: BOOLEAN is
+	is_graph: BOOLEAN
 			-- Is Current a character printable and not a space? It is False for
 			-- control characters, format characters, and spaces. `is_print' is
 			-- similar, but returns TRUE for spaces.
@@ -102,27 +102,27 @@ feature {ANY}
 			Result:=g_unichar_isgraph(code).to_boolean
 		end
 
-	is_lowercase: BOOLEAN is
+	is_lowercase: BOOLEAN
 			-- Is Current a lowercase letter?
 		do
 			Result:=g_unichar_islower(code).to_boolean
 		end
 
-	is_printable: BOOLEAN is
+	is_printable: BOOLEAN
 			-- Is Current printable? Unlike `is_graph', it is True for
 			-- spaces.
 		do
 			Result:=g_unichar_isprint(code).to_boolean
 		end
 
-	is_punctuation: BOOLEAN is
+	is_punctuation: BOOLEAN
 			-- Is Current a punctuation or symbol character?
 		do
 			Result:=g_unichar_ispunct(code).to_boolean
 		end
 
 
-	is_space: BOOLEAN is
+	is_space: BOOLEAN
 			-- Is Current character a space, tab, or line separator
 			-- (newline, carriage return, etc.)?
 
@@ -136,19 +136,19 @@ feature {ANY}
 			Result:=g_unichar_isspace(code).to_boolean
 		end
 
-	is_upper: BOOLEAN is
+	is_upper: BOOLEAN
 			-- Is Current an uppercase character?
 		do
 			Result:=g_unichar_isupper(code).to_boolean
 		end
 	
-	is_hexidecimal_digit: BOOLEAN is
+	is_hexidecimal_digit: BOOLEAN
 		-- Is Current character a hexadecimal digit?
 		do
 			Result:=g_unichar_isxdigit(code).to_boolean
 		end
 
-	is_title: BOOLEAN is
+	is_title: BOOLEAN
 			-- Is Current character a titlecase? Some characters in
 			-- Unicode which are composites, such as the DZ digraph have
 			-- three case variants instead of just two.  The titlecase
@@ -161,7 +161,7 @@ feature {ANY}
 		end
 	
 
-	is_defined: BOOLEAN is
+	is_defined: BOOLEAN
 			-- Does `code' have a assigned character in the Unicode
 			-- standard?		
 		do
@@ -255,7 +255,7 @@ feature {ANY}
 
 --    ---------------------------------------------------------------------------------
 
-	type: INTEGER is
+	type: INTEGER
 			-- the type of the character. See
 			-- http://www.unicode.org/Public/UNIDATA/UnicodeData.html.
 		do

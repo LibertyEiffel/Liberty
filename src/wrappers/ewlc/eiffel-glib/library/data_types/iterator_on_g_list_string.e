@@ -29,7 +29,7 @@ insert
 create {ANY} make
 	
 feature {} -- Creation
-	make (a_list: G_LIST_STRING) is
+	make (a_list: G_LIST_STRING)
 		require valid_list: a_list/=Void
 		do
 			list := a_list
@@ -40,17 +40,17 @@ feature {} -- Implementation
 	current_element: POINTER
 
 feature {ANY} -- Iterator's features
-	start is
+	start
 		do
 			current_element := list.handle
 		end
 	
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result:=(current_element.is_null)
 		end
 	
-	item: STRING is
+	item: STRING
 		local cstr: POINTER
 		do
 			cstr := g_slist_get_data(current_element)
@@ -60,7 +60,7 @@ feature {ANY} -- Iterator's features
 		ensure result_not_void: Result /= Void
 		end
 	
-	next is
+	next
 		do
 			current_element := g_slist_get_next (current_element)
 		end

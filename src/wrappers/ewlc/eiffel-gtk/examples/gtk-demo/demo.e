@@ -23,12 +23,12 @@ deferred class DEMO
 inherit GTK_CONTAINER 
 
 feature {ANY} 
-	name: STRING is 
+	name: STRING
 			-- Demo name
 		deferred 
 		end
 
-	description: STRING is
+	description: STRING
 			-- Demo description
 		deferred
 		end
@@ -36,7 +36,7 @@ feature {ANY}
 	source_code: STRING 
 			-- Demo source code, loaded at runtime
 	
-	filename: STRING is 
+	filename: STRING
 			-- Filename where the sourcecode is stored.
 		deferred 
 		end 
@@ -44,7 +44,7 @@ feature {ANY}
 	subdemos: COLLECTION [DEMO] 
 			-- Eventual sub-demos
 
-	has_children, has_subdemos: BOOLEAN is
+	has_children, has_subdemos: BOOLEAN
 		do
 			Result := subdemos /= Void
 		end
@@ -52,7 +52,7 @@ feature {ANY}
 	--window: GTK_WINDOW
 
 feature {}
-	load_source_code is
+	load_source_code
 		local file: TEXT_FILE_READ
 		do
 			create file.connect_to (filename)

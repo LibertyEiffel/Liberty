@@ -51,7 +51,7 @@ create {ANY} make, from_external_pointer
 create {ANY} make
 
 feature {ANY} -- Creation
-	make (a_title: STRING) is
+	make (a_title: STRING)
 			-- Creates a new GtkFontSelectionDialog.
 		require
 			gtk_initialized: gtk.is_initialized
@@ -62,7 +62,7 @@ feature {ANY} -- Creation
 
 feature {ANY}
 
-	font_name: STRING is
+	font_name: STRING
 			-- Gets the currently-selected font name. Note that this can be a
 			-- different string than what you set with `set_font_name', as the
 			-- font selection widget may normalize font names and thus return
@@ -80,33 +80,33 @@ feature {ANY}
 			end
 		end
 
-	set_preview_text (text: STRING) is
+	set_preview_text (text: STRING)
 			-- Sets the text displayed in the preview area
 		do
 			gtk_font_selection_dialog_set_preview_text (handle, text.to_external)
 		end
 
-	set_font_name (fontname: STRING): BOOLEAN is
+	set_font_name (fontname: STRING): BOOLEAN
 			-- Sets the currently-selected font.
 			-- Returns : True if the font was found.
 		do
 			Result := gtk_font_selection_dialog_set_font_name (handle, fontname.to_external).to_boolean
 		end
 
-	preview_text: STRING is
+	preview_text: STRING
 			-- the text displayed in the preview area.
 		do
 			create Result.from_external_copy (gtk_font_selection_dialog_get_preview_text (handle))
 		end
 
-	ok_button: GTK_WIDGET is
+	ok_button: GTK_WIDGET
 			--	The OK button of the dialog
 		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
 		do
 			Result := factory.wrapper (get_ok_button(handle))
 		end
 
-	apply_button: GTK_WIDGET is
+	apply_button: GTK_WIDGET
 			-- The Apply button of the dialog. This button is hidden by default
 			-- but you can show/hide it
 		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
@@ -114,7 +114,7 @@ feature {ANY}
 			Result := factory.wrapper (get_apply_button(handle))
 		end
 	
-	cancel_button: GTK_WIDGET is
+	cancel_button: GTK_WIDGET
 			-- The Cancel button of the dialog
 		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
 		do
@@ -129,21 +129,21 @@ feature {} -- GtkFontSelectionDialog struct
 --   GtkWidget *cancel_button;
 -- } GtkFontSelectionDialog;
 
-	get_ok_button (a_struct: POINTER): POINTER is
+	get_ok_button (a_struct: POINTER): POINTER
 		external "C struct GtkFontSelectionDialog get ok_button use <gtk/gtk.h>"
 		end
 	
-	get_apply_button (a_struct: POINTER): POINTER is
+	get_apply_button (a_struct: POINTER): POINTER
 		external "C struct GtkFontSelectionDialog get apply_button use <gtk/gtk.h>"
 		end
 	
-	get_cancel_button (a_struct: POINTER): POINTER is
+	get_cancel_button (a_struct: POINTER): POINTER
 		external "C struct GtkFontSelectionDialog get cancel_button use <gtk/gtk.h>"
 		end
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof (GtkFontSelectionDialog)"
 		end

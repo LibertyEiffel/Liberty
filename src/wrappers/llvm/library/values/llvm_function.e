@@ -54,7 +54,7 @@ create {ANY} make
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {} -- Creation
-	make (a_return_type: LLVM_TYPE; some_parameters: WRAPPER_COLLECTION[LLVM_TYPE]) is
+	make (a_return_type: LLVM_TYPE; some_parameters: WRAPPER_COLLECTION[LLVM_TYPE])
     local some_wrappers: WRAPPER_COLLECTION[LLVM_TYPE]
 	do
 		from_external_pointer
@@ -67,12 +67,12 @@ feature {} -- Creation
 	end
 
 feature {ANY} -- Calling convention
-	calling_convention: LLVMCALL_CONV_ENUM is
+	calling_convention: LLVMCALL_CONV_ENUM
 		do
 			Result.change_value(llvmget_function_call_conv(handle).to_integer_32)
 		end
 			
-	set_calling_convention (a_calling_convention: LLVMCALL_CONV_ENUM) is
+	set_calling_convention (a_calling_convention: LLVMCALL_CONV_ENUM)
 		-- Set calling convention
 	do
 		llvmset_function_call_conv(handle, a_calling_convention.value.to_natural_32)	
@@ -89,7 +89,7 @@ feature {ANY} -- Iterating over blocks
 	-- some blocks; there is not efficient way to monitor changes standing my
 	-- insufficient current knowledge of LLVM. Paolo 2009-10-20.
 
-	first: LLVM_BASIC_BLOCK is 
+	first: LLVM_BASIC_BLOCK
 		-- The first block
 	local p: POINTER
 	do
@@ -99,7 +99,7 @@ feature {ANY} -- Iterating over blocks
 		end
 	end
 	
-	last: LLVM_BASIC_BLOCK is
+	last: LLVM_BASIC_BLOCK
 		-- The last block
 	local p: POINTER
 	do
@@ -109,7 +109,7 @@ feature {ANY} -- Iterating over blocks
 		end
 	end
 	
-	basic_blocks_count: NATURAL_32 is
+	basic_blocks_count: NATURAL_32
 		do
 			Result := llvmcount_basic_blocks(handle)
 		end
@@ -121,14 +121,14 @@ feature {ANY} -- Iterating over blocks
 	-- added anytime. To implement this feature we shall directly access C++
 	-- API.
 
-	new_block_iterator: ITERATOR_OVER_BASIC_BLOCKS is
+	new_block_iterator: ITERATOR_OVER_BASIC_BLOCKS
 		-- A new iterator over blocks composing the function.
 	do
 		create Result.from_function(Current)
 	ensure Result/=Void
 	end
 	
-	entry_basic_block: LLVM_BASIC_BLOCK is
+	entry_basic_block: LLVM_BASIC_BLOCK
 		-- Entry block of function
 	local p: POINTER
 	do
@@ -139,25 +139,25 @@ feature {ANY} -- Iterating over blocks
 	end
 
 feature {ANY} -- Parameters
-	parameters_count: INTEGER is
+	parameters_count: INTEGER
 		-- The number of parameters. TODO: should be NATURAL
 		do
 			Result:=llvmcount_params(handle).to_integer_32
 		end
 
-	is_parameterless: BOOLEAN is do Result:=(parameters_count=0) end
+	is_parameterless: BOOLEAN do Result:=(parameters_count=0) end
 
 	-- Note: "void LLVMGetParams(LLVMValueRef Fn,
 	-- LLVMValueRef *Params);" will not be wrapped because
 	-- the C interface doe not allow an efficient
 	-- implementation see the note about basic blocks.
 
-	is_valid_parameter_index (an_index: INTEGER): BOOLEAN is
+	is_valid_parameter_index (an_index: INTEGER): BOOLEAN
 		do
 			Result := an_index.in_range(0, parameters_count)
 		end
 
-	parameter (an_index: INTEGER): LLVM_VALUE is
+	parameter (an_index: INTEGER): LLVM_VALUE
 		-- The parameter at `an_index'
 		-- TODO: `an_index' should be a NATURAL_32 as in C it's an unsigned. 
 		require is_valid_parameter_index(an_index)
@@ -171,7 +171,7 @@ feature {ANY} -- Parameters
 		ensure Result/=Void
 		end
 	
-	new_parameter_iterator: ITERATOR_OVER_FUNCTION_PARAMETERS is
+	new_parameter_iterator: ITERATOR_OVER_FUNCTION_PARAMETERS
 		-- A newly allocated iterator over Current function's parameters.
 		do
 			create Result.from_function(Current)
@@ -186,7 +186,7 @@ feature {ANY} -- Parameters
 -- void LLVMSetParamAlignment(LLVMValueRef Arg, unsigned align);
 
 feature {ANY} -- Deleting
-	delete is
+	delete
 		-- Delete Current function. 
 	do
 		llvmdelete_function(handle)
@@ -195,37 +195,37 @@ feature {ANY} -- Deleting
 		unusable: is_deleted
 	end
 
-	is_deleted: BOOLEAN is
+	is_deleted: BOOLEAN
 		-- Has Current function already been deleted?
 	do
 		Result:=handle.is_null
 	end
 feature {ANY} -- Miscellaneous
-	intrinsic_id: NATURAL_32 is
+	intrinsic_id: NATURAL_32
 		do
 			Result:=llvmget_intrinsic_id(handle)
 		end
 
-	gc: FIXED_STRING is
+	gc: FIXED_STRING
 		-- wraps LLVMGetGC. TODO: provide a better name and description
 		do
 			create Result.from_external(llvmget_gc(handle))
 		ensure Result/=Void
 		end
 
-	set_gc (a_name: ABSTRACT_STRING) is
+	set_gc (a_name: ABSTRACT_STRING)
 		-- wraps LLVMSetGC. TODO: provide better name and description
 	do
 		llvmset_gc(handle,a_name.to_external)
 	ensure set: a_name.is_equal(gc)
 	end
 
-	add_attribute (an_attribute: LLVMATTRIBUTE_ENUM) is
+	add_attribute (an_attribute: LLVMATTRIBUTE_ENUM)
 	do
 		llvmadd_function_attr(handle,an_attribute.value)
 	end
 
-	remove_attribute (an_attribute: LLVMATTRIBUTE_ENUM) is
+	remove_attribute (an_attribute: LLVMATTRIBUTE_ENUM)
 	do
 		llvmremove_function_attr(handle,an_attribute.value)
 	end

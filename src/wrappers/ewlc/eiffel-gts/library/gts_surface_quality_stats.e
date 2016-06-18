@@ -28,7 +28,7 @@ insert GTS_SURFACE_QUALITY_STATS_STRUCT
 create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 		do
 			allocate
 		end

@@ -6,7 +6,7 @@ insert
 	CORE_EXTERNALS 
 	EXCEPTIONS undefine copy, is_equal end
 feature {ANY} 
-	wrapper (p: POINTER): LLVM_INSTRUCTION is
+	wrapper (p: POINTER): LLVM_INSTRUCTION
 		do
 			not_yet_implemented -- The implementation will follow LLVM_VALUE_FACTORY style
 		end

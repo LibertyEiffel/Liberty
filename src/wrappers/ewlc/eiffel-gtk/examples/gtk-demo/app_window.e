@@ -42,7 +42,7 @@ feature {ANY}
 	title_string: STRING is "Application Window"
 
 feature {ANY} -- Creation
-	make is
+	make
 			-- local
 			-- table, statusbar, contents, sw, bar: GTK_WIDGET;
 			-- buffer: GTK_TEXT_BUFFER;
@@ -208,7 +208,7 @@ feature {ANY} -- Creation
 	
 feature {ANY} -- Actions
 
-	activate_action (an_action: GTK_ACTION) is
+	activate_action (an_action: GTK_ACTION)
 		local dialog: GTK_WIDGET
 		do
 			create {GTK_MESSAGE_DIALOG} dialog.make 
@@ -224,7 +224,7 @@ feature {ANY} -- Actions
 			dialog.show
 		end
 
-	activate_radio_action (an_action: GTK_ACTION; a_radio_action: GTK_RADIO_ACTION) is
+	activate_radio_action (an_action: GTK_ACTION; a_radio_action: GTK_RADIO_ACTION)
 		local 
 			dialog: GTK_WIDGET
 		do
@@ -475,7 +475,7 @@ feature {ANY} -- Actions
 -- "  </toolbar>"
 -- "</ui>";
 
-	register_stock_icons is
+	register_stock_icons
 		-- Registers our custom toolbar icons, so they can be themed.
 		-- It's totally optional to do this, you could just manually
 		-- insert icons and have them not be themeable, especially if

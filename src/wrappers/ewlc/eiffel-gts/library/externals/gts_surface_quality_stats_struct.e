@@ -29,7 +29,7 @@ feature {} -- Structure getter/setter calls
 -- 		end
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsSurfaceQualityStats)"
 		end

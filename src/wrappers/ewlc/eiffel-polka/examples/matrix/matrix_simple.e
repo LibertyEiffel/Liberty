@@ -29,7 +29,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 		local
 			mat: POLKA_MATRIX
 			pk: PKINT

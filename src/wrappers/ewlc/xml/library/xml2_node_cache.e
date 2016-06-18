@@ -8,12 +8,12 @@ inherit
 		redefine default_create end
 
 feature {ANY} 	
-	default_create is
+	default_create
 		do
 			create wrappers.make
 		end
 	
-	wrapper (a_pointer: POINTER): XML2_NODE is
+	wrapper (a_pointer: POINTER): XML2_NODE
 		-- XML2_NODE wrapper for `a_pointer'
 	do
 		Result:=wrappers.reference_at(a_pointer)

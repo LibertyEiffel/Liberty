@@ -17,7 +17,7 @@ inherit
 create {ANY} make, in_context, from_external_pointer
 
 feature {ANY} -- Creation
-   make (some_elements: COLLECTION[LLVM_TYPE]; packed: BOOLEAN) is
+   make (some_elements: COLLECTION[LLVM_TYPE]; packed: BOOLEAN)
       require
          some_elements/=Void
          not some_elements.is_empty
@@ -26,7 +26,7 @@ feature {ANY} -- Creation
          refresh_storage
       end
 
-   in_context (a_context: LLVM_CONTEXT; some_elements: COLLECTION[LLVM_TYPE]; packed: BOOLEAN) is
+   in_context (a_context: LLVM_CONTEXT; some_elements: COLLECTION[LLVM_TYPE]; packed: BOOLEAN)
       require
          a_context/=Void
          some_elements/=Void
@@ -36,20 +36,20 @@ feature {ANY} -- Creation
          refresh_storage
       end
 
-   copy (another: like Current) is
+   copy (another: like Current)
       do
          handle:=another.handle
          refresh_storage
       end
 
 feature {ANY} -- Packing
-   is_packed: BOOLEAN is
+   is_packed: BOOLEAN
       do
          Result:=llvmis_packed_struct(handle).to_boolean
       end
 feature {ANY} -- Element access
    elements_count: INTEGER_32
-   element (an_index: INTEGER_32): LLVM_TYPE is
+   element (an_index: INTEGER_32): LLVM_TYPE
       require valid_index: an_index.in_range(0,elements_count-1)
       do
          Result:=type_wrapper(storage.item(an_index))
@@ -59,7 +59,7 @@ feature {} -- Implementation
    storage: NATIVE_ARRAY[POINTER]
          -- The addresses of Current's elements
 
-   refresh_storage is
+   refresh_storage
          -- Initialize `storage' with the field types of the structure
       do
          elements_count := llvmcount_struct_element_types(handle).to_integer_32

@@ -24,7 +24,7 @@ deferred class G_LOG_LEVEL_FLAGS_ENUM
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	are_valid_log_level_flags (some_flags :INTEGER): BOOLEAN is
+	are_valid_log_level_flags (some_flags :INTEGER): BOOLEAN
 		do	
 			Result:=(some_flags & (g_log_flag_recursion |
 										  g_log_flag_fatal |
@@ -37,59 +37,59 @@ feature {ANY}  -- enum
 										  g_log_level_mask)).to_boolean
 		end
 	
-	g_log_flag_recursion: INTEGER is
+	g_log_flag_recursion: INTEGER
 		external "C macro use <glib.h>"
 		alias "G_LOG_FLAG_RECURSION"
 		end
 
-	g_log_flag_fatal: INTEGER is
+	g_log_flag_fatal: INTEGER
 		external "C macro use <glib.h>"
 		alias "G_LOG_FLAG_FATAL"
 		end
 
-	g_log_level_error: INTEGER is
+	g_log_level_error: INTEGER
 		external "C macro use <glib.h>"
 		alias "G_LOG_LEVEL_ERROR"
 		end
 
-	g_log_level_critical: INTEGER is
+	g_log_level_critical: INTEGER
 		external "C macro use <glib.h>"
 		alias "G_LOG_LEVEL_CRITICAL"
 		end
 
-	g_log_level_warning: INTEGER is
+	g_log_level_warning: INTEGER
 		external "C macro use <glib.h>"
 		alias "G_LOG_LEVEL_WARNING"
 		end
 
-	g_log_level_message: INTEGER is
+	g_log_level_message: INTEGER
 		external "C macro use <glib.h>"
 		alias "G_LOG_LEVEL_MESSAGE"
 		end
 
-	g_log_level_info: INTEGER is
+	g_log_level_info: INTEGER
 		external "C macro use <glib.h>"
 		alias "G_LOG_LEVEL_INFO"
 		end
 
-	g_log_level_debug: INTEGER is
+	g_log_level_debug: INTEGER
 		external "C macro use <glib.h>"
 		alias "G_LOG_LEVEL_DEBUG"
 		end
 
-	g_log_level_mask: INTEGER is
+	g_log_level_mask: INTEGER
 			-- GLib log levels that are considered fatal by default.
 		external "C macro use <glib.h>"
 		alias "G_LOG_LEVEL_MASK"
 		end
 
-	g_log_fatal_mask: INTEGER is
+	g_log_fatal_mask: INTEGER
 			-- #define G_LOG_FATAL_MASK
 		external "C macro use <glib.h>"
 		alias "G_LOG_FATAL_MASK"
 		end
 
-	g_log_level_user_shift: INTEGER is
+	g_log_level_user_shift: INTEGER
 			-- #define G_LOG_LEVEL_USER_SHIFT
 		external "C macro use <glib.h>"
 		alias "G_LOG_LEVEL_USER_SHIFT"

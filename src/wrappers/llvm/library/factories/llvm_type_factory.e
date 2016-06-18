@@ -14,7 +14,7 @@ insert
 feature {WRAPPER, WRAPPER_HANDLER}
    type_wrappers: HASHED_DICTIONARY [LLVM_TYPE, POINTER] is once create Result.make end
 
-   type_wrapper (a_pointer: POINTER): LLVM_TYPE is
+   type_wrapper (a_pointer: POINTER): LLVM_TYPE
          -- The LLVM_TYPE for `a_pointer' of the fittest type.
       local a_type: LLVMTYPE_KIND_ENUM
       do

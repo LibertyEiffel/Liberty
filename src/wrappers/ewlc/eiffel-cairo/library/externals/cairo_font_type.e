@@ -55,7 +55,7 @@ deferred class CAIRO_FONT_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_font_type (a_type: INTEGER): BOOLEAN is
+	is_valid_font_type (a_type: INTEGER): BOOLEAN
 		do
 			Result := ((a_type = cairo_font_type_toy) or else
 						(a_type = cairo_font_type_ft) or else
@@ -63,25 +63,25 @@ feature {ANY}  -- enum
 						(a_type = cairo_font_type_atsui))
 		end
 
-	cairo_font_type_toy: INTEGER is
+	cairo_font_type_toy: INTEGER
 			-- The font was created using cairo's toy font api
 		external "C macro use <cairo.h>"
 		alias "CAIRO_FONT_TYPE_TOY"
 		end
 
-	cairo_font_type_ft: INTEGER is
+	cairo_font_type_ft: INTEGER
 			-- The font is of type FreeType
 		external "C macro use <cairo.h>"
 		alias "CAIRO_FONT_TYPE_FT"
 		end
 
-	cairo_font_type_win32: INTEGER is
+	cairo_font_type_win32: INTEGER
 			-- The font is of type Win32
 		external "C macro use <cairo.h>"
 		alias "CAIRO_FONT_TYPE_WIN32"
 		end
 
-	cairo_font_type_atsui: INTEGER is
+	cairo_font_type_atsui: INTEGER
 			-- The font is of type ATSUI
 		external "C macro use <cairo.h>"
 		alias "CAIRO_FONT_TYPE_ATSUI"

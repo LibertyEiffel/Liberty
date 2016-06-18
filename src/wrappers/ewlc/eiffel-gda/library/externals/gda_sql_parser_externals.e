@@ -8,35 +8,35 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_sql_parser_set_overflow_error (a_parser: POINTER) is
+	gda_sql_parser_set_overflow_error (a_parser: POINTER)
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_sql_parser_set_syntax_error (a_parser: POINTER) is
+	gda_sql_parser_set_syntax_error (a_parser: POINTER)
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_sql_parser_parse_file_as_batch (a_parser: POINTER; a_filename: POINTER; an_error: POINTER): POINTER is
+	gda_sql_parser_parse_file_as_batch (a_parser: POINTER; a_filename: POINTER; an_error: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_sql_parser_parse_string_as_batch (a_parser: POINTER; a_sql: POINTER; a_remain: POINTER; an_error: POINTER): POINTER is
+	gda_sql_parser_parse_string_as_batch (a_parser: POINTER; a_sql: POINTER; a_remain: POINTER; an_error: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_sql_parser_parse_string (a_parser: POINTER; a_sql: POINTER; a_remain: POINTER; an_error: POINTER): POINTER is
+	gda_sql_parser_parse_string (a_parser: POINTER; a_sql: POINTER; a_remain: POINTER; an_error: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_sql_parser_new: POINTER is
+	gda_sql_parser_new: POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_sql_parser_get_type: INTEGER_32 is
+	gda_sql_parser_get_type: INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_sql_parser_error_quark: INTEGER_32 is
+	gda_sql_parser_error_quark: INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 

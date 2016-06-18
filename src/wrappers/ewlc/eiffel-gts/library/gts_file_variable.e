@@ -30,42 +30,42 @@ insert
 create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 		do
 			allocate
 		end
 	
 feature {ANY} 
-	type: INTEGER is
+	type: INTEGER
 		do
 			Result:=get_type(handle)
 		ensure is_valid_token(Result)
 		end
 
-	name: STRING is
+	name: STRING
 		do
 			create {CONST_STRING} Result.from_external(get_name(handle))
 		end
 
-	is_unique: BOOLEAN is
+	is_unique: BOOLEAN
 		do
 			Result:=get_unique(handle).to_boolean
 		end
 	
 	-- TODO: wrap "gpointer data" if meaningful
 
-	is_set: BOOLEAN is
+	is_set: BOOLEAN
 		do
 			Result:=get_set(handle).to_boolean
 		end
 
-	line: INTEGER is
+	line: INTEGER
 			-- TODO: should be NATURAL
 		do
 			Result:=get_line(handle)
 		end
 
-	position: INTEGER is
+	position: INTEGER
 			-- TODO: should be NATURAL
 		do
 			Result:=get_pos(handle)

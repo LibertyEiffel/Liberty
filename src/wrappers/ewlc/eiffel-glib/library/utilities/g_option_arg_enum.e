@@ -29,7 +29,7 @@ deferred class G_OPTION_ARG_ENUM
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_option_arg (an_arg: INTEGER): BOOLEAN is
+	is_valid_option_arg (an_arg: INTEGER): BOOLEAN
 		do	
 			Result:=((an_arg = g_option_arg_none) or else
 						(an_arg = g_option_arg_string) or else
@@ -42,51 +42,51 @@ feature {} -- enum
 						(an_arg = g_option_arg_int64))
 		end
 
-   g_option_arg_none: INTEGER is
+   g_option_arg_none: INTEGER
 			-- No extra argument. This is useful for simple flags.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_ARG_NONE"
 		end
 
-   g_option_arg_string: INTEGER is
+   g_option_arg_string: INTEGER
 			-- The option takes a string argument.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_ARG_STRING"
 		end
 
-   g_option_arg_int: INTEGER is
+   g_option_arg_int: INTEGER
 			-- The option takes an integer argument.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_ARG_INT"
 		end
 
-   g_option_arg_callback: INTEGER is
+   g_option_arg_callback: INTEGER
 			-- The option provides a callback to parse the ext
 		external "C macro use <glib.h>"
 		alias "G_OPTION_ARG_CALLBACK"
 		end
 
-   g_option_arg_filename: INTEGER is
+   g_option_arg_filename: INTEGER
 			-- The option takes a filename as argument.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_ARG_FILENAME"
 		end
 
-   g_option_arg_string_array: INTEGER is
+   g_option_arg_string_array: INTEGER
 			-- The option takes a string argument, multiple uses of the
 			-- option are collected into an array of strings.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_ARG_STRING_ARRAY"
 		end
 
-   g_option_arg_filename_array: INTEGER is
+   g_option_arg_filename_array: INTEGER
 			-- The option takes a filename as argument, multiple uses of
 			-- the option are collected into an array of strings.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_ARG_FILENAME_ARRAY"
 		end
 
-   g_option_arg_double: INTEGER is
+   g_option_arg_double: INTEGER
 			-- The option takes a double argument. The argument can be
 			-- formatted either for the user's locale or for the "C"
 			-- locale.
@@ -94,7 +94,7 @@ feature {} -- enum
 		alias "G_OPTION_ARG_DOUBLE"
 		end
 
-   g_option_arg_int64: INTEGER is
+   g_option_arg_int64: INTEGER
 			-- The option takes a 64-bit integer. Like `g_option_arg_int'
 			-- but for larger numbers. The number can be in decimal base,
 			-- or in hexadecimal (when prefixed with 0x, for example,

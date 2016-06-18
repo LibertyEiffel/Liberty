@@ -8,15 +8,15 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_handler_string_new_with_provider (a_prov: POINTER; a_cnc: POINTER): POINTER is
+	gda_handler_string_new_with_provider (a_prov: POINTER; a_cnc: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_handler_string_new: POINTER is
+	gda_handler_string_new: POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_handler_string_get_type: INTEGER_32 is
+	gda_handler_string_get_type: INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 

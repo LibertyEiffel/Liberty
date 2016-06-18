@@ -29,7 +29,7 @@ inherit GTK_WIDGET
 insert GTK_CONTAINER_EXTERNALS
 
 feature {ANY}
-	add (a_widget: GTK_WIDGET) is
+	add (a_widget: GTK_WIDGET)
 			-- Adds widget to container. Typically used for simple
 			-- containers such as GtkWindow, GtkFrame, or GtkButton; for
 			-- more complicated layout containers such as GtkBox or
@@ -45,7 +45,7 @@ feature {ANY}
 			gtk_container_add (handle, a_widget.handle)
 		end
 
-	remove (a_widget: GTK_WIDGET) is
+	remove (a_widget: GTK_WIDGET)
 			-- Removes widget from container. widget must be inside
 			-- container. Note that container will own a reference to
 			-- widget, and that this may be the last reference held; so
@@ -79,25 +79,25 @@ feature {ANY}
 	-- first_prop_name : 	the name of the first child property to set
 	-- ... : 	a NULL-terminated list of property names and values, starting with first_prop_name.
 
-	resize_mode: INTEGER is
+	resize_mode: INTEGER
 			-- the resize mode for the container. See set_resize_mode.
 		do
 			Result:= gtk_container_get_resize_mode (handle)
 		end
 
-	is_resize_parent: BOOLEAN is
+	is_resize_parent: BOOLEAN
 			--  Is resize request passed to the parent?
 		do
 			Result := (resize_mode = gtk_resize_parent)
 		end
 
-	is_resize_queue: BOOLEAN is
+	is_resize_queue: BOOLEAN
 			-- Is resizes on this widget queued?
 		do
 			Result := (resize_mode = gtk_resize_queue)
 		end
 
-	set_resize_mode (a_mode: INTEGER) is
+	set_resize_mode (a_mode: INTEGER)
 			-- Sets the resize mode for the container.  The resize mode
 			-- of a container determines whether a resize request will be
 			-- passed to the container's parent or queued for later
@@ -107,13 +107,13 @@ feature {ANY}
 			gtk_container_set_resize_mode (handle, a_mode)
 		end
 
-	check_resize is
+	check_resize
 			-- TODO: undocumented in GTK+ documentation
 		do
 			gtk_container_check_resize (handle)
 		end
 
-	set_border_width (a_width: INTEGER) is
+	set_border_width (a_width: INTEGER)
 		require
 			a_width.in_range(0, 65535)
 		do
@@ -122,7 +122,7 @@ feature {ANY}
 			border_width = a_width
 		end
 
-	border_width: INTEGER is
+	border_width: INTEGER
 		do
 			Result := gtk_container_get_border_width (handle)
 		end
@@ -143,7 +143,7 @@ feature {ANY}
 	-- callback_data : 	callback user data
 
 
-	children: G_LIST [GTK_WIDGET] is
+	children: G_LIST [GTK_WIDGET]
 				 -- container's non-internal children. See `forall' for
 				 -- details on what constitutes an "internal" child.
 		local ptr: POINTER
@@ -153,7 +153,7 @@ feature {ANY}
 		ensure result_not_void: Result/=Void
 		end
 
-	set_reallocate_redraws is
+	set_reallocate_redraws
 			-- Sets the reallocate_redraws flag of the container to the
 			-- given value.  Containers requesting reallocation redraws
 			-- get automatically redrawn if any of their children changed
@@ -162,13 +162,13 @@ feature {ANY}
 			gtk_container_set_reallocate_redraws (handle,1)
 		end
 
-	unset_reallocate_redraws is
+	unset_reallocate_redraws
 			-- Opposite of `set_reallocate_redraws'
 		do
 			gtk_container_set_reallocate_redraws (handle,0)
 		end
 
-	set_focus_child (a_child: GTK_WIDGET) is
+	set_focus_child (a_child: GTK_WIDGET)
 		do
 			gtk_container_set_focus_child (handle,a_child.handle)
 		end

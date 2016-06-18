@@ -29,7 +29,7 @@ inherit
 
 feature {} -- Initialization
 
-	from_external_copy (other: POINTER) is
+	from_external_copy (other: POINTER)
 		do
 			--dispose
 			if other.is_not_null then
@@ -40,7 +40,7 @@ feature {} -- Initialization
 			end
 		end
 
-	allocate is
+	allocate
 			-- Allocate an initialized structure
 		do
 			handle := calloc (1, struct_size)
@@ -50,7 +50,7 @@ feature {} -- Initialization
 
 feature {ANY} -- Copying
 
-	copy (other: like Current) is
+	copy (other: like Current)
 		do
 			dispose
 			if other.handle.is_not_null then
@@ -61,7 +61,7 @@ feature {ANY} -- Copying
 			end
 		end
 
-	is_equal (another: like Current): BOOLEAN is
+	is_equal (another: like Current): BOOLEAN
 		do
 			Result:= Current.handle = another.handle
 		end
@@ -70,14 +70,14 @@ feature {} -- Access to C features
 
 	-- struct_size should be exported to WRAPPER, to be able to check size 
 	-- before copying
-	struct_size: INTEGER is
+	struct_size: INTEGER
 			-- sizeof (wrapped_structure), speaking in C. TODO: shall be a NATURAL
 		deferred
 		ensure positive: Result > 0 -- TODO: having NATURAL it is plainly useless
 		end
 
 feature {WRAPPER_HANDLER} -- Destroying
-	free_handle is
+	free_handle
 			-- release the external memory
 		do
 			free (handle)

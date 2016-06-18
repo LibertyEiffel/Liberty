@@ -29,7 +29,7 @@ inherit ANY undefine is_equal, copy end
 insert POINTER_HANDLING
 	
 feature {ANY}
-	error: G_ERROR is 
+	error: G_ERROR
 			-- 
 		once 
 			create Result.empty
@@ -37,7 +37,7 @@ feature {ANY}
 	
 	is_successful: BOOLEAN
 
-	has_error: BOOLEAN is
+	has_error: BOOLEAN
 		do
 			Result := not is_successful
 		end

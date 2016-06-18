@@ -5,14 +5,14 @@ inherit LLVM_SEQUENCE_TYPE
 create {ANY} make
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature {ANY} -- Creation
-   make (a_type: LLVM_TYPE; a_count: NATURAL_32) is
+   make (a_type: LLVM_TYPE; a_count: NATURAL_32)
          -- Create an LLVM_ARRAY_TYPE holding `a_count' elements of `a_type'
       require a_type/=Void
       do
          handle:=llvmarray_type(a_type.handle, a_count)
       end
 feature {ANY}
-   length: NATURAL_32 is
+   length: NATURAL_32
          -- The number of elements in array
       do
          Result:=llvmget_array_length(handle)

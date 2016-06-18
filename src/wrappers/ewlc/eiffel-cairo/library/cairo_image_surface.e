@@ -40,7 +40,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make (a_format, a_width, a_height: INTEGER) is
+	make (a_format, a_width, a_height: INTEGER)
 			-- Creates an image surface of the specified format and dimensions.
 			-- Initially the surface contents are all 0. (Specifically, within
 			-- each pixel, each color or alpha channel belonging to format will
@@ -61,7 +61,7 @@ feature {} -- Creation
 			from_external_pointer (cairo_image_surface_create (a_format, a_width, a_height))
 		end
 
-	for_data (some_data: POINTER; a_format, a_width, a_height, a_stride: INTEGER) is
+	for_data (some_data: POINTER; a_format, a_width, a_height, a_stride: INTEGER)
 			-- Creates an image surface for the provided pixel data.
 			-- The output buffer must be kept around until the CAIRO_SURFACE is
 			-- destroyed or 'finish' is called on the surface. The initial
@@ -85,7 +85,7 @@ feature {} -- Creation
 			                       a_format, a_width, a_height, a_stride))
 		end
 
-	from_png (a_filename: STRING) is
+	from_png (a_filename: STRING)
 			-- Creates a new image surface and initializes the contents to the
 			-- given PNG file.
 			-- Creates a CAIRO_SURFACE initialized with the contents of the
@@ -103,14 +103,14 @@ feature {} -- Creation
 
 feature {ANY} -- Access
 
-	data: POINTER is
+	data: POINTER
 			--Get a pointer to the data of the image surface, for direct
 			-- inspection or modification.
 		do
 			Result := cairo_image_surface_get_data (handle)
 		end
 
-	format: INTEGER is
+	format: INTEGER
 		--Get the format of the surface.
 		do
 			Result := cairo_image_surface_get_format (handle)
@@ -118,19 +118,19 @@ feature {ANY} -- Access
 			is_valid_cairo_format (Result)
 		end
 
-	width: INTEGER is
+	width: INTEGER
 			--Get the width of the image surface in pixels.
 		do
 			Result := cairo_image_surface_get_width (handle)
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			--Get the height of the image surface in pixels.
 		do
 			Result := cairo_image_surface_get_height (handle)
 		end
 
-	stride: INTEGER is
+	stride: INTEGER
 			--Get the stride of the image surface in bytes
 		do
 			Result := cairo_image_surface_get_stride (handle)
@@ -138,7 +138,7 @@ feature {ANY} -- Access
 
 feature {ANY} -- Operations
 
-	write_to_png (a_filename: STRING): INTEGER is
+	write_to_png (a_filename: STRING): INTEGER
 			-- Writes the contents of surface to a new file filename as a PNG
 			-- image.
 			-- filename: the name of a file to write to

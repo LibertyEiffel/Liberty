@@ -36,12 +36,12 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			handle := av_alloc_format_context
 		end
 
-	from_file (a_filename: STRING) is
+	from_file (a_filename: STRING)
 			-- Open the given filename and inspect it's headers.
 		do
 			error_code := av_open_input_file ($handle, a_filename.to_external,
@@ -50,7 +50,7 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	open_input_file (a_filename: STRING) is
+	open_input_file (a_filename: STRING)
 			-- Open a media file as input.
 			--
 			-- The codecs are not opened. Only the file header (if present) is read.
@@ -69,7 +69,7 @@ feature {ANY} -- Operations
 									 default_pointer, 0, parameters.handle)
 		end
 
-	find_stream_info is
+	find_stream_info
 			-- Read the beginning of the media file to get stream information.
 			--
 			-- This is useful for file formats with no headers such as MPEG.
@@ -90,7 +90,7 @@ feature {ANY} -- Operations
 			error_code := error.min (av_error_noerror)
 		end
 
-	seek_frame (a_stream_index: INTEGER; a_timestamp: INTEGER_64; some_flags: INTEGER): BOOLEAN is
+	seek_frame (a_stream_index: INTEGER; a_timestamp: INTEGER_64; some_flags: INTEGER): BOOLEAN
 			-- Seek to the key frame at `a_timestamp' in `stream_index'.
 			-- Parameters:
 			--	a_stream_index: If a_stream_index is (-1), a default stream
@@ -109,7 +109,7 @@ feature {ANY} -- Operations
 			Result := av_seek_frame (handle, a_stream_index, a_timestamp, some_flags) >= 0
 		end
 
-	read_frame (a_packet: AV_PACKET): INTEGER is
+	read_frame (a_packet: AV_PACKET): INTEGER
 			-- Return the next frame of a stream.
 			-- The returned packet is valid until the next read_frame()
 			-- or until close(). For video, the packet contains exactly
@@ -131,13 +131,13 @@ feature {ANY} -- Operations
 			Result := av_read_frame (handle, a_packet.handle)
 		end
 
-	dump_format (a_index: INTEGER; a_filename: STRING; dump_output: BOOLEAN) is
+	dump_format (a_index: INTEGER; a_filename: STRING; dump_output: BOOLEAN)
 			-- Dump a log of the format onto file `a_filename'.
 		do
 			av_format_context_dump_format (handle, a_index, a_filename.to_external, dump_output.to_integer)
 		end
 
-	close is
+	close
 		do
 			if handle.is_not_null then
 				av_close_input_file (handle)
@@ -149,47 +149,47 @@ feature {ANY} -- Access
 
 	error_code: INTEGER
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 			-- True if video is a valid video file
 		do
 			Result := error_code = av_error_noerror
 		end
 
-	filename: STRING is
+	filename: STRING
 			-- Returns the filename of the video
 		do
 			create Result.from_external_copy (av_format_context_get_filename (handle))
 		end
 
-	title: STRING is
+	title: STRING
 			-- Returns the title of the video
 		do
 			create Result.from_external_copy (av_format_context_get_title (handle))
 		end
 
-	author: STRING is
+	author: STRING
 			-- Returns the author of the video
 		do
 			create Result.from_external_copy (av_format_context_get_author (handle))
 		end
 
-	comment: STRING is
+	comment: STRING
 			-- Returns the comment of the video
 		do
 			create Result.from_external_copy (av_format_context_get_comment (handle))
 		end
 
-	year: INTEGER is
+	year: INTEGER
 		do
 			Result := av_format_context_get_year (handle)
 		end
 
-	track: INTEGER is
+	track: INTEGER
 		do
 			Result := av_format_context_get_track (handle)
 		end
 
-	streams: ARRAY [AV_STREAM] is
+	streams: ARRAY [AV_STREAM]
 		local
 			nb_streams, stream_idx: INTEGER
 			a_stream: AV_STREAM
@@ -210,13 +210,13 @@ feature {ANY} -- Access
 			Result := wrapped_streams
 		end
 
-	default_stream_index: INTEGER is
+	default_stream_index: INTEGER
 			-- Returns the default stream index within the file
 		do
 			Result := av_find_default_stream_index (handle)
 		end
 
-	default_video_stream_width: INTEGER is
+	default_video_stream_width: INTEGER
 			-- Returns the width of the default video stream
 		require
 			is_valid
@@ -239,7 +239,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	default_video_stream_height: INTEGER is
+	default_video_stream_height: INTEGER
 			-- Returns the height of the default video stream
 		require
 			is_valid
@@ -263,7 +263,7 @@ feature {ANY} -- Access
 		end
 
 
-	parameters: AV_FORMAT_PARAMETERS is
+	parameters: AV_FORMAT_PARAMETERS
 		do
 			if wrapped_parameters = Void then
 				create wrapped_parameters.make
@@ -271,27 +271,27 @@ feature {ANY} -- Access
 			Result := wrapped_parameters
 		end
 
-	start_time: INTEGER_64 is
+	start_time: INTEGER_64
 		do
 			Result := av_format_context_get_start_time (handle)
 		end
 
-	duration: INTEGER_64 is
+	duration: INTEGER_64
 		do
 			Result := av_format_context_get_duration (handle)
 		end
 
-	file_size: INTEGER_64 is
+	file_size: INTEGER_64
 		do
 			Result := av_format_context_get_file_size (handle)
 		end
 
-	bit_rate: INTEGER is
+	bit_rate: INTEGER
 		do
 			Result := av_format_context_get_bit_rate (handle)
 		end
 
-	input_format: AV_INPUT_FORMAT is
+	input_format: AV_INPUT_FORMAT
 		do
 			if wrapped_input_format = Void then
 				create wrapped_input_format.from_external_pointer (av_format_context_get_iformat (handle))
@@ -302,7 +302,7 @@ feature {ANY} -- Access
 
 feature {ANY} -- Disposing
 
-	dispose is
+	dispose
 		do
 			-- wrapped_streams items shall not be disposed because this
 			-- shall be handled by the garbage collector; in fact a
@@ -333,7 +333,7 @@ feature {} -- Representation
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <avformat.h>"
 		alias "sizeof(AVFormatContext)"
 		end

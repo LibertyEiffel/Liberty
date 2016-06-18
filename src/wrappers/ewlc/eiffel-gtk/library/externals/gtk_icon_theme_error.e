@@ -25,19 +25,19 @@ deferred class GTK_ICON_THEME_ERROR
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_theme_error (an_error: INTEGER): BOOLEAN is
+	is_valid_gtk_theme_error (an_error: INTEGER): BOOLEAN
 		do	
 			Result:=((an_error = gtk_icon_theme_not_found) or else
 						(an_error = gtk_icon_theme_failed))
 		end
 
-	gtk_icon_theme_not_found: INTEGER is
+	gtk_icon_theme_not_found: INTEGER
 			-- The icon specified does not exist in the theme
 		external "C macro <gtk/gtk.h>"
 		alias "GTK_ICON_THEME_NOT_FOUND"
 		end
 
-	gtk_icon_theme_failed: INTEGER is
+	gtk_icon_theme_failed: INTEGER
 			-- An unspecified error occurred.
 		external "C macro <gtk/gtk.h>"
 		alias "GTK_ICON_THEME_FAILED"

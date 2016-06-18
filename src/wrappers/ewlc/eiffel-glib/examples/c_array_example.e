@@ -11,7 +11,7 @@ create {ANY} make
 feature {ANY}
 	array: C_ARRAY[G_STRING]
 
-	make is
+	make
 		local s: G_STRING; i: INTEGER
 		do
 			create array.with_capacity(4)
@@ -36,7 +36,7 @@ feature {ANY}
 			test_null_terminated_array
 		end
 
-	test_null_terminated_array is
+	test_null_terminated_array
 		local i: INTEGER; it: ITERATOR[G_STRING]; s: G_STRING
 		do
 			create {NULL_TERMINATED_C_ARRAY[G_STRING]} array.from_external(null_terminated_array_pointer)
@@ -63,7 +63,7 @@ feature {ANY}
 			print ("%N")
 		end
 
-	null_terminated_array_pointer: POINTER is
+	null_terminated_array_pointer: POINTER
 		do
 			native:=native.calloc(4)
 			-- creating temporary G_STRING objects and throwing them away

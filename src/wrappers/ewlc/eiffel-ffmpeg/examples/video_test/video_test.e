@@ -35,7 +35,7 @@ create {ANY}
 
 feature {ANY}
 
-	make is
+	make
 		local
 			video: AV_FORMAT_CONTEXT
 			stream: ITERATOR [AV_STREAM]
@@ -200,7 +200,7 @@ feature {ANY}
 			end
 		end
 
-	codec_types: ARRAY [STRING] is
+	codec_types: ARRAY [STRING]
 		once
 			Result := <<"Unknown", "Video", "Audio", "Data", "Subtitle">>
 			Result.reindex (-1)

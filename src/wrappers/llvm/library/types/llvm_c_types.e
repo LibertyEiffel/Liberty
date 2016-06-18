@@ -25,7 +25,7 @@ feature {ANY} -- 8-bit character
 	string, string_type: LLVM_POINTER_TYPE is once create Result.make(char) end 
 
 feature {ANY} -- Pointers
-	pointer(a_type: LLVM_TYPE): LLVM_POINTER_TYPE is
+	pointer(a_type: LLVM_TYPE): LLVM_POINTER_TYPE
 		-- The type of a pointer to `a_type'; i.e. pointer(int_32) represents "int*".
 	require a_type/=Void
 	do

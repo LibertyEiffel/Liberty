@@ -27,19 +27,19 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	gtk_resize_parent: INTEGER is
+	gtk_resize_parent: INTEGER
 			--  Pass resize request to the parent
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESIZE_PARENT"
 		end
 
-	gtk_resize_queue: INTEGER is
+	gtk_resize_queue: INTEGER
 			-- Queue resizes on this widget
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESIZE_QUEUE"
 		end
 
-	is_valid_gtk_resize_mode (a_mode: INTEGER): BOOLEAN is
+	is_valid_gtk_resize_mode (a_mode: INTEGER): BOOLEAN
 		do
 			Result:=((a_mode=gtk_resize_parent) or else
 			         (a_mode=gtk_resize_queue))

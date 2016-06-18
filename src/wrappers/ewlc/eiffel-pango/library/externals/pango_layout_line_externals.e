@@ -26,34 +26,34 @@ deferred class PANGO_LAYOUT_LINE_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	pango_layout_line_ref (a_line: POINTER): POINTER is
+	pango_layout_line_ref (a_line: POINTER): POINTER
 			-- PangoLayoutLine* pango_layout_line_ref      (PangoLayoutLine *line);
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_line_unref (a_line: POINTER) is
+	pango_layout_line_unref (a_line: POINTER)
 		-- void pango_layout_line_unref (PangoLayoutLine *line);
 			external "C use <pango/pango-layout.h>"
 		end
 
 
-	pango_layout_line_get_layout (a_layout_line: POINTER): POINTER is
+	pango_layout_line_get_layout (a_layout_line: POINTER): POINTER
 		external "C struct PangoLayoutLine get layout use <pango/pango-layout.h>"
 		end
 
-	pango_layout_line_get_start_index (a_layout_line: POINTER): INTEGER is
+	pango_layout_line_get_start_index (a_layout_line: POINTER): INTEGER
 		external "C struct PangoLayoutLine get start_index use <pango/pango-layout.h>"
 		end
 
-	pango_layout_line_get_length (a_layout_line: POINTER): INTEGER is
+	pango_layout_line_get_length (a_layout_line: POINTER): INTEGER
 		external "C struct PangoLayoutLine get length use <pango/pango-layout.h>"
 		end
 
-	pango_layout_line_get_is_paragraph_start (a_layout_line: POINTER): INTEGER is
+	pango_layout_line_get_is_paragraph_start (a_layout_line: POINTER): INTEGER
 		external "C struct PangoLayoutLine get is_paragraph_start use <pango/pango-layout.h>"
 		end
 
-	pango_layout_line_get_resolved_direction (a_layout_line: POINTER): INTEGER is
+	pango_layout_line_get_resolved_direction (a_layout_line: POINTER): INTEGER
 		external "C struct PangoLayoutLine get resolved_dir use <pango/pango-layout.h>"
 		end
 

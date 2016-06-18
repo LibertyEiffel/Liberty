@@ -43,7 +43,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_xmlrpc_error_type (an_error: INTEGER) : BOOLEAN is
+	is_valid_xmlrpc_error_type (an_error: INTEGER) : BOOLEAN
 		do
 			Result := ((an_error = xmlrpc_internal_error) or else
 			           (an_error = xmlrpc_type_error) or else
@@ -58,57 +58,57 @@ feature {} -- enum
 			           (an_error = xmlrpc_invalid_utf8_error))
 		end
 
-		xmlrpc_internal_error: INTEGER is
+		xmlrpc_internal_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_INTERNAL_ERROR"
 		end
 
-		xmlrpc_type_error: INTEGER is
+		xmlrpc_type_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_ERROR"
 		end
 
-		xmlrpc_index_error: INTEGER is
+		xmlrpc_index_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_INDEX_ERROR"
 		end
 
-		xmlrpc_parse_error: INTEGER is
+		xmlrpc_parse_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_PARSE_ERROR"
 		end
 
-		xmlrpc_network_error: INTEGER is
+		xmlrpc_network_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_NETWORK_ERROR"
 		end
 
-		xmlrpc_timeout_error: INTEGER is
+		xmlrpc_timeout_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TIMEOUT_ERROR"
 		end
 
-		xmlrpc_no_such_method_error: INTEGER is
+		xmlrpc_no_such_method_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_NO_SUCH_METHOD_ERROR"
 		end
 
-		xmlrpc_request_refused_error: INTEGER is
+		xmlrpc_request_refused_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_REQUEST_REFUSED_ERROR"
 		end
 
-		xmlrpc_introspection_disabled_error: INTEGER is
+		xmlrpc_introspection_disabled_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_INTROSPECTION_DISABLED_ERROR"
 		end
 
-		xmlrpc_limit_exceeded_error: INTEGER is
+		xmlrpc_limit_exceeded_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_LIMIT_EXCEEDED_ERROR"
 		end
 
-		xmlrpc_invalid_utf8_error: INTEGER is
+		xmlrpc_invalid_utf8_error: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_INVALID_UTF8_ERROR"
 		end

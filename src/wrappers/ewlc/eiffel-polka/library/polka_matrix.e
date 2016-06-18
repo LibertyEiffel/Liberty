@@ -65,7 +65,7 @@ create {ANY} make, copy, copy_from_pointer
 
 feature {} -- Creation
 
-	make (n_rows, n_cols: INTEGER; is_sorted: BOOLEAN) is
+	make (n_rows, n_cols: INTEGER; is_sorted: BOOLEAN)
 			-- Allocates a new matrix with `rows' rows and `columns' columns
 			-- and sets all elements to zero. `is_sorted' indicates if once
 			-- filled the matrix should be considered as already sorted or not,
@@ -83,7 +83,7 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	copy_from_pointer (other_ptr: POINTER) is
+	copy_from_pointer (other_ptr: POINTER)
 			-- Return a new matrix copy of `other_ptr'.
 		require
 			other_ptr.is_not_null
@@ -91,7 +91,7 @@ feature {ANY} -- Operations
 			from_external_pointer (matrix_copy (other_ptr))
 		end
 
-	copy (other: like Current) is
+	copy (other: like Current)
 			-- Return a copy of `other'. The new matrix is dimensionned
 			-- from the active part of `other'.
 		do
@@ -101,19 +101,19 @@ feature {ANY} -- Operations
 			end
 		end
 
-	clear is
+	clear
 			-- Sets to zeros the active coefficients of Current.
 		do
 			matrix_clear (handle)
 		end
 
-	print_to_stdout is
+	print_to_stdout
 			-- Prints the Current matrix.
 		do
 			matrix_print (handle)
 		end
 
-	set (i, j: INTEGER; value: PKINT) is
+	set (i, j: INTEGER; value: PKINT)
 		require
 			i.in_range (0, rows-1)
 			j.in_range (0, columns-1)
@@ -124,21 +124,21 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Access
 
-	rows: INTEGER is
+	rows: INTEGER
 		do
 			Result := matrix_get_nbrows (handle)
 		ensure
 			Result >= 0
 		end
 
-	columns: INTEGER is
+	columns: INTEGER
 		do
 			Result := matrix_get_nbcolumns (handle)
 		ensure
 			Result >= 0
 		end
 
-	at (i, j: INTEGER): PKINT is
+	at (i, j: INTEGER): PKINT
 		require
 			i.in_range (0, rows-1)
 			j.in_range (0, columns-1)
@@ -156,7 +156,7 @@ feature {ANY} -- Access
 		end
 
 feature {WRAPPER_HANDLER} -- Destruction
-	free_handle is
+	free_handle
 			-- release the external memory
 		do
 			matrix_free (handle)
@@ -165,7 +165,7 @@ feature {WRAPPER_HANDLER} -- Destruction
 
 feature {} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <polka/matrix.h>"
 		alias "sizeof (matrix_t)"
 		end

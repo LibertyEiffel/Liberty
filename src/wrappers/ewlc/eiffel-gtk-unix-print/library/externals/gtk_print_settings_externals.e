@@ -17,114 +17,114 @@ feature {} -- External calls
 	-- void (*GtkPrintSettingsFunc) (const gchar *key, const gchar *value,
 	-- gpointer user_data);
 
-	gtk_print_settings_new: POINTER is
+	gtk_print_settings_new: POINTER
 			-- 	GtkPrintSettings* gtk_print_settings_new (void);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_copy (a_other: POINTER): POINTER is
+	gtk_print_settings_copy (a_other: POINTER): POINTER
 			-- 	GtkPrintSettings* gtk_print_settings_copy   (GtkPrintSettings *other);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_has_key (a_settings, a_key: POINTER): INTEGER is
+	gtk_print_settings_has_key (a_settings, a_key: POINTER): INTEGER
 			-- gboolean gtk_print_settings_has_key (GtkPrintSettings *settings,
 			-- const gchar *key);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_get (a_settings, a_key: POINTER): POINTER is
+	gtk_print_settings_get (a_settings, a_key: POINTER): POINTER
 			-- const gchar* gtk_print_settings_get (GtkPrintSettings *settings,
 			-- const gchar *key);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set (a_settings, a_key, a_value: POINTER) is
+	gtk_print_settings_set (a_settings, a_key, a_value: POINTER)
 			-- void gtk_print_settings_set (GtkPrintSettings *settings, const gchar
 			-- *key, const gchar *value);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_unset (a_settings, a_key: POINTER) is
+	gtk_print_settings_unset (a_settings, a_key: POINTER)
 			-- void gtk_print_settings_unset (GtkPrintSettings *settings, const
 			-- gchar *key);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_foreach (a_settings, a_gtkprintsettingsfunc, some_data: POINTER) is
+	gtk_print_settings_foreach (a_settings, a_gtkprintsettingsfunc, some_data: POINTER)
 			-- void gtk_print_settings_foreach (GtkPrintSettings *settings,
 			-- GtkPrintSettingsFunc func, gpointer user_data);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_get_bool (a_settings, a_key: POINTER): INTEGER is
+	gtk_print_settings_get_bool (a_settings, a_key: POINTER): INTEGER
 			-- gboolean gtk_print_settings_get_bool (GtkPrintSettings *settings,
 			-- const gchar *key);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_bool (a_settings, a_key: POINTER; a_value: INTEGER) is
+	gtk_print_settings_set_bool (a_settings, a_key: POINTER; a_value: INTEGER)
 			-- void gtk_print_settings_set_bool (GtkPrintSettings *settings, const
 			-- gchar *key, gboolean value);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_get_double (a_settings, a_key: POINTER): REAL is
+	gtk_print_settings_get_double (a_settings, a_key: POINTER): REAL
 			-- gdouble gtk_print_settings_get_double (GtkPrintSettings *settings,
 			-- const gchar *key);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_get_double_with_default (a_settings, a_key: POINTER; a_def: REAL): REAL is
+	gtk_print_settings_get_double_with_default (a_settings, a_key: POINTER; a_def: REAL): REAL
 			-- gdouble gtk_print_settings_get_double_with_default (GtkPrintSettings
 			-- *settings, const gchar *key, gdouble def);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_double (a_settings, a_key: POINTER; a_value: REAL) is
+	gtk_print_settings_set_double (a_settings, a_key: POINTER; a_value: REAL)
 			-- 	void gtk_print_settings_set_double (GtkPrintSettings *settings,
 			-- 	const gchar *key, gdouble value);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_get_length (a_settings, a_key: POINTER; a_unit: INTEGER): REAL is
+	gtk_print_settings_get_length (a_settings, a_key: POINTER; a_unit: INTEGER): REAL
 			-- 	gdouble gtk_print_settings_get_length (GtkPrintSettings
 			-- 	*settings, const gchar *key, GtkUnit unit);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_length (a_settings, a_key: POINTER; a_value: REAL; a_unit: INTEGER) is
+	gtk_print_settings_set_length (a_settings, a_key: POINTER; a_value: REAL; a_unit: INTEGER)
 			-- void gtk_print_settings_set_length (GtkPrintSettings *settings,
 			-- const gchar *key, gdouble value, GtkUnit unit);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_get_int (a_settings, a_key: POINTER): INTEGER is
+	gtk_print_settings_get_int (a_settings, a_key: POINTER): INTEGER
 			-- gint gtk_print_settings_get_int (GtkPrintSettings *settings, const
 			-- gchar *key);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_get_int_with_default (a_settings, a_key: POINTER; a_default: INTEGER): INTEGER is
+	gtk_print_settings_get_int_with_default (a_settings, a_key: POINTER; a_default: INTEGER): INTEGER
 			-- gint gtk_print_settings_get_int_with_default (GtkPrintSettings
 			-- *settings, const gchar *key, gint def);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_int (a_settings, a_key: POINTER; a_value: INTEGER) is
+	gtk_print_settings_set_int (a_settings, a_key: POINTER; a_value: INTEGER)
 			-- void gtk_print_settings_set_int (GtkPrintSettings *settings, const
 			-- gchar *key, gint value);
 		external "C use <gtk/gtk.h>"
 		end
 	
 	-- #define     GTK_PRINT_SETTINGS_PRINTER
-	gtk_print_settings_get_printer (a_settings: POINTER): POINTER is
+	gtk_print_settings_get_printer (a_settings: POINTER): POINTER
 			-- const gchar* gtk_print_settings_get_printer (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_printer  (a_settings, a_printer: POINTER) is
+	gtk_print_settings_set_printer  (a_settings, a_printer: POINTER)
 			-- void gtk_print_settings_set_printer (GtkPrintSettings *settings,
 			-- const gchar *printer);
 		external "C use <gtk/gtk.h>"
@@ -132,90 +132,90 @@ feature {} -- External calls
 
 	-- #define     GTK_PRINT_SETTINGS_ORIENTATION
 	
-	gtk_print_settings_get_orientation (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_orientation (a_settings: POINTER): INTEGER
 			-- GtkPageOrientation gtk_print_settings_get_orientation
 			-- (GtkPrintSettings *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_orientation (a_settings: POINTER; an_orientation: INTEGER) is
+	gtk_print_settings_set_orientation (a_settings: POINTER; an_orientation: INTEGER)
 			-- void gtk_print_settings_set_orientation (GtkPrintSettings *settings,
 			-- GtkPageOrientation orientation);
 		external "C use <gtk/gtk.h>"
 		end
 
 	--	#define     GTK_PRINT_SETTINGS_PAPER_FORMAT
-	gtk_print_settings_get_paper_size (a_settings: POINTER): POINTER is
+	gtk_print_settings_get_paper_size (a_settings: POINTER): POINTER
 			-- GtkPaperSize* gtk_print_settings_get_paper_size (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_paper_size (a_settings, a_paper_size: POINTER) is
+	gtk_print_settings_set_paper_size (a_settings, a_paper_size: POINTER)
 			-- void gtk_print_settings_set_paper_size (GtkPrintSettings *settings,
 			-- GtkPaperSize *paper_size);
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- #define GTK_PRINT_SETTINGS_PAPER_WIDTH
-	gtk_print_settings_get_paper_width (a_settings: POINTER; a_unit: INTEGER): REAL is
+	gtk_print_settings_get_paper_width (a_settings: POINTER; a_unit: INTEGER): REAL
 			-- gdouble gtk_print_settings_get_paper_width (GtkPrintSettings
 			-- *settings, GtkUnit unit);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_paper_width (a_settings: POINTER; a_width: REAL;	a_unit: INTEGER) is
+	gtk_print_settings_set_paper_width (a_settings: POINTER; a_width: REAL;	a_unit: INTEGER)
 			-- void gtk_print_settings_set_paper_width (GtkPrintSettings *settings,
 			-- gdouble width, GtkUnit unit);
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- #define GTK_PRINT_SETTINGS_PAPER_HEIGHT
-	gtk_print_settings_get_paper_height (a_settings: POINTER; a_unit: INTEGER): REAL is
+	gtk_print_settings_get_paper_height (a_settings: POINTER; a_unit: INTEGER): REAL
 			-- gdouble gtk_print_settings_get_paper_height (GtkPrintSettings
 			-- *settings, GtkUnit unit);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_paper_height (a_settings: POINTER; an_height: REAL; a_unit: INTEGER) is
+	gtk_print_settings_set_paper_height (a_settings: POINTER; an_height: REAL; a_unit: INTEGER)
 			-- void gtk_print_settings_set_paper_height (GtkPrintSettings
 			-- *settings, gdouble height, GtkUnit unit);
 		external "C use <gtk/gtk.h>"
 		end
 
 	--	#define     GTK_PRINT_SETTINGS_USE_COLOR
-	gtk_print_settings_get_use_color (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_use_color (a_settings: POINTER): INTEGER
 			-- gboolean gtk_print_settings_get_use_color (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_use_color (a_settings: POINTER; use_color_bool: INTEGER) is
+	gtk_print_settings_set_use_color (a_settings: POINTER; use_color_bool: INTEGER)
 			-- void gtk_print_settings_set_use_color (GtkPrintSettings *settings,
 			-- gboolean use_color);
 		external "C use <gtk/gtk.h>"
 		end
 
 	--	#define GTK_PRINT_SETTINGS_COLLATE
-	gtk_print_settings_get_collate (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_collate (a_settings: POINTER): INTEGER
 			-- gboolean gtk_print_settings_get_collate (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_collate (a_settings: POINTER; collate_bool: INTEGER) is
+	gtk_print_settings_set_collate (a_settings: POINTER; collate_bool: INTEGER)
 			-- void gtk_print_settings_set_collate (GtkPrintSettings *settings,
 			-- gboolean collate);
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- #define     GTK_PRINT_SETTINGS_REVERSE
-	gtk_print_settings_get_reverse  (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_reverse  (a_settings: POINTER): INTEGER
 			-- 	gboolean    gtk_print_settings_get_reverse  (GtkPrintSettings *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_reverse  (a_settings: POINTER; reverse: INTEGER) is
+	gtk_print_settings_set_reverse  (a_settings: POINTER; reverse: INTEGER)
 			-- void gtk_print_settings_set_reverse (GtkPrintSettings *settings,
 			-- gboolean reverse);
 		external "C use <gtk/gtk.h>"
@@ -224,13 +224,13 @@ feature {} -- External calls
 	-- 	enum GtkPrintDuplex;
 	
 	--#define GTK_PRINT_SETTINGS_DUPLEX
-	gtk_print_settings_get_duplex (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_duplex (a_settings: POINTER): INTEGER
 			-- GtkPrintDuplex gtk_print_settings_get_duplex (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_duplex (a_settings: POINTER; a_duplex: INTEGER) is
+	gtk_print_settings_set_duplex (a_settings: POINTER; a_duplex: INTEGER)
 			-- void gtk_print_settings_set_duplex (GtkPrintSettings *settings,
 			-- GtkPrintDuplex duplex);
 		external "C use <gtk/gtk.h>"
@@ -239,61 +239,61 @@ feature {} -- External calls
 	-- 	enum GtkPrintQuality;
 	
 	-- #define GTK_PRINT_SETTINGS_QUALITY
-	gtk_print_settings_get_quality (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_quality (a_settings: POINTER): INTEGER
 			-- GtkPrintQuality gtk_print_settings_get_quality (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_quality  (a_settings: POINTER; a_quality: INTEGER) is
+	gtk_print_settings_set_quality  (a_settings: POINTER; a_quality: INTEGER)
 			-- void gtk_print_settings_set_quality (GtkPrintSettings *settings,
 			-- GtkPrintQuality quality);
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- #define     GTK_PRINT_SETTINGS_N_COPIES
-	gtk_print_settings_get_n_copies (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_n_copies (a_settings: POINTER): INTEGER
 			-- gint gtk_print_settings_get_n_copies (GtkPrintSettings *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_n_copies (a_settings: POINTER; num_copies: INTEGER) is
+	gtk_print_settings_set_n_copies (a_settings: POINTER; num_copies: INTEGER)
 			--	void gtk_print_settings_set_n_copies (GtkPrintSettings *settings,
 			--	gint num_copies);
 		external "C use <gtk/gtk.h>"
 		end
 
 	--	#define GTK_PRINT_SETTINGS_NUMBER_UP
-	gtk_print_settings_get_number_up (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_number_up (a_settings: POINTER): INTEGER
 			-- gint gtk_print_settings_get_number_up (GtkPrintSettings *settings);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_print_settings_set_number_up (a_settings: POINTER; a_number_up: INTEGER) is
+	gtk_print_settings_set_number_up (a_settings: POINTER; a_number_up: INTEGER)
 			-- void gtk_print_settings_set_number_up (GtkPrintSettings *settings,
 			-- gint number_up);
 		external "C use <gtk/gtk.h>"
 		end
 
 	--	#define     GTK_PRINT_SETTINGS_RESOLUTION
-	gtk_print_settings_get_resolution (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_resolution (a_settings: POINTER): INTEGER
 			--	gint gtk_print_settings_get_resolution (GtkPrintSettings *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_resolution (a_settings: POINTER; a_resolution: INTEGER) is
+	gtk_print_settings_set_resolution (a_settings: POINTER; a_resolution: INTEGER)
 			-- void gtk_print_settings_set_resolution (GtkPrintSettings *settings,
 			-- gint resolution);
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- #define     GTK_PRINT_SETTINGS_SCALE
-	gtk_print_settings_get_scale (a_settings: POINTER): REAL is
+	gtk_print_settings_get_scale (a_settings: POINTER): REAL
 			-- gdouble gtk_print_settings_get_scale (GtkPrintSettings *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_scale (a_settings: POINTER; a_scale: REAL) is
+	gtk_print_settings_set_scale (a_settings: POINTER; a_scale: REAL)
 			-- void gtk_print_settings_set_scale (GtkPrintSettings *settings,
 			-- gdouble scale);
 		external "C use <gtk/gtk.h>"
@@ -302,13 +302,13 @@ feature {} -- External calls
 	--	enum GtkPrintPages;
 
 	-- #define     GTK_PRINT_SETTINGS_PRINT_PAGES
-	gtk_print_settings_get_print_pages (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_print_pages (a_settings: POINTER): INTEGER
 			-- GtkPrintPages gtk_print_settings_get_print_pages (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_print_pages (a_settings: POINTER; a_print_pages: INTEGER) is
+	gtk_print_settings_set_print_pages (a_settings: POINTER; a_print_pages: INTEGER)
 			-- void gtk_print_settings_set_print_pages (GtkPrintSettings *settings,
 			-- GtkPrintPages pages);
 		external "C use <gtk/gtk.h>"
@@ -317,13 +317,13 @@ feature {} -- External calls
 	-- GtkPageRange;
 
 	-- #define     GTK_PRINT_SETTINGS_PAGE_RANGES
-	gtk_print_settings_get_page_ranges (a_settings, a_num_ranges: POINTER): POINTER is
+	gtk_print_settings_get_page_ranges (a_settings, a_num_ranges: POINTER): POINTER
 			-- GtkPageRange* gtk_print_settings_get_page_ranges (GtkPrintSettings
 			-- *settings, gint *num_ranges);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_page_ranges (a_settings, a_page_ranges: POINTER; a_num_ranges: INTEGER) is
+	gtk_print_settings_set_page_ranges (a_settings, a_page_ranges: POINTER; a_num_ranges: INTEGER)
 			-- void gtk_print_settings_set_page_ranges (GtkPrintSettings *settings,
 			-- GtkPageRange *page_ranges, gint num_ranges);
 		external "C use <gtk/gtk.h>"
@@ -332,78 +332,78 @@ feature {} -- External calls
 	-- enum GtkPageSet;
 
 	-- #define     GTK_PRINT_SETTINGS_PAGE_SET
-	gtk_print_settings_get_page_set (a_settings: POINTER): INTEGER is
+	gtk_print_settings_get_page_set (a_settings: POINTER): INTEGER
 			-- GtkPageSet gtk_print_settings_get_page_set (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_page_set (a_settings: POINTER; a_page_set: INTEGER) is
+	gtk_print_settings_set_page_set (a_settings: POINTER; a_page_set: INTEGER)
 			-- void gtk_print_settings_set_page_set (GtkPrintSettings *settings,
 			-- GtkPageSet page_set);
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- #define     GTK_PRINT_SETTINGS_DEFAULT_SOURCE
-	gtk_print_settings_get_default_source (a_settings: POINTER): POINTER is
+	gtk_print_settings_get_default_source (a_settings: POINTER): POINTER
 			-- const gchar* gtk_print_settings_get_default_source (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_default_source (a_settings, a_default_source: POINTER) is
+	gtk_print_settings_set_default_source (a_settings, a_default_source: POINTER)
 			-- void gtk_print_settings_set_default_source (GtkPrintSettings
 			-- *settings, const gchar *default_source);
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- #define GTK_PRINT_SETTINGS_MEDIA_TYPE
-	gtk_print_settings_get_media_type (a_settings: POINTER): POINTER is
+	gtk_print_settings_get_media_type (a_settings: POINTER): POINTER
 			-- const gchar* gtk_print_settings_get_media_type (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_media_type (a_settings, a_media_type: POINTER) is
+	gtk_print_settings_set_media_type (a_settings, a_media_type: POINTER)
 			-- void gtk_print_settings_set_media_type (GtkPrintSettings *settings,
 			-- const gchar *media_type);
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- #define GTK_PRINT_SETTINGS_DITHER
-	gtk_print_settings_get_dither  (a_settings: POINTER): POINTER is
+	gtk_print_settings_get_dither  (a_settings: POINTER): POINTER
 			-- const gchar* gtk_print_settings_get_dither (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_dither (a_settings, a_dither: POINTER) is
+	gtk_print_settings_set_dither (a_settings, a_dither: POINTER)
 			-- void gtk_print_settings_set_dither (GtkPrintSettings *settings,
 			-- const gchar *dither);
 		external "C use <gtk/gtk.h>"
 		end
 
 	--	#define GTK_PRINT_SETTINGS_FINISHINGS
-	gtk_print_settings_get_finishings (a_settings: POINTER): POINTER is
+	gtk_print_settings_get_finishings (a_settings: POINTER): POINTER
 			-- const gchar* gtk_print_settings_get_finishings (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_finishings (a_settings, a_finishings: POINTER) is
+	gtk_print_settings_set_finishings (a_settings, a_finishings: POINTER)
 			-- void gtk_print_settings_set_finishings (GtkPrintSettings *settings,
 			-- const gchar *finishings);
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- #define GTK_PRINT_SETTINGS_OUTPUT_BIN
-	gtk_print_settings_get_output_bin (a_settings: POINTER): POINTER is
+	gtk_print_settings_get_output_bin (a_settings: POINTER): POINTER
 			-- const gchar* gtk_print_settings_get_output_bin (GtkPrintSettings
 			-- *settings);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_set_output_bin (a_settings, an_output_bin: POINTER) is
+	gtk_print_settings_set_output_bin (a_settings, an_output_bin: POINTER)
 			-- void gtk_print_settings_set_output_bin (GtkPrintSettings *settings,
 			-- const gchar *output_bin);
 		external "C use <gtk/gtk.h>"
@@ -414,7 +414,7 @@ feature {} -- External calls
 	-- #define     GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA
 	-- #define     GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintSettings)"
 		end

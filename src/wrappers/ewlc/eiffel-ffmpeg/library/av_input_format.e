@@ -33,13 +33,13 @@ create {ANY}
 
 feature {ANY} -- Access
 
-	name: STRING is
+	name: STRING
 		do
 			--create Result.from_external_copy (av_input_format_get_name (handle))
 			create {CONST_STRING} Result.from_external(av_input_format_get_name(handle))
 		end
 
-	long_name: STRING is
+	long_name: STRING
 		do
 			-- create Result.from_external_copy (av_input_format_get_name (handle))
 			create {CONST_STRING} Result.from_external(av_input_format_get_name(handle))
@@ -47,7 +47,7 @@ feature {ANY} -- Access
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <avformat.h>"
 		alias "sizeof(AVInputFormat)"
 		end

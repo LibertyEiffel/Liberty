@@ -26,7 +26,7 @@ inherit GTS_EDGE redefine make, struct_size, fill_tagged_out_memory end
 create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
-	make (a_vertex, another_vertex: GTS_VERTEX) is
+	make (a_vertex, another_vertex: GTS_VERTEX)
 		do
 			from_external_pointer (gts_edge_new (gts_constraint_class, a_vertex.handle, another_vertex.handle)) 
 		end
@@ -37,23 +37,23 @@ feature {} -- External calls
 	-- #define     GTS_CONSTRAINT                  (obj)
 	-- #define     GTS_CONSTRAINT                  (obj)
 	
-	gts_is_constraint (a_pointer: POINTER): INTEGER is
+	gts_is_constraint (a_pointer: POINTER): INTEGER
 			-- #define     GTS_IS_CONSTRAINT               (obj)
 		external "C macro use <gts.h>"
 		alias "GTS_IS_CONSTRAINT"
 		end
 		
-	gts_constraint_class: POINTER is
+	gts_constraint_class: POINTER
 		external "C use <gts.h>"
 		end
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsConstraint)"
 		end
 
 feature {ANY} -- Printing
-	fill_tagged_out_memory is
+	fill_tagged_out_memory
 		do
 			tagged_out_memory.append(once "{(")
 			v1.x.append_in(tagged_out_memory)

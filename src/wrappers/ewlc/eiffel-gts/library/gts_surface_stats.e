@@ -31,46 +31,46 @@ insert
 create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 		do
 			allocate
 		end
 	
 feature {ANY}
-	faces_count: INTEGER is
+	faces_count: INTEGER
 			-- Number of faces.
 		do
 			Result := get_n_faces(handle)
 		end
 
-	incompatible_faces_count: INTEGER is
+	incompatible_faces_count: INTEGER
 			-- Number of incompatible faces (see GTS_TRIANGLE's `are_compatible'
 			-- for details).
 		do
 			Result := get_n_incompatible_faces(handle)
 		end
 
-	duplicate_faces_count: INTEGER is
+	duplicate_faces_count: INTEGER
 			-- Number of duplicate faces (see GTS_TRIANGLE's `is_duplicate' for 
 			-- details).
 		do
 			Result:=get_n_duplicate_faces(handle)
 		end
 
-	duplicate_edges_count: INTEGER is
+	duplicate_edges_count: INTEGER
 			--  Number of duplicate edges (see GTS_SEGMENT's `is_duplicate' for
 			--  details).
 		do
 			Result:=get_n_duplicate_edges(handle)
 		end
 
-	boundary_edges_count: INTEGER is
+	boundary_edges_count: INTEGER
 			--  Number of boundary edges.
 		do
 			Result:=get_n_boundary_edges(handle)
 		end
 
-	non_manifold_edges_count: INTEGER is
+	non_manifold_edges_count: INTEGER
 			-- Number of non-manifold edges.
 		do
 			Result:=get_n_non_manifold_edges(handle)

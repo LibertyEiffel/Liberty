@@ -40,14 +40,14 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkTearoffMenuItem.
 		do
 			from_external_pointer (gtk_tearoff_menu_item_new)
 		end 
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTearoffMenuItem)"
 		end

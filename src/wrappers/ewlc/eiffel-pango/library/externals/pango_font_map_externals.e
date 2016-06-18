@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	pango_font_map_get_shape_engine_type (a_handle: POINTER): POINTER is
+	pango_font_map_get_shape_engine_type (a_handle: POINTER): POINTER
 		external "C use <pango/pango.h>"
 		end
 

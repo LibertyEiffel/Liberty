@@ -34,20 +34,20 @@ insert
 
 feature {}
 
-	xmlrpc_value_type (val: POINTER): INTEGER is
+	xmlrpc_value_type (val: POINTER): INTEGER
 		external "C use <xmlrpc-c/base.h>"
 		ensure
 			is_valid_xmlrpc_value_type (Result)
 		end
 
-	xmlrpc_decref (val: POINTER) is
+	xmlrpc_decref (val: POINTER)
 		external "C use <xmlrpc-c/base.h>"
 		alias "xmlrpc_DECREF"
 		end
 
 feature {} -- Booleans
 
-	xmlrpc_bool_new (an_env_ptr: POINTER; a_bool: INTEGER): POINTER is
+	xmlrpc_bool_new (an_env_ptr: POINTER; a_bool: INTEGER): POINTER
 			--  xmlrpc_value *
 			--  xmlrpc_bool_new(xmlrpc_env * const envP,
 			--	                xmlrpc_bool  const boolValue);
@@ -56,7 +56,7 @@ feature {} -- Booleans
 		external "C use <xmlrpc-c/base.h>"
 		end
 
-	xmlrpc_read_bool (an_env_ptr, val, res_ptr: POINTER) is
+	xmlrpc_read_bool (an_env_ptr, val, res_ptr: POINTER)
 			-- void
 			-- xmlrpc_read_bool(xmlrpc_env *         const envP,
 			--                  const xmlrpc_value * const valueP,
@@ -70,7 +70,7 @@ feature {} -- Booleans
 
 feature {} -- Integers
 
-	xmlrpc_int_new (an_env_ptr: POINTER; an_int: INTEGER): POINTER is
+	xmlrpc_int_new (an_env_ptr: POINTER; an_int: INTEGER): POINTER
 			-- xmlrpc_value *
 			-- xmlrpc_int_new(xmlrpc_env * const envP,
 			--                int          const intValue);
@@ -79,7 +79,7 @@ feature {} -- Integers
 		external "C use <xmlrpc-c/base.h>"
 		end
 
-	xmlrpc_read_int (an_env_ptr, val, res_ptr: POINTER) is
+	xmlrpc_read_int (an_env_ptr, val, res_ptr: POINTER)
 			-- void
 			-- xmlrpc_read_int(xmlrpc_env *         const envP,
 			--                 const xmlrpc_value * const valueP,
@@ -111,11 +111,11 @@ feature {} -- Arrays
 		-- xmlrpc_array_new() was new in Xmlrpc-c 1.2 (April 2005).
 		-- Before that, use xmlrpc_build_value() to create an array.
 
-	xmlrpc_array_new (env_ptr: POINTER): POINTER is
+	xmlrpc_array_new (env_ptr: POINTER): POINTER
 		external "C use <xmlrpc-c/client.h>"
 		end
 
-	xmlrpc_array_append_item (an_env_ptr, array, res_ptr: POINTER) is
+	xmlrpc_array_append_item (an_env_ptr, array, res_ptr: POINTER)
 			-- extern void
 			-- xmlrpc_array_append_item (xmlrpc_env   * envP,
 			--                           xmlrpc_value * arrayP,

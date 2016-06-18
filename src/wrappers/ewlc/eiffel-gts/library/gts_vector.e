@@ -32,7 +32,7 @@ inherit
 create {ANY}  init, allocate, from_external_pointer
 
 feature {} -- Creation
-	init (a_point, another_point: GTS_POINT) is
+	init (a_point, another_point: GTS_POINT)
 			-- Creates a vector with the coordinates of the vector from
 			-- `a_point' to `another_point'
 		require
@@ -44,14 +44,14 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	infix "*" (another: GTS_VECTOR): REAL is
+	infix "*" (another: GTS_VECTOR): REAL
 			-- The scalar product between Current and `another'.
 		require another_not_void: another /= Void
 		do
 			Result:=gts_vector_scalar(handle,another.handle)
 		end
 
-	infix "^" (another: GTS_VECTOR): GTS_VECTOR is
+	infix "^" (another: GTS_VECTOR): GTS_VECTOR
 			-- The cross-product of Current and `another' vectors. 
 		require another_not_void: another /= Void
 		do
@@ -59,18 +59,18 @@ feature {ANY}
 			gts_vector_cross(Result.handle,handle,another.handle)
 		end
 
-	norm: REAL is
+	norm: REAL
 		do
 			Result:=gts_vector_norm(handle)
 		end
 
-	normalize: REAL is
+	normalize: REAL
 		do
 			Result:=gts_vector_normalize(handle)
 		end
 
 feature {ANY} -- Input Output
-	print_on (a_file: OUTPUT_STREAM) is
+	print_on (a_file: OUTPUT_STREAM)
 			-- Print Current to `a_file.
 		require
 			file_not_void: a_file /= Void
@@ -88,43 +88,43 @@ feature {ANY} -- Input Output
 
 
 feature {} -- External calls
-	gts_vector_init (v, p1, p2: POINTER) is
+	gts_vector_init (v, p1, p2: POINTER)
 			-- #define gts_vector_init (v, p1, p2)
 		external "C macro use <gts.h>"
 		end
 	
-	gts_vector_scalar (v1, v2: POINTER): REAL is
+	gts_vector_scalar (v1, v2: POINTER): REAL
 			-- #define gts_vector_scalar (v1, v2)
 		external "C macro use <gts.h>"
 		end
 	
-	gts_vector_cross (c,a,b: POINTER) is
+	gts_vector_cross (c,a,b: POINTER)
 			-- #define gts_vector_cross (C,A,B)
 		external "C macro use <gts.h>"
 		end
 	
-	gts_vector_norm (v: POINTER): REAL is
+	gts_vector_norm (v: POINTER): REAL
 			-- #define gts_vector_norm (v)
 		external "C macro use <gts.h>"
 		end
 	
-	gts_vector_normalize (v: POINTER): REAL is
+	gts_vector_normalize (v: POINTER): REAL
 			-- #define gts_vector_normalize (v)
 		external "C macro use <gts.h>"
 		end
 	
-	gts_vector_print (v, fptr: POINTER) is
+	gts_vector_print (v, fptr: POINTER)
 			-- void gts_vector_print (GtsVector v, FILE *fptr);
 		external "C use <gts.h>"
 		end
 	
-	gts_vector4_print (v, fptr: POINTER) is
+	gts_vector4_print (v, fptr: POINTER)
 			-- void gts_vector4_print (GtsVector4 v, FILE *fptr);
 		external "C use <gts.h>"
 		end
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsVector)"
 		end

@@ -37,7 +37,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (instance: POINTER) is
+	callback (instance: POINTER)
 		require
 			instance_not_null: instance.is_not_null
 		do
@@ -47,14 +47,14 @@ feature {ANY}
 			procedure.call ([object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: like object; a_procedure: like procedure) is
+	connect (an_object: like object; a_procedure: like procedure)
 		require
 			an_object /= Void
 			a_procedure /= Void

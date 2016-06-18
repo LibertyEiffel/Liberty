@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_buttons_type (a_gtk_buttons_type :INTEGER): BOOLEAN is
+	is_valid_gtk_buttons_type (a_gtk_buttons_type :INTEGER): BOOLEAN
 		do
 			Result:=((a_gtk_buttons_type = gtk_buttons_none) or else
 						(a_gtk_buttons_type = gtk_buttons_ok) or else
@@ -37,37 +37,37 @@ feature {} -- enum
 						(a_gtk_buttons_type = gtk_buttons_ok_cancel))
 		end
 
-	gtk_buttons_none: INTEGER is
+	gtk_buttons_none: INTEGER
 			-- 	no buttons at all 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_BUTTONS_NONE"
 		end
 
-	gtk_buttons_ok: INTEGER is
+	gtk_buttons_ok: INTEGER
 			-- 	an OK button 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_BUTTONS_OK"
 		end
 
-	gtk_buttons_close: INTEGER is
+	gtk_buttons_close: INTEGER
 			-- 	a Close button 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_BUTTONS_CLOSE"
 		end
 
-	gtk_buttons_cancel: INTEGER is
+	gtk_buttons_cancel: INTEGER
 			-- 	a Cancel button 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_BUTTONS_CANCEL"
 		end
 
-	gtk_buttons_yes_no: INTEGER is
+	gtk_buttons_yes_no: INTEGER
 			-- 	Yes and No buttons 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_BUTTONS_YES_NO"
 		end
 
-	gtk_buttons_ok_cancel: INTEGER is
+	gtk_buttons_ok_cancel: INTEGER
 			-- 	OK and Cancel buttons 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_BUTTONS_OK_CANCEL"

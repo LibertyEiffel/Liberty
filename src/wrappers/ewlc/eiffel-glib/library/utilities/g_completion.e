@@ -50,7 +50,7 @@ insert G_COMPLETION_EXTERNALS redefine default_create end
 create {ANY}  from_external_pointer
 
 feature {ANY}
-	default_create is
+	default_create
 		do
 			from_external_pointer(g_completion_new (default_pointer))
 			-- Creates a new GCompletion. The argument is the function to
@@ -60,27 +60,27 @@ feature {ANY}
 		end
 
 
-	add (some_strings: G_LIST_STRING) is
+	add (some_strings: G_LIST_STRING)
 			-- Adds `some_strings' to Current GCompletion.
 		require some_strings/=Void
 		do
 			g_completion_add_items(handle,some_strings.handle)
 		end
 
-	remove (some_strings: G_LIST_STRING) is
+	remove (some_strings: G_LIST_STRING)
 			-- Removes `some_strings' from Current GCompletion.
 		require some_strings/=Void
 		do
 			g_completion_remove_items(handle,some_strings.handle)
 		end
 
-	clear is
+	clear
 			-- Removes all items from the GCompletion.
 		do
 			g_completion_clear_items(handle)
 		end
 
-	complete (a_prefix: STRING) is
+	complete (a_prefix: STRING)
 			-- Attempts to complete `a_prefix' using the GCompletion
 			-- target items.
 		require prefix_not_void: a_prefix /= Void
@@ -113,7 +113,7 @@ feature {ANY}
 			-- if no items matched `a_prefix'. This string should be
 			-- freed when no longer needed.
 	
-	dispose is
+	dispose
 			-- Frees all memory used by the GCompletion.
 		do
 			g_completion_free(handle)

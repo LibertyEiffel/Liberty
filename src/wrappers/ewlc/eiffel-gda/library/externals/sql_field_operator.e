@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = sql_plus) or else 
 				(a_value = sql_minus) or else 
@@ -15,66 +15,66 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_plus is
+	default_create, set_plus
 		do
 			value := sql_plus
 		end
 
-	set_minus is
+	set_minus
 		do
 			value := sql_minus
 		end
 
-	set_times is
+	set_times
 		do
 			value := sql_times
 		end
 
-	set_div is
+	set_div
 		do
 			value := sql_div
 		end
 
 
 feature {ANY} -- Queries
-	is_plus: BOOLEAN is
+	is_plus: BOOLEAN
 		do
 			Result := (value=sql_plus)
 		end
 
-	is_minus: BOOLEAN is
+	is_minus: BOOLEAN
 		do
 			Result := (value=sql_minus)
 		end
 
-	is_times: BOOLEAN is
+	is_times: BOOLEAN
 		do
 			Result := (value=sql_times)
 		end
 
-	is_div: BOOLEAN is
+	is_div: BOOLEAN
 		do
 			Result := (value=sql_div)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	sql_plus: INTEGER is
+	sql_plus: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_plus"
 		end
 
-	sql_minus: INTEGER is
+	sql_minus: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_minus"
 		end
 
-	sql_times: INTEGER is
+	sql_times: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_times"
 		end
 
-	sql_div: INTEGER is
+	sql_div: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_div"
 		end

@@ -40,13 +40,13 @@ insert GTK_CELL_RENDERER_PIXBUF_EXTERNALS
 create {ANY} make, from_external_pointer
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererPixbuf)"
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkCellRendererPixbuf. Adjust rendering
 			-- parameters using object properties. Object properties can
 			-- be set globally (with `set_property' and its typed variants). Also, with

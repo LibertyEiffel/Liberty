@@ -44,34 +44,34 @@ create {ANY} make, from_external_pointer
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkColorSelection)"
 		end
 
 feature {ANY}
-	make is
+	make
 			-- Creates a new GtkColorSelection.
 		do
 			from_external_pointer(gtk_color_selection_new)
 		end
 
 feature {ANY}
-	current_color: GDK_COLOR is
+	current_color: GDK_COLOR
 			-- Returns the current color in the GTK_COLOR_SELECTION widget
 		do
 			create Result.make
 			gtk_color_selection_get_current_color (handle, Result.handle)
 		end
 
-	set_current_color (a_color: GDK_COLOR) is
+	set_current_color (a_color: GDK_COLOR)
 			-- Sets the current color to be a_color. The first time this is
 			-- called, it will also set the original color to be a_color too.
 		do
 			gtk_color_selection_set_current_color (handle, a_color.handle)
 		end
 
-	set_has_opacity_control (a_setting: BOOLEAN) is
+	set_has_opacity_control (a_setting: BOOLEAN)
 			-- Sets Current color selection to use or not use opacity.
 			-- colorsel : a GtkColorSelection.  has_opacity : TRUE if
 			-- colorsel can set the opacity, FALSE otherwise.
@@ -80,33 +80,33 @@ feature {ANY}
 			(handle, a_setting.to_integer)
 		end
 
-	has_opacity_control: BOOLEAN is
+	has_opacity_control: BOOLEAN
 			-- Does the color selection have an opacity control.
 		do
 			Result := (gtk_color_selection_get_has_opacity_control
 						  (handle).to_boolean)
 		end
 
-	set_has_palette (a_setting: BOOLEAN) is
+	set_has_palette (a_setting: BOOLEAN)
 			-- Shows or hides the palette based upon the value of `a_setting'.
 		do
 			gtk_color_selection_set_has_palette(handle, a_setting.to_integer)
 		end
 
-	has_palette: BOOLEAN is
+	has_palette: BOOLEAN
 			-- Does the selector have a palette?
 		do
 			Result := gtk_color_selection_get_has_palette(handle).to_boolean
 		end
 
-	current_alpha: INTEGER is
+	current_alpha: INTEGER
 			-- the current alpha value.  
 		do
 			Result:=gtk_color_selection_get_current_alpha(handle)
 		ensure fit_natural_16: Result.in_range(0, 65535)
 		end
 
-	set_current_alpha (an_alpha: INTEGER) is
+	set_current_alpha (an_alpha: INTEGER)
 			-- Sets the current opacity to `an_alpha'. The first time
 			-- this is called, it will also set the original opacity to
 			-- `an_alpha'.
@@ -116,14 +116,14 @@ feature {ANY}
 		ensure set: current_alpha = an_alpha
 		end
 
-	previous_alpha: INTEGER is
+	previous_alpha: INTEGER
 			-- the previous alpha value.
 		do
 			Result:=gtk_color_selection_get_previous_alpha(handle)
 		ensure fit_natural_16: Result.in_range(0, 65535)
 		end
 
-	set_previous_alpha (an_alpha: INTEGER) is
+	set_previous_alpha (an_alpha: INTEGER)
 			-- Sets the 'previous' alpha to `an_alpha'. This function
 			-- should be called with some hesitations, as it might seem
 			-- confusing to have that alpha change.
@@ -133,14 +133,14 @@ feature {ANY}
 		ensure set: previous_alpha = an_alpha
 		end
 
-	previous_color: GDK_COLOR is
+	previous_color: GDK_COLOR
 			-- the original color value.
 		do
 			create Result.make
 			gtk_color_selection_get_previous_color (handle, Result.handle)
 		end
 
-	set_previous_color (a_color: GDK_COLOR) is
+	set_previous_color (a_color: GDK_COLOR)
 			-- Sets the 'previous' color to `a_color'. This function
 			-- should be called with some hesitations, as it might seem
 			-- confusing to have that color change. Calling
@@ -151,7 +151,7 @@ feature {ANY}
 			gtk_color_selection_set_previous_color(handle, a_color.handle)
 		end
 
-	is_adjusting: BOOLEAN is
+	is_adjusting: BOOLEAN
 			-- Is the user currently dragging a color around?
 		do
 			Result:=(gtk_color_selection_is_adjusting(handle).to_boolean)

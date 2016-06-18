@@ -10,58 +10,58 @@ deferred class GTK_PRINT_UNIX_DIALOG_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gtk_print_unix_dialog_new (a_title, a_parent: POINTER): POINTER is
+	gtk_print_unix_dialog_new (a_title, a_parent: POINTER): POINTER
 			-- GtkWidget* gtk_print_unix_dialog_new (const gchar *title, GtkWindow
 			-- *parent);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
 
-	gtk_print_unix_dialog_set_page_setup (a_dialog, a_page_setup: POINTER) is
+	gtk_print_unix_dialog_set_page_setup (a_dialog, a_page_setup: POINTER)
 			-- void gtk_print_unix_dialog_set_page_setup (GtkPrintUnixDialog *dialog, GtkPageSetup *page_setup);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
 
-	gtk_print_unix_dialog_get_page_setup (a_dialog: POINTER): POINTER is
+	gtk_print_unix_dialog_get_page_setup (a_dialog: POINTER): POINTER
 			-- GtkPageSetup* gtk_print_unix_dialog_get_page_setup (GtkPrintUnixDialog *dialog);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
 
-	gtk_print_unix_dialog_set_current_page (a_dialog: POINTER; a_current_page: INTEGER) is
+	gtk_print_unix_dialog_set_current_page (a_dialog: POINTER; a_current_page: INTEGER)
 			-- void gtk_print_unix_dialog_set_current_page (GtkPrintUnixDialog
 			-- *dialog, gint current_page);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
 
-	gtk_print_unix_dialog_get_current_page (a_dialog: POINTER): INTEGER is
+	gtk_print_unix_dialog_get_current_page (a_dialog: POINTER): INTEGER
 			-- gint gtk_print_unix_dialog_get_current_page (GtkPrintUnixDialog
 			-- *dialog);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
 
-	gtk_print_unix_dialog_set_settings (a_dialog, some_settings: POINTER) is
+	gtk_print_unix_dialog_set_settings (a_dialog, some_settings: POINTER)
 			-- void gtk_print_unix_dialog_set_settings (GtkPrintUnixDialog *dialog,
 			-- GtkPrintSettings *settings);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
 
-	gtk_print_unix_dialog_get_settings (a_dialog: POINTER): POINTER is
+	gtk_print_unix_dialog_get_settings (a_dialog: POINTER): POINTER
 			-- GtkPrintSettings* gtk_print_unix_dialog_get_settings
 			-- (GtkPrintUnixDialog *dialog);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
 
-	gtk_print_unix_dialog_get_selected_printer (a_dialog: POINTER): POINTER is
+	gtk_print_unix_dialog_get_selected_printer (a_dialog: POINTER): POINTER
 			-- GtkPrinter* gtk_print_unix_dialog_get_selected_printer
 			-- (GtkPrintUnixDialog *dialog);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
 
-	gtk_print_unix_dialog_add_custom_tab (a_dialog, a_child, a_tab_label: POINTER) is
+	gtk_print_unix_dialog_add_custom_tab (a_dialog, a_child, a_tab_label: POINTER)
 			-- void gtk_print_unix_dialog_add_custom_tab (GtkPrintUnixDialog *dialog, GtkWidget *child, GtkWidget *tab_label);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
 
-	gtk_print_unix_dialog_set_manual_capabilities (a_dialog: POINTER; some_capabilities: INTEGER) is
+	gtk_print_unix_dialog_set_manual_capabilities (a_dialog: POINTER; some_capabilities: INTEGER)
 			-- void gtk_print_unix_dialog_set_manual_capabilities
 			-- (GtkPrintUnixDialog *dialog, GtkPrintCapabilities capabilities);
 		external "C use <gtk/gtkprintunixdialog.h>"

@@ -22,7 +22,7 @@ class PLUGGABLE
 	-- 
 
 feature {ANY} 
-	initialize (a_plugin_name: STRING) is
+	initialize (a_plugin_name: STRING)
 		-- Tries to load the `a_plugin_name'
 		require a_plugin_name/=Void
 		-- local ptr: POINTER
@@ -30,13 +30,13 @@ feature {ANY}
 			handle := dlopen(a_plugin_name.to_external,rtld_now|rtld_global)
 		end
 	
-	is_initialized: BOOLEAN is
+	is_initialized: BOOLEAN
 		-- Has pluggable correctly loaded the plugin?
 	do
 		Result := handle.is_not_null
 	end
 
-	symbol (a_symbol_name: STRING) is
+	symbol (a_symbol_name: STRING)
 		-- Tries to find the symbol named a_symbol_name. It it exists it
 		-- invokes it as a function using Current.
 	require 
@@ -52,7 +52,7 @@ feature {ANY}
 
 
 feature {} -- External features
-	invoke (a_current, a_pointer: POINTER) is
+	invoke (a_current, a_pointer: POINTER)
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -62,7 +62,7 @@ feature {} -- External features
 		end
 
 
-	dlopen(a_filename: POINTER; some_flag: INTEGER): POINTER is
+	dlopen(a_filename: POINTER; some_flag: INTEGER): POINTER
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -71,7 +71,7 @@ feature {} -- External features
 			}"
 		end
 
-	dlerror: POINTER is
+	dlerror: POINTER
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -80,7 +80,7 @@ feature {} -- External features
 			}"
 		end
 
-	dlsym(an_handle, a_symbol: POINTER): POINTER is
+	dlsym(an_handle, a_symbol: POINTER): POINTER
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -89,7 +89,7 @@ feature {} -- External features
 			}"
 		end
 
-	dlclose(an_handle: POINTER): INTEGER is
+	dlclose(an_handle: POINTER): INTEGER
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -99,7 +99,7 @@ feature {} -- External features
 		end
 
 
-	rtld_now: INTEGER is
+	rtld_now: INTEGER
 	external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -109,7 +109,7 @@ feature {} -- External features
 		end
 
       
-	rtld_global: INTEGER is
+	rtld_global: INTEGER
     	external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"

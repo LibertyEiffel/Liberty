@@ -51,14 +51,14 @@ create {ANY} from_external_pointer, make
 
 feature {ANY} -- Creation
 
-	make is
+	make
 		do
 			allocate
 		end
 
 feature {ANY} -- Access
 
-	target: STRING is
+	target: STRING
 		local
 			c_ptr: POINTER
 		do
@@ -68,38 +68,38 @@ feature {ANY} -- Access
 			end
 		end
 
-	flags: INTEGER is
+	flags: INTEGER
 		do
 			Result := gtk_target_entry_get_flags (handle)
 		end
 
-	info: INTEGER is
+	info: INTEGER
 		do
 			Result := gtk_target_entry_get_info (handle)
 		end
 
 feature {ANY} -- Operations
 
-	set_target (a_target: STRING) is
+	set_target (a_target: STRING)
 		require
 			a_target /= Void
 		do
 			gtk_target_entry_set_target (handle, a_target.to_external)
 		end
 
-	set_flags (some_flags: INTEGER) is
+	set_flags (some_flags: INTEGER)
 		do
 			gtk_target_entry_set_flags (handle, some_flags)
 		end
 
-	set_info (some_info: INTEGER) is
+	set_info (some_info: INTEGER)
 		do
 			gtk_target_entry_set_info (handle, some_info)
 		end
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof (GtkTargetEntry)"
 		end

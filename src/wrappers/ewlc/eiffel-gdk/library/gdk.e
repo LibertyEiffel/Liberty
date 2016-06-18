@@ -28,7 +28,7 @@ inherit WRAPPER_HANDLER undefine default_create end
 insert SHARED_CREATION_DICTIONARY undefine default_create end
 
 feature {} -- Creation agents
-	store_gdk_creation_agents is
+	store_gdk_creation_agents
 		once
 			creation_agents.put (agent create_gdk_screen , "GdkScreen")
 			creation_agents.put (agent create_gdk_window , "GdkWindow")
@@ -38,11 +38,11 @@ feature {} -- Creation agents
 			creation_agents.put (agent create_gdk_gc , "GdkGc")
 		end
 
-		create_gdk_screen (p: POINTER): GDK_SCREEN is do create Result.from_external_pointer(p) end
-		create_gdk_window (p: POINTER): GDK_WINDOW is do create Result.from_external_pointer(p) end
-		create_gdk_pixmap (p: POINTER): GDK_PIXMAP is do create Result.from_external_pointer(p) end
-		create_gdk_pixbuf (p: POINTER): GDK_PIXBUF is do create Result.from_external_pointer(p) end
-		create_gdk_drag_context (p: POINTER): GDK_DRAG_CONTEXT is do create Result.from_external_pointer(p) end
-		create_gdk_gc (p: POINTER): GDK_GC is do create Result.from_external_pointer(p) end
+		create_gdk_screen (p: POINTER): GDK_SCREEN do create Result.from_external_pointer(p) end
+		create_gdk_window (p: POINTER): GDK_WINDOW do create Result.from_external_pointer(p) end
+		create_gdk_pixmap (p: POINTER): GDK_PIXMAP do create Result.from_external_pointer(p) end
+		create_gdk_pixbuf (p: POINTER): GDK_PIXBUF do create Result.from_external_pointer(p) end
+		create_gdk_drag_context (p: POINTER): GDK_DRAG_CONTEXT do create Result.from_external_pointer(p) end
+		create_gdk_gc (p: POINTER): GDK_GC do create Result.from_external_pointer(p) end
 	
 end -- class GDK

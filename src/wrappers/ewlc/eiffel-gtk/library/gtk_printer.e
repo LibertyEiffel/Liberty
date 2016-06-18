@@ -53,7 +53,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_name: STRING; a_backend: GTK_PRINT_BACKEND; virtual: BOOLEAN) is
+	make (a_name: STRING; a_backend: GTK_PRINT_BACKEND; virtual: BOOLEAN)
 			-- Creates a new GtkPrinter with `a_name', connected to
 			-- `a_backend'. `virtual' tells whether the printer is
 			-- virtual.
@@ -67,60 +67,60 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Queries
-	backend: GTK_PRINT_BACKEND is
+	backend: GTK_PRINT_BACKEND
 			-- The backend of the printer.
 		do
 			create Result.from_external_pointer(gtk_printer_get_backend(handle))
 		ensure not_void: Result/=Void
 		end
 
-	name: CONST_STRING is
+	name: CONST_STRING
 			-- the name of the printer.
 		do
 			create Result.from_external(gtk_printer_get_name(handle))
 		ensure not_void: Result/=Void
 		end
 
-	state_message: CONST_STRING is
+	state_message: CONST_STRING
 			-- the state message of printer
 		do
 			create Result.from_external(gtk_printer_get_state_message(handle))
 		ensure not_void: Result/=Void
 		end
 
-	description: CONST_STRING is
+	description: CONST_STRING
 			-- the description of printer
 		do
 			create Result.from_external(gtk_printer_get_description(handle))
 		ensure not_void: Result/=Void
 		end
 
-	location: CONST_STRING is
+	location: CONST_STRING
 			-- The location of the printer.
 		do
 			create Result.from_external(gtk_printer_get_location(handle))
 		end
 
-	icon_name: CONST_STRING is
+	icon_name: CONST_STRING
 			-- the icon name for printer
 		do
 			create Result.from_external(gtk_printer_get_icon_name(handle))
 		end
 
-	job_count: INTEGER is
+	job_count: INTEGER
 			-- the number of jobs currently queued on the printer.
 		do
 			Result:=gtk_printer_get_job_count(handle)
 		end
 	
-	is_active: BOOLEAN is
+	is_active: BOOLEAN
 			-- Is the printer currently active? A printer is active when
 			-- it accepts new jobs.
 		do
 			Result:=gtk_printer_is_active(handle).to_boolean
 		end
 
-	is_virtual: BOOLEAN is
+	is_virtual: BOOLEAN
 			-- Is the printer virtual? A virtual printer does not
 			-- represent actual printer hardware, but something like a
 			-- CUPS class.
@@ -128,36 +128,36 @@ feature {ANY} -- Queries
 			Result:=gtk_printer_is_virtual(handle).to_boolean
 		end
 
-	is_default: BOOLEAN is
+	is_default: BOOLEAN
 			-- Is the printer the default printer?
 		do
 			Result:=gtk_printer_is_default(handle).to_boolean
 		end
 
-	accepts_postscript: BOOLEAN is
+	accepts_postscript: BOOLEAN
 			-- Does the printer accept input in PostScript format?
 		do
 			Result:=gtk_printer_accepts_ps(handle).to_boolean
 		end
 
-	accepts_pdf: BOOLEAN is
+	accepts_pdf: BOOLEAN
 			-- Does the printer accept input in PDF format?
 		do
 			Result:=gtk_printer_accepts_pdf(handle).to_boolean
 		end
 
 feature {ANY} -- Comparability
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 		do
 			Result:=(compare(other)=0)
 		end
 
-	infix "<" (other: like Current): BOOLEAN is
+	infix "<" (other: like Current): BOOLEAN
 		do		
 			Result:=(compare(other)<0)
 		end
 
-	compare, three_way_comparison (other: like Current): INTEGER is
+	compare, three_way_comparison (other: like Current): INTEGER
 			--   Compares two printers: 0 if the printer match, a
 			--   negative value if Current < `other,' or a positive
 			--   value if Current > `other'

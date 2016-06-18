@@ -52,14 +52,14 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new toolbar.
 		do
 			from_external_pointer (gtk_toolbar_new)
 		end
 
 feature {ANY}
-	prepend (an_item: GTK_TOOL_ITEM) is
+	prepend (an_item: GTK_TOOL_ITEM)
 			-- Prepend `an_item' into Current toolbar to the start of
 			-- the toolbar. 
 		require item_not_void: an_item /= Void
@@ -67,7 +67,7 @@ feature {ANY}
 			gtk_toolbar_insert (handle, an_item.handle, 0)
 		end
 
-	append (an_item: GTK_TOOL_ITEM) is
+	append (an_item: GTK_TOOL_ITEM)
 			-- Append `an_item' into Current toolbar to the end of the
 			-- toolbar.
 		require item_not_void: an_item /= Void
@@ -75,7 +75,7 @@ feature {ANY}
 			gtk_toolbar_insert (handle, an_item.handle, -1)
 		end
 
-	insert_item (an_item: GTK_TOOL_ITEM; a_position: INTEGER) is
+	insert_item (an_item: GTK_TOOL_ITEM; a_position: INTEGER)
 			-- Insert `an_item' into Current toolbar at `a_position'. If
 			-- `a_position' is 0 `an_item' is prepended to the start of
 			-- the toolbar. If 'a_position' is negative, the item is
@@ -90,7 +90,7 @@ feature {ANY}
 			gtk_toolbar_insert (handle, an_item.handle, a_position)
 		end
 
-	index_of (an_item: GTK_TOOL_ITEM): INTEGER is
+	index_of (an_item: GTK_TOOL_ITEM): INTEGER
 			-- the position of `an_item' on the toolbar, starting from
 			-- 0. It is an error if item is not a child of the toolbar.
 		require
@@ -100,7 +100,7 @@ feature {ANY}
 			Result := gtk_toolbar_get_item_index(handle,an_item.handle)
 		end
 
-	count: INTEGER is
+	count: INTEGER
 			-- the number of items on the toolbar.
 			
 			-- Note: C name of this feature is gtk_toolbar_get_n_items.
@@ -108,13 +108,13 @@ feature {ANY}
 			Result := gtk_toolbar_get_n_items(handle)
 		end
 
-	is_valid_index(an_index: INTEGER): BOOLEAN is
+	is_valid_index(an_index: INTEGER): BOOLEAN
 			-- Is `an_index' valid to access GTK_TOOLBAR's items?.
 		do
 			Result:=(gtk_toolbar_get_nth_item(handle, an_index).is_not_null)
 		end
 	
-	item (an_index: INTEGER): GTK_TOOL_ITEM is
+	item (an_index: INTEGER): GTK_TOOL_ITEM
 			-- then item on toolbar at `an_index'; Void if `an_index' is
 			-- not valid.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TOOL_ITEM]
@@ -122,7 +122,7 @@ feature {ANY}
 			Result := factory.wrapper_or_void (gtk_toolbar_get_nth_item(handle, an_index))
 		end
 
-	drop_index (an_x, an_y: INTEGER): INTEGER is
+	drop_index (an_x, an_y: INTEGER): INTEGER
 			-- the position corresponding to the indicated point
 			-- (`an_x',`an_y') on toolbar. This is useful when dragging
 			-- items to the toolbar: this is the position a new item
@@ -131,7 +131,7 @@ feature {ANY}
 			Result := gtk_toolbar_get_drop_index (handle, an_x,an_y)
 		end
 
-	set_drop_highlight_item (an_item: GTK_TOOL_ITEM; an_index: INTEGER) is
+	set_drop_highlight_item (an_item: GTK_TOOL_ITEM; an_index: INTEGER)
 			-- Highlights toolbar to give an idea of what it would look
 			-- like if item was added to toolbar at the position
 			-- indicated by `an_index'. 
@@ -147,13 +147,13 @@ feature {ANY}
 			gtk_toolbar_set_drop_highlight_item (handle, an_item.handle, an_index)
 		end
 
-	disable_highlighting is
+	disable_highlighting
 			-- Turn off highlighting during dropping.
 		do
 			gtk_toolbar_set_drop_highlight_item (handle, default_pointer, 0)
 		end
 
-	set_show_arrow (a_setting: BOOLEAN) is
+	set_show_arrow (a_setting: BOOLEAN)
 			-- Sets whether to show an overflow menu when toolbar doesn't
 			-- have room for all items on it. If TRUE, items that there
 			-- are not room are available through an overflow menu.
@@ -161,7 +161,7 @@ feature {ANY}
 			gtk_toolbar_set_show_arrow (handle, a_setting.to_integer)
 		end
 
-	set_orientation (an_orientation: INTEGER) is
+	set_orientation (an_orientation: INTEGER)
 			-- Sets whether a toolbar should appear horizontally or
 			-- vertically.
 		require valid_orientation: is_valid_gtk_orientation (an_orientation)
@@ -169,7 +169,7 @@ feature {ANY}
 			gtk_toolbar_set_orientation (handle, an_orientation)
 		end
 
-	set_tooltips (a_setting: BOOLEAN) is
+	set_tooltips (a_setting: BOOLEAN)
 			-- Sets if the tooltips of a toolbar should be active or
 			-- not. Set `a_setting' to False to disable the tooltips, or
 			-- True to enable them.
@@ -177,47 +177,47 @@ feature {ANY}
 			gtk_toolbar_set_tooltips(handle, a_setting.to_integer)
 		end
 
-	does_show_arrow: BOOLEAN is
+	does_show_arrow: BOOLEAN
 			-- Does the toolbar have an overflow menu?
 		do
 			Result:=(gtk_toolbar_get_show_arrow(handle).to_boolean)
 		end
 
-	orientation: INTEGER is
+	orientation: INTEGER
 			-- the current orientation of the toolbar.
 		do
 			Result := gtk_toolbar_get_orientation (handle)
 		ensure is_valid_orientation: is_valid_gtk_orientation(orientation)
 		end
 
-	style: INTEGER is
+	style: INTEGER
 			-- the current style of toolbar
 		do
 			Result:=gtk_toolbar_get_style(handle)
 		ensure is_valid_toolbar_style: is_valid_gtk_toolbar_style(Result)
 		end
 
-	icon_size: INTEGER is
+	icon_size: INTEGER
 			-- the current icon size for the icons on the toolbar.
 		do
 			Result := gtk_toolbar_get_icon_size (handle)
 		ensure is_valid_icon_size: is_valid_gtk_icon_size (Result)
 		end
 
-	are_tooltips_enabled: BOOLEAN is
+	are_tooltips_enabled: BOOLEAN
 			-- Are tooltips enabled?
 		do
 			Result := (gtk_toolbar_get_tooltips(handle).to_boolean)
 		end
 
-	relief_style: INTEGER is
+	relief_style: INTEGER
 			-- The relief style of buttons on toolbar.
 		do
 			Result := gtk_toolbar_get_relief_style (handle)
 		ensure is_valid_relief_style: is_valid_gtk_relief_style (Result)
 		end
 
-	set_style (a_style: INTEGER) is
+	set_style (a_style: INTEGER)
 			-- Alters the view of toolbar to display either icons only,
 			-- text only, or both.
 		require is_valid_relief_style: is_valid_gtk_relief_style (a_style)
@@ -226,7 +226,7 @@ feature {ANY}
 		ensure set: relief_style = a_style
 		end
 
-	unset_style is
+	unset_style
 			-- Unsets a toolbar style set with `set_style', so that user
 			-- preferences will be used to determine the toolbar style.
 		do
@@ -514,7 +514,7 @@ feature {ANY} -- Signals
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkToolbar)"
 		end

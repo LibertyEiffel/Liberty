@@ -29,15 +29,15 @@ inherit
 
 feature {} -- External calls
 
-	goo_canvas_new : POINTER  is
+	goo_canvas_new : POINTER
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-	goo_canvas_get_root_item (canvas : POINTER) : POINTER  is
+	goo_canvas_get_root_item (canvas : POINTER) : POINTER
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-	goo_canvas_set_root_item (canvas, item : POINTER)  is
+	goo_canvas_set_root_item (canvas, item : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
@@ -46,11 +46,11 @@ feature {} -- External calls
 -- void                goo_canvas_set_root_item_model      (GooCanvas *canvas,
 --                                                         GooCanvasItemModel *model);
 
-	goo_canvas_get_static_root_item (canvas : POINTER) : POINTER  is
+	goo_canvas_get_static_root_item (canvas : POINTER) : POINTER
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-	goo_canvas_set_static_root_item (canvas, item : POINTER)  is
+	goo_canvas_set_static_root_item (canvas, item : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
@@ -60,26 +60,26 @@ feature {} -- External calls
 --                                                        (GooCanvas *canvas,
 --                                                         GooCanvasItemModel *model);
 
-	goo_canvas_get_bounds (canvas, left, top, right, bottom : POINTER)  is
+	goo_canvas_get_bounds (canvas, left, top, right, bottom : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-	goo_canvas_set_bounds (canvas : POINTER; left, top, right, bottom : REAL_64)  is
+	goo_canvas_set_bounds (canvas : POINTER; left, top, right, bottom : REAL_64)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-	goo_canvas_get_scale  (canvas : POINTER) : REAL_64  is
+	goo_canvas_get_scale  (canvas : POINTER) : REAL_64
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-  goo_canvas_set_scale  (canvas : POINTER; scale : REAL_64)  is
+  goo_canvas_set_scale  (canvas : POINTER; scale : REAL_64)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
 
 --GooCanvasItem*      goo_canvas_get_item                 (GooCanvas *canvas,
 --                                                         GooCanvasItemModel *model);
-	goo_canvas_get_item_at (canvas : POINTER; x,y : REAL_64; is_pointer_event : BOOLEAN) : POINTER  is
+	goo_canvas_get_item_at (canvas : POINTER; x,y : REAL_64; is_pointer_event : BOOLEAN) : POINTER
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
@@ -93,7 +93,7 @@ feature {} -- External calls
 --                                                         gboolean allow_overlaps,
 --                                                         gboolean include_containers);
 
-	goo_canvas_scroll_to (canvas : POINTER; left, top: REAL_64)  is
+	goo_canvas_scroll_to (canvas : POINTER; left, top: REAL_64)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
@@ -102,19 +102,19 @@ feature {} -- External calls
 --                                                         const GooCanvasBounds *bounds,
 --                                                         gREAL_64 scale);
 
-	goo_canvas_convert_to_pixels (canvas : POINTER; x,y : POINTER)  is
+	goo_canvas_convert_to_pixels (canvas : POINTER; x,y : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-  goo_canvas_convert_from_pixels (canvas : POINTER; x,y : POINTER)  is
+  goo_canvas_convert_from_pixels (canvas : POINTER; x,y : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-  goo_canvas_convert_to_item_space (canvas, item, x,y : POINTER)  is
+  goo_canvas_convert_to_item_space (canvas, item, x,y : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-  goo_canvas_convert_from_item_space (canvas, item, x, y : POINTER)  is
+  goo_canvas_convert_from_item_space (canvas, item, x, y : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
@@ -132,20 +132,20 @@ feature {} -- External calls
 --                                                         GooCanvasItem *item,
 --                                                         guint32 time);
 
-  goo_canvas_grab_focus (canvas, item : POINTER)  is
+  goo_canvas_grab_focus (canvas, item : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-  goo_canvas_keyboard_grab (canvas, item : POINTER; owner_events : BOOLEAN; time : INTEGER_32) : POINTER  is
+  goo_canvas_keyboard_grab (canvas, item : POINTER; owner_events : BOOLEAN; time : INTEGER_32) : POINTER
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-  goo_canvas_keyboard_ungrab (canvas, item : POINTER; time : INTEGER_32)  is
+  goo_canvas_keyboard_ungrab (canvas, item : POINTER; time : INTEGER_32)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
 
-	goo_canvas_create_cairo_context (canvas : POINTER) : POINTER  is
+	goo_canvas_create_cairo_context (canvas : POINTER) : POINTER
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
@@ -157,11 +157,11 @@ feature {} -- External calls
 --                                                         GooCanvasWidget *witem);
 --void                goo_canvas_unregister_widget_item   (GooCanvas *canvas,
 --                                                         GooCanvasWidget *witem);
-  goo_canvas_update (canvas : POINTER)  is
+  goo_canvas_update (canvas : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
-  goo_canvas_request_update (canvas : POINTER)  is
+  goo_canvas_request_update (canvas : POINTER)
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 
@@ -170,7 +170,7 @@ feature {} -- External calls
 --void                goo_canvas_request_item_redraw      (GooCanvas *canvas,
 --                                                         const GooCanvasBounds *bounds,
 --                                                         gboolean is_static);
-	goo_canvas_get_default_line_width (canvas : POINTER) : REAL_64  is
+	goo_canvas_get_default_line_width (canvas : POINTER) : REAL_64
 		external "C use <goocanvas-1.0/goocanvas.h>"
 		end
 

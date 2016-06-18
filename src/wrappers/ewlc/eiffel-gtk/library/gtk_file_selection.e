@@ -112,7 +112,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	with_title (a_title: STRING) is
+	with_title (a_title: STRING)
 			-- Creates a new file selection dialog box. By default it will contain
 			-- a GtkTreeView of the application's current working directory, and a
 			-- file listing. Operation buttons that allow the user to create a
@@ -126,7 +126,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	set_filename (a_filename: STRING) is
+	set_filename (a_filename: STRING)
 			-- Sets a default path for the file requestor. If filename includes a
 			-- directory path, then the requestor will open with that path as its
 			-- current working directory.
@@ -144,7 +144,7 @@ feature {ANY}
 			gtk_file_selection_set_filename (handle, a_filename.to_external)
 		end
 
-	filename: CONST_STRING is
+	filename: CONST_STRING
 			-- the selected filename in the GLib file name encoding. To convert to
 			-- UTF-8, call g_filename_to_utf8 (TODO: Eiffellize). 
 		
@@ -156,7 +156,7 @@ feature {ANY}
 			create Result.from_external(gtk_file_selection_get_filename(handle))
 		end
 
-	complete (a_pattern: STRING) is
+	complete (a_pattern: STRING)
 			-- Will attempt to match pattern to a valid filenames or subdirectories
 			-- in the current directory. If a match can be made, the matched
 			-- filename will appear in the text entry field of the file selection
@@ -170,7 +170,7 @@ feature {ANY}
 			gtk_file_selection_complete(handle, a_pattern.to_external)
 		end
 
-	show_fileop_buttons is
+	show_fileop_buttons
 			-- Shows the file operation buttons, if they have previously been
 			-- hidden. The rest of the widgets in the dialog will be resized
 			-- accordingly.
@@ -178,7 +178,7 @@ feature {ANY}
 			gtk_file_selection_show_fileop_buttons(handle)
 		end
 
-	hide_fileop_buttons is
+	hide_fileop_buttons
 			-- Hides the file operation buttons that normally appear at the top of
 			-- the dialog. Useful if you wish to create a custom file selector,
 			-- based on GtkFileSelection.
@@ -186,7 +186,7 @@ feature {ANY}
 			gtk_file_selection_hide_fileop_buttons(handle)
 		end
 
-	selections: STRING_ARRAY is
+	selections: STRING_ARRAY
 			-- the list of file selections the user has made in the dialog box.
 			-- This function is intended for use when the user can select multiple
 			-- files in the file list.
@@ -205,7 +205,7 @@ feature {ANY}
 			-- collector.
 		end
 
-	set_select_multiple (a_setting: BOOLEAN) is
+	set_select_multiple (a_setting: BOOLEAN)
 			-- Sets whether the user is allowed to select multiple files in the
 			-- file list. Use `selections' to get the list of selected files.
 		do
@@ -213,7 +213,7 @@ feature {ANY}
 		ensure set: a_setting = are_multiple_selection_allowed
 		end
 
-	are_multiple_selection_allowed: BOOLEAN is
+	are_multiple_selection_allowed: BOOLEAN
 			-- Is the user allowed to select multiple files in the file list?
 		do
 			Result:=gtk_file_selection_get_select_multiple(handle).to_boolean

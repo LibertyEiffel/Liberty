@@ -34,7 +34,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (tree_path, tree_view_col, instance: POINTER) is
+	callback (tree_path, tree_view_col, instance: POINTER)
 		local
 			tree_path_obj: GTK_TREE_PATH
 			tree_view_col_obj: GTK_TREE_VIEW_COLUMN
@@ -52,7 +52,7 @@ feature {ANY}
 			procedure.call ([tree_path_obj, tree_view_col_obj, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
@@ -60,7 +60,7 @@ feature {ANY}
 		end
 
 	connect (an_object: GTK_TREE_VIEW;
-				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
+				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]])
 		do
 			debug
 				print ("ROW_ACTIVATED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

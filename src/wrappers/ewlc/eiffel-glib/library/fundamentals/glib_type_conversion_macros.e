@@ -47,7 +47,7 @@ deferred class GLIB_TYPE_CONVERSION_MACROS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gint_to_pointer (an_int: INTEGER): POINTER is
+	gint_to_pointer (an_int: INTEGER): POINTER
 			-- #define GINT_TO_POINTER(i)	((gpointer)  (i))
 		
 			-- Stuffs an integer into a pointer type.
@@ -62,7 +62,7 @@ feature {} -- External calls
 		alias "GINT_TO_POINTER"
 		end
 
-	gpointer_to_int (a_p: POINTER): INTEGER is
+	gpointer_to_int (a_p: POINTER): INTEGER
 			-- #define GPOINTER_TO_INT(p)	((gint)   (p))
 		
 			-- Extracts an integer from a pointer. The integer must have

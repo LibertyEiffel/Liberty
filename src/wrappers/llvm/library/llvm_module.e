@@ -41,13 +41,13 @@ create {ANY} with_name, with_name_in_context
 create {WRAPPER} from_external_pointer
 
 feature {ANY}
-	with_name (a_name: STRING) is
+	with_name (a_name: STRING)
 	require a_name/=Void
 	do
 		handle:=llvmmodule_create_with_name(a_name.to_external)
 	end
 
-	with_name_in_context (a_name: STRING; a_context: LLVM_CONTEXT) is
+	with_name_in_context (a_name: STRING; a_context: LLVM_CONTEXT)
 	require 
 		a_name/=Void
 		a_context/=Void
@@ -57,25 +57,25 @@ feature {ANY}
 	end
 
 feature {ANY} -- Queries
-	data_layout: FIXED_STRING is
+	data_layout: FIXED_STRING
 		do
 			create Result.from_external_copy(llvmget_data_layout(handle))
 		ensure Result/=Void
 		end
 	
-	target: FIXED_STRING is
+	target: FIXED_STRING
 		do
 			create Result.from_external_copy(llvmget_target(handle))
 		ensure Result/=Void
 		end
 feature {ANY} -- Commands
-	set_data_layout (a_triple: FIXED_STRING) is
+	set_data_layout (a_triple: FIXED_STRING)
 		require a_triple/=Void -- TODO: correct layout
 		do
 			llvmset_data_layout(handle,a_triple.to_external)
 		end
 
-	set_target (a_target: FIXED_STRING) is
+	set_target (a_target: FIXED_STRING)
 		require a_target/=Void-- TODO: correct layout
 		do
 			llvmset_target(handle,a_target.to_external)
@@ -83,7 +83,7 @@ feature {ANY} -- Commands
 
 
 feature {ANY} -- Types
-	type_at (a_name: ABSTRACT_STRING): LLVM_TYPE is
+	type_at (a_name: ABSTRACT_STRING): LLVM_TYPE
 	require
 		a_name/=Void
 	do
@@ -91,7 +91,7 @@ feature {ANY} -- Types
 	end
 
 feature {ANY} -- Aliases
-	new_alias (a_type: LLVM_TYPE; an_aliasee: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_GLOBAL_ALIAS is
+	new_alias (a_type: LLVM_TYPE; an_aliasee: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_GLOBAL_ALIAS
 		-- TODO: does LLVMAddAlias actually return a LLVM_GLOBAL_ALIAS?
 	require
 		a_type/=Void
@@ -105,7 +105,7 @@ feature {ANY} -- Aliases
 		end
 
 feature {ANY} -- Operation on functions
-	new_function  (a_name: ABSTRACT_STRING; a_type: LLVM_FUNCTION_TYPE): LLVM_FUNCTION is
+	new_function  (a_name: ABSTRACT_STRING; a_type: LLVM_FUNCTION_TYPE): LLVM_FUNCTION
 		-- A newly created function with `a_name' of `a_type'
 		-- contained in Current module.
 	require
@@ -118,30 +118,30 @@ feature {ANY} -- Operation on functions
 		create Result.from_external_pointer(p)
 	end
 
-	function_iterator: ITERATOR[LLVM_FUNCTION] is
+	function_iterator: ITERATOR[LLVM_FUNCTION]
 		do
 			create {ITERATOR_OVER_MODULE_FUNCTIONS} Result.from_module(Current)
 		end
 
-	function_with_name (a_name: ABSTRACT_STRING): LLVM_FUNCTION is
+	function_with_name (a_name: ABSTRACT_STRING): LLVM_FUNCTION
 			-- The function named with `a_name'.
 		require name_not_void: a_name/=Void
 		do
 			Result:=function_wrapper_or_void(llvmget_named_function(handle,a_name.to_external))
 		end
 
-	first_function: LLVM_FUNCTION is
+	first_function: LLVM_FUNCTION
 		do
 			Result:=function_wrapper_or_void(llvmget_first_function(handle))
 		end
 
-	last_function: LLVM_FUNCTION is
+	last_function: LLVM_FUNCTION
 		do
 			Result:=function_wrapper_or_void (llvmget_last_function(handle))
 		end
 
 feature {ANY} -- Global variables
-	add_global (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE is
+	add_global (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE
 		require 
 			a_type/=Void
 			a_name/=Void
@@ -151,7 +151,7 @@ feature {ANY} -- Global variables
 		ensure Result/=Void
 		end
 
-	global_with_name (a_name: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE is
+	global_with_name (a_name: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE
 		require a_name/=Void
 		local a_gv: POINTER
 		do
@@ -161,14 +161,14 @@ feature {ANY} -- Global variables
 			end
 		end
 	
-	iterator_over_global_variables: ITERATOR_OVER_GLOBAL_VARIABLES is
+	iterator_over_global_variables: ITERATOR_OVER_GLOBAL_VARIABLES
 		do
 			create Result.from_module(Current)
 		ensure Result/=Void
 		end
 feature {ANY} -- Outputting
 
-	write_bitcode_to_file (a_path: STRING) is
+	write_bitcode_to_file (a_path: STRING)
 		-- Writes Current module to `a_path'. TODO: in case of error raises an exception; errors shall be more properly handled.
 	require a_path/=Void
 	local res: INTEGER_32
@@ -179,7 +179,7 @@ feature {ANY} -- Outputting
 		end
 	end
 
-	write_bitcode_to (a_stream: OUTPUT_STREAM) is
+	write_bitcode_to (a_stream: OUTPUT_STREAM)
 		require a_stream/=Void
 		local res: INTEGER_32
 		do
@@ -189,14 +189,14 @@ feature {ANY} -- Outputting
 			end
 		end
 	
-	dump is
+	dump
 		-- Output Current on standard error.
 		do
 			llvmdump_module(handle)
 		end
 
 feature {ANY} -- Local strings
-	local_string (a_text: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE is
+	local_string (a_text: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE
 		-- A constant C string containing `a_text'. 
 		
 		-- More properly, a new global variable whose type is a pointer to a character, referring to the memory area containing `a_text'. 
@@ -446,7 +446,7 @@ feature {LLVM_MODULE_PROVIDER} -- Provider owning modules
 	owner: LLVM_MODULE_PROVIDER
 	-- The eventual provider owning Current module
 
-	set_owner (a_provider: LLVM_MODULE_PROVIDER) is
+	set_owner (a_provider: LLVM_MODULE_PROVIDER)
 		-- Makes `a_provider' the owner of Current module
 	require
 		a_provider/=Void
@@ -458,7 +458,7 @@ feature {LLVM_MODULE_PROVIDER} -- Provider owning modules
 		is_owned
 	end
 
-	is_owned: BOOLEAN is
+	is_owned: BOOLEAN
 		-- Is Current module owned by a provider?
 	do
 		Result := (owner/=Void)
@@ -466,12 +466,12 @@ feature {LLVM_MODULE_PROVIDER} -- Provider owning modules
 	end
 	
 feature {ANY} 
-	struct_size: like size_t is
+	struct_size: like size_t
 		do
 			not_yet_implemented
 		end
 
-	dispose is 
+	dispose
 		do
 			llvmdispose_module(handle)
 		end

@@ -31,41 +31,41 @@ create {ANY}  make, from_external_pointer, make_uninitialized
 
 feature {} -- Creation
 
-	make (an_x, an_y, a_z: REAL) is 
+	make (an_x, an_y, a_z: REAL)
 			-- Create a new point from the given coordinates
 		do
 			from_external_pointer (gts_point_new (gts_point_class, an_x, an_y, a_z))
 		end
 
-	make_uninitialized is
+	make_uninitialized
 		do
 			from_external_pointer (gts_point_new (gts_point_class,0.0,0.0,0.0))
 		end
 	
 feature {ANY} 
-	x: REAL is
+	x: REAL
 		do
 			Result := get_x (handle)
 		end
 
-	y: REAL is
+	y: REAL
 		do
 			Result := get_y (handle)
 		end
 
-	z: REAL is
+	z: REAL
 		do
 			Result := get_z (handle)
 		end
 
 feature {ANY} 
-	set (an_x, an_y, a_z: REAL) is 
+	set (an_x, an_y, a_z: REAL)
 			-- Sets the coordinates of Current point.
 		do
 			gts_point_set (handle, an_x, an_y, a_z)
 		end
 
-	is_in_rectangle (a_point, another_point: GTS_POINT): BOOLEAN is
+	is_in_rectangle (a_point, another_point: GTS_POINT): BOOLEAN
 			-- Is Current point contained in the box (boundary included)
 			-- defined by its two corners `a_point' and `another_point'? 
 		
@@ -82,7 +82,7 @@ feature {ANY}
 		end
 
 	
-	transform (a_matrix: GTS_MATRIX) is
+	transform (a_matrix: GTS_MATRIX)
 			-- Transform the coordinates of Current according to
 			-- `a_matrix' that represents the transformation to apply to
 			-- the coordinates. i.e. Current := Current * a_matrix
@@ -91,14 +91,14 @@ feature {ANY}
 			gts_point_transform (handle, a_matrix.handle)
 		end
 
-	distance (another: GTS_POINT): REAL is
+	distance (another: GTS_POINT): REAL
 			-- the Euclidean distance between Current and `another'.
 		do
 			Result := gts_point_distance (handle, another.handle)
 		ensure positive: Result >= 0
 		end
 
-	distance2 (another: GTS_POINT): REAL is
+	distance2 (another: GTS_POINT): REAL
 			-- the square of the Euclidean distance between Current and
 			-- `another'.
 		do
@@ -106,7 +106,7 @@ feature {ANY}
 		ensure positive: Result >= 0
 		end
 
-	orientation_3d (p1,p2,p3: GTS_POINT): REAL is
+	orientation_3d (p1,p2,p3: GTS_POINT): REAL
 			-- Checks if Current lies above, below or on the plane
 			-- passing through the points p1, p2 and p3. Below is defined
 			-- so that p1, p2 and p3 appear in counterclockwise order
@@ -128,7 +128,7 @@ feature {ANY}
 															handle)
 		end
 
-	orientation_3d_sos (p1,p2,p3: GTS_POINT): REAL is
+	orientation_3d_sos (p1,p2,p3: GTS_POINT): REAL
 			-- Checks if Current lies above, below or on the plane
 			-- passing through the points p1, p2 and p3. Below is defined
 			-- so that p1, p2 and p3 appear in counterclockwise order
@@ -154,7 +154,7 @@ feature {ANY}
 																 handle)
 		end
 
-	in_circle (p1,p2,p3: GTS_POINT): REAL is
+	in_circle (p1,p2,p3: GTS_POINT): REAL
 			-- A positive number if Current lies inside the circle
 			-- defined by the planar projection of `p1', `p2' and `p3'; a
 			-- negative number if Current lies outside the circle and
@@ -170,7 +170,7 @@ feature {ANY}
 													 p3.handle)
 		end
 	
-	in_triangle_circle (a_triangle: GTS_TRIANGLE): REAL is
+	in_triangle_circle (a_triangle: GTS_TRIANGLE): REAL
 			-- Tests if the planar projection (x, y) of Current is inside
 			-- or outside the circumcircle of the planar projection of
 			-- `a_triangle'. This function is geometrically robust.
@@ -180,7 +180,7 @@ feature {ANY}
 			Result := gts_point_in_triangle_circle (handle, a_triangle.handle)
 		end
 
-	is_in_triangle (a_triangle: GTS_TRIANGLE): INTEGER is
+	is_in_triangle (a_triangle: GTS_TRIANGLE): INTEGER
 			-- Tests if the planar projection (x, y) of Current is
 			-- inside, outside or on the boundary of the planar
 			-- projection of `a_triangle'. This function is geometrically
@@ -193,7 +193,7 @@ feature {ANY}
 			Result := gts_point_is_in_triangle (handle, a_triangle.handle)
 		end
 
-	segment_distance2 (a_segment: GTS_SEGMENT): REAL is
+	segment_distance2 (a_segment: GTS_SEGMENT): REAL
 			-- the square of the minimun Euclidean distance between Current and `a_segment'.
 		require
 			segment_not_void: a_segment /= Void
@@ -202,7 +202,7 @@ feature {ANY}
 		ensure positive: Result >= 0
 		end
 
-	segment_distance (a_segment: GTS_SEGMENT): REAL is
+	segment_distance (a_segment: GTS_SEGMENT): REAL
 			-- the minimun Euclidean distance between Current and `a_segment'.
 		require
 			segment_not_void: a_segment /= Void
@@ -218,13 +218,13 @@ feature {ANY}
 	-- belonging to s closest to p.  p : a GtsPoint.  s : a GtsSegment.
 	-- closest : a GtsPoint.
 
-	triangle_distance (a_triangle: GTS_TRIANGLE): REAL is
+	triangle_distance (a_triangle: GTS_TRIANGLE): REAL
 			-- the minimun Euclidean distance between Current and `a_triangle'.
 		do
 			Result := gts_point_triangle_distance (handle,a_triangle.handle)
 		end
 
-	closest (a_triangle: GTS_TRIANGLE): GTS_POINT is
+	closest (a_triangle: GTS_TRIANGLE): GTS_POINT
 			--  The point belonging to `a_triangle' and closest to Current.
 		require
 			triangle_not_void: a_triangle /= Void
@@ -233,7 +233,7 @@ feature {ANY}
 			gts_point_triangle_closest(handle, a_triangle.handle, Result.handle)
 		end
 
-	triangle_distance2 (a_triangle: GTS_TRIANGLE): REAL is
+	triangle_distance2 (a_triangle: GTS_TRIANGLE): REAL
 			-- the square of the minimun Euclidean distance between Current and `a_triangle'.
 		do
 			Result:=gts_point_triangle_distance2(handle, a_triangle.handle)
@@ -250,7 +250,7 @@ feature {ANY}
 	--     otherwise.
 
 feature {ANY} -- Locating
-	container_face (a_surface: GTS_SURFACE; guess: GTS_FACE): GTS_FACE is
+	container_face (a_surface: GTS_SURFACE; guess: GTS_FACE): GTS_FACE
 			-- The face of the planar projection of surface containing
 			-- Current point. The planar projection of surface must
 			-- define a connected set of triangles without holes and
@@ -274,7 +274,7 @@ feature {ANY} -- Locating
 		end
 	
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsPoint)"
 		end

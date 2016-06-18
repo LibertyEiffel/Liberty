@@ -327,60 +327,60 @@ feature {} -- Creation
 	--   Since 1.2
 
 feature {ANY} -- Memory handling 
-	dispose is do free(handle) end
+	dispose do free(handle) end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <cairo.h>"
 		alias "sizeof(cairo_scaled_font_t)"
 		end
 
 feature {} -- External calls
-	cairo_scaled_font_create (a_font_face, a_font_matrix, a_ctm_matrix, some_font_options: POINTER): POINTER is
+	cairo_scaled_font_create (a_font_face, a_font_matrix, a_ctm_matrix, some_font_options: POINTER): POINTER
 		external "C use <cairo.h>"
 		end
 
-	cairo_scaled_font_reference (a_scaled_font: POINTER): POINTER is
+	cairo_scaled_font_reference (a_scaled_font: POINTER): POINTER
 		external "C use <cairo.h>"
 		end
 
-	cairo_scaled_font_destroy (a_scaled_font: POINTER) is
+	cairo_scaled_font_destroy (a_scaled_font: POINTER)
 		external "C use <cairo.h>"
 		end
 	
-	cairo_scaled_font_status (a_scaled_font: POINTER): INTEGER is
+	cairo_scaled_font_status (a_scaled_font: POINTER): INTEGER
 		external "C use <cairo.h>"
 		end
 	
-	cairo_scaled_font_extents (a_scaled_font, an_extents: POINTER) is
+	cairo_scaled_font_extents (a_scaled_font, an_extents: POINTER)
 		external "C use <cairo.h>"
 		end
 
-	cairo_scaled_font_text_extents (a_scaled_font, an_utf8, an_extents: POINTER) is
+	cairo_scaled_font_text_extents (a_scaled_font, an_utf8, an_extents: POINTER)
 		external "C use <cairo.h>"
 		end
 	
-	cairo_scaled_font_glyph_extents (a_scaled_font, some_glyphs: POINTER; a_glyph_num: INTEGER; some_extents: POINTER) is
+	cairo_scaled_font_glyph_extents (a_scaled_font, some_glyphs: POINTER; a_glyph_num: INTEGER; some_extents: POINTER)
 		external "C use <cairo.h>"
 		end
 	
-	cairo_scaled_font_get_font_face (a_scaled_font: POINTER): POINTER is
+	cairo_scaled_font_get_font_face (a_scaled_font: POINTER): POINTER
 		external "C use <cairo.h>"
 		end
 	
-	cairo_scaled_font_get_font_options (a_scaled_font, a_font_options: POINTER) is
+	cairo_scaled_font_get_font_options (a_scaled_font, a_font_options: POINTER)
 		external "C use <cairo.h>"
 		end
 
-	cairo_scaled_font_get_font_matrix (a_scaled_font, a_font_matrix: POINTER) is
+	cairo_scaled_font_get_font_matrix (a_scaled_font, a_font_matrix: POINTER)
 		external "C use <cairo.h>"
 		end
 
-	cairo_scaled_font_get_ctm (a_scaled_font, a_ctm_matrix: POINTER) is
+	cairo_scaled_font_get_ctm (a_scaled_font, a_ctm_matrix: POINTER)
 		external "C use <cairo.h>"
 		end
 	
-	cairo_scaled_font_get_type (a_scaled_font: POINTER): INTEGER is
+	cairo_scaled_font_get_type (a_scaled_font: POINTER): INTEGER
 		external "C use <cairo.h>"
 		end
 	

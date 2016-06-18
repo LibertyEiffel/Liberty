@@ -24,19 +24,19 @@ deferred class GTK_CELL_RENDERER_ACCEL_MODE
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_gtk_accel_mode (a_mode: INTEGER): BOOLEAN is
+	is_valid_gtk_accel_mode (a_mode: INTEGER): BOOLEAN
 		do	
 			Result:=((a_mode = gtk_cell_renderer_accel_mode_gtk) or else
 						(a_mode = gtk_cell_renderer_accel_mode_other))
 		end
 
-   gtk_cell_renderer_accel_mode_gtk: INTEGER is
+   gtk_cell_renderer_accel_mode_gtk: INTEGER
 			-- GTK_CELL_RENDERER_ACCEL_MODE_GTK
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CELL_RENDERER_ACCEL_MODE_GTK"
 		end
 
-	gtk_cell_renderer_accel_mode_other: INTEGER is
+	gtk_cell_renderer_accel_mode_other: INTEGER
 			-- GTK_CELL_RENDERER_ACCEL_MODE_OTHER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CELL_RENDERER_ACCEL_MODE_OTHER"

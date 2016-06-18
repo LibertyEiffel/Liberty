@@ -41,14 +41,14 @@ create {ANY}
 
 feature {ANY} -- Creation
 
-	make is
+	make
 		require
 			gtk_initialized: gtk.is_initialized
 		do
 			allocate
 		end
 	
-	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
+	make_from_model, from_model (a_model: GTK_TREE_MODEL)
 		require
 			gtk_initialized: gtk.is_initialized
 			valid_model: a_model/=Void
@@ -60,14 +60,14 @@ feature {ANY} -- Creation
 			attached_to_model
 		end
 
-	copy_from_pointer (a_ptr: POINTER) is
+	copy_from_pointer (a_ptr: POINTER)
 		require
 			a_ptr.is_not_null
 		do
 			handle := gtk_tree_iter_copy (a_ptr)
 		end
 
-	as_children_of (a_parent: GTK_TREE_ITER) is
+	as_children_of (a_parent: GTK_TREE_ITER)
 			-- Create an iterator pointing to the first child of
 			-- `a_parent'.
 		require
@@ -85,7 +85,7 @@ feature {ANY}
 	is_valid: BOOLEAN
 			-- Is last action made on Current successful, making it valid?
 
-	start, first is
+	start, first
 			-- Moves Current to the first iterator in the tree (the one
 			-- at the path "0"). `is_valid' will be set to False if the
 			-- tree is empty.
@@ -95,7 +95,7 @@ feature {ANY}
 			is_valid:=(gtk_tree_model_get_iter_first (tree_model.handle, handle)).to_boolean
 		end
 
-	next is
+	next
 			-- Points Current to the node following it at the current
 			-- level. If there is no next position `is_valid' will be
 			-- False and Current is set to be invalid.
@@ -105,7 +105,7 @@ feature {ANY}
 			is_valid:=(gtk_tree_model_iter_next (tree_model.handle,handle)).to_boolean
 		end
 
-	to_children_of (a_parent: GTK_TREE_ITER) is
+	to_children_of (a_parent: GTK_TREE_ITER)
 			-- Sets Current iterator to point to the first child of
 			-- `tree_model'. If parent has no children `is_valid' will be
 			-- False. Current will remain a valid node after this
@@ -121,7 +121,7 @@ feature {ANY}
 			end
 		end
 
-	has_children, has_child: BOOLEAN is
+	has_children, has_child: BOOLEAN
 			-- Does Current iterator have children?
 		require
 			attached_to_model
@@ -130,7 +130,7 @@ feature {ANY}
 						  handle)).to_boolean
 		end
 
-	n_children, children_count: INTEGER is
+	n_children, children_count: INTEGER
 			-- Number of children that Current iter has. As a special case, if iter
 			-- is NULL, then the number of toplevel nodes is returned. (Note:
 			-- `n_children' feature name comes from C Api. `children_count' is
@@ -141,7 +141,7 @@ feature {ANY}
 			Result := gtk_tree_model_iter_n_children (tree_model.handle, handle)
 		end
 
-	toplevel_nodes_count: INTEGER is
+	toplevel_nodes_count: INTEGER
 			-- Number of toplevel nodes of `tree_model'
 		require
 			attached_to_model
@@ -149,7 +149,7 @@ feature {ANY}
 			Result := gtk_tree_model_iter_n_children (tree_model.handle,default_pointer)
 		end
 
-	to_nth_child_of (a_parent: like Current; an_index: INTEGER) is
+	to_nth_child_of (a_parent: like Current; an_index: INTEGER)
 			-- Sets Current to be the child of `a_parent', using `an_index'. The
 			-- first index is 0. If n is too big, or parent has no children, iter
 			-- is set to an invalid iterator and `is_valid' will be
@@ -170,7 +170,7 @@ feature {ANY}
 							 parent_ptr, an_index)).to_boolean
 		end
 
-	to_parent (a_child: like Current) is
+	to_parent (a_child: like Current)
 			-- Sets Current to be the parent of `a_child'. If child is at the
 			-- toplevel it doesn't have a parent, then iter is set to an invalid
 			-- iterator and `is_valid' will be False. `a_child' will remain a valid
@@ -183,7 +183,7 @@ feature {ANY}
 							 a_child.handle)).to_boolean
 		end
 
-	to_string: STRING is
+	to_string: STRING
 			-- a representation of the iter. This string is a ':' separated list of
 			-- numbers. For example, "4:10:0:3" would be an acceptable return value
 			-- for this string.
@@ -197,14 +197,14 @@ feature {ANY}
 			-- the Garbage Collector free it.
 		end
 
-	attached_to_model: BOOLEAN is
+	attached_to_model: BOOLEAN
 		do
 			Result := tree_model /= Void
 		end
 
 feature {CALLBACK}
 
-	attach_to (a_model: like tree_model) is
+	attach_to (a_model: like tree_model)
 		require
 			not attached_to_model
 			a_model /= Void
@@ -216,14 +216,14 @@ feature {CALLBACK}
 		end
 
 feature {ANY}  -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeIter)"
 		end
 
 feature {}
 
-	allocate is
+	allocate
 			-- There is no malloc-like function in GTK to allocate iterators.
 			-- Therefore, we allocate iterators using gtk_tree_iter_copy()
 		require
@@ -235,7 +235,7 @@ feature {}
 			end
 		end
 
-	dummy_iter: POINTER is
+	dummy_iter: POINTER
 		once
 			Result := calloc (1, struct_size)
 			if Result.is_null then
@@ -244,20 +244,20 @@ feature {}
 		end
 
 feature {ANY}
-	dispose is
+	dispose
 		do
 			if handle.is_not_null then gtk_tree_iter_free (handle) end
 			handle:= default_pointer
 		end
 
 feature {ANY}
-	stamp: INTEGER is
+	stamp: INTEGER
 			-- A unique stamp to catch invalid iterators
 		do
 			Result := get_stamp (handle)
 		end
 
-	set_stamp (a_stamp: INTEGER) is
+	set_stamp (a_stamp: INTEGER)
 		do
 			set_stamp_internal (handle, a_stamp)
 		end

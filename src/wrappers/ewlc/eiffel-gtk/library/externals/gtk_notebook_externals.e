@@ -59,7 +59,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_remove_page (a_notebook: POINTER; a_page_num: INTEGER) is
+	gtk_notebook_remove_page (a_notebook: POINTER; a_page_num: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -67,45 +67,45 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_next_page (a_notebook: POINTER) is
+	gtk_notebook_next_page (a_notebook: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_prev_page (a_notebook: POINTER) is
+	gtk_notebook_prev_page (a_notebook: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_reorder_child (a_notebook, a_child: POINTER; a_position: INTEGER) is
+	gtk_notebook_reorder_child (a_notebook, a_child: POINTER; a_position: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_tab_pos (a_notebook: POINTER; a_position: INTEGER) is
+	gtk_notebook_set_tab_pos (a_notebook: POINTER; a_position: INTEGER)
 		require valid_position: is_valid_gtk_position_type (a_position)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_show_tabs (a_notebook: POINTER; show_tabs_boolean: INTEGER) is
+	gtk_notebook_set_show_tabs (a_notebook: POINTER; show_tabs_boolean: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_show_border (a_notebook: POINTER; show_border_boolean: INTEGER) is
+	gtk_notebook_set_show_border (a_notebook: POINTER; show_border_boolean: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_scrollable (a_notebook: POINTER; scrollable: INTEGER) is
+	gtk_notebook_set_scrollable (a_notebook: POINTER; scrollable: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_tab_border (a_notebook: POINTER; a_border_width: INTEGER) is
+	gtk_notebook_set_tab_border (a_notebook: POINTER; a_border_width: INTEGER)
 			-- Note: `a_border_width' shall be a NATURAL since its a guint
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_popup_enable (a_notebook: POINTER) is
+	gtk_notebook_popup_enable (a_notebook: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_popup_disable (a_notebook: POINTER) is
+	gtk_notebook_popup_disable (a_notebook: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -129,41 +129,41 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_query_tab_label_packing (a_notebook, a_child, expand, fill, pack_type: POINTER) is
+	gtk_notebook_query_tab_label_packing (a_notebook, a_child, expand, fill, pack_type: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_homogeneous_tabs (a_notebook: POINTER; homogeneous: INTEGER) is
+	gtk_notebook_set_homogeneous_tabs (a_notebook: POINTER; homogeneous: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_menu_label (a_notebook, a_child, a_menu_label: POINTER) is
+	gtk_notebook_set_menu_label (a_notebook, a_child, a_menu_label: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_menu_label_text (a_notebook, a_child, a_menu_text: POINTER) is
+	gtk_notebook_set_menu_label_text (a_notebook, a_child, a_menu_text: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_tab_hborder (a_notebook: POINTER; a_tab_hborder: INTEGER) is
+	gtk_notebook_set_tab_hborder (a_notebook: POINTER; a_tab_hborder: INTEGER)
 			-- Note: `a_tab_hborder' shall be NATURAL since its a guint
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_tab_label (a_notebook, a_child, a_tab_label: POINTER) is
+	gtk_notebook_set_tab_label (a_notebook, a_child, a_tab_label: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_tab_label_packing (a_notebook, a_child: POINTER; expand, fill, pack_type: INTEGER) is
+	gtk_notebook_set_tab_label_packing (a_notebook, a_child: POINTER; expand, fill, pack_type: INTEGER)
 		require valid_pack_type: is_valid_gtk_pack_type (pack_type)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_tab_label_text (a_notebook, a_child, a_tab_text: POINTER) is
+	gtk_notebook_set_tab_label_text (a_notebook, a_child, a_tab_text: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_tab_vborder (a_notebook: POINTER; a_tab_vborder: INTEGER) is
+	gtk_notebook_set_tab_vborder (a_notebook: POINTER; a_tab_vborder: INTEGER)
 		-- Note: `a_tab_vborder' shall be NATURAL since its a guint
 		external "C use <gtk/gtk.h>"
 		end
@@ -193,7 +193,7 @@ feature {} -- External calls
 		ensure valid_result: is_valid_gtk_position_type (Result)
 		end
 
-	gtk_notebook_set_current_page (a_notebook: POINTER; a_page_num: INTEGER) is
+	gtk_notebook_set_current_page (a_notebook: POINTER; a_page_num: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 

@@ -33,13 +33,13 @@ inherit
 create {ANY} make,from_external_pointer
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHPaned)"
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Create a new GtkHPaned
 		require gtk_initialized: gtk.is_initialized
 		do
@@ -48,7 +48,7 @@ feature {} -- Creation
 	
 
 feature {} 
-	gtk_hpaned_new: POINTER is
+	gtk_hpaned_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 end

@@ -34,13 +34,13 @@ inherit
 	GTK_SCALE_EXTERNALS
 
 feature {ANY} -- digits
-	digits: INTEGER is
+	digits: INTEGER
 			-- the number of decimal places that are displayed in the value.
 		do
 			Result := gtk_scale_get_digits (handle)
 		end
 
-	set_digits (some_digits: INTEGER) is
+	set_digits (some_digits: INTEGER)
 			-- Sets the number of decimal places that are displayed in
 			-- the value. Also causes the value of the adjustment to be
 			-- rounded off to this number of digits, so the retrieved
@@ -53,7 +53,7 @@ feature {ANY} -- digits
 
 feature {ANY} -- layout
 
-	layout: PANGO_LAYOUT is
+	layout: PANGO_LAYOUT
 			-- the PangoLayout used to display the scale.
 		local factory: G_OBJECT_EXPANDED_FACTORY[PANGO_LAYOUT]
 		do
@@ -64,13 +64,13 @@ feature {ANY} -- layout
 		end
 
 feature {ANY} -- Draw value
-	set_draw_value is
+	set_draw_value
 			-- Specifies whether the current value is displayed as a string next to the slider.
 		do
 			gtk_scale_set_draw_value (handle,1)
 		end
 
-	is_value_drawn: BOOLEAN is
+	is_value_drawn: BOOLEAN
 			-- Is the current value is displayed as a string next to the
 			-- slider?
 		do
@@ -78,49 +78,49 @@ feature {ANY} -- Draw value
 		end
 	
 feature {ANY} -- position
-	display_on_left is
+	display_on_left
 			-- Display the current value on the left.
 		do
 			gtk_scale_set_value_pos (handle, gtk_pos_left)
 		end
 
-	display_on_right is
+	display_on_right
 			-- Display the current value on the right.
 		do
 			gtk_scale_set_value_pos (handle, gtk_pos_right)
 		end
 
-	display_on_top is
+	display_on_top
 			-- Display the current value on the top.
 		do
 			gtk_scale_set_value_pos (handle, gtk_pos_top)
 		end
 
-	display_on_bottom is
+	display_on_bottom
 			-- Display the current value on the bottom.
 		do
 			gtk_scale_set_value_pos (handle, gtk_pos_bottom)
 		end
 
-	is_displayed_on_left: BOOLEAN is
+	is_displayed_on_left: BOOLEAN
 			-- Is  the current value displayed on the left?
 		do
 			Result := gtk_scale_get_value_pos (handle) = gtk_pos_left
 		end
 
-	is_displayed_on_right: BOOLEAN is
+	is_displayed_on_right: BOOLEAN
 			-- Is  the current value displayed on the right?
 		do
 			Result := gtk_scale_get_value_pos (handle) = gtk_pos_right
 		end
 
-	is_displayed_on_top: BOOLEAN is
+	is_displayed_on_top: BOOLEAN
 			-- Is  the current value displayed on the top?
 		do
 			Result := gtk_scale_get_value_pos (handle) = gtk_pos_top
 		end
 
-	is_displayed_on_bottom: BOOLEAN is
+	is_displayed_on_bottom: BOOLEAN
 			-- Is  the current value displayed on the bottom?
 		do
 			Result := gtk_scale_get_value_pos (handle) = gtk_pos_bottom
@@ -134,7 +134,7 @@ feature {ANY} -- position
 	-- property is FALSE.
 
 feature {ANY}
-	layout_offsets: TUPLE [REAL, REAL] is
+	layout_offsets: TUPLE [REAL, REAL]
 			-- Obtains the coordinates where the scale will draw the
 			-- PangoLayout representing the text in the scale. Remember
 			-- when using the PangoLayout function you need to convert to
@@ -214,18 +214,18 @@ feature {ANY} -- The "format-value" signal
 		--                                             gdouble arg1,
 		--                                             gpointer user_data);
 
-	enable_on_format_value is
+	enable_on_format_value
 			-- Connects "format-value" signal to `on_format_value' feature.
 		do
 			connect (Current, format_value_signal_name, $on_format_value)
 		end
 
-	on_format_value: INTEGER is
+	on_format_value: INTEGER
 			-- Built-in format-value signal handler; empty by design; redefine it.
 		do
 		end
 
-	connect_agent_to_format_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING]) is
+	connect_agent_to_format_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING])
 			-- scale : 	the object which received the signal.
 			-- arg1 : 	
 			-- Returns : 	allocated string representing value

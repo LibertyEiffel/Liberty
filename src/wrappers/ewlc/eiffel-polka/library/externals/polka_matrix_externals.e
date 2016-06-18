@@ -28,39 +28,39 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Externals
 
-	matrix_alloc (rows, columns, is_sorted: INTEGER): POINTER is
+	matrix_alloc (rows, columns, is_sorted: INTEGER): POINTER
 		external "C use <polka/matrix.h>"
 		end
 
-	matrix_copy (other: POINTER): POINTER is
+	matrix_copy (other: POINTER): POINTER
 		external "C use <polka/matrix.h>"
 		end
 
-	matrix_clear (handle: POINTER) is
+	matrix_clear (handle: POINTER)
 		external "C use <polka/matrix.h>"
 		end
 
-	matrix_print (handle: POINTER) is
+	matrix_print (handle: POINTER)
 		external "C use <polka/matrix.h>"
 		end
 
-	matrix_free (handle: POINTER) is
+	matrix_free (handle: POINTER)
 		external "C use <polka/matrix.h>"
 		end
 
-	matrix_get_nbrows (handle: POINTER): INTEGER is
+	matrix_get_nbrows (handle: POINTER): INTEGER
 		external "C struct matrix_t access nbrows use <polka/matrix.h>"
 		end
 
-	matrix_get_nbcolumns (handle: POINTER): INTEGER is
+	matrix_get_nbcolumns (handle: POINTER): INTEGER
 		external "C struct matrix_t access nbcolumns use <polka/matrix.h>"
 		end
 
-	matrix_get_p (handle: POINTER): POINTER is
+	matrix_get_p (handle: POINTER): POINTER
 		external "C struct matrix_t access p use <polka/matrix.h>"
 		end
 
-	matrix_get_value (handle: POINTER; i, j: INTEGER): POINTER is
+	matrix_get_value (handle: POINTER; i, j: INTEGER): POINTER
 		--do
 		--	Result := (matrix_get_p (handle) + i) + j
 		external "C inline use <polka/matrix.h>"

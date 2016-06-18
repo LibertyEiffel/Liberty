@@ -120,7 +120,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new text buffer.
 		require
 			gtk_initialized: gtk.is_initialized
@@ -130,7 +130,7 @@ feature {} -- Creation
 			-- new one every time.
 		end
 
-	with_tag_table (a_tag_table: GTK_TEXT_TAG_TABLE) is
+	with_tag_table (a_tag_table: GTK_TEXT_TAG_TABLE)
 		require
 			gtk_initialized: gtk.is_initialized
 			non_void_table: a_tag_table/=Void
@@ -140,7 +140,7 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	set_text(a_text: STRING) is
+	set_text(a_text: STRING)
 			-- Deletes current contents of buffer, and inserts `a_text'
 			-- instead. `a_text' must be valid UTF-8.
 			-- `a_text': UTF-8 text to insert
@@ -153,7 +153,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Access
 
-	text (a_start, an_end: GTK_TEXT_ITER; include_hidden_chars: BOOLEAN): STRING is
+	text (a_start, an_end: GTK_TEXT_ITER; include_hidden_chars: BOOLEAN): STRING
 			-- the text in the range [`a_start',`an_end'). Excludes
 			-- undisplayed text (text marked with tags that set the
 			-- invisibility attribute) if `include_hidden_chars' is
@@ -180,14 +180,14 @@ feature {ANY} -- Access
 			not_void: Result /= Void
 		end
 
-	line_count: INTEGER is
+	line_count: INTEGER
 			-- the number of lines in the buffer. This value is cached,
 			-- so the function is very fast.
 		do
 			Result:=gtk_text_buffer_get_line_count (handle)
 		end
 
-	char_count: INTEGER is
+	char_count: INTEGER
 			-- the number of characters in the buffer; note that
 			-- characters and bytes are not the same, you can't
 			-- e.g. expect the contents of the buffer in string form to
@@ -197,7 +197,7 @@ feature {ANY} -- Access
 			Result := gtk_text_buffer_get_char_count (handle)
 		end
 
-	tag_table: GTK_TEXT_TAG_TABLE is
+	tag_table: GTK_TEXT_TAG_TABLE
 			-- the GtkTextTagTable associated with this buffer.
 		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_TEXT_TAG_TABLE]
 		do
@@ -207,7 +207,7 @@ feature {ANY} -- Access
 			Result := hidden_tag_table
 		end
 
-	insert_at (an_iter: GTK_TEXT_ITER; some_text: STRING) is
+	insert_at (an_iter: GTK_TEXT_ITER; some_text: STRING)
 			-- Inserts `a_length' bytes of text at `an_iter' position. Emits the
 			-- "insert_text" signal; insertion actually occurs in the default
 			-- handler for the signal. iter is invalidated when insertion occurs
@@ -224,7 +224,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_insert (handle, an_iter.handle, some_text.to_external, -1)
 		end
 
-	insert_at_cursor (some_text: STRING; a_length: INTEGER) is
+	insert_at_cursor (some_text: STRING; a_length: INTEGER)
 			-- calls `insert_at', using the current cursor position as the
 			-- insertion point.
 		do
@@ -236,7 +236,7 @@ feature {ANY} -- Access
 			-- by insertion commands
 
 	insert_interactive (an_iter: GTK_TEXT_ITER; a_text: STRING;
-							  a_length: INTEGER; default_editable: BOOLEAN) is
+							  a_length: INTEGER; default_editable: BOOLEAN)
 			-- Like `insert_at', but the insertion will not occur if
 			-- `an_iter' is at a non-editable location in the
 			-- buffer. Usually you want to prevent insertions at
@@ -260,7 +260,7 @@ feature {ANY} -- Access
 									 default_editable.to_integer)).to_boolean
 		end
 
-	insert_interactive_at_cursor (a_text: STRING; a_length: INTEGER; default_editable: BOOLEAN) is
+	insert_interactive_at_cursor (a_text: STRING; a_length: INTEGER; default_editable: BOOLEAN)
 			-- Calls `insert_interactive' at the cursor position.
 
 			-- `default_editable' indicates the editability of text that
@@ -282,7 +282,7 @@ feature {ANY} -- Access
 								  default_editable.to_integer)).to_boolean
 		end
 
-	insert_range (an_iter, a_start, an_end: GTK_TEXT_ITER) is
+	insert_range (an_iter, a_start, an_end: GTK_TEXT_ITER)
 			-- Copies text, tags, and pixbufs between `a_start' and
 			-- `an_end' (the order of start and end doesn't matter) and
 			-- inserts the copy at `an_iter'. Used instead of simply
@@ -309,7 +309,7 @@ feature {ANY} -- Access
 		end
 
 	insert_range_interactive (an_iter, a_start, an_end: GTK_TEXT_ITER;
-									  default_editable: BOOLEAN) is
+									  default_editable: BOOLEAN)
 			-- Same as `insert_range', but does nothing if the insertion
 			-- point isn't editable. The `default_editable' parameter
 			-- indicates whether the text is editable at iter if no tags
@@ -331,7 +331,7 @@ feature {ANY} -- Access
 		end
 
 	insert_with_tags (an_iter: GTK_TEXT_ITER; some_text: STRING;
-							some_tags: COLLECTION[GTK_TEXT_TAG]) is
+							some_tags: COLLECTION[GTK_TEXT_TAG])
 			-- Inserts `some_text' into buffer at `an_iter', applying the
 			-- list of tags to the newly-inserted text. Equivalent to
 			-- calling `insert_at', then `apply_tag' on the inserted
@@ -365,7 +365,7 @@ feature {ANY} -- Access
 		end
 
 	insert_with_tags_by_name (an_iter: GTK_TEXT_ITER; some_text: STRING;
-									  some_tag_names: COLLECTION[STRING]) is
+									  some_tag_names: COLLECTION[STRING])
 			-- Inserts `some_text' into buffer at `an_iter', applying the
 			-- list of tags to the newly-inserted text.  Same as
 			-- `insert_with_tags', but allows you to pass in tag names
@@ -400,7 +400,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	delete (a_start, an_end: GTK_TEXT_ITER) is
+	delete (a_start, an_end: GTK_TEXT_ITER)
 			-- Deletes text between `a_start' and `an_end'. The order of
 			-- start and end is not actually relevant; `delete' will
 			-- reorder them. This function actually emits the
@@ -425,7 +425,7 @@ feature {ANY} -- Access
 		end
 
 	delete_interactive (a_start, an_end: GTK_TEXT_ITER;
-							  default_editable: BOOLEAN) is
+							  default_editable: BOOLEAN)
 			-- Deletes all editable text in the given range. Calls
 			-- `buffer_delete' for each editable sub-range of [`a_start',
 			-- `an_end'). `a_start' and `an_end' are revalidated to point to the
@@ -446,7 +446,7 @@ feature {ANY} -- Access
 								  default_editable.to_integer)).to_boolean
 		end
 
-	backspace (an_iter: GTK_TEXT_ITER; interactive, default_editable: BOOLEAN) is
+	backspace (an_iter: GTK_TEXT_ITER; interactive, default_editable: BOOLEAN)
 			-- Performs the appropriate action as if the user hit the
 			-- delete key with the cursor at the position specified by
 			-- iter. In the normal case a single character will be
@@ -481,7 +481,7 @@ feature {ANY} -- Access
 		end
 
 	slice (a_start, an_end: GTK_TEXT_ITER;
-			 include_hidden_chars: BOOLEAN): STRING is
+			 include_hidden_chars: BOOLEAN): STRING
 			-- the text in the range [`a_start,' `an_end'). Excludes
 			-- undisplayed text (text marked with tags that set the
 			-- invisibility attribute) if `include_hidden_chars' is
@@ -511,7 +511,7 @@ feature {ANY} -- Access
 												 include_hidden_chars.to_integer))
 		end
 
-	insert_pixbuf (an_iter: GTK_TEXT_ITER; an_image: GDK_PIXBUF) is
+	insert_pixbuf (an_iter: GTK_TEXT_ITER; an_image: GDK_PIXBUF)
 			-- Inserts `an_image' into the text buffer at `an_iter'. The
 			-- image will be counted as one character in character
 			-- counts, and when obtaining the buffer contents as a
@@ -530,7 +530,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_insert_pixbuf (handle, an_iter.handle, an_image.handle)
 		end
 
-	insert_child_anchor (an_iter: GTK_TEXT_ITER; an_anchor: GTK_TEXT_CHILD_ANCHOR) is
+	insert_child_anchor (an_iter: GTK_TEXT_ITER; an_anchor: GTK_TEXT_CHILD_ANCHOR)
 			-- Inserts a child widget anchor (`an_anchor') into the text
 			-- buffer at `an_iter'. The anchor will be counted as one
 			-- character in character counts, and when obtaining the
@@ -552,7 +552,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_insert_child_anchor(handle, an_iter.handle, an_anchor.handle)
 		end
 
-	child_anchor_at (an_iter: GTK_TEXT_ITER): GTK_TEXT_CHILD_ANCHOR is
+	child_anchor_at (an_iter: GTK_TEXT_ITER): GTK_TEXT_CHILD_ANCHOR
 			-- A newly created child anchor, inserted into the buffer at `an_iter'.
 		require
 			iter_not_void: an_iter /= Void
@@ -566,7 +566,7 @@ feature {ANY} -- Access
 			-- because the from_external_pointer ref-ed it.
 		end
 
-	create_mark (a_mark_name: STRING; a_place: GTK_TEXT_ITER; left_gravity: BOOLEAN): GTK_TEXT_MARK is
+	create_mark (a_mark_name: STRING; a_place: GTK_TEXT_ITER; left_gravity: BOOLEAN): GTK_TEXT_MARK
 			-- Creates a mark at `a_place'. If mark_name is NULL, the
 			-- mark is anonymous; otherwise, the mark can be retrieved by
 			-- name using `mark'. If a mark has left gravity, and text is
@@ -594,7 +594,7 @@ feature {ANY} -- Access
 			-- away when the buffer does.
 		end
 
-	move_mark (a_mark: GTK_TEXT_MARK; a_new_location: GTK_TEXT_ITER) is
+	move_mark (a_mark: GTK_TEXT_MARK; a_new_location: GTK_TEXT_ITER)
 			-- Moves `a_mark' to `a_new_location'. Emits the "mark_set"
 			-- signal as notification of the move.
 		require
@@ -605,7 +605,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_move_mark (handle, a_mark.handle, a_new_location.handle)
 		end
 
-	move_mark_by_name (a_name: STRING; a_new_location: GTK_TEXT_ITER) is
+	move_mark_by_name (a_name: STRING; a_new_location: GTK_TEXT_ITER)
 			-- Moves the mark named `a_name' (which must exist) to
 			-- `a_new_location' where. See `move_mark' for details.
 		require
@@ -617,7 +617,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_move_mark_by_name (handle, a_name.to_external, a_new_location.handle)
 		end
 
-	delete_mark (a_mark: GTK_TEXT_MARK) is
+	delete_mark (a_mark: GTK_TEXT_MARK)
 			-- Deletes `a_mark,' so that it's no longer located anywhere
 			-- in the buffer. Removes the reference the buffer holds to
 			-- the mark, so if you haven't called g_object_ref() on the
@@ -633,7 +633,7 @@ feature {ANY} -- Access
 		ensure mark_deleted: a_mark.is_deleted
 		end
 
-	delete_mark_by_name (a_name: STRING) is
+	delete_mark_by_name (a_name: STRING)
 			-- Deletes the mark named `a_name'; the mark must exist. See
 			-- `delete_mark' for details.
 		require
@@ -643,7 +643,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_delete_mark_by_name (handle, a_name.to_external)
 		end
 
-	mark (a_name: STRING): GTK_TEXT_MARK is
+	mark (a_name: STRING): GTK_TEXT_MARK
 			-- the mark named `a_name' in Current buffer, or Void if no
 			-- such mark exists in the buffer.
 		require
@@ -655,7 +655,7 @@ feature {ANY} -- Access
 			-- 2007-01-05
 		end
 
-	insert_mark: GTK_TEXT_MARK is
+	insert_mark: GTK_TEXT_MARK
 			-- the mark that represents the cursor (insertion
 			-- point). Equivalent to calling `mark(once "insert")' but very
 			-- slightly more efficient, and involves less typing.
@@ -666,7 +666,7 @@ feature {ANY} -- Access
 			Result := mark_factory.wrapper (gtk_text_buffer_get_insert(handle))
 		end
 
-	selection_bound: GTK_TEXT_MARK is
+	selection_bound: GTK_TEXT_MARK
 			-- the mark that represents the selection bound. Equivalent
 			-- to calling `mark(once "selection_bound")', but very slightly
 			-- more efficient, and involves less typing.
@@ -685,7 +685,7 @@ feature {ANY} -- Access
 			-- 2007-01-05
 		end
 
-	place_cursor (where: GTK_TEXT_ITER) is
+	place_cursor (where: GTK_TEXT_ITER)
 			-- Moves the "insert" and "selection_bound" marks
 			-- simultaneously. If you move them to the same place in two
 			-- steps with `move_mark', you will temporarily select a
@@ -704,7 +704,7 @@ feature {ANY} -- Access
 			selection_bound_equal_insert: selection_bound.is_equal(insert_mark)
 		end
 
-	select_range (an_insert_mark, a_bound: GTK_TEXT_ITER) is
+	select_range (an_insert_mark, a_bound: GTK_TEXT_ITER)
 			-- moves the "insert" and "selection_bound" marks
 			-- simultaneously. If you move them in two steps with
 			-- `move_mark'), you will temporarily select a region in
@@ -720,7 +720,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_select_range (handle, an_insert_mark.handle, a_bound.handle)
 		end
 
-	apply_tag (a_tag: GTK_TEXT_TAG; a_start, an_end: GTK_TEXT_ITER) is
+	apply_tag (a_tag: GTK_TEXT_TAG; a_start, an_end: GTK_TEXT_ITER)
 			-- Emits the "apply_tag" signal on buffer. The default
 			-- handler for the signal applies tag to the given
 			-- range. start and end do not have to be in order.
@@ -736,7 +736,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_apply_tag (handle, a_tag.handle, a_start.handle, an_end.handle)
 		end
 
-	remove_tag  (a_tag: GTK_TEXT_TAG; a_start, an_end: GTK_TEXT_ITER) is
+	remove_tag  (a_tag: GTK_TEXT_TAG; a_start, an_end: GTK_TEXT_ITER)
 			-- Emits the "remove_tag" signal. The default handler for the
 			-- signal removes all occurrences of tag from the given
 			-- range. start and end don't have to be in order.
@@ -753,7 +753,7 @@ feature {ANY} -- Access
 												 a_start.handle, an_end.handle)
 		end
 
-	apply_tag_by_name (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER) is
+	apply_tag_by_name (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER)
 			-- Calls ` gtk_text_tag_table_lookup' on the buffer's tag
 			-- table to get a GtkTextTag, then calls `apply_tag'.
 
@@ -770,7 +770,7 @@ feature {ANY} -- Access
 														  a_start.handle, an_end.handle)
 		end
 
-	remove_tag_by_name  (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER) is
+	remove_tag_by_name  (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER)
 			-- Calls `gtk_text_tag_table_lookup' on the buffer's tag
 			-- table to get a GtkTextTag, then calls `remove_tag'.
 			
@@ -787,7 +787,7 @@ feature {ANY} -- Access
 															a_start.handle, an_end.handle)
 		end
 
-	remove_all_tags (a_start, an_end: GTK_TEXT_ITER) is
+	remove_all_tags (a_start, an_end: GTK_TEXT_ITER)
 			-- Removes all tags in the range between `a_start' and
 			-- `an_end'. Be careful with this function; it could remove
 			-- tags added in code unrelated to the code you're currently
@@ -804,7 +804,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_remove_all_tags (handle, a_start.handle,an_end.handle)
 		end
 
-	create_tag (a_tag_name: STRING; some_properties: COLLECTION[TUPLE[STRING,G_VALUE]]): GTK_TEXT_TAG is
+	create_tag (a_tag_name: STRING; some_properties: COLLECTION[TUPLE[STRING,G_VALUE]]): GTK_TEXT_TAG
 			-- Creates a tag and adds it to the tag table for
 			-- buffer. Equivalent to calling `GTK_TEXT_TAG.make' and then
 			-- adding the tag to the buffer's tag table. The tag is owned
@@ -850,7 +850,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	iter_at_line_offset (a_line_number, a_char_offset: INTEGER): GTK_TEXT_ITER is
+	iter_at_line_offset (a_line_number, a_char_offset: INTEGER): GTK_TEXT_ITER
 			-- an iterator pointing to `a_char_offset' (offset from start
 			-- of line) within `a_line_number' (counting from 0). The
 			-- `a_char_offset' must exist, offsets off the end of the
@@ -862,7 +862,7 @@ feature {ANY} -- Access
 																  a_line_number, a_char_offset)
 		end
 
-	iter_at_offset (an_offset: INTEGER): GTK_TEXT_ITER is
+	iter_at_offset (an_offset: INTEGER): GTK_TEXT_ITER
 			-- The iterator pointing to a position `an_offset' chars from
 			-- the start of the entire buffer. If `an_offset' is -1 or
 			-- greater than the number of characters in the buffer, iter
@@ -876,7 +876,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_get_iter_at_offset (handle, Result.handle, an_offset)
 		end
 
-	iter_at_line (a_line_number: INTEGER): GTK_TEXT_ITER is
+	iter_at_line (a_line_number: INTEGER): GTK_TEXT_ITER
 			-- an iterator to the start of the given line (counting from
 			-- 0).
 		do
@@ -884,7 +884,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_get_iter_at_line(handle, Result.handle, a_line_number)
 		end
 
-	iter_at_line_index (a_line_number, a_byte_index: INTEGER): GTK_TEXT_ITER is
+	iter_at_line_index (a_line_number, a_byte_index: INTEGER): GTK_TEXT_ITER
 			-- Obtains an iterator pointing to `a_byte_index' within the
 			-- `a_line_number' (counting from 0). `a_byte_index' must be
 			-- the start of a UTF-8 character, and must not be beyond the
@@ -902,7 +902,7 @@ feature {ANY} -- Access
 		ensure not_void: Result /= Void
 		end
 
-	iter_at_mark (a_mark: GTK_TEXT_MARK): GTK_TEXT_ITER is
+	iter_at_mark (a_mark: GTK_TEXT_MARK): GTK_TEXT_ITER
 			-- A newly allocated iterator with the current position of `a_mark'.
 		require mark_not_void: a_mark /= Void
 		do
@@ -911,7 +911,7 @@ feature {ANY} -- Access
 		ensure not_void: Result /= Void
 		end
 
-	iter_at_child_anchor (an_anchor: GTK_TEXT_CHILD_ANCHOR): GTK_TEXT_ITER is
+	iter_at_child_anchor (an_anchor: GTK_TEXT_CHILD_ANCHOR): GTK_TEXT_ITER
 			-- the location of anchor within buffer.
 		require anchor_not_void: an_anchor /= Void
 		do
@@ -920,7 +920,7 @@ feature {ANY} -- Access
 		ensure not_void: Result /= Void
 		end
 
-	start_iter: GTK_TEXT_ITER is
+	start_iter: GTK_TEXT_ITER
 			-- A newly created iterator with the first position in the
 			-- text buffer. This is the same as using
 			-- `get_iter_at_offset' to get the iter at character offset
@@ -932,7 +932,7 @@ feature {ANY} -- Access
 		ensure not_void: Result /= Void
 		end
 
-	end_iter: GTK_TEXT_ITER is
+	end_iter: GTK_TEXT_ITER
 			-- A newly created iterator with the "end iterator," one past
 			-- the last valid character in the text buffer. If
 			-- dereferenced with `char', the end iterator has a
@@ -948,7 +948,7 @@ feature {ANY} -- Access
 			is_off: Result.is_off
 		end
 
-	bounds: TUPLE[GTK_TEXT_ITER, GTK_TEXT_ITER] is
+	bounds: TUPLE[GTK_TEXT_ITER, GTK_TEXT_ITER]
 			-- the first and last iterators in the buffer; the entire buffer lies within the range.
 		local a_start, an_end: GTK_TEXT_ITER
 		do
@@ -957,7 +957,7 @@ feature {ANY} -- Access
 			create Result.make_2(a_start, an_end)
 		end
 
-	is_modified: BOOLEAN is
+	is_modified: BOOLEAN
 			-- Has the buffer been modified after the last call to
 			-- `set_modified' set it to False. Used for example to enable
 			-- a "save" function in a text editor.
@@ -965,7 +965,7 @@ feature {ANY} -- Access
 			Result := gtk_text_buffer_get_modified(handle).to_boolean
 		end
 
-	set_modified (a_setting: BOOLEAN) is
+	set_modified (a_setting: BOOLEAN)
 			-- Used to keep track of whether the buffer has been modified
 			-- since the last time it was saved. Whenever the buffer is
 			-- saved to disk, call `set_modified(False)'. When the buffer
@@ -976,7 +976,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_set_modified (handle, a_setting.to_integer)
 		end
 
-	delete_selection (interactive, default_editable: BOOLEAN) is
+	delete_selection (interactive, default_editable: BOOLEAN)
 			-- Deletes the range between the "insert" and
 			-- "selection_bound" marks, that is, the currently-selected
 			-- text. If `interactive' is True, the editability of the
@@ -997,7 +997,7 @@ feature {ANY} -- Access
 																			 default_editable.to_integer).to_boolean)
 		end
 
-	paste_clipboard (a_clipboard: GTK_CLIPBOARD; an_override_location: GTK_TEXT_ITER; default_editable: BOOLEAN) is
+	paste_clipboard (a_clipboard: GTK_CLIPBOARD; an_override_location: GTK_TEXT_ITER; default_editable: BOOLEAN)
 			-- Pastes the contents of `a_clipboard' at the insertion
 			-- point, or at `override_location' (if it is not
 			-- Void). (Note: pasting is asynchronous, that is, we'll ask
@@ -1017,7 +1017,7 @@ feature {ANY} -- Access
 			an_override_location.handle, default_editable.to_integer)
 		end
 
-	copy_clipboard (a_clipboard: GTK_CLIPBOARD) is
+	copy_clipboard (a_clipboard: GTK_CLIPBOARD)
 			-- Copies the currently-selected text to `a_clipboard'.
 		require
 			clipboard_not_void: a_clipboard /= Void
@@ -1025,7 +1025,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_copy_clipboard  (handle, a_clipboard.handle)
 		end
 
-	cut_clipboard (a_clipboard: GTK_CLIPBOARD; default_editable: BOOLEAN) is
+	cut_clipboard (a_clipboard: GTK_CLIPBOARD; default_editable: BOOLEAN)
 			-- Copies the currently-selected text to `a_clipboard,' then
 			-- deletes said text if it's editable. `default_editable' is
 			-- the default editability of the buffer.
@@ -1035,7 +1035,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_cut_clipboard (handle, a_clipboard.handle, default_editable.to_integer)
 		end
 
-	selection_bounds: TUPLE[GTK_TEXT_ITER, GTK_TEXT_ITER] is
+	selection_bounds: TUPLE[GTK_TEXT_ITER, GTK_TEXT_ITER]
 			-- the selection start and end; Void if there is no selection
 		local a_start, an_end: GTK_TEXT_ITER; is_some_text_selected: BOOLEAN
 		do
@@ -1047,7 +1047,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	begin_user_action is
+	begin_user_action
 			-- Called to indicate that the buffer operations between here
 			-- and a call to `end_user_action' are part of a single
 			-- user-visible operation. The operations between
@@ -1069,7 +1069,7 @@ feature {ANY} -- Access
 			gtk_text_buffer_begin_user_action(handle)
 		end
 
-	end_user_action is
+	end_user_action
 			-- See `begin_user_action' function for a full explanation.--
 			-- Both calls should be paired.
 		do
@@ -1133,19 +1133,19 @@ feature {ANY} -- The "begin-user-action" signal
 		-- void        user_function                  (GtkTextBuffer *textbuffer,
 		--                                             gpointer       user_data)       : Run last
 
-	enable_on_begin_user_action is
+	enable_on_begin_user_action
 			-- Connects "begin_user_action" signal to `on_begin_user_action' feature.
 		do
 			connect (Current, begin_user_action_signal_name, $on_begin_user_action)
 		end
 
-	on_begin_user_action is
+	on_begin_user_action
 			-- Built-in begin_user_action signal handler; empty by design; redefine it.
 			-- Indicates that the user has begin_user_action the contents of the widget.
 		do
 		end
 
-	connect_agent_to_begin_user_action_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+	connect_agent_to_begin_user_action_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]])
 			-- textbuffer : 	the object which received the signal.
 		require valid_procedure: a_procedure /= Void
 		local begin_user_action_callback: BEGIN_USER_ACTION_CALLBACK
@@ -1158,19 +1158,19 @@ feature {ANY} -- The "changed" signal
 
 	changed_signal_name: STRING is "changed"
 
-	enable_on_changed is
+	enable_on_changed
 			-- Connects "changed" signal to `on_changed' feature.
 		do
 			connect (Current, changed_signal_name, $on_changed)
 		end
 
-	on_changed is
+	on_changed
 			-- Built-in changed signal handler; empty by design; redefine it.
 			-- Indicates that the user has changed the contents of the widget.
 		do
 		end
 
-	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]])
 		require valid_procedure: a_procedure /= Void
 		local changed_callback: CHANGED_CALLBACK [like Current]
 		do
@@ -1196,19 +1196,19 @@ feature {ANY} -- The "end-user-action" signal
 		-- void        user_function                  (GtkTextBuffer *textbuffer,
 		--                                             gpointer       user_data)       : Run last
 
-	enable_on_end_user_action is
+	enable_on_end_user_action
 			-- Connects "end_user_action" signal to `on_end_user_action' feature.
 		do
 			connect (Current, end_user_action_signal_name, $on_end_user_action)
 		end
 
-	on_end_user_action is
+	on_end_user_action
 			-- Built-in end_user_action signal handler; empty by design; redefine it.
 			-- Indicates that the user has end_user_action the contents of the widget.
 		do
 		end
 
-	connect_agent_to_end_user_action_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+	connect_agent_to_end_user_action_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]])
 			-- textbuffer : 	the object which received the signal.
 		require valid_procedure: a_procedure /= Void
 		local end_user_action_callback: END_USER_ACTION_CALLBACK
@@ -1241,7 +1241,7 @@ feature {ANY}  -- TODO: The "insert-pixbuf" signal
 
 feature {ANY}  -- The "insert-text" signal
 
-	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]]) is
+	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]])
 			-- textbuffer : 	the object which received the signal.
 			-- arg1 :
 			-- arg2 :
@@ -1300,7 +1300,7 @@ feature {} -- Implementation
 			-- GtkTextTagTable of Current. Handled by `tag_table'.
 
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextBuffer)"
 		end

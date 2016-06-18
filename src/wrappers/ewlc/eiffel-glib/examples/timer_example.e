@@ -9,7 +9,7 @@ class TIMER_EXAMPLE
 create {ANY} make
 feature {ANY}
 	timer: G_TIMER
-	make is
+	make
 		local t: REAL
 		do
 			create timer

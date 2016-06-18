@@ -60,7 +60,7 @@ insert
 create {ANY} from_class_name
 
 feature {GTK_EIFFEL_DOC} -- Creation
-	from_class_name (a_class_name: CLASS_NAME) is
+	from_class_name (a_class_name: CLASS_NAME)
 		require
 			class_name_not_void: a_class_name/=Void
 		do
@@ -100,7 +100,7 @@ feature {ANY}
 			-- The insertion point used in all the features that add text
 			-- to the buffer.
 	
-	put_indexing is
+	put_indexing
 			-- Append the indexing clauses to Current buffer; TODO:
 			-- currently only a small note is printed since the real
 			-- implementation is commented out; in fact SmartEiffel 2.3
@@ -136,14 +136,14 @@ feature {ANY}
 			-- 			end -- Loop over index list
 		end
 
-	put_comment (a_comment: COMMENT) is
+	put_comment (a_comment: COMMENT)
 		do
 			if a_comment/=Void then
 				insert_with_tag(iter,merged_strings(a_comment.list),comment_tag)
 			end
 		end
 
-	put_main_class_name is
+	put_main_class_name
 			-- Append to `iter' the name of the class text with full
 			-- details as expected when you start reading an Eiffel
 			-- class; i.e.  "deferred class FOO [ITEM_->BAR]" or
@@ -172,7 +172,7 @@ feature {ANY}
 			put_newline
 		end
 
-	put_formal_generic_arg (an_arg: FORMAL_GENERIC_ARG) is
+	put_formal_generic_arg (an_arg: FORMAL_GENERIC_ARG)
 		do
 			insert_with_tag(iter,an_arg.name.to_string,class_tag)
 			if an_arg.constrained then
@@ -181,7 +181,7 @@ feature {ANY}
 			end
 		end
 				
-	put_parent_lists is
+	put_parent_lists
 			-- Put parent_lists if not Void
 		require class_text.parent_lists /= Void
 		local parents: PARENT_LISTS
@@ -210,7 +210,7 @@ feature {ANY}
 			end
 		end
 	
-	put_parent_edges (some_parent_edges: COLLECTION[PARENT_EDGE]) is
+	put_parent_edges (some_parent_edges: COLLECTION[PARENT_EDGE])
 		require some_parent_edges /= Void
 		local i: INTEGER; edge: PARENT_EDGE
 		do
@@ -225,7 +225,7 @@ feature {ANY}
 			insert_at(iter,newline)
 		end
 	
-	put_creation_clause_list is
+	put_creation_clause_list
 		require class_text.creation_clause_list /= Void
 		local cci: ITERATOR[CREATION_CLAUSE]; cc: CREATION_CLAUSE; i, a_count: INTEGER
 		do
@@ -243,7 +243,7 @@ feature {ANY}
 			end
 		end
 
-	put_creation_clause (a_creation_clause: CREATION_CLAUSE) is
+	put_creation_clause (a_creation_clause: CREATION_CLAUSE)
 		require non_void_clause: a_creation_clause/=Void
 		do
 			if a_creation_clause.clients/=Void then
@@ -258,7 +258,7 @@ feature {ANY}
 			end
 		end
 
-	put_client_list (some_clients: CLIENT_LIST) is
+	put_client_list (some_clients: CLIENT_LIST)
 		require clients_not_void: some_clients/=Void
 		local i: INTEGER 
 		do
@@ -270,7 +270,7 @@ feature {ANY}
 			end
 		end
 	
-	put_feature_clause_list is
+	put_feature_clause_list
 		require class_text.feature_clause_list /= Void
 		local
 			fci: ITERATOR[FEATURE_CLAUSE] -- Feature Clause Iterator
@@ -303,7 +303,7 @@ feature {ANY}
 			end -- Loop over Feature Clause
 		end
 	
-	put_feature_name_list (a_list: FEATURE_NAME_LIST) is
+	put_feature_name_list (a_list: FEATURE_NAME_LIST)
 		require list_not_void: a_list/=Void
 		local i: INTEGER
 		do
@@ -314,7 +314,7 @@ feature {ANY}
 			end
 		end
 	
-	put_feature_name (a_name: FEATURE_NAME) is
+	put_feature_name (a_name: FEATURE_NAME)
 		require name_not_void: a_name /= Void
 		do
 			if a_name.is_frozen then
@@ -329,7 +329,7 @@ feature {ANY}
 			insert_with_tag(iter,a_name.to_string,feature_name_tag)
 		end
 
-	put_feature_text (a_text: FEATURE_TEXT) is
+	put_feature_text (a_text: FEATURE_TEXT)
 		require text_not_void: a_text/=Void
 		local i, a_count: INTEGER
 		do
@@ -380,7 +380,7 @@ feature {ANY}
 			end
 		end
 	
-	put_class_invariant (an_invariant: CLASS_INVARIANT) is
+	put_class_invariant (an_invariant: CLASS_INVARIANT)
 		require class_text.class_invariant/=Void
 		local assertion_iter: ITERATOR[ASSERTION]; an_assertion: ASSERTION
 		do
@@ -396,7 +396,7 @@ feature {ANY}
 			end
 		end
 
-	put_assertion (an_assertion: ASSERTION) is
+	put_assertion (an_assertion: ASSERTION)
 		require an_assertion/=Void
 		do
 			-- tag: TAG_NAME
@@ -404,7 +404,7 @@ feature {ANY}
 			-- comment: COMMENT
 		end
 	
-	put_formal_arg_list (some_arguments: FORMAL_ARG_LIST) is
+	put_formal_arg_list (some_arguments: FORMAL_ARG_LIST)
 			-- Put formal arguments
 		require some_arguments/=Void
 		local i, a_count: INTEGER; a_name: ARGUMENT_NAME1; a_type_mark: TYPE_MARK
@@ -439,13 +439,13 @@ feature {ANY}
 			insert_with_tag(iter, once ")",feature_clause_tag)
 		end
 	
-	put_require_assertion (a_require_assertion: E_REQUIRE) is
+	put_require_assertion (a_require_assertion: E_REQUIRE)
 		require a_require_assertion/=Void
 		do
 			
 		end
 
-	put_ensure_assertion (an_ensure_assertion: E_ENSURE) is
+	put_ensure_assertion (an_ensure_assertion: E_ENSURE)
 		require an_ensure_assertion /= Void
 		do
 			
@@ -453,40 +453,40 @@ feature {ANY}
 
 	
 feature {ANY} -- Visitor features. Mostly empty
-	visit_class_name (visited: CLASS_NAME) is do raise(dead_code) end
-	visit_class_name_list (visited: CLASS_NAME_LIST) is do raise(dead_code) end
-	visit_class_text (visited: CLASS_TEXT) is do raise(dead_code) end
-	visit_index_list (visited: INDEX_LIST) is do raise(dead_code) end
-	visit_index_clause (visited: INDEX_CLAUSE) is do raise(dead_code) end
+	visit_class_name (visited: CLASS_NAME) do raise(dead_code) end
+	visit_class_name_list (visited: CLASS_NAME_LIST) do raise(dead_code) end
+	visit_class_text (visited: CLASS_TEXT) do raise(dead_code) end
+	visit_index_list (visited: INDEX_LIST) do raise(dead_code) end
+	visit_index_clause (visited: INDEX_CLAUSE) do raise(dead_code) end
 
-	visit_comment (visited: COMMENT) is do raise(dead_code) end
+	visit_comment (visited: COMMENT) do raise(dead_code) end
 	
-	visit_feature_clause_list (some_features: FEATURE_CLAUSE_LIST) is do raise(dead_code) end
-	visit_feature_clause (a_feature_clause: FEATURE_CLAUSE) is do raise(dead_code) end
+	visit_feature_clause_list (some_features: FEATURE_CLAUSE_LIST) do raise(dead_code) end
+	visit_feature_clause (a_feature_clause: FEATURE_CLAUSE) do raise(dead_code) end
 
-	visit_parent_lists (visited: PARENT_LISTS) is do raise(dead_code) end
-	visit_parent_edge (visited: PARENT_EDGE) is do raise(dead_code) end
+	visit_parent_lists (visited: PARENT_LISTS) do raise(dead_code) end
+	visit_parent_edge (visited: PARENT_EDGE) do raise(dead_code) end
 		
-	visit_creation_clause_list (visited: CREATION_CLAUSE_LIST) is do raise(dead_code) end
-	visit_creation_clause (visited: CREATION_CLAUSE) is do raise(dead_code) end
-	visit_client_list (visited: CLIENT_LIST) is do raise(dead_code) end
-	visit_feature_name (visited: FEATURE_NAME) is do raise(dead_code) end
-	visit_feature_name_list (visited: FEATURE_NAME_LIST) is do raise(dead_code) end
+	visit_creation_clause_list (visited: CREATION_CLAUSE_LIST) do raise(dead_code) end
+	visit_creation_clause (visited: CREATION_CLAUSE) do raise(dead_code) end
+	visit_client_list (visited: CLIENT_LIST) do raise(dead_code) end
+	visit_feature_name (visited: FEATURE_NAME) do raise(dead_code) end
+	visit_feature_name_list (visited: FEATURE_NAME_LIST) do raise(dead_code) end
 	
 	-- ASSERTION_LIST_VISITOR features
-	visit_loop_invariant (visited: LOOP_INVARIANT) is do raise(dead_code) end
-	visit_require_item (visited: REQUIRE_ITEM) is do raise(dead_code) end
-	visit_check_invariant (visited: CHECK_INVARIANT) is do raise(dead_code) end
-	visit_e_ensure (an_ensure: E_ENSURE) is do raise(dead_code) end
-	visit_e_require (a_require: E_REQUIRE) is do raise(dead_code) end
-	visit_class_invariant (visited: CLASS_INVARIANT) is do raise(dead_code) end
+	visit_loop_invariant (visited: LOOP_INVARIANT) do raise(dead_code) end
+	visit_require_item (visited: REQUIRE_ITEM) do raise(dead_code) end
+	visit_check_invariant (visited: CHECK_INVARIANT) do raise(dead_code) end
+	visit_e_ensure (an_ensure: E_ENSURE) do raise(dead_code) end
+	visit_e_require (a_require: E_REQUIRE) do raise(dead_code) end
+	visit_class_invariant (visited: CLASS_INVARIANT) do raise(dead_code) end
 	
-	visit_assertion (visited: ASSERTION) is do raise(dead_code) end
+	visit_assertion (visited: ASSERTION) do raise(dead_code) end
 	
-	dead_code: STRING is "Visitor feature of an EIFFEL_DOCUMENTATION_TEXT_BUFFER invoked. They should never be invoked by design, since they're empty."
+	dead_code: STRING "Visitor feature of an EIFFEL_DOCUMENTATION_TEXT_BUFFER invoked. They should never be invoked by design, since they're empty."
 
 feature {ANY} -- Tags
-	add_tags is
+	add_tags
 			-- Creates all the tags and add the them to the `tag_table'
 		do
 			create keyword_tag.with_name(once "keyword")
@@ -586,12 +586,12 @@ feature {} -- Implementation, syntactic sugar
 
 	newline: STRING is "%N"
 	
-	put_newline is 
+	put_newline
 		do 
 			insert_at(iter,newline) 
 		end
 
-	merged_strings (some_strings: COLLECTION[STRING]): STRING is
+	merged_strings (some_strings: COLLECTION[STRING]): STRING
 			-- A new string with all the strings in `some_strings'
 			-- appended; all carriage return are replaced with a space. A
 			-- newline is added at the end.
@@ -613,7 +613,7 @@ feature {} -- Implementation, syntactic sugar
 		ensure not_void: Result /= Void
 		end
 	
-	merged_manifest_strings (some_strings: COLLECTION[MANIFEST_STRING]): STRING is
+	merged_manifest_strings (some_strings: COLLECTION[MANIFEST_STRING]): STRING
 			-- A new string with all the strings in `some_strings'
 			-- appended; all new lines are replaced with a space, except
 			-- the ending one.
@@ -636,14 +636,14 @@ feature {} -- Implementation, syntactic sugar
 		ensure not_void: Result /= Void
 		end
 
-	left_arrow: STRING is
+	left_arrow: STRING
 			-- A right arrow in Unicode converted into UTF8
 		do
 			Result := (U"%/Ux2192/").to_string 
 		end
 
 
-	midcolor (a,b: GDK_COLOR): GDK_COLOR is
+	midcolor (a,b: GDK_COLOR): GDK_COLOR
 		require
 			a /= Void
 			b /= Void

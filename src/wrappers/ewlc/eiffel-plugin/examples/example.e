@@ -5,7 +5,7 @@ inherit PLUGGABLE_FACTORY[MY_PLUGIN]
 create {ANY} make
 
 feature {ANY} 
-	make is
+	make
 		do
 			my_plugin := get_new_pluggable("my-plugin.so")
 			check 

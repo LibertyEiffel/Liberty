@@ -33,29 +33,29 @@ feature {} -- External calls
 -- #define     GTK_WIDGET_SAVED_STATE          (wid)
 -- #define     GTK_WIDGET_FLAGS                (wid)
 
-	gtk_widget_toplevel (a_widget: POINTER): INTEGER is
+	gtk_widget_toplevel (a_widget: POINTER): INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_TOPLEVEL"
 		end
 
 -- #define     GTK_WIDGET_NO_WINDOW            (wid)
 
-	gtk_widget_realized (a_widget: POINTER): INTEGER is
+	gtk_widget_realized (a_widget: POINTER): INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_REALIZED"
 		end
 
-	gtk_widget_mapped (a_widget: POINTER): INTEGER is
+	gtk_widget_mapped (a_widget: POINTER): INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_MAPPED"
 		end
 
-	gtk_widget_visible (a_widget: POINTER): INTEGER is
+	gtk_widget_visible (a_widget: POINTER): INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_VISIBLE"
 		end
 
-	gtk_widget_drawable (a_widget: POINTER): INTEGER is
+	gtk_widget_drawable (a_widget: POINTER): INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_DRAWABLE"
 		end
@@ -63,14 +63,14 @@ feature {} -- External calls
 -- #define     GTK_WIDGET_SENSITIVE            (wid)
 -- #define     GTK_WIDGET_PARENT_SENSITIVE     (wid)
 -- #define     GTK_WIDGET_IS_SENSITIVE         (wid)
-	gtk_widget_can_focus (a_widget: POINTER): INTEGER is
+	gtk_widget_can_focus (a_widget: POINTER): INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_CAN_FOCUS"
 		end
 
 -- #define     GTK_WIDGET_HAS_FOCUS            (wid)
 
-	gtk_widget_can_default (a_widget: POINTER): INTEGER is
+	gtk_widget_can_default (a_widget: POINTER): INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_CAN_DEFAULT"
 		end
@@ -96,19 +96,19 @@ feature {} -- External calls
 -- TODO: GtkWidget*  gtk_widget_new                  (GType type,
 --                                              const gchar *first_property_name,
 --                                              ...);
-	gtk_widget_ref (widget: POINTER): POINTER is
+	gtk_widget_ref (widget: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_unref (widget: POINTER) is
+	gtk_widget_unref (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_destroy (widget: POINTER) is
+	gtk_widget_destroy (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_destroyed (widget,widget_pointer: POINTER) is
+	gtk_widget_destroyed (widget,widget_pointer: POINTER)
 			-- Note: C types are GtkWidget *widget, GtkWidget **widget_pointer
 		external "C use <gtk/gtk.h>"
 		end
@@ -116,133 +116,133 @@ feature {} -- External calls
 	-- TODO: void gtk_widget_set (GtkWidget *widget, -- const gchar
 	-- *first_property_name, -- ...)
 
-	gtk_widget_unparent (widget: POINTER) is
+	gtk_widget_unparent (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_show (widget: POINTER) is
+	gtk_widget_show (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_show_now (widget: POINTER) is
+	gtk_widget_show_now (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_hide (widget: POINTER) is
+	gtk_widget_hide (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_show_all (widget: POINTER) is
+	gtk_widget_show_all (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_hide_all (widget: POINTER) is
+	gtk_widget_hide_all (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_map (widget: POINTER) is
+	gtk_widget_map (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_unmap (widget: POINTER) is
+	gtk_widget_unmap (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_realize (widget: POINTER) is
+	gtk_widget_realize (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_unrealize (widget: POINTER) is
+	gtk_widget_unrealize (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_queue_draw (widget: POINTER) is
+	gtk_widget_queue_draw (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_queue_resize (widget: POINTER) is
+	gtk_widget_queue_resize (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_queue_resize_no_redraw (widget: POINTER) is
+	gtk_widget_queue_resize_no_redraw (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_draw (widget, gdkrectangle_area: POINTER) is
+	gtk_widget_draw (widget, gdkrectangle_area: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_size_request (widget, gtkrequisition: POINTER) is
+	gtk_widget_size_request (widget, gtkrequisition: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_get_child_requisition (widget, gtkrequisition: POINTER) is
+	gtk_widget_get_child_requisition (widget, gtkrequisition: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_size_allocate (widget, gtkallocation: POINTER) is
+	gtk_widget_size_allocate (widget, gtkallocation: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_get_allocation (widget: POINTER): POINTER is
+	gtk_widget_get_allocation (widget: POINTER): POINTER
 		external "C inline use <gtk/gtk.h>"
 		alias "&(((GtkWidget *)$widget)->allocation)"
 		end
 
 	gtk_widget_add_accelerator (widget, char_accel_signal, gtkaccelgroup: POINTER;
-	                            guint_accel_key, gdkmodifiertype, gtkaccelflags: INTEGER) is
+	                            guint_accel_key, gdkmodifiertype, gtkaccelflags: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_dest_set (widget: POINTER; a_flags: INTEGER; a_targets: POINTER; n_targets, an_actions: INTEGER) is
+	gtk_drag_dest_set (widget: POINTER; a_flags: INTEGER; a_targets: POINTER; n_targets, an_actions: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_source_set (widget: POINTER; a_modifier: INTEGER; a_targets: POINTER; n_targets, an_actions: INTEGER) is
+	gtk_drag_source_set (widget: POINTER; a_modifier: INTEGER; a_targets: POINTER; n_targets, an_actions: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_dest_add_text_targets (widget: POINTER) is
+	gtk_drag_dest_add_text_targets (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_dest_add_image_targets (widget: POINTER) is
+	gtk_drag_dest_add_image_targets (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_dest_add_uri_targets (widget: POINTER) is
+	gtk_drag_dest_add_uri_targets (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_source_add_text_targets (widget: POINTER) is
+	gtk_drag_source_add_text_targets (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_source_add_image_targets (widget: POINTER) is
+	gtk_drag_source_add_image_targets (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_source_add_uri_targets (widget: POINTER) is
+	gtk_drag_source_add_uri_targets (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_source_set_icon_pixbuf (widget, a_pixbuf: POINTER) is
+	gtk_drag_source_set_icon_pixbuf (widget, a_pixbuf: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_source_set_icon_stock  (widget, a_stock_id: POINTER) is
+	gtk_drag_source_set_icon_stock  (widget, a_stock_id: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drag_source_set_icon_name (widget, an_icon_name: POINTER) is
+	gtk_drag_source_set_icon_name (widget, an_icon_name: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_set_events (widget: POINTER; some_events: INTEGER) is
+	gtk_widget_set_events (widget: POINTER; some_events: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_add_events (widget: POINTER; some_events: INTEGER) is
+	gtk_widget_add_events (widget: POINTER; some_events: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -294,19 +294,19 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
-	gtk_widget_grab_focus (widget: POINTER) is
+	gtk_widget_grab_focus (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_grab_default (widget: POINTER) is
+	gtk_widget_grab_default (widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_set_name (widget, a_name: POINTER) is
+	gtk_widget_set_name (widget, a_name: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_get_name (widget: POINTER): POINTER is
+	gtk_widget_get_name (widget: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -315,11 +315,11 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
-	gtk_widget_set_sensitive (widget: POINTER; sens: INTEGER) is
+	gtk_widget_set_sensitive (widget: POINTER; sens: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_is_sensitive (widget: POINTER): INTEGER is
+	gtk_widget_is_sensitive (widget: POINTER): INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_IS_SENSITIVE"
 		end
@@ -334,11 +334,11 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
-	gtk_widget_get_window (widget: POINTER): POINTER is
+	gtk_widget_get_window (widget: POINTER): POINTER
 		external "C struct GtkWidget get window use <gtk/gtk.h>"
 		end
 
-	gtk_widget_get_parent_window (widget: POINTER): POINTER is
+	gtk_widget_get_parent_window (widget: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -374,11 +374,11 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
-	gtk_widget_get_toplevel (a_widget: POINTER): POINTER is
+	gtk_widget_get_toplevel (a_widget: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-  gtk_widget_get_ancestor (a_widget: POINTER; a_widget_type: INTEGER): POINTER is
+  gtk_widget_get_ancestor (a_widget: POINTER; a_widget_type: INTEGER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -399,11 +399,11 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
-gtk_widget_get_pointer (widget, an_x, an_y: POINTER) is
+gtk_widget_get_pointer (widget, an_x, an_y: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-gtk_widget_is_ancestor (a_widget, an_ancestor: POINTER): INTEGER is
+gtk_widget_is_ancestor (a_widget, an_ancestor: POINTER): INTEGER
 	external "C use <gtk/gtk.h>"
 	end
 
@@ -421,7 +421,7 @@ gtk_widget_is_ancestor (a_widget, an_ancestor: POINTER): INTEGER is
 --		external "C use <gtk/gtk.h>"
 --		end
 
-	gtk_widget_set_style (widget, a_style: POINTER) is
+	gtk_widget_set_style (widget, a_style: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -430,7 +430,7 @@ gtk_widget_is_ancestor (a_widget, an_ancestor: POINTER): INTEGER is
 --		external "C use <gtk/gtk.h>"
 --		end
 
-	gtk_widget_get_style (widget: POINTER): POINTER is
+	gtk_widget_get_style (widget: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -547,15 +547,15 @@ gtk_widget_is_ancestor (a_widget, an_ancestor: POINTER): INTEGER is
 --		external "C use <gtk/gtk.h>"
 --		end
 
-	gtk_widget_create_pango_context (a_widget: POINTER): POINTER is
+	gtk_widget_create_pango_context (a_widget: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_get_pango_context  (a_widget: POINTER): POINTER is
+	gtk_widget_get_pango_context  (a_widget: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_create_pango_layout (a_widget, a_text: POINTER): POINTER is
+	gtk_widget_create_pango_layout (a_widget, a_text: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -706,7 +706,7 @@ gtk_widget_is_ancestor (a_widget, an_ancestor: POINTER): INTEGER is
 --		external "C use <gtk/gtk.h>"
 --		end
 
-	gtk_widget_get_parent (a_widget: POINTER): POINTER is
+	gtk_widget_get_parent (a_widget: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -735,7 +735,7 @@ gtk_widget_is_ancestor (a_widget, an_ancestor: POINTER): INTEGER is
 --		external "C use <gtk/gtk.h>"
 --		end
 
-	gtk_widget_get_size_request (widget, width, height: POINTER) is
+	gtk_widget_get_size_request (widget, width, height: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -747,7 +747,7 @@ gtk_widget_is_ancestor (a_widget, an_ancestor: POINTER): INTEGER is
 --		end
 
 -- #define     gtk_widget_set_default_visual   (visual)
-	gtk_widget_set_size_request (widget: POINTER; width, height: INTEGER) is
+	gtk_widget_set_size_request (widget: POINTER; width, height: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 

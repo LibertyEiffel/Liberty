@@ -27,47 +27,47 @@ inherit
 
 feature {} -- External calls
 
-	av_packet_get_pts (a_packet: POINTER): INTEGER_64 is
+	av_packet_get_pts (a_packet: POINTER): INTEGER_64
 		external "C struct AVPacket get pts use <avformat.h>"
 		end
 
-	av_packet_get_dts (a_packet: POINTER): INTEGER_64 is
+	av_packet_get_dts (a_packet: POINTER): INTEGER_64
 		external "C struct AVPacket get dts use <avformat.h>"
 		end
 
-	av_packet_get_duration (a_packet: POINTER): INTEGER is
+	av_packet_get_duration (a_packet: POINTER): INTEGER
 		external "C struct AVPacket get duration use <avformat.h>"
 		end
 
-	av_packet_get_pos (a_packet: POINTER): INTEGER_64 is
+	av_packet_get_pos (a_packet: POINTER): INTEGER_64
 		external "C struct AVPacket get pos use <avformat.h>"
 		end
 
-	av_packet_get_size (a_packet: POINTER): INTEGER is
+	av_packet_get_size (a_packet: POINTER): INTEGER
 		external "C struct AVPacket get size use <avformat.h>"
 		end
 
-	av_packet_get_stream_index (a_packet: POINTER): INTEGER is
+	av_packet_get_stream_index (a_packet: POINTER): INTEGER
 		external "C struct AVPacket get stream_index use <avformat.h>"
 		end
 
-	av_packet_get_data (a_packet: POINTER): POINTER is
+	av_packet_get_data (a_packet: POINTER): POINTER
 		external "C struct AVPacket get data use <avformat.h>"
 		end
 
-	av_free_packet (a_packet: POINTER) is
+	av_free_packet (a_packet: POINTER)
 		external "C use <avformat.h>"
 		end
 
-	av_dup_packet (a_packet: POINTER) is
+	av_dup_packet (a_packet: POINTER)
 		external "C use <avformat.h>"
 		end
 
-	av_init_packet (a_packet: POINTER) is
+	av_init_packet (a_packet: POINTER)
 		external "C use <avformat.h>"
 		end
 
-	av_new_packet (a_packet: POINTER; a_payload_size: INTEGER): INTEGER is
+	av_new_packet (a_packet: POINTER; a_payload_size: INTEGER): INTEGER
 		external "C use <avformat.h>"
 		end
 

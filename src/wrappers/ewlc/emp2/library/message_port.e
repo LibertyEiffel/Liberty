@@ -22,7 +22,7 @@ note
 deferred class MESSAGE_PORT
 
 feature {ANY} -- Sending message
-	queue (a_message: MESSAGE) is 
+	queue (a_message: MESSAGE)
 		-- Put `a_message' into the message port queue to be sent later.  See
 		-- `send'.
 	require message_not_void: a_message/=Void
@@ -30,7 +30,7 @@ feature {ANY} -- Sending message
 	-- ensure a_message.locked
 	end
 
-	send is
+	send
 		-- Send the enqueued messages thorught the port.
 		deferred
 		end

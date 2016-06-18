@@ -27,15 +27,15 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gdk_gc_new (a_drawable: POINTER): POINTER is
+	gdk_gc_new (a_drawable: POINTER): POINTER
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_gc_set_rgb_fg_color (handle, a_color: POINTER) is
+	gdk_gc_set_rgb_fg_color (handle, a_color: POINTER)
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_gc_set_rgb_bg_color (handle, a_color: POINTER) is
+	gdk_gc_set_rgb_bg_color (handle, a_color: POINTER)
 		external "C use <gdk/gdk.h>"
 		end
 

@@ -7,18 +7,18 @@ class LLVM_ARGUMENT
 inherit LLVM_VALUE
 
 feature {ANY} 
-	add_attribute (an_attribute: LLVMATTRIBUTE_ENUM) is
+	add_attribute (an_attribute: LLVMATTRIBUTE_ENUM)
 		-- Add `an_attribute' to Current
 	do
 		llvmadd_attribute(handle,an_attribute.value)
 	end
 
-	remove_attribute (an_attribute: LLVMATTRIBUTE_ENUM) is
+	remove_attribute (an_attribute: LLVMATTRIBUTE_ENUM)
 	do
 		llvmremove_attribute(handle,an_attribute.value)
 	end
 
-	set_alinment (an_alignment: NATURAL_32) is
+	set_alinment (an_alignment: NATURAL_32)
 	do
 		llvmset_param_alignment(handle,an_alignment)
 	end

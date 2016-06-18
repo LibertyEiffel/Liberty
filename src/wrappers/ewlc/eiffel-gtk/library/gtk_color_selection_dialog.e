@@ -39,7 +39,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_title: STRING) is
+	make (a_title: STRING)
 			-- Creates a new GtkColorSelectionDialog.
 		require title_not_void: a_title /= Void
 		do
@@ -49,7 +49,7 @@ feature {} -- Creation
 
 feature {ANY}
 
-	colorselection: GTK_COLOR_SELECTION is
+	colorselection: GTK_COLOR_SELECTION
 		local
 			selection_ptr: POINTER
 			cs: G_OBJECT_FACTORY [GTK_COLOR_SELECTION]
@@ -90,7 +90,7 @@ feature {} -- GtkColorSelectionDialog struct
 	-- the dialog. Connect a handler for the clicked event.
 	
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkColorSelectionDialog)"
 		end

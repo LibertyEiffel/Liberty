@@ -30,7 +30,7 @@ insert GTK_ADJUSTMENT_EXTERNALS -- Needed by dummy_gobject
 create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
-	make (an_orizontal_adjustment, a_vertical_adjustment: GTK_ADJUSTMENT) is
+	make (an_orizontal_adjustment, a_vertical_adjustment: GTK_ADJUSTMENT)
 			-- Creates a new GtkViewport with the given adjustments.
 		require
 			orizontal_adjustment_not_void: an_orizontal_adjustment /= Void
@@ -136,47 +136,47 @@ feature {} -- Creation
 	-- arg2 : 	
 	-- user_data : 	user data set when the signal handler was connected.
 feature {} -- External calls
-	gtk_viewport_new (a_hadjustment, a_vadjustment: POINTER): POINTER is
+	gtk_viewport_new (a_hadjustment, a_vadjustment: POINTER): POINTER
 			-- 	GtkWidget* gtk_viewport_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_viewport_get_hadjustment (a_viewport: POINTER): POINTER is
+	gtk_viewport_get_hadjustment (a_viewport: POINTER): POINTER
 			-- 	GtkAdjustment* gtk_viewport_get_hadjustment (GtkViewport *viewport);
 		external "C use <gtk/gtk.h>"
 		end
 
- gtk_viewport_get_vadjustment (a_viewport: POINTER): POINTER is
+ gtk_viewport_get_vadjustment (a_viewport: POINTER): POINTER
 			-- 	GtkAdjustment* gtk_viewport_get_vadjustment (GtkViewport *viewport);
 		external "C use <gtk/gtk.h>"
 		end
 
- gtk_viewport_set_hadjustment (a_viewport, a_adjustment: POINTER) is
+ gtk_viewport_set_hadjustment (a_viewport, a_adjustment: POINTER)
 			-- 	void gtk_viewport_set_hadjustment (GtkViewport *viewport, GtkAdjustment *adjustment);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_viewport_set_vadjustment (a_viewport, a_adjustment: POINTER) is
+	gtk_viewport_set_vadjustment (a_viewport, a_adjustment: POINTER)
 			-- 	void gtk_viewport_set_vadjustment (GtkViewport *viewport, GtkAdjustment *adjustment);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_viewport_set_shadow_type (a_viewport: POINTER; a_gtkshadowtype: INTEGER) is
+	gtk_viewport_set_shadow_type (a_viewport: POINTER; a_gtkshadowtype: INTEGER)
 			-- 	void gtk_viewport_set_shadow_type (GtkViewport *viewport, GtkShadowType type);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_viewport_get_shadow_type (a_viewport: POINTER): INTEGER is
+	gtk_viewport_get_shadow_type (a_viewport: POINTER): INTEGER
 			-- 	GtkShadowType gtk_viewport_get_shadow_type (GtkViewport *viewport);
 		external "C use <gtk/gtk.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkViewport)"
 		end
-	dummy_gobject: POINTER is
+	dummy_gobject: POINTER
 		do
 			Result:=(gtk_viewport_new
 						(gtk_adjustment_new

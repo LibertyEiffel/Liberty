@@ -133,7 +133,7 @@ create {ANY}
 	make_open, make_save, from_external_pointer
 
 feature {} -- Creation
-	make_open (a_title: STRING; a_parent: GTK_WINDOW; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]]) is
+	make_open (a_title: STRING; a_parent: GTK_WINDOW; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]])
 			-- Creates a new GTK_FILE_CHOOSER_DIALOG to open a file. `a_title' is the title  of
 			-- the dialog, or Void; `a_parent' - if not Void - is the
 			-- transient parent of the dialog;
@@ -144,7 +144,7 @@ feature {} -- Creation
 			making (a_title, a_parent, gtk_file_chooser_action_open, some_buttons)
 		end
 
-	make_save (a_title: STRING; a_parent: GTK_WINDOW; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]]) is
+	make_save (a_title: STRING; a_parent: GTK_WINDOW; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]])
 			-- Creates a new GTK_FILE_CHOOSER_DIALOG to save a file. `a_title' is the title  of
 			-- the dialog, or Void; `a_parent' - if not Void - is the
 			-- transient parent of the dialog;
@@ -155,7 +155,7 @@ feature {} -- Creation
 			making (a_title, a_parent, gtk_file_chooser_action_save, some_buttons)
 		end
 
-	making (a_title: STRING; a_parent: GTK_WINDOW; an_action: INTEGER; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]]) is
+	making (a_title: STRING; a_parent: GTK_WINDOW; an_action: INTEGER; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]])
 			-- Creates a new GTK_FILE_CHOOSER_DIALOG. `a_title' is the title  of
 			-- the dialog, or Void; `a_parent' - if not Void - is the
 			-- transient parent of the dialog; `an_action' is the Open or save mode for the dialog
@@ -199,7 +199,7 @@ feature {} -- Creation
 	-- Since 2.4
 
 feature {ANY}
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileChooserDialog)"
 		end

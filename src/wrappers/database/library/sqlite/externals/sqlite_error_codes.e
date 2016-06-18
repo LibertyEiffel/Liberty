@@ -11,7 +11,7 @@ expanded class SQLITE_ERROR_CODES
 
 feature {} -- Result codes 
 
-	sqlite_ok: INTEGER is
+	sqlite_ok: INTEGER
 			-- SQL error or missing database 
 		external "plug_in"
 		alias "{
@@ -21,7 +21,7 @@ feature {} -- Result codes
 			}"
 		end
 
-	sqlite_error: INTEGER is
+	sqlite_error: INTEGER
 			-- SQL error or missing database 
 		external "plug_in"
 		alias "{
@@ -31,7 +31,7 @@ feature {} -- Result codes
 			}"
 		end
 
-	sqlite_internal: INTEGER is
+	sqlite_internal: INTEGER
 			-- An internal logic error in SQLite 
 		external "plug_in"
 		alias "{
@@ -41,7 +41,7 @@ feature {} -- Result codes
 			}"
 		end
 
-	sqlite_perm: INTEGER is
+	sqlite_perm: INTEGER
 			-- Access permission denied 
 		external "plug_in"
 		alias "{
@@ -51,7 +51,7 @@ feature {} -- Result codes
 			}"
 		end
 
-	sqlite_abort: INTEGER is
+	sqlite_abort: INTEGER
 			-- Callback routine requested an abort 
 		external "plug_in"
 		alias "{
@@ -61,7 +61,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_busy: INTEGER is
+	sqlite_busy: INTEGER
 			-- The database file is locked 
 		external "plug_in"
 		alias "{
@@ -71,7 +71,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_locked: INTEGER is
+	sqlite_locked: INTEGER
 			-- A table in the database is locked 
 		external "plug_in"
 		alias "{
@@ -81,7 +81,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_nomem: INTEGER is
+	sqlite_nomem: INTEGER
 			-- A malloc() failed 
 		external "plug_in"
 		alias "{
@@ -91,7 +91,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_readonly: INTEGER is
+	sqlite_readonly: INTEGER
 			-- Attempt to write a readonly database 
 		external "plug_in"
 		alias "{
@@ -101,7 +101,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_interrupt: INTEGER is
+	sqlite_interrupt: INTEGER
 			-- Operation terminated by sqlite_interrupt() 
 		external "plug_in"
 		alias "{
@@ -111,7 +111,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_ioerr: INTEGER is
+	sqlite_ioerr: INTEGER
 			-- Some kind of disk I/O error occurred 
 		external "plug_in"
 		alias "{
@@ -121,7 +121,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_corrupt: INTEGER is
+	sqlite_corrupt: INTEGER
 			-- The database disk image is malformed 
 		external "plug_in"
 		alias "{
@@ -131,7 +131,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_notfound: INTEGER is
+	sqlite_notfound: INTEGER
 			-- (Internal Only) Table or record not found 
 		external "plug_in"
 		alias "{
@@ -141,7 +141,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_full: INTEGER is
+	sqlite_full: INTEGER
 			-- Insertion failed because database is full 
 		external "plug_in"
 		alias "{
@@ -151,7 +151,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_cantopen: INTEGER is
+	sqlite_cantopen: INTEGER
 			-- Unable to open the database file 
 		external "plug_in"
 		alias "{
@@ -161,7 +161,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_protocol: INTEGER is
+	sqlite_protocol: INTEGER
 			-- Database lock protocol error 
 		external "plug_in"
 		alias "{
@@ -171,7 +171,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_empty: INTEGER is
+	sqlite_empty: INTEGER
 			-- (Internal Only) Database table is empty 
 		external "plug_in"
 		alias "{
@@ -181,7 +181,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_schema: INTEGER is
+	sqlite_schema: INTEGER
 			-- The database schema changed 
 		external "plug_in"
 		alias "{
@@ -191,7 +191,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_toobig: INTEGER is
+	sqlite_toobig: INTEGER
 			-- Too much data for one row of a table 
 		external "plug_in"
 		alias "{
@@ -201,7 +201,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_constraint: INTEGER is
+	sqlite_constraint: INTEGER
 			-- Abort due to constraint violation 
 		external "plug_in"
 		alias "{
@@ -211,7 +211,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_mismatch: INTEGER is
+	sqlite_mismatch: INTEGER
 			-- Data type mismatch 
 		external "plug_in"
 		alias "{
@@ -221,7 +221,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_misuse: INTEGER is
+	sqlite_misuse: INTEGER
 			-- Library used incorrectly 
 		external "plug_in"
 		alias "{
@@ -231,7 +231,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_nolfs: INTEGER is
+	sqlite_nolfs: INTEGER
 			-- Uses OS features not supported on host 
 		external "plug_in"
 		alias "{
@@ -241,7 +241,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_auth: INTEGER is
+	sqlite_auth: INTEGER
 			-- Authorization denied 
 		external "plug_in"
 		alias "{
@@ -251,7 +251,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_row: INTEGER is
+	sqlite_row: INTEGER
 			-- sqlite_step() has another row ready 
 		external "plug_in"
 		alias "{
@@ -261,7 +261,7 @@ feature {} -- Result codes
 			}"
 		end
 	
-	sqlite_done: INTEGER is
+	sqlite_done: INTEGER
 			-- sqlite_step() has finished executing 
 		external "plug_in"
 		alias "{
@@ -271,7 +271,7 @@ feature {} -- Result codes
 			}"
 		end
 
-	error_message(code: INTEGER): STRING is
+	error_message(code: INTEGER): STRING
 		do
 			if     code=sqlite_ok then Result := once "Successful"
 			elseif code=sqlite_error then Result := once "SQL error or missing database"

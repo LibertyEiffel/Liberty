@@ -27,42 +27,42 @@ insert G_PARAM_FLAGS
 
 feature {} -- External calls
 
-	g_type_is_param(a_type: INTEGER): INTEGER is
+	g_type_is_param(a_type: INTEGER): INTEGER
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_IS_PARAM"
 		end
 
-	g_is_param_spec (a_pspec: POINTER): INTEGER is
+	g_is_param_spec (a_pspec: POINTER): INTEGER
 			-- Checks whether pspec "is a" valid GParamSpec structure of type G_TYPE_PARAM or derived.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC"
 		end
 
-	g_is_param_spec_class (a_pclass: POINTER): INTEGER is
+	g_is_param_spec_class (a_pclass: POINTER): INTEGER
 			-- Checks whether pclass "is a" valid GParamSpecClass structure of type G_TYPE_PARAM or derived.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_CLASS"
 		end
 
-	g_param_spec_get_class (a_pspec: POINTER): POINTER is
+	g_param_spec_get_class (a_pspec: POINTER): POINTER
 			-- Retrieves the GParamSpecClass of a GParamSpec.
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_SPEC_GET_CLASS"
 		end
 
-	g_param_spec_type (a_pspec: POINTER): POINTER is
+	g_param_spec_type (a_pspec: POINTER): POINTER
 			-- Retrieves the GType of this pspec.
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_SPEC_TYPE"
 		end
 
-	g_param_spec_type_name (a_pspec: POINTER): POINTER is
+	g_param_spec_type_name (a_pspec: POINTER): POINTER
 			-- Retrieves the GType name of this pspec.
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_SPEC_TYPE_NAME"
 		end
 
-	g_param_spec_value_type (a_pspec: POINTER): INTEGER is
+	g_param_spec_value_type (a_pspec: POINTER): INTEGER
 			-- Retrieves the GType to initialize a GValue for this parameter.
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_SPEC_VALUE_TYPE"
@@ -83,20 +83,20 @@ feature {} -- External calls
 	-- All fields of the GParamSpec struct are private and should not be used directly, except for the following:
 	-- GTypeInstance g_type_instance; 	private GTypeInstance portion
 	-- gchar *name; 	name of this parameter
-	get_flags (a_spec: POINTER): INTEGER is
+	get_flags (a_spec: POINTER): INTEGER
 			-- GParamSpec.flags: GParamFlags flags for this parameter
 		external "C struct GParamSpec get flags use <glib-object.h>"
 		end
 
-	get_value_type (a_spec: POINTER): INTEGER is
+	get_value_type (a_spec: POINTER): INTEGER
 			-- GType value_type: the GValue type for this parameter
 		external "C struct GParamSpec get value_type use <glib-object.h>"
 		end
-	get_owner_type (a_spec: POINTER): INTEGER is
+	get_owner_type (a_spec: POINTER): INTEGER
 			-- GType owner_type; GType type that uses (introduces) this paremeterq
 		external "C struct GParamSpec get owner_type use <glib-object.h>"
 		end
-	get_param_id (a_spec: POINTER): INTEGER is
+	get_param_id (a_spec: POINTER): INTEGER
 			-- GParamSpec.param_id.
 			-- Note: This is a private GObject feature!
 		external "C struct GParamSpec get param_id use <glib-object.h>"
@@ -150,7 +150,7 @@ feature {} -- External calls
 		external "C macro use <glib-object.h>"
 		end
 
-	g_param_value_set_default       (a_gparam_spec, a_value: POINTER) is
+	g_param_value_set_default       (a_gparam_spec, a_value: POINTER)
 			-- Sets value to its default value as specified in pspec.
 		external "C use  <glib-object.h>"
 		end
@@ -184,7 +184,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-	g_param_values_cmp (a_g_param_spec, a_const_value, another_const_value: POINTER): INTEGER is
+	g_param_values_cmp (a_g_param_spec, a_const_value, another_const_value: POINTER): INTEGER
 			-- Compares value1 with value2 according to pspec, and return
 			-- -1, 0 or +1, if value1 is found to be less than, equal to
 			-- or greater than value2, respectively.
@@ -225,7 +225,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-	g_param_spec_set_qdata (a_g_param_spec: POINTER; a_quark: INTEGER_32; data: POINTER) is
+	g_param_spec_set_qdata (a_g_param_spec: POINTER; a_quark: INTEGER_32; data: POINTER)
 			-- Sets an opaque, named pointer on a GParamSpec. The name is
 			-- specified through a GQuark (retrieved e.g. via
 			-- g_quark_from_static_string()), and the pointer can be
@@ -240,7 +240,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-	g_param_spec_set_qdata_full (a_g_param_spec: POINTER; a_quark: INTEGER_32; data, gdestroynotify: POINTER) is
+	g_param_spec_set_qdata_full (a_g_param_spec: POINTER; a_quark: INTEGER_32; data, gdestroynotify: POINTER)
 			-- This function works like g_param_spec_set_qdata(), but in
 			-- addition, a void (*destroy) (gpointer) function may be
 			-- specified which is called with data as argument when the
@@ -366,7 +366,7 @@ feature {} -- External calls
 		external "C macro use <glib-object.h>"
 		end
 
-	g_param_spec_pool_insert (a_spec_pool, a_g_param_spec: POINTER; owner_gtype: INTEGER) is
+	g_param_spec_pool_insert (a_spec_pool, a_g_param_spec: POINTER; owner_gtype: INTEGER)
 			-- Inserts a GParamSpec in the pool.
 			-- pool : a GParamSpecPool.
 			-- pspec : the GParamSpec to insert
@@ -375,7 +375,7 @@ feature {} -- External calls
 		end
  
 
-	g_param_spec_pool_remove (a_spec_pool, a_g_param_spec: POINTER) is
+	g_param_spec_pool_remove (a_spec_pool, a_g_param_spec: POINTER)
 			-- Removes a GParamSpec from the pool.
 			-- pool : a GParamSpecPool
 			-- pspec : the GParamSpec to remove
@@ -412,14 +412,14 @@ feature {} -- External calls
 		
 
 feature {} -- External calls for parameter specs of boolean type
-	g_is_param_spec_boolean (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_boolean (a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_BOOLEAN.
 			-- pspec : a valid GParamSpec instance
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_BOOLEAN"
 		end
 
-	g_type_param_boolean: INTEGER is
+	g_type_param_boolean: INTEGER
 		-- -- The GType of GParamSpecBoolean.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_BOOLEAN"
@@ -428,7 +428,7 @@ feature {} -- External calls for parameter specs of boolean type
 	-- typedef struct {
 	-- GParamSpec parent_instance;	
 	-- gboolean default_value;
-	default_gboolean (spec:POINTER): INTEGER is
+	default_gboolean (spec:POINTER): INTEGER
 			-- gboolean default_value; default value for the property specified
 		external "C struct GParamSpecBoolean get default_value use <glib-object.h>"
 		end
@@ -455,12 +455,12 @@ feature {} -- External calls for parameter specs of boolean type
 
 feature {} -- External calls for parameter specs of char type
 		
-	g_is_param_spec_char (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_char (a_pspec: POINTER): INTEGER
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_CHAR"
 		end
 
-	g_type_param_char: INTEGER is 
+	g_type_param_char: INTEGER
 			-- The GType of GParamSpecChar.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_CHAR"
@@ -469,17 +469,17 @@ feature {} -- External calls for parameter specs of char type
 	-- typedef struct {
 	-- GParamSpec parent_instance;
 	-- gint8 minimum;
-	min_char (spec: POINTER): INTEGER_8 is
+	min_char (spec: POINTER): INTEGER_8
 			-- gint8 minimum; minimum value for the property specified
 		external "C struct GParamSpecChar get minumum use <glib-object.h>"
 		end
 	-- gint8 maximum;
-	max_char (spec: POINTER): INTEGER_8 is
+	max_char (spec: POINTER): INTEGER_8
 			-- gint8 maximum; maximum value for the property specified
 		external "C struct GParamSpecChar get maximum use <glib-object.h>"
 		end
 	-- gint8 default_value;	
-	def_char (spec: POINTER): INTEGER_8 is
+	def_char (spec: POINTER): INTEGER_8
 			-- gint8 default_value; default value for the property specified
 		external "C struct GParamSpecChar get default_value use <glib-object.h>"
 		end
@@ -504,14 +504,14 @@ feature {} -- External calls for parameter specs of char type
 		end
 
 feature {} -- External calls for parameter specs of unsigned char type
-	g_is_param_spec_uchar (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_uchar (a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_UCHAR.
 			-- pspec : a valid GParamSpec instance
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_UCHAR"
 		end
 
-	g_type_param_uchar: INTEGER is
+	g_type_param_uchar: INTEGER
 			-- The GType of GParamSpecUChar.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_UCHAR"
@@ -549,13 +549,13 @@ feature {} -- External calls for parameter specs of unsigned char type
 		end
 
 feature {} -- External calls for parameter specs of integer type
-	g_is_param_spec_int (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_int (a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_INT.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_INT"
 		end
 
-	g_type_param_int: INTEGER is 
+	g_type_param_int: INTEGER
 			-- The GType of GParamSpecInt.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_INT"
@@ -564,17 +564,17 @@ feature {} -- External calls for parameter specs of integer type
 	-- typedef struct {
 	-- GParamSpec parent_instance;
 	-- gint minimum;
-	get_min_int (spec: POINTER): INTEGER is
+	get_min_int (spec: POINTER): INTEGER
 			-- gint minimum; minimum value for the property specified
 		external "C struct GParamSpecInt get minumum use <glib-object.h>"
 		end
 	-- gint maximum;
-	get_max_int (spec: POINTER): INTEGER is
+	get_max_int (spec: POINTER): INTEGER
 			-- gint maximum; maximum value for the property specified
 		external "C struct GParamSpecInt get maximum use <glib-object.h>"
 		end
 	-- gint default_value;
-	get_default_int (spec: POINTER): INTEGER is
+	get_default_int (spec: POINTER): INTEGER
 		external "C struct GParamSpecInt get default_value use <glib-object.h>"
 		end
 	-- } GParamSpecInt;
@@ -601,13 +601,13 @@ feature {} -- External calls for parameter specs of integer type
 		end
 
 feature {} -- External calls for parameter specs of unsigned integer type
-	g_is_param_spec_uint (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_uint (a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_UINT.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_UINT"
 		end
 
-	g_type_param_uint: INTEGER is
+	g_type_param_uint: INTEGER
 			-- The GType of GParamSpecUInt.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_UINT"
@@ -619,15 +619,15 @@ feature {} -- External calls for parameter specs of unsigned integer type
 	-- GParamSpec parent_instance;
  
 	-- guint minimum;
-	get_min_uint (spec: POINTER): INTEGER is
+	get_min_uint (spec: POINTER): INTEGER
 		external "C struct GParamSpecUInt get minimum use <glib-object.h>"
 		end
 	-- guint maximum;
-	get_max_uint (spec: POINTER): INTEGER is
+	get_max_uint (spec: POINTER): INTEGER
 		external "C struct GParamSpecUInt get maximum use <glib-object.h>"
 		end
 	-- guint default_value;
-	get_default_uint (spec: POINTER): INTEGER is
+	get_default_uint (spec: POINTER): INTEGER
 		external "C struct GParamSpecUInt get default_value use <glib-object.h>"
 		end
 	-- } GParamSpecUInt;
@@ -656,13 +656,13 @@ feature {} -- External calls for parameter specs of unsigned integer type
 		end
 
 feature {} -- External calls for parameter specs of long type
-	g_is_param_spec_long (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_long (a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_LONG.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_LONG"
 		end
 
-	g_type_param_long: INTEGER is 
+	g_type_param_long: INTEGER
 			-- The GType of GParamSpecLong.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_LONG"
@@ -672,17 +672,17 @@ feature {} -- External calls for parameter specs of long type
 	-- GParamSpec parent_instance;
  
 	-- glong minimum;
-	min_long (spec: POINTER): INTEGER_64 is
+	min_long (spec: POINTER): INTEGER_64
 			-- glong minimum; minimum value for the property specified
 		external "C struct GParamSpecLong minumum use <glib-object.h>"
 		end
 	-- glong maximum;
-	max_long (spec: POINTER): INTEGER_64 is
+	max_long (spec: POINTER): INTEGER_64
 			-- glong maximum; maximum value for the property specified
 		external "C struct GParamSpecLong maximum use <glib-object.h>"
 		end
 	-- glong default_value;
-	default_long (spec: POINTER): INTEGER_64 is
+	default_long (spec: POINTER): INTEGER_64
 			-- glong default_value; default value for the property specified
 		external "C struct GParamSpecLong default_long use <glib-object.h>"
 		end
@@ -709,13 +709,13 @@ feature {} -- External calls for parameter specs of long type
 		end
 
 feature {} -- External calls for parameter specs of unsigned long type
-	g_is_param_spec_ulong (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_ulong (a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_ULONG.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_ULONG"
 		end
 
-	g_type_param_ulong: INTEGER is
+	g_type_param_ulong: INTEGER
 			-- The GType of GParamSpecULong.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_ULONG"
@@ -756,13 +756,13 @@ feature {} -- External calls for parameter specs of unsigned long type
 		end
 
 feature {} -- External calls for parameter specs of int64 type
-	g_is_param_spec_int_64 (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_int_64 (a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_INT64.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_INT"
 		end
 
-	g_type_param_int_64: INTEGER is
+	g_type_param_int_64: INTEGER
 			-- The GType of GParamSpecInt64.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_INT"
@@ -801,13 +801,13 @@ feature {} -- External calls for parameter specs of int64 type
 		end
 
 feature {} -- External calls for parameter specs of uint64 type
-	g_is_param_spec_uint_64(a_pspec: POINTER): INTEGER is
+	g_is_param_spec_uint_64(a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_UINT64.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_UINT"
 		end
 	
-	g_type_param_uint_64: INTEGER  is
+	g_type_param_uint_64: INTEGER
 			-- The GType of GParamSpecUInt64.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_UINT"
@@ -847,13 +847,13 @@ feature {} -- External calls for parameter specs of uint64 type
 		end
 
 feature {} -- External calls for parameter specs of float type
-	g_is_param_spec_float (a_pspec: POINTER): INTEGER is 
+	g_is_param_spec_float (a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_FLOAT.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_FLOAT"
 		end
 
-	g_type_param_float: INTEGER is
+	g_type_param_float: INTEGER
 			-- The GType of GParamSpecFloat.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_FLOAT"
@@ -865,22 +865,22 @@ feature {} -- External calls for parameter specs of float type
 	-- GParamSpec parent_instance;
 	
 	-- gfloat minimum;
-	get_min_float (spec: POINTER): REAL_32 is
+	get_min_float (spec: POINTER): REAL_32
 			-- gfloat minimum; minimum value for the property specified
 		external "C struct GParamSpecFloat get minumum use <glib-object.h>"
 		end
 	
-	get_max_float (spec: POINTER): REAL_32 is
+	get_max_float (spec: POINTER): REAL_32
 			-- gfloat maximum; maximum value for the property specified
 		external "C struct GParamSpecFloat get maximum use <glib-object.h>"
 		end
 	
-	get_default_float (spec: POINTER): REAL_32 is
+	get_default_float (spec: POINTER): REAL_32
 			-- gfloat maximum; maximum value for the property specified
 		external "C struct GParamSpecFloat get default_value use <glib-object.h>"
 		end
 
-	get_epsilon_float (spec: POINTER): REAL_32 is
+	get_epsilon_float (spec: POINTER): REAL_32
 			-- gfloat epsilon; values closer than epsilon will be
 			-- considered identical by g_param_values_cmp(); the default
 			-- value is 1e-30.
@@ -905,34 +905,34 @@ feature {} -- External calls for parameter specs of float type
 		end
 
 feature {} -- External calls for parameter specs of double type
-	get_min_double (spec: POINTER): REAL_64 is
+	get_min_double (spec: POINTER): REAL_64
 			-- gfloat minimum; minimum value for the property specified
 		external "C struct GParamSpecDouble get minumum use <glib-object.h>"
 		end
 	
-	get_max_double (spec: POINTER): REAL_64 is
+	get_max_double (spec: POINTER): REAL_64
 			-- gfloat maximum; maximum value for the property specified
 		external "C struct GParamSpecDouble get maximum use <glib-object.h>"
 		end
 	
-	get_default_double (spec: POINTER): REAL_64 is
+	get_default_double (spec: POINTER): REAL_64
 			-- gfloat maximum; maximum value for the property specified
 		external "C struct GParamSpecDouble get default_value use <glib-object.h>"
 		end
 
-	get_epsilon_double (spec: POINTER): REAL_64 is
+	get_epsilon_double (spec: POINTER): REAL_64
 			-- gfloat epsilon; values closer than epsilon will be
 			-- considered identical by g_param_values_cmp(); the default
 			-- value is 1e-30.
 		external "C struct GParamSpecDouble get epsilon use <glib-object.h>"
 		end
 		
-	g_is_param_spec_double (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_double (a_pspec: POINTER): INTEGER
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_DOUBLE.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_DOUBLE"
 		end
-	g_type_param_double: INTEGER is
+	g_type_param_double: INTEGER
 			-- The GType of GParamSpecDouble.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_DOUBLE"
@@ -974,13 +974,13 @@ feature {} -- External calls for parameter specs of double type
 		end
 
 feature {} -- External calls for parameter specs of enum type
-	g_is_param_spec_enum (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_enum (a_pspec: POINTER): INTEGER
 			-- Returns whether the given GParamSpec is of type G_TYPE_PARAM_ENUM.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_ENUM"
 		end
 	
-	g_type_param_enum: INTEGER is 
+	g_type_param_enum: INTEGER
 			-- The GType of GParamSpecEnum.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_ENUM"
@@ -1016,13 +1016,13 @@ feature {} -- External calls for parameter specs of enum type
 		end
 
 feature {} -- External calls for parameter specs of flags type
-	g_is_param_spec_flags (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_flags (a_pspec: POINTER): INTEGER
 			-- Returns whether the given GParamSpec is of type G_TYPE_PARAM_FLAGS.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_FLAGS"
 		end
 
-	g_type_param_flags: INTEGER is
+	g_type_param_flags: INTEGER
 			-- The GType of GParamSpecFlags.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_FLAGS"
@@ -1061,13 +1061,13 @@ feature {} -- External calls for parameter specs of flags type
 
 feature {} -- External calls for parameter specs of flags type
 
-	g_is_param_spec_string (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_string (a_pspec: POINTER): INTEGER
 			-- Returns whether the given GParamSpec is of type G_TYPE_PARAM_STRING.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_STRING"
 		end
 
-	g_type_param_string: INTEGER is
+	g_type_param_string: INTEGER
 			-- The GType of GParamSpecString.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_STRING"
@@ -1218,13 +1218,13 @@ feature {} -- TODO: External calls for parameter specs of boxed type
 
 feature {} -- External calls for parameter specs of pointer type
 
-	g_is_param_spec_pointer (a_pspec: POINTER): INTEGER is
+	g_is_param_spec_pointer (a_pspec: POINTER): INTEGER
 			-- Returns whether the given GParamSpec is of type G_TYPE_PARAM_POINTER.
 		external "C macro use <glib-object.h>"
 		alias "G_IS_PARAM_SPEC_POINTER"
 		end
 
-	g_type_param_pointer: INTEGER is 
+	g_type_param_pointer: INTEGER
 			-- The GType of GParamSpecPointer.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_POINTER"

@@ -8,27 +8,27 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_log_error (a_format: POINTER; ) is
+	gda_log_error (a_format: POINTER; )
 			-- Variadic call
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_log_message (a_format: POINTER; ) is
+	gda_log_message (a_format: POINTER; )
 			-- Variadic call
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_log_is_enabled: INTEGER_32 is
+	gda_log_is_enabled: INTEGER_32
 			-- Variadic call
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_log_disable is
+	gda_log_disable
 			-- Variadic call
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_log_enable is
+	gda_log_enable
 			-- Variadic call
 		external "C use <library/externals/all-gda-includes.h>"
 		end

@@ -26,12 +26,12 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Externals
 
-	gtk_window_toplevel: INTEGER is
+	gtk_window_toplevel: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WINDOW_TOPLEVEL"
 		end
 
-	gtk_window_popup: INTEGER is
+	gtk_window_popup: INTEGER
 		external "C use <gtk/gtk.h>"
 		alias "GTK_WINDOW_POPUP"
 		end

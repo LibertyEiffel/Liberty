@@ -12,23 +12,23 @@ insert CORE_EXTERNALS undefine default_create end
 create {ANY} default_create, make
 create {WRAPPER,WRAPPER_HANDLER} from_external_pointer
 feature {} -- Creation
-	make is
+	make
 		do
 			handle:=llvmcontext_create
 		end
 
-	default_create is
+	default_create
 		do
 			handle:=llvmget_global_context
 		end
 
 feature {} -- Disposing
-	dispose is
+	dispose
 		do
 			llvmcontext_dispose(handle)
 		end
 
-	struct_size: like size_t is do not_yet_implemented end 
+	struct_size: like size_t do not_yet_implemented end 
 
 end -- class LLVM_CONTEXT
 

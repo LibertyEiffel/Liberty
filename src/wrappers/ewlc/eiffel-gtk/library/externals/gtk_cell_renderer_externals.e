@@ -32,7 +32,7 @@ insert
 feature {} -- External calls
 	gtk_cell_renderer_get_size (a_gtkcellrenderer, a_gtkwidget,
 										 a_gdkrectangle, x_offset_ptr, y_offset_ptr,
-										 width_ptr, height_ptr: POINTER) is
+										 width_ptr, height_ptr: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -41,7 +41,7 @@ feature {} -- External calls
 									  gdkrectangle_background_area_ptr,
 									  gdkrectangle_cell_area_ptr,
 									  gdkrectangle_expose_area_ptr: POINTER;
-									  gtkcellrendererstate_flags: INTEGER) is
+									  gtkcellrendererstate_flags: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -51,7 +51,7 @@ feature {} -- External calls
 										 gchar_path_ptr,
 										 gdkrectangle_background_area_ptr,
 										 gdkrectangle_cell_area_ptr: POINTER;
-										 gtkcellrendererstate_flags: INTEGER): INTEGER is
+										 gtkcellrendererstate_flags: INTEGER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -61,27 +61,27 @@ feature {} -- External calls
 												gchar_path_ptr: POINTER;
 												gdkrectangle_background_area_ptr: POINTER;
 												gdkrectangle_cell_area_ptr: POINTER;
-												gtkcellrendererstate_flags: INTEGER): POINTER is
+												gtkcellrendererstate_flags: INTEGER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_cell_renderer_editing_canceled (gtkcellrenderer: POINTER) is
+	gtk_cell_renderer_editing_canceled (gtkcellrenderer: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_cell_renderer_stop_editing (gtkcellrenderer: POINTER;
-											  gboolean_canceled: INTEGER) is
+											  gboolean_canceled: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_cell_renderer_get_fixed_size (gtkcellrenderer: POINTER;
 												 width_ptr: POINTER;
-												 height_ptr: POINTER) is
+												 height_ptr: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_cell_renderer_set_fixed_size (gtkcellrenderer: POINTER;
-												 a_width, an_height: INTEGER) is
+												 a_width, an_height: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 end

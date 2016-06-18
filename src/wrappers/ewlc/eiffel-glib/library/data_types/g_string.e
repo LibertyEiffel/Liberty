@@ -28,7 +28,7 @@ create {ANY}
 	
 feature {C_HANDLE, G_STRING}
 
-	c_string: POINTER is
+	c_string: POINTER
 			-- Pointer to the str field of GString structure pointed by
 			-- handle. Speaking in C: c_string == handle->str
 		do
@@ -36,25 +36,25 @@ feature {C_HANDLE, G_STRING}
 		end
 	
 feature {ANY}
-	count: INTEGER is
+	count: INTEGER
 		do
 			Result := len(handle)
 		end
 		
-	capacity: INTEGER is
+	capacity: INTEGER
 		do
 			Result := allocated_len(handle)
 		end
 		
 	lower: INTEGER is 0
 
-	upper: INTEGER is
+	upper: INTEGER
 		do
 			Result := count
 		end
 
 feature {ANY} -- Creation / Modification:
-	make (needed_capacity: INTEGER) is
+	make (needed_capacity: INTEGER)
 			-- Initialize the string to have at least `needed_capacity'
 			-- characters of storage.
 		do
@@ -63,7 +63,7 @@ feature {ANY} -- Creation / Modification:
 			capacity >= needed_capacity
 		end
 
-	make_empty is
+	make_empty
 			-- Create an empty string.
 		do
 			make(0)
@@ -71,7 +71,7 @@ feature {ANY} -- Creation / Modification:
          empty: count = 0
 		end
 
-	from_string (a_string: STRING) is
+	from_string (a_string: STRING)
 			-- Create a new G_STRING from `a_string'
 		require a_string_not_void: a_string/=Void
 		do
@@ -79,7 +79,7 @@ feature {ANY} -- Creation / Modification:
 		end
 	
 feature {ANY} 
-	item (i: INTEGER): CHARACTER is
+	item (i: INTEGER): CHARACTER
 			-- Character at position `i'.
 		require
 			valid_index: i.in_range (1, count)
@@ -88,12 +88,12 @@ feature {ANY}
 			Result := array.from_pointer(c_string).item(i - 1)
 		end
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 		do
 			Result := g_string_hash (handle)
 		end
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 			-- Do both strings have the same character sequence?
 			--
 			-- See also `same_as'.
@@ -101,7 +101,7 @@ feature {ANY}
 			Result := g_string_equal( handle, other.handle).to_boolean
 		end
 
-	index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+	index_of (c: CHARACTER; start_index: INTEGER): INTEGER
 		local i: INTEGER; found: BOOLEAN
 		do
 			from i:=start_index until not found or else i<=upper
@@ -112,20 +112,20 @@ feature {ANY}
 			end
 		end
 
-	has_suffix (s: STRING): BOOLEAN is
+	has_suffix (s: STRING): BOOLEAN
 			-- True if suffix of `Current' is `s'.
 		do
 			Result:=(g_str_has_suffix(handle, s.to_external)).to_boolean
 		end
 
-	has_prefix (p: STRING): BOOLEAN is
+	has_prefix (p: STRING): BOOLEAN
 			-- True if prefix of `Current' is `p'.
 		do
 			Result:=(g_str_has_prefix(handle, p.to_external)).to_boolean
 		end
 
 feature {ANY} -- Modification:
-	resize (new_count: INTEGER) is
+	resize (new_count: INTEGER)
 		do
          if new_count < count then
             g_string_truncate (handle, new_count)
@@ -134,34 +134,34 @@ feature {ANY} -- Modification:
          end
 		end
 
-	clear is
+	clear
 		do
 			handle := g_string_set_size (handle, 0)
 		end
 
-	copy (other: like Current) is
+	copy (other: like Current)
 			-- Copy `other' onto Current.
 		do
 			handle := g_string_new_len (str(other.handle), len (other.handle))
 		end
 
-	fill_with (c: CHARACTER) is
+	fill_with (c: CHARACTER)
 		local i:INTEGER
 		do
 			from i:=lower until i<upper loop put(c,i); i:=i+1 end
 		end
 
-	append (s: STRING) is
+	append (s: STRING)
 		do
 			handle := g_string_append (handle, s.to_external)
 		end
 
-	prepend (other: STRING) is
+	prepend (other: STRING)
 		do
 			handle:=g_string_prepend(handle, other.to_external)
 		end
 
-	put (c: CHARACTER; i: INTEGER) is
+	put (c: CHARACTER; i: INTEGER)
 			-- Put `c' at index `i' (start counting with 1).
 		require
          valid_index: i.in_range (1, count)
@@ -172,7 +172,7 @@ feature {ANY} -- Modification:
 			array.put(c, i - 1)
 		end
    
-   add_last (c: CHARACTER) is
+   add_last (c: CHARACTER)
          -- append `c'
 		local
          array: NATIVE_ARRAY[CHARACTER]
@@ -188,13 +188,13 @@ feature {ANY} -- Modification:
       end
    
 feature {ANY} -- Conversion to STRING
-	to_string: STRING is
+	to_string: STRING
 			-- A string holding a copy of Current
 		do
 			create Result.from_external_copy (c_string)
 		end
 
-	as_string: CONST_STRING is
+	as_string: CONST_STRING
 			-- A string holding the very same content of Current
 			-- (i.e. using the same memory area.)
 		do
@@ -202,7 +202,7 @@ feature {ANY} -- Conversion to STRING
 		end
 	
 feature {ANY}  -- Disposing
-	dispose is
+	dispose
 		local
          p: POINTER
 		do

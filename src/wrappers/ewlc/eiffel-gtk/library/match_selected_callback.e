@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_ENTRY_COMPLETION
 
 feature {ANY}
-	callback (model_ptr, iter_ptr, instance: POINTER): INTEGER is
+	callback (model_ptr, iter_ptr, instance: POINTER): INTEGER
 		local
 			an_iter: GTK_TREE_ITER
 			a_model: GTK_TREE_MODEL
@@ -50,14 +50,14 @@ feature {ANY}
 			Result := function.item ([a_model, an_iter, object]).to_integer
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_ENTRY_COMPLETION; a_function: like function) is
+	connect (an_object: GTK_ENTRY_COMPLETION; a_function: like function)
 		do
 			debug
 				print ("MATCH_SELECTED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

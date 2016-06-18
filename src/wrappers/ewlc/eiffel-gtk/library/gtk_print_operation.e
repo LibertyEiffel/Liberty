@@ -101,14 +101,14 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is 
+	make
 			-- Creates a new GtkPrintOperation.
 		do
 			from_external_pointer(gtk_print_operation_new)
 		end
 
 feature {ANY} -- Setters
-	set_allow_async (a_setting: BOOLEAN) is
+	set_allow_async (a_setting: BOOLEAN)
 			-- Sets whether the `run' feature may return before the print
 			-- operation is completed. Note that some platforms may not
 			-- allow asynchronous operation. Make `a_setting' True to
@@ -118,7 +118,7 @@ feature {ANY} -- Setters
 		ensure set: a_setting = async_allowed
 		end
 
-	set_default_page_setup (a_default_page_setup: GTK_PAGE_SETUP) is
+	set_default_page_setup (a_default_page_setup: GTK_PAGE_SETUP)
 			-- Makes `a_default_page_setup' the default page setup.
 			
 			-- This page setup will be used by gtk_print_operation_run(),
@@ -133,7 +133,7 @@ feature {ANY} -- Setters
 			(handle, null_or(a_default_page_setup))
 		end
 
-	set_print_settings (some_print_settings: GTK_PRINT_SETTINGS) is
+	set_print_settings (some_print_settings: GTK_PRINT_SETTINGS)
 			-- Sets the print settings. This is typically used to
 			-- re-establish print settings from a previous print
 			-- operation, see `run'.
@@ -144,7 +144,7 @@ feature {ANY} -- Setters
 			(handle, null_or(some_print_settings))
 		end
 
-	set_job_name (a_job_name: STRING) is
+	set_job_name (a_job_name: STRING)
 			-- Sets the name of the print job. The name is used to
 			-- identify the job (e.g.  in monitoring applications like
 			-- eggcups). If you don't set a job name, GTK+ picks a
@@ -154,7 +154,7 @@ feature {ANY} -- Setters
 			gtk_print_operation_set_job_name(handle,a_job_name.to_external)
 		end
 
-	set_n_pages (a_number: INTEGER) is
+	set_n_pages (a_number: INTEGER)
 			-- Sets the number of pages in the document.
 
 			-- This must be set to a positive number before the rendering
@@ -169,7 +169,7 @@ feature {ANY} -- Setters
 			gtk_print_operation_set_n_pages (handle, a_number)
 		end
 
-	set_current_page (a_current_page_number: INTEGER) is
+	set_current_page (a_current_page_number: INTEGER)
 			-- Sets the current page; `a_current_page_number'
 		
 			-- If this is called before `run', the user will be able to
@@ -180,7 +180,7 @@ feature {ANY} -- Setters
 			gtk_print_operation_set_current_page(handle,a_current_page_number)
 		end
 
-	set_use_full_page (a_setting: BOOLEAN) is
+	set_use_full_page (a_setting: BOOLEAN)
 			-- If `a_setting' is True, the transformation for the cairo
 			-- context obtained from GTK_PRINT_CONTEXT puts the origin at
 			-- the top left corner of the page (which may not be the top
@@ -192,7 +192,7 @@ feature {ANY} -- Setters
 			gtk_print_operation_set_use_full_page(handle, a_setting.to_integer)
 		end
 
-	set_unit (a_unit: INTEGER) is
+	set_unit (a_unit: INTEGER)
 			-- Sets up the transformation for the cairo context obtained
 			-- from GtkPrintContext in such a way that distances are
 			-- measured in `a_unit'.
@@ -201,7 +201,7 @@ feature {ANY} -- Setters
 			gtk_print_operation_set_unit (handle, a_unit)
 		end
 
-	set_export_filename (a_file_name: STRING) is
+	set_export_filename (a_file_name: STRING)
 			-- Sets up the GtkPrintOperation to generate a file instead
 			-- of showing the print dialog. The indended use of this
 			-- function is for implementing "Export to PDF"
@@ -216,14 +216,14 @@ feature {ANY} -- Setters
 																 a_file_name.to_external)
 		end
 
-	set_show_progress (a_setting: BOOLEAN) is
+	set_show_progress (a_setting: BOOLEAN)
 			-- If `a_setting' is True, the print operation will show a
 			-- progress dialog during the print operation.
 		do
 			gtk_print_operation_set_show_progress(handle,a_setting.to_integer)
 		end
 	
-	set_track_print_status (a_setting: BOOLEAN) is
+	set_track_print_status (a_setting: BOOLEAN)
 			-- If `a_setting' is True, the print operation will try to
 			-- continue report on the status of the print job in the
 			-- printer queues and printer. This can allow your
@@ -237,7 +237,7 @@ feature {ANY} -- Setters
 			(handle,a_setting.to_integer)
 		end
 
-	set_custom_tab_label (a_label: STRING) is
+	set_custom_tab_label (a_label: STRING)
 			-- Sets the label for the tab holding custom widgets to 
 			-- `a_label'; if Void the default label is used
 		do
@@ -261,7 +261,7 @@ feature {ANY} -- Getters
 	--   error : return location for the error
 	--
 
-	default_page_setup: GTK_PAGE_SETUP is
+	default_page_setup: GTK_PAGE_SETUP
 			-- The default page setup. Can be Void
 		local ptr: POINTER; r: G_OBJECT_EXPANDED_FACTORY[GTK_PAGE_SETUP]
 		do
@@ -274,7 +274,7 @@ feature {ANY} -- Getters
 			end
 		end
 
-	settings: GTK_PRINT_SETTINGS is
+	settings: GTK_PRINT_SETTINGS
 			-- The current print settings. Void until either
 			-- `set_print_settings' or `run' have been called.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PRINT_SETTINGS]
@@ -285,7 +285,7 @@ feature {ANY} -- Getters
 	operation_result: INTEGER
 			-- The result of the last `run' call.
 		
-	run (an_action: INTEGER; a_parent: GTK_WINDOW) is
+	run (an_action: INTEGER; a_parent: GTK_WINDOW)
 			-- Runs the print operation, by first letting the user modify
 			-- print settings in the print dialog, and then print the
 			-- document.
@@ -360,7 +360,7 @@ feature {ANY} -- Getters
 		ensure valid_result: is_valid_gtk_print_operation_result (operation_result)
 		end
 
-	cancel is
+	cancel
 			-- Cancels a running print operation. This feature may be
 			-- called from a begin-print, paginate or draw-page signal
 			-- handler to stop the currently running print operation.
@@ -368,7 +368,7 @@ feature {ANY} -- Getters
 			gtk_print_operation_cancel(handle)
 		end
 
-	status: INTEGER is
+	status: INTEGER
 			-- the status of the print operation. Also see
 			-- `status_string'.
 		do
@@ -376,7 +376,7 @@ feature {ANY} -- Getters
 		ensure valid: is_valid_gtk_print_status(Result)
 		end
 	
-	status_string: CONST_STRING is
+	status_string: CONST_STRING
 			-- a string representation of the status of the print
 			-- operation. The string is translated and suitable for
 			-- displaying the print status e.g. in a GtkStatusbar.
@@ -387,7 +387,7 @@ feature {ANY} -- Getters
 			create Result.from_external(gtk_print_operation_get_status_string(handle))
 		end
 
-	is_finished: BOOLEAN is
+	is_finished: BOOLEAN
 			-- Is the print operation finished?
 		
 			-- This is a convenience feature to find out if the print
@@ -403,7 +403,7 @@ feature {ANY} -- Getters
 			Result:=gtk_print_operation_is_finished(handle).to_boolean
 		end
 
-	error: G_ERROR is
+	error: G_ERROR
 			-- Detailed error description of what went wrong, useful when
 			-- the result of a print operation is
 			-- `gtk_print_operation_result_error', either as returned by
@@ -501,7 +501,7 @@ feature {ANY} -- Property Details
 	--   "use-full-page"        gboolean              : Read / Write
 	--
 
-	async_allowed: BOOLEAN is
+	async_allowed: BOOLEAN
 			-- May the print operation run asynchronously?
 
 			-- Wraps the "allow-async" property
@@ -1043,7 +1043,7 @@ feature {} -- Unwrapped code
 	--   The GQuark used for GtkPrintError errors.
 
 feature {} -- Hastened property spec
-	allow_async_property_spec: G_PARAM_SPEC is
+	allow_async_property_spec: G_PARAM_SPEC
 		once
 			Result := find_property (allow_async_property_name)
 		end
@@ -1051,7 +1051,7 @@ feature {} -- Hastened property spec
 	allow_async_property_name: STRING is "allow-async"
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintOperation)"
 		end

@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_menu_direction (a_direction :INTEGER): BOOLEAN is
+	is_valid_gtk_menu_direction (a_direction :INTEGER): BOOLEAN
 		do
 			Result:=((a_direction = gtk_menu_dir_parent) or else
 						(a_direction = gtk_menu_dir_child) or else
@@ -35,25 +35,25 @@ feature {} -- enum
 						(a_direction = gtk_menu_dir_prev))
 		end
 
-	gtk_menu_dir_parent: INTEGER is
+	gtk_menu_dir_parent: INTEGER
 			-- To the parent menu shell.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MENU_DIR_PARENT"
 		end
 	
-	gtk_menu_dir_child: INTEGER is
+	gtk_menu_dir_child: INTEGER
 			-- To the submenu, if any, associated with the item.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MENU_DIR_CHILD"
 		end
 
-	gtk_menu_dir_next: INTEGER is
+	gtk_menu_dir_next: INTEGER
 			-- To the next menu item.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MENU_DIR_NEXT"
 		end
 
-	gtk_menu_dir_prev: INTEGER is
+	gtk_menu_dir_prev: INTEGER
 			-- To the previous menu item.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MENU_DIR_PREV"

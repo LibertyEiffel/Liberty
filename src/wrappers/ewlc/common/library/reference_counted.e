@@ -29,17 +29,17 @@ inherit
       end
 
 feature {WRAPPER, WRAPPER_HANDLER}
-	ref is 
+	ref
 			-- Increase the reference count 
 		deferred 
 		end
 
-	unref is
+	unref
 			-- Decrease the reference count
 		deferred
 		end
 
-	dispose is
+	dispose
 			-- 
 		do 
 			unref 

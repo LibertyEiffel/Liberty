@@ -61,7 +61,7 @@ create {ANY} make, with_text_only, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new empty GtkComboBox.
 		do
 			from_external_pointer (gtk_combo_box_new)
@@ -69,7 +69,7 @@ feature {} -- Creation
 		ensure no_text_only: not is_text_only
 		end
 
-	with_model (a_model: GTK_TREE_MODEL) is
+	with_model (a_model: GTK_TREE_MODEL)
 			-- Creates a new GtkComboBox with `a_model'.
 		do
 			from_external_pointer (gtk_combo_box_new_with_model (handle))
@@ -78,7 +78,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Model-related features
-	wrap_width: INTEGER is
+	wrap_width: INTEGER
 			-- the wrap width which is used to determine the number of
 			-- columns for the popup menu. If the wrap width is larger
 			-- than 1, the combo box is in table mode.
@@ -87,7 +87,7 @@ feature {ANY} -- Model-related features
 			Result:=gtk_combo_box_get_wrap_width (handle)
 		end
 
-	set_wrap_width (a_width: INTEGER) is
+	set_wrap_width (a_width: INTEGER)
 			-- Sets the wrap width of combo_box to be `a_width'. The wrap
 			-- width is basically the preferred number of columns when
 			-- you want the popup to be layed out in a table.
@@ -96,14 +96,14 @@ feature {ANY} -- Model-related features
 			gtk_combo_box_set_wrap_width    (handle, a_width)
 		end
 
-	row_span_column: INTEGER is
+	row_span_column: INTEGER
 			-- the column with row span information for combo_box.
 		require no_simple_api: not is_text_only
 		do
 			Result := gtk_combo_box_get_row_span_column (handle)
 		end
 
-	set_row_span_column (a_row_span: INTEGER) is
+	set_row_span_column (a_row_span: INTEGER)
 			-- Sets the column with row span information for combo_box to
 			-- be row_span. The row span column contains integers which
 			-- indicate how many rows an item should span.
@@ -112,14 +112,14 @@ feature {ANY} -- Model-related features
 			gtk_combo_box_set_row_span_column (handle, a_row_span)
 		end
 
-	column_span_column: INTEGER is
+	column_span_column: INTEGER
 			-- the column with column span information for combo_box.
 		require no_simple_api: not is_text_only
 		do
 			Result:= gtk_combo_box_get_column_span_column (handle)
 		end
 
-	set_column_span_column (a_column_span: INTEGER) is
+	set_column_span_column (a_column_span: INTEGER)
 			-- Sets the column with column span information for combo_box
 			-- to be column_span. The column span column contains
 			-- integers which indicate how many columns an item should
@@ -129,7 +129,7 @@ feature {ANY} -- Model-related features
 			gtk_combo_box_set_column_span_column (handle, a_column_span)
 		end
 
-	active_row: INTEGER is
+	active_row: INTEGER
 			-- the index of the currently active item, or -1 if there's
 			-- no active item. If the model is a non-flat treemodel, and
 			-- the active item is not an immediate child of the root of
@@ -141,20 +141,20 @@ feature {ANY} -- Model-related features
 			Result := gtk_combo_box_get_active (handle)
 		end
 
-	active_column: INTEGER is
+	active_column: INTEGER
 		obsolete "Renamed this feature to `active_row' which is a better name"
 		do
 			Result := active_row
 		end
 
-	set_active (an_index: INTEGER) is
+	set_active (an_index: INTEGER)
 			-- Sets the active item of combo_box to be the item at index.
 		require no_simple_api: not is_text_only
 		do
 			gtk_combo_box_set_active (handle,an_index)
 		end
 
-	active_iter: GTK_TREE_ITER is
+	active_iter: GTK_TREE_ITER
 			-- An iterator pointing to the current active item, if it
 			-- exists. Otherwise Void
 		require no_simple_api: not is_text_only
@@ -165,7 +165,7 @@ feature {ANY} -- Model-related features
 			if gbool=0 then Result:=Void end
 		end
 
-	set_active_iter (an_iterator: GTK_TREE_ITER) is
+	set_active_iter (an_iterator: GTK_TREE_ITER)
 			-- Sets the current active item to be the one referenced by
 			-- `an_iterator' that must correspond to a path of depth one.
 		require
@@ -176,7 +176,7 @@ feature {ANY} -- Model-related features
 		end
 	
 
-	model: GTK_TREE_MODEL is
+	model: GTK_TREE_MODEL
 			-- the GtkTreeModel which is acting as data source for
 			-- combo_box.
 		require no_simple_api: not is_text_only
@@ -185,7 +185,7 @@ feature {ANY} -- Model-related features
 			Result := factory.wrapper(gtk_combo_box_get_model (handle))
 		end
 
-	set_model (a_model: GTK_TREE_MODEL) is
+	set_model (a_model: GTK_TREE_MODEL)
 			-- Sets the model used by combo_box to be model. Will unset a
 			-- previously set model (if applicable). If model is NULL,
 			-- then it will unset the model.
@@ -200,7 +200,7 @@ feature {ANY} -- Model-related features
 			gtk_combo_box_set_model (handle, a_model.handle)
 		end
 
-	unset_model is
+	unset_model
 			-- Unsets the model used by combo box.
 		require no_simple_api: not is_text_only
 		do
@@ -208,7 +208,7 @@ feature {ANY} -- Model-related features
 		end
 
 feature {} -- Simplified, text-only API creation
-	with_text_only is
+	with_text_only
 			-- Convenience constructor of a new text combo box, which
 			-- will display only strings. If you use this function to
 			-- create a text combo box, you should only manipulate its
@@ -224,7 +224,7 @@ feature {} -- Simplified, text-only API creation
 feature {ANY} -- Simplified, text-only API
 
 	is_text_only: BOOLEAN
-	append_text (a_text: STRING) is
+	append_text (a_text: STRING)
 			-- Appends `a_text' to the list of strings stored in combo box.		
 		require
 			simple_api: is_text_only
@@ -233,7 +233,7 @@ feature {ANY} -- Simplified, text-only API
 			gtk_combo_box_append_text (handle, a_text.to_external)
 		end
 
-	insert_text (a_text: STRING; a_position: INTEGER) is
+	insert_text (a_text: STRING; a_position: INTEGER)
 			-- Inserts `a_text' at `a_position' in the list of strings
 			-- stored in combo_box.
 		require
@@ -243,7 +243,7 @@ feature {ANY} -- Simplified, text-only API
 			gtk_combo_box_insert_text (handle, a_position, a_text.to_external)
 		end
 
-	prepend_text (a_text: STRING) is
+	prepend_text (a_text: STRING)
 			-- Prepends `a_text' to the list of strings stored in combo box.		
 		require
 			simple_api: is_text_only
@@ -252,14 +252,14 @@ feature {ANY} -- Simplified, text-only API
 			gtk_combo_box_prepend_text (handle, a_text.to_external)
 		end
 
-	remove_text (a_position: INTEGER) is
+	remove_text (a_position: INTEGER)
 			-- Removes the string at `a_position' from combo box. 
 		require simple_api: is_text_only
 		do
 			gtk_combo_box_remove_text (handle, a_position)
 		end
 
-	active_text: STRING is
+	active_text: STRING
 			-- The currently active string in combo_box or Void if none
 			-- is selected.
 		require simple_api: is_text_only
@@ -272,7 +272,7 @@ feature {ANY} -- Simplified, text-only API
 		end
 
 feature {ANY} -- For accessibility technologies
-	popup is
+	popup
 			-- Pops up the menu or dropdown list of combo box. This
 			-- function is mostly intended for use by accessibility
 			-- technologies; applications should have little use for it.
@@ -280,7 +280,7 @@ feature {ANY} -- For accessibility technologies
 			gtk_combo_box_popup (handle)
 		end
 
-	popdown is
+	popdown
 			-- Hides the menu or dropdown list of combo_box.  This
 			-- function is mostly intended for use by accessibility
 			-- technologies; applications should have little use for it.
@@ -473,13 +473,13 @@ feature {ANY} -- Properties
 feature {ANY} -- The "changed" signal
 	changed_signal_name: STRING is "changed"
 
-	enable_on_changed is
+	enable_on_changed
 			-- Connects "changed" signal to `on_changed' feature.
 		do
 			connect (Current, changed_signal_name, $on_changed)
 		end
 
-	on_changed is
+	on_changed
 			-- Built-in changed signal handler; empty by design; redefine it.
 
 			-- The `changed' signal is emitted when the active item is changed.
@@ -490,7 +490,7 @@ feature {ANY} -- The "changed" signal
 		do
 		end
 
-	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COMBO_BOX]]) is
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COMBO_BOX]])
 			-- widget : 	the object which received the signal
 			-- user_data : 	user data set when the signal handler was connected.
 		require
@@ -503,7 +503,7 @@ feature {ANY} -- The "changed" signal
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkComboBox)"
 		end

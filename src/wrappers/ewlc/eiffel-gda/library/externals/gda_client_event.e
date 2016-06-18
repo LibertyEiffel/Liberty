@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = gda_client_event_invalid) or else 
 				(a_value = gda_client_event_error) or else 
@@ -18,111 +18,111 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_invalid is
+	default_create, set_invalid
 		do
 			value := gda_client_event_invalid
 		end
 
-	set_error is
+	set_error
 		do
 			value := gda_client_event_error
 		end
 
-	set_connection_opened is
+	set_connection_opened
 		do
 			value := gda_client_event_connection_opened
 		end
 
-	set_connection_closed is
+	set_connection_closed
 		do
 			value := gda_client_event_connection_closed
 		end
 
-	set_transaction_started is
+	set_transaction_started
 		do
 			value := gda_client_event_transaction_started
 		end
 
-	set_transaction_committed is
+	set_transaction_committed
 		do
 			value := gda_client_event_transaction_committed
 		end
 
-	set_transaction_cancelled is
+	set_transaction_cancelled
 		do
 			value := gda_client_event_transaction_cancelled
 		end
 
 
 feature {ANY} -- Queries
-	is_invalid: BOOLEAN is
+	is_invalid: BOOLEAN
 		do
 			Result := (value=gda_client_event_invalid)
 		end
 
-	is_error: BOOLEAN is
+	is_error: BOOLEAN
 		do
 			Result := (value=gda_client_event_error)
 		end
 
-	is_connection_opened: BOOLEAN is
+	is_connection_opened: BOOLEAN
 		do
 			Result := (value=gda_client_event_connection_opened)
 		end
 
-	is_connection_closed: BOOLEAN is
+	is_connection_closed: BOOLEAN
 		do
 			Result := (value=gda_client_event_connection_closed)
 		end
 
-	is_transaction_started: BOOLEAN is
+	is_transaction_started: BOOLEAN
 		do
 			Result := (value=gda_client_event_transaction_started)
 		end
 
-	is_transaction_committed: BOOLEAN is
+	is_transaction_committed: BOOLEAN
 		do
 			Result := (value=gda_client_event_transaction_committed)
 		end
 
-	is_transaction_cancelled: BOOLEAN is
+	is_transaction_cancelled: BOOLEAN
 		do
 			Result := (value=gda_client_event_transaction_cancelled)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gda_client_event_invalid: INTEGER is
+	gda_client_event_invalid: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_CLIENT_EVENT_INVALID"
 		end
 
-	gda_client_event_error: INTEGER is
+	gda_client_event_error: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_CLIENT_EVENT_ERROR"
 		end
 
-	gda_client_event_connection_opened: INTEGER is
+	gda_client_event_connection_opened: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_CLIENT_EVENT_CONNECTION_OPENED"
 		end
 
-	gda_client_event_connection_closed: INTEGER is
+	gda_client_event_connection_closed: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_CLIENT_EVENT_CONNECTION_CLOSED"
 		end
 
-	gda_client_event_transaction_started: INTEGER is
+	gda_client_event_transaction_started: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_CLIENT_EVENT_TRANSACTION_STARTED"
 		end
 
-	gda_client_event_transaction_committed: INTEGER is
+	gda_client_event_transaction_committed: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_CLIENT_EVENT_TRANSACTION_COMMITTED"
 		end
 
-	gda_client_event_transaction_cancelled: INTEGER is
+	gda_client_event_transaction_cancelled: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_CLIENT_EVENT_TRANSACTION_CANCELLED"
 		end

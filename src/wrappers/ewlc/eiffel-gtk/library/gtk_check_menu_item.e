@@ -41,19 +41,19 @@ inherit
 create {ANY} make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
-	make	is
+	make
 			-- Creates a new GtkCheckMenuItem.
 		do
 			from_external_pointer (gtk_check_menu_item_new)
 		end
 
-	with_label (a_label: STRING) is
+	with_label (a_label: STRING)
 			-- Creates a new GtkCheckMenuItem with `a_label'.
 		do
 			from_external_pointer (gtk_check_menu_item_new_with_label (a_label.to_external))
 		end
 
-	with_mnemonic (a_label: STRING) is
+	with_mnemonic (a_label: STRING)
 			-- Creates a new GtkCheckMenuItem containing `a_label'. An
 			-- underscore in the text of the button marks the mnemonic
 			-- character.
@@ -62,38 +62,38 @@ feature {} -- Creation
 		end
 	
 feature {ANY}
-	is_active: BOOLEAN is
+	is_active: BOOLEAN
 			-- Is the check menu item active? See `set_active'
 		do
 			Result:=(gtk_check_menu_item_get_active (handle).to_boolean)
 		end
 
-	set_active is
+	set_active
 			-- Makes the menu item's check box active.
 		do
 			gtk_check_menu_item_set_active (handle,1)
 		end
 
-	set_inactive is
+	set_inactive
 			-- Makes the menu item's check box inactive.
 		do
 			gtk_check_menu_item_set_active (handle,0)
 		end
 
 
-	toggled is
+	toggled
 			-- Emits the GtkCheckMenuItem::toggled signal.
 		do
 			gtk_check_menu_item_toggled (handle)
 		end
 
-	is_inconsistent: BOOLEAN is
+	is_inconsistent: BOOLEAN
 			-- Has Current been made inconsistent using `set_inconsistent'?
 		do
 			Result := (gtk_check_menu_item_get_inconsistent(handle).to_boolean)
 		end
 
-	set_inconsistent is
+	set_inconsistent
 			-- If the user has selected a range of elements (such as some
 			-- text or spreadsheet cells) that are affected by a boolean
 			-- setting, and the current values in that range are
@@ -156,19 +156,19 @@ feature {ANY} -- Signals
 
 	toggle_signal_name: STRING is "toggle"
 
-	on_toggle is
+	on_toggle
 			-- Built-in toggle signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_toggle is
+	enable_on_toggle
 			-- Connects "toggle" signal to `on_toggle' feature.
 			-- Emitted when the item is toggled.
 		do
 			connect (Current, toggle_signal_name, $on_toggle)
 		end
 
-	connect_agent_to_toggle_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_CHECK_MENU_ITEM]]) is
+	connect_agent_to_toggle_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_CHECK_MENU_ITEM]])
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -239,22 +239,22 @@ feature {ANY} -- Signals
 	-- checkmenuitem : the object which received the signal.
 	-- user_data : user data set when the signal handler was connected.
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCheckMenuItem)"
 		end
 
 feature {} -- External calls
 	
-	gtk_check_menu_item_new: POINTER is
+	gtk_check_menu_item_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_check_menu_item_new_with_label (a_label: POINTER):POINTER is
+	gtk_check_menu_item_new_with_label (a_label: POINTER):POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_check_menu_item_new_with_mnemonic (a_label: POINTER): POINTER is
+	gtk_check_menu_item_new_with_mnemonic (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -262,15 +262,15 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_check_menu_item_set_active (a_check_menu_item: POINTER; an_is_active: INTEGER) is
+	gtk_check_menu_item_set_active (a_check_menu_item: POINTER; an_is_active: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_check_menu_item_set_show_toggle (a_gtkcheckmenuitem: POINTER; a_always: INTEGER) is
+	gtk_check_menu_item_set_show_toggle (a_gtkcheckmenuitem: POINTER; a_always: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_check_menu_item_toggled (a_check_menu_item: POINTER) is
+	gtk_check_menu_item_toggled (a_check_menu_item: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -278,11 +278,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_check_menu_item_set_inconsistent (a_check_menu_item: POINTER; a_setting: INTEGER) is
+	gtk_check_menu_item_set_inconsistent (a_check_menu_item: POINTER; a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_check_menu_item_set_draw_as_radio (a_check_menu_item: POINTER; a_draw_as_radio: INTEGER) is
+	gtk_check_menu_item_set_draw_as_radio (a_check_menu_item: POINTER; a_draw_as_radio: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	

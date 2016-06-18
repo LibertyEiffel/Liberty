@@ -40,7 +40,7 @@ create {ANY} default_create
 
 feature {ANY} -- Creation
 
-	default_create is
+	default_create
 		do
 			create error.empty
 			initialize
@@ -50,7 +50,7 @@ feature {ANY} -- Creation
 feature {ANY} -- Creation agents
 	-- Creation agents are functions that given a pointer returns an
 	-- Eiffel wrapper of a precise kind. They are usually stored into
-	store_creation_agents is
+	store_creation_agents
 		local old_count: INTEGER
 		do
 			debug 
@@ -210,152 +210,152 @@ feature {ANY} -- Creation agents
 			end
 		end
 
-	create_gtk_about_dialog (p: POINTER): GTK_ABOUT_DIALOG is do create Result.from_external_pointer(p) end
-		-- create_gtk_accel_group (p: POINTER): GTK_ACCEL_GROUP is do create Result.from_external_pointer(p) end
-	create_gtk_accel_label (p: POINTER): GTK_ACCEL_LABEL is do create Result.from_external_pointer(p) end
-		-- create_gtk_accel_map (p: POINTER): Gtk_AccelMap is do create Result.from_external_pointer(p) end
-		-- create_gtk_accessible (p: POINTER): GTK_ACCESSIBLE is do create Result.from_external_pointer(p) end
-	create_gtk_action (p: POINTER): GTK_ACTION is do create Result.from_external_pointer(p) end
-	create_gtk_action_group (p: POINTER): GTK_ACTION_GROUP is do create Result.from_external_pointer(p) end
-	create_gtk_adjustment (p: POINTER): GTK_ADJUSTMENT is do create Result.from_external_pointer(p) end
-	create_gtk_alignment (p: POINTER): GTK_ALIGNMENT is do create Result.from_external_pointer(p) end
-	create_gtk_arrow (p: POINTER): GTK_ARROW is do create Result.from_external_pointer(p) end
-	create_gtk_aspect_frame (p: POINTER): GTK_ASPECT_FRAME is do create Result.from_external_pointer(p) end
-	create_gtk_assistant (p: POINTER): GTK_ASSISTANT is do create Result.from_external_pointer(p) end
-	create_gtk_button (p: POINTER): GTK_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_calendar (p: POINTER): GTK_CALENDAR is do create Result.from_external_pointer(p) end
-	create_gtk_cell_renderer_accel (p: POINTER): GTK_CELL_RENDERER_ACCEL is do create Result.from_external_pointer(p) end
-	create_gtk_cell_renderer_combo (p: POINTER): GTK_CELL_RENDERER_COMBO is do create Result.from_external_pointer(p) end
-	create_gtk_cell_renderer_pixbuf (p: POINTER): GTK_CELL_RENDERER_PIXBUF is do create Result.from_external_pointer(p) end
-	create_gtk_cell_renderer_progress (p: POINTER): GTK_CELL_RENDERER_PROGRESS is do create Result.from_external_pointer(p) end
-	create_gtk_cell_renderer_spin (p: POINTER): GTK_CELL_RENDERER_SPIN is do create Result.from_external_pointer(p) end
-	create_gtk_cell_renderer_text (p: POINTER): GTK_CELL_RENDERER_TEXT is do create Result.from_external_pointer(p) end
-	create_gtk_cell_renderer_toggle (p: POINTER): GTK_CELL_RENDERER_TOGGLE is do create Result.from_external_pointer(p) end
-	create_gtk_cell_view (p: POINTER): GTK_CELL_VIEW is do create Result.from_external_pointer(p) end
-	create_gtk_check_button (p: POINTER): GTK_CHECK_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_check_menu_item (p: POINTER): GTK_CHECK_MENU_ITEM is do create Result.from_external_pointer(p) end
-	create_gtk_clipboard (p: POINTER): GTK_CLIPBOARD is do create Result.from_external_pointer(p) end
-	create_gtk_color_button (p: POINTER): GTK_COLOR_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_color_selection (p: POINTER): GTK_COLOR_SELECTION is do create Result.from_external_pointer(p) end
-	create_gtk_color_selection_dialog (p: POINTER): GTK_COLOR_SELECTION_DIALOG is do create Result.from_external_pointer(p) end
-	create_gtk_combo_box (p: POINTER): GTK_COMBO_BOX is do create Result.from_external_pointer(p) end
-	create_gtk_combo_box_entry (p: POINTER): GTK_COMBO_BOX_ENTRY is do create Result.from_external_pointer(p) end
-		-- create_gtk_Curve (p: POINTER): Gtk_Curve is do create Result.from_external_pointer(p) end
-	create_gtk_dialog (p: POINTER): GTK_DIALOG is do create Result.from_external_pointer(p) end
-	create_gtk_drawing_area (p: POINTER): GTK_DRAWING_AREA is do create Result.from_external_pointer(p) end
-	create_gtk_entry (p: POINTER): GTK_ENTRY is do create Result.from_external_pointer(p) end
-	create_gtk_entry_completion (p: POINTER): GTK_ENTRY_COMPLETION is do create Result.from_external_pointer(p) end
-	create_gtk_event_box (p: POINTER): GTK_EVENT_BOX is do create Result.from_external_pointer(p) end
-	create_gtk_expander (p: POINTER): GTK_EXPANDER is do create Result.from_external_pointer(p) end
-	create_gtk_file_chooser_button (p: POINTER): GTK_FILE_CHOOSER_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_file_chooser_dialog (p: POINTER): GTK_FILE_CHOOSER_DIALOG is do create Result.from_external_pointer(p) end
-	create_gtk_file_chooser_widget (p: POINTER): GTK_FILE_CHOOSER_WIDGET is do create Result.from_external_pointer(p) end
-	create_gtk_file_filter (p: POINTER): GTK_FILE_FILTER is do create Result.from_external_pointer(p) end
-	-- create_gtk_Fixed (p: POINTER): Gtk_Fixed is do create Result.from_external_pointer(p) end
-	create_gtk_font_button (p: POINTER): GTK_FONT_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_font_selection (p: POINTER): GTK_FONT_SELECTION is do create Result.from_external_pointer(p) end
-	create_gtk_font_selection_dialog (p: POINTER): GTK_FONT_SELECTION_DIALOG is do create Result.from_external_pointer(p) end
-	create_gtk_frame (p: POINTER): GTK_FRAME is do create Result.from_external_pointer(p) end
-	--create_gtk_GammaCurve (p: POINTER): Gtk_GammaCurve is do create Result.from_external_pointer(p) end
-	create_gtk_hbox (p: POINTER): GTK_HBOX is do create Result.from_external_pointer(p) end
-	create_gtk_hbutton_box (p: POINTER): GTK_HBUTTON_BOX is do create Result.from_external_pointer(p) end
-	create_gtk_hpaned (p: POINTER): GTK_HPANED is do create Result.from_external_pointer(p) end
-	--create_gtk_hruler (p: POINTER): GTK_HRULER is do create Result.from_external_pointer(p) end
-	create_gtk_hscale (p: POINTER): GTK_HSCALE is do create Result.from_external_pointer(p) end
-	create_gtk_hscrollbar (p: POINTER): GTK_HSCROLLBAR is do create Result.from_external_pointer(p) end
-	create_gtk_hseparator (p: POINTER): GTK_HSEPARATOR is do create Result.from_external_pointer(p) end
-	--create_gtk_handle_box (p: POINTER): GTK_HANDLE_BOX is do create Result.from_external_pointer(p) end
-	--create_gtkIM_Context (p: POINTER): GtkIM_Context is do create Result.from_external_pointer(p) end
-	--create_gtkIM_ContextSimple (p: POINTER): GtkIM_ContextSimple is do create Result.from_external_pointer(p) end
-	--create_gtkIM_Multicontext (p: POINTER): GtkIM_Multicontext is do create Result.from_external_pointer(p) end
-	--create_gtk_IconFactory (p: POINTER): Gtk_IconFactory is do create Result.from_external_pointer(p) end
-	create_gtk_icon_theme (p: POINTER): GTK_ICON_THEME is do create Result.from_external_pointer(p) end
-	create_gtk_icon_view (p: POINTER): GTK_ICON_VIEW is do create Result.from_external_pointer(p) end
-	create_gtk_image (p: POINTER): GTK_IMAGE is do create Result.from_external_pointer(p) end
-	create_gtk_image_menu_item (p: POINTER): GTK_IMAGE_MENU_ITEM is do create Result.from_external_pointer(p) end
-	-- create_gtk_Invisible (p: POINTER): Gtk_Invisible is do create Result.from_external_pointer(p) end
-	create_gtk_label (p: POINTER): GTK_LABEL is do create Result.from_external_pointer(p) end
-	create_gtk_layout (p: POINTER): GTK_LAYOUT is do create Result.from_external_pointer(p) end
-	create_gtk_link_button (p: POINTER): GTK_LINK_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_list_store (p: POINTER): GTK_LIST_STORE is do create Result.from_external_pointer(p) end
-	create_gtk_menu (p: POINTER): GTK_MENU is do create Result.from_external_pointer(p) end
-	create_gtk_menu_bar (p: POINTER): GTK_MENU_BAR is do create Result.from_external_pointer(p) end
-	create_gtk_menu_item (p: POINTER): GTK_MENU_ITEM is do create Result.from_external_pointer(p) end
-	create_gtk_menu_tool_button (p: POINTER): GTK_MENU_TOOL_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_message_dialog (p: POINTER): GTK_MESSAGE_DIALOG is do create Result.from_external_pointer(p) end
-	create_gtk_notebook (p: POINTER): GTK_NOTEBOOK is do create Result.from_external_pointer(p) end
-	create_gtk_page_setup (p: POINTER): GTK_PAGE_SETUP is do create Result.from_external_pointer(p) end
-	-- create_gtk_PageSetupUnixDialog (p: POINTER): Gtk_PageSetupUnixDialog is do create Result.from_external_pointer(p) end
-	-- create_gtk_Plug (p: POINTER): Gtk_Plug is do create Result.from_external_pointer(p) end
-	-- create_gtk_preview (p: POINTER): GTK_PREVIEW is do create Result.from_external_pointer(p) end
-	-- create_gtk_print_backend (p: POINTER): GTK_PRINT_BACKEND is do create Result.from_external_pointer(p) end
-	create_gtk_print_context (p: POINTER): GTK_PRINT_CONTEXT is do create Result.from_external_pointer(p) end
-	create_gtk_print_job (p: POINTER): GTK_PRINT_JOB is do create Result.from_external_pointer(p) end
-	create_gtk_print_operation (p: POINTER): GTK_PRINT_OPERATION is do create Result.from_external_pointer(p) end
-	create_gtk_print_settings (p: POINTER): GTK_PRINT_SETTINGS is do create Result.from_external_pointer(p) end
-		--create_gtk_PrintUnixDialog (p: POINTER): Gtk_PrintUnixDialog is do create Result.from_external_pointer(p) end
-	create_gtk_printer (p: POINTER): GTK_PRINTER is do create Result.from_external_pointer(p) end
-	create_gtk_progress_bar (p: POINTER): GTK_PROGRESS_BAR is do create Result.from_external_pointer(p) end
-	create_gtk_radio_action (p: POINTER): GTK_RADIO_ACTION is do create Result.from_external_pointer(p) end
-	create_gtk_radio_button (p: POINTER): GTK_RADIO_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_radio_menu_item (p: POINTER): GTK_RADIO_MENU_ITEM is 
+	create_gtk_about_dialog (p: POINTER): GTK_ABOUT_DIALOG do create Result.from_external_pointer(p) end
+		-- create_gtk_accel_group (p: POINTER): GTK_ACCEL_GROUP do create Result.from_external_pointer(p) end
+	create_gtk_accel_label (p: POINTER): GTK_ACCEL_LABEL do create Result.from_external_pointer(p) end
+		-- create_gtk_accel_map (p: POINTER): Gtk_AccelMap do create Result.from_external_pointer(p) end
+		-- create_gtk_accessible (p: POINTER): GTK_ACCESSIBLE do create Result.from_external_pointer(p) end
+	create_gtk_action (p: POINTER): GTK_ACTION do create Result.from_external_pointer(p) end
+	create_gtk_action_group (p: POINTER): GTK_ACTION_GROUP do create Result.from_external_pointer(p) end
+	create_gtk_adjustment (p: POINTER): GTK_ADJUSTMENT do create Result.from_external_pointer(p) end
+	create_gtk_alignment (p: POINTER): GTK_ALIGNMENT do create Result.from_external_pointer(p) end
+	create_gtk_arrow (p: POINTER): GTK_ARROW do create Result.from_external_pointer(p) end
+	create_gtk_aspect_frame (p: POINTER): GTK_ASPECT_FRAME do create Result.from_external_pointer(p) end
+	create_gtk_assistant (p: POINTER): GTK_ASSISTANT do create Result.from_external_pointer(p) end
+	create_gtk_button (p: POINTER): GTK_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_calendar (p: POINTER): GTK_CALENDAR do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_accel (p: POINTER): GTK_CELL_RENDERER_ACCEL do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_combo (p: POINTER): GTK_CELL_RENDERER_COMBO do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_pixbuf (p: POINTER): GTK_CELL_RENDERER_PIXBUF do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_progress (p: POINTER): GTK_CELL_RENDERER_PROGRESS do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_spin (p: POINTER): GTK_CELL_RENDERER_SPIN do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_text (p: POINTER): GTK_CELL_RENDERER_TEXT do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_toggle (p: POINTER): GTK_CELL_RENDERER_TOGGLE do create Result.from_external_pointer(p) end
+	create_gtk_cell_view (p: POINTER): GTK_CELL_VIEW do create Result.from_external_pointer(p) end
+	create_gtk_check_button (p: POINTER): GTK_CHECK_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_check_menu_item (p: POINTER): GTK_CHECK_MENU_ITEM do create Result.from_external_pointer(p) end
+	create_gtk_clipboard (p: POINTER): GTK_CLIPBOARD do create Result.from_external_pointer(p) end
+	create_gtk_color_button (p: POINTER): GTK_COLOR_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_color_selection (p: POINTER): GTK_COLOR_SELECTION do create Result.from_external_pointer(p) end
+	create_gtk_color_selection_dialog (p: POINTER): GTK_COLOR_SELECTION_DIALOG do create Result.from_external_pointer(p) end
+	create_gtk_combo_box (p: POINTER): GTK_COMBO_BOX do create Result.from_external_pointer(p) end
+	create_gtk_combo_box_entry (p: POINTER): GTK_COMBO_BOX_ENTRY do create Result.from_external_pointer(p) end
+		-- create_gtk_Curve (p: POINTER): Gtk_Curve do create Result.from_external_pointer(p) end
+	create_gtk_dialog (p: POINTER): GTK_DIALOG do create Result.from_external_pointer(p) end
+	create_gtk_drawing_area (p: POINTER): GTK_DRAWING_AREA do create Result.from_external_pointer(p) end
+	create_gtk_entry (p: POINTER): GTK_ENTRY do create Result.from_external_pointer(p) end
+	create_gtk_entry_completion (p: POINTER): GTK_ENTRY_COMPLETION do create Result.from_external_pointer(p) end
+	create_gtk_event_box (p: POINTER): GTK_EVENT_BOX do create Result.from_external_pointer(p) end
+	create_gtk_expander (p: POINTER): GTK_EXPANDER do create Result.from_external_pointer(p) end
+	create_gtk_file_chooser_button (p: POINTER): GTK_FILE_CHOOSER_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_file_chooser_dialog (p: POINTER): GTK_FILE_CHOOSER_DIALOG do create Result.from_external_pointer(p) end
+	create_gtk_file_chooser_widget (p: POINTER): GTK_FILE_CHOOSER_WIDGET do create Result.from_external_pointer(p) end
+	create_gtk_file_filter (p: POINTER): GTK_FILE_FILTER do create Result.from_external_pointer(p) end
+	-- create_gtk_Fixed (p: POINTER): Gtk_Fixed do create Result.from_external_pointer(p) end
+	create_gtk_font_button (p: POINTER): GTK_FONT_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_font_selection (p: POINTER): GTK_FONT_SELECTION do create Result.from_external_pointer(p) end
+	create_gtk_font_selection_dialog (p: POINTER): GTK_FONT_SELECTION_DIALOG do create Result.from_external_pointer(p) end
+	create_gtk_frame (p: POINTER): GTK_FRAME do create Result.from_external_pointer(p) end
+	--create_gtk_GammaCurve (p: POINTER): Gtk_GammaCurve do create Result.from_external_pointer(p) end
+	create_gtk_hbox (p: POINTER): GTK_HBOX do create Result.from_external_pointer(p) end
+	create_gtk_hbutton_box (p: POINTER): GTK_HBUTTON_BOX do create Result.from_external_pointer(p) end
+	create_gtk_hpaned (p: POINTER): GTK_HPANED do create Result.from_external_pointer(p) end
+	--create_gtk_hruler (p: POINTER): GTK_HRULER do create Result.from_external_pointer(p) end
+	create_gtk_hscale (p: POINTER): GTK_HSCALE do create Result.from_external_pointer(p) end
+	create_gtk_hscrollbar (p: POINTER): GTK_HSCROLLBAR do create Result.from_external_pointer(p) end
+	create_gtk_hseparator (p: POINTER): GTK_HSEPARATOR do create Result.from_external_pointer(p) end
+	--create_gtk_handle_box (p: POINTER): GTK_HANDLE_BOX do create Result.from_external_pointer(p) end
+	--create_gtkIM_Context (p: POINTER): GtkIM_Context do create Result.from_external_pointer(p) end
+	--create_gtkIM_ContextSimple (p: POINTER): GtkIM_ContextSimple do create Result.from_external_pointer(p) end
+	--create_gtkIM_Multicontext (p: POINTER): GtkIM_Multicontext do create Result.from_external_pointer(p) end
+	--create_gtk_IconFactory (p: POINTER): Gtk_IconFactory do create Result.from_external_pointer(p) end
+	create_gtk_icon_theme (p: POINTER): GTK_ICON_THEME do create Result.from_external_pointer(p) end
+	create_gtk_icon_view (p: POINTER): GTK_ICON_VIEW do create Result.from_external_pointer(p) end
+	create_gtk_image (p: POINTER): GTK_IMAGE do create Result.from_external_pointer(p) end
+	create_gtk_image_menu_item (p: POINTER): GTK_IMAGE_MENU_ITEM do create Result.from_external_pointer(p) end
+	-- create_gtk_Invisible (p: POINTER): Gtk_Invisible do create Result.from_external_pointer(p) end
+	create_gtk_label (p: POINTER): GTK_LABEL do create Result.from_external_pointer(p) end
+	create_gtk_layout (p: POINTER): GTK_LAYOUT do create Result.from_external_pointer(p) end
+	create_gtk_link_button (p: POINTER): GTK_LINK_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_list_store (p: POINTER): GTK_LIST_STORE do create Result.from_external_pointer(p) end
+	create_gtk_menu (p: POINTER): GTK_MENU do create Result.from_external_pointer(p) end
+	create_gtk_menu_bar (p: POINTER): GTK_MENU_BAR do create Result.from_external_pointer(p) end
+	create_gtk_menu_item (p: POINTER): GTK_MENU_ITEM do create Result.from_external_pointer(p) end
+	create_gtk_menu_tool_button (p: POINTER): GTK_MENU_TOOL_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_message_dialog (p: POINTER): GTK_MESSAGE_DIALOG do create Result.from_external_pointer(p) end
+	create_gtk_notebook (p: POINTER): GTK_NOTEBOOK do create Result.from_external_pointer(p) end
+	create_gtk_page_setup (p: POINTER): GTK_PAGE_SETUP do create Result.from_external_pointer(p) end
+	-- create_gtk_PageSetupUnixDialog (p: POINTER): Gtk_PageSetupUnixDialog do create Result.from_external_pointer(p) end
+	-- create_gtk_Plug (p: POINTER): Gtk_Plug do create Result.from_external_pointer(p) end
+	-- create_gtk_preview (p: POINTER): GTK_PREVIEW do create Result.from_external_pointer(p) end
+	-- create_gtk_print_backend (p: POINTER): GTK_PRINT_BACKEND do create Result.from_external_pointer(p) end
+	create_gtk_print_context (p: POINTER): GTK_PRINT_CONTEXT do create Result.from_external_pointer(p) end
+	create_gtk_print_job (p: POINTER): GTK_PRINT_JOB do create Result.from_external_pointer(p) end
+	create_gtk_print_operation (p: POINTER): GTK_PRINT_OPERATION do create Result.from_external_pointer(p) end
+	create_gtk_print_settings (p: POINTER): GTK_PRINT_SETTINGS do create Result.from_external_pointer(p) end
+		--create_gtk_PrintUnixDialog (p: POINTER): Gtk_PrintUnixDialog do create Result.from_external_pointer(p) end
+	create_gtk_printer (p: POINTER): GTK_PRINTER do create Result.from_external_pointer(p) end
+	create_gtk_progress_bar (p: POINTER): GTK_PROGRESS_BAR do create Result.from_external_pointer(p) end
+	create_gtk_radio_action (p: POINTER): GTK_RADIO_ACTION do create Result.from_external_pointer(p) end
+	create_gtk_radio_button (p: POINTER): GTK_RADIO_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_radio_menu_item (p: POINTER): GTK_RADIO_MENU_ITEM
 		do
 			debug std_error.put_line(once "Don't ask me why, but SmartEiffel thinks that GTK_RADIO_MENU_ITEM is deferred.") end
 			create Result.from_external_pointer(p) 
 		end
-	create_gtk_radio_tool_button (p: POINTER): GTK_RADIO_TOOL_BUTTON is do create Result.from_external_pointer(p) end
-		-- create_gtk_RcStyle (p: POINTER): Gtk_RcStyle is do create Result.from_external_pointer(p) end
-		-- create_gtk_RecentChooserDialog (p: POINTER): Gtk_RecentChooserDialog is do create Result.from_external_pointer(p) end
-	-- create_gtk_RecentChooserMenu (p: POINTER): Gtk_RecentChooserMenu is do create Result.from_external_pointer(p) end
-	-- create_gtk_RecentChooserWidget (p: POINTER): Gtk_RecentChooserWidget is do create Result.from_external_pointer(p) end
-		-- create_gtk_RecentFilter (p: POINTER): Gtk_RecentFilter is do create Result.from_external_pointer(p) end
-		-- create_gtk_RecentManager (p: POINTER): Gtk_RecentManager is do create Result.from_external_pointer(p) end
-	create_gtk_scrolled_window (p: POINTER): GTK_SCROLLED_WINDOW is do create Result.from_external_pointer(p) end
-	create_gtk_separator_menu_item (p: POINTER): GTK_SEPARATOR_MENU_ITEM is do create Result.from_external_pointer(p) end
-	create_gtk_separator_tool_item (p: POINTER): GTK_SEPARATOR_TOOL_ITEM is do create Result.from_external_pointer(p) end
-		-- create_gtk_settings (p: POINTER): GTK_SETTINGS is do create Result.from_external_pointer(p) end
-		-- create_gtk_size_group (p: POINTER): GTK_SIZE_GROUP is do create Result.from_external_pointer(p) end
-		-- create_gtk_socket (p: POINTER): GTK_SOCKET is do create Result.from_external_pointer(p) end
-	create_gtk_spin_button (p: POINTER): GTK_SPIN_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_status_icon (p: POINTER): GTK_STATUS_ICON is do create Result.from_external_pointer(p) end
-	create_gtk_status_bar (p: POINTER): GTK_STATUS_BAR is do create Result.from_external_pointer(p) end
-	create_gtk_style (p: POINTER): GTK_STYLE is do create Result.from_external_pointer(p) end
-	create_gtk_table (p: POINTER): GTK_TABLE is do create Result.from_external_pointer(p) end
-	create_gtk_tearoff_menu_item (p: POINTER): GTK_TEAROFF_MENU_ITEM is do create Result.from_external_pointer(p) end
-	create_gtk_text_buffer (p: POINTER): GTK_TEXT_BUFFER is do create Result.from_external_pointer(p) end
-	create_gtk_text_child_anchor (p: POINTER): GTK_TEXT_CHILD_ANCHOR is do create Result.from_external_pointer(p) end
-	create_gtk_text_mark (p: POINTER): GTK_TEXT_MARK is do create Result.from_external_pointer(p) end
-	create_gtk_text_tag (p: POINTER): GTK_TEXT_TAG is do create Result.from_external_pointer(p) end
-	create_gtk_text_tag_table (p: POINTER): GTK_TEXT_TAG_TABLE is do create Result.from_external_pointer(p) end
-	create_gtk_text_view (p: POINTER): GTK_TEXT_VIEW is do create Result.from_external_pointer(p) end
-	create_gtk_toggle_action (p: POINTER): GTK_TOGGLE_ACTION is do create Result.from_external_pointer(p) end
-	create_gtk_toggle_button (p: POINTER): GTK_TOGGLE_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_toggle_tool_button (p: POINTER): GTK_TOGGLE_TOOL_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_tool_button (p: POINTER): GTK_TOOL_BUTTON is do create Result.from_external_pointer(p) end
-	create_gtk_tool_item (p: POINTER): GTK_TOOL_ITEM is do create Result.from_external_pointer(p) end
-	create_gtk_toolbar (p: POINTER): GTK_TOOLBAR is do create Result.from_external_pointer(p) end
-	create_gtk_tooltips (p: POINTER): GTK_TOOLTIPS is do create Result.from_external_pointer(p) end
-	create_gtk_tree_model_filter (p: POINTER): GTK_TREE_MODEL_FILTER is do create Result.from_external_pointer(p) end
-	create_gtk_tree_model_sort (p: POINTER): GTK_TREE_MODEL_SORT is do create Result.from_external_pointer(p) end
-	create_gtk_tree_selection (p: POINTER): GTK_TREE_SELECTION is do create Result.from_external_pointer(p) end
-	create_gtk_tree_store (p: POINTER): GTK_TREE_STORE is do create Result.from_external_pointer(p) end
-	create_gtk_tree_view (p: POINTER): GTK_TREE_VIEW is do create Result.from_external_pointer(p) end
-	create_gtk_tree_view_column (p: POINTER): GTK_TREE_VIEW_COLUMN is do create Result.from_external_pointer(p) end
-	-- create_gtkUI_Manager (p: POINTER): GtkUI_Manager is do create Result.from_external_pointer(p) end
-	create_gtk_vbox (p: POINTER): GTK_VBOX is do create Result.from_external_pointer(p) end
-	create_gtk_vbutton_box (p: POINTER): GTK_VBUTTON_BOX is do create Result.from_external_pointer(p) end
-	create_gtk_vpaned (p: POINTER): GTK_VPANED is do create Result.from_external_pointer(p) end
-	-- create_gtk_vruler (p: POINTER): GTK_VRULER is do create Result.from_external_pointer(p) end
-	create_gtk_vscale (p: POINTER): GTK_VSCALE is do create Result.from_external_pointer(p) end
-	create_gtk_vscrollbar (p: POINTER): GTK_VSCROLLBAR is do create Result.from_external_pointer(p) end
-	create_gtk_vseparator (p: POINTER): GTK_VSEPARATOR is do create Result.from_external_pointer(p) end
-		-- create_gtk_Viewport (p: POINTER): Gtk_Viewport is do create Result.from_external_pointer(p) end
-	create_gtk_window (p: POINTER): GTK_WINDOW is do create Result.from_external_pointer(p) end
-	create_gtk_window_group (p: POINTER): GTK_WINDOW_GROUP is do create Result.from_external_pointer(p) end
+	create_gtk_radio_tool_button (p: POINTER): GTK_RADIO_TOOL_BUTTON do create Result.from_external_pointer(p) end
+		-- create_gtk_RcStyle (p: POINTER): Gtk_RcStyle do create Result.from_external_pointer(p) end
+		-- create_gtk_RecentChooserDialog (p: POINTER): Gtk_RecentChooserDialog do create Result.from_external_pointer(p) end
+	-- create_gtk_RecentChooserMenu (p: POINTER): Gtk_RecentChooserMenu do create Result.from_external_pointer(p) end
+	-- create_gtk_RecentChooserWidget (p: POINTER): Gtk_RecentChooserWidget do create Result.from_external_pointer(p) end
+		-- create_gtk_RecentFilter (p: POINTER): Gtk_RecentFilter do create Result.from_external_pointer(p) end
+		-- create_gtk_RecentManager (p: POINTER): Gtk_RecentManager do create Result.from_external_pointer(p) end
+	create_gtk_scrolled_window (p: POINTER): GTK_SCROLLED_WINDOW do create Result.from_external_pointer(p) end
+	create_gtk_separator_menu_item (p: POINTER): GTK_SEPARATOR_MENU_ITEM do create Result.from_external_pointer(p) end
+	create_gtk_separator_tool_item (p: POINTER): GTK_SEPARATOR_TOOL_ITEM do create Result.from_external_pointer(p) end
+		-- create_gtk_settings (p: POINTER): GTK_SETTINGS do create Result.from_external_pointer(p) end
+		-- create_gtk_size_group (p: POINTER): GTK_SIZE_GROUP do create Result.from_external_pointer(p) end
+		-- create_gtk_socket (p: POINTER): GTK_SOCKET do create Result.from_external_pointer(p) end
+	create_gtk_spin_button (p: POINTER): GTK_SPIN_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_status_icon (p: POINTER): GTK_STATUS_ICON do create Result.from_external_pointer(p) end
+	create_gtk_status_bar (p: POINTER): GTK_STATUS_BAR do create Result.from_external_pointer(p) end
+	create_gtk_style (p: POINTER): GTK_STYLE do create Result.from_external_pointer(p) end
+	create_gtk_table (p: POINTER): GTK_TABLE do create Result.from_external_pointer(p) end
+	create_gtk_tearoff_menu_item (p: POINTER): GTK_TEAROFF_MENU_ITEM do create Result.from_external_pointer(p) end
+	create_gtk_text_buffer (p: POINTER): GTK_TEXT_BUFFER do create Result.from_external_pointer(p) end
+	create_gtk_text_child_anchor (p: POINTER): GTK_TEXT_CHILD_ANCHOR do create Result.from_external_pointer(p) end
+	create_gtk_text_mark (p: POINTER): GTK_TEXT_MARK do create Result.from_external_pointer(p) end
+	create_gtk_text_tag (p: POINTER): GTK_TEXT_TAG do create Result.from_external_pointer(p) end
+	create_gtk_text_tag_table (p: POINTER): GTK_TEXT_TAG_TABLE do create Result.from_external_pointer(p) end
+	create_gtk_text_view (p: POINTER): GTK_TEXT_VIEW do create Result.from_external_pointer(p) end
+	create_gtk_toggle_action (p: POINTER): GTK_TOGGLE_ACTION do create Result.from_external_pointer(p) end
+	create_gtk_toggle_button (p: POINTER): GTK_TOGGLE_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_toggle_tool_button (p: POINTER): GTK_TOGGLE_TOOL_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_tool_button (p: POINTER): GTK_TOOL_BUTTON do create Result.from_external_pointer(p) end
+	create_gtk_tool_item (p: POINTER): GTK_TOOL_ITEM do create Result.from_external_pointer(p) end
+	create_gtk_toolbar (p: POINTER): GTK_TOOLBAR do create Result.from_external_pointer(p) end
+	create_gtk_tooltips (p: POINTER): GTK_TOOLTIPS do create Result.from_external_pointer(p) end
+	create_gtk_tree_model_filter (p: POINTER): GTK_TREE_MODEL_FILTER do create Result.from_external_pointer(p) end
+	create_gtk_tree_model_sort (p: POINTER): GTK_TREE_MODEL_SORT do create Result.from_external_pointer(p) end
+	create_gtk_tree_selection (p: POINTER): GTK_TREE_SELECTION do create Result.from_external_pointer(p) end
+	create_gtk_tree_store (p: POINTER): GTK_TREE_STORE do create Result.from_external_pointer(p) end
+	create_gtk_tree_view (p: POINTER): GTK_TREE_VIEW do create Result.from_external_pointer(p) end
+	create_gtk_tree_view_column (p: POINTER): GTK_TREE_VIEW_COLUMN do create Result.from_external_pointer(p) end
+	-- create_gtkUI_Manager (p: POINTER): GtkUI_Manager do create Result.from_external_pointer(p) end
+	create_gtk_vbox (p: POINTER): GTK_VBOX do create Result.from_external_pointer(p) end
+	create_gtk_vbutton_box (p: POINTER): GTK_VBUTTON_BOX do create Result.from_external_pointer(p) end
+	create_gtk_vpaned (p: POINTER): GTK_VPANED do create Result.from_external_pointer(p) end
+	-- create_gtk_vruler (p: POINTER): GTK_VRULER do create Result.from_external_pointer(p) end
+	create_gtk_vscale (p: POINTER): GTK_VSCALE do create Result.from_external_pointer(p) end
+	create_gtk_vscrollbar (p: POINTER): GTK_VSCROLLBAR do create Result.from_external_pointer(p) end
+	create_gtk_vseparator (p: POINTER): GTK_VSEPARATOR do create Result.from_external_pointer(p) end
+		-- create_gtk_Viewport (p: POINTER): Gtk_Viewport do create Result.from_external_pointer(p) end
+	create_gtk_window (p: POINTER): GTK_WINDOW do create Result.from_external_pointer(p) end
+	create_gtk_window_group (p: POINTER): GTK_WINDOW_GROUP do create Result.from_external_pointer(p) end
 
 feature {ANY}
 
-	disable_setlocale is
+	disable_setlocale
 			-- Prevents initilize_gtk and similar call (wrappers of
 			-- gtk_init(), gtk_init_check(), gtk_init_with_args() and
 			-- gtk_parse_args() from automatically calling setlocale
@@ -373,7 +373,7 @@ feature {ANY}
 
 	-- TODO: wrap gtk_parse_args ()
 
-	initialize, initialize_gtk is
+	initialize, initialize_gtk
 			-- Initialize everything needed to operate the GTK toolkit and parses
 			-- some standard command line options. argc and argv are adjusted
 			-- accordingly so your own code will never see those standard
@@ -402,7 +402,7 @@ feature {ANY}
 	is_initialized: BOOLEAN
 			-- Have gtk been successfully initilized?
 
-	try_initilizing_gtk is
+	try_initilizing_gtk
 		-- Try initiliazing GTK toolkit. If successful
 		-- `is_gtk_initialized' will be True.
 		local argc: INTEGER; argv: POINTER
@@ -414,7 +414,7 @@ feature {ANY}
 
 	-- TODO: wrap gtk_init_with_args ()
 
-	are_events_pending: BOOLEAN is
+	are_events_pending: BOOLEAN
 			-- Are there any events pending? This can be used to update
 			-- the GUI and invoke timeouts etc. while doing some time
 			-- intensive computation.
@@ -432,7 +432,7 @@ feature {ANY}
 			Result:=gtk_events_pending.to_boolean
 		end
 
-	run_main_loop, run_gtk_main_loop is
+	run_main_loop, run_gtk_main_loop
 			-- Runs the main loop until (C function) gtk_main_quit() is
 			-- called. You can nest calls to gtk_main(). In that case
 			-- gtk_main_quit() will make the innermost invocation of the
@@ -443,39 +443,39 @@ feature {ANY}
 			std_error.put_string (once "Exiting gtk_main%N")
 		end
 
-	gtk_nesting_level: INTEGER is
+	gtk_nesting_level: INTEGER
 		obsolete "use nesting level instead"
 		do
 			Result := nesting_level
 		end
 
-	nesting_level: INTEGER is
+	nesting_level: INTEGER
 			-- the nesting level of the current invocation of the main
 			-- loop. This can be useful when calling gtk_quit_add().
 		do
 			Result := gtk_main_level
 		end
 
-	gtk_quit is
+	gtk_quit
 		obsolete "use quit instead"
 		do
 			quit
 		end
 
-	quit is
+	quit
 			-- Makes the innermost invocation of the main loop return
 			-- when it regains control.
 		do
 			gtk_main_quit
 		end
 
-	gtk_main_iteration is
+	gtk_main_iteration
 		obsolete "use main_iteration"
 		do
 			main_iteration
 		end
 
-	main_iteration is
+	main_iteration
 		-- Runs a single iteration of the mainloop. If no events are
 		-- waiting to be processed GTK+ will block until the next event
 		-- is noticed. If you don't want to block look at
@@ -487,13 +487,13 @@ feature {ANY}
 			called_on_innermost_mainloop := gtk_main_iteration_external
 		end
 
-	gtk_main_iteration_not_blocking is
+	gtk_main_iteration_not_blocking
 		obsolete "use not_blocking_main_iteration"
 		do
 			not_blocking_main_iteration
 		end
 
-	not_blocking_main_iteration is
+	not_blocking_main_iteration
 		local called_on_innermost_mainloop: INTEGER
 		do
 			-- TODO: expose called_on_innermost_mainloop in an intelligent way
@@ -668,7 +668,7 @@ feature {ANY}
 -- See the GLib manual, especially GMainLoop and signal-related functions such as g_signal_connect().
 
 feature {ANY} -- global windows features
-	toplevels: G_LIST [GTK_WINDOW] is
+	toplevels: G_LIST [GTK_WINDOW]
 			-- A list of all existing toplevel windows.
 		do
 			create {G_OBJECT_LIST [GTK_WINDOW]} Result.from_external_pointer (gtk_window_list_toplevels)
@@ -686,7 +686,7 @@ feature {ANY} -- global windows features
 		end
 
 
-	default_icon_list: G_LIST[GDK_PIXBUF] is
+	default_icon_list: G_LIST[GDK_PIXBUF]
 			-- an icon list to be used as fallback for windows that
 			-- haven't had `icon_list' called on them to set up a
 			-- window-specific icon list.
@@ -698,7 +698,7 @@ feature {ANY} -- global windows features
 			-- list have not had their reference count incremented.
 		end
 
-	set_default_icon_list (some_pixbuffers: G_LIST[GDK_PIXBUF]) is
+	set_default_icon_list (some_pixbuffers: G_LIST[GDK_PIXBUF])
 			-- Sets an icon list to be used as fallback for windows that
 			-- haven't had gtk_window_set_icon_list() called on them to
 			-- set up a window-specific icon list. This function allows
@@ -711,7 +711,7 @@ feature {ANY} -- global windows features
 		end
 
 
-	set_default_icon (an_icon: GDK_PIXBUF) is
+	set_default_icon (an_icon: GDK_PIXBUF)
 			-- Sets an icon to be used as fallback for windows that
 			-- haven't had `GTK_WINDOW.set_icon' called on them from a
 			-- pixbuf.
@@ -719,7 +719,7 @@ feature {ANY} -- global windows features
 			gtk_window_set_default_icon (an_icon.handle)
 		end
 
-	set_default_icon_from_file (a_filename: STRING) is
+	set_default_icon_from_file (a_filename: STRING)
 			-- Sets an icon to be used as fallback for windows that
 			-- haven't had gtk_window_set_icon_list() called on them from
 			-- a file on disk. Errors are stored in `error' feature
@@ -738,7 +738,7 @@ feature {ANY} -- global windows features
 			-- Has last call to `set_default_icon_from_file' actually 
 			-- set up the default icon?
 
-	set_default_icon_name (a_name: STRING) is
+	set_default_icon_name (a_name: STRING)
 			-- Sets an icon to be used as fallback for windows that
 			-- haven't had `GTK_WINDOW.set_icon_list' called on them from
 			-- a named themed icon, see `GTK_WINDOW.set_icon_name'.
@@ -746,7 +746,7 @@ feature {ANY} -- global windows features
 			gtk_window_set_default_icon_name (a_name.to_external)
 		end
 
-	set_auto_startup_notification is
+	set_auto_startup_notification
 			-- By default, after showing the first GtkWindow for each
 			-- GdkScreen, GTK+ calls gdk_notify_startup_complete(). Call
 			-- this function to disable the automatic startup
@@ -762,7 +762,7 @@ feature {ANY} -- global windows features
 			gtk_window_set_auto_startup_notification (1)
 		end
 
-	unset_auto_startup_notification is
+	unset_auto_startup_notification
 			-- Disable auto startup notification. Useful when dealing 
 			-- with splash-screens. See `set_auto_startup_notification' 
 			-- for further informations.
@@ -775,7 +775,7 @@ feature {ANY} -- Global error
 			-- The error eventually set up by a GTK+ call.
 	
 feature {} -- External calls for global windows features
-	ref_all_toplevels (toplevel_list: POINTER) is
+	ref_all_toplevels (toplevel_list: POINTER)
 		external "C inline use <gtk/gtk.h>"
 		alias "g_list_foreach ($toplevel_list, (GFunc)g_object_ref, NULL)"
 		end
@@ -788,23 +788,23 @@ feature {} -- External calls for global windows features
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_set_default_icon_list(a_glist: POINTER) is
+	gtk_window_set_default_icon_list(a_glist: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_set_default_icon (a_gdkpixbuf_icon: POINTER) is
+	gtk_window_set_default_icon (a_gdkpixbuf_icon: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_set_default_icon_from_file (filename_str, gerror_handle: POINTER): INTEGER is
+	gtk_window_set_default_icon_from_file (filename_str, gerror_handle: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_set_default_icon_name (name_str: POINTER) is
+	gtk_window_set_default_icon_name (name_str: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_set_auto_startup_notification (gboolean_setting: INTEGER) is
+	gtk_window_set_auto_startup_notification (gboolean_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -1935,7 +1935,7 @@ feature {ANY} -- Version Information
 	-- checks for builds that have a configure script. Applications
 	-- will not typically use the features described here.
 
-	gtk_major_version: INTEGER is
+	gtk_major_version: INTEGER
 			-- The major version number of the GTK+ library. (e.g. in
 			-- GTK+ version 1.2.5 this is 1.)
 			
@@ -1947,7 +1947,7 @@ feature {ANY} -- Version Information
 		external "C macro use <gtk/gtk.h>"
 		end
 
-	gtk_minor_version: INTEGER is
+	gtk_minor_version: INTEGER
 			-- The minor version number of the GTK+ library. (e.g. in
 			-- GTK+ version 1.2.5 this is 2.)
 			
@@ -1960,7 +1960,7 @@ feature {ANY} -- Version Information
 		external "C macro use <gtk/gtk.h>"
 		end
 
-	gtk_micro_version: INTEGER is
+	gtk_micro_version: INTEGER
 			-- The micro version number of the GTK+ library. (e.g. in
 			-- GTK+ version 1.2.5 this is 5.)
 			

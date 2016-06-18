@@ -100,7 +100,7 @@ insert
 
 feature {ANY}
 
-	store_eiffel_wrapper is
+	store_eiffel_wrapper
 			-- Store a pointer to Current into the underlying
 			-- gobject. This pointer will be used to retrieve the Eiffel
 			-- wrapper object when a C feature returns a generic object
@@ -130,7 +130,7 @@ feature {ANY}
 			main_wrapper: is_main_wrapper
 		end
 
-	unstore_eiffel_wrapper is
+	unstore_eiffel_wrapper
 			-- Remove the pointer to Current stored into the underlying
 			-- gobject. Note: a precondition like "require stored:
 			-- is_eiffel_wrapper_stored" is not necessary; an unnecessary
@@ -142,7 +142,7 @@ feature {ANY}
 		ensure not_stored: not is_eiffel_wrapper_stored
 		end
 
-	is_eiffel_wrapper_stored: BOOLEAN is
+	is_eiffel_wrapper_stored: BOOLEAN
 			-- Has a pointer to the Current Eiffel wrapper been stored
 			-- into the underlying GObject's qdata property with the
 			-- GQuark `eiffel_key' (which is currently "eiffel-wrapper")?
@@ -150,7 +150,7 @@ feature {ANY}
 			Result := has_qdata (eiffel_key)
 		end
 
-	is_main_wrapper: BOOLEAN is
+	is_main_wrapper: BOOLEAN
 			-- Is Current the wrapper G_OBJECT linked from the underlying
 			-- GObject?
 		do
@@ -159,12 +159,12 @@ feature {ANY}
 
 feature {WRAPPER} -- GObject type system implementation.
 
-	type: like g_type is
+	type: like g_type
 		do
 			Result := g_object_type (handle)
 		end
 
-	type_name: STRING is
+	type_name: STRING
 		do
 			create {CONST_STRING} Result.from_external (g_object_type_name (handle))
 		end
@@ -185,7 +185,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Object creation
 	-- wrappee GObject. If it is not the case the G_OBJECT being created
 	-- becomes the main wrapper.
 
-	main_wrapper_from (an_external_pointer: POINTER) is
+	main_wrapper_from (an_external_pointer: POINTER)
 			-- Create a "main" wrapper from `an_external_pointer'. A
 			-- "main" wrapper is the Eiffel object linked to in the
 			-- underlying Gobject, whose reference is stored in a qdata
@@ -203,7 +203,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Object creation
 			store_eiffel_wrapper
 		end
 
-	unreffed_main_wrapper_from (an_external_pointer: POINTER) is
+	unreffed_main_wrapper_from (an_external_pointer: POINTER)
 			-- Create a "main" wrapper from `an_external_pointer'. The
 			-- underlying GObject is not ref-fed; it is useful when a
 			-- particular C function returns an already referenced
@@ -217,7 +217,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Object creation
 			store_eiffel_wrapper
 		end
 
-	secondary_wrapper_from (an_external_pointer: POINTER) is
+	secondary_wrapper_from (an_external_pointer: POINTER)
 			-- Create a non-main wrapper from `an_external_pointer'.
 		require
 			called_on_creation: is_null
@@ -230,7 +230,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Object creation
 		end
 
  
-	from_external_pointer (a_ptr: POINTER) is
+	from_external_pointer (a_ptr: POINTER)
 		require
 			called_on_creation: is_null
 			pointer_not_null: a_ptr.is_not_null
@@ -241,7 +241,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Object creation
 			ref -- add a reference to the underlying g_object
 		end
 
-	from_external_pointer_no_ref (a_ptr: POINTER) is
+	from_external_pointer_no_ref (a_ptr: POINTER)
 			-- create a new wrapper for a GObject, without ref-ing it.
 			-- This is useful when some C function returns an already
 			-- reffed pointer to a Gobject. In this case the Eiffel
@@ -258,7 +258,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Object creation
 
 feature {ANY} -- Disposing
 
-	dispose is
+	dispose
 			-- Dispose the g_object, calling unref and setting its handle to default_pointer.
 		
 			-- TODO: once the iusse explained in the debug tense in the implementation is 
@@ -286,7 +286,7 @@ feature {ANY} -- Disposing
 		end
 
 feature {} -- Disposing helper
-	is_g_object: BOOLEAN is
+	is_g_object: BOOLEAN
 			-- Is current handle a pointer to a g_object?
 		do
 			Result := (g_is_object (handle) /= 0)
@@ -294,7 +294,7 @@ feature {} -- Disposing helper
 
 feature {ANY} -- Reference count
 
-	ref is
+	ref
 			-- Increases the reference count of object.
 		local ptr: POINTER
 		do
@@ -304,7 +304,7 @@ feature {ANY} -- Reference count
 				end
 		end
 
-	unref is
+	unref
 			-- Decreases the reference count if object. When its reference count
 			-- drops to 0, the object is finalized (i.e. its memory is freed).
 		do
@@ -313,7 +313,7 @@ feature {ANY} -- Reference count
 
 feature {ANY} -- Data storing and retrieving
 
-	get_data (a_key: STRING): ANY is
+	get_data (a_key: STRING): ANY
 			-- Gets a named field from the objects table of associations (see
 			-- set_data).  `a_key': name of the key for that association; Void if no
 			-- `a_key' field is present
@@ -327,7 +327,7 @@ feature {ANY} -- Data storing and retrieving
 			if ptr.is_not_null then Result:=ptr.to_any end
 		end
 
-	set_data (a_key: STRING; data: ANY) is
+	set_data (a_key: STRING; data: ANY)
 			-- Store a reference to `data' under the name `a_key'. Each object
 			-- carries around a table of associations from strings to pointers. If
 			-- the object already had an association with that name, the old
@@ -343,7 +343,7 @@ feature {ANY} -- Data storing and retrieving
 			g_object_set_data (handle,a_key.to_external, data.to_pointer)
 		end
 
-	steal_data (a_key: STRING): ANY is
+	steal_data (a_key: STRING): ANY
 			-- Remove a specified datum from the object's data associations, --
 			-- without invoking the association's destroy handler. Void if there's
 			-- no data with `a_key'
@@ -356,7 +356,7 @@ feature {ANY} -- Data storing and retrieving
 
 feature {ANY} -- Quark-based data storing and retrieving
 
-	has_qdata (a_key: G_QUARK): BOOLEAN is
+	has_qdata (a_key: G_QUARK): BOOLEAN
 			-- Is `a_key' field present in table of associations (see
 			-- set_qdata)? `a_key': a GQuark, naming the user data
 			-- pointer
@@ -364,7 +364,7 @@ feature {ANY} -- Quark-based data storing and retrieving
 			Result := (g_object_get_qdata (handle, a_key.quark).is_not_null)
 		end
 
-	get_qdata (a_key: G_QUARK): ANY is
+	get_qdata (a_key: G_QUARK): ANY
 			-- Gets a named field from the objects table of associations
 			-- (see set_data). `a_key': a GQuark, naming the user data
 			-- pointer; Void if no `a_key' field is present
@@ -374,7 +374,7 @@ feature {ANY} -- Quark-based data storing and retrieving
 			if ptr.is_not_null then Result:=ptr.to_any end
 		end
 
-	set_qdata (a_key: G_QUARK; data: ANY) is
+	set_qdata (a_key: G_QUARK; data: ANY)
 			-- Store a reference to `data' under the GQuark `a_key'. Each
 			-- object carries around a table of associations from strings
 			-- to pointers. If the object already had an association with
@@ -388,14 +388,14 @@ feature {ANY} -- Quark-based data storing and retrieving
 
 feature {ANY} -- Properties notifying
 
-	notify (a_property_name: STRING) is
+	notify (a_property_name: STRING)
 		-- Emits a "notify" signal for the property `a_property_name' on
 		-- object.
 		do
 			g_object_notify (handle, a_property_name.to_external)
 		end
 
-	freeze_notify is
+	freeze_notify
 			-- Stops emission of "notify" signals on object. The signals are queued
 			-- until thaw_notify is called on object.  This is necessary for
 			-- accessors that modify multiple properties to prevent premature
@@ -404,7 +404,7 @@ feature {ANY} -- Properties notifying
 			g_object_freeze_notify (handle)
 		end
 
-	thaw_notify is
+	thaw_notify
 			-- Causes all queued "notify" signals on object to be
 			-- emitted. Reverts the effect of a previous call to
 			-- freeze_notify.
@@ -414,7 +414,7 @@ feature {ANY} -- Properties notifying
 
 feature {ANY} -- Properties query
 
-	find_property (a_property_name: STRING): G_PARAM_SPEC is
+	find_property (a_property_name: STRING): G_PARAM_SPEC
 			-- Find the parameter's spec for `a_property_name'. Void if
 			-- the class doesn't have a property of that name.
 		require valid_name: a_property_name /= Void
@@ -427,7 +427,7 @@ feature {ANY} -- Properties query
 			end
 		end
 
-	has_property (a_property_name: STRING): BOOLEAN is
+	has_property (a_property_name: STRING): BOOLEAN
 			-- Does Current has a property named `a_property_name'?
 		require valid_name: a_property_name /= Void
 		do
@@ -435,7 +435,7 @@ feature {ANY} -- Properties query
 						 (g_object_get_class(handle),a_property_name.to_external).is_not_null)
 		end
 
-	properties: COLLECTION[G_PARAM_SPEC] is
+	properties: COLLECTION[G_PARAM_SPEC]
 			-- The properties of the G_OBJECT
 		local 
 			a_length, another_length: INTEGER; 
@@ -466,7 +466,7 @@ feature {ANY} -- Properties query
 
 feature {ANY} -- Property getter/setter
 
-	set_properties (some_properties: COLLECTION [TUPLE[STRING,G_VALUE]]) is
+	set_properties (some_properties: COLLECTION [TUPLE[STRING,G_VALUE]])
 		require
 			no_void_property_names: --TODO
 			no_void_property_values: --TODO
@@ -496,7 +496,7 @@ feature {ANY} -- Property getter/setter
 			end
 		end
 
-	smart_set_property (a_parameter_specification: G_PARAM_SPEC; a_value: G_VALUE) is
+	smart_set_property (a_parameter_specification: G_PARAM_SPEC; a_value: G_VALUE)
 			-- Sets the property specified by 
 			-- `a_parameter_specification' on Current object to 
 			-- `a_value'.
@@ -572,7 +572,7 @@ feature {ANY} -- Property getter/setter
 			value_set: -- a_value.is_equal (get_property(a_property_name))
 		end
 
-	set_property (a_property_name: STRING; a_value: G_VALUE) is
+	set_property (a_property_name: STRING; a_value: G_VALUE)
 			-- Sets `a_property_name' property on Current object to 
 			-- `a_value'. This feature uses the underlying C 
 			-- implementation which is slower, since it always makes 
@@ -589,7 +589,7 @@ feature {ANY} -- Property getter/setter
 			value_set: -- TODO: a_value.is_equal (get_property(a_property_name))
 		end
 
-	property, get_property (a_property_name: STRING): G_VALUE is
+	property, get_property (a_property_name: STRING): G_VALUE
 			-- Gets the property name `a_property_name' of an object.
 
 			-- Note: The underlying C implementation has the following
@@ -687,7 +687,7 @@ feature {ANY} -- Property getter/setter
 
 feature {ANY} -- String property
 
-	set_string_property (a_property_name, a_string: STRING) is
+	set_string_property (a_property_name, a_string: STRING)
 		require
 			name_not_void: a_property_name /= Void
 			string_not_void: a_string /= Void
@@ -696,7 +696,7 @@ feature {ANY} -- String property
 			g_object_set_property (handle,a_property_name.to_external, hidden_gvalue.handle)
 		end
 
-	string_property, get_string_property (a_property_name: STRING): STRING is
+	string_property, get_string_property (a_property_name: STRING): STRING
 			-- the string property named `a_property_name' of an object. Can be
 			-- Void. TODO: this is complemetely untested!  Test it, for
 			-- example in GTK_CELL_RENDERER_PROGRESS
@@ -713,7 +713,7 @@ feature {ANY} -- String property
 
 feature {ANY} -- integer property
 
-	set_integer_property (a_property_name: STRING; a_value: INTEGER) is
+	set_integer_property (a_property_name: STRING; a_value: INTEGER)
 			-- Set property with `a_name' to `a_value'
 		require
 			valid_name: a_property_name /= Void
@@ -726,7 +726,7 @@ feature {ANY} -- integer property
 			g_object_set_property (handle, a_property_name.to_external, hidden_gvalue.handle)
 		end
 
-	integer_property (a_property_name: STRING): INTEGER is
+	integer_property (a_property_name: STRING): INTEGER
 			-- the integer property named `a_property_name' of an object.
 		require
 			valid_name: a_property_name /= Void
@@ -739,7 +739,7 @@ feature {ANY} -- integer property
 		end
 feature {ANY} -- double/REAL_64 property
 
-	set_real_64_property, set_double_property (a_property_name: STRING; a_value: REAL_64) is
+	set_real_64_property, set_double_property (a_property_name: STRING; a_value: REAL_64)
 			-- Set property with `a_name' to `a_value'
 		require
 			valid_name: a_property_name /= Void
@@ -752,7 +752,7 @@ feature {ANY} -- double/REAL_64 property
 			g_object_set_property (handle, a_property_name.to_external, hidden_gvalue.handle)
 		end
 
-	real_64_property, double_property (a_property_name: STRING): REAL_64 is
+	real_64_property, double_property (a_property_name: STRING): REAL_64
 			-- the double property named `a_property_name' of an object.
 		require
 			valid_name: a_property_name /= Void
@@ -764,7 +764,7 @@ feature {ANY} -- double/REAL_64 property
 			Result := hidden_gvalue.real_64
 		end
 
-	real_64_property_from_pspec, double_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_64 is
+	real_64_property_from_pspec, double_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_64
 			-- the double property with `a_parameter_specification'. This
 			-- feature is faster than the plain `double_property'
 			-- because the latter retrieves the parameter specification
@@ -792,7 +792,7 @@ feature {ANY} -- double/REAL_64 property
 		
 feature {ANY} -- float/REAL_32 property
 
-	set_real_32_property, set_float_property (a_property_name: STRING; a_value: REAL_32) is
+	set_real_32_property, set_float_property (a_property_name: STRING; a_value: REAL_32)
 			-- Set property with `a_name' to `a_value'
 		require
 			valid_name: a_property_name /= Void
@@ -805,7 +805,7 @@ feature {ANY} -- float/REAL_32 property
 			g_object_set_property (handle, a_property_name.to_external, hidden_gvalue.handle)
 		end
 
-	real_32_property, float_property (a_property_name: STRING): REAL_32 is
+	real_32_property, float_property (a_property_name: STRING): REAL_32
 			-- the float property named `a_property_name' of an object.
 		require
 			valid_name: a_property_name /= Void
@@ -817,7 +817,7 @@ feature {ANY} -- float/REAL_32 property
 			Result := hidden_gvalue.real_32
 		end
 
-	real_32_property_from_pspec, float_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_32 is
+	real_32_property_from_pspec, float_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_32
 			-- the float property with `a_parameter_specification'. This
 			-- feature is faster than the plain `float_property'
 			-- because the latter retrieves the parameter specification
@@ -845,7 +845,7 @@ feature {ANY} -- float/REAL_32 property
 	
 feature {ANY} -- boolean property
 
-	set_boolean_property (a_property_name: STRING; a_value: BOOLEAN) is
+	set_boolean_property (a_property_name: STRING; a_value: BOOLEAN)
 			-- Set boolean property with `a_name' to `a_value'
 		require
 			valid_name: a_property_name /= Void
@@ -857,7 +857,7 @@ feature {ANY} -- boolean property
 			g_object_set_property (handle, a_property_name.to_external, hidden_gvalue.handle)
 		end
 
-	boolean_property (a_property_name: STRING): BOOLEAN is
+	boolean_property (a_property_name: STRING): BOOLEAN
 			-- the boolean property named `a_property_name' of an object. 
 		require
 			valid_name: a_property_name /= Void
@@ -869,7 +869,7 @@ feature {ANY} -- boolean property
 			Result := hidden_gvalue.boolean
 		end
 
-	boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): BOOLEAN is
+	boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): BOOLEAN
 			-- the boolean property with `a_parameter_specification'. This
 			-- feature is faster than the plain `boolean_property'
 			-- because the latter retrieves the parameter specification
@@ -896,7 +896,7 @@ feature {ANY} -- boolean property
 		end
 
 feature {ANY} -- enum property
-	set_enum_property (a_property_name: STRING; a_value: INTEGER) is
+	set_enum_property (a_property_name: STRING; a_value: INTEGER)
 			-- Set the enumeration property with `a_name' to `a_value'. 
 		require
 			valid_name: a_property_name /= Void
@@ -909,7 +909,7 @@ feature {ANY} -- enum property
 			g_object_set_property (handle, a_property_name.to_external,hidden_gvalue.handle)
 		end
 
-	enum_property (a_property_name: STRING): INTEGER is
+	enum_property (a_property_name: STRING): INTEGER
 			-- the enumeration property named `a_property_name' of an object.
 		require
 			valid_name: a_property_name /= Void
@@ -1368,7 +1368,7 @@ feature {} -- Unwrapped API
 
 --    ----------------------------------------------------------------------------------------------------------------
 
-	is_floating: BOOLEAN is
+	is_floating: BOOLEAN
 			-- TRUE if the object still has its floating reference count. 
 		require
 			handle.is_not_null
@@ -1972,7 +1972,7 @@ feature {} -- Unwrapped API
 --    user_data : user data set when the signal handler was connected.
 
 feature {} -- Implementation
-	hidden_gvalue: G_VALUE is
+	hidden_gvalue: G_VALUE
 			-- The shared, hidden G_VALUE used in the type-specialized properties 
 			-- setter and getter
 		once

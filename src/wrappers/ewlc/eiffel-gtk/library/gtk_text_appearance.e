@@ -26,7 +26,7 @@ create {ANY} from_external_pointer
 
 	-- TODO: wrap this structure for real
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextAppearance)"
 		end

@@ -13,7 +13,7 @@ insert CORE_EXTERNALS
 create {LLVM_FUNCTION} from_function
 
 feature {LLVM_FUNCTION}
-   from_function (a_function: LLVM_FUNCTION) is
+   from_function (a_function: LLVM_FUNCTION)
       require a_function/=Void
       do
          function:=a_function
@@ -21,34 +21,34 @@ feature {LLVM_FUNCTION}
 
    function: LLVM_FUNCTION
 feature {ANY}
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result:=(item=Void)
       end
 
-   start is
+   start
       do
          item:=value_wrapper_or_void(llvmget_first_param(function.handle))
       end
 
-   finish is
+   finish
       do
          item:=value_wrapper_or_void(llvmget_last_param(function.handle))
       end
 
-   next is
+   next
       do
          item:=value_wrapper_or_void(llvmget_next_param(item.handle))
       end
 
-   previous is
+   previous
       do
          item:=value_wrapper_or_void(llvmget_previous_param(item.handle))
       end
 
    item: LLVM_VALUE is attribute end
 
-         -- This feature is unnecessary when inheriting from LLVM_VALUE_FACTORY: wrapper (p: POINTER): LLVM_VALUE is do create Result.from_external_pointer(p) end
+         -- This feature is unnecessary when inheriting from LLVM_VALUE_FACTORY: wrapper (p: POINTER): LLVM_VALUE do create Result.from_external_pointer(p) end
 
    generation, iterable_generation: INTEGER is 0
 

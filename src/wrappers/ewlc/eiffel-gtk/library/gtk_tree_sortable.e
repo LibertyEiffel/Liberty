@@ -56,7 +56,7 @@ feature {ANY}
 -- user_data : 	Data passed when the compare func is assigned e.g. by gtk_tree_sortable_set_sort_func()
 -- Returns : 	
 
-	sort_column_changed is
+	sort_column_changed
 			-- -- Emits a GtkTreeSortable::sort_column_changed signal on Current
 		do
 			gtk_tree_sortable_sort_column_changed (handle)
@@ -67,7 +67,7 @@ feature {ANY}
 			-- (i.e.: gtk_tree_sortable_default_sort_column_id or
 			-- gtk_tree_sortable_unsorted_sort_column_id)?
 	
-	sort_column_id: INTEGER is
+	sort_column_id: INTEGER
 			-- The current sort column and the order. It returns TRUE
 			-- unless the sort_column_id is
 			-- GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID or
@@ -85,7 +85,7 @@ feature {ANY}
 																											)).to_boolean
 		end
 
-	order: INTEGER is
+	order: INTEGER
 			-- Fills in sort_column_id and order with the current sort column and the order. It returns TRUE unless the sort_column_id is GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID or GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID.
 		
 			-- sortable : 	A GtkTreeSortable
@@ -99,7 +99,7 @@ feature {ANY}
 		ensure is_valid_gtk_sort_type (Result)
 		end
 	
-	set_sort_column_id (a_column_id, an_order: INTEGER) is
+	set_sort_column_id (a_column_id, an_order: INTEGER)
 			-- Sets the current sort column to be `a_column_id'. The
 			-- sortable will resort itself to reflect this change, after
 			-- emitting a GtkTreeSortable::sort_column_changed signal. If
@@ -113,7 +113,7 @@ feature {ANY}
 			gtk_tree_sortable_set_sort_column_id (handle, a_column_id, an_order)
 		end
 	
-	is_sorted: BOOLEAN is
+	is_sorted: BOOLEAN
 			-- Is Current GTK_TREE_SORTABLE sorted?
 		local
 			col, sorted: INTEGER

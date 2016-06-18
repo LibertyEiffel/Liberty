@@ -51,7 +51,7 @@ insert
 create {ANY} from_external_pointer
 	
 feature {ANY} -- Creation
-	from_external_pointer (a_ptr: POINTER) is
+	from_external_pointer (a_ptr: POINTER)
 			-- TODO: G_PARAM_SPEC should be deferred and its place should be taken by specialized heirs such as G_PARAM_SPEC_BOOLEAN
 		do
 			Precursor {C_STRUCT} (a_ptr)
@@ -61,31 +61,31 @@ feature {ANY} -- Creation
 
 feature {ANY} -- Flags
 
-	flags: INTEGER is
+	flags: INTEGER
 		do
 			Result := get_flags (handle)
 		ensure are_valid_param_flags (Result)
 		end
 
-	is_readable: BOOLEAN is
+	is_readable: BOOLEAN
 			-- Is Current parameter readable?
 		do
 			Result:= (flags & g_param_readable).to_boolean
 		end
 
-	is_writable: BOOLEAN is
+	is_writable: BOOLEAN
 			-- Is Current parameter writable?
 		do
 			Result:= (flags & g_param_writable).to_boolean
 		end
 
-	is_set_at_construction: BOOLEAN is
+	is_set_at_construction: BOOLEAN
 			-- Will the parameter be set upon object construction?
 		do
 			Result:= (flags & g_param_construct).to_boolean
 		end
 	
-	is_set_only_at_construction: BOOLEAN is
+	is_set_only_at_construction: BOOLEAN
 			-- Will the parameter only be set upon object construction?
 		do
 			Result:= (flags & g_param_construct_only).to_boolean
@@ -115,7 +115,7 @@ feature {ANY} -- Flags
 --			Result:= (flags & g_param_static_blurb).to_boolean
 --		end
 
-	is_readwrite: BOOLEAN is
+	is_readwrite: BOOLEAN
 			-- Is parameter read/write?
 		do
 			Result := (flags & g_param_readwrite).to_boolean
@@ -123,7 +123,7 @@ feature {ANY} -- Flags
 		end
 
 feature {ANY}
-	set_default (a_value: G_VALUE) is
+	set_default (a_value: G_VALUE)
 			-- Sets `a_value' to its default value as specified in Current.
 		require valid_value: a_value /= Void
 			-- TODO a GValue of correct type for current
@@ -131,7 +131,7 @@ feature {ANY}
 			g_param_value_set_default (handle, a_value.handle)
 		end
 
-	is_default_value (a_value: G_VALUE): BOOLEAN is
+	is_default_value (a_value: G_VALUE): BOOLEAN
 			-- Does `a_value' contains the default value specified in
 			-- Current?
 		require
@@ -141,7 +141,7 @@ feature {ANY}
 			Result:=(g_param_value_defaults(handle,a_value.handle)).to_boolean
 		end
 
-	validate (a_value: G_VALUE): BOOLEAN is
+	validate (a_value: G_VALUE): BOOLEAN
 			-- Has `a_value' to be changed to comply with the
 			-- specifications set out by Current? For example, a
 			-- G_PARAM_SPEC_INT might require that integers stored in
@@ -155,7 +155,7 @@ feature {ANY}
 			Result:=(g_param_value_validate(handle,a_value.handle)).to_boolean
 		end
 
-	convert (a_source, a_destination: G_VALUE; strict_validation: BOOLEAN): BOOLEAN is
+	convert (a_source, a_destination: G_VALUE; strict_validation: BOOLEAN): BOOLEAN
 			-- Transforms `a_source' into `a_destination' if possible,
 			-- and then validates `a_destination', in order for it to
 			-- conform to Current. If `strict_validation' is True this
@@ -171,7 +171,7 @@ feature {ANY}
 													 strict_validation.to_integer)).to_boolean
 		end
 
-	compare (value1,value2: G_VALUE): INTEGER is
+	compare (value1,value2: G_VALUE): INTEGER
 			-- Compares value1 with value2 according to Current, and
 			-- return -1, 0 or +1, if value1 is found to be less than,
 			-- equal to or greater than value2, respectively.
@@ -182,7 +182,7 @@ feature {ANY}
 	
 
 feature {ANY} -- queries
-	name: STRING is
+	name: STRING
 			-- the name of a G_PARAM_SPEC
 		do
 			--create 
@@ -190,7 +190,7 @@ feature {ANY} -- queries
 			create {CONST_STRING} Result.from_external(g_param_spec_get_name(handle))
 		end
 
-	nick: STRING is
+	nick: STRING
 			-- the nick of a G_PARAM_SPEC
 		do
 			--create 
@@ -198,7 +198,7 @@ feature {ANY} -- queries
 			create {CONST_STRING} Result.from_external(g_param_spec_get_nick(handle))
 		end
 	
-	blurb: STRING is
+	blurb: STRING
 			-- the blurb of a G_PARAM_SPEC
 		do
 			-- create Result.from_external_copy(g_param_spec_get_blurb(handle))
@@ -206,7 +206,7 @@ feature {ANY} -- queries
 		end
 
 feature {ANY} 
-	is_initialized: BOOLEAN is
+	is_initialized: BOOLEAN
 			-- Is hidden implementation data correctly initialized?
 		do
 			Result := (owner_class.is_not_null and (param_id /= 0))
@@ -219,21 +219,21 @@ feature {WRAPPER} -- Implementation
 			-- The parameter id to be passed to the property
 			-- setter/getter function
 feature {ANY} -- name validity
-	is_a_valid_name (a_string: STRING): BOOLEAN is
+	is_a_valid_name (a_string: STRING): BOOLEAN
 			-- Does `a_string' comply with the rules for G_PARAM_SPEC names?
 		do
 			-- When creating and looking up a GParamSpec, either separator can be used, but they cannot be mixed. Using '-' is considerably more efficient and in fact required when using property names as detail strings for signals.
 			not_yet_implemented
 		end
 
-	type_name: STRING is
+	type_name: STRING
 			-- the GType name of this parameter spec.
 		do
 			create Result.from_external_copy (g_param_spec_type(handle))
 		ensure result_not_void: Result /= Void
 		end
 
-	value_gtype: INTEGER is
+	value_gtype: INTEGER
 			-- the GType to initialize a GValue for this parameter.
 		do
 			Result:= g_param_spec_value_type (handle)
@@ -245,7 +245,7 @@ feature {ANY} -- name validity
 feature {} -- Creation
 
 	make_integer (a_name,a_nick,a_blurb: STRING;
-				  a_min,a_max,a_default: INTEGER; some_flags: INTEGER) is
+				  a_min,a_max,a_default: INTEGER; some_flags: INTEGER)
 			-- Creates a parameter specification for an integer setting.
 			-- `a_name' is the canonical name of the property specified,
 			-- `a_nick' is the nick name for the property specified,
@@ -266,40 +266,40 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Boolean parameter
-	is_boolean: BOOLEAN is
+	is_boolean: BOOLEAN
 			-- Is this a boolean parameter?
 		do
 			Result := g_is_param_spec_boolean (handle).to_boolean
 		end
 
-	default_boolean: BOOLEAN is
+	default_boolean: BOOLEAN
 			-- default boolean value
 		do
 			Result := default_gboolean(handle).to_boolean
 		end
 
 feature {ANY} -- Integer parameter
-	is_integer: BOOLEAN is
+	is_integer: BOOLEAN
 			-- Is this an integer parameter?
 		do
 			Result := g_is_param_spec_int (handle).to_boolean
 		end
 
-	default_integer: INTEGER is
+	default_integer: INTEGER
 			-- The default integer value
 		require is_integer: is_integer
 		do
 			Result := get_default_int (handle)
 		end
 
-	minimum_integer: INTEGER is
+	minimum_integer: INTEGER
 			-- The minimum integer value
 		require is_integer: is_integer
 		do
 			Result := get_min_int (handle)
 		end
 
-	maximum_integer: INTEGER is
+	maximum_integer: INTEGER
 			-- The maximum integer value
 		require is_integer: is_integer
 		do
@@ -307,27 +307,27 @@ feature {ANY} -- Integer parameter
 		end
 
 feature {} -- Natural parameter
-	is_natural: BOOLEAN is
+	is_natural: BOOLEAN
 			-- Is this a natural parameter?
 		do
 			Result := (g_is_param_spec_uint (handle).to_boolean)
 		end
 
-	default_natural: INTEGER is
+	default_natural: INTEGER
 			-- The default natural value
 		require is_natural: is_natural
 		do
 			Result := get_default_uint (handle)
 		end
 
-	minimum_natural: INTEGER is
+	minimum_natural: INTEGER
 			-- The minimum natural value
 		require is_natural: is_natural
 		do
 			Result := get_min_uint (handle)
 		end
 
-	maximum_natural: INTEGER is
+	maximum_natural: INTEGER
 			-- The maximum natural value
 		require is_natural: is_natural
 		do
@@ -342,27 +342,27 @@ feature {ANY} -- TODO: unsigned long parameter. Note: could it be the same of an
 feature {ANY} -- TODO: NATURAL_64 (uint64) parameter
 
 feature {ANY} -- TODO: REAL_32 (float) parameter
-	is_real_32: BOOLEAN is
+	is_real_32: BOOLEAN
 			-- Is this an integer parameter?
 		do
 			Result := g_is_param_spec_float (handle).to_boolean
 		end
 
-	default_real_32: REAL_32 is
+	default_real_32: REAL_32
 			-- The default integer value
 		require is_real_32: is_real_32
 		do
 			Result := get_default_float (handle)
 		end
 
-	minimum_real_32: REAL_32 is
+	minimum_real_32: REAL_32
 			-- The minimum real_32 value
 		require is_real_32: is_real_32
 		do
 			Result := get_min_float (handle)
 		end
 
-	maximum_real_32: REAL_32 is
+	maximum_real_32: REAL_32
 			-- The maximum real_32 value
 		require is_real_32: is_real_32
 		do
@@ -370,27 +370,27 @@ feature {ANY} -- TODO: REAL_32 (float) parameter
 		end
 
 feature {ANY} -- TODO: REAL_64 (double) parameter
-	is_real_64: BOOLEAN is
+	is_real_64: BOOLEAN
 			-- Is this an real_64 parameter?
 		do
 			Result := g_is_param_spec_double (handle).to_boolean
 		end
 
-	default_real_64: REAL_64 is
+	default_real_64: REAL_64
 			-- The default integer value
 		require is_real_64: is_real_64
 		do
 			Result := get_default_double (handle)
 		end
 
-	minimum_real_64: REAL_64 is
+	minimum_real_64: REAL_64
 			-- The minimum real_64 value
 		require is_real_64: is_real_64
 		do
 			Result := get_min_double (handle)
 		end
 
-	maximum_real_64: REAL_64 is
+	maximum_real_64: REAL_64
 			-- The maximum real_64 value
 		require is_real_64: is_real_64
 		do
@@ -398,7 +398,7 @@ feature {ANY} -- TODO: REAL_64 (double) parameter
 		end
 
 feature {ANY} -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
-	is_enum: BOOLEAN is
+	is_enum: BOOLEAN
 			-- Is this an enumeration (Enum in C) parameter?
 		do
 			Result := (g_is_param_spec_enum (handle).to_boolean)
@@ -408,7 +408,7 @@ feature {ANY} -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
 feature {ANY} -- TODO: flags parameter. Note: this could need a wrapper for G_FLAG_CLASS and G_FLAG_VALUE
 
 feature {ANY} -- TODO: STRING parameter
-	is_string: BOOLEAN is
+	is_string: BOOLEAN
 			-- Is this a string parameter?
 		do
 			Result := (g_is_param_spec_string (handle).to_boolean)
@@ -424,27 +424,27 @@ feature {ANY} -- TODO: G_OBJECT parameter
 feature {ANY} -- TODO: UNICODE CHARACTER parameter
 	
 feature {ANY} -- CHARACTER parameter
-	is_character: BOOLEAN is
+	is_character: BOOLEAN
 			-- Is this a character parameter?
 		do
 			Result := g_is_param_spec_char (handle).to_boolean
 		end
 
-	default_character: CHARACTER is
+	default_character: CHARACTER
 			-- The default character value
 		require is_character: is_character
 		do
 			Result := def_char (handle).to_character
 		end
 
-	minimum_character: CHARACTER is
+	minimum_character: CHARACTER
 			-- The minimum character value
 		require is_character: is_character
 		do
 			Result := min_char (handle).to_character
 		end
 
-	maximum_character: CHARACTER is
+	maximum_character: CHARACTER
 			-- The maximum character value
 		require is_character: is_character
 		do
@@ -1042,7 +1042,7 @@ feature {} -- Unwrapped API
 --                 poolGParamSpecs.
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C use <glib-object.h>"
 		alias "sizeof(GParamSpec)"
 		end

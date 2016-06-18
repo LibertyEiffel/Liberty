@@ -40,7 +40,7 @@ insert GTK_PACK_DIRECTION
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates the new GtkMenuBar
 		require gtk_initialized: gtk.is_initialized
 		do
@@ -48,7 +48,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	set_pack_direction (a_direction: INTEGER) is
+	set_pack_direction (a_direction: INTEGER)
 			-- 	Sets how items should be packed inside a menubar.
 		require
 			valid_direction: is_valid_gtk_pack_direction (a_direction)
@@ -56,7 +56,7 @@ feature {ANY}
 			gtk_menu_bar_set_pack_direction (handle, a_direction)
 		end
 
-	pack_direction: INTEGER is
+	pack_direction: INTEGER
 			--  the current pack direction of the menubar.
 		do
 			Result:= gtk_menu_bar_get_pack_direction(handle)
@@ -67,7 +67,7 @@ feature {ANY}
 	-- is_trl_pack_direction
 
 
-	set_child_pack_direction (a_direction: INTEGER) is
+	set_child_pack_direction (a_direction: INTEGER)
 			-- Sets how widgets should be packed inside the children of a
 			-- menubar.
 		require
@@ -77,7 +77,7 @@ feature {ANY}
 		end
 
 
-	child_pack_direction: INTEGER is
+	child_pack_direction: INTEGER
 			-- the current child pack direction of the menubar. See
 			-- `set_child_pack_direction'.
 		do
@@ -147,30 +147,30 @@ feature {ANY} -- Style Properties
 -- 	GtkMenuShell, GtkMenu, GtkMenuItem
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuBar)"
 		end
 	
 feature {} -- External calls
 
-	gtk_menu_bar_new: POINTER is
+	gtk_menu_bar_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_menu_bar_set_pack_direction (a_menubar: POINTER; a_pack_dir: INTEGER)  is
+	gtk_menu_bar_set_pack_direction (a_menubar: POINTER; a_pack_dir: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_menu_bar_get_pack_direction (a_menubar: POINTER): INTEGER is
+	gtk_menu_bar_get_pack_direction (a_menubar: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_menu_bar_set_child_pack_direction (a_menubar: POINTER; a_child_pack_dir: INTEGER) is
+	gtk_menu_bar_set_child_pack_direction (a_menubar: POINTER; a_child_pack_dir: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_menu_bar_get_child_pack_direction (a_menubar: POINTER): INTEGER is
+	gtk_menu_bar_get_child_pack_direction (a_menubar: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	

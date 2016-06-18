@@ -45,24 +45,24 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_update_type (an_update_type: INTEGER): BOOLEAN is
+	is_valid_gtk_update_type (an_update_type: INTEGER): BOOLEAN
 		do
 			Result:=((an_update_type=gtk_update_continuous) or else
 			         (an_update_type=gtk_update_discontinuous) or else
 			         (an_update_type=gtk_update_delayed))
 		end
 
-	gtk_update_continuous: INTEGER is
+	gtk_update_continuous: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UPDATE_CONTINUOUS"
 		end
 
-	gtk_update_discontinuous: INTEGER is
+	gtk_update_discontinuous: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UPDATE_DISCONTINUOUS"
 		end
 
-	gtk_update_delayed: INTEGER is
+	gtk_update_delayed: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UPDATE_DELAYED"
 		end

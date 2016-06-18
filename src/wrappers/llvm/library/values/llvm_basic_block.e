@@ -25,7 +25,7 @@ insert 	LLVM_VALUE_WRAPPER_FACTORY
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 create {ANY} appended_in_context, inserted_in_context, appended_to, inserted_before
 feature {} -- Creation
-	appended_in_context (a_context: LLVM_CONTEXT; a_function: LLVM_FUNCTION; a_name: ABSTRACT_STRING) is
+	appended_in_context (a_context: LLVM_CONTEXT; a_function: LLVM_FUNCTION; a_name: ABSTRACT_STRING)
 	-- TODO: documentation
 	-- TODO: `a_function' may be an more general LLVM_VALUE but any actual
 	-- usage of something other that an LLVM_FUNCTION is not clear to me. 
@@ -39,7 +39,7 @@ feature {} -- Creation
 	ensure name_not_changed: a_name.is_equal(old a_name)
 	end
 
-	inserted_in_context (a_context: LLVM_CONTEXT; a_block: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING) is
+	inserted_in_context (a_context: LLVM_CONTEXT; a_block: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING)
 		-- TODO: doc.
 	require
 		a_context/=Void
@@ -51,7 +51,7 @@ feature {} -- Creation
 	ensure name_not_changed: a_name.is_equal(old a_name)
 	end
 
-	appended_to (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING) is
+	appended_to (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING)
 		-- TODO: doc
 	require 
 		a_value/=Void
@@ -61,7 +61,7 @@ feature {} -- Creation
 		ensure name_not_changed: a_name.is_equal(old a_name)
 	end
 	
-	inserted_before (a_block: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING) is
+	inserted_before (a_block: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING)
 		-- TODO: doc
 	require
 		a_block/=Void
@@ -76,13 +76,13 @@ feature	{ANY} -- queries
 	-- is -- Current basic block as a value do LLVMValueRef
 	-- LLVMBasicBlockAsValue(LLVMBasicBlockRef BB);:w" and
 
-	parent: LLVM_VALUE is
+	parent: LLVM_VALUE
 		--- The value that contains Current block
 		do
 			Result:=value_wrapper_or_void(llvmget_basic_block_parent(handle))
 		end
 
-	next: LLVM_BASIC_BLOCK is
+	next: LLVM_BASIC_BLOCK
 		-- The block after Current. May be Void
 	local p: POINTER
 	do
@@ -92,7 +92,7 @@ feature	{ANY} -- queries
 		end
 	end
 
-	previous: LLVM_BASIC_BLOCK is
+	previous: LLVM_BASIC_BLOCK
 		-- The block before Current. May be Void
 	local p: POINTER
 	do
@@ -102,7 +102,7 @@ feature	{ANY} -- queries
 		end
 	end
 
-	delete is
+	delete
 		-- Delete current block.
 	do
 		llvmdelete_basic_block(handle)
@@ -110,7 +110,7 @@ feature	{ANY} -- queries
 	ensure is_deleted
 	end
 
-	is_deleted: BOOLEAN is
+	is_deleted: BOOLEAN
 		-- Has Current been deleted?
 	do
 		Result:=handle.is_null
@@ -118,7 +118,7 @@ feature	{ANY} -- queries
 
 -- void LLVMDeleteBasicBlock(LLVMBasicBlockRef BB);
 feature {ANY} -- Iterating over instructions
-	new_iterator: ITERATOR[LLVM_INSTRUCTION] is
+	new_iterator: ITERATOR[LLVM_INSTRUCTION]
 		do
 			create {ITERATOR_OVER_INSTRUCTIONS} Result.from_block(Current)
 		ensure Result/=Void

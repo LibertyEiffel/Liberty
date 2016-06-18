@@ -30,24 +30,24 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gdk_crossing_mode (a_crossing_mode: INTEGER) : BOOLEAN is
+	is_valid_gdk_crossing_mode (a_crossing_mode: INTEGER) : BOOLEAN
 		do
 			Result := a_crossing_mode.in_range (gdk_crossing_mode_normal, gdk_crossing_mode_ungrab)
 		end
 
-	gdk_crossing_mode_normal: INTEGER is
+	gdk_crossing_mode_normal: INTEGER
 			-- crossing because of pointer motion.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_CROSSING_MODE_NORMAL"
 		end
 
-	gdk_crossing_mode_grab: INTEGER is
+	gdk_crossing_mode_grab: INTEGER
 			-- crossing because a grab is activated.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_CROSSING_MODE_GRAB"
 		end
 
-	gdk_crossing_mode_ungrab: INTEGER is
+	gdk_crossing_mode_ungrab: INTEGER
 			-- crossing because a grab is deactivated.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_CROSSING_MODE_UNGRAB"

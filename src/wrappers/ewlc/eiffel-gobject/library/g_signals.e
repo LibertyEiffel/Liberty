@@ -10,7 +10,7 @@ inherit
 insert G_SIGNAL_EXTERNALS
 feature {ANY}
 
-	query (an_id: INTEGER): G_SIGNAL_QUERY is
+	query (an_id: INTEGER): G_SIGNAL_QUERY
 			-- Queries the signal system for in-depth information about a
 			-- specific signal. This function will fill in a
 			-- user-provided structure to hold signal-specific
@@ -25,7 +25,7 @@ feature {ANY}
 			g_signal_query (an_id, Result.handle)
 		end
 	
-	lookup (a_name: STRING; a_type: INTEGER): INTEGER is
+	lookup (a_name: STRING; a_type: INTEGER): INTEGER
 			-- identifying integer of signal `a_name' emitted by objects
 			-- with type number `a_type`. Emitting the signal by number
 			-- is somewhat faster than using the name each time.
@@ -39,7 +39,7 @@ feature {ANY}
 		end
 
 
-	get_signal_name (an_id: INTEGER): STRING is
+	get_signal_name (an_id: INTEGER): STRING
 			-- Name of the signal with identifier equals to `an_id'. Two
 			-- different signals may have the same name, if they have
 			-- differing types.
@@ -55,7 +55,7 @@ feature {ANY}
 
 	connect (an_object: G_OBJECT;
 				a_signal_name: STRING;
-				a_function_pointer: POINTER) is
+				a_function_pointer: POINTER)
 			-- Directly connect `a_function' to the signal named
 			-- `a_signal_name' for `an_object' (i.e. when `an_object'
 			-- emits `a_signal_name' `a_function_pointer' will be called)
@@ -87,7 +87,7 @@ feature {ANY}
 			end
 		end
 
-	stop_by_name (instance: G_OBJECT; name: STRING) is
+	stop_by_name (instance: G_OBJECT; name: STRING)
 			-- Stops a signal's current emission.
 			-- like `stop' except it will look up the signal id for you.
 			-- `instance': the object whose signal handlers you wish to stop.

@@ -77,28 +77,28 @@ insert
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 
-	from_external_pointer (a_ptr: POINTER) is
+	from_external_pointer (a_ptr: POINTER)
 		do
 			handle := a_ptr
 		ensure
 			handle = a_ptr
 		end
 
-	is_null: BOOLEAN is
+	is_null: BOOLEAN
 		do
 			Result := handle.is_null
 		ensure
 			definition: Result = handle.is_null
 		end
 
-	is_not_null: BOOLEAN is
+	is_not_null: BOOLEAN
 		do
 			Result := handle.is_not_null
 		ensure
 			definition: Result = handle.is_not_null
 		end
 
-	set_handle (a_ptr: POINTER) is
+	set_handle (a_ptr: POINTER)
 			-- Set a non-null handle. Raises an No_more_memory exception 
 			-- if a_ptr.is_null. Use this, if you want to check the 
 			-- result of some external allocation function.
@@ -115,7 +115,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	handle: POINTER
 		-- Pointer to the underlying C "thing" (i.e. a struct)
 	
-	reference: POINTER is
+	reference: POINTER
 			-- The address of `handle'. Usuful to be passed to C
 			-- functions that asks for pointer to pointer to struct
 			-- (i.e. "GError **error")

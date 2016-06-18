@@ -7,7 +7,7 @@ insert
 
 create {ZMQ_STATUS, ZMQ_CONTEXT, ZMQ_SOCKET, ZMQ_MESSAGE} from_errno
 feature {} -- Creation
-	from_errno is 
+	from_errno
 		do
 			error_code := errno
 			create description.from_external(zmq_strerror(error_code))

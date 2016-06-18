@@ -109,7 +109,7 @@ insert
 	GTK_TREE_MODEL_FLAGS
 
 feature {ANY}
-	flags: INTEGER is
+	flags: INTEGER
 			-- The set of flags supported by Current's interface. The
 			-- flags are a bitwise combination of GtkTreeModelFlags. The
 			-- flags supported should not change during the lifecycle of
@@ -119,13 +119,13 @@ feature {ANY}
 		ensure are_valid_tree_model_flags (Result)
 		end
 
-	n_columns, columns_count: INTEGER is
+	n_columns, columns_count: INTEGER
 			-- the number of columns supported by tree_model.
 		do
 			Result := gtk_tree_model_get_n_columns (handle)
 		end
 
-	column_type (a_column_number: INTEGER): INTEGER is
+	column_type (a_column_number: INTEGER): INTEGER
 			-- the type of the column; it is a G_TYPE integer
 			-- TODO: require: valid_column_number: a_column_number.in_range (0,columns_count)
 		do
@@ -133,7 +133,7 @@ feature {ANY}
 			-- TODO: ensure is_g_type (Result)
 		end
 
-	get_new_iterator (a_path: GTK_TREE_PATH): GTK_TREE_ITER is
+	get_new_iterator (a_path: GTK_TREE_PATH): GTK_TREE_ITER
 			-- Gets a new iterator pointing to `a_path'. If it cannot be
 			-- valid it will be Void (i.e. if `a_path' refers to a not
 			-- existing row)
@@ -151,7 +151,7 @@ feature {ANY}
 			end
 		end
 
-	get_iterator_from_string (a_path_string: STRING): GTK_TREE_ITER is
+	get_iterator_from_string (a_path_string: STRING): GTK_TREE_ITER
 			-- Gets a new iterator pointing to `a_path_string', if it exists. If it cannot be
 			-- valid it will be Void
 		require valid_path_string: a_path_string/=Void
@@ -165,7 +165,7 @@ feature {ANY}
 			end
 		end
 
-	get_iterator_first: GTK_TREE_ITER is
+	get_iterator_first: GTK_TREE_ITER
 			-- Gets an first iterator to the first element in the tree
 			-- (the one at the path "0"). Void if the tree is empty.
 		local gbool: INTEGER
@@ -178,14 +178,14 @@ feature {ANY}
 			end
 		end
 
-	path (an_iterator: GTK_TREE_ITER): GTK_TREE_PATH is
+	path (an_iterator: GTK_TREE_ITER): GTK_TREE_PATH
 			-- A newly-created GtkTreePath referenced by `an_iterator'.
 		require valid_iterator: an_iterator/=Void
 		do
 			create Result.from_external_pointer (gtk_tree_model_get_path (handle, an_iterator.handle))
 		end
 
-	value_at,value (an_iterator: GTK_TREE_ITER; a_column: INTEGER): G_VALUE is
+	value_at,value (an_iterator: GTK_TREE_ITER; a_column: INTEGER): G_VALUE
 			-- The value at `a_column' on the row referred by `an_iterator'.
 		do
 			create Result.make
@@ -195,7 +195,7 @@ feature {ANY}
 			-- already implemented into G_VALUE
 		end
 
-	ref_node (an_iter: GTK_TREE_ITER) is
+	ref_node (an_iter: GTK_TREE_ITER)
 			-- Lets the tree ref the node referred by `an_iter'. This is
 			-- an optional method for models to implement. To be more
 			-- specific, models may ignore this call as it exists
@@ -215,7 +215,7 @@ feature {ANY}
 			gtk_tree_model_ref_node (handle, an_iter.handle)
 		end
 	
-	unref_node (an_iter: GTK_TREE_ITER) is
+	unref_node (an_iter: GTK_TREE_ITER)
 			-- Lets the tree unref the node referred by `an_iter'. This
 			-- is an optional method for models to implement. To be more
 			-- specific, models may ignore this call as it exists
@@ -235,7 +235,7 @@ feature {ANY}
 	-- in C as a tight loop around a gtk_tree_model_get_value call. We 
 	-- reimplement it
 	
-	values, get (an_iter: GTK_TREE_ITER; some_columns: COLLECTION[INTEGER]): COLLECTION[G_VALUE] is
+	values, get (an_iter: GTK_TREE_ITER; some_columns: COLLECTION[INTEGER]): COLLECTION[G_VALUE]
 			-- the value of one or more cells in the row referenced by
 			-- `an_iter'. `some_columns' are the integer column
 			-- numbers.
@@ -262,7 +262,7 @@ feature {ANY}
 			Result.count = some_columns.count
 		end		
 	
-	for_each (a_test: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]) is
+	for_each (a_test: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN])
 			-- Calls `a_test' on each node in model in a depth-first
 			-- fashion. When `a_test' is True, then the tree ceases to
 			-- be walked.		
@@ -278,7 +278,7 @@ feature {ANY}
 			end
 		end
 
-	row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
+	row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER)
 			-- Emits the "row_changed" signal on tree_model. `a_path'
 			-- points to the changed row, `an_iter' is a valid
 			-- GtkTreeIter pointing to the changed row
@@ -290,7 +290,7 @@ feature {ANY}
 			gtk_tree_model_row_changed (handle,a_path.handle,an_iter.handle)
 		end
 
-	row_inserted  (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
+	row_inserted  (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER)
 			-- Emits the "row_inserted" signal on Current GTK_TREE_MODEL;
 			-- `a_path' points to the inserted row, `an_iter' is a valid
 			-- GtkTreeIter pointing to the inserted row
@@ -302,7 +302,7 @@ feature {ANY}
 			gtk_tree_model_row_inserted (handle,a_path.handle,an_iter.handle)
 		end
 
-	row_has_child_toggled (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
+	row_has_child_toggled (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER)
 			-- Emits the "row_has_child_toggled" signal on Current. This
 			-- should be called by models after the child state of a node
 			-- changes.
@@ -319,7 +319,7 @@ feature {ANY}
 			gtk_tree_model_row_has_child_toggled (handle,a_path.handle,an_iter.handle)
 		end
 
-	row_deleted  (a_path: GTK_TREE_PATH) is
+	row_deleted  (a_path: GTK_TREE_PATH)
 			-- Emits the "row_deleted" signal on tree_model. This should
 			-- be called by models after a row has been removed. The
 			-- location pointed to by path should be the location that
@@ -331,7 +331,7 @@ feature {ANY}
 			gtk_tree_model_row_deleted (handle, a_path.handle)
 		end
 
-	rows_reordered (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER; a_new_order: ARRAY[INTEGER]) is
+	rows_reordered (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER; a_new_order: ARRAY[INTEGER])
 			-- Emits the "rows_reordered" signal on tree_model. This
 			-- should be called by models when their rows have been
 			-- reordered.
@@ -370,19 +370,19 @@ feature {ANY} -- The "row-changed" signal
 	--	connected.
 
 	row_changed_signal_name: STRING is "row-changed"
-	enable_on_row_changed is
+	enable_on_row_changed
 			-- Connects "row-changed" signal to `on_row_changed' feature.
 		do
 			connect (Current, row_changed_signal_name, $on_row_changed)
 		end
 
-	on_row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
+	on_row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER)
 			-- Built-in "row-changed" signal handler; empty by design;
 			-- redefine it.
 		do
 		end
 
-	connect_agent_to_row_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL,GTK_TREE_PATH,GTK_TREE_ITER]]) is
+	connect_agent_to_row_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL,GTK_TREE_PATH,GTK_TREE_ITER]])
 		require valid_procedure: a_procedure /= Void
 		local
 			row_changed_callback: ROW_CHANGED_CALLBACK
@@ -397,19 +397,19 @@ feature {ANY} -- The "row-deleted" signal
 		-- void user_function (GtkTreeModel *treemodel, GtkTreePath
 		-- *arg1, gpointer user_data) : Run first
 
-	on_row_deleted is
+	on_row_deleted
 			-- Built-in row_deleted signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_row_deleted is
+	enable_on_row_deleted
 			-- Connects "row_deleted" signal to `on_row_deleted' feature.
 		do
 			connect (Current, row_deleted_signal_name, $on_row_deleted)
 		end
 
 	connect_agent_to_row_deleted_signal (a_procedure: PROCEDURE [ANY,
-		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
+		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]])
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -425,17 +425,17 @@ feature {ANY} -- TODO:  "row-has-child-toggled" signal
 			-- void user_function (GtkTreeModel *treemodel, GtkTreePath
 			-- *arg1, GtkTreeIter *arg2, gpointer user_data) : Run last
 
-	on_row_has_child_toggled is
+	on_row_has_child_toggled
 			-- Built-in row_has_child_toggled signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_row_has_child_toggled is
+	enable_on_row_has_child_toggled
 			-- Connects "row_has_child_toggled" signal to `on_row_has_child_toggled' feature.
 		do
 			connect (Current, row_has_child_toggled_signal_name, $on_row_has_child_toggled)
 		end
-	connect_agent_to_row_has_child_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
+	connect_agent_to_row_has_child_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]])
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -455,19 +455,19 @@ feature {ANY} -- The "row-inserted" signal
 		--                                             GtkTreeIter  *arg2,
 		--                                             gpointer      user_data)      : Run first
 
-	on_row_inserted is
+	on_row_inserted
 			-- Built-in row_inserted signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_row_inserted is
+	enable_on_row_inserted
 			-- Connects "row_inserted" signal to `on_row_inserted' feature.
 		do
 			connect (Current, row_inserted_signal_name, $on_row_inserted)
 		end
 
 	connect_agent_to_row_inserted_signal (a_procedure: PROCEDURE [ANY,
-		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]) is
+		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]])
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
 			-- arg2 : 	
@@ -582,7 +582,7 @@ feature {} -- Moved here from top - unwrapped code
 
 feature {} -- Implementation
 	for_each_helper (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER; 
-						  a_test: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]): BOOLEAN is
+						  a_test: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]): BOOLEAN
 			-- Helper function of the `for_each' feature.
 
 			-- Calls `a_test' on node referred by `an_iter' and `a_path',

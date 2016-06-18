@@ -35,7 +35,7 @@ insert
 -- creation with_capacity, from_collection, from_external_array
 
 feature {} -- Creation
-	from_external_array (an_array: POINTER; a_length: INTEGER) is
+	from_external_array (an_array: POINTER; a_length: INTEGER)
 		require
 			array_not_null: an_array.is_not_null
 			positive_length: a_length > 0
@@ -45,7 +45,7 @@ feature {} -- Creation
 			storage := storage.from_pointer (an_array)
 		end
 	
-	with_capacity (a_capacity: INTEGER) is
+	with_capacity (a_capacity: INTEGER)
 		require positive_capacity: a_capacity > 0
 		do
 			capacity := a_capacity
@@ -54,13 +54,13 @@ feature {} -- Creation
 		end
 
 feature {} -- 	
-	object_materialization_notice: STRING is
+	object_materialization_notice: STRING
 			-- The notice printed when creating a new wrapper object from
 			-- no-where.
 		"Warning: C_ARRAY is going to create a new wrapper; if ITEM_ is deferred the program will almost surely crash. The actual ITEM_ must be made non-deferred.%N"
 
 feature {ANY}
-	item (i: INTEGER_32): ITEM_ is
+	item (i: INTEGER_32): ITEM_
 		local
 			ptr: POINTER
 		do
@@ -70,18 +70,18 @@ feature {ANY}
 			end
 		end
 
-	first: ITEM_	is
+	first: ITEM_
 		do
 			Result := item(lower)
 		end
 
-	last: ITEM_ is
+	last: ITEM_
 		do
 			Result := item(upper)
 		end
 	
 feature {ANY} -- Writing:
-	put (element: like item; i: INTEGER) is 
+	put (element: like item; i: INTEGER)
 		do
 			if element /= Void then
 				storage.put(element.handle, i)
@@ -90,7 +90,7 @@ feature {ANY} -- Writing:
 			end
 		end
 
-	set_all_with (v: like item) is
+	set_all_with (v: like item)
 		local
 			i: INTEGER
 		do
@@ -105,7 +105,7 @@ feature {ANY} -- Writing:
 		end
 
 feature {ANY} -- Adding:
-	add_first (element: like item) is
+	add_first (element: like item)
 			-- Performance: O(count), not counting the eventual reallocation.
 		local i,j: INTEGER
 		do
@@ -122,7 +122,7 @@ feature {ANY} -- Adding:
 			upper:=upper+1
 		end
 
-	add_last (element: like item) is
+	add_last (element: like item)
 			-- Performance: O(1), not counting the eventual reallocation.
 		do
 			if count=capacity then
@@ -134,7 +134,7 @@ feature {ANY} -- Adding:
 			upper:=upper+1
 		end
 
-	add (element: like item; index: INTEGER) is
+	add (element: like item; index: INTEGER)
 			-- Performance: O(count-index), not counting the eventual reallocation
 		local i,j: INTEGER 
 		do
@@ -154,7 +154,7 @@ feature {ANY} -- Adding:
 		end
 
 feature {ANY} -- Modification:
-	copy (other: like Current) is
+	copy (other: like Current)
 		local i: INTEGER
 		do
 			if other/=Void then
@@ -168,7 +168,7 @@ feature {ANY} -- Modification:
 			end
 		end
 
-	force (element: ITEM_; index: INTEGER) is
+	force (element: ITEM_; index: INTEGER)
 		do
 			-- Make `element' the item at `index', enlarging the collection if
 			-- necessary (new bounds except `index' are initialized with default
@@ -183,7 +183,7 @@ feature {ANY} -- Modification:
 			put(element,index)
 		end
 
-	from_collection (model: COLLECTION[like item]) is
+	from_collection (model: COLLECTION[like item])
 		local i: ITERATOR[like item]
 		do
 				-- FIXME: signature should be model: TRAVERSABLE, once SE2.3 is out
@@ -195,7 +195,7 @@ feature {ANY} -- Modification:
 		end
 
 feature {ANY} -- Removing:
-	remove_first is
+	remove_first
 			-- Performance: O(count)
 		local i,j: INTEGER
 		do
@@ -208,7 +208,7 @@ feature {ANY} -- Removing:
 			upper:=upper-1
 		end
 
-	remove_head (n: INTEGER) is
+	remove_head (n: INTEGER)
 			-- Performance: O(upper-n)
 		local i,j: INTEGER
 		do
@@ -221,7 +221,7 @@ feature {ANY} -- Removing:
 			upper:=upper-n
 		end
 
-	remove (index: INTEGER) is
+	remove (index: INTEGER)
 			-- Performance: O(count)
 		local i,j: INTEGER
 		do
@@ -235,7 +235,7 @@ feature {ANY} -- Removing:
 			upper:=upper-1
 		end
 
-	remove_last is
+	remove_last
 			-- Performance: O(1)
 		do
 			-- Remove the `last' item.
@@ -243,7 +243,7 @@ feature {ANY} -- Removing:
 			upper:=upper-1
 		end
 
-	remove_tail (n: INTEGER) is
+	remove_tail (n: INTEGER)
 			-- Performance: O(n)
 		local i,j: INTEGER
 		do
@@ -256,7 +256,7 @@ feature {ANY} -- Removing:
 			upper:=upper-n
 		end
 
-	clear_count is
+	clear_count
 		local i: INTEGER
 		do
 			-- Discard all items (`is_empty' is True after that call). If
@@ -271,7 +271,7 @@ feature {ANY} -- Removing:
 			upper:=lower
 		end
 
-	clear_count_and_capacity is
+	clear_count_and_capacity
 			-- Instead of releasing the memory, it is reallocated with
 			-- with 2 elements.
 		do
@@ -283,12 +283,12 @@ feature {ANY} -- Removing:
 		end
 
 feature {ANY} -- Looking and Searching:
-	first_index_of (element: like item): INTEGER is
+	first_index_of (element: like item): INTEGER
 		do
 				Result := index_of (element, lower)
 		end
 
-	index_of (element: like item; start_index: INTEGER): INTEGER is
+	index_of (element: like item; start_index: INTEGER): INTEGER
 		do
 			-- Using `is_equal' for comparison, gives the index of the
 			-- first occurrence of `element' at or after
@@ -307,7 +307,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 
-	reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+	reverse_index_of (element: like item; start_index: INTEGER): INTEGER
 		do
 			-- Using `is_equal' for comparison, gives the index of the
 			-- first occurrence of `element' at or before
@@ -328,14 +328,14 @@ feature {ANY} -- Looking and Searching:
 			
 		end
 
-	fast_first_index_of (element: like item): INTEGER is
+	fast_first_index_of (element: like item): INTEGER
 			-- Note: comparison is done using the address of the wrapped
 			-- structure.
 		do
 				Result := fast_index_of (element, lower)
 		end
 
-	fast_index_of (element: like item; start_index: INTEGER): INTEGER is
+	fast_index_of (element: like item; start_index: INTEGER): INTEGER
 			-- Note: comparison is done using the address of the wrapped
 			-- structure.
 		local element_ptr: POINTER
@@ -350,7 +350,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 
-	fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+	fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER
 			-- Note: comparison is done using the address of the wrapped
 			-- structure
 		local element_ptr: POINTER
@@ -368,7 +368,7 @@ feature {ANY} -- Looking and Searching:
 		end
 
 feature {ANY} -- Looking and comparison:
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 			-- Do both collections have the same `lower', `upper', and items?
 			-- The basic `=' is used for comparison of items.
 
@@ -385,7 +385,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 
-	is_equal_map (other: like Current): BOOLEAN is
+	is_equal_map (other: like Current): BOOLEAN
 		local i: INTEGER; c_ith, o_ith: ITEM_
 		do
 			-- Do both collections have the same `lower', `upper', and
@@ -412,7 +412,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 
-	all_default: BOOLEAN is
+	all_default: BOOLEAN
 			-- Do all items have their type's default value?  Note: for
 			-- non Void items, the test is performed with the
 			-- `is_default' predicate.
@@ -427,7 +427,7 @@ feature {ANY} -- Looking and comparison:
 			end			
 		end
 
-	occurrences (element: like item): INTEGER is
+	occurrences (element: like item): INTEGER
 		local i: ITERATOR[ITEM_]
 		do
 			-- Number of occurrences of `element' using `is_equal' for comparison.
@@ -446,7 +446,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 
-	fast_occurrences (element: like item): INTEGER is
+	fast_occurrences (element: like item): INTEGER
 			-- Number of occurrences of `element' using basic its handle
 			-- (or default_pointer) for comparison.
 		local ep: POINTER; i: INTEGER
@@ -521,7 +521,7 @@ feature {ANY} -- Agents based features:
 		-- end
 
 feature {ANY} -- Other features:
-	replace_all (old_value, new_value: like item) is
+	replace_all (old_value, new_value: like item)
 		obsolete "Unimplemented!"
 		do
 			-- 			-- Replace all occurrences of the element `old_value' by `new_value' using `is_equal' for comparison.
@@ -533,7 +533,7 @@ feature {ANY} -- Other features:
 			-- 			not (create {SAFE_EQUAL[ITEM_]}).test(old_value, new_value) implies occurrences(old_value) = 0
 		end
 
-	fast_replace_all (old_value, new_value: like item) is
+	fast_replace_all (old_value, new_value: like item)
 		obsolete "Unimplemented!"
 		do
 			-- 			-- Replace all occurrences of the element `old_value' by `new_value' using basic `=' for comparison.
@@ -587,7 +587,7 @@ feature {ANY} -- Other features:
 	-- 			count = old count
 	--	end
 
-	slice (min, max: INTEGER): like Current is
+	slice (min, max: INTEGER): like Current
 		obsolete "Unimplemented!"
 		do
 			-- 			-- New collection consisting of items at indexes in [`min'..`max'].
@@ -606,7 +606,7 @@ feature {ANY} -- Other features:
 			-- 			Result.lower = lower
 		end
 
-	reverse is
+	reverse
 		obsolete "Unimplemented!"
 		do
 			-- 			-- Reverse the order of the elements.
@@ -618,7 +618,7 @@ feature {ANY} -- Other features:
 feature {ANY}
 	-- struct_size: INTEGER
 
-	count: INTEGER is
+	count: INTEGER
 		do
 			Result:=upper-lower+1
 		end
@@ -627,12 +627,12 @@ feature {ANY}
 
 	lower: INTEGER is 0
 
-	is_empty: BOOLEAN is
+	is_empty: BOOLEAN
 		do
 			Result := (upper = -1) or else storage.is_null
 		end
 
-	get_new_iterator: ITERATOR[ITEM_] is
+	get_new_iterator: ITERATOR[ITEM_]
 		do
 			create {ITERATOR_ON_C_ARRAY[ITEM_]} Result.from_array(Current)
 		end
@@ -642,7 +642,7 @@ feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 
 	capacity: INTEGER
 
-	manifest_put (index: INTEGER_32; element: ITEM_) is
+	manifest_put (index: INTEGER_32; element: ITEM_)
 		do
 			put(element, index)
 		end

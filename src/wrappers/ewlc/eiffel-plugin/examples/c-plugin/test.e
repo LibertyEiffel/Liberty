@@ -1,7 +1,7 @@
 class TEST
 create {ANY} make
 feature {ANY}
-	make is
+	make
 		do
 			create plugin
 			plugin.initialize("./cplugin.so")

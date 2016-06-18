@@ -37,19 +37,19 @@ inherit GTK_SEPARATOR
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkHSeparator.
 		do
 			from_external_pointer(gtk_hseparator_new)
 		end
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHseparator)"
 		end
 
 feature {} -- External calls
-	gtk_hseparator_new: POINTER is
+	gtk_hseparator_new: POINTER
 			-- GtkWidget* gtk_hseparator_new (void);
 		external "C use <gtk/gtk.h>"
 		end

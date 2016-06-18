@@ -25,154 +25,154 @@ inherit
 	ANY undefine is_equal, copy end
 
 feature {} -- External calls 
-	gtk_about_dialog_new: POINTER is
+	gtk_about_dialog_new: POINTER
 			-- 	GtkWidget* gtk_about_dialog_new (void);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_program_name (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_program_name (an_about: POINTER): POINTER
 			-- 	const gchar* gtk_about_dialog_get_name (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		alias "gtk_about_dialog_get_name"
 		end
 
-	gtk_about_dialog_set_program_name (an_about, a_name: POINTER) is
+	gtk_about_dialog_set_program_name (an_about, a_name: POINTER)
 			-- 	void gtk_about_dialog_set_name (GtkAboutDialog *about, const gchar *name);
 		external "C use <gtk/gtk.h>"
 		alias "gtk_about_dialog_set_name"
 		end
 
-	gtk_about_dialog_get_version (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_version (an_about: POINTER): POINTER
 			-- 	const gchar* gtk_about_dialog_get_version (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_version (an_about, a_version: POINTER) is
+	gtk_about_dialog_set_version (an_about, a_version: POINTER)
 			-- 	void gtk_about_dialog_set_version (GtkAboutDialog *about, const gchar *version);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_copyright (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_copyright (an_about: POINTER): POINTER
 			-- 	const gchar* gtk_about_dialog_get_copyright (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_copyright (an_about, a_copyright: POINTER) is
+	gtk_about_dialog_set_copyright (an_about, a_copyright: POINTER)
 			-- 	void gtk_about_dialog_set_copyright (GtkAboutDialog *about, const gchar *copyright);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_comments (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_comments (an_about: POINTER): POINTER
 			-- 	const gchar* gtk_about_dialog_get_comments (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_comments (an_about, some_comments: POINTER) is
+	gtk_about_dialog_set_comments (an_about, some_comments: POINTER)
 			-- 	void gtk_about_dialog_set_comments (GtkAboutDialog *about, const gchar *comments);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_license (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_license (an_about: POINTER): POINTER
 			-- 	const gchar* gtk_about_dialog_get_license (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_license (an_about, a_license: POINTER) is
+	gtk_about_dialog_set_license (an_about, a_license: POINTER)
 			-- 	void gtk_about_dialog_set_license (GtkAboutDialog *about, const gchar *license);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_wrap_license (an_about: POINTER): INTEGER is
+	gtk_about_dialog_get_wrap_license (an_about: POINTER): INTEGER
 			-- 	gboolean gtk_about_dialog_get_wrap_license (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_wrap_license (an_about: POINTER; wrap_license_bool: INTEGER) is
+	gtk_about_dialog_set_wrap_license (an_about: POINTER; wrap_license_bool: INTEGER)
 			-- 	void gtk_about_dialog_set_wrap_license (GtkAboutDialog *about, gboolean wrap_license);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_website (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_website (an_about: POINTER): POINTER
 			-- const gchar* gtk_about_dialog_get_website (GtkAboutDialog
 			-- *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_website (an_about, a_website: POINTER) is
+	gtk_about_dialog_set_website (an_about, a_website: POINTER)
 			-- 	void gtk_about_dialog_set_website (GtkAboutDialog *about, const gchar *website);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_website_label (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_website_label (an_about: POINTER): POINTER
 			-- 	const gchar* gtk_about_dialog_get_website_label (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_website_label (an_about, a_website_label: POINTER) is
+	gtk_about_dialog_set_website_label (an_about, a_website_label: POINTER)
 			-- 	void gtk_about_dialog_set_website_label (GtkAboutDialog *about, const gchar *website_label);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_authors (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_authors (an_about: POINTER): POINTER
 			-- 	const gchar* const * gtk_about_dialog_get_authors (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_authors (an_about, some_authors: POINTER) is
+	gtk_about_dialog_set_authors (an_about, some_authors: POINTER)
 			-- 	void gtk_about_dialog_set_authors (GtkAboutDialog *about, const gchar **authors);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_artists (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_artists (an_about: POINTER): POINTER
 			-- 	const gchar* const * gtk_about_dialog_get_artists (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_artists (an_about, some_artists: POINTER) is
+	gtk_about_dialog_set_artists (an_about, some_artists: POINTER)
 			-- 	void gtk_about_dialog_set_artists (GtkAboutDialog *about, const gchar **artists);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_documenters (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_documenters (an_about: POINTER): POINTER
 			-- const gchar* const * gtk_about_dialog_get_documenters
 			-- (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_documenters (an_about, some_documenters: POINTER) is
+	gtk_about_dialog_set_documenters (an_about, some_documenters: POINTER)
 			-- void gtk_about_dialog_set_documenters (GtkAboutDialog
 			-- *about, const gchar **documenters);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_translator_credits (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_translator_credits (an_about: POINTER): POINTER
 			-- 	const gchar* gtk_about_dialog_get_translator_credits (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_translator_credits (an_about, a_translator_credits: POINTER) is
+	gtk_about_dialog_set_translator_credits (an_about, a_translator_credits: POINTER)
 			-- 	void gtk_about_dialog_set_translator_credits (GtkAboutDialog *about, const gchar *translator_credits);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_logo (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_logo (an_about: POINTER): POINTER
 			-- GdkPixbuf* gtk_about_dialog_get_logo (GtkAboutDialog
 			-- *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_logo (an_about, a_logo: POINTER) is
+	gtk_about_dialog_set_logo (an_about, a_logo: POINTER)
 			-- void gtk_about_dialog_set_logo (GtkAboutDialog *about,
 			-- GdkPixbuf *logo);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_get_logo_icon_name (an_about: POINTER): POINTER is
+	gtk_about_dialog_get_logo_icon_name (an_about: POINTER): POINTER
 			-- 	const gchar* gtk_about_dialog_get_logo_icon_name (GtkAboutDialog *about);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_about_dialog_set_logo_icon_name (an_about, an_icon_name: POINTER) is
+	gtk_about_dialog_set_logo_icon_name (an_about, an_icon_name: POINTER)
 			-- 	void gtk_about_dialog_set_logo_icon_name (GtkAboutDialog *about, const gchar *icon_name);
 		external "C use <gtk/gtk.h>"
 		end

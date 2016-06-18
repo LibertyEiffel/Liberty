@@ -45,7 +45,7 @@ create {ANY} make_similar, from_external_pointer
 
 feature {ANY} -- Creation
 
-	make_similar (another: CAIRO_SURFACE; a_content: INTEGER; a_width, an_height: INTEGER) is
+	make_similar (another: CAIRO_SURFACE; a_content: INTEGER; a_width, an_height: INTEGER)
 			-- Create a new surface that is as compatible as possible
 			-- with an existing surface. For example the new surface will
 			-- have the same fallback resolution and font options as
@@ -79,7 +79,7 @@ feature {ANY} -- Creation
 
 feature {ANY} -- Operations
 
-	finish is
+	finish
 			-- Finishes the surface and drops all references to external
 			-- resources. For example, for the Xlib backend it means that
 			-- cairo will no longer access the drawable, which can be
@@ -97,7 +97,7 @@ feature {ANY} -- Operations
 			cairo_surface_finish(handle)
 		end
 
-	flush is
+	flush
 			-- Do any pending drawing for the surface and also restore
 			-- any temporary modification's cairo has made to the
 			-- surface's state. This function must be called before
@@ -109,7 +109,7 @@ feature {ANY} -- Operations
 			cairo_surface_flush(handle)
 		end
 
-	font_options: CAIRO_FONT_OPTIONS is
+	font_options: CAIRO_FONT_OPTIONS
 			-- the default font rendering options for the surface. This
 			-- allows display surfaces to report the correct subpixel
 			-- order for rendering on them, print surfaces to disable
@@ -120,7 +120,7 @@ feature {ANY} -- Operations
 			cairo_surface_get_font_options (handle, Result.handle)
 		end
 
-	content: INTEGER is
+	content: INTEGER
 			-- The content type of surface which indicates whether the
 			-- surface contains color and/or alpha information. See
 			-- CAIRO_CONTENT.
@@ -166,7 +166,7 @@ feature {ANY} -- Operations
 	--             attached to
 	--   Returns : the user data previously attached or NULL.
 
-	mark_dirty is
+	mark_dirty
 			-- Tells cairo that drawing has been done to surface using
 			-- means other than cairo, and that cairo should reread any
 			-- cached areas. Note that you must call `flush' before doing
@@ -175,7 +175,7 @@ feature {ANY} -- Operations
 			cairo_surface_mark_dirty (handle)
 		end
 
-	mark_dirty_rectangle (an_x, an_y, a_width, an_height: INTEGER) is
+	mark_dirty_rectangle (an_x, an_y, a_width, an_height: INTEGER)
 			-- Like `mark_dirty', but drawing has been done only to the
 			-- specified rectangle, so that cairo can retain cached
 			-- contents for other parts of the surface.
@@ -192,7 +192,7 @@ feature {ANY} -- Operations
 			cairo_surface_mark_dirty_rectangle (handle, an_x, an_y, a_width, an_height)
 		end
 
-	set_device_offset (an_offset: CAIRO_POINT) is
+	set_device_offset (an_offset: CAIRO_POINT)
 			-- Sets an offset that is added to the device coordinates
 			-- determined by the CTM when drawing to surface. One use
 			-- case for this function is when we want to create a
@@ -211,7 +211,7 @@ feature {ANY} -- Operations
 			cairo_surface_set_device_offset (handle, an_offset.x, an_offset.y)
 		end
 
-	device_offset: CAIRO_POINT is
+	device_offset: CAIRO_POINT
 		-- the device offset as set by `set_device_offset'.
 		local
 			an_x, an_y: REAL
@@ -220,7 +220,7 @@ feature {ANY} -- Operations
 			create Result.make(an_x,an_y)
 		end
 
-	set_fallback_resolution (x_pixels_per_inch, y_pixels_per_inch: REAL) is
+	set_fallback_resolution (x_pixels_per_inch, y_pixels_per_inch: REAL)
 			-- Set the horizontal and vertical resolution for image
 			-- fallbacks.
 
@@ -251,7 +251,7 @@ feature {ANY} -- Operations
 			cairo_surface_set_fallback_resolution (handle, x_pixels_per_inch, y_pixels_per_inch)
 		end
 
-	status: INTEGER is
+	status: INTEGER
 			-- Checks whether an error has previously occurred for this surface.
 		do
 			Result := cairo_surface_status (handle)
@@ -260,7 +260,7 @@ feature {ANY} -- Operations
 		end
 
 feature {ANY} -- Memory handling
-	ref is
+	ref
 			-- Increases the reference count on surface by one. This
 			-- prevents surface from being destroyed until a matching
 			-- call to `destroy' is made.
@@ -271,7 +271,7 @@ feature {ANY} -- Memory handling
 			check p=handle end
 		end
 
-	unref is
+	unref
 			-- Decreases the reference count on surface by one. If the
 			-- result is zero, then surface and all associated resources
 			-- are freed. See `reference'.
@@ -280,7 +280,7 @@ feature {ANY} -- Memory handling
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low-level features
-		type: INTEGER is
+		type: INTEGER
 			-- the type of the backend used to create a surface.  See
 			-- CAIRO_SURFACE_TYPE for available types.
 		do

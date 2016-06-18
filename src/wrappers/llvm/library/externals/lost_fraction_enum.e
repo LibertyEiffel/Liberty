@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = exactly_half_low_level)  or else
 				(a_value = exactly_zero_low_level)  or else
@@ -17,49 +17,49 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_exactly_half is
+	set_exactly_half
 		do
 			value := exactly_half_low_level
 		end
 
-	set_exactly_zero is
+	set_exactly_zero
 		do
 			value := exactly_zero_low_level
 		end
 
-	set_less_than_half is
+	set_less_than_half
 		do
 			value := less_than_half_low_level
 		end
 
-	set_more_than_half is
+	set_more_than_half
 		do
 			value := more_than_half_low_level
 		end
 
 feature {ANY} -- Queries
-	is_exactly_half: BOOLEAN is
+	is_exactly_half: BOOLEAN
 		do
 			Result := (value=exactly_half_low_level)
 		end
 
-	is_exactly_zero: BOOLEAN is
+	is_exactly_zero: BOOLEAN
 		do
 			Result := (value=exactly_zero_low_level)
 		end
 
-	is_less_than_half: BOOLEAN is
+	is_less_than_half: BOOLEAN
 		do
 			Result := (value=less_than_half_low_level)
 		end
 
-	is_more_than_half: BOOLEAN is
+	is_more_than_half: BOOLEAN
 		do
 			Result := (value=more_than_half_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	exactly_half_low_level: INTEGER is
+	exactly_half_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	exactly_zero_low_level: INTEGER is
+	exactly_zero_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	less_than_half_low_level: INTEGER is
+	less_than_half_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	more_than_half_low_level: INTEGER is
+	more_than_half_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

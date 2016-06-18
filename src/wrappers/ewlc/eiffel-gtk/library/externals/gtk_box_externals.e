@@ -28,48 +28,48 @@ inherit
 	GTK_PACK_TYPE
 	
 feature {} -- External calls
-	gtk_box_pack_start (a_box, a_child: POINTER; expand, fill: INTEGER; guint_padding: INTEGER) is
+	gtk_box_pack_start (a_box, a_child: POINTER; expand, fill: INTEGER; guint_padding: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_box_pack_end (a_box, a_child: POINTER; expand, fill: INTEGER; guint_padding: INTEGER) is
+	gtk_box_pack_end (a_box, a_child: POINTER; expand, fill: INTEGER; guint_padding: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_box_pack_start_defaults (a_box, a_widget: POINTER) is
+	gtk_box_pack_start_defaults (a_box, a_widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_box_pack_end_defaults (a_box, a_widget: POINTER) is
+	gtk_box_pack_end_defaults (a_box, a_widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_box_get_homogeneous (a_box: POINTER): INTEGER is
+	gtk_box_get_homogeneous (a_box: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_box_set_homogeneous (a_box: POINTER;homogeneous: INTEGER) is
+	gtk_box_set_homogeneous (a_box: POINTER;homogeneous: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_box_get_spacing (a_box: POINTER): INTEGER is
+	gtk_box_get_spacing (a_box: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_box_set_spacing (a_box: POINTER; a_spacing: INTEGER) is
+	gtk_box_set_spacing (a_box: POINTER; a_spacing: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_box_reorder_child (a_box, a_child: POINTER;
-								  a_position: INTEGER) is
+								  a_position: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_box_query_child_packing (a_box,a_child,expand,fill,padding,pack_type: POINTER;) is
+	gtk_box_query_child_packing (a_box,a_child,expand,fill,padding,pack_type: POINTER;)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_box_set_child_packing (a_box,a_child: POINTER; expand, fill, padding, pack_type: INTEGER) is
+	gtk_box_set_child_packing (a_box,a_child: POINTER; expand, fill, padding, pack_type: INTEGER)
 		require valid_pack: is_valid_gtk_pack_type (pack_type)
 		external "C use <gtk/gtk.h>"
 		end

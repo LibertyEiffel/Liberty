@@ -26,14 +26,14 @@ deferred class GTK_CELL_RENDERER_MODE
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_gtk_cell_renderer_mode (a_mode :INTEGER): BOOLEAN is
+	is_valid_gtk_cell_renderer_mode (a_mode :INTEGER): BOOLEAN
 		do
 			Result:=((a_mode = gtk_cell_renderer_mode_inert) or else
 						(a_mode = gtk_cell_renderer_mode_activatable) or else
 						(a_mode = gtk_cell_renderer_mode_editable))
 		end
 
-	gtk_cell_renderer_mode_inert: INTEGER is
+	gtk_cell_renderer_mode_inert: INTEGER
 			-- The cell is just for display and cannot be interacted
 			-- with. Note that this doesn't mean that eg. the row being
 			-- drawn can't be selected, just that a particular element of
@@ -42,13 +42,13 @@ feature {} -- enum
 		alias "GTK_CELL_RENDERER_MODE_INERT"
 		end
 	
-	gtk_cell_renderer_mode_activatable: INTEGER is
+	gtk_cell_renderer_mode_activatable: INTEGER
 			-- 	The cell can be clicked.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CELL_RENDERER_MODE_ACTIVATABLE"
 		end
 	
-	gtk_cell_renderer_mode_editable: INTEGER is
+	gtk_cell_renderer_mode_editable: INTEGER
 			-- 	The cell can be edited or otherwise modified.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CELL_RENDERER_MODE_EDITABLE"

@@ -24,13 +24,13 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {ANY} 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAspectFrame)"
 		end
 
 feature {} -- Creation
-	make (a_label: STRING; an_xalign, an_yalign, a_ratio: REAL_32; obey_child: BOOLEAN) is
+	make (a_label: STRING; an_xalign, an_yalign, a_ratio: REAL_32; obey_child: BOOLEAN)
 			-- Create a new GtkAspectFrame. `an_xalign' ranges from 0.0
 			-- (left aligned) to 1.0 (right aligned); `an_yalign' ranges
 			-- from 0.0 (top aligned) to 1.0 (bottom aligned). When
@@ -48,7 +48,7 @@ feature {} -- Creation
 		end
 
 
-	set (an_xalign, an_yalign, a_ratio: REAL_32; obey_child: BOOLEAN) is
+	set (an_xalign, an_yalign, a_ratio: REAL_32; obey_child: BOOLEAN)
 			-- Set parameters for an existing GtkAspectFrame. `an_xalign'
 			-- ranges from 0.0 (left aligned) to 1.0 (right aligned);
 			-- `an_yalign' ranges from 0.0 (top aligned) to 1.0 (bottom

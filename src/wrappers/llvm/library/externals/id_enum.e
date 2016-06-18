@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = arm_aapcs_low_level)  or else
 				(a_value = arm_aapcs_vfp_low_level)  or else
@@ -29,169 +29,169 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_arm_aapcs is
+	set_arm_aapcs
 		do
 			value := arm_aapcs_low_level
 		end
 
-	set_arm_aapcs_vfp is
+	set_arm_aapcs_vfp
 		do
 			value := arm_aapcs_vfp_low_level
 		end
 
-	set_arm_apcs is
+	set_arm_apcs
 		do
 			value := arm_apcs_low_level
 		end
 
-	set_c is
+	set_c
 		do
 			value := c_low_level
 		end
 
-	set_cold is
+	set_cold
 		do
 			value := cold_low_level
 		end
 
-	set_fast is
+	set_fast
 		do
 			value := fast_low_level
 		end
 
-	set_first_target_cc is
+	set_first_target_cc
 		do
 			value := first_target_cc_low_level
 		end
 
-	set_ghc is
+	set_ghc
 		do
 			value := ghc_low_level
 		end
 
-	set_mblaze_intr is
+	set_mblaze_intr
 		do
 			value := mblaze_intr_low_level
 		end
 
-	set_mblaze_svol is
+	set_mblaze_svol
 		do
 			value := mblaze_svol_low_level
 		end
 
-	set_msp430_intr is
+	set_msp430_intr
 		do
 			value := msp430_intr_low_level
 		end
 
-	set_ptx_device is
+	set_ptx_device
 		do
 			value := ptx_device_low_level
 		end
 
-	set_ptx_kernel is
+	set_ptx_kernel
 		do
 			value := ptx_kernel_low_level
 		end
 
-	set_x86_fast_call is
+	set_x86_fast_call
 		do
 			value := x86_fast_call_low_level
 		end
 
-	set_x86_std_call is
+	set_x86_std_call
 		do
 			value := x86_std_call_low_level
 		end
 
-	set_x86_this_call is
+	set_x86_this_call
 		do
 			value := x86_this_call_low_level
 		end
 
 feature {ANY} -- Queries
-	is_arm_aapcs: BOOLEAN is
+	is_arm_aapcs: BOOLEAN
 		do
 			Result := (value=arm_aapcs_low_level)
 		end
 
-	is_arm_aapcs_vfp: BOOLEAN is
+	is_arm_aapcs_vfp: BOOLEAN
 		do
 			Result := (value=arm_aapcs_vfp_low_level)
 		end
 
-	is_arm_apcs: BOOLEAN is
+	is_arm_apcs: BOOLEAN
 		do
 			Result := (value=arm_apcs_low_level)
 		end
 
-	is_c: BOOLEAN is
+	is_c: BOOLEAN
 		do
 			Result := (value=c_low_level)
 		end
 
-	is_cold: BOOLEAN is
+	is_cold: BOOLEAN
 		do
 			Result := (value=cold_low_level)
 		end
 
-	is_fast: BOOLEAN is
+	is_fast: BOOLEAN
 		do
 			Result := (value=fast_low_level)
 		end
 
-	is_first_target_cc: BOOLEAN is
+	is_first_target_cc: BOOLEAN
 		do
 			Result := (value=first_target_cc_low_level)
 		end
 
-	is_ghc: BOOLEAN is
+	is_ghc: BOOLEAN
 		do
 			Result := (value=ghc_low_level)
 		end
 
-	is_mblaze_intr: BOOLEAN is
+	is_mblaze_intr: BOOLEAN
 		do
 			Result := (value=mblaze_intr_low_level)
 		end
 
-	is_mblaze_svol: BOOLEAN is
+	is_mblaze_svol: BOOLEAN
 		do
 			Result := (value=mblaze_svol_low_level)
 		end
 
-	is_msp430_intr: BOOLEAN is
+	is_msp430_intr: BOOLEAN
 		do
 			Result := (value=msp430_intr_low_level)
 		end
 
-	is_ptx_device: BOOLEAN is
+	is_ptx_device: BOOLEAN
 		do
 			Result := (value=ptx_device_low_level)
 		end
 
-	is_ptx_kernel: BOOLEAN is
+	is_ptx_kernel: BOOLEAN
 		do
 			Result := (value=ptx_kernel_low_level)
 		end
 
-	is_x86_fast_call: BOOLEAN is
+	is_x86_fast_call: BOOLEAN
 		do
 			Result := (value=x86_fast_call_low_level)
 		end
 
-	is_x86_std_call: BOOLEAN is
+	is_x86_std_call: BOOLEAN
 		do
 			Result := (value=x86_std_call_low_level)
 		end
 
-	is_x86_this_call: BOOLEAN is
+	is_x86_this_call: BOOLEAN
 		do
 			Result := (value=x86_this_call_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	arm_aapcs_low_level: INTEGER is
+	arm_aapcs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -200,7 +200,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	arm_aapcs_vfp_low_level: INTEGER is
+	arm_aapcs_vfp_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -209,7 +209,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	arm_apcs_low_level: INTEGER is
+	arm_apcs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -218,7 +218,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	c_low_level: INTEGER is
+	c_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -227,7 +227,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	cold_low_level: INTEGER is
+	cold_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -236,7 +236,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fast_low_level: INTEGER is
+	fast_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -245,7 +245,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	first_target_cc_low_level: INTEGER is
+	first_target_cc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -254,7 +254,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ghc_low_level: INTEGER is
+	ghc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -263,7 +263,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mblaze_intr_low_level: INTEGER is
+	mblaze_intr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -272,7 +272,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mblaze_svol_low_level: INTEGER is
+	mblaze_svol_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -281,7 +281,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	msp430_intr_low_level: INTEGER is
+	msp430_intr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -290,7 +290,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ptx_device_low_level: INTEGER is
+	ptx_device_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -299,7 +299,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ptx_kernel_low_level: INTEGER is
+	ptx_kernel_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -308,7 +308,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	x86_fast_call_low_level: INTEGER is
+	x86_fast_call_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -317,7 +317,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	x86_std_call_low_level: INTEGER is
+	x86_std_call_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -326,7 +326,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	x86_this_call_low_level: INTEGER is
+	x86_this_call_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

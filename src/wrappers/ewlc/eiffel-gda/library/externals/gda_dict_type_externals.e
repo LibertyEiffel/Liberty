@@ -8,43 +8,43 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_dict_type_clear_synonyms (a_dt: POINTER) is
+	gda_dict_type_clear_synonyms (a_dt: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_type_get_synonyms (a_dt: POINTER): POINTER is
+	gda_dict_type_get_synonyms (a_dt: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_type_add_synonym (a_dt: POINTER; a_synonym: POINTER) is
+	gda_dict_type_add_synonym (a_dt: POINTER; a_synonym: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_type_get_g_type (a_dt: POINTER): INTEGER_32 is
+	gda_dict_type_get_g_type (a_dt: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_type_set_g_type (a_dt: POINTER; a_g_type: INTEGER_32) is
+	gda_dict_type_set_g_type (a_dt: POINTER; a_g_type: INTEGER_32)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_type_get_sqlname (a_dt: POINTER): POINTER is
+	gda_dict_type_get_sqlname (a_dt: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_type_set_sqlname (a_dt: POINTER; a_sqlname: POINTER) is
+	gda_dict_type_set_sqlname (a_dt: POINTER; a_sqlname: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_type_new (a_dict: POINTER): POINTER is
+	gda_dict_type_new (a_dict: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_type_get_type: INTEGER_32 is
+	gda_dict_type_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_type_error_quark: INTEGER_32 is
+	gda_dict_type_error_quark: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

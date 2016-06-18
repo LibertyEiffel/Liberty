@@ -85,7 +85,7 @@ inherit
 create {ANY} from_external
 
 feature {ANY} 
-	from_external (a_c_string: POINTER) is
+	from_external (a_c_string: POINTER)
 		do
 			is_unchanged := True
 			-- Allocating a small area of memory that will be freed in
@@ -99,7 +99,7 @@ feature {ANY}
 			-- XXX: Not optimal, but otherwise will try to free `a_c_string'
 		end
 			
-	is_changed: BOOLEAN  is
+	is_changed: BOOLEAN
 			-- Has the Current constant string been changed?
 		do 
 			Result := not is_unchanged 
@@ -108,7 +108,7 @@ feature {ANY}
 	is_unchanged: BOOLEAN
 			-- Has Current CONST_STRING not been changed?
 
-	modify is
+	modify
 			-- Make Current changeable. The underlying "const char*"
 			-- string is copyied into a new changeable buffer. The 
 			-- original C string pointer will be available at `original_c_string'
@@ -130,91 +130,91 @@ feature {ANY}
 		end
 
 feature {ANY}
-	resize (new_count: INTEGER_32) is
+	resize (new_count: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (new_count)
 		end
 
-	clear_count is
+	clear_count
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-	wipe_out is
+	wipe_out
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-	clear_count_and_capacity is
+	clear_count_and_capacity
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-	copy (other: like Current) is
+	copy (other: like Current)
 		do
 			if is_unchanged then modify end
 			Precursor (other)
 		end
 
-	fill_with (c: CHARACTER) is
+	fill_with (c: CHARACTER)
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-	replace_all (old_character, new_character: CHARACTER) is
+	replace_all (old_character, new_character: CHARACTER)
 		do
 			if is_unchanged then modify end
 			Precursor (old_character, new_character)
 		end
 
-	append (s: STRING) is
+	append (s: STRING)
 		do
 			if is_unchanged then modify end
 			Precursor (s)
 		end
 
-	append_string (s: STRING) is
+	append_string (s: STRING)
 		do
 			if is_unchanged then modify end
 			Precursor (s)
 		end
 
-	append_substring (s: STRING; start_index, end_index: INTEGER_32) is
+	append_substring (s: STRING; start_index, end_index: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (s, start_index, end_index)
 		end
 
-	prepend (other: STRING) is
+	prepend (other: STRING)
 		do
 			if is_unchanged then modify end
 			Precursor (other)
 		end
 
-	insert_string (s: STRING; i: INTEGER_32) is
+	insert_string (s: STRING; i: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (s,i)
 		end
 
-	replace_substring (s: STRING; start_index, end_index: INTEGER_32) is
+	replace_substring (s: STRING; start_index, end_index: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor  (s, start_index, end_index)
 		end
 
-	put (c: CHARACTER; i: INTEGER_32) is
+	put (c: CHARACTER; i: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (c,i)
 		end
 
-	infix "+" (other: STRING): STRING is
+	infix "+" (other: STRING): STRING
 			-- Create a new STRING which is the concatenation of
 			-- `Current' and `other'.
 			--
@@ -225,22 +225,22 @@ feature {ANY}
 			Result.append(other)
 		end
 
-	infix ">" (other: STRING): BOOLEAN is
+	infix ">" (other: STRING): BOOLEAN
 		do
 			Result := other < Current
 		end
 	
-	infix ">=" (other: STRING): BOOLEAN is
+	infix ">=" (other: STRING): BOOLEAN
 		do
 			Result := not (Current < other)
 		end
 	
-	infix "<=" (other: STRING): BOOLEAN is
+	infix "<=" (other: STRING): BOOLEAN
 		do
 			Result := not (other < Current)
 		end
 	
-	infix "<" (other: STRING): BOOLEAN is
+	infix "<" (other: STRING): BOOLEAN
 		local
 			i: INTEGER; maxi: INTEGER
 		do
@@ -259,7 +259,7 @@ feature {ANY}
 			end
 		end
 
-	compare, three_way_comparison (other: STRING): INTEGER is
+	compare, three_way_comparison (other: STRING): INTEGER
 		do
 			if Current < other then
 				Result := -1
@@ -268,19 +268,19 @@ feature {ANY}
 			end
 		end
 	
-	as_upper: STRING is
+	as_upper: STRING
 		do
 			create Result.copy(Current)
 			Result.to_upper
 		end
 
-	as_lower: STRING is
+	as_lower: STRING
 		do
 			create Result.copy(Current)
 			Result.to_lower
 		end
 
-	substring (start_index, end_index: INTEGER): STRING is
+	substring (start_index, end_index: INTEGER): STRING
 			-- New string consisting of items [`start_index'.. `end_index'].
 			--
 			-- See also `substring_index'.
@@ -295,79 +295,79 @@ feature {ANY}
 			end
 		end
 	
-	swap (i1, i2: INTEGER_32) is
+	swap (i1, i2: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (i1, i2)
 		end
 
-	insert_character (c: CHARACTER; i: INTEGER_32) is
+	insert_character (c: CHARACTER; i: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (c,i)
 		end
 
-	shrink (min_index, max_index: INTEGER_32) is
+	shrink (min_index, max_index: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (min_index,max_index)
 		end
 
-	remove (i: INTEGER_32) is
+	remove (i: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (i)
 		end
 
-	add_first (c: CHARACTER) is
+	add_first (c: CHARACTER)
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-	precede (c: CHARACTER) is
+	precede (c: CHARACTER)
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-	add_last (c: CHARACTER) is
+	add_last (c: CHARACTER)
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-	append_character (c: CHARACTER) is
+	append_character (c: CHARACTER)
 		do
 			if is_unchanged then modify end
 			Precursor (c) 
 		end
 
-	extend (c: CHARACTER) is
+	extend (c: CHARACTER)
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-	to_lower is
+	to_lower
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-	to_upper is
+	to_upper
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-	keep_head (n: INTEGER_32) is
+	keep_head (n: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (n)
 		end
 
-	keep_tail (n: INTEGER_32) is
+	keep_tail (n: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (n)
@@ -387,37 +387,37 @@ feature {ANY} -- commented out to achieve compatibility with both SE 2.2 and 2.3
 	-- 		end
 
 feature {ANY} 
-	remove_substring (start_index, end_index: INTEGER_32) is
+	remove_substring (start_index, end_index: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (start_index, end_index)
 		end
 
-	remove_between (start_index, end_index: INTEGER_32) is
+	remove_between (start_index, end_index: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (start_index, end_index)
 		end
 
-	remove_suffix (s: STRING) is
+	remove_suffix (s: STRING)
 		do
 			if is_unchanged then modify end
 			Precursor (s)
 		end
 
-	remove_prefix (s: STRING) is
+	remove_prefix (s: STRING)
 		do
 			if is_unchanged then modify end
 			Precursor (s)
 		end
 
-	left_adjust is
+	left_adjust
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-	right_adjust is
+	right_adjust
 		do
 			if is_unchanged then modify end
 			Precursor 
@@ -438,49 +438,49 @@ feature {} -- functions from STRING that change signature in 2.3. Note: commente
 	-- 		end
 
 feature {ANY} -- from STRING
-	do_all (action: ROUTINE[TUPLE[CHARACTER]]) is
+	do_all (action: ROUTINE[TUPLE[CHARACTER]])
 		do
 			if is_unchanged then modify end
 			Precursor (action)
 		end
 
-	extend_multiple (c: CHARACTER; n: INTEGER_32) is
+	extend_multiple (c: CHARACTER; n: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (c,n)
 		end
 
-	precede_multiple (c: CHARACTER; n: INTEGER_32) is
+	precede_multiple (c: CHARACTER; n: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (c, n) 
 		end
 
-	extend_to_count (c: CHARACTER; needed_count: INTEGER_32) is
+	extend_to_count (c: CHARACTER; needed_count: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (c,needed_count)
 		end
 
-	precede_to_count (c: CHARACTER; needed_count: INTEGER_32) is
+	precede_to_count (c: CHARACTER; needed_count: INTEGER_32)
 		do
 			if is_unchanged then modify end
 			Precursor (c,needed_count)
 		end
 
-	reverse is
+	reverse
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-	remove_all_occurrences (ch: CHARACTER) is
+	remove_all_occurrences (ch: CHARACTER)
 		do
 			if is_unchanged then modify end
 			Precursor (ch)
 		end
 
-	extend_unless (ch: CHARACTER) is
+	extend_unless (ch: CHARACTER)
 		do
 			if is_unchanged then modify end
 			Precursor (ch)
@@ -506,7 +506,7 @@ feature {} -- Implementation
 			-- Note: the symbolical name is intentional.... Think about 
 			-- it as a small Eiffellish Easter Egg.... 8)
 
-	dispose is
+	dispose
 		do
 			original_c_string := to_external
 			if is_unchanged then
@@ -519,10 +519,10 @@ feature {} -- Implementation
 			end
 		end
 
-	dispose_notice: STRING is
+	dispose_notice: STRING
 		"CONST_STRING.dispose: the string is unchanged; using a tentative hack to avoid crash during quitting or disposing; a pre-allocated 1-char-long memory area will be set as storage.%N"
 
-	calloc (a_number, a_size: INTEGER): POINTER is
+	calloc (a_number, a_size: INTEGER): POINTER
 			-- void *calloc(size_t nmemb, size_t size);
 			--
 			-- calloc() allocates memory for an array of nmemb elements

@@ -12,21 +12,21 @@ create {ANY}
 
 feature {ANY}
 
-	on_delete_event (a_gtk_object: GTK_OBJECT) is
+	on_delete_event (a_gtk_object: GTK_OBJECT)
 		do
 			gtk.quit
 		end
 
-	on_button1_drag_begin (a_gdk_drag_context: GDK_DRAG_CONTEXT; a_gtk_widget: GTK_WIDGET) is
+	on_button1_drag_begin (a_gdk_drag_context: GDK_DRAG_CONTEXT; a_gtk_widget: GTK_WIDGET)
 		do
 			print ("Let the dragging begin! Nothing to do here...%N")
 		end
 
-	on_button1_drag_data_get (a_gdk_drag_context: GDK_DRAG_CONTEXT; a_selection: GTK_SELECTION_DATA; a_info, a_time: INTEGER; a_gtk_widget: GTK_WIDGET) is
+	on_button1_drag_data_get (a_gdk_drag_context: GDK_DRAG_CONTEXT; a_selection: GTK_SELECTION_DATA; a_info, a_time: INTEGER; a_gtk_widget: GTK_WIDGET)
 		do
 		end
 
-	make is
+	make
 		local
 			hbox: GTK_HBOX
 			pixbuf: GDK_PIXBUF

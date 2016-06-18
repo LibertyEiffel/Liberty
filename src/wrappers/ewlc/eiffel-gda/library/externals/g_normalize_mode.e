@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_normalize_default) or else 
 				(a_value = g_normalize_nfd) or else 
@@ -19,126 +19,126 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_default_external is
+	default_create, set_default_external
 		do
 			value := g_normalize_default
 		end
 
-	set_nfd is
+	set_nfd
 		do
 			value := g_normalize_nfd
 		end
 
-	set_default_compose is
+	set_default_compose
 		do
 			value := g_normalize_default_compose
 		end
 
-	set_nfc is
+	set_nfc
 		do
 			value := g_normalize_nfc
 		end
 
-	set_all is
+	set_all
 		do
 			value := g_normalize_all
 		end
 
-	set_nfkd is
+	set_nfkd
 		do
 			value := g_normalize_nfkd
 		end
 
-	set_all_compose is
+	set_all_compose
 		do
 			value := g_normalize_all_compose
 		end
 
-	set_nfkc is
+	set_nfkc
 		do
 			value := g_normalize_nfkc
 		end
 
 
 feature {ANY} -- Queries
-	is_default_external: BOOLEAN is
+	is_default_external: BOOLEAN
 		do
 			Result := (value=g_normalize_default)
 		end
 
-	is_nfd: BOOLEAN is
+	is_nfd: BOOLEAN
 		do
 			Result := (value=g_normalize_nfd)
 		end
 
-	is_default_compose: BOOLEAN is
+	is_default_compose: BOOLEAN
 		do
 			Result := (value=g_normalize_default_compose)
 		end
 
-	is_nfc: BOOLEAN is
+	is_nfc: BOOLEAN
 		do
 			Result := (value=g_normalize_nfc)
 		end
 
-	is_all: BOOLEAN is
+	is_all: BOOLEAN
 		do
 			Result := (value=g_normalize_all)
 		end
 
-	is_nfkd: BOOLEAN is
+	is_nfkd: BOOLEAN
 		do
 			Result := (value=g_normalize_nfkd)
 		end
 
-	is_all_compose: BOOLEAN is
+	is_all_compose: BOOLEAN
 		do
 			Result := (value=g_normalize_all_compose)
 		end
 
-	is_nfkc: BOOLEAN is
+	is_nfkc: BOOLEAN
 		do
 			Result := (value=g_normalize_nfkc)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_normalize_default: INTEGER is
+	g_normalize_default: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_DEFAULT"
 		end
 
-	g_normalize_nfd: INTEGER is
+	g_normalize_nfd: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_NFD"
 		end
 
-	g_normalize_default_compose: INTEGER is
+	g_normalize_default_compose: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_DEFAULT_COMPOSE"
 		end
 
-	g_normalize_nfc: INTEGER is
+	g_normalize_nfc: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_NFC"
 		end
 
-	g_normalize_all: INTEGER is
+	g_normalize_all: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_ALL"
 		end
 
-	g_normalize_nfkd: INTEGER is
+	g_normalize_nfkd: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_NFKD"
 		end
 
-	g_normalize_all_compose: INTEGER is
+	g_normalize_all_compose: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_ALL_COMPOSE"
 		end
 
-	g_normalize_nfkc: INTEGER is
+	g_normalize_nfkc: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_NFKC"
 		end

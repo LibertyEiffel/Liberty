@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_WIDGET
 
 feature {ANY}
-	callback (ev_ptr: POINTER; instance: POINTER): INTEGER is
+	callback (ev_ptr: POINTER; instance: POINTER): INTEGER
 		require
 			instance_not_null: instance.is_not_null
 		local
@@ -52,14 +52,14 @@ feature {ANY}
 			Result := function.item ([object, event]).to_integer
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN])
 		do
 			debug
 				print ("DELETE_EVENT_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

@@ -36,7 +36,7 @@ feature {} -- enum
 	-- label set and `gtk_toolbar_icons' is used, the label will be
 	-- visible, and vice versa.
 
-	is_valid_gtk_toolbar_style (a_style :INTEGER): BOOLEAN is
+	is_valid_gtk_toolbar_style (a_style :INTEGER): BOOLEAN
 		do
 			Result:=((a_style = gtk_toolbar_icons) or else
 						(a_style = gtk_toolbar_text) or else
@@ -44,25 +44,25 @@ feature {} -- enum
 						(a_style = gtk_toolbar_both_horiz))
 		end
 
-	gtk_toolbar_icons: INTEGER is
+	gtk_toolbar_icons: INTEGER
 			-- Buttons display only icons in the toolbar.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TOOLBAR_ICONS"
 		end
 
-	gtk_toolbar_text: INTEGER is
+	gtk_toolbar_text: INTEGER
 			-- Buttons display only text labels in the toolbar.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TOOLBAR_TEXT"
 		end
 
-	gtk_toolbar_both: INTEGER is
+	gtk_toolbar_both: INTEGER
 			-- Buttons display text and icons in the toolbar.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TOOLBAR_BOTH"
 		end
 
-	gtk_toolbar_both_horiz: INTEGER is
+	gtk_toolbar_both_horiz: INTEGER
 			-- Buttons display icons and text alongside each other, rather than vertically stacked
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TOOLBAR_BOTH_HORIZ"

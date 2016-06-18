@@ -38,7 +38,7 @@ insert
 create {ANY} make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkMenuItem.
 		require 
 			gtk_initialized: gtk.is_initialized
@@ -46,7 +46,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_menu_item_new)
 		end
 
-	with_label (a_label: STRING) is
+	with_label (a_label: STRING)
 			-- Creates a new GtkMenuItem whose child is a GtkLabel.
 		require
 			gtk_initialized: gtk.is_initialized
@@ -55,7 +55,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_menu_item_new_with_label (a_label.to_external))
 		end
 
-	with_mnemonic (a_label: STRING) is
+	with_mnemonic (a_label: STRING)
 			-- Creates a new GtkMenuItem containing a label. Underscores
 			-- in label indicate the mnemonic for the menu item.
 		require
@@ -66,7 +66,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} 
-	set_right_justified is
+	set_right_justified
 			-- Makes the menu item appears justified at the right
 			-- side of a menu bar. This was traditionally done for "Help"
 			-- menu items, but is now considered a bad idea. (If the
@@ -77,21 +77,21 @@ feature {ANY}
 			gtk_menu_item_set_right_justified (handle, 1)
 		end
 
-	set_left_justified is
+	set_left_justified
 			-- Makes whether the menu item appears justified at the left
 			-- side of a menu bar. 
 		do
 			gtk_menu_item_set_right_justified (handle, 0)
 		end
 
-	set_submenu (a_submenu: GTK_WIDGET) is
+	set_submenu (a_submenu: GTK_WIDGET)
 			-- Sets the widget submenu, or changes it.
 		require submenu_not_void: a_submenu /= Void
 		do
 			gtk_menu_item_set_submenu (handle, a_submenu.handle)
 		end
 
-	set_accel_path (an_accel_path: STRING) is
+	set_accel_path (an_accel_path: STRING)
 			-- Set the accelerator path on menu item, through which
 			-- runtime changes of the menu item's accelerator caused by
 			-- the user can be identified and saved to persistant storage
@@ -117,33 +117,33 @@ feature {ANY}
 			gtk_menu_item_set_accel_path (handle, an_accel_path.to_external)
 		end
 
-	unset_accel_path is
+	unset_accel_path
 			-- Unset the accelerator path on menu item.
 		do
 			gtk_menu_item_set_accel_path (handle, default_pointer)
 		end
 
-	remove_submenu is
+	remove_submenu
 			--    Removes the widget's submenu.
 		do
 			gtk_menu_item_remove_submenu (handle)
 		end
 
-	emit_select is 
+	emit_select
 			-- Emits the "select" signal on the given item. Behaves
 			-- exactly like GTK_ITEM.select_signal.
 		do
 			gtk_menu_item_select (handle)
 		end
 	
-	emit_deselect is
+	emit_deselect
 			-- Emits the "deselect" signal on the given item. Behaves
 			-- exactly like GTK_ITEM.deselect.
 		do
 			gtk_menu_item_deselect (handle)
 		end
 
-	activate is
+	activate
 			--    Emits the "activate" signal on the given item
 		do
 			gtk_menu_item_activate (handle)
@@ -177,14 +177,14 @@ feature {ANY}
 
 --    -----------------------------------------------------------------------
 
-	is_right_justified: BOOLEAN is
+	is_right_justified: BOOLEAN
 			-- Does the menu item appears justified at the right side of
 			-- the menu bar?
 		do
 			Result:= (gtk_menu_item_get_right_justified(handle).to_boolean)
 		end
 
-	submenu: GTK_WIDGET is 
+	submenu: GTK_WIDGET
 			-- The submenu underneath this menu item, or Void. See
 			-- `set_submenu'.
 		do
@@ -247,19 +247,19 @@ feature {ANY} -- Signals
 
 	activate_signal_name: STRING is "activate"
 
-	on_activate is
+	on_activate
 			-- Built-in activate signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_activate is
+	enable_on_activate
 			-- Connects "activate" signal to `on_activate' feature.
 			-- Emitted when the item is activated.
 		do
 			connect (Current, activate_signal_name, $on_activate)
 		end
 
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_MENU_ITEM]]) is
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_MENU_ITEM]])
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -353,61 +353,61 @@ feature {ANY} -- Signals
 -- References
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuItem)"
 		end
 
 feature {} -- External calls
-	gtk_menu_item_new: POINTER is
+	gtk_menu_item_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_new_with_label (a_label: POINTER): POINTER is
+	gtk_menu_item_new_with_label (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_new_with_mnemonic (a_label: POINTER): POINTER is
+	gtk_menu_item_new_with_mnemonic (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_set_right_justified (a_menu_item: POINTER; right_justified_bool: INTEGER) is
+	gtk_menu_item_set_right_justified (a_menu_item: POINTER; right_justified_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_set_submenu (a_menu_item, a_submenu: POINTER) is
+	gtk_menu_item_set_submenu (a_menu_item, a_submenu: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_set_accel_path (a_menu_item, an_accel_path: POINTER) is
+	gtk_menu_item_set_accel_path (a_menu_item, an_accel_path: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_menu_item_remove_submenu (a_menu_item: POINTER) is
+	gtk_menu_item_remove_submenu (a_menu_item: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_menu_item_select (a_menu_item: POINTER) is
+	gtk_menu_item_select (a_menu_item: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_deselect (a_menu_item: POINTER) is
+	gtk_menu_item_deselect (a_menu_item: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_activate (a_menu_item: POINTER) is
+	gtk_menu_item_activate (a_menu_item: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_toggle_size_request (a_menu_item, gint_requisition: POINTER) is
+	gtk_menu_item_toggle_size_request (a_menu_item, gint_requisition: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_toggle_size_allocate (a_menu_item: POINTER; an_allocation: INTEGER) is
+	gtk_menu_item_toggle_size_allocate (a_menu_item: POINTER; an_allocation: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_get_right_justified (a_menu_item: POINTER): INTEGER is
+	gtk_menu_item_get_right_justified (a_menu_item: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	

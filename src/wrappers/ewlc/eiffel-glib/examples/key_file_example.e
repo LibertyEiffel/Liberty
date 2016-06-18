@@ -5,7 +5,7 @@ insert
 
 create {ANY} make
 feature {ANY}
-	make is
+	make
 		local
 			group, key: STRING
 			groups_iterator, keys_iterator: ITERATOR[STRING]

@@ -9,14 +9,14 @@ create {ANY} from_real, from_string
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {ANY} -- Creation 
-	from_real (a_type: LLVM_REAL_TYPE; a_value: REAL_64) is
+	from_real (a_type: LLVM_REAL_TYPE; a_value: REAL_64)
 		-- Create a floating point constant of `a_type' with `a_value'
 	require a_type/=Void
 	do
 		handle := llvmconst_real(a_type.handle,a_value)
 	end
 
-	from_string (a_type: LLVM_REAL_TYPE; a_text: ABSTRACT_STRING) is
+	from_string (a_type: LLVM_REAL_TYPE; a_text: ABSTRACT_STRING)
 		-- Create a floating point constant of `a_type' parsing `a_text'
 
 		-- TODO: "llvmconst_real_of_string_and_size" may be better suited to Eiffel

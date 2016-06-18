@@ -24,47 +24,47 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_progress_bar_new : POINTER is
+	gtk_progress_bar_new : POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_pulse (bar: POINTER) is
+	gtk_progress_bar_pulse (bar: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_set_text (bar: POINTER; text : POINTER) is
+	gtk_progress_bar_set_text (bar: POINTER; text : POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_set_fraction (bar: POINTER; fraction: REAL) is
+	gtk_progress_bar_set_fraction (bar: POINTER; fraction: REAL)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_set_pulse_step (bar : POINTER;fraction : REAL) is
+	gtk_progress_bar_set_pulse_step (bar : POINTER;fraction : REAL)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_get_text (bar : POINTER) : POINTER is
+	gtk_progress_bar_get_text (bar : POINTER) : POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_get_fraction (bar : POINTER) : REAL is
+	gtk_progress_bar_get_fraction (bar : POINTER) : REAL
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_get_orientation (bar : POINTER): INTEGER is
+	gtk_progress_bar_get_orientation (bar : POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_set_orientation (bar: POINTER; an_orientation: INTEGER) is
+	gtk_progress_bar_set_orientation (bar: POINTER; an_orientation: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_get_ellipsize (bar : POINTER): INTEGER is
+	gtk_progress_bar_get_ellipsize (bar : POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_progress_bar_set_ellipsize (bar: POINTER; an_ellipsize: INTEGER) is
+	gtk_progress_bar_set_ellipsize (bar: POINTER; an_ellipsize: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 

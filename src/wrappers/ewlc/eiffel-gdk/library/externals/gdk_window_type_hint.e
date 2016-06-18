@@ -28,55 +28,55 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	gdk_window_type_hint_normal: INTEGER is
+	gdk_window_type_hint_normal: INTEGER
 			-- 	Normal toplevel window.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TYPE_HINT_NORMAL"
 		end
 
-	gdk_window_type_hint_dialog: INTEGER is
+	gdk_window_type_hint_dialog: INTEGER
 			-- 	Dialog window.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TYPE_HINT_DIALOG"
 		end
 
-	gdk_window_type_hint_menu: INTEGER is
+	gdk_window_type_hint_menu: INTEGER
 			-- 	Window used to implement a menu.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TYPE_HINT_MENU"
 		end
 
-	gdk_window_type_hint_toolbar: INTEGER is
+	gdk_window_type_hint_toolbar: INTEGER
 			-- 	Window used to implement toolbars.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TYPE_HINT_TOOLBAR"
 		end
 
-	gdk_window_type_hint_splashscreen: INTEGER is
+	gdk_window_type_hint_splashscreen: INTEGER
 			-- 	Window used to display a splash screen during application startup.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TYPE_HINT_SPLASHSCREEN"
 		end
 
-	gdk_window_type_hint_utility: INTEGER is
+	gdk_window_type_hint_utility: INTEGER
 			-- 	Utility windows which are not detached toolbars or dialogs.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TYPE_HINT_UTILITY"
 		end
 
-	gdk_window_type_hint_dock: INTEGER is
+	gdk_window_type_hint_dock: INTEGER
 			-- 	Used for creating dock or panel windows.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TYPE_HINT_DOCK"
 		end
 
-	gdk_window_type_hint_desktop: INTEGER is
+	gdk_window_type_hint_desktop: INTEGER
 			-- 	Used for creating the desktop background window.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TYPE_HINT_DESKTOP"
 		end
 
-	are_valid_window_type_hint (an_hint: INTEGER): BOOLEAN is
+	are_valid_window_type_hint (an_hint: INTEGER): BOOLEAN
 		do
 			Result:=(an_hint & (gdk_window_type_hint_normal  |
 									  gdk_window_type_hint_dialog  |

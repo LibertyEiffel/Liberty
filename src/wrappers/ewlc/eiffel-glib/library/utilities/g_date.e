@@ -75,13 +75,13 @@ create {ANY} make_dmy, from_tuple, make
 create {WRAPPER} from_external_pointer
    
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GDate)"
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Create a GDate and initializes it to a sane state. The new
 			-- date will be cleared (`clear') but invalid (it won't
 			-- represent an existing day).
@@ -89,7 +89,7 @@ feature {} -- Creation
 			from_external_pointer(g_date_new)
 		end
 
-	make_dmy (a_day: INTEGER_8; a_month: INTEGER; an_year: INTEGER_16) is
+	make_dmy (a_day: INTEGER_8; a_month: INTEGER; an_year: INTEGER_16)
 			-- Create and initialize a new GDate; it sets the value of
 			-- the date. Assuming the day-month-year triplet you pass in
 			-- represents an existing day, the returned date will be
@@ -98,7 +98,7 @@ feature {} -- Creation
 			from_external_pointer(g_date_new_dmy (a_day, a_month, an_year))
 		end
 
-	from_tuple (a_tuple: TUPLE[INTEGER_8,INTEGER_8,INTEGER_16]) is
+	from_tuple (a_tuple: TUPLE[INTEGER_8,INTEGER_8,INTEGER_16])
 			-- Create and initialize a new GDate, assuming the
 			-- day-month-year triplet you pass in represents an existing
 			-- day, the returned date will be valid.
@@ -106,7 +106,7 @@ feature {} -- Creation
 			from_external_pointer(g_date_new_dmy (a_tuple.item_1, a_tuple.item_2, a_tuple.item_3))
 		end
 
-	make_julian (a_julian_day: INTEGER_32) is
+	make_julian (a_julian_day: INTEGER_32)
 			-- Create, initialize and sets the value of a new
 			-- GDate. Assuming the Julian day number you pass in is valid
 			-- (greater than 0, less than an unreasonably large number),
@@ -118,7 +118,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	clear is
+	clear
 			-- Initializes Current to a sane but invalid state. The
 			-- cleared dates will not represent an existing date, but
 			-- will not contain garbage.
@@ -127,7 +127,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Setters 
-	set_day (a_day: INTEGER_8) is
+	set_day (a_day: INTEGER_8)
 			-- Sets the day of the month for a GDate. If the resulting
 			-- day-month-year triplet is invalid, the date will be
 			-- invalid.
@@ -135,7 +135,7 @@ feature {ANY} -- Setters
 			g_date_set_day (handle, a_day)
 		end
 
-	set_month (a_month: INTEGER) is
+	set_month (a_month: INTEGER)
 			-- Sets the month of the year for a GDate. If the resulting
 			-- day-month-year triplet is invalid, the date will be
 			-- invalid.
@@ -143,14 +143,14 @@ feature {ANY} -- Setters
 			g_date_set_month (handle, a_month)
 		end
 
-	set_year (an_year: INTEGER_16) is
+	set_year (an_year: INTEGER_16)
 			-- Sets the year for a GDate. If the resulting day-month-year
 			-- triplet is invalid, the date will be invalid.
 		do
 			g_date_set_year (handle, an_year)
 		end
 
-	set_dmy (a_day, a_month, an_year: INTEGER) is
+	set_dmy (a_day, a_month, an_year: INTEGER)
 			-- Sets the value of a GDate from a day, month, and year. The
 			-- day-month-year triplet must be valid; if you aren't sure
 			-- it is, call `is_valid_dmy' to check before you set it.
@@ -159,7 +159,7 @@ feature {ANY} -- Setters
 			g_date_set_dmy (handle, a_day.to_integer_8, a_month, an_year.to_integer_16)
 		end
 
-	set_julian (a_julian_date: INTEGER_32) is
+	set_julian (a_julian_date: INTEGER_32)
 			-- Sets the value of a GDate from a Julian day number.
 		
 			-- `a_julian_date' : Julian day number (days since January 1,
@@ -182,7 +182,7 @@ feature {ANY} -- Setters
 
 	-- -------------------------------------------------------------------
 
-	parse (a_string: STRING) is
+	parse (a_string: STRING)
 			-- Parses user-inputted `a_string', and try to figure out
 			-- what date it represents, taking the current locale into
 			-- account. If the string is successfully parsed, the date
@@ -201,28 +201,28 @@ feature {ANY} -- Setters
 		end
 
 feature {ANY} -- Getters
-	day: INTEGER is
+	day: INTEGER
 			-- the day of the month. The date must be valid.
 		require valid: is_valid
 		do
 			Result := g_date_get_day (handle)
 		end
 
-	month: INTEGER is
+	month: INTEGER
 			-- the month of the year. The date must be valid.
 		require valid: is_valid
 		do
 			Result := g_date_get_month (handle)
 		end
 
-	year: INTEGER is
+	year: INTEGER
 			-- the year of Current. The date must be valid.
 		require valid: is_valid
 		do
 			Result := g_date_get_year (handle)
 		end
 
-	julian: INTEGER_32 is
+	julian: INTEGER_32
 			-- the Julian day or "serial number" of the GDate. The Julian
 			-- day is simply the number of days since January 1, Year 1;
 			-- i.e., January 1, Year 1 is Julian day 1; January 2, Year 1
@@ -232,14 +232,14 @@ feature {ANY} -- Getters
 			Result := g_date_get_julian (handle)
 		end
 
-	weekday: INTEGER is
+	weekday: INTEGER
 			-- the day of the week for a GDate. The date must be valid.
 		require valid: is_valid
 		do
 			Result := g_date_get_weekday (handle)
 		end
 
-	day_of_year: INTEGER is
+	day_of_year: INTEGER
 			-- the day of the year, where Jan 1 is the first day of the
 			-- year. Shall be a NATURAL
 		require valid: is_valid
@@ -247,7 +247,7 @@ feature {ANY} -- Getters
 			Result := g_date_get_day_of_year (handle)
 		end
 
-	days_in_month: INTEGER_8 is
+	days_in_month: INTEGER_8
 			-- The days in the month of Current G_DATE. See also
 			-- G_DATES.days_in_month
 		require valid: is_valid
@@ -269,7 +269,7 @@ feature {ANY} -- Getters
 -- -------------------------------------------------------------------
 
 feature {ANY} -- Date arithmetics
-	add_days (some_days: INTEGER) is
+	add_days (some_days: INTEGER)
 			-- Increments a date some number of days. To move forward by
 			-- weeks, add weeks*7 days. The date must be valid.
 		
@@ -281,7 +281,7 @@ feature {ANY} -- Date arithmetics
 			g_date_add_days (handle, some_days)
 		end
 
-	subtract_days (some_days: INTEGER) is
+	subtract_days (some_days: INTEGER)
 			-- Moves a date some number of days into the past. To move by
 			-- weeks, just move by weeks*7 days. The date must be valid.
 		require
@@ -291,7 +291,7 @@ feature {ANY} -- Date arithmetics
 			g_date_subtract_days (handle, some_days)
 		end
 
-	add_months (some_months: INTEGER) is
+	add_months (some_months: INTEGER)
 			-- Increments a date by `some_months' number of months. If
 			-- the day of the month is greater than 28, this routine may
 			-- change the day of the month (because the destination month
@@ -304,7 +304,7 @@ feature {ANY} -- Date arithmetics
 			g_date_add_months (handle, some_months)
 		end
 
-	subtract_months (some_months: INTEGER) is
+	subtract_months (some_months: INTEGER)
 			-- Moves a date some number of months into the past. If the
 			-- current day of the month doesn't exist in the destination
 			-- month, the day of the month may change. The date must be
@@ -316,7 +316,7 @@ feature {ANY} -- Date arithmetics
 			g_date_subtract_months (handle, some_months)
 		end
 
-	add_years (some_years: INTEGER) is
+	add_years (some_years: INTEGER)
 			-- Increments a date by some number of years. If the date is
 			-- February 29, and the destination year is not a leap year,
 			-- the date will be changed to February 28. The date must be
@@ -328,7 +328,7 @@ feature {ANY} -- Date arithmetics
 			g_date_add_years (handle, some_years)
 		end
 
-	subtract_years (some_years: INTEGER) is
+	subtract_years (some_years: INTEGER)
 			-- Moves a date some number of years into the past. If the
 			-- current day doesn't exist in the destination year
 			-- (i.e. it's February 29 and you move to a non-leap-year)
@@ -338,7 +338,7 @@ feature {ANY} -- Date arithmetics
 			g_date_subtract_years (handle, some_years)
 		end
 
-	days_between (another: like Current): INTEGER is
+	days_between (another: like Current): INTEGER
 			-- Computes the number of days between two dates. If date2 is
 			-- prior to date1, the returned value is negative. Both dates
 			-- must be valid.
@@ -349,17 +349,17 @@ feature {ANY} -- Date arithmetics
 			Result :=  g_date_days_between (handle, another.handle)
 		end
 
-	is_equal (another: like Current): BOOLEAN is
+	is_equal (another: like Current): BOOLEAN
 		do
 			Result:=(compare(another)=0)
 		end
 	
-	infix "<"(another: like Current): BOOLEAN is
+	infix "<"(another: like Current): BOOLEAN
 		do
 			Result:=(compare(another)<0)
 		end
 	
-	compare (another: like Current): INTEGER is
+	compare (another: like Current): INTEGER
 			-- qsort()-style comparsion function for dates; i.e.: 0 for
 			-- equal, less than zero if Current is less than another,
 			-- greater than zero if Current is greater than another.
@@ -371,7 +371,7 @@ feature {ANY} -- Date arithmetics
 			Result := g_date_compare (handle, another.handle)
 		end
 
-	clamp (a_min, a_max: like Current) is
+	clamp (a_min, a_max: like Current)
 			-- If date is prior to min_date, sets date equal to min_date. If date
 			-- falls after max_date, sets date equal to max_date. Either min_date and
 			-- max_date may be NULL. All non-NULL dates must be valid.
@@ -391,7 +391,7 @@ feature {ANY} -- Date arithmetics
 			g_date_clamp (handle, min_ptr, max_ptr)
 		end
 
-	order (another: like Current) is
+	order (another: like Current)
 			-- Checks if Current is less than or equal to `another', and swap the values if
 			-- this is not the case.
 		require valid_other: another /= Void
@@ -400,14 +400,14 @@ feature {ANY} -- Date arithmetics
 		end
 	
 feature {ANY} -- Queries
-	is_first_of_month: BOOLEAN is
+	is_first_of_month: BOOLEAN
 			-- Is the date on the first of a month?
 		require valid: is_valid
 		do
 			Result:= g_date_is_first_of_month(handle).to_boolean
 		end
 
-	is_last_of_month: BOOLEAN is
+	is_last_of_month: BOOLEAN
 			-- Is the date the last day of the month?
 		require valid: is_valid
 		do
@@ -497,7 +497,7 @@ feature {ANY} -- Queries
 
 -- -------------------------------------------------------------------
 
-	to_string: STRING is
+	to_string: STRING
 		require is_valid
 		local written_characters: INTEGER -- TODO: shall be NATURAL
 		do
@@ -544,7 +544,7 @@ feature {ANY} -- Queries
 
 	-- -------------------------------------------------------------------
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 			-- Does the GDate represents an existing day?
 
 			-- Note: For Eiffel user those should always be true "The date must not
@@ -653,68 +653,68 @@ feature {} -- External features
 		external "C use <glib.h>"
 		end
 	
-	g_date_clear (a_date: POINTER; n_dates: INTEGER_32) is
+	g_date_clear (a_date: POINTER; n_dates: INTEGER_32)
 			-- Note `n_dates' shall be a NATURAL_32
 		external "C use <glib.h>"
 		end
 	
-	free (a_date: POINTER) is 
+	free (a_date: POINTER)
 		external "C use <glib.h>"
 		alias "g_date_free"
 		end
 
-	g_date_set_day (a_date: POINTER; a_day: INTEGER_8) is 
+	g_date_set_day (a_date: POINTER; a_day: INTEGER_8)
 		external "C use <glib.h>"
 		end
 	
-	g_date_set_month (a_date: POINTER; a_month: INTEGER) is 
+	g_date_set_month (a_date: POINTER; a_month: INTEGER)
 		external "C use <glib.h>"
 		end
 	
-	g_date_set_year (a_date: POINTER; an_year: INTEGER_16) is 
+	g_date_set_year (a_date: POINTER; an_year: INTEGER_16)
 		external "C use <glib.h>"
 		end
 	
-	g_date_set_dmy (a_date: POINTER; a_day: INTEGER_8; a_month: INTEGER; an_year: INTEGER_16) is 
+	g_date_set_dmy (a_date: POINTER; a_day: INTEGER_8; a_month: INTEGER; an_year: INTEGER_16)
 		external "C use <glib.h>"
 		end
 	
-	g_date_set_julian (a_date: POINTER; a_julian_date: INTEGER_32) is
+	g_date_set_julian (a_date: POINTER; a_julian_date: INTEGER_32)
 			-- Note: a_julian_date shall be NATURAL
 		external "C use <glib.h>"
 		end
 	
-	g_date_set_time (a_date: POINTER; a_time: INTEGER_32) is 
+	g_date_set_time (a_date: POINTER; a_time: INTEGER_32)
 		external "C use <glib.h>"
 		end
 	
-	g_date_set_parse (a_date: POINTER; a_str: POINTER) is 
+	g_date_set_parse (a_date: POINTER; a_str: POINTER)
 		external "C use <glib.h>"
 		end
 
-	g_date_add_days (a_date: POINTER; n_days: INTEGER) is
+	g_date_add_days (a_date: POINTER; n_days: INTEGER)
 			-- Note: `n_days' shall be NATURAL
 		external "C use <glib.h>"
 		end
 	
-	g_date_subtract_days (a_date: POINTER; n_days: INTEGER) is
+	g_date_subtract_days (a_date: POINTER; n_days: INTEGER)
 			-- Note: n_days shall be NATURAL
 		external "C use <glib.h>"
 		end
-	g_date_add_months (a_date: POINTER; n_months: INTEGER) is
+	g_date_add_months (a_date: POINTER; n_months: INTEGER)
 			-- Note `n_months' shall be NATURAL
 		external "C use <glib.h>"
 		end
-	g_date_subtract_months (a_date: POINTER; n_months: INTEGER) is
+	g_date_subtract_months (a_date: POINTER; n_months: INTEGER)
 			-- Note `n_months' shall be NATURAL			
 		external "C use <glib.h>"
 		end
 	
-	g_date_add_years (a_date: POINTER; n_years: INTEGER) is
+	g_date_add_years (a_date: POINTER; n_years: INTEGER)
 			-- Note `n_years' shall be NATURAL
 		external "C use <glib.h>"
 		end
-	g_date_subtract_years (a_date: POINTER; n_years: INTEGER) is 
+	g_date_subtract_years (a_date: POINTER; n_years: INTEGER)
 			-- Note `n_years' shall be NATURAL
 		external "C use <glib.h>"
 		end
@@ -727,11 +727,11 @@ feature {} -- External features
 		external "C use <glib.h>"
 		end
 	
-	g_date_clamp (a_date, a_min_date, a_max_date: POINTER) is 
+	g_date_clamp (a_date, a_min_date, a_max_date: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_date_order (a_date, another_date: POINTER) is 
+	g_date_order (a_date, another_date: POINTER)
 		external "C use <glib.h>"
 		end
 
@@ -767,7 +767,7 @@ feature {} -- External features
 		ensure positive: Result > 0
 		end
 
-	g_date_get_days_in_month (a_month: INTEGER; an_year: INTEGER_16): INTEGER is
+	g_date_get_days_in_month (a_month: INTEGER; an_year: INTEGER_16): INTEGER
 			-- Result shall be a NATURAL_8 (guint8)
 		external "C use <glib.h>"
 		-- ensure fits_natural_8: Result.in_range (0,255)
@@ -789,7 +789,7 @@ feature {} -- External features
 		ensure natural: Result >= 0
 		end
 	
-	g_date_get_monday_weeks_in_year (an_year: INTEGER_16): INTEGER_8 is
+	g_date_get_monday_weeks_in_year (an_year: INTEGER_16): INTEGER_8
 		external "C use <glib.h>"
 		-- TODO: ensure natural_8: Result.in_range (0,255)
 		end
@@ -799,7 +799,7 @@ feature {} -- External features
 		ensure natural: Result >= 0
 		end
 	
-	g_date_get_sunday_weeks_in_year (an_year: INTEGER_16): INTEGER_8 is
+	g_date_get_sunday_weeks_in_year (an_year: INTEGER_16): INTEGER_8
 			-- Result shall be NATURAL_8
 		external "C use <glib.h>"
 		-- TODO: ensure natural_8: 
@@ -815,7 +815,7 @@ feature {} -- External features
 		external "C use <glib.h>"
 		end
 	
-	g_date_to_struct_tm (a_date, a_tm_struct: POINTER) is 
+	g_date_to_struct_tm (a_date, a_tm_struct: POINTER)
 		external "C use <glib.h>"
 		end
 	
@@ -849,7 +849,7 @@ feature {} -- External features
 		end
 	
 
-	g_usec_per_sec: INTEGER is
+	g_usec_per_sec: INTEGER
 			-- Number of microseconds in one second (1 million). This
 			-- macro is provided for code readability.
 		external "C macro use <glib.h>"
@@ -860,19 +860,19 @@ feature {} --  enum GDateDMY
 	-- This enumeration isn't used in the API, but may be useful if you
 	-- need to mark a number as a day, month, or year.
 	
-	g_date_day: INTEGER is
+	g_date_day: INTEGER
 			-- a day 
 		external "C macro use <glib.h>"
 		alias "G_DATE_DAY"
 		end
 	
-	g_date_month: INTEGER is
+	g_date_month: INTEGER
 			-- a month 
 		external "C macro use <glib.h>"
 		alias "G_DATE_MONTH"
 		end
 	
-	g_date_year: INTEGER is
+	g_date_year: INTEGER
 			-- a year 
 		external "C macro use <glib.h>"
 		alias "G_DATE_YEAR"
@@ -880,19 +880,19 @@ feature {} --  enum GDateDMY
 
 feature {ANY} -- GDateDay a guint8
 	-- Integer representing a day of the month; between 1 and 31.
-	is_valid_gdate_day (a_day: INTEGER): BOOLEAN is
+	is_valid_gdate_day (a_day: INTEGER): BOOLEAN
 		do
 			Result:=a_day.in_range(1,31)
 		end
 	
-	g_date_bad_day: INTEGER is
+	g_date_bad_day: INTEGER
 			-- represents an invalid day of the month.
 		external "C macro use <glib.h>"
 		alias "G_DATE_BAD_DAY"
 		end
 
 feature {} --  enum GDateMonth
-	is_valid_gdate_month(a_month: INTEGER): BOOLEAN is
+	is_valid_gdate_month(a_month: INTEGER): BOOLEAN
 		do
 			-- Note: oh, I know it is quite a stupid implementation, but 
 			-- who assure us that these values are contiguous?
@@ -910,79 +910,79 @@ feature {} --  enum GDateMonth
 						(a_month=g_date_december))
 		end
 
-	g_date_bad_month: INTEGER is
+	g_date_bad_month: INTEGER
 			-- invalid value. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_BAD_MONTH"
 		end
 	
-	g_date_january: INTEGER is
+	g_date_january: INTEGER
 			-- January. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_JANUARY"
 		end
 
-	g_date_february: INTEGER is
+	g_date_february: INTEGER
 			-- February. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_FEBRUARY"
 		end
 
-	g_date_march: INTEGER is
+	g_date_march: INTEGER
 			-- March. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_MARCH"
 		end
 
-	g_date_april: INTEGER is
+	g_date_april: INTEGER
 			-- April. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_APRIL"
 		end
 
-	g_date_may: INTEGER is
+	g_date_may: INTEGER
 			-- May. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_MAY"
 		end
 
-	g_date_june: INTEGER is
+	g_date_june: INTEGER
 			-- June. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_JUNE"
 		end
 
-	g_date_july: INTEGER is
+	g_date_july: INTEGER
 			-- July. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_JULY"
 		end
 
-	g_date_august: INTEGER is
+	g_date_august: INTEGER
 			-- August. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_AUGUST"
 		end
 
-	g_date_september: INTEGER is
+	g_date_september: INTEGER
 			-- September. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_SEPTEMBER"
 		end
 
-	g_date_october: INTEGER is
+	g_date_october: INTEGER
 			-- October. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_OCTOBER"
 		end
 
-	g_date_november: INTEGER is
+	g_date_november: INTEGER
 			-- November. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_NOVEMBER"
 		end
 
-	g_date_december: INTEGER is
+	g_date_december: INTEGER
 			-- December. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_DECEMBER"
@@ -995,7 +995,7 @@ feature {} --  enum GDateMonth
 	-- represented with four digits.
 	
 feature {} --  enum GDateWeekday;
-	is_valid_gdate_weekday (a_weekday: INTEGER): BOOLEAN is
+	is_valid_gdate_weekday (a_weekday: INTEGER): BOOLEAN
 		do
 			-- Note: oh, I know it is quite a stupid implementation, but 
 			-- who assure us that these values are contiguous?
@@ -1010,49 +1010,49 @@ feature {} --  enum GDateWeekday;
 	-- Enumeration representing a day of the week; G_DATE_MONDAY,
 	-- G_DATE_TUESDAY, etc. G_DATE_BAD_WEEKDAY is an invalid weekday.
 
-	g_date_bad_weekday: INTEGER is
+	g_date_bad_weekday: INTEGER
 			-- invalid value. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_BAD_WEEKDAY"
 		end
 
-	g_date_monday: INTEGER is
+	g_date_monday: INTEGER
 			-- Monday. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_MONDAY"
 		end
 
-	g_date_tuesday: INTEGER is
+	g_date_tuesday: INTEGER
 			-- Tuesday. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_TUESDAY"
 		end
 
-	g_date_wednesday: INTEGER is
+	g_date_wednesday: INTEGER
 			-- Wednesday. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_WEDNESDAY"
 		end
 
-	g_date_thursday: INTEGER is
+	g_date_thursday: INTEGER
 			-- Thursday. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_THURSDAY"
 		end
 
-	g_date_friday: INTEGER is
+	g_date_friday: INTEGER
 			-- Friday. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_FRIDAY"
 		end
 
-	g_date_saturday: INTEGER is
+	g_date_saturday: INTEGER
 			-- Saturday. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_SATURDAY"
 		end
 
-	g_date_sunday: INTEGER is
+	g_date_sunday: INTEGER
 			-- Sunday. 
 		external "C macro use <glib.h>"
 		alias "G_DATE_SUNDAY"

@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = abort_process_action_low_level)  or else
 				(a_value = print_message_action_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_abort_process_action is
+	set_abort_process_action
 		do
 			value := abort_process_action_low_level
 		end
 
-	set_print_message_action is
+	set_print_message_action
 		do
 			value := print_message_action_low_level
 		end
 
-	set_return_status_action is
+	set_return_status_action
 		do
 			value := return_status_action_low_level
 		end
 
 feature {ANY} -- Queries
-	is_abort_process_action: BOOLEAN is
+	is_abort_process_action: BOOLEAN
 		do
 			Result := (value=abort_process_action_low_level)
 		end
 
-	is_print_message_action: BOOLEAN is
+	is_print_message_action: BOOLEAN
 		do
 			Result := (value=print_message_action_low_level)
 		end
 
-	is_return_status_action: BOOLEAN is
+	is_return_status_action: BOOLEAN
 		do
 			Result := (value=return_status_action_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	abort_process_action_low_level: INTEGER is
+	abort_process_action_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	print_message_action_low_level: INTEGER is
+	print_message_action_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	return_status_action_low_level: INTEGER is
+	return_status_action_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

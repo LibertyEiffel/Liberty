@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_date_bad_weekday) or else 
 				(a_value = g_date_monday) or else 
@@ -19,126 +19,126 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_bad_weekday is
+	default_create, set_bad_weekday
 		do
 			value := g_date_bad_weekday
 		end
 
-	set_monday is
+	set_monday
 		do
 			value := g_date_monday
 		end
 
-	set_tuesday is
+	set_tuesday
 		do
 			value := g_date_tuesday
 		end
 
-	set_wednesday is
+	set_wednesday
 		do
 			value := g_date_wednesday
 		end
 
-	set_thursday is
+	set_thursday
 		do
 			value := g_date_thursday
 		end
 
-	set_friday is
+	set_friday
 		do
 			value := g_date_friday
 		end
 
-	set_saturday is
+	set_saturday
 		do
 			value := g_date_saturday
 		end
 
-	set_sunday is
+	set_sunday
 		do
 			value := g_date_sunday
 		end
 
 
 feature {ANY} -- Queries
-	is_bad_weekday: BOOLEAN is
+	is_bad_weekday: BOOLEAN
 		do
 			Result := (value=g_date_bad_weekday)
 		end
 
-	is_monday: BOOLEAN is
+	is_monday: BOOLEAN
 		do
 			Result := (value=g_date_monday)
 		end
 
-	is_tuesday: BOOLEAN is
+	is_tuesday: BOOLEAN
 		do
 			Result := (value=g_date_tuesday)
 		end
 
-	is_wednesday: BOOLEAN is
+	is_wednesday: BOOLEAN
 		do
 			Result := (value=g_date_wednesday)
 		end
 
-	is_thursday: BOOLEAN is
+	is_thursday: BOOLEAN
 		do
 			Result := (value=g_date_thursday)
 		end
 
-	is_friday: BOOLEAN is
+	is_friday: BOOLEAN
 		do
 			Result := (value=g_date_friday)
 		end
 
-	is_saturday: BOOLEAN is
+	is_saturday: BOOLEAN
 		do
 			Result := (value=g_date_saturday)
 		end
 
-	is_sunday: BOOLEAN is
+	is_sunday: BOOLEAN
 		do
 			Result := (value=g_date_sunday)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_date_bad_weekday: INTEGER is
+	g_date_bad_weekday: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_DATE_BAD_WEEKDAY"
 		end
 
-	g_date_monday: INTEGER is
+	g_date_monday: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_DATE_MONDAY"
 		end
 
-	g_date_tuesday: INTEGER is
+	g_date_tuesday: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_DATE_TUESDAY"
 		end
 
-	g_date_wednesday: INTEGER is
+	g_date_wednesday: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_DATE_WEDNESDAY"
 		end
 
-	g_date_thursday: INTEGER is
+	g_date_thursday: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_DATE_THURSDAY"
 		end
 
-	g_date_friday: INTEGER is
+	g_date_friday: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_DATE_FRIDAY"
 		end
 
-	g_date_saturday: INTEGER is
+	g_date_saturday: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_DATE_SATURDAY"
 		end
 
-	g_date_sunday: INTEGER is
+	g_date_sunday: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_DATE_SUNDAY"
 		end

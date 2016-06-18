@@ -36,7 +36,7 @@ inherit
 create {ANY} from_adjustment, with_range, from_external_pointer
 
 feature {} -- Creation
-	from_adjustment (an_adjustment: GTK_ADJUSTMENT) is
+	from_adjustment (an_adjustment: GTK_ADJUSTMENT)
 			-- Creates a new GtkVscale. `an_adjustment' is the
 			-- GtkAdjustment which sets the range of the scale.
 		require
@@ -46,7 +46,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_vscale_new (an_adjustment.handle))
 		end
 
-	with_range (a_min, a_max, a_step: REAL) is
+	with_range (a_min, a_max, a_step: REAL)
 			-- Creates a new vertical scale widget that lets the user
 			-- input a number between `a_min' and `a_max' (including
 			-- `a_min' and `a_max') with the increment step. step must be
@@ -71,7 +71,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVScale)"
 		end

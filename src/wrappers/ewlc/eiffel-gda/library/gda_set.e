@@ -41,7 +41,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (some_holders: G_SLIST[GDA_HOLDER]) is
+	make (some_holders: G_SLIST[GDA_HOLDER])
 		-- Creates a new GDA_SET object, and populates it with `some_holders'. 
 	do
 		-- The list can then be freed as it is copied. All the value holders in
@@ -51,7 +51,7 @@ feature {} -- Creation
 	end
 
 feature {ANY}
-	copy (another: like Current) is
+	copy (another: like Current)
 		--
 	do
 		from_external_pointer(gda_set_copy(another.handle))
@@ -95,7 +95,7 @@ feature {ANY}
 	--   Returns : a new string
 	--
 feature {ANY}
-	holder (an_id: STRING): GDA_HOLDER is
+	holder (an_id: STRING): GDA_HOLDER
 		-- The GDA_HOLDER with `an_id'; Void if cannot be found.
 	require an_id/=Void
 	local p: POINTER
@@ -106,7 +106,7 @@ feature {ANY}
 		end
 	end
 
-	add_holder (an_holder: GDA_HOLDER) is 
+	add_holder (an_holder: GDA_HOLDER)
 		-- Adds holder to the list of holders managed within set.
 	
 		-- NOTE: if set already has a GdaHolder with the same ID as holder,
@@ -122,14 +122,14 @@ feature {ANY}
 		(handle, an_holder.handle).to_boolean
 	end
 
-	remove_holder (an_holder: GDA_HOLDER) is
+	remove_holder (an_holder: GDA_HOLDER)
 		-- Remove `an_holder' from Current set.
 	require an_holder/=Void
 	do
 		gda_set_remove_holder(handle, an_holder.handle)
 	end
 
-	merge_with (another: GDA_SET) is
+	merge_with (another: GDA_SET)
 		-- Add to Current set all the holders of `another' set. Note1: only the
 		-- GDA_HOLDER of `another' for which no holder in set has the same ID
 		-- are merged Note2: all the GDA_HOLDER merged in set are still used by
@@ -140,7 +140,7 @@ feature {ANY}
 		gda_set_merge_with_set(handle, another.handle)
 	end
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 		-- Do all holders of Current have valid data?
 		do
 			Result:= gda_set_is_valid(handle).to_boolean
@@ -378,7 +378,7 @@ feature {} -- Unwrapped
 	--               holder's type
 	--   Returns :   TRUE if no error occurred and the value was set correctly
 feature {ANY}
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaSet)"
 		end

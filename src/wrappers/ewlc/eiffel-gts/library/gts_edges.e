@@ -29,7 +29,7 @@ create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
 feature {ANY} -- Edges related functions
-	merge is
+	merge
 			-- For each edge check if it is duplicated (as returned by
 			-- GTS_EDGE.duplicated); in this case it is replaced it by
 			-- its duplicate, destroy it and remove it from the Current

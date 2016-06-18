@@ -61,7 +61,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates an empty group of tooltips. This function initialises
 			-- a GtkTooltips structure. Without at least one such structure,
 			-- you can not add tips to your application.
@@ -71,14 +71,14 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	enable is
+	enable
 			-- Allows the user to see your tooltips as they navigate your
 			-- application.
 		do
 			gtk_tooltips_enable (handle)
 		end
 
-	disable is
+	disable
 			-- Causes all tooltips in tooltips to become inactive. Any widgets
 			-- that have tips associated with that group will no longer display
 			-- their tips until they are enabled again with enable(). 
@@ -86,7 +86,7 @@ feature {ANY} -- Operations
 			gtk_tooltips_disable (handle)
 		end
 
-	set_delay (a_delay: INTEGER) is
+	set_delay (a_delay: INTEGER)
 			-- Sets the time between the user moving the mouse over a widget and
 			-- the widget's tooltip appearing.
 			-- 'a_delay' is in milliseconds
@@ -98,7 +98,7 @@ feature {ANY} -- Operations
 			gtk_tooltips_set_delay (handle, a_delay)
 		end
 
-	set_tip (a_widget: GTK_WIDGET; a_tip_text, a_tip_private: STRING) is
+	set_tip (a_widget: GTK_WIDGET; a_tip_text, a_tip_private: STRING)
 			-- Adds a tooltip containing the message tip_text to the specified
 			-- GtkWidget.
 			-- 'a_widget': the GtkWidget you wish to associate the tip with.
@@ -111,7 +111,7 @@ feature {ANY} -- Operations
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTooltips)"
 		end

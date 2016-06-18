@@ -39,21 +39,21 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkTreePath. This structure refers to a row.
 		require gtk_initialized: gtk.is_initialized
 		do
 			handle := gtk_tree_path_new
 		end
 
-	copy_from_pointer (a_ptr: POINTER) is
+	copy_from_pointer (a_ptr: POINTER)
 		require
 			a_ptr.is_not_null
 		do
 			handle := gtk_tree_path_copy (a_ptr)
 		end
 
-	from_string (a_path: STRING) is
+	from_string (a_path: STRING)
 			-- Creates a new GtkTreePath initialized to
 			-- `a_path'. `a_path' is expected to be a colon separated
 			-- list of numbers. For example, the string "10:4:0" would
@@ -74,7 +74,7 @@ feature {} -- Creation
 	-- : first integer ... : list of integers terminated by -1 Returns
 	-- : A newly created GtkTreePath.
 
-	make_first, first is
+	make_first, first
 			-- Creates a new GtkTreePath. The string representation of
 			-- this path is "0"
 		require gtk_initialized: gtk.is_initialized
@@ -82,7 +82,7 @@ feature {} -- Creation
 			handle := gtk_tree_path_new_first
 		end
 
-	from_path (a_path: like Current) is
+	from_path (a_path: like Current)
 			-- Creates a new GtkTreePath as a copy of path.
 		require gtk_initialized: gtk.is_initialized
 		do
@@ -91,13 +91,13 @@ feature {} -- Creation
 
 feature {ANY}
 
-	copy (a_path: like Current) is
+	copy (a_path: like Current)
 			-- Makes Current a copy of `a_path'.
 		do
 			from_external_pointer (gtk_tree_path_copy (a_path.handle))
 		end
 
-	to_string: STRING is
+	to_string: STRING
 			-- Generates a string representation of the path. This string
 			-- is a ':' separated list of numbers. For example,
 			-- "4:10:0:3" would be an acceptable return value for this
@@ -110,7 +110,7 @@ feature {ANY}
 			-- calling just free() is a problem.
 		end
 
-	append_index (an_index: INTEGER) is
+	append_index (an_index: INTEGER)
 			-- Appends a new index to a path. As a result, the depth of
 			-- the path is increased.
 		do
@@ -118,7 +118,7 @@ feature {ANY}
 		ensure depth_increased: depth > old depth
 		end
 
-	prepend_index (an_index: INTEGER) is
+	prepend_index (an_index: INTEGER)
 			-- Prepends a new index to a path. As a result, the depth of
 			-- the path is increased.
 		do
@@ -126,7 +126,7 @@ feature {ANY}
 		ensure depth_increased: depth > old depth
 		end
 
-	depth: INTEGER is
+	depth: INTEGER
 			-- the current depth of path.
 		require
 			is_not_null
@@ -134,7 +134,7 @@ feature {ANY}
 			Result:=gtk_tree_path_get_depth(handle)
 		end
 
-	indices: COLLECTION[INTEGER_32] is
+	indices: COLLECTION[INTEGER_32]
 			-- the current indices of path. This is an array of integers,
 			-- each representing a node in a tree.
 			
@@ -168,7 +168,7 @@ feature {ANY} -- Disposing
 
 feature {ANY} -- Comparing
 
-	compare (another: like Current): INTEGER is
+	compare (another: like Current): INTEGER
 			-- Compares two paths. If Current appears before `another' in a tree, then
 			-- -1 is returned. If `another' appears before Current, then 1 is
 			-- returned. If the two nodes are equal, then 0 is returned.
@@ -181,7 +181,7 @@ feature {ANY} -- Comparing
 
 feature {ANY} -- Moving
 
-	next is
+	next
 			-- Moves the path to point to the next node at the current depth.
 		do
 			gtk_tree_path_next (handle)
@@ -190,7 +190,7 @@ feature {ANY} -- Moving
 	is_move_made: BOOLEAN
 			-- Has last command actually moved Current?
 
-	prev is
+	prev
 			-- Moves the path to point to the previous node at the
 			-- current depth, if it exists. `is_move_made' is True if
 			-- path has a previous node, and the move was made.
@@ -198,7 +198,7 @@ feature {ANY} -- Moving
 			is_move_made := (gtk_tree_path_prev (handle)).to_boolean
 		end
 
-	up is
+	up
 			-- Moves the path to point to its parent node, if it has a
 			-- parent. `is_move_made' is True if path has a parent, and
 			-- the move was made.
@@ -206,7 +206,7 @@ feature {ANY} -- Moving
 			is_move_made := (gtk_tree_path_up (handle)).to_boolean
 		end
 
-	down is
+	down
 			-- Moves path to point to the first child of the current
 			-- path.
 		do
@@ -215,14 +215,14 @@ feature {ANY} -- Moving
 
 feature {ANY} -- Queries
 
-	is_ancestor_of (another: GTK_TREE_PATH): BOOLEAN is
+	is_ancestor_of (another: GTK_TREE_PATH): BOOLEAN
 			-- Is `another' a descendant of Current path?
 		require another_not_void: another /= Void
 		do
 			Result := (gtk_tree_path_is_ancestor (handle,another.handle)).to_boolean
 		end
 
-	is_descendant_of (another: GTK_TREE_PATH): BOOLEAN is
+	is_descendant_of (another: GTK_TREE_PATH): BOOLEAN
 			-- IS Current  path is a descendant of `another'?
 		require another_not_void: another /= Void
 		do
@@ -230,7 +230,7 @@ feature {ANY} -- Queries
 		end
 	
 feature {ANY}  -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreePath)"
 		end

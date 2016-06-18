@@ -24,7 +24,7 @@ deferred class CAIRO_PATH_DATA_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_path_data_type (a_type: INTEGER): BOOLEAN is
+	is_valid_path_data_type (a_type: INTEGER): BOOLEAN
 		do	
 			Result:=((a_type = cairo_path_move_to) or else
 						(a_type = cairo_path_line_to) or else
@@ -32,25 +32,25 @@ feature {ANY}  -- enum
 						(a_type = cairo_path_close_path))
 		end
 
-	cairo_path_move_to: INTEGER is
+	cairo_path_move_to: INTEGER
 			-- CAIRO_PATH_MOVE_TO
 		external "C macro use <pango.h>"
 		alias "CAIRO_PATH_MOVE_TO"
 		end
 
-	cairo_path_line_to: INTEGER is
+	cairo_path_line_to: INTEGER
 			-- CAIRO_PATH_LINE_TO
 		external "C macro use <pango.h>"
 		alias "CAIRO_PATH_LINE_TO"
 		end
 
-	cairo_path_curve_to: INTEGER is
+	cairo_path_curve_to: INTEGER
 			-- CAIRO_PATH_CURVE_TO
 		external "C macro use <pango.h>"
 		alias "CAIRO_PATH_CURVE_TO"
 		end
 
-	cairo_path_close_path: INTEGER is
+	cairo_path_close_path: INTEGER
 			-- CAIRO_PATH_CLOSE_PATH
 		external "C macro use <pango.h>"
 		alias "CAIRO_PATH_CLOSE_PATH"

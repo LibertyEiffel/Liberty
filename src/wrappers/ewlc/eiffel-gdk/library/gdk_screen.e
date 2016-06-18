@@ -40,7 +40,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- the default screen for the default display. (See
 			-- `GDK_DISPLAY.default')
 		
@@ -723,174 +723,174 @@ feature {ANY}
 
 
 feature {ANY} 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkScreen)"
 		end
 
 feature {} -- External calls
-	 gdk_screen_get_default: POINTER is
+	 gdk_screen_get_default: POINTER
 			--  GdkScreen* gdk_screen_get_default (void);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_default_colormap (a_screen: POINTER): POINTER is
+	 gdk_screen_get_default_colormap (a_screen: POINTER): POINTER
 			--  GdkColormap* gdk_screen_get_default_colormap (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_set_default_colormap (a_screen, a_colormap: POINTER) is
+	 gdk_screen_set_default_colormap (a_screen, a_colormap: POINTER)
 			--  void gdk_screen_set_default_colormap (GdkScreen *screen, GdkColormap *colormap);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_system_colormap (a_screen: POINTER): POINTER is
+	 gdk_screen_get_system_colormap (a_screen: POINTER): POINTER
 			--  GdkColormap* gdk_screen_get_system_colormap (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_system_visual (a_screen: POINTER): POINTER is
+	 gdk_screen_get_system_visual (a_screen: POINTER): POINTER
 			--  GdkVisual* gdk_screen_get_system_visual (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_rgb_colormap (a_screen: POINTER): POINTER is
+	 gdk_screen_get_rgb_colormap (a_screen: POINTER): POINTER
 			--  GdkColormap* gdk_screen_get_rgb_colormap (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_rgb_visual (a_screen: POINTER): POINTER is
+	 gdk_screen_get_rgb_visual (a_screen: POINTER): POINTER
 			--  GdkVisual* gdk_screen_get_rgb_visual (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_rgba_colormap (a_screen: POINTER): POINTER is
+	 gdk_screen_get_rgba_colormap (a_screen: POINTER): POINTER
 			--  GdkColormap* gdk_screen_get_rgba_colormap (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_rgba_visual (a_screen: POINTER): POINTER is
+	 gdk_screen_get_rgba_visual (a_screen: POINTER): POINTER
 			--  GdkVisual* gdk_screen_get_rgba_visual (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_is_composited (a_screen: POINTER): INTEGER is
+	 gdk_screen_is_composited (a_screen: POINTER): INTEGER
 			--  gboolean gdk_screen_is_composited (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_root_window (a_screen: POINTER): POINTER is
+	 gdk_screen_get_root_window (a_screen: POINTER): POINTER
 			--  GdkWindow* gdk_screen_get_root_window (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_display (a_screen: POINTER): POINTER is
+	 gdk_screen_get_display (a_screen: POINTER): POINTER
 			--  GdkDisplay* gdk_screen_get_display (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_number (a_screen: POINTER): INTEGER is
+	 gdk_screen_get_number (a_screen: POINTER): INTEGER
 			--  gint gdk_screen_get_number (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_width (a_screen: POINTER): INTEGER is
+	 gdk_screen_get_width (a_screen: POINTER): INTEGER
 			--  gint gdk_screen_get_width (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_height (a_screen: POINTER): INTEGER is
+	 gdk_screen_get_height (a_screen: POINTER): INTEGER
 			--  gint gdk_screen_get_height (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_width_mm (a_screen: POINTER): INTEGER is
+	 gdk_screen_get_width_mm (a_screen: POINTER): INTEGER
 			--  gint gdk_screen_get_width_mm (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_height_mm (a_screen: POINTER): INTEGER is
+	 gdk_screen_get_height_mm (a_screen: POINTER): INTEGER
 			--  gint gdk_screen_get_height_mm (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_list_visuals (a_screen: POINTER): POINTER is
+	 gdk_screen_list_visuals (a_screen: POINTER): POINTER
 			--  GList* gdk_screen_list_visuals (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_toplevel_windows (a_screen: POINTER): POINTER is
+	 gdk_screen_get_toplevel_windows (a_screen: POINTER): POINTER
 			--  GList* gdk_screen_get_toplevel_windows (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_make_display_name (a_screen: POINTER): POINTER is
+	 gdk_screen_make_display_name (a_screen: POINTER): POINTER
 			--  gchar* gdk_screen_make_display_name (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_n_monitors (a_screen: POINTER): INTEGER is
+	 gdk_screen_get_n_monitors (a_screen: POINTER): INTEGER
 			--  gint gdk_screen_get_n_monitors (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_monitor_geometry (a_screen: POINTER; a_monitor_num: INTEGER; a_dest: POINTER) is
+	 gdk_screen_get_monitor_geometry (a_screen: POINTER; a_monitor_num: INTEGER; a_dest: POINTER)
 			--  void gdk_screen_get_monitor_geometry (a_screen: POINTER, gint monitor_num, a_dest: POINTER);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_monitor_at_point (a_screen: POINTER; an_x, an_y: INTEGER): INTEGER is
+	 gdk_screen_get_monitor_at_point (a_screen: POINTER; an_x, an_y: INTEGER): INTEGER
 			--  gint gdk_screen_get_monitor_at_point (a_screen: POINTER, gint x, gint y);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_monitor_at_window (a_screen, a_window: POINTER): INTEGER is
+	 gdk_screen_get_monitor_at_window (a_screen, a_window: POINTER): INTEGER
 			--  gint gdk_screen_get_monitor_at_window (GdkScreen *screen, GdkWindow *window);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_broadcast_client_message (a_screen, a_event: POINTER) is
+	 gdk_screen_broadcast_client_message (a_screen, a_event: POINTER)
 			--  void gdk_screen_broadcast_client_message (GdkScreen *screen, GdkEvent *event);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_setting (a_screen, a_name, a_value: POINTER): INTEGER is
+	 gdk_screen_get_setting (a_screen, a_name, a_value: POINTER): INTEGER
 			--  gboolean gdk_screen_get_setting (GdkScreen *screen, const gchar *name, GValue *value);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gdk_screen_get_font_options (a_screen: POINTER): POINTER is
+	gdk_screen_get_font_options (a_screen: POINTER): POINTER
 			--  const cairo_font_options_t* gdk_screen_get_font_options (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_set_font_options (a_screen, some_options: POINTER) is
+	 gdk_screen_set_font_options (a_screen, some_options: POINTER)
 			--  void gdk_screen_set_font_options (GdkScreen *screen, const cairo_font_options_t *options);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_resolution (a_screen: POINTER): REAL is
+	 gdk_screen_get_resolution (a_screen: POINTER): REAL
 			--  gdouble gdk_screen_get_resolution (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_set_resolution (a_screen: POINTER; some_dpi: REAL) is
+	 gdk_screen_set_resolution (a_screen: POINTER; some_dpi: REAL)
 			--  void gdk_screen_set_resolution (GdkScreen *screen, gdouble dpi);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_active_window (a_screen: POINTER): POINTER is
+	 gdk_screen_get_active_window (a_screen: POINTER): POINTER
 			--  GdkWindow* gdk_screen_get_active_window (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gdk_screen_get_window_stack (a_screen: POINTER): POINTER is
+	 gdk_screen_get_window_stack (a_screen: POINTER): POINTER
 			--  GList* gdk_screen_get_window_stack (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
 
-	gdk_spawn_on_screen (a_screen, a_working_directory, an_argv, an_envp: POINTER; some_flags: INTEGER; a_child_setup_function, some_data, a_child_pid, an_error: POINTER): INTEGER is
+	gdk_spawn_on_screen (a_screen, a_working_directory, an_argv, an_envp: POINTER; some_flags: INTEGER; a_child_setup_function, some_data, a_child_pid, an_error: POINTER): INTEGER
 			-- gboolean gdk_spawn_on_screen (GdkScreen *screen, const
 			-- gchar *working_directory, gchar **argv, gchar **envp,
 			-- GSpawnFlags flags, GSpawnChildSetupFunc child_setup,
@@ -898,7 +898,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gdk_spawn_on_screen_with_pipes (a_screen, a_working_directory, an_argv, an_envp: POINTER; some_flags: INTEGER; a_gspawn_child_setup_func, some_data, a_child_pid, a_standard_input, a_standard_output, a_standard_error, an_error: POINTER): INTEGER is
+	gdk_spawn_on_screen_with_pipes (a_screen, a_working_directory, an_argv, an_envp: POINTER; some_flags: INTEGER; a_gspawn_child_setup_func, some_data, a_child_pid, a_standard_input, a_standard_output, a_standard_error, an_error: POINTER): INTEGER
 			-- gboolean gdk_spawn_on_screen_with_pipes (GdkScreen
 			-- *screen, const gchar *working_directory, gchar **argv,
 			-- gchar **envp, GSpawnFlags flags, GSpawnChildSetupFunc
@@ -908,7 +908,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gdk_spawn_command_line_on_screen (a_screen, a_command_line, a_error: POINTER): INTEGER is
+	gdk_spawn_command_line_on_screen (a_screen, a_command_line, a_error: POINTER): INTEGER
 			-- gboolean gdk_spawn_command_line_on_screen (GdkScreen
 			-- *screen, const gchar *command_line, GError **error);
 		external "C use <gtk/gtk.h>"

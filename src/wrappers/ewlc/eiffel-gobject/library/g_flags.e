@@ -41,7 +41,7 @@ inherit
 	C_STRUCT
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GFlags)"
 		end

@@ -33,14 +33,14 @@ insert GTK_TREE_MODEL_EXTERNALS undefine fill_tagged_out_memory end
 create {ANY} make, from_external_pointer
 
 feature {ANY} -- Disposing
-	dispose is 
+	dispose
 		do
 			g_list_foreach(handle, $gtk_tree_path_free, default_pointer)
 			g_list_free(handle)
 			handle:=default_pointer
 		end
 
-	wrapper (a_pointer: POINTER): GTK_TREE_PATH is
+	wrapper (a_pointer: POINTER): GTK_TREE_PATH
 		do
 			create Result.from_external_pointer(a_pointer)
 		end

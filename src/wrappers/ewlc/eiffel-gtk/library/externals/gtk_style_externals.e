@@ -26,27 +26,27 @@ inherit ANY undefine is_equal, copy end
 
 feature {}
 
-	gtk_style_set_background(a_handle, a_pixmap: POINTER; a_state: INTEGER) is
+	gtk_style_set_background(a_handle, a_pixmap: POINTER; a_state: INTEGER)
 		external "C inline use <gtk/gtk.h>"
 		alias "((GtkStyle*)$a_handle)->bg_pixmap[$a_state] = $a_pixmap"
 		end
 
-	gtk_style_get_bg (a_handle: POINTER; a_state: INTEGER): POINTER is
+	gtk_style_get_bg (a_handle: POINTER; a_state: INTEGER): POINTER
 		external "C inline use <gtk/gtk.h>"
 		alias "&(((GtkStyle*)$a_handle)->bg[$a_state])"
 		end
 
-	gtk_style_get_fg (a_handle: POINTER; a_state: INTEGER): POINTER is
+	gtk_style_get_fg (a_handle: POINTER; a_state: INTEGER): POINTER
 		external "C inline use <gtk/gtk.h>"
 		alias "&(((GtkStyle*)$a_handle)->fg[$a_state])"
 		end
 
-	gtk_style_get_text (a_handle: POINTER; a_state: INTEGER): POINTER is
+	gtk_style_get_text (a_handle: POINTER; a_state: INTEGER): POINTER
 		external "C inline use <gtk/gtk.h>"
 		alias "&(((GtkStyle*)$a_handle)->text[$a_state])"
 		end
 
-	gtk_style_get_base (a_handle: POINTER; a_state: INTEGER): POINTER is
+	gtk_style_get_base (a_handle: POINTER; a_state: INTEGER): POINTER
 		external "C inline use <gtk/gtk.h>"
 		alias "&(((GtkStyle*)$a_handle)->base[$a_state])"
 		end

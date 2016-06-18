@@ -25,7 +25,7 @@ deferred class GDK_WINDOW_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_window_type (a_type: INTEGER): BOOLEAN is
+	is_valid_window_type (a_type: INTEGER): BOOLEAN
 		do	
 			Result:=((a_type = gdk_window_root) or else
 						(a_type = gdk_window_toplevel) or else
@@ -35,42 +35,42 @@ feature {ANY}  -- enum
 						(a_type = gdk_window_foreign))
 		end
 
-	gdk_window_root: INTEGER is
+	gdk_window_root: INTEGER
 			-- root window; this window has no parent, covers the entire
 			-- screen, and is created by the window system
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_ROOT"
 		end
 	
-	gdk_window_toplevel: INTEGER is
+	gdk_window_toplevel: INTEGER
 			-- toplevel window (used to implement GtkWindow)
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TOPLEVEL"
 		end
 
 
-	gdk_window_child: INTEGER is
+	gdk_window_child: INTEGER
 			-- child window (used to implement e.g. GtkButton)
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_CHILD"
 		end
 
 
-	gdk_window_dialog: INTEGER is
+	gdk_window_dialog: INTEGER
 			-- useless/deprecated compatibility type
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_DIALOG"
 		end
 
 
-	gdk_window_temp: INTEGER is
+	gdk_window_temp: INTEGER
 			-- override redirect temporary window (used to implement GtkMenu)
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_TEMP"
 		end
 
 	
-	gdk_window_foreign: INTEGER is
+	gdk_window_foreign: INTEGER
 			-- foreign window (see gdk_window_foreign_new())
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WINDOW_FOREIGN"

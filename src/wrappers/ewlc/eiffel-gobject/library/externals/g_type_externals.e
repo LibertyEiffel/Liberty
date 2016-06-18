@@ -18,7 +18,7 @@ feature {} -- external calls
 	-- GType: A numerical value which represents the unique identifier
 	-- of a registered type.
 
-	g_type_fundamental (a_type_number: INTEGER): INTEGER is
+	g_type_fundamental (a_type_number: INTEGER): INTEGER
 			-- Returns the fundamental type which is the ancestor of
 			-- `a_type_number'. Fundamental types are types that serve as
 			-- fundaments for the derived types, thus they are the roots
@@ -29,7 +29,7 @@ feature {} -- external calls
 
 feature {} -- Fundamental g_type
 
-	g_type: INTEGER_32 is
+	g_type: INTEGER_32
 			-- The type used for GType, a number used to identify various
 			-- classes.
 
@@ -38,7 +38,7 @@ feature {} -- Fundamental g_type
 		do
 		end
 
-	g_type_fundamental_max: INTEGER is
+	g_type_fundamental_max: INTEGER
 			-- An integer constant that represents the number of
 			-- identifiers reserved for types that are assigned at
 			-- compile-time.
@@ -69,7 +69,7 @@ feature {} -- Fundamental g_type
 	-- type : 	A GType value.
 	-- G_TYPE_IS_FUNDAMENTAL()
 	
-	g_type_is_fundamental (a_type: like g_type): BOOLEAN is
+	g_type_is_fundamental (a_type: like g_type): BOOLEAN
 			-- #define G_TYPE_IS_FUNDAMENTAL(type) ((type) <=
 			-- G_TYPE_FUNDAMENTAL_MAX)
 
@@ -80,7 +80,7 @@ feature {} -- Fundamental g_type
 		alias "G_TYPE_IS_FUNDAMENTAL"
 		end
 		
-	g_type_is_value_type (a_type: INTEGER): INTEGER is
+	g_type_is_value_type (a_type: INTEGER): INTEGER
 			-- Is `a_type' a value type which can be used for G_VALUE? init().
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_IS_VALUE_TYPE"
@@ -447,7 +447,7 @@ feature {} -- Fundamental g_type
 	
 	-- A bit in the type number that's supposed to be left untouched.
 
-	g_type_init is
+	g_type_init
 			-- Prior to any use of the type system, g_type_init() has to be called
 			-- to initialize the type system and assorted other code portions (such
 			-- as the various fundamental type implementations or the signal
@@ -506,7 +506,7 @@ feature {} -- External calls
 	-- name : 	Type name to lookup.
 	-- Returns : 	Corresponding type ID or 0.
 
-	g_type_parent (a_type: like g_type): like g_type is
+	g_type_parent (a_type: like g_type): like g_type
 			-- GType g_type_parent (GType type);
 		
 			-- Return the direct parent type of the passed in type. If the passed in type has no parent, i.e. is a fundamental type, 0 is returned.
@@ -515,7 +515,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-	g_type_depth (a_type: like g_type): INTEGER is
+	g_type_depth (a_type: like g_type): INTEGER
 			-- guint       g_type_depth                    (GType type);
 	
 			-- Returns the length of the ancestry of the passed in
@@ -534,7 +534,7 @@ feature {} -- External calls
 	-- root_type : 	Immediate parent of the returned type.
 	-- Returns : 	Immediate child of root_type and anchestor of leaf_type.
 	
-	g_type_is_a (a_type, is_a_type: INTEGER): INTEGER is
+	g_type_is_a (a_type, is_a_type: INTEGER): INTEGER
 		external "C use <glib-object.h>"
 		end
 
@@ -546,7 +546,7 @@ feature {} -- External calls
 	-- type : 	Type ID of a classed type.
 	-- Returns : 	The GTypeClass structure for the given type ID.
 	
-	g_type_class_peek (a_type: INTEGER): POINTER is
+	g_type_class_peek (a_type: INTEGER): POINTER
 			-- This function is essentially the same as
 			-- g_type_class_ref(), except that the classes reference
 			-- count isn't incremented. Therefore, this function may
@@ -689,7 +689,7 @@ feature {} -- External calls
 
 	-- Since 2.2
 
-	g_type_set_qdata (a_type, a_quark: INTEGER; some_data: POINTER) is
+	g_type_set_qdata (a_type, a_quark: INTEGER; some_data: POINTER)
 	-- void        g_type_set_qdata                (GType type,
 	-- 															GQuark quark,
 	-- 															gpointer data);
@@ -700,7 +700,7 @@ feature {} -- External calls
 external "C use <glib-object.h>"
 end
  
-	g_type_get_qdata (a_type, a_quark: INTEGER): POINTER is
+	g_type_get_qdata (a_type, a_quark: INTEGER): POINTER
 	-- void        g_type_set_qdata                (GType type,
 	-- 															GQuark quark,
 	-- 															gpointer data);

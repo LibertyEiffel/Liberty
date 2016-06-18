@@ -41,7 +41,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	from_pixbuf (other: like Current) is
+	from_pixbuf (other: like Current)
 		require
 			other_not_void: other /= Void
 		local
@@ -55,7 +55,7 @@ feature {} -- Creation
 			end
 		end
 
-	from_file (filename: STRING) is
+	from_file (filename: STRING)
 			-- New pixbuf by loading an image from `filename'.
 			-- The file format is detected automatically. 
 		require
@@ -76,7 +76,7 @@ feature {} -- Creation
 			end
 		end
 
-	from_data (some_data: POINTER; an_alpha: BOOLEAN; a_bits_per_sample, a_width, a_height, a_rowstride: INTEGER) is
+	from_data (some_data: POINTER; an_alpha: BOOLEAN; a_bits_per_sample, a_width, a_height, a_rowstride: INTEGER)
 			-- Creates a new GdkPixbuf out of in-memory image data. Currently
 			-- only RGB images with 8 bits per sample are supported.
 		local
@@ -94,7 +94,7 @@ feature {} -- Creation
 			end
 		end
 
-	from_file_at_size (filename: STRING; a_width, a_height: INTEGER) is
+	from_file_at_size (filename: STRING; a_width, a_height: INTEGER)
 			-- New pixbuf by loading an image from `filename'.
 			-- The file format is detected automatically.
 			-- The image will be scaled to fit in a `a_width'x`a_height' area
@@ -121,7 +121,7 @@ feature {} -- Creation
 			end
 		end
 
-	from_file_at_scale (filename: STRING; a_width, a_height: INTEGER; preserve_aspect_ration: BOOLEAN) is
+	from_file_at_scale (filename: STRING; a_width, a_height: INTEGER; preserve_aspect_ration: BOOLEAN)
 			-- Creates a new pixbuf by loading an image from a file. The file
 			-- format is detected automatically. The image will be scaled to
 			-- fit in the requested size, optionally preserving the image's
@@ -152,7 +152,7 @@ feature {} -- Creation
 			end
 		end
 
-	from_drawable (a_drawable: GDK_DRAWABLE; src_x, src_y, a_width, a_height: INTEGER) is
+	from_drawable (a_drawable: GDK_DRAWABLE; src_x, src_y, a_width, a_height: INTEGER)
 		require
 			a_drawable /= Void
 		local
@@ -170,7 +170,7 @@ feature {} -- Creation
 			end
 		end
 
-	make (a_alpha: BOOLEAN; a_width, a_height: INTEGER) is
+	make (a_alpha: BOOLEAN; a_width, a_height: INTEGER)
 		-- Creates a new GdkPixbuf structure and allocates a buffer for it.
 		-- The buffer has an optimal rowstride. Note that the buffer is not
 		-- cleared; you will have to fill it completely yourself.
@@ -192,14 +192,14 @@ feature {ANY} -- Access
 
 	last_error: G_ERROR
 
-	width: INTEGER is
+	width: INTEGER
 			-- The number of columns of the pixbuf.
 			-- Default value: 1
 		do
 			Result := gdk_pixbuf_get_width (handle)
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- The number of rows of the pixbuf.
 			-- Default value: 1
 		do
@@ -208,7 +208,7 @@ feature {ANY} -- Access
 
 feature {ANY} -- Operations
 
-	render_pixmap_and_mask (alpha_threshold: INTEGER): TUPLE[GDK_PIXMAP, GDK_BITMAP] is
+	render_pixmap_and_mask (alpha_threshold: INTEGER): TUPLE[GDK_PIXMAP, GDK_BITMAP]
 			-- Creates a pixmap and a mask bitmap, and renders a pixbuf
 			-- and its corresponding thresholded alpha mask to them.
 			-- This is merely a convenience function; applications that
@@ -239,7 +239,7 @@ feature {ANY} -- Operations
 			Result.first /= Void
 		end
 
-	fill (a_pixel: INTEGER) is
+	fill (a_pixel: INTEGER)
 			-- Clears a pixbuf to the given RGBA value,
 			-- converting the RGBA value into the pixbuf's pixel format.
 			-- The alpha will be ignored if the pixbuf doesn't have
@@ -250,7 +250,7 @@ feature {ANY} -- Operations
 			gdk_pixbuf_fill (handle, a_pixel)
 		end
 
-	add_alpha (a_substitute_color: BOOLEAN; a_red, a_green, a_blue: INTEGER): GDK_PIXBUF is
+	add_alpha (a_substitute_color: BOOLEAN; a_red, a_green, a_blue: INTEGER): GDK_PIXBUF
 			-- Takes an existing pixbuf and adds an alpha channel to it.
 			-- If the existing pixbuf already had an alpha channel, the channel
 			-- values are copied from the original; otherwise, the alpha channel
@@ -280,7 +280,7 @@ feature {ANY} -- Operations
 			end
 		end
 
-	save_jpeg_with_quality (a_filename: STRING; a_quality: INTEGER) is
+	save_jpeg_with_quality (a_filename: STRING; a_quality: INTEGER)
 			-- Saves pixbuf to a file in JPEG format, with the provided
 			-- quality.
 		require
@@ -296,7 +296,7 @@ feature {ANY} -- Operations
 			end
 		end
 
-	save (a_filename, a_type: STRING) is
+	save (a_filename, a_type: STRING)
 			-- Saves pixbuf to a file in type, which is currently
 			-- "jpeg", "png", "tiff", "ico" or "bmp".
 		require
@@ -332,33 +332,33 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Properties
 
-	bits_per_sample: INTEGER is
+	bits_per_sample: INTEGER
 		do
 			Result := gdk_pixbuf_get_bits_per_sample (handle)
 		end
 
-	colorspace: INTEGER is
+	colorspace: INTEGER
 		do
 			Result := gdk_pixbuf_get_colorspace (handle)
 		end
 
-	has_alpha: BOOLEAN is
+	has_alpha: BOOLEAN
 		do
 			Result := gdk_pixbuf_get_has_alpha (handle).to_boolean
 		end
 
-	n_channels: INTEGER is
+	n_channels: INTEGER
 		do
 			Result := gdk_pixbuf_get_n_channels (handle)
 		end
 
-	pixels: POINTER is
+	pixels: POINTER
 			-- A pointer to the pixel data of the pixbuf.
 		do
 			Result := gdk_pixbuf_get_pixels (handle)
 		end
 
-	pixel_rgb (a_row, a_col: INTEGER): TUPLE [INTEGER, INTEGER, INTEGER] is
+	pixel_rgb (a_row, a_col: INTEGER): TUPLE [INTEGER, INTEGER, INTEGER]
 		require
 			not has_alpha
 			a_row.in_range (0, height - 1)
@@ -370,7 +370,7 @@ feature {ANY} -- Properties
 			Result := [packed & 0x000000ff, (packed & 0x0000ff00) |>>> 8, (packed & 0x00ff0000) |>>> 16]
 		end
 
-	set_pixel_rgb (a_row, a_col, a_red, a_green, a_blue: INTEGER) is
+	set_pixel_rgb (a_row, a_col, a_red, a_green, a_blue: INTEGER)
 		require
 			not has_alpha
 			a_row.in_range (0, height - 1)
@@ -384,7 +384,7 @@ feature {ANY} -- Properties
 			gdk_pixbuf_set_pixel_byte (handle, a_row, a_col, 2, a_blue)
 		end
 
-	rowstride: INTEGER is
+	rowstride: INTEGER
 			-- The number of bytes between the start of a row and the
 			-- start of the next row. This number must (obviously) be
 			-- at least as large as the width of the pixbuf.
@@ -428,7 +428,7 @@ feature {ANY} -- Properties
 
 feature {ANY} -- Disposing
 
-	dispose is
+	dispose
 		do
 			if is_valid then
 				Precursor
@@ -437,46 +437,46 @@ feature {ANY} -- Disposing
 			end
 		end
 
-	store_eiffel_wrapper is
+	store_eiffel_wrapper
 		do
 			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
 			-- g_object_class := g_object_get_class (handle)
 		end
 
-	unstore_eiffel_wrapper is
+	unstore_eiffel_wrapper
 		do
 			g_object_set_qdata (handle, eiffel_key.quark, default_pointer)
 		end
 
 feature {ANY} -- Error reporting
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 		do
 			Result := handle /= invalid_pixbuf_handle
 		end
 
 feature {} -- Error reporting
 
-	invalid_pixbuf: GDK_PIXBUF is
+	invalid_pixbuf: GDK_PIXBUF
 			-- Pointer to a 1x1 opaque pixbuf
 		once
 			create Result.make (False, 1, 1)
 		end
 
-	invalid_pixbuf_handle: POINTER is
+	invalid_pixbuf_handle: POINTER
 		once
 			Result := invalid_pixbuf.handle
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkPixbuf)"
 		end
 
 feature {ANY} -- Scaling
 
-	scale_simple (a_width, a_height, a_interp_type: INTEGER): GDK_PIXBUF is
+	scale_simple (a_width, a_height, a_interp_type: INTEGER): GDK_PIXBUF
 			-- Create a new GDK_PIXBUF containing a copy of Current scaled to
 			-- (a_width x a_height). Leaves Current unaffected. a_interp_type
 			-- should be gdk_interp_nearest if you want maximum speed (but
@@ -504,7 +504,7 @@ feature {ANY} -- Scaling
 		end
 
 	scale (other: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
-			 offset_x, offset_y, scale_x, scale_y: REAL_64; interp_type: INTEGER) is
+			 offset_x, offset_y, scale_x, scale_y: REAL_64; interp_type: INTEGER)
 			-- Creates a transformation of the Current image by scaling by
 			-- scale_x and scale_y then translating by offset_x and offset_y,
 			-- then renders the rectangle (dest_x, dest_y, dest_width, dest_height)
@@ -537,7 +537,7 @@ feature {ANY} -- Scaling
 		end
 
 	composite_color_simple (dest_width, dest_height: INTEGER; interp_type: INTEGER;
-									overall_alpha, check_size: INTEGER; color1, color2: INTEGER_64) : GDK_PIXBUF is
+									overall_alpha, check_size: INTEGER; color1, color2: INTEGER_64) : GDK_PIXBUF
 			-- Creates a new GDK_PIXBUF by scaling Current to `dest_width' x `dest_height'
 			-- and compositing the result with a checkboard of colors `color1' and
 			-- `color2'.
@@ -561,7 +561,7 @@ feature {ANY} -- Scaling
 
 	composite (dest: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
 				  offset_x, offset_y, scale_x, scale_y: REAL_64;
-				  interp_type: INTEGER; overall_alpha: INTEGER) is
+				  interp_type: INTEGER; overall_alpha: INTEGER)
 			-- Creates a transformation of the source image Current by scaling by
 			-- `scale_x' and `scale_y' then translating by `offset_x' and `offset_y'.
 			-- This gives an image in the coordinates of the destination pixbuf. The
@@ -606,7 +606,7 @@ feature {ANY} -- Scaling
 	composite_color (dest: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
 	                 offset_x, offset_y, scale_x, scale_y: REAL_64;
 	                 interp_type: INTEGER; overall_alpha, check_x, check_y, check_size: INTEGER;
-	                 color1, color2: INTEGER_64) is
+	                 color1, color2: INTEGER_64)
 			-- Creates a transformation of the source image Current by
 			-- scaling by `scale_x' and `scale_y' then translating by `offset_x'
 			-- and `offset_y', then composites the rectangle (`dest_x' ,`dest_y',

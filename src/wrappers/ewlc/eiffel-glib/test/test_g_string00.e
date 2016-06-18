@@ -8,7 +8,7 @@ create {ANY}
 	
 feature {ANY}
 
-	make is
+	make
 		local
          s: G_STRING
          s2: G_STRING

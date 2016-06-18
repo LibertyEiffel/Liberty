@@ -63,7 +63,7 @@ insert
 		-- For achored declaration of low-level types, i.e. gsize
 
 feature {} -- External calls using gprintf.h
-	g_printf (a_format: POINTER): INTEGER is
+	g_printf (a_format: POINTER): INTEGER
 			-- gint g_printf (gchar const *format, ...);
 		external "C use <glib/gprintf.h>"
 		end
@@ -71,7 +71,7 @@ feature {} -- External calls using gprintf.h
 	-- Unwrapped, since it uses valist:
 	-- gint g_vprintf (gchar const *format, va_list args);
 	
-	g_sprintf (a_string, a_format: POINTER): INTEGER is
+	g_sprintf (a_string, a_format: POINTER): INTEGER
 			-- gint g_sprintf (gchar *string, gchar const *format, ...);
 		external "C use <glib/gprintf.h>"
 		end
@@ -79,7 +79,7 @@ feature {} -- External calls using gprintf.h
 	-- Unwrapped, since it uses valist:
 	-- gint g_vsprintf (gchar *string, gchar const *format, va_list args);
 
-	g_snprintf (a_string: POINTER an_gulong_n: INTEGER; a_format: POINTER): INTEGER is
+	g_snprintf (a_string: POINTER an_gulong_n: INTEGER; a_format: POINTER): INTEGER
 			-- gint g_snprintf (gchar *string, gulong n, gchar const
 			-- *format, ...);
 		external "C use <glib/gprintf.h>"
@@ -95,72 +95,72 @@ feature {} -- External calls using glib.h
 
 -- #include <glib.h>
 
-	g_strdup (a_str: POINTER): POINTER is
+	g_strdup (a_str: POINTER): POINTER
 			-- gchar* g_strdup (const gchar *str);
 		external "C use <glib.h>"
 		end
 
-	g_strndup (a_str: POINTER; an_n: like gsize): POINTER is
+	g_strndup (a_str: POINTER; an_n: like gsize): POINTER
 			-- gchar* g_strndup (const gchar *str, gsize n);
 		external "C use <glib.h>"
 		end
 
-	g_strdupv (a_str_array: POINTER): POINTER is
+	g_strdupv (a_str_array: POINTER): POINTER
 			-- gchar** g_strdupv (gchar **str_array);
 		external "C use <glib.h>"
 		end
 
-	g_strnfill (a_length: like gsize; a_fill_char: CHARACTER): POINTER is
+	g_strnfill (a_length: like gsize; a_fill_char: CHARACTER): POINTER
 			-- gchar* g_strnfill (gsize length, gchar fill_char);
 		external "C use <glib.h>"
 		end
 
-	g_stpcpy (a_dest, a_src: POINTER): POINTER is
+	g_stpcpy (a_dest, a_src: POINTER): POINTER
 			-- gchar* g_stpcpy (gchar *dest, const char *src);
 		external "C use <glib.h>"
 		end
 
-	g_strstr_len (a_haystack: POINTER; an_haystack_len: like gssize; a_needle: POINTER): POINTER is
+	g_strstr_len (a_haystack: POINTER; an_haystack_len: like gssize; a_needle: POINTER): POINTER
 			-- gchar* g_strstr_len (const gchar *haystack, gssize
 			-- haystack_len, const gchar *needle);
 		external "C use <glib.h>"
 		end
 
-	g_strrstr (a_haystack, a_needle: POINTER): POINTER is
+	g_strrstr (a_haystack, a_needle: POINTER): POINTER
 			-- gchar* g_strrstr (const gchar *haystack, const gchar
 			-- *needle);
 		external "C use <glib.h>"
 		end
 
-	g_strrstr_len (a_haystack: POINTER; a_haystack_len: like gssize; a_needle: POINTER): POINTER is
+	g_strrstr_len (a_haystack: POINTER; a_haystack_len: like gssize; a_needle: POINTER): POINTER
 			-- gchar* g_strrstr_len (const gchar *haystack, gssize
 			-- haystack_len, const gchar *needle);
 		external "C use <glib.h>"
 		end
 
-	g_str_has_prefix (a_str: POINTER; a_prefix: POINTER): INTEGER is
+	g_str_has_prefix (a_str: POINTER; a_prefix: POINTER): INTEGER
 			-- gboolean g_str_has_prefix (const gchar *str, const gchar
 			-- *prefix);
 		external "C use <glib.h>"
 		end
 
-	g_str_has_suffix (a_str: POINTER; a_suffix: POINTER): INTEGER is
+	g_str_has_suffix (a_str: POINTER; a_suffix: POINTER): INTEGER
 			-- gboolean g_str_has_suffix (const gchar *str, const gchar
 			-- *suffix);
 		external "C use <glib.h>"
 		end
 
-	g_strlcpy (a_dest, a_src: POINTER; a_dest_size: like gsize): like gsize is
+	g_strlcpy (a_dest, a_src: POINTER; a_dest_size: like gsize): like gsize
 			-- gsize g_strlcpy (gchar *dest, const gchar *src, gsize dest_size);
 		external "C use <glib.h>"
 		end
 
-	g_strlcat (a_dest, a_src: POINTER; a_dest_size: like gsize): like gsize is
+	g_strlcat (a_dest, a_src: POINTER; a_dest_size: like gsize): like gsize
 			-- gsize g_strlcat (gchar *dest, const gchar *src, gsize dest_size);
 		external "C use <glib.h>"
 		end
 
-	g_strdup_printf (a_format: POINTER): POINTER is
+	g_strdup_printf (a_format: POINTER): POINTER
 			-- gchar* g_strdup_printf (const gchar *format, ...);
 		external "C use <glib.h>"
 		end
@@ -168,7 +168,7 @@ feature {} -- External calls using glib.h
 	-- Unwrapped: uses valist gchar* g_strdup_vprintf (const gchar
 	-- *format, va_list args);
 
-	g_fprintf (a_file, a_format: POINTER): INTEGER is
+	g_fprintf (a_file, a_format: POINTER): INTEGER
 			-- gint g_fprintf (FILE *file, gchar const *format, ...);
 		external "C use <glib.h>"
 		end
@@ -179,129 +179,129 @@ feature {} -- External calls using glib.h
 	-- Unwrapped, uses valist: gsize g_printf_string_upper_bound (const
 	-- gchar *format, va_list args);
 
-	g_ascii_isalnum (a_c: CHARACTER): INTEGER is
+	g_ascii_isalnum (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_isalnum (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_isalpha (a_c: CHARACTER): INTEGER is
+	g_ascii_isalpha (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_isalpha (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_iscntrl (a_c: CHARACTER): INTEGER is
+	g_ascii_iscntrl (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_iscntrl (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_isdigit (a_c: CHARACTER): INTEGER is
+	g_ascii_isdigit (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_isdigit (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_isgraph (a_c: CHARACTER): INTEGER is
+	g_ascii_isgraph (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_isgraph (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_islower (a_c: CHARACTER): INTEGER is
+	g_ascii_islower (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_islower (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_isprint (a_c: CHARACTER): INTEGER is
+	g_ascii_isprint (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_isprint (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_ispunct (a_c: CHARACTER): INTEGER is
+	g_ascii_ispunct (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_ispunct (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_isspace (a_c: CHARACTER): INTEGER is
+	g_ascii_isspace (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_isspace (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_isupper (a_c: CHARACTER): INTEGER is
+	g_ascii_isupper (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_isupper (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_isxdigit (a_c: CHARACTER): INTEGER is
+	g_ascii_isxdigit (a_c: CHARACTER): INTEGER
 			-- gboolean g_ascii_isxdigit (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_digit_value (a_c: CHARACTER): INTEGER is
+	g_ascii_digit_value (a_c: CHARACTER): INTEGER
 			-- gint g_ascii_digit_value (gchar c);
 		external "C use <glib.h>"
 		end
 	
-	g_ascii_xdigit_value (a_c: CHARACTER): INTEGER is
+	g_ascii_xdigit_value (a_c: CHARACTER): INTEGER
 			-- gint g_ascii_xdigit_value (gchar c);
 		external "C use <glib.h>"
 		end
 	
 	
-	g_ascii_strcasecmp (a_s1, a_s2: POINTER): INTEGER is
+	g_ascii_strcasecmp (a_s1, a_s2: POINTER): INTEGER
 			-- gint g_ascii_strcasecmp (const gchar *s1, const gchar *s2);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_strncasecmp (a_s1, a_s2: POINTER; an_n: like gsize): INTEGER is
+	g_ascii_strncasecmp (a_s1, a_s2: POINTER; an_n: like gsize): INTEGER
 			-- gint g_ascii_strncasecmp (const gchar *s1, const gchar
 			-- *s2, gsize n);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_strup (a_str: POINTER; a_len: like gssize): POINTER is
+	g_ascii_strup (a_str: POINTER; a_len: like gssize): POINTER
 			-- gchar* g_ascii_strup (const gchar *str, gssize len);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_strdown (a_str: POINTER; a_len: like gssize): POINTER is
+	g_ascii_strdown (a_str: POINTER; a_len: like gssize): POINTER
 			-- gchar* g_ascii_strdown (const gchar *str, gssize len);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_tolower (a_c: CHARACTER): CHARACTER is
+	g_ascii_tolower (a_c: CHARACTER): CHARACTER
 			-- gchar g_ascii_tolower (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_ascii_toupper (a_c: CHARACTER): CHARACTER is
+	g_ascii_toupper (a_c: CHARACTER): CHARACTER
 			-- gchar g_ascii_toupper (gchar c);
 		external "C use <glib.h>"
 		end
 
-	g_string_ascii_up (a_string: POINTER): POINTER is
+	g_string_ascii_up (a_string: POINTER): POINTER
 			-- GString* g_string_ascii_up (GString *string);
 		external "C use <glib.h>"
 		end
 
-	g_string_ascii_down (a_string: POINTER): POINTER is
+	g_string_ascii_down (a_string: POINTER): POINTER
 			-- GString* g_string_ascii_down (GString *string);
 		external "C use <glib.h>"
 		end
 
-	g_strup (a_string: POINTER): POINTER is
+	g_strup (a_string: POINTER): POINTER
 			-- gchar* g_strup (gchar *string);
 		external "C use <glib.h>"
 		end
 	
-	g_strdown (a_string: POINTER): POINTER is
+	g_strdown (a_string: POINTER): POINTER
 			-- gchar* g_strdown (gchar *string);
 		external "C use <glib.h>"
 		end
 	
-	g_strcasecmp (a_s1, a_s2: POINTER): INTEGER is
+	g_strcasecmp (a_s1, a_s2: POINTER): INTEGER
 			-- gint g_strcasecmp (const gchar *s1, const gchar *s2);
 		external "C use <glib.h>"
 		end
 	
-	g_strncasecmp (a_s1, a_s2: POINTER; an_n: INTEGER): INTEGER is
+	g_strncasecmp (a_s1, a_s2: POINTER; an_n: INTEGER): INTEGER
 			-- gint g_strncasecmp (const gchar *s1, const gchar *s2,
 			-- guint n);
 
@@ -310,13 +310,13 @@ feature {} -- External calls using glib.h
 		end
 
 
-	g_strreverse (a_string: POINTER): POINTER is
+	g_strreverse (a_string: POINTER): POINTER
 			-- gchar* g_strreverse (gchar *string);
 		external "C use <glib.h>"
 		end
 
 
-	g_ascii_strtoll (a_nptr, a_endptr: POINTER; a_base: INTEGER): INTEGER_64 is
+	g_ascii_strtoll (a_nptr, a_endptr: POINTER; a_base: INTEGER): INTEGER_64
 			-- gint64 g_ascii_strtoll (const gchar *nptr, gchar **endptr,
 			-- guint base);
 
@@ -324,7 +324,7 @@ feature {} -- External calls using glib.h
 		external "C use <glib.h>"
 		end
 
-	g_ascii_strtoull (a_nptr, a_endptr: POINTER; a_base: INTEGER): INTEGER_64 is
+	g_ascii_strtoull (a_nptr, a_endptr: POINTER; a_base: INTEGER): INTEGER_64
 			-- guint64 g_ascii_strtoull (const gchar *nptr, gchar
 			-- **endptr, guint base);
 
@@ -334,41 +334,41 @@ feature {} -- External calls using glib.h
 		end
 	
 	-- #define G_ASCII_DTOSTR_BUF_SIZE
-	g_ascii_strtod (a_nptr, a_endptr: POINTER): REAL is
+	g_ascii_strtod (a_nptr, a_endptr: POINTER): REAL
 			-- gdouble g_ascii_strtod (const gchar *nptr, gchar **endptr);
 		external "C use <glib.h>"
 		end
 	
-	g_ascii_dtostr (a_buffer: POINTER; a_buf_len: INTEGER; a_d: REAL): POINTER is
+	g_ascii_dtostr (a_buffer: POINTER; a_buf_len: INTEGER; a_d: REAL): POINTER
 			-- gchar* g_ascii_dtostr (gchar *buffer, gint buf_len,
 			-- gdouble d);
 		external "C use <glib.h>"
 		end
 	
-	g_ascii_formatd (a_buffer: POINTER; a_buf_len: INTEGER; a_format: POINTER; a_double: REAL): POINTER is
+	g_ascii_formatd (a_buffer: POINTER; a_buf_len: INTEGER; a_format: POINTER; a_double: REAL): POINTER
 			-- gchar* g_ascii_formatd (gchar *buffer, gint buf_len, const
 			-- gchar *format, gdouble d);
 		external "C use <glib.h>"
 		end
 
-	g_strtod (a_nptr, a_endptr: POINTER): REAL is
+	g_strtod (a_nptr, a_endptr: POINTER): REAL
 			-- gdouble g_strtod (const gchar *nptr, gchar **endptr);
 		external "C use <glib.h>"
 		end
 	
-	g_strchug (a_string: POINTER): POINTER is
+	g_strchug (a_string: POINTER): POINTER
 			-- gchar* g_strchug (gchar *string);
 		external "C use <glib.h>"
 		end
 
-	g_strchomp (a_string: POINTER): POINTER is
+	g_strchomp (a_string: POINTER): POINTER
 			-- gchar* g_strchomp (gchar *string);
 		external "C use <glib.h>"
 		end
 
 -- #define g_strstrip ( string )
 
-	g_strdelimit (a_string, some_delimiters: POINTER; a_new_delimiter: CHARACTER): POINTER is
+	g_strdelimit (a_string, some_delimiters: POINTER; a_new_delimiter: CHARACTER): POINTER
 			-- gchar* g_strdelimit (gchar *string, const gchar
 			-- *delimiters, gchar new_delimiter);
 		external "C use <glib.h>"
@@ -376,54 +376,54 @@ feature {} -- External calls using glib.h
 
 	-- #define G_STR_DELIMITERS
 
-	g_strescape (a_source, some_exceptions: POINTER): POINTER is
+	g_strescape (a_source, some_exceptions: POINTER): POINTER
 			-- gchar* g_strescape (const gchar *source, const gchar *exceptions);
 		external "C use <glib.h>"
 		end
 
-	g_strcompress (a_source: POINTER): POINTER is
+	g_strcompress (a_source: POINTER): POINTER
 			-- gchar* g_strcompress (const gchar *source);
 		external "C use <glib.h>"
 		end
 
-	g_strcanon (a_string, some_valid_chars: POINTER; a_substitutor: CHARACTER): POINTER is
+	g_strcanon (a_string, some_valid_chars: POINTER; a_substitutor: CHARACTER): POINTER
 			-- gchar* g_strcanon (gchar *string, const gchar *valid_chars, gchar substitutor);
 		external "C use <glib.h>"
 		end
 
-	g_strsplit (a_string, a_delimiter: POINTER; a_max_tokens: INTEGER): POINTER is
+	g_strsplit (a_string, a_delimiter: POINTER; a_max_tokens: INTEGER): POINTER
 			-- gchar** g_strsplit (const gchar *string, const gchar
 			-- *delimiter, gint max_tokens);
 		external "C use <glib.h>"
 		end
 
-	g_strsplit_set (a_string, some_delimiters: POINTER; a_max_tokens: INTEGER): POINTER is
+	g_strsplit_set (a_string, some_delimiters: POINTER; a_max_tokens: INTEGER): POINTER
 			-- gchar** g_strsplit_set (const gchar *string, const gchar
 			-- *delimiters, gint max_tokens);
 		external "C use <glib.h>"
 		end
 
-	g_strfreev (a_str_array: POINTER) is
+	g_strfreev (a_str_array: POINTER)
 			-- void g_strfreev (gchar **str_array);
 		external "C use <glib.h>"
 		end
 
-	g_strconcat (a_string, another: POINTER): POINTER is
+	g_strconcat (a_string, another: POINTER): POINTER
 			-- gchar* g_strconcat (const gchar *string1, ...);
 		external "C use <glib.h>"
 		end
 
-	g_strjoin (a_separator: POINTER): POINTER is
+	g_strjoin (a_separator: POINTER): POINTER
 			-- gchar* g_strjoin (const gchar *separator, ...);
 		external "C use <glib.h>"
 		end
 
-	g_strjoinv (a_separator, a_str_array: POINTER): POINTER is
+	g_strjoinv (a_separator, a_str_array: POINTER): POINTER
 			-- gchar* g_strjoinv (const gchar *separator, gchar **str_array);
 		external "C use <glib.h>"
 		end
 
-	g_strv_length (a_str_array: POINTER): INTEGER is
+	g_strv_length (a_str_array: POINTER): INTEGER
 			-- guint g_strv_length (gchar **str_array);
 		
 			-- TODO: should be NATURAL, since it is guint
@@ -431,19 +431,19 @@ feature {} -- External calls using glib.h
 		end
 
 
-	g_strerror (an_errnum: INTEGER): POINTER is
+	g_strerror (an_errnum: INTEGER): POINTER
 			-- const gchar* g_strerror (gint errnum);
 		external "C use <glib.h>"
 		end
 
-	g_strsignal (a_signum: INTEGER): POINTER is
+	g_strsignal (a_signum: INTEGER): POINTER
 			-- const gchar* g_strsignal (gint signum);
 		external "C use <glib.h>"
 		end
 
 feature {ANY} -- Operations
 
-	string_escape (a_source, some_exceptions: STRING): STRING is
+	string_escape (a_source, some_exceptions: STRING): STRING
 			-- Escapes the special characters '\b', '\f', '\n', '\r', '\t', '\' and '"'
 			-- in the string source by inserting a '\' before them.  Additionally all
 			-- characters in the range 0x01-0x1F (everything below SPACE) and in the
@@ -456,7 +456,7 @@ feature {ANY} -- Operations
 			                                          some_exceptions.to_external))
 		end
 
-	string_compress (a_source: STRING): STRING is
+	string_compress (a_source: STRING): STRING
 			-- Replaces all escaped characters with their one byte equivalent. It does
 			-- the reverse conversion of string_escape().
 		do

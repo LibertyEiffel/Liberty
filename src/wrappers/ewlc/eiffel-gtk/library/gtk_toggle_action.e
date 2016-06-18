@@ -30,7 +30,7 @@ inherit GTK_ACTION redefine make, struct_size end
 create {ANY} from_external_pointer
 
 feature {} -- Creation
-	make (a_name, a_label, a_tooltip, a_stock_id: STRING) is
+	make (a_name, a_label, a_tooltip, a_stock_id: STRING)
 			-- Creates a new GtkToggleAction object. To add the action to
 			-- a GtkActionGroup and set the accelerator for the action,
 			-- call `GTK_ACTION_GROUP.add_action_with_accel'.
@@ -45,34 +45,34 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	action_toggled is
+	action_toggled
 			-- Emits the "toggled" signal on the toggle action.
 		do
 			gtk_toggle_action_toggled (handle)
 		end
 
-	set_active is
+	set_active
 			-- Sets the checked state on the toggle action.
 		do
 			gtk_toggle_action_set_active (handle, 1)
 		ensure active: is_active
 		end
 
-	set_inactive is
+	set_inactive
 			-- Sets the checked state on the toggle action to inactive.
 		do
 			gtk_toggle_action_set_active (handle, 0)
 		ensure inactive: not is_active
 		end
 
-	is_active: BOOLEAN is
+	is_active: BOOLEAN
 			-- Is toggle action checked?
 		do
 			Result:=gtk_toggle_action_get_active(handle).to_boolean
 		end
 
 	
-	draw_as_radio is
+	draw_as_radio
 			-- the action should have proxies like a radio action. TODO: 
 			-- provide a better description.
 		do
@@ -80,7 +80,7 @@ feature {ANY}
 		ensure drawn_as_radio: is_drawn_as_radio
 		end
 
-	undraw_as_radio is
+	undraw_as_radio
 			-- the action should not have proxies like a radio
 			-- action. TODO: provide a better description.
 		do
@@ -88,7 +88,7 @@ feature {ANY}
 		ensure not_drawn_as_radio: not is_drawn_as_radio
 		end
 
-	is_drawn_as_radio: BOOLEAN is
+	is_drawn_as_radio: BOOLEAN
 			-- Should the action have proxies like a radio action?
 		do
 			Result:=gtk_toggle_action_get_draw_as_radio(handle).to_boolean
@@ -102,7 +102,7 @@ feature {ANY} -- TODO: The "toggled" signal
 -- toggleaction : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkToggleAction)"
 		end
@@ -112,11 +112,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_action_toggled (toggle_action: POINTER) is
+	gtk_toggle_action_toggled (toggle_action: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_action_set_active (toggle_action: POINTER; active_bool: INTEGER) is
+	gtk_toggle_action_set_active (toggle_action: POINTER; active_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -124,11 +124,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_action_set_draw_as_radio (toggle_action: POINTER; draw_as_radio_bool: INTEGER) is
+	gtk_toggle_action_set_draw_as_radio (toggle_action: POINTER; draw_as_radio_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_action_get_draw_as_radio (toggle_action: POINTER): INTEGER is
+	gtk_toggle_action_get_draw_as_radio (toggle_action: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 end -- class GTK_TOGGLE_ACTION

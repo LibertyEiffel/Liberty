@@ -31,19 +31,19 @@ create {ANY}
 	make, from_external_pointer
 	
 feature {} -- creation
-	make (parent : GOO_CANVAS_ITEM; x, y, width, height : REAL_64) is
+	make (parent : GOO_CANVAS_ITEM; x, y, width, height : REAL_64)
 		do
 --			from_external_pointer (goo_canvas_rect_new (goo_canvas_get_root_item ()))
 			from_external_pointer (goo_canvas_rect_new (parent.handle, x, y, width, height))
 		end
 	
 	
-	goo_canvas_rect_new (parent : POINTER; x, y, width, height : REAL_64) : POINTER is
+	goo_canvas_rect_new (parent : POINTER; x, y, width, height : REAL_64) : POINTER
 		external "C use <goocanvas-1.0/goocanvasrect.h>"
 		end
 
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <goocanvas-1.0/goocanvasrect.h>"
 		alias "sizeof(GooCanvasRect)"
 		end

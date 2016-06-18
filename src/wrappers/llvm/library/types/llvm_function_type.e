@@ -26,7 +26,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {ANY}
-   make (a_return_type: LLVM_TYPE; some_parameters: COLLECTION[LLVM_TYPE]; a_variadic_function: BOOLEAN) is
+   make (a_return_type: LLVM_TYPE; some_parameters: COLLECTION[LLVM_TYPE]; a_variadic_function: BOOLEAN)
          -- Create a function type with `a_return_type' and `some_parameters'
          -- Variadic functions, allowed by LLVM don't fit Eiffel design rules therefore are not supported
 
@@ -46,19 +46,19 @@ feature {ANY}
          -- `a_variadic_function' is True the Result will be variadic.
       end
 
-   copy (another: like Current) is
+   copy (another: like Current)
       do
          handle:=another.handle
          --storage:=storage.calloc(another.count)
          --storage.copy_from(another.storage,another.upper)
       end
 feature {ANY}
-   return_type: LLVM_TYPE is
+   return_type: LLVM_TYPE
       do
          Result:=type_wrapper(llvmget_return_type(handle))
       end
 
-   parameters_count: INTEGER_32 is
+   parameters_count: INTEGER_32
          -- The number of parameters accepted by Current function
       do
          Result:=llvmcount_params(handle).to_integer_32
@@ -70,7 +70,7 @@ feature {ANY}
    -- require direct access to C++ API to implement it soundly, efficiently
    -- and correctly.
 
-   is_var_arg: BOOLEAN is
+   is_var_arg: BOOLEAN
          -- Does Current function accept a variable number of arguments?
 
          -- Note: even if Liberty does not have variable-arguments calls we may handle functions compiled from other languages.

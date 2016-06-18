@@ -33,14 +33,14 @@ insert
 create {ANY} make, with_model, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkTreeView widget.
 		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_tree_view_new)
 		end
 
-	with_model (a_model: GTK_TREE_MODEL) is
+	with_model (a_model: GTK_TREE_MODEL)
 			-- Creates a new GtkTreeView widget with the model initialized to `a_model'.
 		require
 			gtk_initialized: gtk.is_initialized
@@ -50,7 +50,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	model: GTK_TREE_MODEL is
+	model: GTK_TREE_MODEL
 			-- The model the GtkTreeView is based on. Void if the model
 			-- is unset.
 		local model_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_MODEL]
@@ -58,7 +58,7 @@ feature {ANY}
 			Result := model_factory.wrapper_or_void(gtk_tree_view_get_model (handle))
 		end
 
-	set_model (a_model: GTK_TREE_MODEL) is
+	set_model (a_model: GTK_TREE_MODEL)
 			-- Sets the model for a GtkTreeView. If the tree view already
 			-- has a model set, it will remove it before setting the new
 			-- model. 
@@ -67,21 +67,21 @@ feature {ANY}
 			gtk_tree_view_set_model (handle, a_model.handle)
 		end
 
-	unset_model  is
+	unset_model
 			-- Unset the old model.
 		do
 			gtk_tree_view_set_model (handle, default_pointer)
 		end
 
 feature {ANY}
-	selection: GTK_TREE_SELECTION is
+	selection: GTK_TREE_SELECTION
 			-- the GtkTreeSelection associated with tree view.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_SELECTION]
 		do
 			Result := factory.wrapper(gtk_tree_view_get_selection (handle))
 		end
 
-	hadjustment: GTK_ADJUSTMENT is
+	hadjustment: GTK_ADJUSTMENT
 			-- the GtkAdjustment currently being used for the horizontal
 			-- aspect or Void if none is currently being used.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
@@ -89,21 +89,21 @@ feature {ANY}
 			Result := factory.wrapper(gtk_tree_view_get_hadjustment (handle))
 		end
 
-	set_hadjustment (an_adjustment: GTK_ADJUSTMENT) is
+	set_hadjustment (an_adjustment: GTK_ADJUSTMENT)
 			-- Sets the GtkAdjustment for the current orizontal aspect.
 		require valid_adjustment: an_adjustment/=Void
 		do
 			gtk_tree_view_set_hadjustment   (handle, an_adjustment.handle)
 		end
 	
-	unset_hadjustment  is
+	unset_hadjustment
 			-- Unsets the GtkAdjustment for the current orizontal aspect.
 		do
 			gtk_tree_view_set_hadjustment   (handle, default_pointer)
 		end
 	
 
-	vadjustment: GTK_ADJUSTMENT is
+	vadjustment: GTK_ADJUSTMENT
 			-- Gets the GtkAdjustment currently being used for the
 			-- vertical aspect or Void if none is currently being used.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
@@ -111,53 +111,53 @@ feature {ANY}
 			Result := factory.wrapper(gtk_tree_view_get_vadjustment (handle))
 		end
 
-	set_vadjustment (an_adjustment: GTK_ADJUSTMENT) is
+	set_vadjustment (an_adjustment: GTK_ADJUSTMENT)
 			-- Sets the GtkAdjustment for the current vertical aspect.
 		require valid_adjustment: an_adjustment/=Void
 		do
 			gtk_tree_view_set_vadjustment   (handle, an_adjustment.handle)
 		end
 	
-	unset_vadjustment  is
+	unset_vadjustment
 			-- Unsets the GtkAdjustment for the current vertical aspect.
 		do
 			gtk_tree_view_set_vadjustment   (handle, default_pointer)
 		end
 	
-	are_headers_visible: BOOLEAN is
+	are_headers_visible: BOOLEAN
 			-- Are the headers on the tree view visible?
 		do
 			Result := gtk_tree_view_get_headers_visible(handle).to_boolean
 		end
 
-	set_headers_visible is
+	set_headers_visible
 			-- Makes the headers are visible
 		do
 			gtk_tree_view_set_headers_visible (handle,1)
 		ensure are_headers_visible
 		end
 
-	set_headers_invisible is
+	set_headers_invisible
 			-- Makes the headers are invisible
 		do
 			gtk_tree_view_set_headers_visible (handle,0)
 		ensure not are_headers_visible
 		end
 
-	columns_autosize is
+	columns_autosize
 			-- Resizes all columns to their optimal width. Only works
 			-- after the treeview has been realized.
 		do
 			gtk_tree_view_columns_autosize  (handle)
 		end
 
-	set_headers_clickable is
+	set_headers_clickable
 			-- Allow the column title buttons to be clicked.
 		do
 			gtk_tree_view_set_headers_clickable (handle,1)
 		end
 
-	set_headers_unclickable is
+	set_headers_unclickable
 			-- Forbid the column title buttons to be clicked.
 		do
 			gtk_tree_view_set_headers_clickable (handle,0)
@@ -195,7 +195,7 @@ feature {ANY}
 	columns_number: INTEGER
 			-- Number of columns of Current GTK_TREE_VIEW
 	
-	append_column (a_column: GTK_TREE_VIEW_COLUMN) is
+	append_column (a_column: GTK_TREE_VIEW_COLUMN)
 			-- Appends column to the list of columns. If tree view has
 			-- "fixed_height" mode enabled, then column must have its
 			-- "sizing" property set to be GTK_TREE_VIEW_COLUMN_FIXED.
@@ -206,7 +206,7 @@ feature {ANY}
 			columns_number := gtk_tree_view_append_column (handle, a_column.handle)
 		end
 
-	remove_column  (a_column: GTK_TREE_VIEW_COLUMN) is
+	remove_column  (a_column: GTK_TREE_VIEW_COLUMN)
 			-- Removes `a_column' from tree view.
 		require
 			valid_column: a_column/=Void
@@ -214,7 +214,7 @@ feature {ANY}
 			columns_number := gtk_tree_view_remove_column (handle, a_column.handle)
 		end
 
-	insert_column (a_column: GTK_TREE_VIEW_COLUMN; a_position: INTEGER) is
+	insert_column (a_column: GTK_TREE_VIEW_COLUMN; a_position: INTEGER)
 			-- This inserts `a_column' into the tree view at `a_position'. If
 			-- position is -1, then the column is inserted at the end. If
 			-- tree_view has "fixed_height" mode enabled, then column
@@ -271,7 +271,7 @@ feature {ANY}
 	-- dnotify : 	destroy notifier for data
 	-- Returns : 	number of columns in the tree view post-insert
 	
-	column (a_position: INTEGER): GTK_TREE_VIEW_COLUMN is
+	column (a_position: INTEGER): GTK_TREE_VIEW_COLUMN
 			-- the GtkTreeViewColumn at the given `a_position' in the tree view.
 		require valid_number: a_position.in_range(0,columns.count)
 		local ptr: POINTER
@@ -279,7 +279,7 @@ feature {ANY}
 			create Result.from_external_pointer (gtk_tree_view_get_column (handle, a_position))
 		end
 
-	columns: G_LIST[GTK_TREE_VIEW_COLUMN] is
+	columns: G_LIST[GTK_TREE_VIEW_COLUMN]
 			-- a GList of all the GtkTreeViewColumn s currently in tree view.
 		do
 			create {G_OBJECT_LIST[GTK_TREE_VIEW_COLUMN]}
@@ -287,7 +287,7 @@ feature {ANY}
 			-- Note: The returned list must be freed with g_list_free().
 		end
 
-	move_column_after (a_column, a_base: GTK_TREE_VIEW_COLUMN) is
+	move_column_after (a_column, a_base: GTK_TREE_VIEW_COLUMN)
 			-- Moves `a_column' to be after to `a_base' column. If
 			-- `a_base' is Void, then column is placed in the first
 			-- position.
@@ -300,7 +300,7 @@ feature {ANY}
 			end
 		end
 
-	set_expander_column (a_column: GTK_TREE_VIEW_COLUMN) is
+	set_expander_column (a_column: GTK_TREE_VIEW_COLUMN)
 			-- Sets the column to draw the expander arrow at. It must be
 			-- in tree view. If `a_column' is Void, then the expander
 			-- arrow is always at the first visible column.
@@ -315,7 +315,7 @@ feature {ANY}
 			end
 		end
 
-	expander_column: GTK_TREE_VIEW_COLUMN is
+	expander_column: GTK_TREE_VIEW_COLUMN
 			--  the column that is the current expander column. This
 			--  column has the expander arrow drawn next to it.
 		do
@@ -344,7 +344,7 @@ feature {ANY}
 	-- user_data : 	User data to be passed to func, or NULL
 	-- destroy : 	Destroy notifier for user_data, or NULL
 
-	scroll_to_point (an_x, an_y: INTEGER) is
+	scroll_to_point (an_x, an_y: INTEGER)
 			-- Scrolls the tree view such that the top-left corner of the
 			-- visible area is `an_x', `an_y', where `an_x' and `an_y'
 			-- are specified in tree window coordinates. The tree_view
@@ -357,7 +357,7 @@ feature {ANY}
 		end
 
 	scroll_to_cell (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN;
-						 use_align: BOOLEAN; row_align, col_align: REAL_32) is
+						 use_align: BOOLEAN; row_align, col_align: REAL_32)
 			-- Moves the alignments of tree view to the position
 			-- specified by `a_column' and `a_path'. If `a_column' is
 			-- Void, then no horizontal scrolling occurs. Likewise, if
@@ -400,7 +400,7 @@ feature {ANY}
 													use_align.to_integer, row_align, col_align)
 		end
 
-	set_cursor (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN; start_editing: BOOLEAN) is
+	set_cursor (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN; start_editing: BOOLEAN)
 			-- Sets the current keyboard focus to be at `a_path', and
 			-- selects it. This is useful when you want to focus the
 			-- user's attention on a particular row. If `a_focus_column'
@@ -427,7 +427,7 @@ feature {ANY}
 		end
 
 	set_cursor_on_cell (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN;
-							a_focus_cell: GTK_CELL_RENDERER; start_editing: BOOLEAN) is
+							a_focus_cell: GTK_CELL_RENDERER; start_editing: BOOLEAN)
 			-- Sets the current keyboard focus to be at `a_path', and selects
 			-- it. This is useful when you want to focus the user's
 			-- attention on a particular row. If `a_focus_column' is not
@@ -457,7 +457,7 @@ feature {ANY}
 														 start_editing.to_integer)
 		end
 
-	cursor: TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN] is
+	cursor: TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN]
 			-- The path and focus column with the current path and focus column. If the cursor isn't currently set, then path will be Void. If no column currently has focus, then the column will be Void.
 		local
 			path_ptr, column_ptr: POINTER;
@@ -474,7 +474,7 @@ feature {ANY}
 			Result.second /= Void implies Result.second.is_not_null
 		end
 
-	row_expanded (a_path: GTK_TREE_PATH): BOOLEAN is
+	row_expanded (a_path: GTK_TREE_PATH): BOOLEAN
 			-- Returns True if the node pointed to by `a_path' is expanded in Current.
 		require
 			a_path /= Void
@@ -482,7 +482,7 @@ feature {ANY}
 			Result := gtk_tree_view_row_expanded (handle, a_path.handle).to_boolean
 		end
 
-	expand_row (a_path: GTK_TREE_PATH; open_all: BOOLEAN): BOOLEAN is
+	expand_row (a_path: GTK_TREE_PATH; open_all: BOOLEAN): BOOLEAN
 			-- Opens the row so its children are visible.
 			-- `open_all' indicates whether to recursively expand, or
 			-- just expand immediate children
@@ -493,7 +493,7 @@ feature {ANY}
 			Result := gtk_tree_view_expand_row(handle, a_path.handle, open_all.to_integer) > 0
 		end
 
-	collapse_row (a_path: GTK_TREE_PATH): BOOLEAN is
+	collapse_row (a_path: GTK_TREE_PATH): BOOLEAN
 			-- Collapses a row (hides its child rows, if they exist).
 			-- Returns True if the row was collapsed.
 		require
@@ -502,19 +502,19 @@ feature {ANY}
 			Result := gtk_tree_view_collapse_row(handle, a_path.handle) > 0
 		end
 
-	expand_all is
+	expand_all
 			-- Recursively expands all nodes in the tree view.
 		do
 			gtk_tree_view_expand_all(handle)
 		end
 
-	collapse_all is
+	collapse_all
 			-- Recursively collapses all visible, expanded nodes in tree view.
 		do
 			gtk_tree_view_collapse_all(handle)
 		end
 
-	expand_to_path (a_path: GTK_TREE_PATH) is
+	expand_to_path (a_path: GTK_TREE_PATH)
 			-- Expands the row at `a_path'. This will also expand all parent rows of path as necessary.
 			-- Since 2.2
 		require
@@ -535,7 +535,7 @@ feature {ANY}
 	-- func : 	A function to be called
 	-- data : 	User data to be passed to the function.
 
-	set_reorderable(a_reorderable: BOOLEAN) is
+	set_reorderable(a_reorderable: BOOLEAN)
 			-- This function is a convenience function to allow you to
 			-- reorder models that support the GtkDragSourceIface and the
 			-- GtkDragDestIface. Both GtkTreeStore and GtkListStore support
@@ -553,7 +553,7 @@ feature {ANY}
 			is_reorderable = a_reorderable
 		end
 
-	is_reorderable: BOOLEAN is
+	is_reorderable: BOOLEAN
 			-- Retrieves whether the user can reorder the tree via
 			-- drag-and-drop. See set_reorderable().
 			-- Returns True if the tree can be reordered.
@@ -561,7 +561,7 @@ feature {ANY}
 			Result := gtk_tree_view_get_reorderable(handle) > 0
 		end
 
-	row_activated (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN) is
+	row_activated (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN)
 			-- Activates the cell determined by `a_path' and `a_column'.
 		require
 			a_path /= Void
@@ -686,7 +686,7 @@ feature {ANY}
 
 feature {ANY} -- Drag n' Drop
 
-	enable_model_drag_dest (a_target: GTK_TARGET_ENTRY; some_actions: INTEGER) is
+	enable_model_drag_dest (a_target: GTK_TARGET_ENTRY; some_actions: INTEGER)
 			-- Turns Current into a drop destination for automatic DND.
 			-- some_targets : 	the table of targets that the drag will support
 			-- n_targets : 	the number of items in targets
@@ -705,7 +705,7 @@ feature {ANY} -- Drag n' Drop
 
 	enable_model_drag_source (a_start_button_mask: INTEGER;
 									  a_target: GTK_TARGET_ENTRY;
-									  some_actions: INTEGER) is
+									  some_actions: INTEGER)
 			-- Turns Current into a drag source for automatic DND.
 			-- a_start_button_mask : 	Mask of allowed buttons to start drag
 			-- some_targets : 	the table of targets that the drag will support
@@ -725,19 +725,19 @@ feature {ANY} -- Drag n' Drop
 																 a_target.handle, 1, some_actions)
 		end
 
-	unset_rows_drag_source is
+	unset_rows_drag_source
 			-- Undoes the effect of `enable_model_drag_source'.
 		do
 			gtk_tree_view_unset_rows_drag_source (handle)
 		end
 
-	unset_rows_drag_dest is
+	unset_rows_drag_dest
 			-- Undoes the effect of `enable_model_drag_dest'.
 		do
 			gtk_tree_view_unset_rows_drag_dest (handle)
 		end
 
-	set_drag_dest_row (a_path: GTK_TREE_PATH; a_position: INTEGER) is
+	set_drag_dest_row (a_path: GTK_TREE_PATH; a_position: INTEGER)
 			-- Sets the row that is highlighted for feedback.
 			-- a_path : The path of the row to highlight, or NULL.
 			-- a_position : Specifies whether to drop before, after or into the row
@@ -748,7 +748,7 @@ feature {ANY} -- Drag n' Drop
 			gtk_tree_view_set_drag_dest_row (handle, a_path.handle, a_position)
 		end
 
-	drag_dest_row: TUPLE [GTK_TREE_PATH, INTEGER] is
+	drag_dest_row: TUPLE [GTK_TREE_PATH, INTEGER]
 			-- Gets information about the row that is highlighted for feedback.
 			-- Returns a tuple with the location for the path of the highlighted row, or NULL;
 			-- and the location for the drop position, or NULL.
@@ -765,7 +765,7 @@ feature {ANY} -- Drag n' Drop
 			Result.first  /= Void implies is_valid_gtk_tree_view_drop_position (Result.second)
 		end
 
-	dest_row_at_pos (drag_x, drag_y: INTEGER): TUPLE [GTK_TREE_PATH, INTEGER] is
+	dest_row_at_pos (drag_x, drag_y: INTEGER): TUPLE [GTK_TREE_PATH, INTEGER]
 			-- Determines the destination row for a given position.
 			-- drag_x : 	the position to determine the destination row for
 			-- drag_y : 	the position to determine the destination row for
@@ -786,7 +786,7 @@ feature {ANY} -- Drag n' Drop
 			Result.first /= Void implies is_valid_gtk_tree_view_drop_position (Result.second)
 		end
 
-	row_drag_icon (a_path: GTK_TREE_PATH): GDK_PIXMAP is
+	row_drag_icon (a_path: GTK_TREE_PATH): GDK_PIXMAP
 			-- Creates a GdkPixmap representation of the row at path.
 			-- This image is used for a drag icon.
 			-- a_path : 	a GtkTreePath in Current
@@ -1256,18 +1256,18 @@ feature {ANY} -- "unselect-all" signal
 		--             gboolean    user_function      (GtkTreeView *treeview,
 		--                                             gpointer user_data);
 
-	enable_on_unselect_all is
+	enable_on_unselect_all
 			-- Connects "unselect-all" signal to `on_unselect_all' feature.
 		do
 			connect (Current, unselect_all_signal_name, $on_unselect_all)
 		end
 
-	on_unselect_all: INTEGER is
+	on_unselect_all: INTEGER
 			-- Built-in unselect-all signal handler; empty by design; redefine it.
 		do
 		end
 
-	connect_agent_to_unselect_all_signal (a_function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]) is
+	connect_agent_to_unselect_all_signal (a_function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN])
 			-- treeview : 	the object which received the signal.
 			-- user_data : 	user data set when the signal handler was connected.
 			-- Returns : ?
@@ -1544,18 +1544,18 @@ feature {ANY} -- The "cursor_changed" signal
 
 	cursor_changed_signal_name: STRING is "cursor-changed"
 
-	on_cursor_changed is
+	on_cursor_changed
 			-- Built-in cursor_changed signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_cursor_changed is
+	enable_on_cursor_changed
 			-- Connects "cursor_changed" signal to `on_cursor_changed' feature.
 		do
 			connect (Current, cursor_changed_signal_name, $on_cursor_changed)
 		end
 
-	connect_agent_to_cursor_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_VIEW]]) is
+	connect_agent_to_cursor_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_VIEW]])
 		require valid_procedure: a_procedure /= Void
 		local cursor_changed_callback: CURSOR_CHANGED_CALLBACK
 		do
@@ -1571,20 +1571,20 @@ feature {ANY} -- "expand-collapse-cursor-row"
 			--                                             gboolean     arg3,
 			--                                             gpointer user_data);
 
-	enable_on_expand_collapse_cursor_row is
+	enable_on_expand_collapse_cursor_row
 			-- Connects "expand-collapse-cursor-row" signal to `on_expand_collapse_cursor_row' feature.
 		do
 			connect (Current, expand_collapse_cursor_row_signal_name,
 									$on_expand_collapse_cursor_row)
 		end
 
-	on_expand_collapse_cursor_row: INTEGER is
+	on_expand_collapse_cursor_row: INTEGER
 			-- Built-in expand-collapse-cursor-row signal handler; empty by design; redefine it.
 		do
 		end
 
 	connect_agent_to_expand_collapse_cursor_row_signal (a_function: FUNCTION[ANY, TUPLE [BOOLEAN, BOOLEAN, BOOLEAN,
-																												  GTK_TREE_VIEW], BOOLEAN]) is
+																												  GTK_TREE_VIEW], BOOLEAN])
 			-- treeview : 	the object which received the signal.
 			-- user_data : 	user data set when the signal handler was connected.
 			-- Returns : ?
@@ -1612,12 +1612,12 @@ feature {ANY} -- The "row_activated" signal
 		--                                             GtkTreeViewColumn *arg2,
 		--                                             gpointer user_data);
 
-	on_row_activated is
+	on_row_activated
 			-- Built-in row_activated signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_row_activated is
+	enable_on_row_activated
 			-- Connects "row_activated" signal to `on_row_activated' feature.
 		do
 			connect (Current, row_activated_signal_name, $on_row_activated)
@@ -1625,7 +1625,7 @@ feature {ANY} -- The "row_activated" signal
 
 	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH,
 																									 GTK_TREE_VIEW_COLUMN,
-																									 GTK_TREE_VIEW]]) is
+																									 GTK_TREE_VIEW]])
 		require valid_procedure: a_procedure /= Void
 		local row_activated_callback: ROW_ACTIVATED_CALLBACK
 		do
@@ -1640,12 +1640,12 @@ feature {ANY} -- The "row_collapsed" signal
 			--                                             GtkTreePath *arg2,
 			--                                             gpointer user_data);
 
-	on_row_collapsed is
+	on_row_collapsed
 			-- Built-in row_collapsed signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_row_collapsed is
+	enable_on_row_collapsed
 			-- Connects "row_collapsed" signal to `on_row_collapsed' feature.
 		do
 			connect (Current, row_collapsed_signal_name, $on_row_collapsed)
@@ -1653,7 +1653,7 @@ feature {ANY} -- The "row_collapsed" signal
 
 	connect_agent_to_row_collapsed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
 																									 GTK_TREE_PATH,
-																									 GTK_TREE_VIEW]]) is
+																									 GTK_TREE_VIEW]])
 		require valid_procedure: a_procedure /= Void
 		local row_collapsed_callback: ROW_COLLAPSED_CALLBACK
 		do
@@ -1668,12 +1668,12 @@ feature {ANY} -- The "row_expanded" signal
 			--                                             GtkTreePath *arg2,
 			--                                             gpointer user_data);
 
-	on_row_expanded is
+	on_row_expanded
 			-- Built-in row_expanded signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_row_expanded is
+	enable_on_row_expanded
 			-- Connects "row_expanded" signal to `on_row_expanded' feature.
 		do
 			connect (Current, row_expanded_signal_name, $on_row_expanded)
@@ -1681,7 +1681,7 @@ feature {ANY} -- The "row_expanded" signal
 
 	connect_agent_to_row_expanded_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
 																									GTK_TREE_PATH,
-																									GTK_TREE_VIEW]]) is
+																									GTK_TREE_VIEW]])
 		require valid_procedure: a_procedure /= Void
 		local row_expanded_callback: ROW_EXPANDED_CALLBACK
 		do
@@ -2901,7 +2901,7 @@ feature {ANY}
 	-- GtkTreeViewColumn, GtkTreeSelection, GtkTreeDnd, GtkTreeMode, GtkTreeSortable, GtkTreeModelSort, GtkListStore, GtkTreeStore, GtkCellRenderer, GtkCellEditable, GtkCellRendererPixbuf, GtkCellRendererText, GtkCellRendererToggle
 feature {ANY} -- struct size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeView)"
 		end

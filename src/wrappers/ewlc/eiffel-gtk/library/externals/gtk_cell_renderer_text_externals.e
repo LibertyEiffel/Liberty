@@ -26,12 +26,12 @@ deferred class GTK_CELL_RENDERER_TEXT_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gtk_cell_renderer_text_new: POINTER is
+	gtk_cell_renderer_text_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_cell_renderer_text_set_fixed_height_from_font (gtkcellrenderertext: POINTER;
-																		number_of_rows: INTEGER)  is
+																		number_of_rows: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 end

@@ -26,7 +26,7 @@ deferred class PANGO_CAIRO_RENDERER_EXTERNALS
 
 feature {} -- External calls
 
-	pango_cairo_error_underline_path (a_cairo: POINTER; an_x, an_y, a_width, a_height: REAL) is
+	pango_cairo_error_underline_path (a_cairo: POINTER; an_x, an_y, a_width, a_height: REAL)
 		external "C use <pango/pangocairo.h>"
 		end
 

@@ -60,7 +60,7 @@ insert GTK
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_name, a_label, a_tooltip, a_stock_id: STRING) is
+	make (a_name, a_label, a_tooltip, a_stock_id: STRING)
 			-- Creates a new GtkAction object. To add the action to a
 			-- GtkActionGroup and set the accelerator for the action,
 			-- call `GTK_ACTION_GROUP.add_action_with_accel'. See the
@@ -83,7 +83,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	name: STRING is
+	name: STRING
 			-- the name of the action.
 		do
 			create Result.from_external_copy (gtk_action_get_name (handle))
@@ -95,7 +95,7 @@ feature {ANY}
 		end
 
 	
-	activate is
+	activate
 			-- Emits the "activate" signal on the specified action, if it
 			-- isn't insensitive. This gets called by the proxy widgets
 			-- when they get activated.  It can also be used to manually
@@ -254,14 +254,14 @@ feature {ANY}
 	-- Since 2.4
 
 feature {ANY} -- Sensitivity
-	is_sensitive: BOOLEAN is
+	is_sensitive: BOOLEAN
 			-- Is the action is effectively sensitive? TRUE if the action
 			-- and its associated action group are both sensitive.
 		do
 			Result := gtk_action_is_sensitive (handle).to_boolean
 		end
 
-	is_potentially_sensitive: BOOLEAN is
+	is_potentially_sensitive: BOOLEAN
 			-- Returns whether the action itself is sensitive. Note that
 			-- this doesn't necessarily mean effective sensitivity. See
 			-- `is_sensitive' for that.
@@ -269,7 +269,7 @@ feature {ANY} -- Sensitivity
 			Result := gtk_action_get_sensitive (handle).to_boolean
 		end
 
-	set_potentially_sensitive is
+	set_potentially_sensitive
 			-- Sets the ::sensitive property of the action to
 			-- sensitive. Note that this doesn't necessarily mean
 			-- effective sensitivity. See `is_sensitive' for that.
@@ -278,7 +278,7 @@ feature {ANY} -- Sensitivity
 		ensure potentially_sensitive: is_potentially_sensitive
 		end
 
-	set_potentially_insensitive is
+	set_potentially_insensitive
 			-- Sets the ::sensitive property of the action to
 			-- insensitive. Note that this doesn't necessarily mean
 			-- effective sensitivity. See `is_sensitive' for that.
@@ -288,14 +288,14 @@ feature {ANY} -- Sensitivity
 		end
 	
 feature {ANY} -- Visibility
-	is_visible: BOOLEAN is
+	is_visible: BOOLEAN
 			-- Is the action effectively visible? True if the action and
 			-- its associated action group are both visible.
 		do
 			Result:=gtk_action_is_visible(handle).to_boolean
 		end
 
-	is_potentially_visible: BOOLEAN is
+	is_potentially_visible: BOOLEAN
 			-- Is the action itself visible? True if the action itself is
 			-- visible. Note that this doesn't necessarily mean effective
 			-- visibility. See `is_sensitive' for that.
@@ -303,7 +303,7 @@ feature {ANY} -- Visibility
 			Result := gtk_action_get_visible (handle).to_boolean
 		end
 
-	set_potentially_visible is
+	set_potentially_visible
 			-- Sets the ::visible property of the action to visible. Note
 			-- that this doesn't necessarily mean effective
 			-- visibility. See `is_visible' for that.
@@ -312,7 +312,7 @@ feature {ANY} -- Visibility
 		ensure potentially_visible: is_potentially_visible
 		end
 
-	set_potentially_invisible is
+	set_potentially_invisible
 			-- Sets the ::visible property of the action to invisible. Note
 			-- that this doesn't necessarily mean effective
 			-- visibility. See `is_visible' for that.
@@ -448,7 +448,7 @@ feature {ANY} -- Properties
 -- GtkActionGroup, GtkUIManager
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAction)"
 		end
@@ -482,11 +482,11 @@ feature {} -- External calls
 		external "C use <gtk/gth.h>"
 		end
 	
-	gtk_action_set_visible (action: POINTER; visible_bool: INTEGER) is
+	gtk_action_set_visible (action: POINTER; visible_bool: INTEGER)
 		external "C use <gtk/gth.h>"
 		end
 	
-	gtk_action_activate (action: POINTER) is
+	gtk_action_activate (action: POINTER)
 		external "C use <gtk/gth.h>"
 		end
  
@@ -502,11 +502,11 @@ feature {} -- External calls
 		external "C use <gtk/gth.h>"
 		end
  
-	gtk_action_connect_proxy (action, gtk_widget_proxy: POINTER) is
+	gtk_action_connect_proxy (action, gtk_widget_proxy: POINTER)
 		external "C use <gtk/gth.h>"
 		end
 	
-	gtk_action_disconnect_proxy (action, gtk_widget_proxy: POINTER) is
+	gtk_action_disconnect_proxy (action, gtk_widget_proxy: POINTER)
 		external "C use <gtk/gth.h>"
 		end
  
@@ -514,19 +514,19 @@ feature {} -- External calls
 		external "C use <gtk/gth.h>"
 		end
 	
-	gtk_action_connect_accelerator (action: POINTER) is
+	gtk_action_connect_accelerator (action: POINTER)
 		external "C use <gtk/gth.h>"
 		end
  
-	gtk_action_disconnect_accelerator (action: POINTER) is
+	gtk_action_disconnect_accelerator (action: POINTER)
 		external "C use <gtk/gth.h>"
 		end
  
-	gtk_action_block_activate_from (action, gtk_widget_proxy: POINTER) is
+	gtk_action_block_activate_from (action, gtk_widget_proxy: POINTER)
 		external "C use <gtk/gth.h>"
 		end
  
-	gtk_action_unblock_activate_from (action, gtk_widget_proxy: POINTER) is
+	gtk_action_unblock_activate_from (action, gtk_widget_proxy: POINTER)
 		external "C use <gtk/gth.h>"
 		end
 	
@@ -534,7 +534,7 @@ feature {} -- External calls
 		external "C use <gtk/gth.h>"
 		end
 	
-	gtk_action_set_accel_path (action, accel_path_str: POINTER) is
+	gtk_action_set_accel_path (action, accel_path_str: POINTER)
 		external "C use <gtk/gth.h>"
 		end
 	
@@ -542,7 +542,7 @@ feature {} -- External calls
 		external "C use <gtk/gth.h>"
 		end
 	
-	gtk_action_set_accel_group (action, accel_group: POINTER) is
+	gtk_action_set_accel_group (action, accel_group: POINTER)
 		external "C use <gtk/gth.h>"
 		end
 end -- class GTK_ACTION

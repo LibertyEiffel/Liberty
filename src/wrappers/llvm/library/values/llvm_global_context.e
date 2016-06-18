@@ -5,7 +5,7 @@ insert SINGLETON redefine default_create end
 
 create {ANY}  default_create
 feature {ANY}
-	default_create is
+	default_create
 		do
 			handle:=llvmget_global_context
 		end

@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = xml_parse_unknown) or else 
 				(a_value = xml_parse_dom) or else 
@@ -17,96 +17,96 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_unknown is
+	default_create, set_unknown
 		do
 			value := xml_parse_unknown
 		end
 
-	set_dom is
+	set_dom
 		do
 			value := xml_parse_dom
 		end
 
-	set_sax is
+	set_sax
 		do
 			value := xml_parse_sax
 		end
 
-	set_push_dom is
+	set_push_dom
 		do
 			value := xml_parse_push_dom
 		end
 
-	set_push_sax is
+	set_push_sax
 		do
 			value := xml_parse_push_sax
 		end
 
-	set_reader is
+	set_reader
 		do
 			value := xml_parse_reader
 		end
 
 
 feature {ANY} -- Queries
-	is_unknown: BOOLEAN is
+	is_unknown: BOOLEAN
 		do
 			Result := (value=xml_parse_unknown)
 		end
 
-	is_dom: BOOLEAN is
+	is_dom: BOOLEAN
 		do
 			Result := (value=xml_parse_dom)
 		end
 
-	is_sax: BOOLEAN is
+	is_sax: BOOLEAN
 		do
 			Result := (value=xml_parse_sax)
 		end
 
-	is_push_dom: BOOLEAN is
+	is_push_dom: BOOLEAN
 		do
 			Result := (value=xml_parse_push_dom)
 		end
 
-	is_push_sax: BOOLEAN is
+	is_push_sax: BOOLEAN
 		do
 			Result := (value=xml_parse_push_sax)
 		end
 
-	is_reader: BOOLEAN is
+	is_reader: BOOLEAN
 		do
 			Result := (value=xml_parse_reader)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_parse_unknown: INTEGER is
+	xml_parse_unknown: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_UNKNOWN"
 		end
 
-	xml_parse_dom: INTEGER is
+	xml_parse_dom: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_DOM"
 		end
 
-	xml_parse_sax: INTEGER is
+	xml_parse_sax: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_SAX"
 		end
 
-	xml_parse_push_dom: INTEGER is
+	xml_parse_push_dom: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_PUSH_DOM"
 		end
 
-	xml_parse_push_sax: INTEGER is
+	xml_parse_push_sax: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_PUSH_SAX"
 		end
 
-	xml_parse_reader: INTEGER is
+	xml_parse_reader: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_READER"
 		end

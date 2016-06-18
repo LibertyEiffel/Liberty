@@ -4,7 +4,7 @@ inherit LLVM_TYPE
 insert LLVM_TYPE_FACTORY
 
 feature {ANY}
-   element_type: LLVM_TYPE is
+   element_type: LLVM_TYPE
          -- The type of the elements of Current sequence.
       do
          Result:=type_wrapper(llvmget_element_type(handle))

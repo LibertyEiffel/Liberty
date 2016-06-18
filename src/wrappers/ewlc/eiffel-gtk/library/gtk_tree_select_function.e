@@ -35,7 +35,7 @@ insert
 create {ANY} make
 	
 feature {ANY}
-	make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
+	make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN])
 		require gtk_initialized: gtk.is_initialized
 		local array: NATIVE_ARRAY [POINTER]; callback_ptr: POINTER
 		do
@@ -48,7 +48,7 @@ feature {ANY}
 		end
 	
 feature {} -- 
-	callback_array (a_callback_pointer: POINTER): POINTER is
+	callback_array (a_callback_pointer: POINTER): POINTER
 		-- This call is required because we need to build an array with 
 		-- the address of an Eiffel feature (namely callback). `$' 
 		-- operator thought can be used only in a feature call. Hence this.
@@ -56,7 +56,7 @@ feature {} --
 	Result:= {NATIVE_ARRAY[POINTER] <<a_callback_pointer ,Current.to_pointer>>}.to_external
 		end
 	
-	low_level_callback (selection, model, path: POINTER; path_currently_selected: INTEGER; data: POINTER): INTEGER is
+	low_level_callback (selection, model, path: POINTER; path_currently_selected: INTEGER; data: POINTER): INTEGER
 			-- Low level callback will be called by GTK; it will call
 			-- `callback'.
 		external "C use <callbacks.h>"

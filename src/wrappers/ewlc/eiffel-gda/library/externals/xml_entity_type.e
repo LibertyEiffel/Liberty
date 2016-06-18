@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = xml_internal_general_entity) or else 
 				(a_value = xml_external_general_parsed_entity) or else 
@@ -17,96 +17,96 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_internal_general_entity is
+	default_create, set_internal_general_entity
 		do
 			value := xml_internal_general_entity
 		end
 
-	set_external_general_parsed_entity is
+	set_external_general_parsed_entity
 		do
 			value := xml_external_general_parsed_entity
 		end
 
-	set_external_general_unparsed_entity is
+	set_external_general_unparsed_entity
 		do
 			value := xml_external_general_unparsed_entity
 		end
 
-	set_internal_parameter_entity is
+	set_internal_parameter_entity
 		do
 			value := xml_internal_parameter_entity
 		end
 
-	set_external_parameter_entity is
+	set_external_parameter_entity
 		do
 			value := xml_external_parameter_entity
 		end
 
-	set_internal_predefined_entity is
+	set_internal_predefined_entity
 		do
 			value := xml_internal_predefined_entity
 		end
 
 
 feature {ANY} -- Queries
-	is_internal_general_entity: BOOLEAN is
+	is_internal_general_entity: BOOLEAN
 		do
 			Result := (value=xml_internal_general_entity)
 		end
 
-	is_external_general_parsed_entity: BOOLEAN is
+	is_external_general_parsed_entity: BOOLEAN
 		do
 			Result := (value=xml_external_general_parsed_entity)
 		end
 
-	is_external_general_unparsed_entity: BOOLEAN is
+	is_external_general_unparsed_entity: BOOLEAN
 		do
 			Result := (value=xml_external_general_unparsed_entity)
 		end
 
-	is_internal_parameter_entity: BOOLEAN is
+	is_internal_parameter_entity: BOOLEAN
 		do
 			Result := (value=xml_internal_parameter_entity)
 		end
 
-	is_external_parameter_entity: BOOLEAN is
+	is_external_parameter_entity: BOOLEAN
 		do
 			Result := (value=xml_external_parameter_entity)
 		end
 
-	is_internal_predefined_entity: BOOLEAN is
+	is_internal_predefined_entity: BOOLEAN
 		do
 			Result := (value=xml_internal_predefined_entity)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_internal_general_entity: INTEGER is
+	xml_internal_general_entity: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_INTERNAL_GENERAL_ENTITY"
 		end
 
-	xml_external_general_parsed_entity: INTEGER is
+	xml_external_general_parsed_entity: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_EXTERNAL_GENERAL_PARSED_ENTITY"
 		end
 
-	xml_external_general_unparsed_entity: INTEGER is
+	xml_external_general_unparsed_entity: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_EXTERNAL_GENERAL_UNPARSED_ENTITY"
 		end
 
-	xml_internal_parameter_entity: INTEGER is
+	xml_internal_parameter_entity: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_INTERNAL_PARAMETER_ENTITY"
 		end
 
-	xml_external_parameter_entity: INTEGER is
+	xml_external_parameter_entity: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_EXTERNAL_PARAMETER_ENTITY"
 		end
 
-	xml_internal_predefined_entity: INTEGER is
+	xml_internal_predefined_entity: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_INTERNAL_PREDEFINED_ENTITY"
 		end

@@ -29,45 +29,45 @@ insert GTK_UPDATE_TYPE
 
 feature {} -- External calls
 
-	gtk_range_get_adjustment (a_range: POINTER): POINTER is
+	gtk_range_get_adjustment (a_range: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_range_set_update_policy (a_range: POINTER; a_gtkupdatetype: INTEGER) is
+	gtk_range_set_update_policy (a_range: POINTER; a_gtkupdatetype: INTEGER)
 		require is_valid_gtk_update_type(a_gtkupdatetype)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_range_set_adjustment (a_range, a_gtk_adjustment: POINTER) is
+	gtk_range_set_adjustment (a_range, a_gtk_adjustment: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_range_get_inverted (a_range: POINTER): INTEGER is
+	gtk_range_get_inverted (a_range: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_range_set_inverted (a_range: POINTER; a_setting: INTEGER) is
+	gtk_range_set_inverted (a_range: POINTER; a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_range_get_update_policy (a_range: POINTER): INTEGER is
+	gtk_range_get_update_policy (a_range: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		ensure  is_valid_gtk_update_type(Result)
 		end
 
-	gtk_range_get_value (a_range: POINTER): REAL_64 is
+	gtk_range_get_value (a_range: POINTER): REAL_64
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_range_set_increments (a_range: POINTER; a_step, a_page: REAL) is
+	gtk_range_set_increments (a_range: POINTER; a_step, a_page: REAL)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_range_set_range (a_range: POINTER; a_min,a_max: REAL_64) is
+	gtk_range_set_range (a_range: POINTER; a_min,a_max: REAL_64)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_range_set_value (a_range: POINTER; value: REAL_64) is
+	gtk_range_set_value (a_range: POINTER; value: REAL_64)
 		external "C use <gtk/gtk.h>"
 		end
 

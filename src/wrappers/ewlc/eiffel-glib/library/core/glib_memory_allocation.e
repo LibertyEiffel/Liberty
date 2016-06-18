@@ -160,7 +160,7 @@ feature {} -- external features
 	-- 	Since 2.8
 	-- 	_________________________________________________________________
 
-	g_malloc (n_bytes: INTEGER): POINTER is
+	g_malloc (n_bytes: INTEGER): POINTER
 			-- Allocates `n_bytes' bytes of memory. If `n_bytes' is 0 it
 			-- returns NULL.  Returns : a pointer to the allocated
 			-- memory.
@@ -168,7 +168,7 @@ feature {} -- external features
 		external "C use <glib.h>"
 		end
 
-	g_malloc0 (n_bytes: INTEGER): POINTER is
+	g_malloc0 (n_bytes: INTEGER): POINTER
 			-- Allocates `n_bytes' bytes of memory, initialized to
 			-- 0's. If n_bytes is 0 it returns NULL.  n_bytes : the
 			-- number of bytes to allocate.  Returns : a pointer to the
@@ -177,7 +177,7 @@ feature {} -- external features
 		external "C use <glib.h>"
 		end
 
-	g_realloc (mem: POINTER; n_bytes: INTEGER): POINTER is
+	g_realloc (mem: POINTER; n_bytes: INTEGER): POINTER
 			-- Reallocates the memory pointed to by mem, so that it now
 			-- has space for n_bytes bytes of memory. It returns the new
 			-- address of the memory, which may have been moved. mem may
@@ -190,14 +190,14 @@ feature {} -- external features
 		external "C use <glib.h>"
 		end
 	
-	g_try_malloc (n_bytes: INTEGER): POINTER is
+	g_try_malloc (n_bytes: INTEGER): POINTER
 			-- Attempts to allocate `n_bytes', and returns NULL on
 			-- failure. Contrast with g_malloc, which aborts the program
 			-- on failure. Returns: the allocated memory, or NULL.
 		external "C use <glib.h>"
 		end
 
-	g_try_malloc0 (n_bytes: INTEGER): POINTER is
+	g_try_malloc0 (n_bytes: INTEGER): POINTER
 			-- Attempts to allocate `n_bytes', initialized to 0's, and
 			-- returns NULL on failure. Contrast with g_malloc0, which
 			-- aborts the program on failure. Returns : the allocated
@@ -205,7 +205,7 @@ feature {} -- external features
 		external "C use <glib.h>"
 		end
 
-	g_try_realloc (mem: POINTER; n_bytes: INTEGER): POINTER is
+	g_try_realloc (mem: POINTER; n_bytes: INTEGER): POINTER
 			-- Attempts to realloc mem to a new size, n_bytes, and
 			-- returns NULL on failure. Contrast with g_realloc(), which
 			-- aborts the program on failure. If mem is NULL, behaves the
@@ -215,7 +215,7 @@ feature {} -- external features
 		external "C use <glib.h>"
 		end
 
-	g_free (mem: POINTER) is
+	g_free (mem: POINTER)
 			-- Frees the memory pointed to by `mem'. If mem is NULL it
 			-- simply returns.
 		external "C use <glib.h>"
@@ -272,7 +272,7 @@ feature {} -- external features
 
 	-- #define     g_memmove(dest,src,len)
 
-	g_memmove(src, dst: POINTER; len:INTEGER) is
+	g_memmove(src, dst: POINTER; len:INTEGER)
 			-- 	Copies a block of memory len bytes long, from src to dest. The source
 			-- 	and destination areas may overlap.
 		-- 	dest : the destination address to copy the bytes to.

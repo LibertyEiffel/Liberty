@@ -28,13 +28,13 @@ inherit GTK_CELL_RENDERER
 create {ANY} make, from_external_pointer
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererProgress)"
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkCellRendererProgress.
 		do
 			from_external_pointer (gtk_cell_renderer_progress_new)
@@ -46,7 +46,7 @@ feature {ANY} -- Properties
 --   "value"                gint                  : Read / Write
 -- Property Details
 feature {ANY} -- The "text" property
-	text: STRING is
+	text: STRING
 			-- The "text" property determines the label which will be
 			-- drawn over the progress bar. Setting this property to Void
 			-- causes the default label to be displayed. Setting this
@@ -56,7 +56,7 @@ feature {ANY} -- The "text" property
 			Result:= get_string_property(text_property_name)
 		end
 
-	set_text (a_text: STRING) is
+	set_text (a_text: STRING)
 			-- Set text property
 			-- TODO: provide a more direct implementation. Currently there is a temporary G_VALUE object
 		require valid_text: a_text /= Void
@@ -65,7 +65,7 @@ feature {ANY} -- The "text" property
 		end
 
 feature {ANY} -- The "value" property
-	value: INTEGER is
+	value: INTEGER
 			-- The "value" property determines the percentage to which
 			-- the progress bar will be "filled in".
 		do
@@ -73,7 +73,7 @@ feature {ANY} -- The "value" property
 		ensure in_range: Result.in_range(0,100)
 		end
 
-	set_value (a_value: INTEGER) is
+	set_value (a_value: INTEGER)
 		require in_range: a_value.in_range(0,100)
 		do
 			set_integer_property(value_property_name,a_value)
@@ -84,7 +84,7 @@ feature {} -- Properties names
 	value_property_name: STRING is "value"
 
 feature {} -- External calls
-	gtk_cell_renderer_progress_new: POINTER is
+	gtk_cell_renderer_progress_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 end

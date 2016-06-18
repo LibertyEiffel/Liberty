@@ -26,22 +26,22 @@ deferred class GTK_CELL_RENDERER_TOGGLE_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gtk_cell_renderer_toggle_new: POINTER is
+	gtk_cell_renderer_toggle_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
-	gtk_cell_renderer_toggle_get_radio (a_toggle: POINTER): INTEGER is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_cell_renderer_toggle_set_radio (a_toggle: POINTER; a_boolean: INTEGER) is
+	gtk_cell_renderer_toggle_get_radio (a_toggle: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_cell_renderer_toggle_get_active (a_toggle: POINTER): INTEGER is
+	gtk_cell_renderer_toggle_set_radio (a_toggle: POINTER; a_boolean: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_cell_renderer_toggle_set_active (a_toggle: POINTER; a_setting: INTEGER) is
+	gtk_cell_renderer_toggle_get_active (a_toggle: POINTER): INTEGER
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_cell_renderer_toggle_set_active (a_toggle: POINTER; a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 end

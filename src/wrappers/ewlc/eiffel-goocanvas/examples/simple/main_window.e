@@ -12,7 +12,7 @@ insert
 create {ANY}
 	make
 	
-feature {ANY} make is
+feature {ANY} make
 --		local
 --			temp : TUPLE[GDK_PIXMAP, GDK_BITMAP]
 		local
@@ -51,7 +51,7 @@ feature {ANY} -- Widgets
 
 feature {ANY}  -- Callbacks
 
-	on_destroy is
+	on_destroy
 		do
 			gtk.quit
 		end

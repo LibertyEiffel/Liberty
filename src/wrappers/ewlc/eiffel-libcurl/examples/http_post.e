@@ -33,7 +33,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			Precursor
 			curl.set_option_string (curl_option_url, "http://sbnportland.org/marketplace/searchResultsPage")

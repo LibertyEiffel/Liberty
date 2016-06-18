@@ -60,7 +60,7 @@ insert
 create {ANY}  from_external
 
 feature {} -- Creation
-	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[VALUE]) is
+	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[VALUE])
 		require factory_not_void: a_factory/=Void
 		do
 			factory := a_factory
@@ -68,7 +68,7 @@ feature {} -- Creation
 		end
 	
 
-	with_factory (a_factory: WRAPPER_FACTORY[VALUE]) is
+	with_factory (a_factory: WRAPPER_FACTORY[VALUE])
 		require factory_not_void: a_factory/=Void
 		do
 			factory := a_factory
@@ -120,14 +120,14 @@ feature {} -- Creation
 	-- 		end
 	
 feature {ANY} -- Basic access:
-	has (a_key: KEY): BOOLEAN is
+	has (a_key: KEY): BOOLEAN
 		local orig_key_ptr, value_ptr: POINTER
 		do
 			Result:=(g_hash_table_lookup_extended
 						(handle, a_key.handle, orig_key_ptr, value_ptr)).to_boolean
 		end
 
-	at (a_key: KEY): VALUE is
+	at (a_key: KEY): VALUE
 			-- Looks up `a_key' in a GHashTable. 
 		local ptr: POINTER
 		do
@@ -137,7 +137,7 @@ feature {ANY} -- Basic access:
 			end
 		end
 
-	reference_at (a_key: KEY): VALUE is
+	reference_at (a_key: KEY): VALUE
 			-- The value associated to `a_key'. Void if there is no value
 			-- for `a_key'.
 		local ptr: POINTER
@@ -163,7 +163,7 @@ feature {ANY} -- Basic access:
 			-- gpointer *value);
 		end
 
-	fast_has (k: KEY): BOOLEAN is
+	fast_has (k: KEY): BOOLEAN
 		do
 			debug 
 				print_no_fast_notice
@@ -172,7 +172,7 @@ feature {ANY} -- Basic access:
 			Result:=has(k)
 		end
 
-	fast_at (k: KEY): VALUE is
+	fast_at (k: KEY): VALUE
 		do	
 			debug 
 				print_no_fast_notice
@@ -181,7 +181,7 @@ feature {ANY} -- Basic access:
 			Result:=at(k)
 		end
 
-	fast_reference_at (k: KEY): VALUE is
+	fast_reference_at (k: KEY): VALUE
 		do
 			debug 
 				print_no_fast_notice
@@ -191,7 +191,7 @@ feature {ANY} -- Basic access:
 		end
 
 feature {ANY}
-	put (a_value: VALUE; a_key: KEY) is
+	put (a_value: VALUE; a_key: KEY)
 			-- Inserts a new key and value into a GHashTable.
 		
 			-- If the key already exists in the GHashTable its current
@@ -209,7 +209,7 @@ feature {ANY}
 			g_hash_table_insert (handle, a_key.handle, a_value.handle)
 		end
 
-	fast_put (v: VALUE; k: KEY) is
+	fast_put (v: VALUE; k: KEY)
 		require else value_not_void: v /= Void
 		do
 			debug 
@@ -219,14 +219,14 @@ feature {ANY}
 			put(v,k)
 		end
 
-	add (v: VALUE; k: KEY) is
+	add (v: VALUE; k: KEY)
 		require else value_not_void: v /= Void
 		do
 			put(v,k)
 		end
 
 feature {ANY} -- Removing:
-	remove (a_key: KEY) is
+	remove (a_key: KEY)
 			-- Removes a key and its associated value from a GHashTable.
 
 			-- `is_successful' will be True if the key was found and
@@ -240,7 +240,7 @@ feature {ANY} -- Removing:
 			is_successful := (g_hash_table_remove (handle, a_key.handle)).to_boolean
 		end
 
-	fast_remove (k: KEY) is
+	fast_remove (k: KEY)
 		do
 			debug 
 				print_no_fast_notice
@@ -249,40 +249,40 @@ feature {ANY} -- Removing:
 			remove(k)
 		end
 
-	clear_count is
+	clear_count
 		do
 			g_hash_table_remove_all(handle)
 		end
 
-	clear_count_and_capacity is
+	clear_count_and_capacity
 		do
 			dispose
 			make
 		end
 
-	capacity: INTEGER is
+	capacity: INTEGER
 		do
 			Result:=g_hash_table_size(handle)
 		end
 
 feature {ANY} -- To provide iterating facilities:
-	item (index: INTEGER): VALUE is
+	item (index: INTEGER): VALUE
 		do
 		ensure then implemented: False
 		end
 
-	key (index: INTEGER): KEY is
+	key (index: INTEGER): KEY
 		do
 		ensure then implemented: False
 		end
 
-	get_new_iterator_on_keys: ITERATOR[KEY] is
+	get_new_iterator_on_keys: ITERATOR[KEY]
 		do
 		ensure then implemented: False
 		end
 
 feature {ANY} -- Other features:
-	internal_key (k: KEY): KEY is
+	internal_key (k: KEY): KEY
 		do
 		ensure then implemented: False
 		end
@@ -319,7 +319,7 @@ feature {ANY} -- Other features:
 
 feature {ANY}
 
-	count: INTEGER is
+	count: INTEGER
 			-- the number of elements (key/value pairs) contained in the
 			-- GHashTable.
 		do
@@ -407,7 +407,7 @@ feature {ANY}
 	-- user_data : 	user data passed to g_hash_table_remove().
 	-- Returns : 	TRUE if the key/value pair should be removed from the GHashTable.
 
-	dispose is
+	dispose
 			-- Destroys the GHashTable. If keys and/or values are
 			-- dynamically allocated, you should either free them first
 			-- or create the GHashTable using g_hash_table_new_full(). In
@@ -472,21 +472,21 @@ feature {}
 	-- Returns : 	a hash value corresponding to the key.
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GHashTable)"
 		end
 
 feature {} -- Low level implementation
-	print_no_fast_notice is
+	print_no_fast_notice
 		once
 			print(no_fast_notice)
 		end
 
-	no_fast_notice: STRING is
+	no_fast_notice: STRING
 		"Original C GHashTable implementation does not offer functions equivalent to `fast_has,' `fast_at', `fast_reference_at', `fast_put' and `fast_remove'. An eventual implementation of those features would require to manipulate directly GHashTable data-structure, skipping the Glib abstraction. Paolo 2007-07-15%N"
 
-	fast_fallback_notice: STRING is
+	fast_fallback_notice: STRING
 		"Fast_[has|at|reference_at|put|remove] feature not available. Falling back to non-fast features.%N"
 
 

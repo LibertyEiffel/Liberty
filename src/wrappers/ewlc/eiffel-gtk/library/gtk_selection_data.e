@@ -30,14 +30,14 @@ inherit
 create {ANY} from_external_pointer, make
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkSelectionData)"
 		end
 
 feature {ANY}
 
-	make is
+	make
 		do
 			allocate
 		end

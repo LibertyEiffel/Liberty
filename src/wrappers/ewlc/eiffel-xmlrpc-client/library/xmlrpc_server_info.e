@@ -13,7 +13,7 @@ create {ANY}
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <xmlrpc-c/client.h>"
 		alias "sizeof (xmlrpc_server_info)"
 		end
@@ -22,7 +22,7 @@ feature {ANY} -- Representation
 
 	url: STRING
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 		require
 			env /= Void
 			env.handle.is_not_null
@@ -37,7 +37,7 @@ feature {} -- Representation
 feature {} -- Creation
 
 	make,
-	from_url (an_url: STRING) is
+	from_url (an_url: STRING)
 		require
 			an_url.substring (1, 7).is_equal ("http://")
 		local
@@ -54,7 +54,7 @@ feature {} -- Creation
 			end
 		end
 
-	from_server_info (other: like Current) is
+	from_server_info (other: like Current)
 		require
 			other /= Void
 			other.handle.is_not_null
@@ -70,7 +70,7 @@ feature {} -- Creation
 
 feature {} -- Destruction
 
-	dispose is
+	dispose
 		do
 			xmlrpc_server_info_free (handle)
 			handle:= default_pointer
@@ -78,7 +78,7 @@ feature {} -- Destruction
 
 feature {ANY} -- Operations
 
-	set_basic_auth (username, password: STRING) is
+	set_basic_auth (username, password: STRING)
 		do
 			xmlrpc_server_info_set_basic_auth (env.handle, handle,
 			                                   username.to_external, password.to_external)

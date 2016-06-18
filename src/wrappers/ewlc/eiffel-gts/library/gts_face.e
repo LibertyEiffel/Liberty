@@ -33,7 +33,7 @@ insert GTS_FACE_EXTERNALS
 create {ANY}  from_edges, from_triangle, enclosing, from_external_pointer
 
 feature {} -- Creation
-	from_edges (first, second, third: GTS_EDGE) is
+	from_edges (first, second, third: GTS_EDGE)
 			-- a new GtsFace using `first,' `second' and `third' as
 			-- edges.
 		do
@@ -42,26 +42,26 @@ feature {} -- Creation
 											first.handle,	second.handle, third.handle))
 		end
 
-	from_triangle (a_triangle: GTS_TRIANGLE) is
+	from_triangle (a_triangle: GTS_TRIANGLE)
 		require triangle_not_void: a_triangle /= Void
 		do
 			from_edges(a_triangle.edge_1,a_triangle.edge_2,a_triangle.edge_3)
 		end
 
-	enclosing (some_points: G_SLIST[GTS_POINT]; a_scale: REAL) is
+	enclosing (some_points: G_SLIST[GTS_POINT]; a_scale: REAL)
 		do
 			from_external_pointer(gts_triangle_enclosing (gts_face_class, some_points.handle, a_scale))
 		end
 
 feature {ANY}
-	has_parent_surface (a_surface: GTS_SURFACE): BOOLEAN is
+	has_parent_surface (a_surface: GTS_SURFACE): BOOLEAN
 			-- Does Current face belong to `a_surface'?
 		require surface_not_void: a_surface /= Void
 		do
 			Result:=gts_face_has_parent_surface(handle, a_surface.handle).to_boolean
 		end
 
-	neighbor_number_of (a_surface: GTS_SURFACE): INTEGER is
+	neighbor_number_of (a_surface: GTS_SURFACE): INTEGER
 			-- the number of faces neighbors of Current face and
 			-- belonging to a_surface (if it is not Void).
 		require surface_not_void: a_surface /= Void
@@ -70,7 +70,7 @@ feature {ANY}
 		ensure positive: Result >= 0
 		end
 
-	neighbors_of (a_surface: GTS_SURFACE): G_SLIST[GTS_FACE] is
+	neighbors_of (a_surface: GTS_SURFACE): G_SLIST[GTS_FACE]
 			-- a list of unique GtsFace neighbors of Current face and
 			-- belonging to `a_surface' (if it is not Void).
 		do
@@ -78,7 +78,7 @@ feature {ANY}
 			(gts_face_neighbors (handle, null_or(a_surface)))
 		end
 		
-	for_each_neighbor (a_surface: GTS_SURFACE; a_predicate: PREDICATE[TUPLE[GTS_FACE]]) is
+	for_each_neighbor (a_surface: GTS_SURFACE; a_predicate: PREDICATE[TUPLE[GTS_FACE]])
 			-- Calls `a_function' for each neighbor of Current face
 			-- belonging to `a_surface' (if not Void) until `a_function'
 			-- returns 0.
@@ -93,7 +93,7 @@ feature {ANY}
 			end
 		end
 	
-	is_compatible (a_surface: GTS_SURFACE): BOOLEAN is
+	is_compatible (a_surface: GTS_SURFACE): BOOLEAN
 			-- Is Current face is compatible with all its neighbors
 			-- belonging to `a_surface'?
 		do
@@ -101,14 +101,14 @@ feature {ANY}
 		end
 
 
-	surfaces: G_SLIST [GTS_SURFACE] is
+	surfaces: G_SLIST [GTS_SURFACE]
 			-- Surfaces using Current face.
 		do
 			create Result.from_external_pointer (get_surfaces(handle))
 		end
 	
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsFace)"
 		end

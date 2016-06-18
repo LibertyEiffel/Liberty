@@ -24,7 +24,7 @@ class MEMORY_MAPPED_MESSAGE_FACTORY [ITEM->MEMORY_MAPPED_MESSAGE]
 inherit FACTORY[ITEM]
 
 feature {} -- Creation
-	new: ITEM is
+	new: ITEM
 		local i: TYPED_INTERNALS[ITEM]
 		do
 

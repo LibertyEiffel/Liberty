@@ -8,35 +8,35 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_graph_get_items (a_graph: POINTER): POINTER is
+	gda_graph_get_items (a_graph: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_graph_get_item_from_obj (a_graph: POINTER; a_ref_obj: POINTER; a_create_if_needed: INTEGER_32): POINTER is
+	gda_graph_get_item_from_obj (a_graph: POINTER; a_ref_obj: POINTER; a_create_if_needed: INTEGER_32): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_graph_del_item (a_graph: POINTER; an_item: POINTER) is
+	gda_graph_del_item (a_graph: POINTER; an_item: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_graph_add_item (a_graph: POINTER; an_item: POINTER) is
+	gda_graph_add_item (a_graph: POINTER; an_item: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_graph_get_graph_type (a_graph: POINTER): INTEGER_32 is
+	gda_graph_get_graph_type (a_graph: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_graph_new (a_dict: POINTER; a_type: INTEGER_32): POINTER is
+	gda_graph_new (a_dict: POINTER; a_type: INTEGER_32): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_graph_get_type: INTEGER_32 is
+	gda_graph_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_graph_error_quark: INTEGER_32 is
+	gda_graph_error_quark: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

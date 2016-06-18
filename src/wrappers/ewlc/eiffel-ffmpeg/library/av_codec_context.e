@@ -38,7 +38,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 			-- creates a new AV_CODEC_CONTEXT and sets it to default values
 		do
 			handle := avcodec_alloc_context
@@ -46,56 +46,56 @@ feature {} -- Creation
 
 feature {ANY} -- Access
 
-	type: INTEGER is
+	type: INTEGER
 		do
 			Result := av_codec_context_get_codec_type (handle)
 		ensure
 			is_valid_codec_type (Result)
 		end
 
-	width: INTEGER is
+	width: INTEGER
 			-- picture width
 		do
 			Result := av_codec_context_get_width (handle)
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- picture width
 		do
 			Result := av_codec_context_get_height (handle)
 		end
 
-	sample_rate: INTEGER is
+	sample_rate: INTEGER
 			-- samples per sec
 		do
 			Result := av_codec_context_get_height (handle)
 		end
 
-	channels: INTEGER is
+	channels: INTEGER
 		do
 			Result := av_codec_context_get_channels (handle)
 		end
 
-	frame_size: INTEGER is
+	frame_size: INTEGER
 			-- samples per packet.
 			-- Initialized when calling `init'
 		do
 			Result := av_codec_context_get_frame_size (handle)
 		end
 
-	frame_number: INTEGER is
+	frame_number: INTEGER
 			-- audio or video frame number
 		do
 			Result := av_codec_context_get_frame_number (handle)
 		end
 
-	real_pict_num: INTEGER is
+	real_pict_num: INTEGER
 			-- returns the real picture number of previous encoded frame
 		do
 			Result := av_codec_context_get_real_pict_num (handle)
 		end
 
-	qcompress: REAL is
+	qcompress: REAL
 			-- amount of qscale change between easy & hard scenes
 		do
 			Result := av_codec_context_get_qcompress (handle)
@@ -103,7 +103,7 @@ feature {ANY} -- Access
 			Result.in_range (0.0, 1.0)
 		end
 
-	qblur: REAL is
+	qblur: REAL
 			-- amount of qscale smoothing over time
 		do
 			Result := av_codec_context_get_qblur (handle)
@@ -111,7 +111,7 @@ feature {ANY} -- Access
 			Result.in_range (0.0, 1.0)
 		end
 
-	skip_idct: INTEGER is
+	skip_idct: INTEGER
 			-- Set by user when decoding
 		do
 			Result := av_codec_context_get_skip_idct (handle)
@@ -119,7 +119,7 @@ feature {ANY} -- Access
 			is_valid_av_discard (Result)
 		end
 
-	skip_frame: INTEGER is
+	skip_frame: INTEGER
 			-- Set by user when decoding
 		do
 			Result := av_codec_context_get_skip_frame (handle)
@@ -127,7 +127,7 @@ feature {ANY} -- Access
 			is_valid_av_discard (Result)
 		end
 
-	skip_loop_filter: INTEGER is
+	skip_loop_filter: INTEGER
 			-- Set by user when decoding
 		do
 			Result := av_codec_context_get_skip_loop_filter (handle)
@@ -135,7 +135,7 @@ feature {ANY} -- Access
 			is_valid_av_discard (Result)
 		end
 
-	bits_per_sample: INTEGER is
+	bits_per_sample: INTEGER
 			-- bits per sample/pixel from the demuxer (needed for huffyuv).
 			--   * encoding: set by lavc
 			--   * decoding: set by user 
@@ -143,7 +143,7 @@ feature {ANY} -- Access
 			Result := av_codec_context_get_bits_per_sample (handle)
 		end
 
-	thread_count: INTEGER is
+	thread_count: INTEGER
 			-- Thread count.
 			-- is used to decide how many independant tasks should be passed
 			-- to execute()
@@ -153,14 +153,14 @@ feature {ANY} -- Access
 			Result := av_codec_context_get_thread_count (handle)
 		end
 
-	codec_id: INTEGER is
+	codec_id: INTEGER
 		do
 			Result := av_codec_context_get_codec_id (handle)
 		ensure
 			is_valid_av_codec_id (Result)
 		end
 
-	codec: AV_CODEC is
+	codec: AV_CODEC
 		local codec_ptr: POINTER
 		do
 			codec_ptr := av_codec_context_get_codec(handle)
@@ -168,7 +168,7 @@ feature {ANY} -- Access
 			Result := wrapper(codec_ptr) -- create Result.from_external_pointer(codec_ptr)
 		end
 
-	pix_fmt: INTEGER is
+	pix_fmt: INTEGER
 		do
 			Result := av_codec_context_get_pix_fmt (handle)
 		ensure
@@ -177,43 +177,43 @@ feature {ANY} -- Access
 
 feature {ANY} -- Operations
 
-	close: BOOLEAN is
+	close: BOOLEAN
 		do
 			Result := avcodec_close (handle) = 0
 		end
 
-	set_thread_count (a_thread_count: INTEGER) is
+	set_thread_count (a_thread_count: INTEGER)
 		do
 			av_codec_context_set_thread_count (handle, a_thread_count)
 		end
 
-	set_skip_idct (a_discard: INTEGER) is
+	set_skip_idct (a_discard: INTEGER)
 		require
 			is_valid_av_discard (a_discard)
 		do
 			av_codec_context_set_skip_idct (handle, a_discard)
 		end
 
-	set_skip_frame (a_discard: INTEGER) is
+	set_skip_frame (a_discard: INTEGER)
 		require
 			is_valid_av_discard (a_discard)
 		do
 			av_codec_context_set_skip_frame (handle, a_discard)
 		end
 
-	set_skip_loop_filter (a_discard: INTEGER) is
+	set_skip_loop_filter (a_discard: INTEGER)
 		require
 			is_valid_av_discard (a_discard)
 		do
 			av_codec_context_set_skip_loop_filter (handle, a_discard)
 		end
 
-	set_bits_per_sample (a_bps: INTEGER) is
+	set_bits_per_sample (a_bps: INTEGER)
 		do
 			av_codec_context_set_bits_per_sample (handle, a_bps)
 		end
 
-	find_and_open_decoder: BOOLEAN is
+	find_and_open_decoder: BOOLEAN
 			-- Attempts to find and open a decoder for `codec_id'.  Returns True on success.
 		require
 			is_valid_av_codec_id (codec_id) and codec_id /= codec_id_none
@@ -226,7 +226,7 @@ feature {ANY} -- Operations
 			end
 		end
 
-	find_and_open_encoder: BOOLEAN is
+	find_and_open_encoder: BOOLEAN
 			-- Attempts to find and open a encoder for `codec_id'.  Returns True on success.
 		require
 			is_valid_av_codec_id (codec_id) and codec_id /= codec_id_none
@@ -239,7 +239,7 @@ feature {ANY} -- Operations
 			end
 		end
 
-	open (a_codec: AV_CODEC): BOOLEAN is
+	open (a_codec: AV_CODEC): BOOLEAN
 			-- Opens and inits `a_codec'.  Returns True on success.
 		require
 			a_codec /= Void
@@ -248,7 +248,7 @@ feature {ANY} -- Operations
 			Result := avcodec_open (handle, a_codec.handle) = 0
 		end
 
-	got_picture: BOOLEAN is
+	got_picture: BOOLEAN
 			-- Returns true if the last call to decode_video completed a picture.
 			-- Subsequent calls will return False once again, until another picture
 			-- is decodec.
@@ -257,7 +257,7 @@ feature {ANY} -- Operations
 			internal_got_picture := False
 		end
 
-	decode_video (a_picture: AV_FRAME; a_packet: AV_PACKET; a_offset: INTEGER): INTEGER is
+	decode_video (a_picture: AV_FRAME; a_packet: AV_PACKET; a_offset: INTEGER): INTEGER
 			-- decode a frame.
 			-- Parameters:
 			--    * a_picture: The decoded picture will go here
@@ -275,7 +275,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Disposing
 
-	dispose is
+	dispose
 		do
 			--			if is_valid then
 			--				if avcodec_close (handle) /= 0 then
@@ -291,7 +291,7 @@ feature {} -- Internal
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <avformat.h>"
 		alias "sizeof(AVCodecContext)"
 		end

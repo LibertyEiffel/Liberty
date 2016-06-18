@@ -56,7 +56,7 @@ insert
 create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
-	make (a_title: STRING; a_parent: GTK_WINDOW) is
+	make (a_title: STRING; a_parent: GTK_WINDOW)
 			-- Creates a new GtkPrintUnixDialog with `a_title' and `a_parent' as
 			-- the transient parent of the dialog. Both `a_title' and `a_parent'
 			-- can be Void.
@@ -67,33 +67,33 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	set_page_setup (a_setup: GTK_PAGE_SETUP) is
+	set_page_setup (a_setup: GTK_PAGE_SETUP)
 			--   Sets the page setup of the GtkPrintUnixDialog.
 		require setup_not_void: a_setup/=Void
 		do
 			gtk_print_unix_dialog_set_page_setup(handle,a_setup.handle)
 		end
 
-	page_setup: GTK_PAGE_SETUP is
+	page_setup: GTK_PAGE_SETUP
 			-- the page setup of dialog.
 		do
 			create Result.from_external_pointer(gtk_print_unix_dialog_get_page_setup(handle))
 		end
 
-	set_current_page (a_page: INTEGER) is
+	set_current_page (a_page: INTEGER)
 			-- Sets the current page number. If `a_page' is not -1, this enables
 			-- the current page choice for the range of pages to print.
 		do
 			gtk_print_unix_dialog_set_current_page(handle,a_page)
 		end
 
-	current_page: INTEGER is
+	current_page: INTEGER
 			-- the current page of dialog
 		do
 			Result:=gtk_print_unix_dialog_get_current_page(handle)
 		end
 
-	set_settings (some_settings: GTK_PRINT_SETTINGS) is
+	set_settings (some_settings: GTK_PRINT_SETTINGS)
 			-- Sets the GtkPrintSettings for the GtkPrintUnixDialog to
 			-- `some_settings' that can be Void. Typically, this is used to restore
 			-- saved print settings from a previous print operation before the
@@ -102,7 +102,7 @@ feature {ANY}
 			gtk_print_unix_dialog_set_settings(handle,null_or(some_settings))
 		end
 
-	settings: GTK_PRINT_SETTINGS is
+	settings: GTK_PRINT_SETTINGS
 			-- a new GtkPrintSettings object that represents the current values in
 			-- the print dialog.
 		do
@@ -116,20 +116,20 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	selected_printer: GTK_PRINTER is
+	selected_printer: GTK_PRINTER
 			-- the currently selected printer
 		do
 			create Result.from_external_pointer(handle)
 		ensure not_void: Result/=Void
 		end
 
-	add_custom_tab (a_tab, a_label: GTK_WIDGET) is
+	add_custom_tab (a_tab, a_label: GTK_WIDGET)
 			--   Adds `a_tab' to the print dialog as a custom tab using `a_label'.
 		do
 			gtk_print_unix_dialog_add_custom_tab(handle,a_tab.handle,a_label.handle)
 		end
 
-	set_manual_capabilities (some_capabilities: INTEGER) is
+	set_manual_capabilities (some_capabilities: INTEGER)
 			-- Specify the printing capabilities your application
 			-- supports.  For instance, if you can handle scaling the
 			-- output then you pass `gtk_print_capability_scale'. If you
@@ -184,13 +184,13 @@ feature {ANY} -- TODO: Properties
 
 feature {ANY}
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtkprintunixdialog.h>"
 		alias "sizeof(GtkPrintUnixDialog)"
 		end
 	
 
-	dummy_gobject: POINTER is
+	dummy_gobject: POINTER
 		do
 			Result:=(gtk_print_unix_dialog_new
 						(default_pointer, default_pointer))

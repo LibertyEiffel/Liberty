@@ -25,19 +25,19 @@ inherit G_STRUCT
 create {ANY} from_external_pointer
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkPoint)"
 		end
 
 feature {ANY} -- Getters
-	x: INTEGER is
+	x: INTEGER
 			-- x coordinate of the point
 		do
 			Result := get_x (handle)
 		end
 
-	y: INTEGER is
+	y: INTEGER
 			-- y coordinate of the point.
 		do
 			Result := get_y (handle)
@@ -47,11 +47,11 @@ feature {ANY} -- TODO: Setters (if needed)
 	
 feature {} -- Struct accesing
 
-	get_x (span: POINTER): INTEGER is
+	get_x (span: POINTER): INTEGER
 		external "C struct GdkPoint get x use <gdk/gdk.h>"
 		end
 
-	get_y (span: POINTER): INTEGER is
+	get_y (span: POINTER): INTEGER
 		external "C struct GdkPoint get y use <gdk/gdk.h>"
 		end
 end

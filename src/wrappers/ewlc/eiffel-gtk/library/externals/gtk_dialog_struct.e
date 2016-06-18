@@ -26,19 +26,19 @@ deferred class GTK_DIALOG_STRUCT
 inherit ANY undefine is_equal, copy end
 
 feature {} -- GtkDialog struct
-	get_vbox (a_gtk_dialog: POINTER): POINTER is
+	get_vbox (a_gtk_dialog: POINTER): POINTER
 		external "C struct GtkDialog get vbox use <gtk/gtk.h>"
 		end
 	
-	get_action_area (a_gtk_dialog: POINTER): POINTER is
+	get_action_area (a_gtk_dialog: POINTER): POINTER
 		external "C struct GtkDialog get action_area use <gtk/gtk.h>"
 		end
 
-	set_gtkdialog_vbox (a_dialog: POINTER; a_vbox: POINTER) is
+	set_gtkdialog_vbox (a_dialog: POINTER; a_vbox: POINTER)
 		external "C struct GtkDialog set vbox use <gtk/gtk.h>"
 		end
 
-	set_gtkdialog_action_area (a_dialog: POINTER; an_action_area: POINTER): POINTER is
+	set_gtkdialog_action_area (a_dialog: POINTER; an_action_area: POINTER): POINTER
 		external "C struct GtkDialog set action_area use <gtk/gtk.h>"
 		end
 

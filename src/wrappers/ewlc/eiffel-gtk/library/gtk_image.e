@@ -36,14 +36,14 @@ create {ANY}
 
 feature {} -- Initialization
 
-	make is
+	make
 			-- Create an empty gtk_image widget.
 		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_image_new)
 		end
 
-	from_file (filename: STRING) is
+	from_file (filename: STRING)
 			-- Create a `gtk_image' displaying the file `filename'.
 			-- If the file isn't found or can't be loaded, the
 			-- resulting `gtk_image' will display a "broken image" icon.
@@ -55,7 +55,7 @@ feature {} -- Initialization
 		end
 
 
-	from_pixbuf (pic: GDK_PIXBUF) is
+	from_pixbuf (pic: GDK_PIXBUF)
 				-- Creates a new GtkImage displaying `pic'.
 		require
 			gtk_initialized: gtk.is_initialized
@@ -64,7 +64,7 @@ feature {} -- Initialization
 			from_external_pointer (gtk_image_new_from_pixbuf (pic.handle))
 		end
 
-	from_pixmap (a_pixmap: GDK_PIXMAP; a_mask: GDK_BITMAP) is
+	from_pixmap (a_pixmap: GDK_PIXMAP; a_mask: GDK_BITMAP)
 			-- Creates a GtkImage widget displaying pixmap with a mask.
 			-- A GDK_PIXMAP is a server-side image buffer in the pixel
 			-- format of the current display.
@@ -77,7 +77,7 @@ feature {} -- Initialization
 			from_external_pointer (gtk_image_new_from_pixmap (pixmap_ptr, mask_ptr))
 		end
 
-	from_stock (a_stock_item: STRING; a_size: INTEGER) is
+	from_stock (a_stock_item: STRING; a_size: INTEGER)
 		require
 			gtk.is_initialized
 			a_stock_item /= Void
@@ -97,14 +97,14 @@ feature {} -- Initialization
 
 feature {ANY} -- Access
 
-	storage_type: INTEGER is
+	storage_type: INTEGER
 		do
 			Result := gtk_image_get_storage_type (handle)
 		ensure
 			is_valid_gtk_image_type (Result)
 		end
 
-	pixbuf: GDK_PIXBUF is
+	pixbuf: GDK_PIXBUF
 		require
 			storage_type = gtk_image_pixbuf or storage_type = gtk_image_empty
 		local
@@ -123,7 +123,7 @@ feature {ANY} -- Access
 		end
 
 feature {ANY} -- Element change
-	set_file (filename: STRING) is
+	set_file (filename: STRING)
 			-- Set the `gtk_image' displaying the file `filename'.
 			-- If the file isn't found or can't be loaded, the 
 			-- resulting gtk_image will display a "broken image" icon.
@@ -133,7 +133,7 @@ feature {ANY} -- Element change
 			gtk_image_set_from_file (handle,filename.to_external)
 		end
 
-	set_from_pixbuf (a_pixbuf: GDK_PIXBUF) is
+	set_from_pixbuf (a_pixbuf: GDK_PIXBUF)
 			-- See `from_pixbuf' for details.
 		require
 			valid_pixbuf: a_pixbuf /= Void
@@ -141,7 +141,7 @@ feature {ANY} -- Element change
 			gtk_image_set_from_pixbuf (handle, a_pixbuf.handle)
 		end
 
-	set_from_pixmap (a_pixmap: GDK_PIXMAP; a_mask: GDK_BITMAP) is
+	set_from_pixmap (a_pixmap: GDK_PIXMAP; a_mask: GDK_BITMAP)
 			-- See `from_pixmap' for details.
 		local
 			pixmap_ptr, mask_ptr: POINTER
@@ -152,7 +152,7 @@ feature {ANY} -- Element change
 		end
 
 feature {ANY} -- Status setting
-	set_pixel_size (a_pixel_size : INTEGER) is
+	set_pixel_size (a_pixel_size : INTEGER)
 			-- Sets the pixel size to use.
 		do
 			gtk_image_set_pixel_size (handle,a_pixel_size)
@@ -173,7 +173,7 @@ feature {ANY} -- Status setting
 
 feature {ANY} -- Status report
 
-	pixel_size : INTEGER is
+	pixel_size : INTEGER
 			-- Pixel size used.
 		do
 			Result := gtk_image_get_pixel_size (handle)
@@ -181,7 +181,7 @@ feature {ANY} -- Status report
 
 feature {ANY}
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkImage)"
 		end

@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_file_chooser_action (a_gtk_file_chooser_action: INTEGER): BOOLEAN is
+	is_valid_gtk_file_chooser_action (a_gtk_file_chooser_action: INTEGER): BOOLEAN
 		do
 			Result:=((a_gtk_file_chooser_action=gtk_file_chooser_action_open) or else
 						(a_gtk_file_chooser_action=gtk_file_chooser_action_save) or else
@@ -35,28 +35,28 @@ feature {} -- enum
 						(a_gtk_file_chooser_action=gtk_file_chooser_action_create_folder))
 		end
 
-	gtk_file_chooser_action_open: INTEGER is
+	gtk_file_chooser_action_open: INTEGER
 			-- Indicates open mode. The file chooser will only let the
 			-- user pick an existing file.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_FILE_CHOOSER_ACTION_OPEN"
 		end
 
-	gtk_file_chooser_action_save: INTEGER is
+	gtk_file_chooser_action_save: INTEGER
 			-- Indicates save mode. The file chooser will let the user
 			-- pick an existing file, or type in a new filename.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_FILE_CHOOSER_ACTION_SAVE"
 		end
 
-	gtk_file_chooser_action_select_folder: INTEGER is
+	gtk_file_chooser_action_select_folder: INTEGER
 			-- Indicates an Open mode for selecting folders. The file
 			-- chooser will let the user pick an existing folder.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER"
 		end
 
-	gtk_file_chooser_action_create_folder: INTEGER is
+	gtk_file_chooser_action_create_folder: INTEGER
 			-- Indicates a mode for creating a new folder. The file
 			-- chooser will let the user name an existing or new folder.
 		external "C macro use <gtk/gtk.h>"

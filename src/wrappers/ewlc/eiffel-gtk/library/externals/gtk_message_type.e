@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_message_type (a_gtk_message_type :INTEGER): BOOLEAN is
+	is_valid_gtk_message_type (a_gtk_message_type :INTEGER): BOOLEAN
 		do
 			Result:=((a_gtk_message_type = gtk_message_info) or else
 						(a_gtk_message_type = gtk_message_warning) or else
@@ -35,25 +35,25 @@ feature {} -- enum
 						(a_gtk_message_type = gtk_message_error))
 		end
 
-	gtk_message_info: INTEGER is
+	gtk_message_info: INTEGER
 			-- 	Informational message 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MESSAGE_INFO"
 		end
 
-	gtk_message_warning: INTEGER is
+	gtk_message_warning: INTEGER
 			-- 	Nonfatal warning message 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MESSAGE_WARNING"
 		end
 
-	gtk_message_question: INTEGER is
+	gtk_message_question: INTEGER
 			-- 	Question requiring a choice 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MESSAGE_QUESTION"
 		end
 
-	gtk_message_error: INTEGER is
+	gtk_message_error: INTEGER
 			-- 	Fatal error message 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MESSAGE_ERROR"

@@ -34,14 +34,14 @@ insert
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <xmlrpc-c/base.h>"
 		alias "sizeof (xmlrpc_value)"
 		end
 
 feature {} -- Creation
 
-	from_value (a_value: XMLRPC_VALUE) is
+	from_value (a_value: XMLRPC_VALUE)
 		require
 			a_value /= Void
 		do
@@ -65,7 +65,7 @@ feature {} -- Representation
 
 feature {ANY} -- Representation
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 		require
 			env /= Void
 			env.handle.is_not_null
@@ -75,13 +75,13 @@ feature {ANY} -- Representation
 
 feature {} -- Destruction
 
-	dispose is
+	dispose
 		do
 			unref
 			Precursor
 		end
 
-	unref is
+	unref
 		require
 			handle.is_not_null
 		do

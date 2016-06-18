@@ -45,14 +45,14 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			--   Create a new GtkSeparatorToolItem
 		do
 			from_external_pointer(gtk_separator_tool_item_new)
 		end
 
 feature {ANY} 
-	set_draw (a_setting: BOOLEAN) is
+	set_draw (a_setting: BOOLEAN)
 			-- When separator_tool_items is drawn as a vertical line, or
 			-- just blank.  Setting this FALSE along with `set_expand' is
 			-- useful to create an item that forces following items to
@@ -62,14 +62,14 @@ feature {ANY}
 		ensure set: a_setting = is_drawn
 		end
 
-	is_drawn: BOOLEAN is
+	is_drawn: BOOLEAN
 			-- Is the separator tool item is drawn as a line, or just
 			-- blank. See `set_draw'.
 		do
 			Result:=(gtk_separator_tool_item_get_draw(handle)).to_boolean
 		end
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkSeparatorToolItem)"
 		end

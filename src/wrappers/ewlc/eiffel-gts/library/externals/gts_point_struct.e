@@ -16,27 +16,27 @@ feature {} -- Structure getter/setter calls
 --    gdouble x, y, z; /* must be contiguous (cast to robust functions) */
 --  } GtsPoint;
 
-	get_x (a_struct: POINTER): REAL is
+	get_x (a_struct: POINTER): REAL
 		external "C struct GtsPoint get x use <gts.h>"
 		end
 
-	set_x_internal (a_struct: POINTER; a_x: REAL) is
+	set_x_internal (a_struct: POINTER; a_x: REAL)
 		external "C struct GtsPoint set x use <gts.h>"
 		end
 
-	get_y (a_struct: POINTER): REAL is
+	get_y (a_struct: POINTER): REAL
 		external "C struct GtsPoint get y use <gts.h>"
 		end
 
-	set_y_internal (a_struct: POINTER; a_y: REAL) is
+	set_y_internal (a_struct: POINTER; a_y: REAL)
 		external "C struct GtsPoint set y use <gts.h>"
 		end
 
-	get_z (a_struct: POINTER): REAL is
+	get_z (a_struct: POINTER): REAL
 		external "C struct GtsPoint get z use <gts.h>"
 		end
 
-	set_z_internal (a_struct: POINTER; a_z: REAL) is
+	set_z_internal (a_struct: POINTER; a_z: REAL)
 		external "C struct GtsPoint set z use <gts.h>"
 		end
 end

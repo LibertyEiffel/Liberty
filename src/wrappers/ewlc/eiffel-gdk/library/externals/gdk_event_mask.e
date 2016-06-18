@@ -32,24 +32,24 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gdk_event_mask (an_event_mask: INTEGER) : BOOLEAN is
+	is_valid_gdk_event_mask (an_event_mask: INTEGER) : BOOLEAN
 		do
 			Result := an_event_mask.bit_and (gdk_all_events_mask.bit_not) = 0
 		end
 
-	gdk_exposure_mask: INTEGER is
+	gdk_exposure_mask: INTEGER
 			-- receive expose events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_EXPOSURE_MASK"
 		end
 
-	gdk_pointer_motion_mask: INTEGER is
+	gdk_pointer_motion_mask: INTEGER
 			-- receive all pointer motion events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_POINTER_MOTION_MASK"
 		end
 
-	gdk_pointer_motion_hint_mask: INTEGER is
+	gdk_pointer_motion_hint_mask: INTEGER
 			-- GDK_POINTER_MOTION_HINT_MASK is a special mask which is used to
 			-- reduce the number of GDK_MOTION_NOTIFY events received. Normally
 			-- a GDK_MOTION_NOTIFY event is received each time the mouse moves.
@@ -63,115 +63,115 @@ feature {} -- enum
 		alias "GDK_POINTER_MOTION_HINT_MASK"
 		end
 
-	gdk_button_motion_mask: INTEGER is
+	gdk_button_motion_mask: INTEGER
 			-- receive pointer motion events while any button is pressed
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON_MOTION_MASK"
 		end
 
-	gdk_button1_motion_mask: INTEGER is
+	gdk_button1_motion_mask: INTEGER
 			-- receive pointer motion events while 1 button is pressed
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON1_MOTION_MASK"
 		end
 
-	gdk_button2_motion_mask: INTEGER is
+	gdk_button2_motion_mask: INTEGER
 			-- receive pointer motion events while 2 button is pressed
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON2_MOTION_MASK"
 		end
 
-	gdk_button3_motion_mask: INTEGER is
+	gdk_button3_motion_mask: INTEGER
 			-- receive pointer motion events while 3 button is pressed
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON3_MOTION_MASK"
 		end
 
-	gdk_button_press_mask: INTEGER is
+	gdk_button_press_mask: INTEGER
 			-- receive button press events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON_PRESS_MASK"
 		end
 
-	gdk_button_release_mask: INTEGER is
+	gdk_button_release_mask: INTEGER
 			-- receive button release events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON_RELEASE_MASK"
 		end
 
-	gdk_key_press_mask: INTEGER is
+	gdk_key_press_mask: INTEGER
 			-- receive key press events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_KEY_PRESS_MASK"
 		end
 
-	gdk_key_release_mask: INTEGER is
+	gdk_key_release_mask: INTEGER
 			-- receive key release events 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_KEY_RELEASE_MASK"
 		end
 
-	gdk_enter_notify_mask: INTEGER is
+	gdk_enter_notify_mask: INTEGER
 			-- receive window enter events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_ENTER_NOTIFY_MASK"
 		end
 
-	gdk_leave_notify_mask: INTEGER is
+	gdk_leave_notify_mask: INTEGER
 			-- receive window leave events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_LEAVE_NOTIFY_MASK"
 		end
 
-	gdk_focus_change_mask: INTEGER is
+	gdk_focus_change_mask: INTEGER
 			-- receive focus change events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_FOCUS_CHANGE_MASK"
 		end
 
-	gdk_structure_mask: INTEGER is
+	gdk_structure_mask: INTEGER
 			-- receive events about window configuration change 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_STRUCTURE_MASK"
 		end
 
-	gdk_property_change_mask: INTEGER is
+	gdk_property_change_mask: INTEGER
 			-- receive property change events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_PROPERTY_CHANGE_MASK"
 		end
 
-	gdk_visibility_notify_mask: INTEGER is
+	gdk_visibility_notify_mask: INTEGER
 			-- receive visibility change events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_VISIBILITY_NOTIFY_MASK"
 		end
 
-	gdk_proximity_in_mask: INTEGER is
+	gdk_proximity_in_mask: INTEGER
 			-- receive proximity in events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_PROXIMITY_IN_MASK"
 		end
 
-	gdk_proximity_out_mask: INTEGER is
+	gdk_proximity_out_mask: INTEGER
 			-- receive proximity out events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_PROXIMITY_OUT_MASK"
 		end
 
-	gdk_substructure_mask: INTEGER is
+	gdk_substructure_mask: INTEGER
 			-- receive events about window configuration changes of child windows
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SUBSTRUCTURE_MASK"
 		end
 
-	gdk_scroll_mask: INTEGER is
+	gdk_scroll_mask: INTEGER
 			-- receive scroll events
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SCROLL_MASK"
 		end
 
-	gdk_all_events_mask: INTEGER is
+	gdk_all_events_mask: INTEGER
 			-- the combination of all the above event masks.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_ALL_EVENTS_MASK"

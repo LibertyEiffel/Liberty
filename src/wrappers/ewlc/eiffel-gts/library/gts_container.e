@@ -92,19 +92,19 @@ feature {} -- Creation
 --     Returns :
 
 feature {ANY}
-	add (an_item: GTS_CONTAINEE) is
+	add (an_item: GTS_CONTAINEE)
 		require item_not_void: an_item /= Void
 		do
 			gts_container_add (handle, an_item.handle)
 		end
 
-	remove  (an_item: GTS_CONTAINEE) is
+	remove  (an_item: GTS_CONTAINEE)
 		require item_not_void: an_item /= Void
 		do
 			gts_container_remove (handle, an_item.handle)
 		end
 
-	count: INTEGER is
+	count: INTEGER
 		-- Number of elementes in the container. Note: in the original GTS 
 		-- terminology this would be called `size'.
 		obsolete "Should be NATURAL"
@@ -222,33 +222,33 @@ feature {} -- External calls
 	-- #define     GTS_CONTAINER                   (obj)
 	-- #define     GTS_IS_CONTAINER                (obj)
 	
-	gts_container_class: POINTER is
+	gts_container_class: POINTER
 			-- 	GtsContainerClass* gts_container_class (void);
 		external "C use <gts.h>"
 		end
 
-	gts_container_new (klass: POINTER): POINTER is
+	gts_container_new (klass: POINTER): POINTER
 			-- 	GtsContainer* gts_container_new (GtsContainerClass *klass);
 		external "C use <gts.h>"
 		end
 
-	gts_container_add (a_container, an_item: POINTER) is
+	gts_container_add (a_container, an_item: POINTER)
 			-- 	void gts_container_add (GtsContainer *c, GtsContainee *item);
 		external "C use <gts.h>"
 		end
 	
-	gts_container_remove (a_container, an_item: POINTER) is
+	gts_container_remove (a_container, an_item: POINTER)
 			-- 	void gts_container_remove (GtsContainer *c, GtsContainee *item);
 		external "C use <gts.h>"
 		end
 	
-	 gts_container_size (a_container: POINTER): INTEGER is
+	 gts_container_size (a_container: POINTER): INTEGER
 			-- 	guint gts_container_size (GtsContainer *c);
 		external "C use <gts.h>"
 		ensure natural: Result >= 0
 		end
 
-	gts_container_foreach (a_container, a_function, some_data: POINTER) is
+	gts_container_foreach (a_container, a_function, some_data: POINTER)
 			--  void gts_container_foreach (GtsContainer *c, GtsFunc func, gpointer data);
 		external "C use <gts.h>"
 		end
@@ -257,7 +257,7 @@ feature {} -- External calls
 	-- #define GTS_HASH_CONTAINER (obj)
 	-- #define GTS_IS_HASH_CONTAINER (obj)
 	
-	gts_hash_container_class: POINTER is
+	gts_hash_container_class: POINTER
 			--  GtsHashContainerClass* gts_hash_container_class (void);
 		external "C use <gts.h>"
 		end
@@ -267,7 +267,7 @@ feature {} -- External calls
 	--  #define GTS_SLIST_CONTAINER (obj)
 	--  #define GTS_IS_SLIST_CONTAINER (obj)
 
-	gts_slist_container_class: POINTER is
+	gts_slist_container_class: POINTER
 			--  GtsSListContainerClass* gts_slist_container_class (void);
 		external "C use <gts.h>"
 		end

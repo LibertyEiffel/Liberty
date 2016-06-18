@@ -24,7 +24,7 @@ deferred class GTS_BOOLEAN_OPERATION_ENUM
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_operation (an_operation: INTEGER): BOOLEAN is
+	is_valid_operation (an_operation: INTEGER): BOOLEAN
 		do	
 			Result:=((an_operation = gts_1_out_2) or else
 						(an_operation = gts_1_in_2) or else
@@ -32,7 +32,7 @@ feature {} -- enum
 						(an_operation = gts_2_in_1))
 		end
 	
-	gts_1_out_2: INTEGER is
+	gts_1_out_2: INTEGER
 			-- identifies the part of the first surface which lies outside the
 			-- second surface.
 		external "C macro <gts.h>"
@@ -40,7 +40,7 @@ feature {} -- enum
 		end
 
 
-	gts_1_in_2: INTEGER is
+	gts_1_in_2: INTEGER
 			-- identifies the part of the first surface which lies inside the
 			-- second surface.
 		external "C macro <gts.h>"
@@ -48,7 +48,7 @@ feature {} -- enum
 		end
 
 	
-	gts_2_out_1: INTEGER is
+	gts_2_out_1: INTEGER
 			-- identifies the part of the second surface which lies outside the
 			-- first surface.
 		external "C macro <gts.h>"
@@ -56,7 +56,7 @@ feature {} -- enum
 		end
 
 
-	gts_2_in_1: INTEGER is
+	gts_2_in_1: INTEGER
 			-- identifies the part of the second surface which lies inside the
 			-- first surface.
 		external "C macro <gts.h>"

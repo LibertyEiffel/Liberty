@@ -26,7 +26,7 @@ inherit ITERATOR[STRING]
 create {ANY} make
 
 feature {} -- Implementation and creation
-	make (an_array: STRING_ARRAY) is
+	make (an_array: STRING_ARRAY)
 		require array_not_void: an_array/=Void
 		do
 			array:=an_array
@@ -37,12 +37,12 @@ feature {} -- Implementation and creation
 	array: STRING_ARRAY
 	
 feature {ANY}
-	start is do index:=array.lower end
+	start do index:=array.lower end
 
-	is_off: BOOLEAN is do Result:=not array.valid_index(index) end
+	is_off: BOOLEAN do Result:=not array.valid_index(index) end
 
-	item: STRING is do Result:=array.item(index) end
+	item: STRING do Result:=array.item(index) end
 
-	next is do index:=index+1 end
+	next do index:=index+1 end
 
 end -- class STRING_ARRAY_ITERATOR

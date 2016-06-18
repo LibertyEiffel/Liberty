@@ -28,7 +28,7 @@ inherit
 
 feature {} -- External Calls
 
-	av_codec_get_name (a_codec: POINTER): POINTER is
+	av_codec_get_name (a_codec: POINTER): POINTER
 		external "C struct AVCodec get name use <avcodec.h>"
 		end
 

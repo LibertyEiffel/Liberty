@@ -5,7 +5,7 @@ inherit
 create {ANY} make, copy
 
 feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
-	wrapper (a_pointer: POINTER): G_DATE is
+	wrapper (a_pointer: POINTER): G_DATE
       do
          if wrappers.fast_has(a_pointer) then
             Result ?= wrappers.at(a_pointer)

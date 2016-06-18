@@ -29,7 +29,7 @@ inherit SHARED_C_STRUCT
 create {ANY} dummy, make, from_external_pointer
 
 feature {ANY} -- Creation
-	tag_style (a_style_name: STRING): GTK_SOURCE_TAG_STYLE is
+	tag_style (a_style_name: STRING): GTK_SOURCE_TAG_STYLE
 			-- the tag associated with the given style_name in the style scheme.		require style_name_not_void: a_style_name/=Void
 		local p: POINTER
 		do
@@ -40,7 +40,7 @@ feature {ANY} -- Creation
 			end
 		end
 
-	name: STRING is
+	name: STRING
 			-- the name of the style scheme.
 		do
 			create {CONST_STRING}
@@ -100,26 +100,26 @@ feature {} -- Unwrapped
 	--
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtksourceview/gtksourcestylescheme.h>"
 		alias "sizeof(GtkSourceStyleScheme)"
 		end
 
 feature {} -- External calls
 	-- #include <gtksourceview/gtksourcestylescheme.h>
-	gtk_source_style_scheme_get_tag_style (a_scheme, a_style_name: POINTER): POINTER is
+	gtk_source_style_scheme_get_tag_style (a_scheme, a_style_name: POINTER): POINTER
 			-- GtkSourceTagStyle* gtk_source_style_scheme_get_tag_style
 			-- (GtkSourceStyleScheme *scheme, const gchar *style_name);
 		external "C use <gtksourceview/gtksourcestylescheme.h>"
 		end
 		
-	gtk_source_style_scheme_get_name (a_scheme: POINTER): POINTER is
+	gtk_source_style_scheme_get_name (a_scheme: POINTER): POINTER
 			-- const gchar* gtk_source_style_scheme_get_name (GtkSourceStyleScheme
 			-- *scheme);
 		external "C use <gtksourceview/gtksourcestylescheme.h>"
 		end
 
-	gtk_source_style_scheme_get_default: POINTER is
+	gtk_source_style_scheme_get_default: POINTER
 			-- GtkSourceStyleScheme* gtk_source_style_scheme_get_default (void);
 		external "C use <gtksourceview/gtksourcestylescheme.h>"
 		end

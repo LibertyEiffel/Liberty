@@ -32,7 +32,7 @@ insert
 
 feature {ANY} -- Variables
 
-	polka_strict: BOOLEAN is
+	polka_strict: BOOLEAN
 			-- True iff. strict inequalities are enable. This requires
 			-- an additional dimension in vectors and matrices, and
 			-- modifies emptiness and universality tests.
@@ -40,39 +40,39 @@ feature {ANY} -- Variables
 			Result := polka_strict_external.to_boolean
 		end
 
-	polka_cst: INTEGER is
+	polka_cst: INTEGER
 			-- Indicates the index of the constant coefficient. Should
 			-- be always 1, weather strict inequalities are enabled or not.
 		do
 			Result := polka_cts_external
 		end
 
-	polka_eps: INTEGER is
+	polka_eps: INTEGER
 			-- Indicates the index of the epsilon coefficient. Should be 2.
 		do
 			Result := polka_eps_external
 		end
 
-	polka_dec: INTEGER is
+	polka_dec: INTEGER
 			-- Indicates the index of the first "normal" coefficient; 2
 			-- if polka_strict is false, 3 otherwise.
 		do
 			Result := polka_dec_external
 		end
 
-	polka_maxnbdims: INTEGER is
+	polka_maxnbdims: INTEGER
 			-- Maximum number of dimensions allowed in polyhedra.
 		do
 			Result := polka_maxnbdims_external
 		end
 
-	polka_maxnbrows: INTEGER is
+	polka_maxnbrows: INTEGER
 			-- Maximum number of rows allowed in matrices.
 		do
 			Result := polka_maxnbrows_external
 		end
 
-	polka_maxcolumns: INTEGER is
+	polka_maxcolumns: INTEGER
 			-- Maximum number of columns allowed in vectors and
 			-- matrices.
 		do

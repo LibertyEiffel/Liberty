@@ -94,7 +94,7 @@ insert
 create {ANY} make, load_from_file, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new empty G_KEY_FILE object. Use
 			-- `load_from_file', `load_from_data' or
 			-- `load_from_data_dirs' to read an existing key file.
@@ -103,7 +103,7 @@ feature {} -- Creation
 		end
 
 
-	load_from_file (a_file: STRING; some_flags: INTEGER) is
+	load_from_file (a_file: STRING; some_flags: INTEGER)
 			-- Loads a key file into an empty GKeyFile structure. If
 			-- `a_file' has been completely and correctly read
 			-- `is_successful' is set to True, otherwise, i.e. if
@@ -137,7 +137,7 @@ feature {} -- Creation
 	-- error :    return location for a GError, or NULL
 	-- Returns :  TRUE if a key file could be loaded, FALSE othewise
 
-	load_from_data_dirs (a_file: STRING; some_flags: INTEGER) is
+	load_from_data_dirs (a_file: STRING; some_flags: INTEGER)
 			-- Looks for `a_key_file' in the paths returned from
 			-- `g_get_user_data_dir' and `g_get_system_data_dirs' (TODO:
 			-- these two are the names of the C functions; provide the
@@ -171,13 +171,13 @@ feature {ANY}
 	full_path: STRING
 			-- The full path of the key file. Set by `load_from_data_dirs'
 	
-	free (a_pointer: POINTER) is
+	free (a_pointer: POINTER)
 			-- Frees a GKeyFile.
 		do
 			g_key_file_free(a_pointer)
 		end
 	
-	set_list_separator (a_separator: CHARACTER) is
+	set_list_separator (a_separator: CHARACTER)
 			-- Sets the character which is used to separate values in
 			-- lists. Typically ';' or ',' are used as separators. The
 			-- default list separator is ';'.
@@ -185,7 +185,7 @@ feature {ANY}
 			g_key_file_set_list_separator (handle, a_separator)
 		end
 
-	to_string: STRING is
+	to_string: STRING
 			-- The key file as a string.
 		do
 			create Result.from_external
@@ -195,7 +195,7 @@ feature {ANY}
 		end
 
 
-	start_group: STRING is
+	start_group: STRING
 			-- the name of the start group of the file. A new string is 
 			-- created every time.
 		do
@@ -203,7 +203,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	groups: COLLECTION[STRING] is
+	groups: COLLECTION[STRING]
 			-- all the groups in the key file. Currently it is a NULL_TERMINATED_STRING_ARRAY
 		local groups_ptr: POINTER; a_length: INTEGER
 		do
@@ -224,7 +224,7 @@ feature {ANY}
 			-- necessary since memory handling is done throught Eiffel's GC
 		end
 
-	keys_of (a_group: STRING): COLLECTION[STRING] is
+	keys_of (a_group: STRING): COLLECTION[STRING]
 			-- the all keys for `a_group'. If `a_group' cannot be found, Void is
 			-- returned and `error' is set to
 			-- `g_key_file_error_group_not_found'. Currently it is a
@@ -257,14 +257,14 @@ feature {ANY} -- Queries
 	-- if key_file.is_valid then .... 
 	
 	-- Note: preconditions
-	has_group (a_group: STRING): BOOLEAN is
+	has_group (a_group: STRING): BOOLEAN
 			-- Does the key file have the group named `a_group'?
 		require group_not_void: a_group/=Void
 		do
 			Result:=(g_key_file_has_group(handle,a_group.to_external)).to_boolean
 		end
 
-	has_key  (a_group, a_key: STRING): BOOLEAN is
+	has_key  (a_group, a_key: STRING): BOOLEAN
 			-- Does the key file have `a_key' in `a_group'? If `a_group' 
 			-- is Void `start_group' is used.
 		require
@@ -275,7 +275,7 @@ feature {ANY} -- Queries
 						 a_key.to_external, error.reference)).to_boolean
 		end
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 			-- Did the last query returned a meaningful value? 
 			--
 			-- Note: further feature calls can change this value, 
@@ -285,7 +285,7 @@ feature {ANY} -- Queries
 			Result := error.code/=g_key_file_error_invalid_value
 		end
 
-	value (a_group, a_key: STRING): STRING is
+	value (a_group, a_key: STRING): STRING
 			-- the value associated with `a_key' under `a_group'.
 		require
 			group_not_void: a_group/=Void
@@ -307,7 +307,7 @@ feature {ANY} -- Queries
 			-- G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
 		end
 
-	string (a_group, a_key: STRING): STRING is
+	string (a_group, a_key: STRING): STRING
 			-- the string associated with `a_key' under `a_group'.
 		require
 			group_not_void: a_group/=Void
@@ -329,7 +329,7 @@ feature {ANY} -- Queries
 			create Result.from_external(value_ptr)
 		end	
 
-	localized_string (a_group, a_key, a_locale: STRING): STRING is
+	localized_string (a_group, a_key, a_locale: STRING): STRING
 			-- the string value associated with `a_key' under `a_group',
 			-- translated in the given locale, if available.  If no
 			-- suitable translation can be found then the untranslated
@@ -357,7 +357,7 @@ feature {ANY} -- Queries
 			create Result.from_external(value_ptr)
 		end
 
-	boolean (a_group, a_key: STRING): BOOLEAN is
+	boolean (a_group, a_key: STRING): BOOLEAN
 			-- the boolean value associated with `a_key' under
 			-- `a_group'. If the value associated with key cannot be
 			-- interpreted as a boolean then `is_valid' will be False.
@@ -377,7 +377,7 @@ feature {ANY} -- Queries
 			-- to G_KEY_FILE_ERROR_INVALID_VALUE.
 		end
 
-	integer (a_group, a_key: STRING): INTEGER is
+	integer (a_group, a_key: STRING): INTEGER
 			-- the integer value associated with `a_key' under
 			-- `a_group'. If `a_group' is Void, the start group is used.
 
@@ -401,7 +401,7 @@ feature {ANY} -- Queries
 			-- to G_KEY_FILE_ERROR_INVALID_VALUE.
 		end
 
-	real (a_group, a_key: STRING): REAL is
+	real (a_group, a_key: STRING): REAL
 			-- the real value associated with `a_key' under `a_group'. If
 			-- `a_group' is Void, the start group is used.
 
@@ -414,7 +414,7 @@ feature {ANY} -- Queries
 			Result:=(g_key_file_get_double(handle, a_group.to_external, a_key.to_external, error.reference))
 		end
 
-	string_list (a_group, a_key: STRING): COLLECTION[STRING] is
+	string_list (a_group, a_key: STRING): COLLECTION[STRING]
 			-- the values associated with `a_key' under `a_group'.
 		require
 			group_not_void: a_group/=Void
@@ -448,7 +448,7 @@ feature {ANY} -- Queries
 			-- cannot be found. The array should be freed with g_strfreev().
 		end
 
-	localized_string_list (a_group, a_key, a_locale: STRING): COLLECTION[STRING] is
+	localized_string_list (a_group, a_key, a_locale: STRING): COLLECTION[STRING]
 			-- the values associated with `a_key' under `a_group'
 			-- translated in `a_locale' if available. If `a_locale' is
 			-- Void then the current locale is assumed.
@@ -482,7 +482,7 @@ feature {ANY} -- Queries
 			end
 		end
 
-	boolean_list (a_group, a_key: STRING): COLLECTION[BOOLEAN] is
+	boolean_list (a_group, a_key: STRING): COLLECTION[BOOLEAN]
 			-- the values associated with `a_key' under `a_group'. If `a_group' is
 			-- Void, the start_group is used.
 		require
@@ -512,7 +512,7 @@ feature {ANY} -- Queries
 			end
 		end
 
-	integer_list (a_group, a_key: STRING): COLLECTION[INTEGER_32] is
+	integer_list (a_group, a_key: STRING): COLLECTION[INTEGER_32]
 			-- the value associated with `a_key' under `a_group'.
 		require
 			group_not_void: a_group/=Void
@@ -543,7 +543,7 @@ feature {ANY} -- Queries
 			end
 		end
 	
-	real_list (a_group, a_key: STRING): COLLECTION[REAL] is
+	real_list (a_group, a_key: STRING): COLLECTION[REAL]
 			-- the real values associated with `a_key' under `a_group'. `is_valid'
 			-- will be False if the values associated with key cannot be
 			-- interpreted as real.
@@ -573,7 +573,7 @@ feature {ANY} -- Queries
 			end
 		end
 
-	comment (a_group, a_key: STRING): STRING is
+	comment (a_group, a_key: STRING): STRING
 			-- The comment above `a_key' from `a_group'. If `a_key' is Void then
 			-- comment will be read from above `a_group'. If both `a_key' and
 			-- `a_group' are Void, then comment will be read from above the first
@@ -596,7 +596,7 @@ feature {ANY} -- Setting commands
 	-- g_key_file_set_string. Therefore I haven't wrapped it into an 
 	-- eventual `set_value'.
 	
-	set_string (a_group, a_key, a_string: STRING) is
+	set_string (a_group, a_key, a_string: STRING)
 			-- Associates `a_string' with `a_key' under `a_group'. If `a_key' cannot
 			-- be found then it is created. If `a_group' cannot be found then it is
 			-- created.
@@ -610,7 +610,7 @@ feature {ANY} -- Setting commands
 		ensure set: string(a_group, a_key).is_equal(a_string)
 		end
 
-	set_localized_string (a_group, a_key, a_string, a_locale: STRING) is
+	set_localized_string (a_group, a_key, a_string, a_locale: STRING)
 			-- Associates `a_string' with `a_key' under `a_group' for
 			-- `a_locale'. If translation for `a_key' cannot be found then it is
 			-- created. 
@@ -626,7 +626,7 @@ feature {ANY} -- Setting commands
 		ensure set: localized_string(a_group, a_key, a_locale).is_equal(a_string)
 		end
 
-	set_boolean (a_group, a_key: STRING; a_value: BOOLEAN) is
+	set_boolean (a_group, a_key: STRING; a_value: BOOLEAN)
 			-- Associates the boolean `a_value' with `a_key' under `a_group'. If
 			-- `a_key' cannot be found then it is created.
 		require
@@ -638,7 +638,7 @@ feature {ANY} -- Setting commands
 		ensure set: boolean(a_group,a_key)=a_value
 		end
 
-	set_integer (a_group, a_key: STRING; a_value: INTEGER_32) is
+	set_integer (a_group, a_key: STRING; a_value: INTEGER_32)
 			-- Associates the integer `a_value' with `a_key' under `a_group'. If
 			-- `a_key' cannot be found then it is created.
 		require
@@ -649,7 +649,7 @@ feature {ANY} -- Setting commands
 											a_key.to_external, a_value)
 		end
 
-	set_real  (a_group, a_key: STRING; a_value: REAL) is
+	set_real  (a_group, a_key: STRING; a_value: REAL)
 			-- Associates the real `a_value' with `a_key' under `a_group'. If
 			-- `a_key' cannot be found then it is created.
 			-- If `a_group' is Void, the start group is used.
@@ -663,7 +663,7 @@ feature {ANY} -- Setting commands
 	-- wrapper allow to use generic collections, hence the missing
 	-- "list".
 
-	set_strings (a_group, a_key: STRING; some_strings: COLLECTION[STRING]) is
+	set_strings (a_group, a_key: STRING; some_strings: COLLECTION[STRING])
 			-- Associates `some_strings' to `a_key' under `a_group'. If `a_key'
 			-- cannot be found then it is created. If `a_group' cannot be found
 			-- then it is created.
@@ -686,7 +686,7 @@ feature {ANY} -- Setting commands
 			 native.to_external, some_strings.count)
 		end
 
-	set_localized_strings (a_group, a_key, a_locale: STRING; some_strings: COLLECTION[STRING]) is
+	set_localized_strings (a_group, a_key, a_locale: STRING; some_strings: COLLECTION[STRING])
 			-- Associates `some_strings' to `a_key' under `a_group' for
 			-- `a_locale' language. If `a_key' cannot be found then it is
 			-- created. If `a_group' cannot be found then it is created.
@@ -710,7 +710,7 @@ feature {ANY} -- Setting commands
 			 a_locale.to_external, native.to_external, some_strings.count)
 		end
 
-	set_booleans (a_group, a_key: STRING; some_booleans: COLLECTION[BOOLEAN]) is
+	set_booleans (a_group, a_key: STRING; some_booleans: COLLECTION[BOOLEAN])
 			-- Associates `some_booleans' to `a_key' under `a_group' If
 			-- `a_key' cannot be found then it is created. If `a_group'
 			-- cannot be found then it is created. If `a_group' is Void,
@@ -734,7 +734,7 @@ feature {ANY} -- Setting commands
 												  native.to_external, some_booleans.count)
 		end
 
-	set_integers (a_group, a_key: STRING; some_integers: COLLECTION[INTEGER]) is
+	set_integers (a_group, a_key: STRING; some_integers: COLLECTION[INTEGER])
 			-- Associates `some_integers' to `a_key' under `a_group' If
 			-- `a_key' cannot be found then it is created. If `a_group'
 			-- cannot be found then it is created. If `a_group' is Void,
@@ -758,7 +758,7 @@ feature {ANY} -- Setting commands
 			 native.to_external, some_integers.count)
 		end
 
-	set_reals (a_group, a_key: STRING; some_reals: COLLECTION[REAL]) is
+	set_reals (a_group, a_key: STRING; some_reals: COLLECTION[REAL])
 			-- Associates `some_reals' to `a_key' under `a_group' If
 			-- `a_key' cannot be found then it is created. If `a_group'
 			-- cannot be found then it is created. If `a_group' is Void,
@@ -781,7 +781,7 @@ feature {ANY} -- Setting commands
 			 native.to_external, some_reals.count)
 		end
 
-	set_comment (a_group, a_key, a_comment: STRING) is
+	set_comment (a_group, a_key, a_comment: STRING)
 			-- Places `a_comment' above `a_key' from `a_group'. If `a_key' is
 			-- Void then comment will be written above `a_group'. If both `a_key' and
 			-- `a_group' are Void, then comment will be written above the first
@@ -795,14 +795,14 @@ feature {ANY} -- Setting commands
 		end
 	
 feature {ANY} -- Removing
-	remove_group (a_group: STRING) is
+	remove_group (a_group: STRING)
 			-- Removes `a_group' from the key file. `error' is updated.
 		require group_not_void: a_group/=Void
 		do
 			g_key_file_remove_group(handle,a_group.to_external,error.reference)
 		end
 
-	remove_key (a_group, a_key: STRING) is
+	remove_key (a_group, a_key: STRING)
 			-- Removes `a_key' in `a_group' from the key file.
 		require
 			group_not_void: a_group/=Void
@@ -811,7 +811,7 @@ feature {ANY} -- Removing
 			g_key_file_remove_key (handle, a_group.to_external, a_key.to_external, error.reference)
 		end
 	
-	remove_comment (a_group, a_key: STRING) is
+	remove_comment (a_group, a_key: STRING)
 			-- Removes a comment above `a_key' from `a_group'. If `a_key'
 			-- is Void then comment will be written above `a_group'. If
 			-- both `a_key' and `a_group' are Void, then comment will be
@@ -834,115 +834,115 @@ feature {}
 feature {} -- External calls
 	-- #define     G_KEY_FILE_ERROR
 	
-	g_key_file_new: POINTER is
+	g_key_file_new: POINTER
 			-- GKeyFile* g_key_file_new (void);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_free (a_key_file: POINTER) is
+	g_key_file_free (a_key_file: POINTER)
 			-- void g_key_file_free (GKeyFile *key_file);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_list_separator (a_key_file: POINTER; a_separator: CHARACTER) is
+	g_key_file_set_list_separator (a_key_file: POINTER; a_separator: CHARACTER)
 			-- void g_key_file_set_list_separator (GKeyFile *key_file,
 			-- gchar separator);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_load_from_file (a_key_file, a_file: POINTER; some_flags: INTEGER; an_error: POINTER): INTEGER is
+	g_key_file_load_from_file (a_key_file, a_file: POINTER; some_flags: INTEGER; an_error: POINTER): INTEGER
 			--  gboolean g_key_file_load_from_file (GKeyFile *key_file,
 			--  const gchar *file, GKeyFileFlags flags, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_load_from_data (a_key_file, a_data: POINTER; a_length: INTEGER; some_flags: INTEGER;  an_error_ref: POINTER): INTEGER is
+	g_key_file_load_from_data (a_key_file, a_data: POINTER; a_length: INTEGER; some_flags: INTEGER;  an_error_ref: POINTER): INTEGER
 			-- gboolean g_key_file_load_from_data (GKeyFile *key_file,
 			-- const gchar *data, gsize length, GKeyFileFlags flags,
 			-- GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_load_from_data_dirs (a_key_file, a_file, a_full_path: POINTER; some_flags: INTEGER; an_error: POINTER): INTEGER is
+	g_key_file_load_from_data_dirs (a_key_file, a_file, a_full_path: POINTER; some_flags: INTEGER; an_error: POINTER): INTEGER
 			-- gboolean g_key_file_load_from_data_dirs (GKeyFile
 			-- *key_file, const gchar *file, gchar **full_path,
 			-- GKeyFileFlags flags, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_to_data (a_key_file, a_length, an_error: POINTER): POINTER is
+	g_key_file_to_data (a_key_file, a_length, an_error: POINTER): POINTER
 			-- gchar* g_key_file_to_data (GKeyFile *key_file, gsize
 			-- *length, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_start_group (a_key_file: POINTER): POINTER is
+	g_key_file_get_start_group (a_key_file: POINTER): POINTER
 			--  gchar* g_key_file_get_start_group (GKeyFile *key_file);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_groups (a_key_file, a_length: POINTER): POINTER is
+	g_key_file_get_groups (a_key_file, a_length: POINTER): POINTER
 			-- gchar** g_key_file_get_groups (GKeyFile *key_file, gsize
 			-- *length);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_keys (a_key_file, a_group_name, a_length, an_error: POINTER): POINTER is
+	g_key_file_get_keys (a_key_file, a_group_name, a_length, an_error: POINTER): POINTER
 			-- gchar** g_key_file_get_keys (GKeyFile *key_file, const
 			-- gchar *group_name, gsize *length, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_has_group (a_key_file, a_group_name: POINTER): INTEGER is
+	g_key_file_has_group (a_key_file, a_group_name: POINTER): INTEGER
 			-- gboolean g_key_file_has_group (GKeyFile *key_file, const
 			-- gchar *group_name);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_has_key (a_key_file, a_group_name, a_key, an_error: POINTER): INTEGER is
+	g_key_file_has_key (a_key_file, a_group_name, a_key, an_error: POINTER): INTEGER
 			-- gboolean g_key_file_has_key (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_value (a_key_file, a_group_name, a_key, an_error: POINTER): POINTER is
+	g_key_file_get_value (a_key_file, a_group_name, a_key, an_error: POINTER): POINTER
 			-- gchar* g_key_file_get_value (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_string (a_key_file, a_group_name, a_key, an_error: POINTER): POINTER is
+	g_key_file_get_string (a_key_file, a_group_name, a_key, an_error: POINTER): POINTER
 			-- gchar* g_key_file_get_string (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_locale_string (a_key_file, a_group_name, a_key, a_locale, an_error: POINTER): POINTER is
+	g_key_file_get_locale_string (a_key_file, a_group_name, a_key, a_locale, an_error: POINTER): POINTER
 			-- gchar* g_key_file_get_locale_string (GKeyFile *key_file,
 			-- const gchar *group_name, const gchar *key, const gchar
 			-- *locale, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_boolean (a_key_file, a_group_name, a_key, an_error: POINTER): INTEGER is
+	g_key_file_get_boolean (a_key_file, a_group_name, a_key, an_error: POINTER): INTEGER
 			-- gboolean g_key_file_get_boolean (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_integer (a_key_file, a_group_name, a_key, an_error: POINTER): INTEGER is
+	g_key_file_get_integer (a_key_file, a_group_name, a_key, an_error: POINTER): INTEGER
 			-- gint g_key_file_get_integer (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_double (a_key_file, a_group_name, a_key, an_error: POINTER): REAL is
+	g_key_file_get_double (a_key_file, a_group_name, a_key, an_error: POINTER): REAL
 			-- gdouble g_key_file_get_double (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_string_list (a_key_file, a_group_name, a_key, a_length, an_error: POINTER): POINTER is
+	g_key_file_get_string_list (a_key_file, a_group_name, a_key, a_length, an_error: POINTER): POINTER
 			-- gchar** g_key_file_get_string_list (GKeyFile *key_file,
 			-- const gchar *group_name, const gchar *key, gsize *length,
 			-- GError **error);
@@ -950,94 +950,94 @@ feature {} -- External calls
 		end
 
 	
-	g_key_file_get_locale_string_list (a_key_file, a_group_name, a_key, a_locale, a_length, an_error: POINTER): POINTER is
+	g_key_file_get_locale_string_list (a_key_file, a_group_name, a_key, a_locale, a_length, an_error: POINTER): POINTER
 			-- gchar** g_key_file_get_locale_string_list (GKeyFile
 			-- *key_file, const gchar *group_name, const gchar *key,
 			-- const gchar *locale, gsize *length, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_boolean_list (a_key_file, a_group_name, a_key, a_length, an_error: POINTER): POINTER is
+	g_key_file_get_boolean_list (a_key_file, a_group_name, a_key, a_length, an_error: POINTER): POINTER
 			-- gboolean* g_key_file_get_boolean_list (GKeyFile *key_file,
 			-- const gchar *group_name, const gchar *key, gsize *length,
 			-- GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_integer_list (a_key_file, a_group_name, a_key, a_length, an_error: POINTER): POINTER is
+	g_key_file_get_integer_list (a_key_file, a_group_name, a_key, a_length, an_error: POINTER): POINTER
 			-- gint* g_key_file_get_integer_list (GKeyFile *key_file,
 			-- const gchar *group_name, const gchar *key, gsize *length,
 			-- GError **error);
 		external "C use <glib.h>"
 		end
 	
-	g_key_file_get_double_list (a_key_file, a_group_name, a_key, a_length, an_error: POINTER): POINTER is
+	g_key_file_get_double_list (a_key_file, a_group_name, a_key, a_length, an_error: POINTER): POINTER
 			-- gdouble* g_key_file_get_double_list (GKeyFile *key_file,
 			-- const gchar *group_name, const gchar *key, gsize *length,
 			-- GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_get_comment (a_key_file, a_group_name, a_key, an_error: POINTER): POINTER is
+	g_key_file_get_comment (a_key_file, a_group_name, a_key, an_error: POINTER): POINTER
 			-- gchar* g_key_file_get_comment (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_value (a_key_file, a_group_name, a_key, a_value: POINTER) is
+	g_key_file_set_value (a_key_file, a_group_name, a_key, a_value: POINTER)
 			-- void g_key_file_set_value (GKeyFile *key_file, const gchar
 			-- *group_name, const gchar *key, const gchar *value);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_string (a_key_file, a_group_name, a_key, a_string: POINTER) is
+	g_key_file_set_string (a_key_file, a_group_name, a_key, a_string: POINTER)
 			--  void g_key_file_set_string (GKeyFile *key_file, const
 			--  gchar *group_name, const gchar *key, const gchar
 			--  *string);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_locale_string (a_key_file, a_group_name, a_key, a_locale, a_string: POINTER) is
+	g_key_file_set_locale_string (a_key_file, a_group_name, a_key, a_locale, a_string: POINTER)
 			--  void g_key_file_set_locale_string (GKeyFile *key_file,
 			--  const gchar *group_name, const gchar *key, const gchar
 			--  *locale, const gchar *string);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_boolean (a_key_file, a_group_name, a_key: POINTER; a_bool: INTEGER) is
+	g_key_file_set_boolean (a_key_file, a_group_name, a_key: POINTER; a_bool: INTEGER)
 			--  void g_key_file_set_boolean (GKeyFile *key_file, const
 			--  gchar *group_name, const gchar *key, gboolean value);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_integer (a_key_file, a_group_name, a_key: POINTER; a_value: INTEGER) is
+	g_key_file_set_integer (a_key_file, a_group_name, a_key: POINTER; a_value: INTEGER)
 			-- void g_key_file_set_integer (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, gint value);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_double (a_key_file, a_group_name, a_key: POINTER; a_value: REAL) is
+	g_key_file_set_double (a_key_file, a_group_name, a_key: POINTER; a_value: REAL)
 			-- void g_key_file_set_double (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, gdouble value);
 		external "C use <glib.h>"
 		end
 
 	g_key_file_set_string_list (a_key_file, a_group_name, a_key, a_list: POINTER;
-										 a_length: INTEGER) is
+										 a_length: INTEGER)
 			-- void g_key_file_set_string_list (GKeyFile *key_file, const gchar
 			-- *group_name, const gchar *key, const gchar * const list[], gsize
 			-- length);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_locale_string_list (a_key_file, a_group_name, a_key, a_locale, a_list: POINTER; a_length: INTEGER) is
+	g_key_file_set_locale_string_list (a_key_file, a_group_name, a_key, a_locale, a_list: POINTER; a_length: INTEGER)
 			--  void g_key_file_set_locale_string_list (GKeyFile *key_file, const
 			--  gchar *group_name, const gchar *key, const gchar *locale; const
 			--  gchar * const list[], gsize length););
 		external "C use <glib.h>"
 		end
 	
-	g_key_file_set_boolean_list (a_key_file, a_group_name, a_key, a_bool_list: POINTER; a_length: INTEGER) is
+	g_key_file_set_boolean_list (a_key_file, a_group_name, a_key, a_bool_list: POINTER; a_length: INTEGER)
 			--  void g_key_file_set_boolean_list (GKeyFile *key_file,
 			--  const gchar *group_name, const gchar *key, gboolean
 			--  list[], gsize length);
@@ -1046,7 +1046,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_integer_list (a_key_file, a_group_name, a_key, a_gint_list: POINTER; a_length: INTEGER) is
+	g_key_file_set_integer_list (a_key_file, a_group_name, a_key, a_gint_list: POINTER; a_length: INTEGER)
 			--  void g_key_file_set_integer_list (GKeyFile *key_file,
 			--  const gchar *group_name, const gchar *key, gint list[],
 			--  gsize length);
@@ -1056,7 +1056,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_key_file_set_double_list (a_key_file, a_group_name, a_key, a_double_list: POINTER; a_length: INTEGER) is
+	g_key_file_set_double_list (a_key_file, a_group_name, a_key, a_double_list: POINTER; a_length: INTEGER)
 			--  void g_key_file_set_double_list (GKeyFile *key_file,
 			--  const gchar *group_name, const gchar *key, gdouble
 			--  list[], gsize length);
@@ -1066,33 +1066,33 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-	g_key_file_set_comment (a_key_file, a_group_name, a_key, a_comment, an_error_ref: POINTER) is
+	g_key_file_set_comment (a_key_file, a_group_name, a_key, a_comment, an_error_ref: POINTER)
 			--  void g_key_file_set_comment (GKeyFile *key_file, const
 			--  gchar *group_name, const gchar *key, const gchar
 			--  *comment, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_remove_group (a_key_file, a_group_name, an_error_ref: POINTER) is
+	g_key_file_remove_group (a_key_file, a_group_name, an_error_ref: POINTER)
 			--  void g_key_file_remove_group (GKeyFile *key_file, const
 			--  gchar *group_name, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_remove_key (a_key_file, a_group_name, a_key, an_error_ref: POINTER) is
+	g_key_file_remove_key (a_key_file, a_group_name, a_key, an_error_ref: POINTER)
 			--  void g_key_file_remove_key (GKeyFile *key_file, const
 			--  gchar *group_name, const gchar *key, GError **error);
 		external "C use <glib.h>"
 		end
 
-	g_key_file_remove_comment (a_key_file, a_group_name, a_key, an_error_ref: POINTER) is
+	g_key_file_remove_comment (a_key_file, a_group_name, a_key, an_error_ref: POINTER)
 			-- void g_key_file_remove_comment (GKeyFile *key_file, const
 			-- gchar *group_name, const gchar *key, GError **error);
 		external "C use <glib.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GKeyFile)"
 		end

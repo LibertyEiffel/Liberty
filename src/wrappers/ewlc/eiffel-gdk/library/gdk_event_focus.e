@@ -30,7 +30,7 @@ create {ANY} from_external_pointer
 
 feature {ANY} -- access
 
-	in: BOOLEAN is
+	in: BOOLEAN
 			-- True if the window has gained the keyboard focus,
 			-- False if it has lost the focus.
 		do

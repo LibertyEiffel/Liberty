@@ -28,7 +28,7 @@ inherit GTK_SOURCE_TAG
 create {ANY} dummy, make, from_external_pointer
 	
 feature {} -- Creation
-	make 	(an_id, a_name, a_pattern: STRING) is
+	make 	(an_id, a_name, a_pattern: STRING)
 			-- Creates a new string tag object with `an_id', the ID for
 			-- the tag; `a_name': the name of the tag,
 			-- `a_starting_pattern' and

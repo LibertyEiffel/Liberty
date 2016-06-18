@@ -27,110 +27,110 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_entry_new: POINTER is
+	gtk_entry_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_entry_set_text (an_entry, a_text: POINTER) is
+	gtk_entry_set_text (an_entry, a_text: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_set_position (an_entry: POINTER; a_position: INTEGER) is
+	gtk_entry_set_position (an_entry: POINTER; a_position: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_get_text (an_entry: POINTER): POINTER is
+	gtk_entry_get_text (an_entry: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_select_region (an_entry: POINTER; a_start, an_end: INTEGER) is
+	gtk_entry_select_region (an_entry: POINTER; a_start, an_end: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_set_visibility (an_entry: POINTER; visible: INTEGER) is
+	gtk_entry_set_visibility (an_entry: POINTER; visible: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_set_invisible_char (an_entry: POINTER; a_character: INTEGER) is
+	gtk_entry_set_invisible_char (an_entry: POINTER; a_character: INTEGER)
 			-- Currently (version 2.9.1) `a_character' is a gunichar,
 			-- mapped as guint32
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_set_editable (an_entry: POINTER; editable: INTEGER) is
+	gtk_entry_set_editable (an_entry: POINTER; editable: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_set_max_length (an_entry: POINTER; a_max: INTEGER) is
+	gtk_entry_set_max_length (an_entry: POINTER; a_max: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_get_activates_default (an_entry: POINTER): INTEGER is
+	gtk_entry_get_activates_default (an_entry: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_get_has_frame         (an_entry: POINTER): INTEGER is
+	gtk_entry_get_has_frame         (an_entry: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_get_width_chars       (an_entry: POINTER): INTEGER is
+	gtk_entry_get_width_chars       (an_entry: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_set_activates_default (an_entry: POINTER; setting: INTEGER) is
+	gtk_entry_set_activates_default (an_entry: POINTER; setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_set_has_frame         (an_entry: POINTER; setting: INTEGER) is
+	gtk_entry_set_has_frame         (an_entry: POINTER; setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_set_width_chars       (an_entry: POINTER; n_chars: INTEGER) is
+	gtk_entry_set_width_chars       (an_entry: POINTER; n_chars: INTEGER)
 		external "C use <gtk/gtk.h>"
 	end
 
-	gtk_entry_get_invisible_char    (an_entry: POINTER): INTEGER is
+	gtk_entry_get_invisible_char    (an_entry: POINTER): INTEGER
 			-- Result is gunichar. At GLib's 2.9.1 is mapped as guint32
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_entry_set_alignment (an_entry: POINTER; an_xalign: REAL) is
+	gtk_entry_set_alignment (an_entry: POINTER; an_xalign: REAL)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_get_alignment (an_entry: POINTER): REAL is
+	gtk_entry_get_alignment (an_entry: POINTER): REAL
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_entry_get_layout (an_entry: POINTER): POINTER is
+	gtk_entry_get_layout (an_entry: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_get_layout_offsets (an_entry,an_x,an_y: POINTER) is
+	gtk_entry_get_layout_offsets (an_entry,an_x,an_y: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_layout_index_to_text_index(an_entry: POINTER; layout_index: INTEGER): INTEGER is
+	gtk_entry_layout_index_to_text_index(an_entry: POINTER; layout_index: INTEGER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_text_index_to_layout_index(an_entry: POINTER; text_index: INTEGER): INTEGER is
+	gtk_entry_text_index_to_layout_index(an_entry: POINTER; text_index: INTEGER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_entry_get_max_length        (an_entry: POINTER): INTEGER is
+	gtk_entry_get_max_length        (an_entry: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_entry_get_visibility        (an_entry: POINTER): INTEGER is
+	gtk_entry_get_visibility        (an_entry: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_entry_set_completion        (an_entry,a_gtkentrycompletion: POINTER) is
+	gtk_entry_set_completion        (an_entry,a_gtkentrycompletion: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_get_completion (an_entry: POINTER): POINTER  is
+	gtk_entry_get_completion (an_entry: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	

@@ -38,7 +38,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (iter, string: POINTER; len: INTEGER; instance: POINTER) is
+	callback (iter, string: POINTER; len: INTEGER; instance: POINTER)
 		local
 			iter_obj: GTK_TEXT_ITER
 			input: STRING
@@ -55,14 +55,14 @@ feature {ANY}
 			procedure.call ([iter_obj, input, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TEXT_BUFFER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]]) is
+	connect (an_object: GTK_TEXT_BUFFER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_ITER, STRING, GTK_TEXT_BUFFER]])
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 													 signal_name.to_external,

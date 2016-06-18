@@ -24,7 +24,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_text_window_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_text_window_type (a_type :INTEGER): BOOLEAN
 		do
 			Result:=((a_type = gtk_text_window_private) or else
 						(a_type = gtk_text_window_widget) or else
@@ -35,37 +35,37 @@ feature {} -- enum
 						(a_type = gtk_text_window_bottom))
 		end
 
-	gtk_text_window_private : INTEGER is
+	gtk_text_window_private : INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TEXT_WINDOW_PRIVATE"
 		end
 
-	gtk_text_window_widget: INTEGER is
+	gtk_text_window_widget: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TEXT_WINDOW_WIDGET"
 		end
 
-	gtk_text_window_text: INTEGER is
+	gtk_text_window_text: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TEXT_WINDOW_TEXT"
 		end
 
-	gtk_text_window_left: INTEGER is
+	gtk_text_window_left: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TEXT_WINDOW_LEFT"
 		end
 
-	gtk_text_window_right: INTEGER is
+	gtk_text_window_right: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TEXT_WINDOW_RIGHT"
 		end
 
-	gtk_text_window_top: INTEGER is
+	gtk_text_window_top: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TEXT_WINDOW_TOP"
 		end
 
-	gtk_text_window_bottom: INTEGER is
+	gtk_text_window_bottom: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TEXT_WINDOW_BOTTOM"
 		end

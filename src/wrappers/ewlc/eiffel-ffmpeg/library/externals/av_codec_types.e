@@ -27,7 +27,7 @@ inherit
 
 feature {}
 
-	is_valid_codec_type (a_codec_type: INTEGER): BOOLEAN is
+	is_valid_codec_type (a_codec_type: INTEGER): BOOLEAN
 		do
 			Result := ((a_codec_type = codec_type_unknown) or else
 					   (a_codec_type = codec_type_video) or else
@@ -36,27 +36,27 @@ feature {}
 					   (a_codec_type = codec_type_subtitle))
 		end
 
-	codec_type_unknown: INTEGER is
+	codec_type_unknown: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "CODEC_TYPE_UNKNOWN"
 		end
 
-	codec_type_video: INTEGER is
+	codec_type_video: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "CODEC_TYPE_VIDEO"
 		end
 
-	codec_type_audio: INTEGER is
+	codec_type_audio: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "CODEC_TYPE_AUDIO"
 		end
 
-	codec_type_data: INTEGER is
+	codec_type_data: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "CODEC_TYPE_DATA"
 		end
 
-	codec_type_subtitle: INTEGER is
+	codec_type_subtitle: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "CODEC_TYPE_SUBTITLE"
 		end

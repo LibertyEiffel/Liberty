@@ -30,7 +30,7 @@ insert
       end
          
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-	wrappers: HASHED_DICTIONARY [GLOBALLY_CACHED, POINTER] is
+	wrappers: HASHED_DICTIONARY [GLOBALLY_CACHED, POINTER]
 			-- Dictionary storing GLOBALLY_CACHED wrappers created in the program.  Key
 			-- is the address (pointer) to the wrapped C structure, value
 			-- is the corresponding Eiffel wrapper. This way you can get

@@ -32,25 +32,25 @@ create {ANY} from_external_pointer
 
 feature {ANY} -- access
 
-	time: INTEGER is
+	time: INTEGER
 			-- the time of the event in milliseconds.
 		do
 			Result := gdk_event_scroll_get_time (handle)
 		end
 
-	x: REAL_64 is
+	x: REAL_64
 			-- the x coordinate of the pointer relative to the window.
 		do
 			Result := gdk_event_scroll_get_x (handle)
 		end
 
-	y: REAL_64 is
+	y: REAL_64
 			-- the y coordinate of the pointer relative to the window.
 		do
 			Result := gdk_event_scroll_get_y (handle)
 		end
 
-	state: INTEGER is
+	state: INTEGER
 			-- a bit-mask representing the state of the modifier keys
 			-- (e.g. Control, Shift and Alt) and the pointer buttons.
 			-- See GDK_MODIFIER_TYPE.
@@ -60,7 +60,7 @@ feature {ANY} -- access
 			is_valid_gdk_modifier_type (Result)
 		end
 
-	direction: INTEGER is
+	direction: INTEGER
 			-- the scroll direction, one of GDK_SCROLL_DIRECTION constants
 		do
 			Result := gdk_event_scroll_get_direction (handle)
@@ -70,13 +70,13 @@ feature {ANY} -- access
 
 -- Not implemented: GdkDevice *device; 	the device where the event originated.
 
-	x_root: REAL_64 is
+	x_root: REAL_64
 			-- the x coordinate of the pointer relative to the root of the screen.
 		do
 			Result := gdk_event_scroll_get_x_root (handle)
 		end
 
-	y_root: REAL_64 is
+	y_root: REAL_64
 			-- the y coordinate of the pointer relative to the root of the screen.
 		do
 			Result := gdk_event_scroll_get_y_root (handle)

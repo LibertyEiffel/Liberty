@@ -68,7 +68,7 @@ insert GTK_ATTACH_OPTIONS
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (rows, columns: INTEGER; homogeneous: BOOLEAN) is
+	make (rows, columns: INTEGER; homogeneous: BOOLEAN)
 			-- Used to create a new table widget. An initial size must be given by
 			-- specifying how many rows and columns the table should have, although
 			-- this can be changed later with `resize'. rows and columns must both
@@ -92,7 +92,7 @@ feature {} -- Creation
 		end
 	
 feature {ANY}
-	resize (rows, columns: INTEGER) is
+	resize (rows, columns: INTEGER)
 			-- If you need to change a table's size after it has been created, this
 			-- function allows you to do so.
 
@@ -106,7 +106,7 @@ feature {ANY}
 		end
 
 	attach (a_child: GTK_WIDGET; left_attach, right_attach, top_attach, bottom_attach: INTEGER;
-			  xoptions, yoptions: INTEGER; xpadding, ypadding: INTEGER) is
+			  xoptions, yoptions: INTEGER; xpadding, ypadding: INTEGER)
 			-- Adds a widget to a table. The number of 'cells' that a widget will
 			-- occupy is specified by left_attach, right_attach, top_attach and
 			-- bottom_attach. These each represent the leftmost, rightmost,
@@ -150,7 +150,7 @@ feature {ANY}
 									xpadding, ypadding)
 		end
 
-	attach_defaults (a_child: GTK_WIDGET; left_attach, right_attach, top_attach, bottom_attach: INTEGER) is
+	attach_defaults (a_child: GTK_WIDGET; left_attach, right_attach, top_attach, bottom_attach: INTEGER)
 			-- As there are many options associated with `attach'), this
 			-- convenience function provides the programmer with a means to add
 			-- children to a table with identical padding and expansion
@@ -181,7 +181,7 @@ feature {ANY}
 			left_attach, right_attach, top_attach, bottom_attach)
 		end
 
-	set_row_spacing (a_row, a_spacing: INTEGER) is
+	set_row_spacing (a_row, a_spacing: INTEGER)
 			-- Changes the space between a given table row and its surrounding
 			-- rows. `a_row': row number whose spacing will be
 			-- changed. `a_spacing': number of pixels that the spacing should take
@@ -193,7 +193,7 @@ feature {ANY}
 			gtk_table_set_row_spacing (handle, a_row, a_spacing)
 		end
 
-	set_col_spacing (a_column, a_spacing: INTEGER) is
+	set_col_spacing (a_column, a_spacing: INTEGER)
 			-- Alters the amount of space between a given table column and the
 			-- adjacent columns.
 
@@ -206,7 +206,7 @@ feature {ANY}
 			gtk_table_set_col_spacing (handle, a_column, a_spacing)
 		end
 
-	set_row_spacings (a_spacing: INTEGER) is
+	set_row_spacings (a_spacing: INTEGER)
 			-- Sets the space between every row in table equal to spacing.
 		
 			-- `a_spacing': the number of pixels of space to place between every
@@ -215,7 +215,7 @@ feature {ANY}
 			gtk_table_set_row_spacings(handle, a_spacing)
 		end
 
-	set_col_spacings (a_spacing: INTEGER) is
+	set_col_spacings (a_spacing: INTEGER)
 			-- Sets the space between every column in table equal to spacing.
 		
 			-- `a_spacing': the number of pixels of space to place between every
@@ -224,21 +224,21 @@ feature {ANY}
 			gtk_table_set_col_spacings(handle, a_spacing)
 		end
 	
-	set_homogeneous is
+	set_homogeneous
 			-- Ensure all table cells are the same size.
 		do
 			gtk_table_set_homogeneous (handle,1)
 		ensure homogeneus: is_homogeneous
 		end
 
-	unset_homogeneous is
+	unset_homogeneous
 			-- Allow table cells to have different sizes.
 		do
 			gtk_table_set_homogeneous (handle,0)
 		ensure unhomogeneus: not is_homogeneous
 		end
 
-	default_row_spacing: INTEGER is
+	default_row_spacing: INTEGER
 			-- the default row spacing for the table. This is the spacing that will
 			-- be used for newly added rows. (See `set_row_spacings').
 
@@ -249,7 +249,7 @@ feature {ANY}
 		ensure fits_natural_16: Result.in_range(0,65535)
 		end
 
-	is_homogeneous: BOOLEAN is
+	is_homogeneous: BOOLEAN
 			-- Are the table cells all constrained to the same width and height?
 			-- (See `set_homogenous')
 		do
@@ -257,7 +257,7 @@ feature {ANY}
 		end
 
 	
-	row_spacing (a_row: INTEGER): INTEGER is
+	row_spacing (a_row: INTEGER): INTEGER
 			-- The amount of space between `a_row', and its next row. See
 			-- `set_row_spacing'. 0 indicates the first row
 
@@ -270,7 +270,7 @@ feature {ANY}
 		ensure positive: Result>=0
 		end
 
-	col_spacing  (a_column: INTEGER): INTEGER is
+	col_spacing  (a_column: INTEGER): INTEGER
 			-- The amount of space between `a_column', and its next row. See
 			-- `set_row_spacing'. 0 indicates the first column
 
@@ -283,7 +283,7 @@ feature {ANY}
 		ensure positive: Result>=0
 		end
 
-	default_col_spacing: INTEGER is
+	default_col_spacing: INTEGER
 			-- The default column spacing for the table. This is the
 			-- spacing that will be used for newly added columns. (See
 			-- `set_col_spacings')
@@ -459,7 +459,7 @@ feature {ANY}
 --    Default value: 0
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTable)"
 		end
@@ -473,7 +473,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_table_resize (a_table: POINTER; rows, columns: INTEGER) is
+	gtk_table_resize (a_table: POINTER; rows, columns: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -481,44 +481,44 @@ feature {} -- External calls
 							left_attach, right_attach, top_attach, bottom_attach: INTEGER; -- Note  those all all guint, therefore should be NATURAL
 							xoptions, yoptions: INTEGER; -- GtkAttachOptions
 							xpadding, ypadding: INTEGER -- Note: these are guint, therefore should be NATURAL
-							) is
+							)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_table_attach_defaults (a_table: POINTER; a_widget: POINTER;
 										left_attach, right_attach,
 										top_attach, bottom_attach: INTEGER -- Note: these are guint, therefore should be NATURAL
-										) is
+										)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_table_set_row_spacing (a_table: POINTER;
 										a_row, a_spacing: INTEGER; -- shall be NATURAL, since they are guint
-										) is
+										)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_table_set_col_spacing (a_table: POINTER;
 										a_column, spacing: INTEGER; -- shall be NATURAL, since it's guint
-										) is
+										)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_table_set_row_spacings (a_table: POINTER;
 										 a_spacing: INTEGER; -- shall be NATURAL, since it's guint
-										 ) is
+										 )
 		external "C use <gtk/gtk.h>"
 		end
 	
 	gtk_table_set_col_spacings (a_table: POINTER;
 										 a_spacing: INTEGER; -- shall be NATURAL, since it's guint
-										 ) is
+										 )
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_table_set_homogeneous (a_table: POINTER;
 										homogeneous: INTEGER -- gboolean
-										) is
+										)
 		external "C use <gtk/gtk.h>"
 		end
 

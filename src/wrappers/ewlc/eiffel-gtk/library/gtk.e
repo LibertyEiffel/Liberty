@@ -18,7 +18,7 @@ insert
 
 feature {ANY} -- Gtk 
 
-	gtk: GTK_MAIN is
+	gtk: GTK_MAIN
 		once
 			create Result
 		end

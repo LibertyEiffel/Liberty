@@ -32,7 +32,7 @@ create {ANY} make, from_value
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			create env.make
 			if is_valid then
@@ -42,7 +42,7 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	add_last (val: XMLRPC_VALUE_ANY) is
+	add_last (val: XMLRPC_VALUE_ANY)
 		do
 			xmlrpc_array_append_item (env.handle, handle, val.handle)
 		end

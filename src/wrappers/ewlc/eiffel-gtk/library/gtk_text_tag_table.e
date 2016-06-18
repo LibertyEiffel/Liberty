@@ -39,7 +39,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkTextTagTable. The table contains no tags
 			-- by default.
 		require
@@ -50,7 +50,7 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	add (a_tag: GTK_TEXT_TAG) is
+	add (a_tag: GTK_TEXT_TAG)
 			-- Add a tag to the table. The tag is assigned the highest priority in the table.
 		require
 			tag_not_void: a_tag /= Void
@@ -60,7 +60,7 @@ feature {ANY} -- Operations
 			gtk_text_tag_table_add (handle, a_tag.handle)
 		end
 
-	remove (a_tag: GTK_TEXT_TAG) is
+	remove (a_tag: GTK_TEXT_TAG)
 			-- Remove a tag from the table. This will remove the table's
 			-- reference to the tag, so be careful - the tag will end up
 			-- destroyed if you don't have a reference to it.
@@ -72,12 +72,12 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Access
 
-	has (a_name: STRING): BOOLEAN is
+	has (a_name: STRING): BOOLEAN
 		do
 			Result := lookup (a_name) /= Void
 		end
 	
-	lookup (a_name: STRING): GTK_TEXT_TAG is
+	lookup (a_name: STRING): GTK_TEXT_TAG
 			-- Lookup the tag with `a_name', or Void if none by that name
 			-- is in the table.
 		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_TEXT_TAG]
@@ -100,7 +100,7 @@ feature {ANY} -- Access
 -- data : 	user data
 -- gtk_text_tag_table_get_size ()
 
-	size: INTEGER is
+	size: INTEGER
 			-- Returns the size of the table (number of tags)
 		do
 			Result := gtk_text_tag_table_get_size (handle)
@@ -154,7 +154,7 @@ feature {ANY} -- TODO: Signals
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextTagTable)"
 		end

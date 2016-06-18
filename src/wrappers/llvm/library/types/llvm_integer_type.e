@@ -25,80 +25,80 @@ create {ANY}
    with_bits, with_bits_in_context
 
 feature {} -- Creation in a specific context
-   with_1_bit_in_context (a_context: LLVM_CONTEXT) is
+   with_1_bit_in_context (a_context: LLVM_CONTEXT)
       require
          a_context /= Void
       do
          handle := llvmint1type_in_context(a_context.handle)
       end
 
-   with_8_bits_in_context (a_context: LLVM_CONTEXT) is
+   with_8_bits_in_context (a_context: LLVM_CONTEXT)
       require
          a_context /= Void
       do
          handle := llvmint8type_in_context(a_context.handle)
       end
 
-   with_16_bits_in_context (a_context: LLVM_CONTEXT) is
+   with_16_bits_in_context (a_context: LLVM_CONTEXT)
       require
          a_context /= Void
       do
          handle := llvmint16type_in_context(a_context.handle)
       end
 
-   with_32_bits_in_context (a_context: LLVM_CONTEXT) is
+   with_32_bits_in_context (a_context: LLVM_CONTEXT)
       require
          a_context /= Void
       do
          handle := llvmint32type_in_context(a_context.handle)
       end
 
-   with_64_bits_in_context (a_context: LLVM_CONTEXT) is
+   with_64_bits_in_context (a_context: LLVM_CONTEXT)
       require
          a_context /= Void
       do
          handle := llvmint1type_in_context(a_context.handle)
       end
 
-   with_bits_in_context (a_bit_count: NATURAL_32) is
+   with_bits_in_context (a_bit_count: NATURAL_32)
       do
          handle := llvmint_type(a_bit_count)
       end
 
 
 feature {} -- Creation in global context
-   with_1_bit is
+   with_1_bit
       do
          handle := llvmint1type
       end
 
-   with_8_bits is
+   with_8_bits
       do
          handle := llvmint8type
       end
 
-   with_16_bits is
+   with_16_bits
       do
          handle := llvmint16type
       end
 
-   with_32_bits is
+   with_32_bits
       do
          handle := llvmint32type
       end
 
-   with_64_bits is
+   with_64_bits
       do
          handle := llvmint64type
       end
 
-   with_bits (a_bit_count: NATURAL_32) is
+   with_bits (a_bit_count: NATURAL_32)
       do
          handle := llvmint_type(a_bit_count)
       end
 
 feature {ANY}
-   width: NATURAL_32 is
+   width: NATURAL_32
       do
          Result := llvmget_int_type_width(handle)
       end

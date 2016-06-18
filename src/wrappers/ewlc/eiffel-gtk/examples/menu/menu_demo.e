@@ -2,7 +2,7 @@ class MENU_DEMO
 insert GTK 
 create {ANY} make
 feature {ANY}
-	make is
+	make
 		local label: STRING
 		do
 			gtk.initialize 

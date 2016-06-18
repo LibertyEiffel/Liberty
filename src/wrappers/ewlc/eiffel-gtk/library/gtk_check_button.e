@@ -33,19 +33,19 @@ create {ANY} make,with_label,with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkCheckButton.
 		do
 			from_external_pointer (gtk_check_button_new)
 		end
 
-	with_label (a_label: STRING) is
+	with_label (a_label: STRING)
 			-- Creates a new GtkCheckButton with a GtkLabel to the right of it.
 		do
 			from_external_pointer (gtk_check_button_new_with_label (a_label.to_external))
 		end
 	
-	with_mnemonic (a_label: STRING) is
+	with_mnemonic (a_label: STRING)
 			-- Creates a new GtkCheckButton containing a label. The label
 			-- will be created using GTK_LABEL.with_mnemonic(), so
 			-- underscores in label indicate the mnemonic for the check
@@ -54,7 +54,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_check_button_new_with_mnemonic (a_label.to_external))
 		end
 feature {ANY}
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCheckButton)"
 		end

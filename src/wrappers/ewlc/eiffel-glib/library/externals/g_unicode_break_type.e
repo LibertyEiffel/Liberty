@@ -30,7 +30,7 @@ deferred class G_UNICODE_BREAK_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_unicode_break_type (a_type: INTEGER): BOOLEAN is
+	is_valid_unicode_break_type (a_type: INTEGER): BOOLEAN
 		do	
 			Result:=((a_type = g_unicode_break_mandatory) or else
 						(a_type = g_unicode_break_carriage_return) or else
@@ -70,217 +70,217 @@ feature {} -- enum
 						(a_type = g_unicode_break_hangul_lvt_syllable))
 		end
 
-	g_unicode_break_mandatory: INTEGER is
+	g_unicode_break_mandatory: INTEGER
 			-- G_UNICODE_BREAK_MANDATORY
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_MANDATORY"
 		end
 
-	g_unicode_break_carriage_return: INTEGER is
+	g_unicode_break_carriage_return: INTEGER
 			-- G_UNICODE_BREAK_CARRIAGE_RETURN
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_CARRIAGE_RETURN"
 		end
 
-	g_unicode_break_line_feed: INTEGER is
+	g_unicode_break_line_feed: INTEGER
 			-- G_UNICODE_BREAK_LINE_FEED
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_LINE_FEED"
 		end
 
-	g_unicode_break_combining_mark: INTEGER is
+	g_unicode_break_combining_mark: INTEGER
 			-- G_UNICODE_BREAK_COMBINING_MARK
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_COMBINING_MARK"
 		end
 
-	g_unicode_break_surrogate: INTEGER is
+	g_unicode_break_surrogate: INTEGER
 			-- G_UNICODE_BREAK_SURROGATE
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_SURROGATE"
 		end
 
-	g_unicode_break_zero_width_space: INTEGER is
+	g_unicode_break_zero_width_space: INTEGER
 			-- G_UNICODE_BREAK_ZERO_WIDTH_SPACE
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_ZERO_WIDTH_SPACE"
 		end
 
-	g_unicode_break_inseparable: INTEGER is
+	g_unicode_break_inseparable: INTEGER
 			-- G_UNICODE_BREAK_INSEPARABLE
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_INSEPARABLE"
 		end
 
-	g_unicode_break_non_breaking_glue: INTEGER is
+	g_unicode_break_non_breaking_glue: INTEGER
 			-- G_UNICODE_BREAK_NON_BREAKING_GLUE
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_NON_BREAKING_GLUE"
 		end
 
-	g_unicode_break_contingent: INTEGER is
+	g_unicode_break_contingent: INTEGER
 			-- G_UNICODE_BREAK_CONTINGENT
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_CONTINGENT"
 		end
 
-	g_unicode_break_space: INTEGER is
+	g_unicode_break_space: INTEGER
 			-- G_UNICODE_BREAK_SPACE
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_SPACE"
 		end
 
-	g_unicode_break_after: INTEGER is
+	g_unicode_break_after: INTEGER
 			-- G_UNICODE_BREAK_AFTER
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_AFTER"
 		end
 
-	g_unicode_break_before: INTEGER is
+	g_unicode_break_before: INTEGER
 			-- G_UNICODE_BREAK_BEFORE
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_BEFORE"
 		end
 
-	g_unicode_break_before_and_after: INTEGER is
+	g_unicode_break_before_and_after: INTEGER
 			-- G_UNICODE_BREAK_BEFORE_AND_AFTER
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_BEFORE_AND_AFTER"
 		end
 
-	g_unicode_break_hyphen: INTEGER is
+	g_unicode_break_hyphen: INTEGER
 			-- G_UNICODE_BREAK_HYPHEN
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_HYPHEN"
 		end
 
-	g_unicode_break_non_starter: INTEGER is
+	g_unicode_break_non_starter: INTEGER
 			-- G_UNICODE_BREAK_NON_STARTER
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_NON_STARTER"
 		end
 
-	g_unicode_break_open_punctuation: INTEGER is
+	g_unicode_break_open_punctuation: INTEGER
 			-- G_UNICODE_BREAK_OPEN_PUNCTUATION
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_OPEN_PUNCTUATION"
 		end
 
-	g_unicode_break_close_punctuation: INTEGER is
+	g_unicode_break_close_punctuation: INTEGER
 			-- G_UNICODE_BREAK_CLOSE_PUNCTUATION
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_CLOSE_PUNCTUATION"
 		end
 
-	g_unicode_break_quotation: INTEGER is
+	g_unicode_break_quotation: INTEGER
 			-- G_UNICODE_BREAK_QUOTATION
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_QUOTATION"
 		end
 
-	g_unicode_break_exclamation: INTEGER is
+	g_unicode_break_exclamation: INTEGER
 			-- G_UNICODE_BREAK_EXCLAMATION
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_EXCLAMATION"
 		end
 
-	g_unicode_break_ideographic: INTEGER is
+	g_unicode_break_ideographic: INTEGER
 			-- G_UNICODE_BREAK_IDEOGRAPHIC
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_IDEOGRAPHIC"
 		end
 
-	g_unicode_break_numeric: INTEGER is
+	g_unicode_break_numeric: INTEGER
 			-- G_UNICODE_BREAK_NUMERIC
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_NUMERIC"
 		end
 
-	g_unicode_break_infix_separator: INTEGER is
+	g_unicode_break_infix_separator: INTEGER
 			-- G_UNICODE_BREAK_INFIX_SEPARATOR
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_INFIX_SEPARATOR"
 		end
 
-	g_unicode_break_symbol: INTEGER is
+	g_unicode_break_symbol: INTEGER
 			-- G_UNICODE_BREAK_SYMBOL
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_SYMBOL"
 		end
 
-	g_unicode_break_alphabetic: INTEGER is
+	g_unicode_break_alphabetic: INTEGER
 			-- G_UNICODE_BREAK_ALPHABETIC
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_ALPHABETIC"
 		end
 
-	g_unicode_break_prefix: INTEGER is
+	g_unicode_break_prefix: INTEGER
 			-- G_UNICODE_BREAK_PREFIX
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_PREFIX"
 		end
 
-	g_unicode_break_postfix: INTEGER is
+	g_unicode_break_postfix: INTEGER
 			-- G_UNICODE_BREAK_POSTFIX
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_POSTFIX"
 		end
 
-	g_unicode_break_complex_context: INTEGER is
+	g_unicode_break_complex_context: INTEGER
 			-- G_UNICODE_BREAK_COMPLEX_CONTEXT
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_COMPLEX_CONTEXT"
 		end
 
-	g_unicode_break_ambiguous: INTEGER is
+	g_unicode_break_ambiguous: INTEGER
 			-- G_UNICODE_BREAK_AMBIGUOUS
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_AMBIGUOUS"
 		end
 
-	g_unicode_break_unknown: INTEGER is
+	g_unicode_break_unknown: INTEGER
 			-- G_UNICODE_BREAK_UNKNOWN
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_UNKNOWN"
 		end
 
-	g_unicode_break_next_line: INTEGER is
+	g_unicode_break_next_line: INTEGER
 			-- G_UNICODE_BREAK_NEXT_LINE
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_NEXT_LINE"
 		end
 
-	g_unicode_break_word_joiner: INTEGER is
+	g_unicode_break_word_joiner: INTEGER
 			-- G_UNICODE_BREAK_WORD_JOINER
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_WORD_JOINER"
 		end
 
-	g_unicode_break_hangul_l_jamo: INTEGER is
+	g_unicode_break_hangul_l_jamo: INTEGER
 			-- G_UNICODE_BREAK_HANGUL_L_JAMO
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_HANGUL_L_JAMO"
 		end
 
-	g_unicode_break_hangul_v_jamo: INTEGER is
+	g_unicode_break_hangul_v_jamo: INTEGER
 			-- G_UNICODE_BREAK_HANGUL_V_JAMO
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_HANGUL_V_JAMO"
 		end
 
-	g_unicode_break_hangul_t_jamo: INTEGER is
+	g_unicode_break_hangul_t_jamo: INTEGER
 			-- G_UNICODE_BREAK_HANGUL_T_JAMO
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_HANGUL_T_JAMO"
 		end
 
-	g_unicode_break_hangul_lv_syllable: INTEGER is
+	g_unicode_break_hangul_lv_syllable: INTEGER
 			-- G_UNICODE_BREAK_HANGUL_LV_SYLLABLE
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_HANGUL_LV_SYLLABLE"
 		end
 
-	g_unicode_break_hangul_lvt_syllable: INTEGER is
+	g_unicode_break_hangul_lvt_syllable: INTEGER
 			-- G_UNICODE_BREAK_HANGUL_LVT_SYLLABLE
 		external "C macro use <glib.h>"
 		alias "G_UNICODE_BREAK_HANGUL_LVT_SYLLABLE"

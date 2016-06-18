@@ -38,7 +38,7 @@ feature {ANY} -- Easy to use setters
 	-- gtk_list_store_set_value can be an answer but I haven't checked
 	-- its performance (2005-05-16 Paolo)
 
-	set_string (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_string: STRING) is
+	set_string (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_string: STRING)
 		require
 			a_column_contains_a_string: -- TODO
 			valid_iterator: an_iterator/=Void
@@ -48,7 +48,7 @@ feature {ANY} -- Easy to use setters
 			set_value (an_iterator, a_column, a_value)
 		end
 
-	set_natural (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_natural: INTEGER) is
+	set_natural (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_natural: INTEGER)
 		require
 			a_column_contains_a_natural: -- TODO
 			valid_natural: a_natural >= 0
@@ -59,7 +59,7 @@ feature {ANY} -- Easy to use setters
 			set_value (an_iterator, a_column, a_value)
 		end
 
-	set_integer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_integer: INTEGER) is
+	set_integer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_integer: INTEGER)
 		require
 			a_column_contains_a_integer: -- TODO
 			valid_iterator: an_iterator/=Void
@@ -69,7 +69,7 @@ feature {ANY} -- Easy to use setters
 			set_value (an_iterator, a_column, a_value)
 		end
 
-	set_real (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_real: REAL) is
+	set_real (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_real: REAL)
 		require
 			a_column_contains_a_double: -- TODO
 			valid_iterator: an_iterator/=Void
@@ -80,7 +80,7 @@ feature {ANY} -- Easy to use setters
 			set_value (an_iterator, a_column, a_value)
 		end
 
-	set_boolean (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_boolean: BOOLEAN) is
+	set_boolean (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_boolean: BOOLEAN)
 		require
 			valid_iterator: an_iterator/=Void
 			a_column_contains_a_boolean: -- TODO
@@ -91,7 +91,7 @@ feature {ANY} -- Easy to use setters
 			set_value (an_iterator, a_column, a_value)
 		end
 
-	set_object (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_object: G_OBJECT) is
+	set_object (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_object: G_OBJECT)
 		require
 			valid_iterator: an_iterator/=Void
 			a_column_contains_an_object: -- TODO
@@ -102,7 +102,7 @@ feature {ANY} -- Easy to use setters
 			set_value (an_iterator, a_column, a_value)
 		end
 
-	set_pointer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_pointer: POINTER) is
+	set_pointer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_pointer: POINTER)
 		require
 			valid_iterator: an_iterator/=Void
 			a_column_contains_an_object: -- TODO
@@ -114,7 +114,7 @@ feature {ANY} -- Easy to use setters
 		end
 
 feature {ANY} -- Generic setter
-	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
+	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE)
 		deferred
 		end
 end -- class GTK_STORE_SETTERS

@@ -83,40 +83,40 @@ feature {} -- Structure getter/setter calls
 	--     } point;
 	-- };
 
-	get_type (a_struct: POINTER): INTEGER is
+	get_type (a_struct: POINTER): INTEGER
 		external "C struct cairo_path_data_t get header.type use <cairo.h>"
 		end
 
-	set_type (a_struct: POINTER; a_type: INTEGER) is
+	set_type (a_struct: POINTER; a_type: INTEGER)
 		external "C struct cairo_path_data_t set header.type use <cairo.h>"
 		end
 
-	get_length (a_struct: POINTER): INTEGER is
+	get_length (a_struct: POINTER): INTEGER
 		external "C struct cairo_path_data_t get header.length use <cairo.h>"
 		end
 
-	set_length (a_struct: POINTER; a_length: INTEGER) is
+	set_length (a_struct: POINTER; a_length: INTEGER)
 		external "C struct cairo_path_data_t set header.length use <cairo.h>"
 		end
 
-	get_x (a_struct: POINTER): REAL is
+	get_x (a_struct: POINTER): REAL
 		external "C struct cairo_path_data_t get point.x use <cairo.h>"
 		end
 
-	set_x (a_struct: POINTER; a_x: REAL) is
+	set_x (a_struct: POINTER; a_x: REAL)
 		external "C struct cairo_path_data_t set point.x use <cairo.h>"
 		end
 
-	get_y (a_struct: POINTER): REAL is
+	get_y (a_struct: POINTER): REAL
 		external "C struct cairo_path_data_t get point.y use <cairo.h>"
 		end
 
-	set_y (a_struct: POINTER; a_y: REAL) is
+	set_y (a_struct: POINTER; a_y: REAL)
 		external "C struct cairo_path_data_t set point.y use <cairo.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <cairo.h>"
 		alias "sizeof(cairo_path_data_t)"
 		end

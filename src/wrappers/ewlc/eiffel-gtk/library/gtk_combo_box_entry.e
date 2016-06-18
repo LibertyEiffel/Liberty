@@ -62,7 +62,7 @@ create {ANY} make, with_model, with_text_only, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkComboBoxEntry which has a GtkEntry as
 			-- child. After construction, you should set a model using
 			-- `set_model' and a text_column using
@@ -71,7 +71,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_combo_box_entry_new)
 		end
 
-	with_model (a_model: GTK_TREE_MODEL; a_text_column: INTEGER) is
+	with_model (a_model: GTK_TREE_MODEL; a_text_column: INTEGER)
 			-- Creates a new GtkComboBoxEntry which has a GtkEntry as
 			-- child and a list of strings as popup. You can get the
 			-- GtkEntry from a GtkComboBoxEntry using `child'. To add and
@@ -81,7 +81,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_combo_box_entry_new_with_model (a_model.handle, a_text_column))
 		end
 
-	with_text_only is
+	with_text_only
 			-- Convenience function which constructs a new editable text
 			-- combo box, which is a GtkComboBoxEntry just displaying
 			-- strings. If you use this function to create a text combo
@@ -95,7 +95,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	set_text_column (a_column: INTEGER) is
+	set_text_column (a_column: INTEGER)
 			-- Sets the model column which entry box should use to get
 			-- strings from to be `a_column'.
 		require valid_column: a_column >= -1
@@ -103,7 +103,7 @@ feature {ANY}
 			gtk_combo_box_entry_set_text_column (handle, a_column)
 		end
 
-	text_column: INTEGER is
+	text_column: INTEGER
 			-- The column which entry box is using to get the strings from.
 		do
 			Result := gtk_combo_box_entry_get_text_column (handle)
@@ -112,7 +112,7 @@ feature {ANY}
 
 feature {ANY}
 
-	entry: GTK_ENTRY is
+	entry: GTK_ENTRY
 		do
 			if hidden_child_wrapper=Void then
 				create hidden_child_wrapper.from_external_pointer (gtk_bin_get_child(handle))
@@ -125,7 +125,7 @@ feature {} -- Implementation
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkComboBoxEntry)"
 		end

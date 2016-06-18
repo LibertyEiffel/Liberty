@@ -27,7 +27,7 @@ inherit
 
 feature {} -- External calls
 
-	gtk_bin_get_child (a_bin: POINTER): POINTER is
+	gtk_bin_get_child (a_bin: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 end

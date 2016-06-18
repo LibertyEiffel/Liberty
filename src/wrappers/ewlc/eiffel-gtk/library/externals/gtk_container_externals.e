@@ -34,11 +34,11 @@ feature {} -- External calls
 -- #define     GTK_IS_RESIZE_CONTAINER         (widget)
 -- #define     GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID(object, property_id, pspec)
 -- #define     gtk_container_border_width
-	gtk_container_add (container,widget: POINTER) is
+	gtk_container_add (container,widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_container_remove (container,widget: POINTER) is
+	gtk_container_remove (container,widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -46,17 +46,17 @@ feature {} -- External calls
 	-- gtk_container_add_with_properties (GtkContainer *container,
 	-- GtkWidget *widget, const gchar *first_prop_name, ...
 
-	gtk_container_get_resize_mode (container: POINTER): INTEGER is
+	gtk_container_get_resize_mode (container: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		ensure valid_result: is_valid_gtk_resize_mode (Result)
 		end
 
-	gtk_container_set_resize_mode (container: POINTER; a_resize_mode: INTEGER) is
+	gtk_container_set_resize_mode (container: POINTER; a_resize_mode: INTEGER)
 		require valid_mode: is_valid_gtk_resize_mode (a_resize_mode)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_container_check_resize (container: POINTER) is
+	gtk_container_check_resize (container: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -72,48 +72,48 @@ feature {} -- External calls
 	-- external "C use <gtk/gtk.h>"
 	-- end
 
-	gtk_container_get_children (container: POINTER): POINTER is
+	gtk_container_get_children (container: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_container_set_reallocate_redraws (container: POINTER; needs_redraws: INTEGER) is
+	gtk_container_set_reallocate_redraws (container: POINTER; needs_redraws: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_container_set_focus_child (container,child: POINTER) is
+	gtk_container_set_focus_child (container,child: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_container_get_focus_vadjustment (container: POINTER): POINTER is
+	gtk_container_get_focus_vadjustment (container: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_container_set_focus_vadjustment (container,adjustment: POINTER) is
+	gtk_container_set_focus_vadjustment (container,adjustment: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_container_get_focus_hadjustment (container: POINTER): POINTER is
+	gtk_container_get_focus_hadjustment (container: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gk_container_set_focus_hadjustment (container,adjustment: POINTER) is
+	gk_container_set_focus_hadjustment (container,adjustment: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_container_resize_children (container: POINTER) is
+	gtk_container_resize_children (container: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_container_child_type (container: POINTER) is
+	gtk_container_child_type (container: POINTER)
 		external "C use <gtk/gtk.h>"
 		ensure -- TODO: is_valid_gtk_gtype (Result)
 		end
 
-	gtk_container_get_border_width (container: POINTER): INTEGER is
+	gtk_container_get_border_width (container: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_container_set_border_width (container: POINTER; a_border_width: INTEGER) is
+	gtk_container_set_border_width (container: POINTER; a_border_width: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 

@@ -25,16 +25,16 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gdk_event_expose_get_area (ptr: POINTER): POINTER is
+	gdk_event_expose_get_area (ptr: POINTER): POINTER
 		external "C inline use <gdk/gdk.h>"
 		alias "&(((GdkEventExpose)$ptr)->area)"
 		end
 
-	gdk_event_expose_get_region (ptr: POINTER): POINTER is
+	gdk_event_expose_get_region (ptr: POINTER): POINTER
 		external "C struct GdkEventExpose get region use <gdk/gdk.h>"
 		end
 
-	gdk_event_expose_get_count (ptr: POINTER): INTEGER is
+	gdk_event_expose_get_count (ptr: POINTER): INTEGER
 		external "C struct GdkEventExpose get in use <gdk/gdk.h>"
 		end
 

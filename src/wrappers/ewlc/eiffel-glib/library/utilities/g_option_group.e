@@ -41,7 +41,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_name, a_description, an_help_description: STRING) is
+	make (a_name, a_description, an_help_description: STRING)
 			-- Creates a new GOptionGroup to be added to a GOptionContext.
 		
 			-- `a_name': the name for the option group, this is used to provide
@@ -67,7 +67,7 @@ feature {} -- Creation
 			  ))
 		end
 
-	free (p: POINTER) is
+	free (p: POINTER)
 		do
 			-- Frees a GOptionGroup. 
 			-- Note that you must not free groups which have
@@ -75,7 +75,7 @@ feature {} -- Creation
 			-- g_option_group_free(handle)
 		end
 
-	add_entries (some_entries: C_ARRAY[G_OPTION_ENTRY]) is
+	add_entries (some_entries: C_ARRAY[G_OPTION_ENTRY])
 			--    Adds the options specified in entries to group.
 		do
 			--  void g_option_group_add_entries (GOptionGroup *group, const
@@ -175,7 +175,7 @@ feature {} -- Creation
 	--    domain : the domain to use
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GOptionGroup)"
 		end

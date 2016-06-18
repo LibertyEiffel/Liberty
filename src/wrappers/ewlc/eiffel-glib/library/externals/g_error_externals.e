@@ -27,27 +27,27 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	g_error_get_code (a_error: POINTER): INTEGER is
+	g_error_get_code (a_error: POINTER): INTEGER
 		external "C struct GError get code use <glib.h>"
 		end
 
-	g_error_get_domain (a_error: POINTER): INTEGER is
+	g_error_get_domain (a_error: POINTER): INTEGER
 		external "C struct GError get domain use <glib.h>"
 		end
 
-	g_error_get_message (a_error: POINTER): POINTER is
+	g_error_get_message (a_error: POINTER): POINTER
 		external "C struct GError get message use <glib.h>"
 		end
 
-	g_error_matches (a_error: POINTER; a_domain, a_code: INTEGER): INTEGER is
+	g_error_matches (a_error: POINTER; a_domain, a_code: INTEGER): INTEGER
 		external "C use <glib.h>"
 		end
 
-	g_error_free (a_error: POINTER) is
+	g_error_free (a_error: POINTER)
 		external "C use <glib.h>"
 		end
 
-	g_error_new_literal (a_domain, a_code: INTEGER; a_message: POINTER): POINTER is
+	g_error_new_literal (a_domain, a_code: INTEGER; a_message: POINTER): POINTER
 		external "C use <glib.h>"
 		end
 

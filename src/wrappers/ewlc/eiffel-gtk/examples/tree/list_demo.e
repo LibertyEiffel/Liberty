@@ -58,7 +58,7 @@ feature {ANY}
 
 	name_column, age_column: GTK_TREE_VIEW_COLUMN
 
-	view: GTK_TREE_VIEW is
+	view: GTK_TREE_VIEW
 		once
 			create {GTK_CELL_RENDERER_TEXT} renderer.make
 			
@@ -89,7 +89,7 @@ feature {ANY}
 
 feature {}  -- Creation
 	
-	make is
+	make
 			-- Run the demo
 		local selection: GTK_TREE_SELECTION
 		do
@@ -112,7 +112,7 @@ feature {}  -- Creation
 		end
 
 feature {ANY}
-	traverse_model is
+	traverse_model
 		require valid_model: model /= Void
 		local iter:  GTK_TREE_ITER
 		do
@@ -130,7 +130,7 @@ feature {ANY}
 			end
 		end
 	
-	paths_demo is
+	paths_demo
 		local path: GTK_TREE_PATH
 		do
 			print ("Tree paths demo:%N")
@@ -141,7 +141,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Agents
-	on_destroy (a_gtk_object: GTK_OBJECT) is
+	on_destroy (a_gtk_object: GTK_OBJECT)
 		do
 			print ("Tree demo is quitting.%N")
 			paths_demo
@@ -153,7 +153,7 @@ feature {ANY} -- Agents
 			gtk.quit
 		end
 
-	print_person (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER): BOOLEAN is
+	print_person (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER): BOOLEAN
 		do
 				check
 					right_model: a_model = model
@@ -167,7 +167,7 @@ feature {ANY} -- Agents
 			Result := False -- i.e. go on
 		end
 			
-	on_select (a_selection: GTK_TREE_SELECTION; a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; path_selected: BOOLEAN): BOOLEAN is
+	on_select (a_selection: GTK_TREE_SELECTION; a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; path_selected: BOOLEAN): BOOLEAN
 		do
 			print ("Path '") print (a_path.to_string)
 			if path_selected

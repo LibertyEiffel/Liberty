@@ -33,7 +33,7 @@ inherit
 insert CORE_EXTERNALS
 
 feature {ANY} -- Queries
-   type_kind: LLVMTYPE_KIND_ENUM is
+   type_kind: LLVMTYPE_KIND_ENUM
          -- The actual type of Current
       do
          Result.change_value (llvmget_type_kind(handle))
@@ -43,31 +43,31 @@ feature {ANY} -- Queries
    -- TODO: C binding offers a call "LLVMTypeRef
    -- LLVMGetElementType(LLVMTypeRef Ty);"; provide a meaningful Eiffel
    -- equivalent.
-   context: LLVM_CONTEXT is
+   context: LLVM_CONTEXT
       do
 		  create Result.from_external_pointer(llvmget_type_context(handle))
       end
 
-   struct_size: like size_t is
+   struct_size: like size_t
          -- LLVM_TYPE actually wraps a polymorphic C++ class; temporarly this query always fails.
       require implemented: False
       do
          not_yet_implemented -- or mostly unuseful
       end
 
-   is_boolean: BOOLEAN is
+   is_boolean: BOOLEAN
          -- Is Current a one-bit integer?
       do
          Result := is_integer and then as_integer.width=1.to_natural_32
       end
 
-   is_integer: BOOLEAN is
+   is_integer: BOOLEAN
          -- Is Current an integer type?
       do
          Result := type_kind.is_integer_type_kind
       end
 
-   is_floating_point: BOOLEAN is
+   is_floating_point: BOOLEAN
          -- Is Current a floating point type?
       do
          Result := type_kind.is_double_type_kind or else
@@ -76,25 +76,25 @@ feature {ANY} -- Queries
          type_kind.is_ppc_fp128type_kind
       end
 
-   is_vector: BOOLEAN is
+   is_vector: BOOLEAN
          -- Is Current a vector?
       do
          Result := type_kind.is_vector_type_kind
       end
 
-   is_pointer: BOOLEAN is
+   is_pointer: BOOLEAN
          -- Is Current a pointer?
       do
          Result := type_kind.is_pointer_type_kind
       end
 
-   is_struct: BOOLEAN is
+   is_struct: BOOLEAN
          -- Is Current a struct type?
       do
          Result := type_kind.is_struct_type_kind
       end
 
-   is_array: BOOLEAN is
+   is_array: BOOLEAN
          -- Is Current an array type?
       do
          Result := type_kind.is_array_type_kind
@@ -104,7 +104,7 @@ feature {ANY} -- Queries
    -- is_sized: BOOLEAN is -- Has the type a known size? Things that don't have a size are abstract types, labels and void.
 
 feature {ANY}
-   as_integer: LLVM_INTEGER_TYPE is
+   as_integer: LLVM_INTEGER_TYPE
          -- Downcasting to integer type
       require is_integer
       do
@@ -113,7 +113,7 @@ feature {ANY}
       ensure Result/=Void
       end
 
-   as_struct: LLVM_STRUCT_TYPE is
+   as_struct: LLVM_STRUCT_TYPE
          -- Downcasting to struct type
       require is_struct
       do
@@ -121,7 +121,7 @@ feature {ANY}
          Result ::= Current
       end
 
-   as_vector: LLVM_VECTOR_TYPE is
+   as_vector: LLVM_VECTOR_TYPE
          -- Downcasting to integer type
       require is_vector
       do

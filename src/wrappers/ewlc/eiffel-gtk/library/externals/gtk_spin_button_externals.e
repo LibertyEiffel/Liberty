@@ -33,7 +33,7 @@ insert
 
 feature {} -- External calls
 
-	gtk_spin_button_configure (a_spin_button, an_adjustment: POINTER; a_climb_rate: REAL; some_digits: INTEGER) is
+	gtk_spin_button_configure (a_spin_button, an_adjustment: POINTER; a_climb_rate: REAL; some_digits: INTEGER)
 			-- Note some_digits shall be NATURAL
 		require
 			valid_spin_button: a_spin_button.is_not_null
@@ -41,7 +41,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_new (an_adjustment: POINTER; a_climb_rate: REAL; some_digits: INTEGER): POINTER is
+	gtk_spin_button_new (an_adjustment: POINTER; a_climb_rate: REAL; some_digits: INTEGER): POINTER
 		-- TODO: some_digits shall be NATURAL
 		require valid_adjustment: an_adjustment.is_not_null
 			positive_digits: some_digits >= 0
@@ -49,123 +49,123 @@ feature {} -- External calls
 		ensure Result.is_not_null
 		end
 
-	gtk_spin_button_new_with_range (a_min,a_max,a_step: REAL): POINTER is
+	gtk_spin_button_new_with_range (a_min,a_max,a_step: REAL): POINTER
 		require valid_values: a_min < a_max 
 		external "C use <gtk/gtk.h>"
 		ensure Result.is_not_null
 		end
 
-	gtk_spin_button_set_adjustment (a_spin_button, an_adjustment: POINTER) is
+	gtk_spin_button_set_adjustment (a_spin_button, an_adjustment: POINTER)
 		require
 			valid_spin_button: a_spin_button.is_not_null
 			valid_adjustment: an_adjustment.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_adjustment (a_spin_button: POINTER): POINTER is
+	gtk_spin_button_get_adjustment (a_spin_button: POINTER): POINTER
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		ensure Result.is_not_null
 		end
 
-	gtk_spin_button_set_digits (a_spin_button: POINTER; some_digits: INTEGER) is
+	gtk_spin_button_set_digits (a_spin_button: POINTER; some_digits: INTEGER)
 			-- TODO some_digits shall be NATURAL
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_set_increments (a_spin_button: POINTER; a_step,a_page:REAL) is
+	gtk_spin_button_set_increments (a_spin_button: POINTER; a_step,a_page:REAL)
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_set_range (a_spin_button: POINTER; a_min, a_max: REAL) is
+	gtk_spin_button_set_range (a_spin_button: POINTER; a_min, a_max: REAL)
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_value_as_int (a_spin_button: POINTER): INTEGER is
+	gtk_spin_button_get_value_as_int (a_spin_button: POINTER): INTEGER
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_set_value (a_spin_button: POINTER; a_value: REAL) is
+	gtk_spin_button_set_value (a_spin_button: POINTER; a_value: REAL)
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_set_update_policy (a_spin_button: POINTER; a_policy: INTEGER) is
+	gtk_spin_button_set_update_policy (a_spin_button: POINTER; a_policy: INTEGER)
 		require
 			valid_spin_button: a_spin_button.is_not_null
 			valid_policy: is_valid_gtk_spin_button_update_policy (a_policy)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_set_numeric (a_spin_button: POINTER; a_numeric: INTEGER) is
+	gtk_spin_button_set_numeric (a_spin_button: POINTER; a_numeric: INTEGER)
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_spin (a_spin_button: POINTER; a_direction: INTEGER; an_increment: REAL) is
+	gtk_spin_button_spin (a_spin_button: POINTER; a_direction: INTEGER; an_increment: REAL)
 		require
 			valid_spin_button: a_spin_button.is_not_null
 			valid_direction: is_valid_gtk_spin_type (a_direction)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_set_wrap (a_spin_button: POINTER; a_wrap: INTEGER) is
+	gtk_spin_button_set_wrap (a_spin_button: POINTER; a_wrap: INTEGER)
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_set_snap_to_ticks (a_spin_button: POINTER; a_snap_to_ticks: INTEGER) is
+	gtk_spin_button_set_snap_to_ticks (a_spin_button: POINTER; a_snap_to_ticks: INTEGER)
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_update (a_spin_button: POINTER) is
+	gtk_spin_button_update (a_spin_button: POINTER)
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_digits (a_spin_button: POINTER): INTEGER is
+	gtk_spin_button_get_digits (a_spin_button: POINTER): INTEGER
 			-- Note: result shall be NATURAL
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_increments (a_spin_button, a_step_ptr, a_page_ptr: POINTER) is
+	gtk_spin_button_get_increments (a_spin_button, a_step_ptr, a_page_ptr: POINTER)
 		require
 			valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_numeric (a_spin_button: POINTER): INTEGER is
+	gtk_spin_button_get_numeric (a_spin_button: POINTER): INTEGER
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_spin_button_get_range (a_spin_button, a_min_ptr, a_max_ptr: POINTER) is
+	gtk_spin_button_get_range (a_spin_button, a_min_ptr, a_max_ptr: POINTER)
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_snap_to_ticks (a_spin_button: POINTER): INTEGER is
+	gtk_spin_button_get_snap_to_ticks (a_spin_button: POINTER): INTEGER
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_update_policy (a_spin_button: POINTER): INTEGER is
+	gtk_spin_button_get_update_policy (a_spin_button: POINTER): INTEGER
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_value (a_spin_button: POINTER): REAL is
+	gtk_spin_button_get_value (a_spin_button: POINTER): REAL
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_wrap (a_spin_button: POINTER): INTEGER is
+	gtk_spin_button_get_wrap (a_spin_button: POINTER): INTEGER
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end

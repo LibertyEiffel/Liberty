@@ -31,7 +31,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gdk_drag_action (an_action: INTEGER) : BOOLEAN is
+	is_valid_gdk_drag_action (an_action: INTEGER) : BOOLEAN
 		do
 			Result:=((an_action=gdk_action_default) or else
 			         (an_action=gdk_action_copy) or else
@@ -41,40 +41,40 @@ feature {} -- enum
 			         (an_action=gdk_action_ask))
 		end
 
-	gdk_action_default: INTEGER is
+	gdk_action_default: INTEGER
 			-- Means nothing, and should not be used
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_ACTION_DEFAULT"
 		end
 
-	gdk_action_copy: INTEGER is
+	gdk_action_copy: INTEGER
 			-- Copy the data
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_ACTION_COPY"
 		end
 
-	gdk_action_move: INTEGER is
+	gdk_action_move: INTEGER
 			-- Move the data, i.e. first copy it, then delete it from
 			-- the source using the DELETE target of the X selection protocol
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_ACTION_MOVE"
 		end
 
-	gdk_action_link: INTEGER is
+	gdk_action_link: INTEGER
 			-- Add a link to the data. Note that this is only useful if
 			-- source and destination agree on what it means
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_ACTION_LINK"
 		end
 
-	gdk_action_private: INTEGER is
+	gdk_action_private: INTEGER
 			-- Special action which tells the source that the
 			-- destination will do something that the source doesn't understand
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_ACTION_PRIVATE"
 		end
 
-	gdk_action_ask: INTEGER is
+	gdk_action_ask: INTEGER
 			-- Ask the user what to do with the data
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_ACTION_ASK"

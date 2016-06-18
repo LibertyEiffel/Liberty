@@ -31,13 +31,13 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAlignment)"
 		end
 
 feature {} -- Creation
-	make (xalign, yalign, xscale, yscale: REAL_32) is
+	make (xalign, yalign, xscale, yscale: REAL_32)
 			-- Creates a new GtkAlignment.  `xalign' : the horizontal
 			-- alignment of the child widget, from 0 (left) to 1 (right).
 			-- `yalign' : the vertical alignment of the child widget,
@@ -54,7 +54,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Scaling and alignment 
-	set (xalign, yalign, xscale, yscale: REAL_32) is
+	set (xalign, yalign, xscale, yscale: REAL_32)
 			-- Sets the GtkAlignment values.  `xalign' : the horizontal
 			-- alignment of the child widget, from 0 (left) to 1 (right).
 			-- `yalign' : the vertical alignment of the child widget, from
@@ -108,7 +108,7 @@ feature {ANY} -- Scaling and alignment
 -- Default value: 1
 feature {ANY} -- paddings
 
-	paddings: TUPLE[INTEGER,INTEGER,INTEGER,INTEGER] is
+	paddings: TUPLE[INTEGER,INTEGER,INTEGER,INTEGER]
 			-- Top, bottom, left and right padding. TODO shall be NATURAL
 		local
 			guint_padding_top,guint_padding_bottom,guint_padding_left,guint_padding_right: INTEGER
@@ -120,27 +120,27 @@ feature {ANY} -- paddings
 										 guint_padding_left,guint_padding_right)
 		end
 
-	top_padding: INTEGER is
+	top_padding: INTEGER
 			-- Top padding
 		do
 			gtk_alignment_get_padding (handle,$Result, default_pointer, default_pointer, default_pointer)
 		ensure positive: Result>=0
 		end
 	
-	bottom_padding: INTEGER is
+	bottom_padding: INTEGER
 			-- Bottom padding
 		do
 			gtk_alignment_get_padding (handle, default_pointer,$Result, default_pointer, default_pointer)
 		ensure positive: Result>=0
 		end
 
-	left_padding: INTEGER is
+	left_padding: INTEGER
 			-- Left padding
 		do
 			gtk_alignment_get_padding (handle, default_pointer, default_pointer,$Result, default_pointer)
 		ensure positive: Result>=0
 		end
-	right_padding: INTEGER is
+	right_padding: INTEGER
 			-- Right padding
 		do
 			gtk_alignment_get_padding (handle, default_pointer, default_pointer, default_pointer, $Result)
@@ -148,7 +148,7 @@ feature {ANY} -- paddings
 		end
 
 
-	set_paddings (padding_top,padding_bottom,padding_left,padding_right: INTEGER) is
+	set_paddings (padding_top,padding_bottom,padding_left,padding_right: INTEGER)
 		-- Sets the padding on the different sides of the widget. The
 		-- padding adds blank space to the sides of the widget. For
 		-- instance, this can be used to indent the child widget towards

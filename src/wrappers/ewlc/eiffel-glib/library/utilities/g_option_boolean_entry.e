@@ -36,7 +36,7 @@ inherit
 create {ANY} make
 	
 feature {ANY} 
-	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
+	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING)
 		do
 			Precursor (a_long_name,a_short_name, a_description)
 			set_arg(handle, g_option_arg_none)
@@ -44,17 +44,17 @@ feature {ANY}
 		end
 
 feature {ANY}
-	item: BOOLEAN is 
+	item: BOOLEAN
 		do 
 			Result:=hidden_value.to_boolean 
 		end
 
-	set_item(a_boolean: BOOLEAN) is
+	set_item(a_boolean: BOOLEAN)
 		do
 			hidden_value:=a_boolean.to_integer
 		end
 
-	fill_tagged_out_memory is
+	fill_tagged_out_memory
 		do
 			Precursor
 			item.append_in(tagged_out_memory)

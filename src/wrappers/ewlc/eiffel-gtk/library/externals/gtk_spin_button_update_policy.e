@@ -27,19 +27,19 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_spin_button_update_policy (a_policy :INTEGER): BOOLEAN is
+	is_valid_gtk_spin_button_update_policy (a_policy :INTEGER): BOOLEAN
 		do
 			Result:=((a_policy = gtk_update_always) or else
 						(a_policy = gtk_update_if_valid))
 		end
 
-	gtk_update_always: INTEGER is
+	gtk_update_always: INTEGER
 			-- When refreshing your GtkSpinButton, the value is always displayed.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UPDATE_ALWAYS"
 		end
 
-	gtk_update_if_valid: INTEGER is
+	gtk_update_if_valid: INTEGER
 			-- When refreshing your GtkSpinButton, the value is only displayed if
 			-- it is valid within the bounds of the spin button's GtkAdjustment.
 		external "C macro use <gtk/gtk.h>"

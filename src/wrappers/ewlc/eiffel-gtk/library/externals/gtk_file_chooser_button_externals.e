@@ -24,11 +24,11 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_file_chooser_button_new (a_title: POINTER; an_action: INTEGER): POINTER is
+	gtk_file_chooser_button_new (a_title: POINTER; an_action: INTEGER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_file_chooser_button_get_title (a_file_chooser_button: POINTER): POINTER is
+	gtk_file_chooser_button_get_title (a_file_chooser_button: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -36,7 +36,7 @@ feature {} -- External calls
 -- 		external "C use <gtk/gtk.h>"
 -- 		end
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkColorButton)"
 		end

@@ -24,7 +24,7 @@ deferred class G_OPTION_FLAGS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	are_valid_flags (some_flags: INTEGER): BOOLEAN is
+	are_valid_flags (some_flags: INTEGER): BOOLEAN
 		do	
 			Result:=(some_flags & (g_option_flag_hidden |
 										  g_option_flag_in_main |
@@ -35,27 +35,27 @@ feature {} -- enum
 										  g_option_flag_noalias)).to_boolean
 		end
 
-   g_option_flag_hidden: INTEGER is
+   g_option_flag_hidden: INTEGER
 			-- The option doesn't appear in --help output.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_FLAG_HIDDEN"
 		end
 
-   g_option_flag_in_main: INTEGER is
+   g_option_flag_in_main: INTEGER
 			-- The option appears in the main section of the --help
 			-- output, even if it is defined in a group.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_FLAG_IN_MAIN"
 		end
 
-   g_option_flag_reverse: INTEGER is
+   g_option_flag_reverse: INTEGER
 			-- For options of the G_OPTION_ARG_NONE kind, this flag
 			-- indicates that the sense of the option is reversed.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_FLAG_REVERSE"
 		end
 
-   g_option_flag_no_arg: INTEGER is
+   g_option_flag_no_arg: INTEGER
 			-- For options of the G_OPTION_ARG_CALLBACK kind, this flag
 			-- indicates that the callback does not take any argument
 			-- (like a G_OPTION_ARG_NONE option). Since 2.8
@@ -63,7 +63,7 @@ feature {} -- enum
 		alias "G_OPTION_FLAG_NO_ARG"
 		end
 
-   g_option_flag_filename: INTEGER is
+   g_option_flag_filename: INTEGER
 			-- For options of the G_OPTION_ARG_CALLBACK kind, this flag
 			-- indicates that the argument should be passed to the
 			-- callback in the GLib filename encoding rather than
@@ -72,7 +72,7 @@ feature {} -- enum
 		alias "G_OPTION_FLAG_FILENAME"
 		end
 
-   g_option_flag_optional_arg: INTEGER is
+   g_option_flag_optional_arg: INTEGER
 			-- For options of the G_OPTION_ARG_CALLBACK kind, this flag
 			-- indicates that the argument supply is optional.  If no
 			-- argument is given then data of GOptionParseFunc will be
@@ -81,7 +81,7 @@ feature {} -- enum
 		alias "G_OPTION_FLAG_OPTIONAL_ARG"
 		end
 
-   g_option_flag_noalias: INTEGER is
+   g_option_flag_noalias: INTEGER
 			-- This flag turns off the automatic conflict resolution
 			-- which prefixes long option names with groupname- if there
 			-- is a conflict. This option should only be used in

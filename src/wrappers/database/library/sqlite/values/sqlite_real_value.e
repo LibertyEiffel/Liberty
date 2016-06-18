@@ -11,18 +11,18 @@ create
 	{ANY} set_item
 
 feature {SQLITE_PREPARED_STATEMENT} 
-	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) is
+	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER)
 		local res: INTEGER
 		do
 			res := sqlite3_bind_double (a_statement.handle, an_index, item)
 		end
 		 
 feature {ANY}
-	as_string: STRING is 
+	as_string: STRING
 		do
 			Result := item.to_string
 		end
-	type: INTEGER is
+	type: INTEGER
 		do
 			Result := sqlite_float
 		end

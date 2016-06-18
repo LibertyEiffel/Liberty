@@ -26,7 +26,7 @@ deferred class GTK_SYNTAX_TAG
 inherit GTK_SOURCE_TAG redefine struct_size end
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtksourceview/gtksourcetag.h>"
 		alias "sizeof(GtkSyntaxTag)"
 		end

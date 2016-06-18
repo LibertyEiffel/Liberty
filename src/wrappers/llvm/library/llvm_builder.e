@@ -15,19 +15,19 @@ inherit
 insert CORE_EXTERNALS redefine default_create end 
 create {ANY} in_context, default_create, at_end_of
 feature {ANY} -- Creation
-	in_context (a_context: LLVM_CONTEXT) is
+	in_context (a_context: LLVM_CONTEXT)
 		-- Create an LLVM_BUILDER in `a_context'.
 	require a_context/=Void
 	do
 		from_external_pointer(llvmcreate_builder_in_context(a_context.handle))
 	end
 
-	default_create is
+	default_create
 		do
 			from_external_pointer(llvmcreate_builder)
 		end
 
-	at_end_of (a_block: LLVM_BASIC_BLOCK) is
+	at_end_of (a_block: LLVM_BASIC_BLOCK)
 		-- Create a new builder positioned at the end of `a_block'; this
 		-- commodity creation feature is a shortcut for (equivalent to) "create
 		-- Result; Result.position_at_end_of(a_block)"
@@ -38,7 +38,7 @@ feature {ANY} -- Creation
 	end
 
 feature {ANY} -- Positioning
-	set_position (a_block: LLVM_BASIC_BLOCK; an_instruction: LLVM_VALUE) is
+	set_position (a_block: LLVM_BASIC_BLOCK; an_instruction: LLVM_VALUE)
 		-- TODO: description
 	require
 		a_block/=Void
@@ -47,39 +47,39 @@ feature {ANY} -- Positioning
 		llvmposition_builder(handle,a_block.handle,an_instruction.handle)
 	end
 
-	position_before (an_instruction: LLVM_INSTRUCTION) is
+	position_before (an_instruction: LLVM_INSTRUCTION)
 		-- Set Current position before `an_instruction'
 	require an_instruction/=Void
 	do
 		llvmposition_builder_before(handle,an_instruction.handle)
 	end
 	
-	position_at_end_of (a_block: LLVM_BASIC_BLOCK) is
+	position_at_end_of (a_block: LLVM_BASIC_BLOCK)
 		-- Set Current position at the end of `a_block'
 	require a_block/=Void
 	do
 		llvmposition_builder_at_end(handle,a_block.handle)
 	end
 
-	insert_block: LLVM_BASIC_BLOCK is
+	insert_block: LLVM_BASIC_BLOCK
 	local p: POINTER
 	do
 		p := llvmget_insert_block(handle)
 		if p.is_not_null then create Result.from_external_pointer(p) end
 	end
 
-	clear_insertion_position is
+	clear_insertion_position
 		do
 			llvmclear_insertion_position(handle)
 		end
 
-	insert_instruction (an_instruction: LLVM_INSTRUCTION) is
+	insert_instruction (an_instruction: LLVM_INSTRUCTION)
 	require an_instruction/=Void
 	do
 		llvminsert_into_builder(handle,an_instruction.handle)
 	end
 
-	insert_with_name (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING) is
+	insert_with_name (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING)
 	require 
 		a_value/=Void
 		a_name/=Void
@@ -87,12 +87,12 @@ feature {ANY} -- Positioning
 		llvminsert_into_builder_with_name(handle,a_value.handle,a_name.to_external)
 	end
 feature {ANY} -- Terminators 
-	return_void: LLVM_RETURN_INST is
+	return_void: LLVM_RETURN_INST
 		do
 			create Result.from_external_pointer(llvmbuild_ret_void(handle))
 		end
 	
-	return (a_value: LLVM_VALUE): LLVM_RETURN_INST is
+	return (a_value: LLVM_VALUE): LLVM_RETURN_INST
 		-- A "ret" instruction returing `a_value'
 	require a_value/=Void
 	do
@@ -100,7 +100,7 @@ feature {ANY} -- Terminators
 	ensure Result/=Void
 	end
 	
-	aggregate_return (some_values: COLLECTION[LLVM_VALUE]): LLVM_RETURN_INST is
+	aggregate_return (some_values: COLLECTION[LLVM_VALUE]): LLVM_RETURN_INST
 		-- A "ret" instruction returning `some_values'.
 	require some_values/=Void; not some_values.is_empty
 	local sv: FAST_ARRAY[POINTER]; i: ITERATOR[LLVM_VALUE]
@@ -115,7 +115,7 @@ feature {ANY} -- Terminators
 	ensure Result/=Void
 	end
 	
-	unconditional_branch (a_destination: LLVM_BASIC_BLOCK): LLVM_BRANCH_INST is
+	unconditional_branch (a_destination: LLVM_BASIC_BLOCK): LLVM_BRANCH_INST
 		-- An unconditional branch "br" instruction that transfer the control
 		-- flow to a different basic block in the current function.
 	require a_destination/=Void
@@ -124,7 +124,7 @@ feature {ANY} -- Terminators
 	ensure Result/=Void
 	end
 
-	conditional_branch (an_if: LLVM_VALUE; a_then, an_else: LLVM_BASIC_BLOCK): LLVM_BRANCH_INST is
+	conditional_branch (an_if: LLVM_VALUE; a_then, an_else: LLVM_BASIC_BLOCK): LLVM_BRANCH_INST
 		-- A conditional branch "br" instruction that will pass control flow to
 		-- `a_then' if `an_if' evaluates to True, to `an_else' otherwise
 	require 
@@ -137,7 +137,7 @@ feature {ANY} -- Terminators
 	ensure Result/=Void
 	end
 
-	switch (a_value: LLVM_VALUE; an_else: LLVM_BASIC_BLOCK; a_number_of_cases: NATURAL_32): LLVM_SWITCH_INST is
+	switch (a_value: LLVM_VALUE; an_else: LLVM_BASIC_BLOCK; a_number_of_cases: NATURAL_32): LLVM_SWITCH_INST
 		-- A 'switch' instruction, used to transfer control flow to one of
 		-- several different places. It is a generalization of the 'br'
 		-- instruction, allowing a branch to occur to one of many possible
@@ -153,7 +153,7 @@ feature {ANY} -- Terminators
 	ensure Result/=Void
 	end
 
-	invoke (a_function: LLVM_FUNCTION_TYPE; some_arguments: COLLECTION[LLVM_VALUE]; a_then, a_catch: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING): LLVM_INVOKE_INST is
+	invoke (a_function: LLVM_FUNCTION_TYPE; some_arguments: COLLECTION[LLVM_VALUE]; a_then, a_catch: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING): LLVM_INVOKE_INST
 		-- An "invoke" instruction. If `a_function' is parameterless `some_arguments' is not used and can be Void. 
 		-- TODO: specify the meaning of `a_then' and `a_catch'.
 		require
@@ -176,7 +176,7 @@ feature {ANY} -- Terminators
 		ensure Result/=Void
 		end
 
-	unreachable: LLVM_VALUE is
+	unreachable: LLVM_VALUE
 		-- A newly create 'unreachable' instruction; it has no defined
 		-- semantics. This instruction is used to inform the optimizer that a
 		-- particular portion of the code is not reachable. This can be used to
@@ -188,7 +188,7 @@ feature {ANY} -- Terminators
 	end
 
 feature {ANY} -- Arithmetic
-	add (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	add (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- A newly created `add' instruction with `a_name' summing `a_left' and `a_right'.
 		-- The two arguments to the 'add' instruction must be integer or vector
 		-- of integer values. Both arguments must have identical types.
@@ -219,7 +219,7 @@ feature {ANY} -- Arithmetic
 			Result.type ~ a_left.type 
 		end
 
-	no_signed_wrap_addition, nsw_add (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_ADD_OPERATOR is
+	no_signed_wrap_addition, nsw_add (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_ADD_OPERATOR
 		-- A newly created `no-signed-wrap-add' instruction with `a_name' summing `a_left' and `a_right'. See `add' for further informations.
 	require 
 		a_left/=Void
@@ -236,7 +236,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	float_add, fadd (a_left,a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	float_add, fadd (a_left,a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- The 'fadd' instruction returns the sum of its two operands that must
 		-- be floating point or vector of floating point values and must have
 		-- identical types. The value produced is the floating point sum of the
@@ -256,7 +256,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 	
-	sub (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_SUB_OPERATOR is
+	sub (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_SUB_OPERATOR
 		-- An integer subtraction operation on `a_left' and `a_right'.
 	require 
 		a_left/=Void
@@ -271,7 +271,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	mul (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	mul (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- Create a 'mul' instruction that multiplyies `a_left' and `a_right', with `a_name'. 
 
 		-- If the result of the multiplication has unsigned overflow, the
@@ -304,7 +304,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	float_multiplication, fmul (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	float_multiplication, fmul (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- The product of `a_left' and `a_right', labelled with `a_name'
 	require
 		a_left/=Void
@@ -320,7 +320,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	udiv, unsigned_division (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	udiv, unsigned_division (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- The unsigned integer quotient of `a_left' divided by `a_right'. 
 
 		-- Note that unsigned integer division and signed integer division are
@@ -341,7 +341,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	signed_division (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	signed_division (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- The signed integer quotient of `a_left' and `a_right' rounded towards zero.
 
 		-- Note that signed integer division and unsigned integer division are
@@ -368,7 +368,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	exact_signed_division (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	exact_signed_division (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- An "exact sdiv" operation, the exact, signed integer quotient of
 		-- `a_left' and `a_right' rounded towards zero.
 
@@ -388,7 +388,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 	
-	float_division  (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	float_division  (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- An 'fdiv' instruction, the floating point quotient of `a_left' and `a_right'.
 	require
 		a_left/=Void
@@ -404,7 +404,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	unsigned_remainder (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	unsigned_remainder (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- A 'urem' instruction computing the unsigned integer remainder of the
 		-- unsigned division of `a_left' and `a_right'.To get the remainder an
 		-- unsigned division is always performed.
@@ -426,7 +426,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	signed_remainder (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	signed_remainder (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- A 'srem' instruction computing the signed integer remainder of the
 		-- signed division of `a_left' and `a_right'.To get the remainder an
 		-- signed division is always performed.
@@ -465,7 +465,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	float_remainder (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	float_remainder (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- An 'frem' instruction computing the remainder of the division of `a_left' and `a_right'.
 		-- The remainder has the same sign as the dividend.
 	require
@@ -481,7 +481,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end		
 
-	shift_left (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	shift_left (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- A 'shl' instruction that computes `a_left' shifted to the left by a number of bits specified in `a_right'.
 
 		-- The value produced is op1 * 2op2 mod 2n, where n is the width of the result. If op2 is (statically or dynamically) negative or equal to or larger than the number of bits in op1, the result is undefined. If the arguments are vectors, each vector element of op1 is shifted by the corresponding shift amount in op2.
@@ -498,7 +498,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 	
-	logical_shift_right (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	logical_shift_right (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- A "lshr" instruction (logical shift right), computing `a_left' shifted to the right by the number of bits specified in `a_right' with zero fill.
 
 		-- This instruction always performs a logical shift right operation.
@@ -520,7 +520,7 @@ feature {ANY} -- Arithmetic
 		Result.type ~ a_left.type 
 	end
 
-	arithmetic_shift_right (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	arithmetic_shift_right (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- An "ashr" instruction (arithmetic shift right), computing `a_left shifted to the right by the number of bits specified in `a_right' with sign extension. `a_right' is treated as an unsigned value. 
 
 		-- This instruction always performs an arithmetic shift right operation, The most significant bits of the result will be filled with the sign bit of `a_left'. If `a_right' is (statically or dynamically) equal to or larger than the number of bits in `a_left', the result is undefined. If the arguments are vectors, each vector element of `a_left' is shifted by the corresponding shift amount in 'a_right'.
@@ -538,7 +538,7 @@ feature {ANY} -- Arithmetic
 	end
 
 feature {ANY} -- Logical operators
-	logical_and (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	logical_and (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- An "and" instruction, the bitwise logical and of `a_left' and `a_right'.
 		require 
 		a_left/=Void
@@ -553,7 +553,7 @@ feature {ANY} -- Logical operators
 		Result.type ~ a_left.type 
 	end
 
-	logical_or (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	logical_or (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- An "or" instruction, the bitwise logical or of `a_left' and `a_right'.
 		require 
 		a_left/=Void
@@ -568,7 +568,7 @@ feature {ANY} -- Logical operators
 		Result.type ~ a_left.type 
 	end
 		
-	logical_xor (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	logical_xor (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- A "xor" instruction, the bitwise exclusive logical or of `a_left' and `a_right'.
 		require 
 		a_left/=Void
@@ -583,7 +583,7 @@ feature {ANY} -- Logical operators
 		Result.type ~ a_left.type 
 	end
 	
-	logical_neg (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	logical_neg (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- TODO: provide description, semating, preconditions and postconditions.
 	require a_value/=Void
  	do
@@ -591,7 +591,7 @@ feature {ANY} -- Logical operators
 	ensure Result/=Void
 	end
 	
-	logical_not (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+	logical_not (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE
 		-- TODO: provide description, semating, preconditions and postconditions.
 	require a_value/=Void
  	do
@@ -600,7 +600,7 @@ feature {ANY} -- Logical operators
 	end
 
 feature {ANY} -- Memory
-	malloc_inst (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_MALLOC_INST is
+	malloc_inst (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_MALLOC_INST
 		-- A 'malloc' instruction allocating memory for `a_type' on the system heap and returning a pointer to it. The object is always allocated in the generic address space (address space zero). Memory is allocated using the system "malloc" function, and a pointer is returned. The result of a zero byte allocation is undefined. The result is null if there is insufficient memory available.
 
 		-- TODO: LLVM assembly language allows to specify the alignment of the allocation but I coudln't figure how to implement if using the C bindings we are relying on. 
@@ -613,7 +613,7 @@ feature {ANY} -- Memory
 	end
 
 
-	array_malloc (a_type: LLVM_TYPE; a_number: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_MALLOC_INST is
+	array_malloc (a_type: LLVM_TYPE; a_number: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_MALLOC_INST
 		-- A 'malloc' instruction allocateing memory from the system heap for
 		-- `a_number' of objects of `a_type' returing a pointer to it. The
 		-- object is always allocated in the generic address space (address
@@ -631,7 +631,7 @@ feature {ANY} -- Memory
 		Result/=Void
 	end
 
-	alloca_inst (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_ALLOCA_INST is
+	alloca_inst (a_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_ALLOCA_INST
 		-- An "alloca" instruction allocating memory for an instance of
 		-- `a_type' on the stack frame of the currently executing function, to
 		-- be automatically released when this function returns to its caller.
@@ -654,7 +654,7 @@ feature {ANY} -- Memory
 		Result/=Void
 	end
 
-	array_alloca (a_type: LLVM_TYPE; a_number: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_ALLOCA_INST is
+	array_alloca (a_type: LLVM_TYPE; a_number: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_ALLOCA_INST
 		-- An "alloca" instruction allocating memory for `a_number' of instances of
 		-- `a_type' on the stack frame of the currently executing function, to
 		-- be automatically released when this function returns to its caller.
@@ -670,7 +670,7 @@ feature {ANY} -- Memory
 		Result/=Void
 	end
 
-	llvm_free (a_value: LLVM_VALUE): LLVM_FREE_INST is
+	llvm_free (a_value: LLVM_VALUE): LLVM_FREE_INST
 		-- A 'free' instruction returning memory back to the unused memory heap
 		-- to be reallocated in the future.
 
@@ -686,7 +686,7 @@ feature {ANY} -- Memory
 	ensure Result/=Void
 	end
 
- 	load (a_location: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_LOAD_INST is
+ 	load (a_location: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_LOAD_INST
 		-- A 'load' instruction that will read from memory `a_location' that
 		-- specifies the memory address from which to load.
 	
@@ -711,7 +711,7 @@ feature {ANY} -- Memory
 	ensure Result/=Void
 	end
 
-	store (a_value: LLVM_VALUE; a_pointer: LLVM_VALUE): LLVM_STORE_INST is
+	store (a_value: LLVM_VALUE; a_pointer: LLVM_VALUE): LLVM_STORE_INST
 		-- A 'store' instruction that will update memory at `an_address' to
 		-- contain `a_value'. 
 		
@@ -740,7 +740,7 @@ feature {ANY} -- Memory
 		Result/=Void
 	end
 
-	get_element_pointer (a_pointer: LLVM_VALUE; some_indices: COLLECTION[LLVM_VALUE]; a_name: ABSTRACT_STRING): LLVM_GEP_OPERATOR is 
+	get_element_pointer (a_pointer: LLVM_VALUE; some_indices: COLLECTION[LLVM_VALUE]; a_name: ABSTRACT_STRING): LLVM_GEP_OPERATOR
 		-- A "get element pointer" intruction 
 
 	require
@@ -759,7 +759,7 @@ feature {ANY} -- Memory
 	--                                   LLVMValueRef *Indices, unsigned NumIndices,
 	--                                   const char *Name);
 
-	get_struct_element_pointer (a_pointer: LLVM_VALUE; an_index: NATURAL_32; a_name: ABSTRACT_STRING): LLVM_GEP_OPERATOR is
+	get_struct_element_pointer (a_pointer: LLVM_VALUE; an_index: NATURAL_32; a_name: ABSTRACT_STRING): LLVM_GEP_OPERATOR
 		-- "getelementpointer" of a structure field
 	require 
 		-- TODO: a_pointer should point to a struct
@@ -772,7 +772,7 @@ feature {ANY} -- Memory
 		Result/=Void
 	end
 
-	global_string (a_string, a_name: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE is
+	global_string (a_string, a_name: ABSTRACT_STRING): LLVM_GLOBAL_VARIABLE
 		-- A global string with the content of `a_string' referrable by `a_name'.
 	do
 		create Result.from_external_pointer(llvmbuild_global_string
@@ -787,7 +787,7 @@ feature {ANY} -- Memory
 	--                                       const char *Name);
 	-- 
 feature {ANY} -- Casts
-	trunc (a_value: LLVM_VALUE; a_destination_type: LLVM_INTEGER_TYPE; a_name: ABSTRACT_STRING): LLVM_TRUNC_INST is
+	trunc (a_value: LLVM_VALUE; a_destination_type: LLVM_INTEGER_TYPE; a_name: ABSTRACT_STRING): LLVM_TRUNC_INST
 		-- A "trunc" instruction; `a_value' an integer type larger than
 		-- `a_destination_type' will be truncated to the size of
 		-- `a_destination_type'. Equal sized types are not allowed.
@@ -809,7 +809,7 @@ feature {ANY} -- Casts
 			Result.type ~ a_destination_type
 		end
 
-	zero_extend, zext (a_value: LLVM_VALUE; a_destination_type: LLVM_INTEGER_TYPE; a_name: ABSTRACT_STRING): LLVM_ZEXT_INST is
+	zero_extend, zext (a_value: LLVM_VALUE; a_destination_type: LLVM_INTEGER_TYPE; a_name: ABSTRACT_STRING): LLVM_ZEXT_INST
 		-- A "zext" instruction; it will fill the high order bits of `a_value' until it reaches the size of `a_destination_type'. 
 		-- When zero extending from an "i1", the result will always be either 0 or 1.
 		require
@@ -822,7 +822,7 @@ feature {ANY} -- Casts
 			Result/=Void
 		end
 
-	sign_extend, sext (a_value: LLVM_VALUE; a_destination_type: LLVM_TYPE; a_label: ABSTRACT_STRING): LLVM_SEXT_INST is
+	sign_extend, sext (a_value: LLVM_VALUE; a_destination_type: LLVM_TYPE; a_label: ABSTRACT_STRING): LLVM_SEXT_INST
 		-- A new "sext" instruction, that will sign extend `a_value' to until fits `a_destination_type'.
 
 		-- `a_value' must be of an integer type; also `a_destination_type' shall be of integer type.
@@ -845,7 +845,7 @@ feature {ANY} -- Casts
 		ensure Result/=Void
 		end
 
-	floating_point_to_unsigned_integer, fptoui (a_value: LLVM_VALUE; a_type: LLVM_TYPE; a_label: ABSTRACT_STRING): LLVM_FPTOUI_INST is
+	floating_point_to_unsigned_integer, fptoui (a_value: LLVM_VALUE; a_type: LLVM_TYPE; a_label: ABSTRACT_STRING): LLVM_FPTOUI_INST
 		-- A new "fptoui" instruction that converts the floating point `a_value' to its unsigned integer equivalent of `a_type'.
 
 		-- `a_value' must be a scalar or vector floating point value, and `a_type' must be an integer type. If ty is a vector floating point type, ty2 must be a vector integer type with the same number of elements as ty
@@ -876,7 +876,7 @@ feature {ANY} -- Casts
 --                                LLVMTypeRef DestTy, const char *Name);
 -- LLVMValueRef LLVMBuildIntToPtr(LLVMBuilderRef, LLVMValueRef Val,
 --                                LLVMTypeRef DestTy, const char *Name);
-	bit_cast (a_value: LLVM_VALUE; a_destination_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_BITCAST_INST is
+	bit_cast (a_value: LLVM_VALUE; a_destination_type: LLVM_TYPE; a_name: ABSTRACT_STRING): LLVM_BITCAST_INST
 		-- An instruction casting `a_value' into `a_destination_type'.
 	require
 		a_value/=Void
@@ -901,7 +901,7 @@ feature {ANY} -- Casts
 --                              LLVMTypeRef DestTy, const char *Name);
 -- 
 feature {ANY} -- Comparisons
-	icmp (a_predicate: LLVMINT_PREDICATE_ENUM; a_left,a_right: LLVM_VALUE;a_name: ABSTRACT_STRING): LLVM_ICMP_INST is
+	icmp (a_predicate: LLVMINT_PREDICATE_ENUM; a_left,a_right: LLVM_VALUE;a_name: ABSTRACT_STRING): LLVM_ICMP_INST
 		-- An 'icmp' instruction that will return a boolean value or a vector of boolean values based on comparison of its two integer, integer vector, or pointer operands. `a_predicate' is the condition code indicating the kind of comparison to perform. In LLVM assembler it is not a value, but a keyword. The possible condition code are:
 
 		--   1. eq: equal
@@ -949,7 +949,7 @@ feature {ANY} -- Comparisons
 			-- TODO: a_left.is_constant_vector implies the-result-of-the-instruction.is_constant_vector and then a_left.as_constant_vector.type.size = Result.as
 		end
 
-	fcmp (a_predicate: LLVMREAL_PREDICATE_ENUM; a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_FCMP_INST is
+	fcmp (a_predicate: LLVMREAL_PREDICATE_ENUM; a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_FCMP_INST
 		-- Floating point comparison. 
 
 		-- TODO: adapt main LLVM documentation
@@ -970,7 +970,7 @@ feature {ANY} -- Miscellaneous instructions
 
 	-- LLVMValueRef LLVMBuildPhi(LLVMBuilderRef, LLVMTypeRef Ty, const char *Name);
 
-	call (a_function: LLVM_FUNCTION; some_arguments: COLLECTION[LLVM_VALUE]; a_name: ABSTRACT_STRING): LLVM_CALL_INST is
+	call (a_function: LLVM_FUNCTION; some_arguments: COLLECTION[LLVM_VALUE]; a_name: ABSTRACT_STRING): LLVM_CALL_INST
 		-- A "call" instruction that will invoke `a_function' with `some_arguments'
 
 		-- TODO: adapt main LLVM doc
@@ -986,7 +986,7 @@ feature {ANY} -- Miscellaneous instructions
 		Result/=Void
 	end
 
-	select_inst (an_if, a_then, an_else: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_SELECT_INST is
+	select_inst (an_if, a_then, an_else: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_SELECT_INST
 		-- A new 'select' instruction which choose one value based on a condition, without branching.
 
 		-- The 'select' instruction requires an 'i1' value or a vector of 'i1' values indicating the condition, and two values of the same first class type. If the val1/val2 are vectors and the condition is a scalar, then entire vectors are selected, not individual elements.
@@ -1007,7 +1007,7 @@ feature {ANY} -- Miscellaneous instructions
 	-- LLVMValueRef LLVMBuildVAArg(LLVMBuilderRef, LLVMValueRef List, LLVMTypeRef Ty,
 --                             const char *Name);
 feature {ANY} -- Instructions on vectors
-	extract_element(a_vector: LLVM_VALUE; an_index: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_EXTRACT_VALUE_INST is
+	extract_element(a_vector: LLVM_VALUE; an_index: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_EXTRACT_VALUE_INST
 		-- An "extract_element" instruction that will extract the element of `a_vector' referred by `an_index'.
 
 		-- TODO: C API requires an_index to be a LLVMValueRef; currently Liberty wrappers do not distinguish them.
@@ -1021,7 +1021,7 @@ feature {ANY} -- Instructions on vectors
 	ensure Result/=Void
 	end
 
-	insert_element (a_vector: LLVM_VALUE; an_element: LLVM_VALUE; an_index: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_INSERT_ELEMENT_INST is 
+	insert_element (a_vector: LLVM_VALUE; an_element: LLVM_VALUE; an_index: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_INSERT_ELEMENT_INST
 		-- An "insertelement" instruction that will insert `an_element' into
 		-- `a_vector' at `an_index'. The result of this instruction will be a
 		-- vector of the same type as `a_vector'; its element values will be
@@ -1042,7 +1042,7 @@ feature {ANY} -- Instructions on vectors
 	ensure Result/=Void
 	end
 
-	shuffle_vector (a_vector, another_vector: LLVM_VALUE; a_mask: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_SHUFFLE_VECTOR_INST is
+	shuffle_vector (a_vector, another_vector: LLVM_VALUE; a_mask: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_SHUFFLE_VECTOR_INST
 		-- A "shufflevector" instruction that will construct a permutation of
 		-- elements from `a_vector' and `another_vector', returning a vector
 		-- with the same element type as the input and length that is the same
@@ -1078,7 +1078,7 @@ feature {ANY} -- Instructions on vectors
 	end
 
 feature {ANY} -- Instructions on aggregates (structures or arrays)
-	extract_value (an_aggregate: LLVM_VALUE; an_index: NATURAL_32; a_name: ABSTRACT_STRING): LLVM_EXTRACT_VALUE_INST is
+	extract_value (an_aggregate: LLVM_VALUE; an_index: NATURAL_32; a_name: ABSTRACT_STRING): LLVM_EXTRACT_VALUE_INST
 		-- An "extractvalue" instruction that will extract the value of a struct field or array element from `an_aggregate' value.
 	require
 		an_aggregate/=Void
@@ -1090,7 +1090,7 @@ feature {ANY} -- Instructions on aggregates (structures or arrays)
 	ensure	 Result/=Void
 	end
 		
-	insert_value (an_aggregate: LLVM_VALUE; an_element: LLVM_VALUE; an_index: NATURAL_32; a_name: ABSTRACT_STRING): LLVM_INSERT_VALUE_INST is
+	insert_value (an_aggregate: LLVM_VALUE; an_element: LLVM_VALUE; an_index: NATURAL_32; a_name: ABSTRACT_STRING): LLVM_INSERT_VALUE_INST
 		-- An "insertvalue" instruction that will insert `an_element' at
 		-- `an_index' into a struct field or array element in `an_aggregate'.
 
@@ -1118,12 +1118,12 @@ feature {ANY} -- Instructions on aggregates (structures or arrays)
 -- 
 -- 
 feature {} 
-	struct_size: like size_t is
+	struct_size: like size_t
 		do
 			not_yet_implemented
 		end
 
-	dispose is 
+	dispose
 		do
 			llvmdispose_builder(handle)
 		end

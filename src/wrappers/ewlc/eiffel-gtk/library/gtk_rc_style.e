@@ -31,26 +31,26 @@ create {ANY} from_external_pointer, make, copy
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRcStyle)"
 		end
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			from_external_pointer (gtk_rc_style_new)
 		end
 
 feature {ANY} -- Operations
 
-	copy (other: like Current) is
+	copy (other: like Current)
 		do
 			from_external_pointer (gtk_rc_style_copy (other.handle))
 		end
 
-	parse (a_filename: STRING) is
+	parse (a_filename: STRING)
 		require
 			a_filename /= Void
 		do

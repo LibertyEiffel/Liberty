@@ -30,7 +30,7 @@ insert GTS_SURFACE_TRAVERSE_EXTERNALS
 create {ANY}  make, from_face, from_external_pointer
 
 feature {} -- Creation
-	make (a_surface: GTS_SURFACE) is
+	make (a_surface: GTS_SURFACE)
 			-- Creates a new GTS_SURFACE_TRAVERSE, initialized to start traversing
 			-- `a_surface'.
 		require surface_not_void: a_surface /= Void
@@ -43,7 +43,7 @@ feature {} -- Creation
 										  ))
 		end
 
-	from_face (a_surface: GTS_SURFACE; a_face: GTS_FACE) is
+	from_face (a_surface: GTS_SURFACE; a_face: GTS_FACE)
 			-- Creates a new GTS_SURFACE_TRAVERSE, initialized to start traversing
 			-- from `a_face' of `a_surface'.
 		require
@@ -55,19 +55,19 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	start is
+	start
 		do
 			next
 		end
 	
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result:=(item=Void)
 		end
 
 	item: GTS_FACE 
 	
-	next is
+	next
 		local item_ptr: POINTER
 		do
 			item_ptr:=gts_surface_traverse_next(handle,$level)
@@ -85,7 +85,7 @@ feature {ANY}
 			-- the level of `item' face; 0 for the initial face, 1 for its
 			-- neighbors and so on
 	
-	dispose is
+	dispose
 		do
 			gts_surface_traverse_destroy(handle)
 		end

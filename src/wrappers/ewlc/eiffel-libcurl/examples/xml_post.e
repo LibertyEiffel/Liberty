@@ -33,7 +33,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 		local
 			list: CURL_LIST
 		do

@@ -182,7 +182,7 @@ feature {} -- Creation
 -- gtk_clipboard_get ()
 
 
-	make (selection: GDK_ATOM) is
+	make (selection: GDK_ATOM)
 			-- Returns the clipboard object for the given selection. See
 			-- `make_for_display' for complete details.
 		do
@@ -274,7 +274,7 @@ feature {} -- Creation
 
 feature {ANY}
 
-	set_text (text: STRING) is
+	set_text (text: STRING)
 			-- Sets the contents of the clipboard to the given UTF-8 string. GTK+ will
 			-- make a copy of the text and take responsibility for responding for
 			-- requests for the text, and for converting the text into the requested
@@ -381,7 +381,7 @@ feature {ANY}
 -- gtk_clipboard_wait_for_text ()
 
 
-	wait_for_text: STRING is
+	wait_for_text: STRING
 			-- Requests the contents of the clipboard as text and converts the result
 			-- to UTF-8 if necessary. This function waits for the data to be received
 			-- using the main loop, so events, timeouts, etc, may be dispatched during
@@ -566,7 +566,7 @@ feature {} -- External calls
 --                                              gpointer user_data_or_owner);
 -- GtkClipboard* gtk_clipboard_get             (GdkAtom selection);
 
-	gtk_clipboard_get (selection: POINTER): POINTER is
+	gtk_clipboard_get (selection: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -588,7 +588,7 @@ feature {} -- External calls
 -- GObject*    gtk_clipboard_get_owner         (GtkClipboard *clipboard);
 -- void        gtk_clipboard_clear             (GtkClipboard *clipboard);
 
-	gtk_clipboard_set_text (clipboard: POINTER; text: POINTER; len: INTEGER) is
+	gtk_clipboard_set_text (clipboard: POINTER; text: POINTER; len: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -614,7 +614,7 @@ feature {} -- External calls
 -- GtkSelectionData* gtk_clipboard_wait_for_contents
 --                                             (GtkClipboard *clipboard,
 --                                              GdkAtom target);
-	gtk_clipboard_wait_for_text (clipboard: POINTER): POINTER is
+	gtk_clipboard_wait_for_text (clipboard: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -644,7 +644,7 @@ feature {} -- External calls
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C use <gtk/gtk.h>"
 		alias "sizeof(GtkClipboard)"
 		end

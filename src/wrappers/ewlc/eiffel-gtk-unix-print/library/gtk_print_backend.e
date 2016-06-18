@@ -32,12 +32,12 @@ create {ANY} dummy, from_external_pointer
 feature {ANY} -- TODO: Properties
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintBackend)"
 		end
 
-	dummy_gobject: POINTER is
+	dummy_gobject: POINTER
 		do
 			unimplemented
 		end

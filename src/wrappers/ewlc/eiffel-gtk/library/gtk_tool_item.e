@@ -37,7 +37,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkToolItem
 		do
 			from_external_pointer (gtk_tool_item_new)
@@ -45,7 +45,7 @@ feature {} -- Creation
 
 feature {ANY}
 
-	set_homogeneous (a_setting: BOOLEAN) is
+	set_homogeneous (a_setting: BOOLEAN)
 			--Sets whether tool_item is to be allocated the same size as
 			--other homogeneous items. The effect is that all homogeneous
 			--items will have the same width as the widest of the items.
@@ -54,13 +54,13 @@ feature {ANY}
 		ensure set: a_setting = is_homogeneous
 		end
 
-	is_homogeneous: BOOLEAN is
+	is_homogeneous: BOOLEAN
 			-- Is  tool item the same size as other homogeneous items?
 		do
 			Result:=gtk_tool_item_get_homogeneous (handle).to_boolean
 		end
 
-	set_expand (a_setting: BOOLEAN) is
+	set_expand (a_setting: BOOLEAN)
 			--Sets whether tool item is allocated extra space when there
 			--is more room on the toolbar then needed for the items. The
 			--effect is that the item gets bigger when the toolbar gets
@@ -70,13 +70,13 @@ feature {ANY}
 		ensure set: a_setting = is_expanded
 		end
 
-	is_expanded: BOOLEAN is
+	is_expanded: BOOLEAN
 			-- Is tool item allocated extra space? See `set_expand'.
 		do
 			Result:= gtk_tool_item_get_expand(handle).to_boolean
 		end
 
-	set_tooltip (a_tooltips: GTK_TOOLTIPS; a_tip_text, a_tip_private: STRING) is
+	set_tooltip (a_tooltips: GTK_TOOLTIPS; a_tip_text, a_tip_private: STRING)
 			--Sets the GtkTooltips object to be used for tool item, the
 			--text to be displayed as tooltip on the item and the private
 			--text to be used. See GTK_TOOLTIPS's `set_tip'.
@@ -95,7 +95,7 @@ feature {ANY}
 			gtk_tool_item_set_tooltip(handle, a_tooltips.handle, a_tip_text.to_external, a_tip_private.to_external)
 		end
 
-	set_use_drag_window (a_setting: BOOLEAN) is
+	set_use_drag_window (a_setting: BOOLEAN)
 			-- Sets whether toolitem has a drag window. When `a_setting'
 			-- is True the tool item can be used as a drag source through
 			-- GTK_DRAG_SOURCE's `set' (TODO). When toolitem has a drag window it
@@ -105,27 +105,27 @@ feature {ANY}
 			gtk_tool_item_set_use_drag_window(handle,a_setting.to_integer)
 		end
 
-	has_drag_window: BOOLEAN is
+	has_drag_window: BOOLEAN
 		-- Does tool item use a drag window?
 		do
 			Result:=gtk_tool_item_get_use_drag_window(handle).to_boolean
 		end
 
-	set_visible_horizontal (a_setting: BOOLEAN) is
+	set_visible_horizontal (a_setting: BOOLEAN)
 			-- Sets whether toolitem is visible when the toolbar is
 			-- docked horizontally.
 		do
 			gtk_tool_item_set_visible_horizontal (handle, a_setting.to_integer)
 		end--
 
-	is_visible_horizontal: BOOLEAN is
+	is_visible_horizontal: BOOLEAN
 			-- Is the toolitem visible on toolbars that are docked
 			-- horizontally?
 		do
 			Result:=gtk_tool_item_get_visible_horizontal(handle).to_boolean
 		end
 
-	set_visible_vertical (a_setting: BOOLEAN) is
+	set_visible_vertical (a_setting: BOOLEAN)
 			-- Sets whether toolitem is visible when the toolbar is
 			-- docked vertically. Some tool items, such as text entries,
 			-- are too wide to be useful on a vertically docked
@@ -135,14 +135,14 @@ feature {ANY}
 			gtk_tool_item_set_visible_vertical(handle, a_setting.to_integer)
 		end
 
-	is_visible_vertical: BOOLEAN is
+	is_visible_vertical: BOOLEAN
 			-- Is tool item visible when the toolbar is docked 
 			-- vertically? See `set_visible_vertical'.
 		do
 			Result:=gtk_tool_item_get_visible_vertical(handle).to_boolean
 		end
 
-	set_is_important (a_setting: BOOLEAN) is
+	set_is_important (a_setting: BOOLEAN)
 			-- Sets whether tool item should be considered important. The
 			-- GtkToolButton class uses this property to determine
 			-- whether to show or hide its label when the toolbar style
@@ -153,14 +153,14 @@ feature {ANY}
 			gtk_tool_item_set_is_important  (handle, a_setting.to_integer)
 		end
 
-	is_important: BOOLEAN is
+	is_important: BOOLEAN
 			-- Is tool item considered important? See `set_is_important'.
 		do
 			Result:=gtk_tool_item_get_is_important (handle).to_boolean
 		end
 
 
-	icon_size: INTEGER is
+	icon_size: INTEGER
 			-- the icon size used for tool item. Custom subclasses of
 			-- GtkToolItem should call this function to find out what
 			-- size icons they should use.
@@ -169,7 +169,7 @@ feature {ANY}
 		ensure valid: is_valid_gtk_icon_size (Result)
 		end
 
-	orientation: INTEGER is
+	orientation: INTEGER
 			-- the orientation used for tool item. Custom subclasses of
 			-- GtkToolItem should call this function to find out what
 			-- size icons they should use.
@@ -178,7 +178,7 @@ feature {ANY}
 		ensure valid: is_valid_gtk_orientation(Result)
 		end
 
-	toolbar_style: INTEGER is
+	toolbar_style: INTEGER
 			-- the toolbar style used for tool_item. Custom subclasses of
 			-- GtkToolItem should call this function in the handler of
 			-- the GtkToolItem::toolbar_reconfigured signal to find out
@@ -196,7 +196,7 @@ feature {ANY}
 		ensure valid: is_valid_gtk_toolbar_style(Result)
 		end
 
-	relief_style: INTEGER is
+	relief_style: INTEGER
 			-- the relief style of tool item. See GTK_BUTTON's
 			-- `set_relief_style'. Custom subclasses of GtkToolItem
 			-- should call this function in the handler of the
@@ -207,7 +207,7 @@ feature {ANY}
 		ensure valid: is_valid_gtk_relief_style(Result)
 		end
 
-	proxy_menu_item: GTK_WIDGET is
+	proxy_menu_item: GTK_WIDGET
 			-- the GTK_MENU_ITEM that was last set by
 			-- `set_proxy_menu_item', ie. the GtkMenuItem that is going
 			-- to appear in the overflow menu.
@@ -216,7 +216,7 @@ feature {ANY}
 			Result := factory.wrapper_or_void (gtk_tool_item_retrieve_proxy_menu_item (handle))
 		end
 
-	menu_item_by_id (an_id: STRING): GTK_WIDGET is
+	menu_item_by_id (an_id: STRING): GTK_WIDGET
 			-- The GtkMenuItem passed to `set_proxy_menu_item', if `an_id' 
 			-- match. 
 
@@ -233,7 +233,7 @@ feature {ANY}
 			Result := factory.wrapper_or_void(gtk_tool_item_get_proxy_menu_item(handle, an_id.to_external))
 		end
 
-	set_proxy_menu_item (an_id: STRING; a_menu_item: GTK_WIDGET) is
+	set_proxy_menu_item (an_id: STRING; a_menu_item: GTK_WIDGET)
 			-- Sets the GtkMenuItem used in the toolbar overflow
 			-- menu. `an_id' is used to identify the caller of this
 			-- feature and should also be used with `proxy_menu_item'.
@@ -246,7 +246,7 @@ feature {ANY}
 		ensure set: a_menu_item = menu_item_by_id(an_id)
 		end
 
-	rebuild_menu is
+	rebuild_menu
 			-- This feature signals to the toolbar that the overflow menu
 			-- item for tool_item has changed. If the overflow menu is
 			-- visible when this function it called, the menu will be
@@ -329,134 +329,134 @@ feature {ANY} -- TODO: Signals
 --
 feature {} -- External calls
 	
-	gtk_tool_item_new: POINTER is
+	gtk_tool_item_new: POINTER
 			-- GtkToolItem* gtk_tool_item_new              (void)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tool_item_set_homogeneous (a_tool_item: POINTER; homogeneous_bool: INTEGER) is
+	gtk_tool_item_set_homogeneous (a_tool_item: POINTER; homogeneous_bool: INTEGER)
 			-- void gtk_tool_item_set_homogeneous (GtkToolItem
 			-- *tool_item, gboolean homogeneous)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_get_homogeneous   (a_tool_item: POINTER): INTEGER is
+	gtk_tool_item_get_homogeneous   (a_tool_item: POINTER): INTEGER
 			-- gboolean gtk_tool_item_get_homogeneous (GtkToolItem
 			-- *tool_item)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_set_expand (a_tool_item: POINTER; expand_bool: INTEGER) is
+	gtk_tool_item_set_expand (a_tool_item: POINTER; expand_bool: INTEGER)
 			-- void gtk_tool_item_set_expand (GtkToolItem *tool_item,
 			-- gboolean expand)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_get_expand (a_tool_item: POINTER): INTEGER is
+	gtk_tool_item_get_expand (a_tool_item: POINTER): INTEGER
 			-- gboolean gtk_tool_item_get_expand (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_set_tooltip (a_tool_item, a_tooltips, a_tip_text, a_tip_private: POINTER) is
+	gtk_tool_item_set_tooltip (a_tool_item, a_tooltips, a_tip_text, a_tip_private: POINTER)
 			-- void gtk_tool_item_set_tooltip (GtkToolItem *tool_item,
 			-- GtkTooltips *tooltips, const gchar *tip_text, const gchar
 			-- *tip_private)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_set_use_drag_window (a_toolitem: POINTER; use_drag_window_bool: INTEGER) is
+	gtk_tool_item_set_use_drag_window (a_toolitem: POINTER; use_drag_window_bool: INTEGER)
 			-- void gtk_tool_item_set_use_drag_window (GtkToolItem
 			-- *toolitem, gboolean use_drag_window)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_get_use_drag_window (a_toolitem: POINTER): INTEGER is
+	gtk_tool_item_get_use_drag_window (a_toolitem: POINTER): INTEGER
 			-- 	gboolean    gtk_tool_item_get_use_drag_window (GtkToolItem *toolitem)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_set_visible_horizontal (a_tool_item: POINTER; a_visible_horizontal: INTEGER) is
+	gtk_tool_item_set_visible_horizontal (a_tool_item: POINTER; a_visible_horizontal: INTEGER)
 			-- void gtk_tool_item_set_visible_horizontal (GtkToolItem
 			-- *toolitem, gboolean visible_horizontal)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_get_visible_horizontal (a_tool_item: POINTER): INTEGER is
+	gtk_tool_item_get_visible_horizontal (a_tool_item: POINTER): INTEGER
 			-- 	gboolean    gtk_tool_item_get_visible_horizontal (GtkToolItem *toolitem)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tool_item_set_visible_vertical (a_tool_item: POINTER; a_visible_vertical: INTEGER) is
+	gtk_tool_item_set_visible_vertical (a_tool_item: POINTER; a_visible_vertical: INTEGER)
 			-- 	void        gtk_tool_item_set_visible_vertical (GtkToolItem *toolitem, gboolean visible_vertical)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_get_visible_vertical (a_tool_item: POINTER): INTEGER is
+	gtk_tool_item_get_visible_vertical (a_tool_item: POINTER): INTEGER
 			-- 	gboolean    gtk_tool_item_get_visible_vertical (GtkToolItem *toolitem)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tool_item_set_is_important  (a_tool_item: POINTER; is_important_bool: INTEGER) is
+	gtk_tool_item_set_is_important  (a_tool_item: POINTER; is_important_bool: INTEGER)
 			-- 	void        gtk_tool_item_set_is_important  (a_tool_item: POINTER, gboolean is_important)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_get_is_important  (a_tool_item: POINTER): INTEGER is
+	gtk_tool_item_get_is_important  (a_tool_item: POINTER): INTEGER
 			-- 	gboolean    gtk_tool_item_get_is_important  (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_get_icon_size     (a_tool_item: POINTER): INTEGER is
+	gtk_tool_item_get_icon_size     (a_tool_item: POINTER): INTEGER
 			-- GtkIconSize gtk_tool_item_get_icon_size     (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
 		ensure valid_icon_size: is_valid_gtk_icon_size(Result)
 		end
 
-	gtk_tool_item_get_orientation (a_tool_item: POINTER): INTEGER is
+	gtk_tool_item_get_orientation (a_tool_item: POINTER): INTEGER
 			-- 	GtkOrientation gtk_tool_item_get_orientation (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
 		ensure valid_orientation: is_valid_gtk_orientation(Result)
 		end
 
-	gtk_tool_item_get_toolbar_style (a_tool_item: POINTER): INTEGER is
+	gtk_tool_item_get_toolbar_style (a_tool_item: POINTER): INTEGER
 			-- GtkToolbarStyle gtk_tool_item_get_toolbar_style
 			-- (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
 		ensure valid_toolbar_style: is_valid_gtk_toolbar_style (Result)
 		end
 
-	gtk_tool_item_get_relief_style (a_tool_item: POINTER): INTEGER is
+	gtk_tool_item_get_relief_style (a_tool_item: POINTER): INTEGER
 			-- 	GtkReliefStyle gtk_tool_item_get_relief_style (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
 		ensure valid_relief_style: is_valid_gtk_relief_style(Result)
 		end
 
-	gtk_tool_item_retrieve_proxy_menu_item (a_tool_item: POINTER): POINTER is
+	gtk_tool_item_retrieve_proxy_menu_item (a_tool_item: POINTER): POINTER
 			-- 	GtkWidget* gtk_tool_item_retrieve_proxy_menu_item
 			-- 	(GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_get_proxy_menu_item (a_tool_item, a_menu_item_id: POINTER): POINTER is
+	gtk_tool_item_get_proxy_menu_item (a_tool_item, a_menu_item_id: POINTER): POINTER
 			-- GtkWidget* gtk_tool_item_get_proxy_menu_item (GtkToolItem
 			-- *tool_item, const gchar *menu_item_id)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_set_proxy_menu_item (a_tool_item, a_menu_item_id, a_menu_item: POINTER) is
+	gtk_tool_item_set_proxy_menu_item (a_tool_item, a_menu_item_id, a_menu_item: POINTER)
 			-- void gtk_tool_item_set_proxy_menu_item (GtkToolItem
 			-- *tool_item, const gchar *menu_item_id, GtkWidget
 			-- *menu_item)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tool_item_rebuild_menu (a_tool_item: POINTER) is
+	gtk_tool_item_rebuild_menu (a_tool_item: POINTER)
 			-- void gtk_tool_item_rebuild_menu (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkToolItem)"
 		end

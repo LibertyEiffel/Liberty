@@ -14,74 +14,74 @@ insert G_SIGNAL_FLAGS
 create {ANY} allocate
 
 feature {ANY} -- getters
-	id: INTEGER is
+	id: INTEGER
 			-- The signal id of the queried signal; 0 if the queried
 			-- signal was unknown.
 		do
 			Result:=signal_id(handle)
 		end
 
-	name: STRING is
+	name: STRING
 			-- The signal name.
 		do
 			create Result.from_external_copy (signal_name(handle))
 		end
 
-	type: INTEGER is
+	type: INTEGER
 			-- Signal's G_TYPE number
 		do
 			Result:=itype(handle)
 		end
 	
-	flags: INTEGER is
+	flags: INTEGER
 			-- Signal flags, (see G_SIGNAL_FLAGS)
 		do
 			Result:=signal_flags(handle)
 		ensure valid_flags: are_valid_signal_flags (Result)
 		end
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GSignalQuery)"
 		end
 	
 feature {} -- Implementation
 
-	signal_id (query:POINTER): INTEGER is
+	signal_id (query:POINTER): INTEGER
 			-- guint signal_id; The signal id of the signal being
 			-- queried, or 0 if the signal to be queried was unknown.
 		external "C struct GSignalQuery get signal_id use <glib-object.h>"
 		end
 
-	signal_name(query:POINTER): POINTER is
+	signal_name(query:POINTER): POINTER
 			-- const gchar *signal_name; The signal name.
 		external "C struct GSignalQuery get signal_name use <glib-object.h>"
 		end
 
-	itype (query:POINTER): INTEGER is
+	itype (query:POINTER): INTEGER
 			-- GType itype; The interface/instance type that this signal
 			-- can be emitted for.
 		external "C struct GSignalQuery get signal_itype use <glib-object.h>"
 		end
 
-	signal_flags (query:POINTER): INTEGER is
+	signal_flags (query:POINTER): INTEGER
 			-- GSignalFlags signal_flags; The signal flags as passed in
 			-- to g_signal_new().
 		external "C struct GSignalQuery get signal_flags use <glib-object.h>"
 		end
 
-	return_type (query:POINTER): INTEGER is
+	return_type (query:POINTER): INTEGER
 			-- TODO: wrap it GType return_type; The return type for user callbacks.
 		external "C struct GSignalQuery get return_type use <glib-object.h>"
 		end
 
-	n_params (query:POINTER): INTEGER is
+	n_params (query:POINTER): INTEGER
 			-- TODO: wrap it guint n_params; The number of parameters that user
 			-- callbacks take.
 		external "C struct GSignalQuery get n_params use <glib-object.h>"
 		end
 
-	param_types (query:POINTER): POINTER is
+	param_types (query:POINTER): POINTER
 			-- TODO: wrap it (is it wrappable? Paolo) const GType
 			-- *param_types; The individual parameter types for user
 			-- callbacks, note that the effective callback signature is:

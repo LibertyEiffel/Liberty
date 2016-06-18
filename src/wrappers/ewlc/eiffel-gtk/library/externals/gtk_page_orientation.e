@@ -24,7 +24,7 @@ deferred class GTK_PAGE_ORIENTATION
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_page_orientation (an_orientation: INTEGER): BOOLEAN is
+	is_valid_gtk_page_orientation (an_orientation: INTEGER): BOOLEAN
 		do	
 			Result:=((an_orientation=gtk_page_orientation_portrait) or else
 						(an_orientation=gtk_page_orientation_landscape) or else
@@ -32,22 +32,22 @@ feature {ANY}  -- enum
 						(an_orientation=gtk_page_orientation_reverse_landscape))
 		end
 	
-	gtk_page_orientation_portrait: INTEGER is
+	gtk_page_orientation_portrait: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAGE_ORIENTATION_PORTRAIT"
 		end
 
-	gtk_page_orientation_landscape: INTEGER is
+	gtk_page_orientation_landscape: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAGE_ORIENTATION_LANDSCAPE"
 		end
 
-	gtk_page_orientation_reverse_portrait: INTEGER is
+	gtk_page_orientation_reverse_portrait: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAGE_ORIENTATION_REVERSE_PORTRAIT"
 		end
 
-	gtk_page_orientation_reverse_landscape: INTEGER is
+	gtk_page_orientation_reverse_landscape: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAGE_ORIENTATION_REVERSE_LANDSCAPE"
 		end

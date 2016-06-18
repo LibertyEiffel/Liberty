@@ -30,19 +30,19 @@ inherit
 
 feature {} -- External calls
 
-	pango_cairo_create_layout (a_cairo: POINTER): POINTER is
+	pango_cairo_create_layout (a_cairo: POINTER): POINTER
 		external "C use <pango/pangocairo.h>"
 		end
 
-	pango_cairo_show_layout (a_cairo, a_layout: POINTER) is
+	pango_cairo_show_layout (a_cairo, a_layout: POINTER)
 		external "C use <pango/pangocairo.h>"
 		end
 
-	pango_cairo_layout_path (a_cairo, a_layout: POINTER) is
+	pango_cairo_layout_path (a_cairo, a_layout: POINTER)
 		external "C use <pango/pangocairo.h>"
 		end
 
-	pango_cairo_update_layout (a_cairo, a_layout: POINTER) is
+	pango_cairo_update_layout (a_cairo, a_layout: POINTER)
 		external "C use <pango/pangocairo.h>"
 		end
 

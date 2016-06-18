@@ -91,7 +91,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new icon theme object. Icon theme objects are
 			-- used to lookup up an icon by name in a particular icon
 			-- theme. Usually, you'll want to use `default' or
@@ -101,7 +101,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_icon_theme_new)
 		end
 
-	from_screen (a_screen: GDK_SCREEN) is
+	from_screen (a_screen: GDK_SCREEN)
 			-- the icon theme object associated with `a_screen'; if this
 			-- function has not previously been called for the given
 			-- screen, a new icon theme object will be created and
@@ -122,7 +122,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	set_screen (a_screen: GDK_SCREEN) is
+	set_screen (a_screen: GDK_SCREEN)
 			-- Sets `a_screen' for an icon theme; the screen is used to
 			-- track the user's currently configured icon theme, which
 			-- might be different for different screens.
@@ -131,7 +131,7 @@ feature {ANY}
 			gtk_icon_theme_set_screen (handle, a_screen.handle)
 		end
 
-	set_search_path (some_path: STRING_ARRAY) is
+	set_search_path (some_path: STRING_ARRAY)
 			-- Sets the search path for the icon theme object. When
 			-- looking for an icon theme, GTK+ will search for a
 			-- subdirectory of one or more of the directories in path
@@ -592,151 +592,151 @@ feature {ANY} --   The "changed" signal
 --    icon_theme : the icon theme
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkIconTheme)"
 		end
 
 feature {} -- External calls
-	gtk_icon_theme_error: INTEGER is
+	gtk_icon_theme_error: INTEGER
 			--    The GQuark used for GtkIconThemeError errors.
 		external "C macro <gtk/gtk.h>"
 		alias "GTK_ICON_THEME_ERROR"
 		end
 
-	gtk_icon_theme_new: POINTER is
+	gtk_icon_theme_new: POINTER
 			-- GtkIconTheme* gtk_icon_theme_new (void);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_get_for_screen (a_screen: POINTER): POINTER is
+	gtk_icon_theme_get_for_screen (a_screen: POINTER): POINTER
 			-- GtkIconTheme* gtk_icon_theme_get_for_screen (GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_set_screen (an_icon_theme, a_screen: POINTER) is
+	gtk_icon_theme_set_screen (an_icon_theme, a_screen: POINTER)
 			-- void gtk_icon_theme_set_screen (GtkIconTheme *icon_theme, GdkScreen *screen);
 		external "C use <gtk/gtk.h>"
 		end
 													  
-	gtk_icon_theme_set_search_path (an_icon_theme, a_path: POINTER; an_elements_n: INTEGER) is
+	gtk_icon_theme_set_search_path (an_icon_theme, a_path: POINTER; an_elements_n: INTEGER)
 			-- void gtk_icon_theme_set_search_path (GtkIconTheme
 			-- *icon_theme, const gchar *path[], gint n_elements);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_get_search_path (an_icon_theme, some_paths, a_n_element: POINTER) is
+	gtk_icon_theme_get_search_path (an_icon_theme, some_paths, a_n_element: POINTER)
 			-- void gtk_icon_theme_get_search_path (GtkIconTheme
 			-- *icon_theme, gchar **path[], gint *n_elements);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_append_search_path (an_icon_theme, a_path: POINTER) is
+	gtk_icon_theme_append_search_path (an_icon_theme, a_path: POINTER)
 			-- void gtk_icon_theme_append_search_path (GtkIconTheme *icon_theme, const gchar *path);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_prepend_search_path (an_icon_theme, a_path: POINTER) is
+	gtk_icon_theme_prepend_search_path (an_icon_theme, a_path: POINTER)
 			-- void gtk_icon_theme_prepend_search_path (GtkIconTheme
 			-- *icon_theme, const gchar *path);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_set_custom_theme (an_icon_theme, a_theme_name: POINTER) is
+	gtk_icon_theme_set_custom_theme (an_icon_theme, a_theme_name: POINTER)
 			-- void gtk_icon_theme_set_custom_theme (GtkIconTheme
 			-- *icon_theme, const gchar *theme_name);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_has_icon (an_icon_theme, an_icon_name: POINTER): INTEGER is
+	gtk_icon_theme_has_icon (an_icon_theme, an_icon_name: POINTER): INTEGER
 			-- gboolean gtk_icon_theme_has_icon (GtkIconTheme *icon_theme, const gchar *icon_name);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_lookup_icon (an_icon_theme, an_icon_name: POINTER; a_size, some_flags: INTEGER): POINTER is
+	gtk_icon_theme_lookup_icon (an_icon_theme, an_icon_name: POINTER; a_size, some_flags: INTEGER): POINTER
 			-- GtkIconInfo* gtk_icon_theme_lookup_icon (GtkIconTheme *icon_theme, const gchar *icon_name, gint size, GtkIconLookupFlags flags);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_load_icon (an_icon_theme, an_icon_name: POINTER; a_size, some_flags: INTEGER; error_handle: POINTER): POINTER is
+	gtk_icon_theme_load_icon (an_icon_theme, an_icon_name: POINTER; a_size, some_flags: INTEGER; error_handle: POINTER): POINTER
 			-- GdkPixbuf* gtk_icon_theme_load_icon (GtkIconTheme *icon_theme, const gchar *icon_name, gint size, GtkIconLookupFlags flags, GError **error);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_icon_theme_list_icons (an_icon_theme, a_context: POINTER): POINTER is
+	gtk_icon_theme_list_icons (an_icon_theme, a_context: POINTER): POINTER
 			-- GList* gtk_icon_theme_list_icons (GtkIconTheme *icon_theme, const gchar *context);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_get_icon_sizes (an_icon_theme, an_icon_name: POINTER): POINTER is
+	gtk_icon_theme_get_icon_sizes (an_icon_theme, an_icon_name: POINTER): POINTER
 			-- gint* gtk_icon_theme_get_icon_sizes (GtkIconTheme
 			-- *icon_theme, const gchar *icon_name);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_get_example_icon_name (an_icon_theme: POINTER): POINTER is
+	gtk_icon_theme_get_example_icon_name (an_icon_theme: POINTER): POINTER
 			-- char* gtk_icon_theme_get_example_icon_name (GtkIconTheme *icon_theme);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_rescan_if_needed (an_icon_theme: POINTER): INTEGER is
+	gtk_icon_theme_rescan_if_needed (an_icon_theme: POINTER): INTEGER
 			-- gboolean gtk_icon_theme_rescan_if_needed (GtkIconTheme *icon_theme);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_theme_add_builtin_icon (an_icon_name: POINTER; a_size: INTEGER; a_pixbuf: POINTER) is
+	gtk_icon_theme_add_builtin_icon (an_icon_name: POINTER; a_size: INTEGER; a_pixbuf: POINTER)
 			-- void gtk_icon_theme_add_builtin_icon (const gchar
 			-- *icon_name, gint size, GdkPixbuf *pixbuf);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_copy (an_icon_info: POINTER): POINTER is
+	gtk_icon_info_copy (an_icon_info: POINTER): POINTER
 			-- GtkIconInfo* gtk_icon_info_copy (GtkIconInfo *icon_info);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_free (a_icon_info: POINTER) is
+	gtk_icon_info_free (a_icon_info: POINTER)
 			-- void gtk_icon_info_free (GtkIconInfo *icon_info);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_get_base_size (a_icon_info: POINTER): INTEGER is
+	gtk_icon_info_get_base_size (a_icon_info: POINTER): INTEGER
 			-- gint gtk_icon_info_get_base_size (GtkIconInfo *icon_info);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_get_filename (a_icon_info: POINTER): POINTER is
+	gtk_icon_info_get_filename (a_icon_info: POINTER): POINTER
 			-- const gchar* gtk_icon_info_get_filename (GtkIconInfo *icon_info);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_get_builtin_pixbuf (a_icon_info: POINTER): POINTER is
+	gtk_icon_info_get_builtin_pixbuf (a_icon_info: POINTER): POINTER
 			-- GdkPixbuf* gtk_icon_info_get_builtin_pixbuf (GtkIconInfo *icon_info);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_load_icon (a_icon_info, an_error_handle: POINTER): POINTER is
+	gtk_icon_info_load_icon (a_icon_info, an_error_handle: POINTER): POINTER
 			-- GdkPixbuf* gtk_icon_info_load_icon (GtkIconInfo *icon_info, GError **error);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_set_raw_coordinates (a_icon_info: POINTER; raw_coordinates_bool: INTEGER) is
+	gtk_icon_info_set_raw_coordinates (a_icon_info: POINTER; raw_coordinates_bool: INTEGER)
 			-- void gtk_icon_info_set_raw_coordinates (GtkIconInfo
 			-- *icon_info, gboolean raw_coordinates);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_get_embedded_rect (a_icon_info, a_rectangle: POINTER): INTEGER is
+	gtk_icon_info_get_embedded_rect (a_icon_info, a_rectangle: POINTER): INTEGER
 			-- gboolean gtk_icon_info_get_embedded_rect (GtkIconInfo *icon_info, GdkRectangle *rectangle);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_get_attach_points (a_icon_info, a_points_handle, a_n_points: POINTER): INTEGER is
+	gtk_icon_info_get_attach_points (a_icon_info, a_points_handle, a_n_points: POINTER): INTEGER
 			-- gboolean gtk_icon_info_get_attach_points (GtkIconInfo *icon_info, GdkPoint **points, gint *n_points);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_icon_info_get_display_name (a_icon_info: POINTER): POINTER is
+	gtk_icon_info_get_display_name (a_icon_info: POINTER): POINTER
 			-- const gchar* gtk_icon_info_get_display_name (GtkIconInfo *icon_info);
 		external "C use <gtk/gtk.h>"
 		end

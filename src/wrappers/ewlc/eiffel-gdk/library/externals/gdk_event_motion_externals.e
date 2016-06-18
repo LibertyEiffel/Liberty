@@ -25,35 +25,35 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gdk_event_motion_get_time (ptr: POINTER): INTEGER is
+	gdk_event_motion_get_time (ptr: POINTER): INTEGER
 		external "C struct GdkEventMotion get time use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_x (ptr: POINTER): REAL_64 is
+	gdk_event_motion_get_x (ptr: POINTER): REAL_64
 		external "C struct GdkEventMotion get x use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_y (ptr: POINTER): REAL_64 is
+	gdk_event_motion_get_y (ptr: POINTER): REAL_64
 		external "C struct GdkEventMotion get y use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_axes (ptr: POINTER): POINTER is
+	gdk_event_motion_get_axes (ptr: POINTER): POINTER
 		external "C struct GdkEventMotion get axes use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_state (ptr: POINTER): INTEGER is
+	gdk_event_motion_get_state (ptr: POINTER): INTEGER
 		external "C struct GdkEventMotion get state use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_is_hint (ptr: POINTER): INTEGER is
+	gdk_event_motion_get_is_hint (ptr: POINTER): INTEGER
 		external "C struct GdkEventMotion get is_hint use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_x_root (ptr: POINTER): REAL_64 is
+	gdk_event_motion_get_x_root (ptr: POINTER): REAL_64
 		external "C struct GdkEventMotion get x_root use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_y_root (ptr: POINTER): REAL_64 is
+	gdk_event_motion_get_y_root (ptr: POINTER): REAL_64
 		external "C struct GdkEventMotion get y_root use <gdk/gdk.h>"
 		end
 

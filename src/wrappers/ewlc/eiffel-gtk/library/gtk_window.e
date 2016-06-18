@@ -38,7 +38,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make, make_toplevel is
+	make, make_toplevel
 			-- Create a new window managed by the window manager, having
 			-- a frame by default
 		require
@@ -49,7 +49,7 @@ feature {} -- Creation
 
 feature {ANY}
 
-	set_title (a_title: STRING) is
+	set_title (a_title: STRING)
 		require
 			a_title_not_void: a_title/=Void
 		do
@@ -60,19 +60,19 @@ feature {ANY}
 
 feature {ANY} -- Resizability
 
-	set_resizable is
+	set_resizable
 			-- Makes current window resizable by the user.
 		do
 			gtk_window_set_resizable (handle, 1)
 		end
 
-	unset_resizable is
+	unset_resizable
 			-- Makes current window not resizable by the user.
 		do
 			gtk_window_set_resizable (handle, 0)
 		end
 		
-	is_resizable: BOOLEAN is
+	is_resizable: BOOLEAN
 			-- Is Current window resizable by the user?
 		do
 			Result:=gtk_window_get_resizable (handle).to_boolean
@@ -84,7 +84,7 @@ feature {ANY} -- Resizability
 	is_focus_activated: BOOLEAN
 			-- Has the current focused widget been activated by `activate_focus'?
 	
-	activate_focus is
+	activate_focus
 			-- Try to activate the current focused widget within the
 			-- window. `is_focus_activated' will be true if a widget got
 			-- activated.
@@ -95,7 +95,7 @@ feature {ANY} -- Resizability
 	is_default_activated: BOOLEAN
 			-- Has the default widget been activated by `activate_default'?
 
-	activate_default: INTEGER is
+	activate_default: INTEGER
 			-- Activates the default widget for the window, unless the
 			-- current focused widget has been configured to receive the
 			-- default action (see GTK_RECEIVES_DEFAULT in
@@ -107,7 +107,7 @@ feature {ANY} -- Resizability
 
 feature {ANY} -- Window modal mode
 
-	set_modal is
+	set_modal
 			-- Sets a window modal. Modal windows prevent interaction
 			-- with other windows in the same application. To keep modal
 			-- dialogs on top of main application windows, use
@@ -118,13 +118,13 @@ feature {ANY} -- Window modal mode
 			gtk_window_set_modal (handle,1)
 		end
 
-	unset_modal is
+	unset_modal
 			-- Sets a window non-modal.
 		do
 			gtk_window_set_modal (handle,0)
 		end
 
-	is_modal: BOOLEAN is
+	is_modal: BOOLEAN
 			-- Is Current window modal? See `set_modal'
 		do
 			Result:=gtk_window_get_modal (handle).to_boolean
@@ -132,7 +132,7 @@ feature {ANY} -- Window modal mode
 
 feature {ANY} -- Window size
 
-	set_default_size (a_width, an_height: INTEGER) is
+	set_default_size (a_width, an_height: INTEGER)
 			-- Sets the default size of a window. If the window's
 			-- "natural" size (its size request) is larger than the
 			-- default, the default will be ignored. More generally, if
@@ -181,7 +181,7 @@ feature {ANY} -- Window "gravity"
 
 	-- TODO implement set_gravity_[north/south/east/west] etc
 
-	set_gravity (a_gravity: INTEGER) is
+	set_gravity (a_gravity: INTEGER)
 			-- Window gravity defines the meaning of coordinates passed
 			-- to `move'. See GDK_GRAVITY for more details.  The default
 			-- window gravity is `gdk_gravity_north_west' which will
@@ -193,7 +193,7 @@ feature {ANY} -- Window "gravity"
 			gtk_window_set_gravity (handle, a_gravity)
 		end
 
-	gravity: INTEGER is
+	gravity: INTEGER
 			-- Window gravity; it defines the meaning of coordinates
 			-- passed to `move'. See GDK_GRAVITY for more details.
 		do
@@ -203,37 +203,37 @@ feature {ANY} -- Window "gravity"
 
 feature {ANY} -- Window position
 
-	no_position is
+	no_position
 			-- No influence is made on placement.
 		do
 			gtk_window_set_position (handle,gtk_win_pos_none)
 		end
 
-	midscreen is
+	midscreen
 			-- Window should be placed in the center of the screen.
 		do
 			gtk_window_set_position (handle, gtk_win_pos_center)
 		end
 
-	at_mouse is
+	at_mouse
 			-- Window should be placed at the current mouse position.
 		do
 			gtk_window_set_position (handle, gtk_win_pos_mouse)
 		end
 
-	always_centered is
+	always_centered
 			-- Keep window centered as it changes size, etc.
 		do
 			gtk_window_set_position (handle, gtk_win_pos_center_always)
 		end
 
-	center_on_parent is
+	center_on_parent
 			-- Center the window on its transient parent (see `set_transient_for').
 		do
 			gtk_window_set_position (handle, gtk_win_pos_center_on_parent)
 		end
 
-	set_position (a_position: INTEGER) is
+	set_position (a_position: INTEGER)
 			-- Sets position constraint for this window to
 			-- `a_position'. If the old or new constraint is
 			-- `gtk_win_pos_center_always', this will also cause the
@@ -246,7 +246,7 @@ feature {ANY} -- Window position
 
 feature {ANY} -- Transiency
 
-	set_transient_for (a_parent: GTK_WINDOW) is
+	set_transient_for (a_parent: GTK_WINDOW)
 			-- Dialog windows should be set transient for the main
 			-- application window they were spawned from. This allows
 			-- window managers to e.g. keep the dialog on top of the main
@@ -267,7 +267,7 @@ feature {ANY} -- Transiency
 
 feature {ANY} -- window lifecycle
 
-	set_destroy_with_parent is
+	set_destroy_with_parent
 			-- destroying the transient parent of Current window will
 			-- also destroy window itself. This is useful for dialogs
 			-- that shouldn't persist beyond the lifetime of the main
@@ -276,7 +276,7 @@ feature {ANY} -- window lifecycle
 			gtk_window_set_destroy_with_parent (handle, 1)
 		end
 
-	unset_destroy_with_parent is
+	unset_destroy_with_parent
 			-- opposite of `set_destroy_with_parent'
 		do
 			gtk_window_set_destroy_with_parent (handle, 0)
@@ -289,7 +289,7 @@ feature {ANY} -- window lifecycle
 
 feature {ANY} -- various queries
 
-	is_active: BOOLEAN is
+	is_active: BOOLEAN
 			-- Is current window part of the current active toplevel?
 			-- (That is, the toplevel window receiving keystrokes.) The
 			-- return value is TRUE if the window is active toplevel
@@ -301,7 +301,7 @@ feature {ANY} -- various queries
 			Result:=(gtk_window_is_active (handle)).to_boolean
 		end
 
-	has_toplevel_focus: BOOLEAN is
+	has_toplevel_focus: BOOLEAN
 			-- Is the input focus within Current GTK_WINDOW? For real
 			-- toplevel windows, this is identical to `is_active', but
 			-- for embedded windows, like GTK_PLUG, the results will
@@ -333,7 +333,7 @@ feature {ANY} -- various queries
 	-- TODO: wrap gboolean gtk_window_propagate_key_event (GtkWindow
 	-- *window, GdkEventKey *event);
 
-	focus: GTK_WIDGET is
+	focus: GTK_WIDGET
 			-- the current focused widget within the window. Note that
 			-- this is the widget that would have the focus if the
 			-- toplevel window focused; if the toplevel window is not
@@ -355,14 +355,14 @@ feature {ANY} -- various queries
 		end
 
 feature {ANY} -- Focusing
-	unset_focus is
+	unset_focus
 			-- Unsets the focus widget for this window. 
 		do
 			gtk_window_set_focus (handle, default_pointer)
 		ensure focus_unset: -- TODO
 		end
 
-	set_focus (a_widget: GTK_WIDGET) is
+	set_focus (a_widget: GTK_WIDGET)
 			-- If `a_widget' is not the current focus widget, and is focusable,
 			-- sets it as the focus widget for the window. To set the focus to
 			-- a particular widget in the toplevel, it is usually more
@@ -375,7 +375,7 @@ feature {ANY} -- Focusing
 			gtk_window_set_focus (handle, a_widget.handle)
 		end
 
-	set_default (a_default: GTK_WIDGET) is
+	set_default (a_default: GTK_WIDGET)
 			-- Sets the default widget for Current GtkWindow.  The
 			-- default widget is the widget that's activated when the
 			-- user presses Enter in a dialog (for example). When setting
@@ -390,13 +390,13 @@ feature {ANY} -- Focusing
 			gtk_window_set_default (handle,a_default.handle)
 		end
 
-	unset_default  is
+	unset_default
 			-- Unsets the default widget. See also `set_default'
 		do
 			gtk_window_set_default (handle, default_pointer)
 		end
 
-	present is
+	present
 			-- Presents a window to the user. This may mean raising the
 			-- window in the stacking order, deiconifying it, moving it
 			-- to the current desktop, and/or giving it the keyboard
@@ -417,7 +417,7 @@ feature {ANY} -- Focusing
 			gtk_window_present (handle)
 		end
 
-	present_with_time (a_timestamp: INTEGER_32) is
+	present_with_time (a_timestamp: INTEGER_32)
 			-- Presents a window to the user in response to a user
 			-- interaction. If you need to present a window without a
 			-- timestamp, use `present'; see `present' for details.
@@ -431,7 +431,7 @@ feature {ANY} -- Focusing
 			gtk_window_present_with_time(handle,a_timestamp)
 		end
 
-	iconify  is
+	iconify
 			-- Asks to iconify (i.e. minimize) the specified window. Note
 			-- that you shouldn't assume the window is definitely
 			-- iconified afterward, because other entities (e.g. the user
@@ -450,7 +450,7 @@ feature {ANY} -- Focusing
 			gtk_window_iconify (handle)
 		end
 
-	deiconify is
+	deiconify
 			-- Asks to deiconify (i.e. unminimize) the specified
 			-- window. Note that you shouldn't assume the window is
 			-- definitely deiconified afterward, because other entities
@@ -464,7 +464,7 @@ feature {ANY} -- Focusing
 			gtk_window_deiconify (handle)
 		end
 
-	stick is
+	stick
 			-- Asks to stick the window, which means that it will appear
 			-- on all user desktops. Note that you shouldn't assume the
 			-- window is definitely stuck afterward, because other
@@ -482,7 +482,7 @@ feature {ANY} -- Focusing
 			gtk_window_stick (handle)
 		end
 
-	unstick is
+	unstick
 			-- Asks to unstick window, which means that it will appear on
 			-- only one of the user's desktops. Note that you shouldn't
 			-- assume the window is definitely unstuck afterward, because
@@ -495,7 +495,7 @@ feature {ANY} -- Focusing
 			gtk_window_unstick (handle)
 		end
 
-	maximize is
+	maximize
 			-- Asks to maximize window, so that it becomes
 			-- full-screen. Note that you shouldn't assume the window is
 			-- definitely maximized afterward, because other entities
@@ -514,7 +514,7 @@ feature {ANY} -- Focusing
 			gtk_window_maximize (handle)
 		end
 
-	unmaximize is
+	unmaximize
 			-- Asks to unmaximize window. Note that you shouldn't assume
 			-- the window is definitely unmaximized afterward, because
 			-- other entities (e.g. the user or window manager) could
@@ -529,7 +529,7 @@ feature {ANY} -- Focusing
 		end
 
 
-	fullscreen  is
+	fullscreen
 			-- Asks to place window in the fullscreen state. Note that
 			-- you shouldn't assume the window is definitely full screen
 			-- afterward, because other entities (e.g. the user or window
@@ -545,7 +545,7 @@ feature {ANY} -- Focusing
 		end
 
 
-	unfullscreen is
+	unfullscreen
 			-- Asks to toggle off the fullscreen state for window. Note
 			-- that you shouldn't assume the window is definitely not
 			-- full screen afterward, because other entities (e.g. the
@@ -1053,7 +1053,7 @@ feature {ANY} -- Focusing
 -- 		end
 
 
-	title: CONST_STRING is
+	title: CONST_STRING
 		-- The title of the window, or Void if none has been set explicitely. 
 	local p: POINTER
 	do
@@ -1127,7 +1127,7 @@ feature {ANY} -- Focusing
 -- 		--end
 
 
-	move (an_x, an_y: INTEGER) is
+	move (an_x, an_y: INTEGER)
 			-- Asks the window manager to move window to the given position.
 			-- Window managers are free to ignore this; most window managers
 			-- ignore requests for initial window positions (instead using a
@@ -1309,7 +1309,7 @@ feature {ANY} -- Focusing
 -- 		--end
 
 
-	set_icon (icon: GDK_PIXBUF) is
+	set_icon (icon: GDK_PIXBUF)
 			-- Sets up the icon representing Current. This icon is
 			-- used when the window is minimized (also known as iconified).
 			-- Some window managers or desktop environments may also place
@@ -1669,7 +1669,7 @@ feature {ANY} -- Focusing
 -- -- user_data : 	user data set when the signal handler was connected.
 -- -- << GtkMessageDialog 	GtkWindowGroup >>
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkWindow)"
 		end

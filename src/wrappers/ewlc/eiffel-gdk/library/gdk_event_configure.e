@@ -27,67 +27,67 @@ inherit GDK_EVENT
 create {ANY}  from_external_pointer
 
 feature {ANY}
-	x: INTEGER is
+	x: INTEGER
 			-- the new x coordinate of the window, relative to its 
 			-- parent.
 		do
 			Result:=get_x(handle)
 		end
 
-	y: INTEGER is
+	y: INTEGER
 			-- the new y coordinate of the window, relative to its 
 			-- parent.
 		do
 			Result:=get_y(handle)
 		end
 
-	width: INTEGER is
+	width: INTEGER
 			-- the new width of the window.
 		do
 			Result:=get_width(handle)
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- the new height of the window.
 		do
 			Result:=get_height(handle)
 		end
 
 feature {} -- Structure getter/setter calls
-  get_type (a_ptr: POINTER): INTEGER is
+  get_type (a_ptr: POINTER): INTEGER
 			-- GdkEventType type;
 		external "C struct GdkEventExpose get type use <gdk/gdk.h>"
 		end
 
 
-  get_window (a_ptr: POINTER): POINTER is
+  get_window (a_ptr: POINTER): POINTER
 			-- GdkWindow *window;
 		external "C struct GdkEventExpose get *window use <gdk/gdk.h>"
 		end
 
 
-  get_send_event (a_ptr: POINTER): INTEGER_8 is
+  get_send_event (a_ptr: POINTER): INTEGER_8
 			-- gint8 send_event;
 		external "C struct GdkEventExpose get send_event use <gdk/gdk.h>"
 		end
 
-  get_x (a_ptr: POINTER): INTEGER is
+  get_x (a_ptr: POINTER): INTEGER
 			-- gint x;
 		external "C struct GdkEventExpose get x use <gdk/gdk.h>"
 		end
 
 
-  get_y (a_ptr: POINTER): INTEGER is
+  get_y (a_ptr: POINTER): INTEGER
 			-- gint y;
 		external "C struct GdkEventExpose get y use <gdk/gdk.h>"
 		end
 
-  get_width (a_ptr: POINTER): INTEGER is
+  get_width (a_ptr: POINTER): INTEGER
 			-- gint width;
 		external "C struct GdkEventExpose get width use <gdk/gdk.h>"
 		end
 
-  get_height (a_ptr: POINTER): INTEGER is
+  get_height (a_ptr: POINTER): INTEGER
 			-- gint height;
 		external "C struct GdkEventExpose get height use <gdk/gdk.h>"
 		end

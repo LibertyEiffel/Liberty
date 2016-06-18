@@ -28,7 +28,7 @@ feature {} -- size
 		alias "sizeof(PGconn)"
 		end
 
-	dispose is
+	dispose
 			-- cleanup
 		do
 			if is_connected then
@@ -38,14 +38,14 @@ feature {} -- size
 		end
 
 feature {ANY} 
-	is_connected: BOOLEAN is
+	is_connected: BOOLEAN
 			-- TODO: Dummy implementation
 		do
 			Result := handle.is_not_null
 		end
 
 feature {ANY} -- Creation
-	connect (some_connection_informations: STRING) is
+	connect (some_connection_informations: STRING)
 			-- Makes a new connection to the database server.
 		
 			-- This function opens a new database connection using the
@@ -356,13 +356,13 @@ feature {ANY} -- Creation
 	
 	--    PQfinish
 	
-	close is
+	close
 			-- Closes the connection to the server. 
 		do
 			pqfinish (handle)
 		end
 
-	reset is
+	reset
 			-- Resets the communication channel to the server.  It closes
 			-- the connection to the server and attempt to reestablish a
 			-- new connection to the same server, using all the same
@@ -399,20 +399,20 @@ feature {ANY} -- Creation
 --    --------------------------------------------------------------------------
 
 feature {ANY} 
-	prepare_command (some_sql: STRING): PREPARED_COMMAND is
+	prepare_command (some_sql: STRING): PREPARED_COMMAND
 		do
 		end
 
-	prepare_query (some_sql: STRING): PREPARED_QUERY is
+	prepare_query (some_sql: STRING): PREPARED_QUERY
 		do
 		end
 
-	execute (some_sql: STRING) is
+	execute (some_sql: STRING)
 		do
 			not_yet_implemented
 		end
 
-	result_set: RESULT_SET [RESULT_ROW] is
+	result_set: RESULT_SET [RESULT_ROW]
 		do
 			not_yet_implemented
 		end
@@ -557,7 +557,7 @@ feature {ANY} -- Connection Status
 
 feature {} -- External calls
 	
-	pqconnectdb (a_conninfo: POINTER): POINTER is
+	pqconnectdb (a_conninfo: POINTER): POINTER
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}plugins"
@@ -624,7 +624,7 @@ feature {} -- PostgresPollingStatusType  enum
 --      int     dispsize;  /* Field size in characters for dialog */
 --  } PQconninfoOption;
 
-	pqfinish (a_connection: POINTER) is
+	pqfinish (a_connection: POINTER)
 			--  void PQfinish(PGconn *conn);
 		external "plug_in"
 		alias "{
@@ -634,7 +634,7 @@ feature {} -- PostgresPollingStatusType  enum
 			}"
 		end
 
-	pqreset(a_connection: POINTER) is
+	pqreset(a_connection: POINTER)
 			--  void PQreset(PGconn *conn);
 		external "plug_in"
 		alias "{

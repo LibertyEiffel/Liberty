@@ -38,7 +38,7 @@ create {ANY} make
 
 feature {} -- Creation
 
-	make (an_x, an_y: REAL) is
+	make (an_x, an_y: REAL)
 		do
 			x := an_x
 			y := an_y
@@ -47,7 +47,7 @@ feature {} -- Creation
 feature {ANY}
 	x, y: REAL
 
-	transform_distance (a_matrix: CAIRO_MATRIX) is
+	transform_distance (a_matrix: CAIRO_MATRIX)
 			-- Transforms Current point handled as a distance vector
 			-- (dx,dy) by `a_matrix'. This is similar to
 			-- `transform_point' except that the translation components
@@ -66,7 +66,7 @@ feature {ANY}
 			cairo_matrix_transform_distance (a_matrix.handle, $x, $y)
 		end
 
-	transform_point (a_matrix: CAIRO_MATRIX) is
+	transform_point (a_matrix: CAIRO_MATRIX)
 			--  Transforms Current point (x, y) by matrix.
 		require matrix_not_void: a_matrix /= Void
 		do
@@ -74,7 +74,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Trasformations between user-space and device space 
-	from_user_to_device (a_context: CAIRO_CONTEXT) is
+	from_user_to_device (a_context: CAIRO_CONTEXT)
 			-- Transform the point from user space to device space by
 			-- multiplying the given point by the current transformation
 			-- matrix (CTM).
@@ -84,7 +84,7 @@ feature {ANY} -- Trasformations between user-space and device space
 			cairo_user_to_device (a_context.handle, $x, $y)
 		end
 
-	from_user_to_device_distance (a_context: CAIRO_CONTEXT) is
+	from_user_to_device_distance (a_context: CAIRO_CONTEXT)
 			-- Transform the point handled as a distance vector from user
 			-- space to device space. This feature is similar to
 			-- `from_user_to_device' except that the translation
@@ -95,7 +95,7 @@ feature {ANY} -- Trasformations between user-space and device space
 			cairo_user_to_device_distance (a_context.handle, $x, $y)
 		end
 			
-	from_device_to_user (a_context: CAIRO_CONTEXT) is
+	from_device_to_user (a_context: CAIRO_CONTEXT)
 			-- Transform a coordinate from device space to user space by
 			-- multiplying the given point by the inverse of the current
 			-- transformation matrix (CTM).
@@ -105,7 +105,7 @@ feature {ANY} -- Trasformations between user-space and device space
 			cairo_device_to_user (a_context.handle, $x, $y)
 		end
 
-	from_device_to_user_distance (a_context: CAIRO_CONTEXT) is
+	from_device_to_user_distance (a_context: CAIRO_CONTEXT)
 			-- Transform point handled as a distance vector from device
 			-- space to user space. This function is similar to
 			-- `device_to_user' except that the translation components of

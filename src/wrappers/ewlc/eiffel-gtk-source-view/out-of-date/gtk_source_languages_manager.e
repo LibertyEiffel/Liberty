@@ -28,14 +28,14 @@ inherit G_OBJECT
 create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			--   Creates a new language manager.
 		do
 			from_external_pointer(gtk_source_languages_manager_new)
 		end
 
 feature {ANY}
-	available_languages: G_SLIST[GTK_SOURCE_LANGUAGE] is
+	available_languages: G_SLIST[GTK_SOURCE_LANGUAGE]
 			-- A list of available languages.
 		do
 			create Result.from_external_pointer(gtk_source_languages_manager_get_available_languages(handle))
@@ -46,7 +46,7 @@ feature {ANY}
 			Result.set_shared
 		end
 
-	language_from_mime_type (a_mime_type: STRING): GTK_SOURCE_LANGUAGE is
+	language_from_mime_type (a_mime_type: STRING): GTK_SOURCE_LANGUAGE
 			-- the GtkSourceLanguage associated with `a_mime_type' in the language
 			-- manager. Void if there is no language associated with the given
 			-- `a_mime_type'.
@@ -60,7 +60,7 @@ feature {ANY}
 			end
 		end
 
-	lang_files_dirs: G_SLIST_STRING is
+	lang_files_dirs: G_SLIST_STRING
 			-- List of directories where the language specification files (.lang)
 			-- are located.
 
@@ -73,31 +73,31 @@ feature {ANY}
 		end
 
 feature {} -- External calls
-	gtk_source_languages_manager_new: POINTER is
+	gtk_source_languages_manager_new: POINTER
 			-- GtkSourceLanguagesManager* gtk_source_languages_manager_new (void);
 		external "C use  <gtksourceview/gtksourcelanguagesmanager.h>"
 		end
 
-	gtk_source_languages_manager_get_available_languages (a_lm: POINTER): POINTER is
+	gtk_source_languages_manager_get_available_languages (a_lm: POINTER): POINTER
 			-- 	const GSList* gtk_source_languages_manager_get_available_languages (GtkSourceLanguagesManager *lm);
 		external "C use  <gtksourceview/gtksourcelanguagesmanager.h>"
 		end
 
- gtk_source_languages_manager_get_language_from_mime_type (a_lm, a_mime_type: POINTER): POINTER is
+ gtk_source_languages_manager_get_language_from_mime_type (a_lm, a_mime_type: POINTER): POINTER
 			-- GtkSourceLanguage*
 			-- gtk_source_languages_manager_get_language_from_mime_type
 			-- (GtkSourceLanguagesManager *lm, const gchar *mime_type);
 		external "C use  <gtksourceview/gtksourcelanguagesmanager.h>"
 		end
 
-	gtk_source_languages_manager_get_lang_files_dirs (a_lm: POINTER): POINTER is
+	gtk_source_languages_manager_get_lang_files_dirs (a_lm: POINTER): POINTER
 			-- const GSList* gtk_source_languages_manager_get_lang_files_dirs
 			-- (GtkSourceLanguagesManager *lm);
 		external "C use  <gtksourceview/gtksourcelanguagesmanager.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtksourceview/gtksourcelanguagesmanager.h>"
 		alias "sizeof(GtkSourceLanguagesManager)"
 		end

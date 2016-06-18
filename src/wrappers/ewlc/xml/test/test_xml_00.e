@@ -10,7 +10,7 @@ create {ANY} test
 feature {ANY}
 	filename: STRING is "test.xml"
 
-	test is
+	test
 		do
 			if not file_exists(filename) then 
 				-- Generating test xml from stdlib.h C header
@@ -24,7 +24,7 @@ feature {ANY}
 
 	doc: XML2_DOC
 
-	parse (a_node: XML2_NODE) is
+	parse (a_node: XML2_NODE)
 		-- Recursively parse `a_node'.
 	local child,next: XML2_NODE
 	do
@@ -42,7 +42,7 @@ feature {ANY}
 		end
 	end
 
-	are_parent_and_son (a_node, another: XML2_NODE): BOOLEAN is
+	are_parent_and_son (a_node, another: XML2_NODE): BOOLEAN
 		-- Is `a_node' the actual parent of `another'?
 	require 
 		a_node/=Void

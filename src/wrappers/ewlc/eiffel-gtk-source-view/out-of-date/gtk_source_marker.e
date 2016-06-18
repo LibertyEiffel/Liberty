@@ -28,27 +28,27 @@ inherit SHARED_C_STRUCT
 create {ANY} dummy, make, from_external_pointer
 
 feature {ANY}
-	set_marker_type (a_type: STRING) is
+	set_marker_type (a_type: STRING)
 		require type_not_void: a_type/=Void
 		do
 			gtk_source_marker_set_marker_type (handle, a_type.to_external)
 		ensure set: a_type.is_equal(marker_type)
 		end
 
-	marker_type: STRING is
+	marker_type: STRING
 			-- the marker type.
 		do
 			create Result.from_external
 			(gtk_source_marker_get_marker_type(handle))
 		end
 
-	line: INTEGER is
+	line: INTEGER
 			-- the line number of this marker.
 		do
 			Result:=gtk_source_marker_get_line(handle)
 		end
 
-	name: STRING is
+	name: STRING
 			-- the name of this marker.
 		local p: POINTER
 		do
@@ -58,14 +58,14 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	buffer: GTK_SOURCE_BUFFER is
+	buffer: GTK_SOURCE_BUFFER
 			-- the buffer associated with this marker.
 		do
 			create Result.from_external_pointer
 			(gtk_source_marker_get_buffer (handle))
 		end
 
-	next: like Current is
+	next: like Current
 			--  the next marker after marker.
 		local p: POINTER
 		do
@@ -75,7 +75,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	previous: like Current is
+	previous: like Current
 			-- the previous marker before marker.
 		local p: POINTER
 		do
@@ -85,45 +85,45 @@ feature {ANY}
 		end
 
 feature {} -- External calls
-	gtk_source_marker_set_marker_type (a_marker, a_type: POINTER) is
+	gtk_source_marker_set_marker_type (a_marker, a_type: POINTER)
 			-- void gtk_source_marker_set_marker_type (GtkSourceMarker *marker,
 			-- const gchar *type);
 		external "C use <gtksourceview/gtksourcemarker.h>"
 		end
 	
-	gtk_source_marker_get_marker_type (a_marker: POINTER): POINTER is
+	gtk_source_marker_get_marker_type (a_marker: POINTER): POINTER
 			-- gchar* gtk_source_marker_get_marker_type (GtkSourceMarker *marker);
 		external "C use <gtksourceview/gtksourcemarker.h>"
 		end
 
-	gtk_source_marker_get_line (a_marker: POINTER): INTEGER is
+	gtk_source_marker_get_line (a_marker: POINTER): INTEGER
 			-- gint gtk_source_marker_get_line (GtkSourceMarker *marker);
 		external "C use <gtksourceview/gtksourcemarker.h>"
 		end
 	
-	gtk_source_marker_get_name (a_marker: POINTER): POINTER is
+	gtk_source_marker_get_name (a_marker: POINTER): POINTER
 		-- const gchar* gtk_source_marker_get_name (GtkSourceMarker *marker);
 		external "C use <gtksourceview/gtksourcemarker.h>"
 		end
 
-	gtk_source_marker_get_buffer (a_marker: POINTER): POINTER is
+	gtk_source_marker_get_buffer (a_marker: POINTER): POINTER
 			--	GtkSourceBuffer* gtk_source_marker_get_buffer (GtkSourceMarker
 			--	*marker);
 		external "C use <gtksourceview/gtksourcemarker.h>"
 		end
 
-	gtk_source_marker_next (a_marker: POINTER): POINTER is
+	gtk_source_marker_next (a_marker: POINTER): POINTER
 			--GtkSourceMarker* gtk_source_marker_next (GtkSourceMarker *marker);
 		external "C use <gtksourceview/gtksourcemarker.h>"
 		end
 	
-	gtk_source_marker_prev (a_marker: POINTER): POINTER is
+	gtk_source_marker_prev (a_marker: POINTER): POINTER
 			-- GtkSourceMarker* gtk_source_marker_prev (GtkSourceMarker *marker);
 		external "C use <gtksourceview/gtksourcemarker.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkSourceMarker)"
 		end

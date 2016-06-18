@@ -29,7 +29,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_pango_stretch (a_stretch :INTEGER): BOOLEAN is
+	is_valid_pango_stretch (a_stretch :INTEGER): BOOLEAN
 		do
 			Result := ((a_stretch = pango_stretch_ultra_condensed) or else
 						(a_stretch = pango_stretch_extra_condensed) or else
@@ -42,61 +42,61 @@ feature {} -- enum
 						(a_stretch = pango_stretch_ultra_expanded))
 		end
 
-	pango_stretch_ultra_condensed: INTEGER is
+	pango_stretch_ultra_condensed: INTEGER
 			-- ultra condensed width
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STRETCH_ULTRA_CONDENSED"
 		end
 
-	pango_stretch_extra_condensed: INTEGER is
+	pango_stretch_extra_condensed: INTEGER
 			-- extra condensed width
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STRETCH_EXTRA_CONDENSED"
 		end
 
-	pango_stretch_condensed: INTEGER is
+	pango_stretch_condensed: INTEGER
 		-- condensed width
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STRETCH_CONDENSED"
 		end
 
-	pango_stretch_semi_condensed: INTEGER is
+	pango_stretch_semi_condensed: INTEGER
 			-- semi condensed width
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STRETCH_SEMI_CONDENSED"
 		end
 
-	pango_stretch_normal: INTEGER is
+	pango_stretch_normal: INTEGER
 			-- the normal width
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STRETCH_NORMAL"
 		end
 
-	pango_stretch_semi_expanded: INTEGER is
+	pango_stretch_semi_expanded: INTEGER
 			-- semi expanded width
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STRETCH_SEMI_EXPANDED"
 		end
 
-	pango_stretch_expanded: INTEGER is
+	pango_stretch_expanded: INTEGER
 			-- expanded width
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STRETCH_EXPANDED"
 		end
 
-	pango_stretch_extra_expanded: INTEGER is
+	pango_stretch_extra_expanded: INTEGER
 			-- extra expanded width
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STRETCH_EXTRA_EXPANDED"
 		end
 
-	pango_stretch_ultra_expanded: INTEGER is
+	pango_stretch_ultra_expanded: INTEGER
 			-- ultra expanded width
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STRETCH_ULTRA_EXPANDED"
 		end
 
-	pango_type_stretch: INTEGER is
+	pango_type_stretch: INTEGER
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_TYPE_STRETCH"
 		end

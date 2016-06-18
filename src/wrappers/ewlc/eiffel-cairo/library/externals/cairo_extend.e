@@ -34,7 +34,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
 
-	is_valid_extend (an_extend: INTEGER): BOOLEAN is
+	is_valid_extend (an_extend: INTEGER): BOOLEAN
 		do
 			Result := ((an_extend = cairo_extend_none) or else
 						(an_extend = cairo_extend_repeat) or else
@@ -42,26 +42,26 @@ feature {ANY}  -- enum
 						(an_extend = cairo_extend_pad))
 		end
 
-	cairo_extend_none: INTEGER is
+	cairo_extend_none: INTEGER
 			-- pixels outside of the source pattern are fully transparent
 		external "C macro use <cairo.h>"
 		alias "CAIRO_EXTEND_NONE"
 		end
 
-	cairo_extend_repeat: INTEGER is
+	cairo_extend_repeat: INTEGER
 			-- the pattern is tiled by repeating
 		external "C macro use <cairo.h>"
 		alias "CAIRO_EXTEND_REPEAT"
 		end
 
-	cairo_extend_reflect: INTEGER is
+	cairo_extend_reflect: INTEGER
 			-- the pattern is tiled by reflecting at the edges (not
 			-- implemented for surface patterns currently)
 		external "C macro use <cairo.h>"
 		alias "CAIRO_EXTEND_REFLECT"
 		end
 
-	cairo_extend_pad: INTEGER is
+	cairo_extend_pad: INTEGER
 			-- pixels outside of the pattern copy the closest pixel from
 			-- the source (Since 1.2; not implemented for surface
 			-- patterns currently)

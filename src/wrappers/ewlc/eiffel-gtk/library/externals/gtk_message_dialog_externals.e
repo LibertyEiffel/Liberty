@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	gtk_message_dialog_new (a_parent: POINTER;
 							some_gtkdialogflags, a_gtkmessagetype, a_gtkbuttonstype: INTEGER;
-							a_message_format: POINTER): POINTER is
+							a_message_format: POINTER): POINTER
 		require
 			valid_dialog_flags: are_valid_dialog_flags (some_gtkdialogflags)
 			valid_message_type: is_valid_gtk_message_type (a_gtkmessagetype)
@@ -42,7 +42,7 @@ feature {} -- External calls
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_message_dialog_new_with_markup (a_parent: POINTER; some_gtkdialogflags, a_gtkmessagetype, a_gtkbuttonstype: INTEGER; a_message_format: POINTER): POINTER is 
+	gtk_message_dialog_new_with_markup (a_parent: POINTER; some_gtkdialogflags, a_gtkmessagetype, a_gtkbuttonstype: INTEGER; a_message_format: POINTER): POINTER
 		require
 			valid_dialog_flags: are_valid_dialog_flags (some_gtkdialogflags)
 			valid_message_type: is_valid_gtk_message_type (a_gtkmessagetype)
@@ -50,15 +50,15 @@ feature {} -- External calls
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_message_dialog_set_markup (a_message_dialog, a_string: POINTER) is
+	gtk_message_dialog_set_markup (a_message_dialog, a_string: POINTER)
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_message_dialog_format_secondary_text (a_message_dialog, a_message_format: POINTER) is
+	gtk_message_dialog_format_secondary_text (a_message_dialog, a_message_format: POINTER)
 		external "C use  <gtk/gtk.h>"
 		end
 
-	gtk_message_dialog_format_secondary_markup (a_message_dialog, a_message_format: POINTER) is
+	gtk_message_dialog_format_secondary_markup (a_message_dialog, a_message_format: POINTER)
 		external "C use  <gtk/gtk.h>"
 		end
 end

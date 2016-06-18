@@ -97,13 +97,13 @@ create {ANY}
 	from_external_pointer
 
 feature {} -- Creation
-	in_a_new_group is
+	in_a_new_group
 			-- Creates a new GTK_RADIO_BUTTON in a new group.
 		do
 			from_external_pointer (gtk_radio_button_new (default_pointer))
 		end
 	
-	from_group (a_group: G_SLIST[GTK_RADIO_BUTTON]) is
+	from_group (a_group: G_SLIST[GTK_RADIO_BUTTON])
 			-- Creates a new GTK_RADIO_BUTTON. To be of any practical
 			-- value, a widget should then be packed into the radio
 			-- button. `a_group': an existing radio button group, or Void
@@ -115,7 +115,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_radio_button_new (a_group.handle))
 		end
 	
-	from_widget (a_widget: GTK_RADIO_BUTTON) is
+	from_widget (a_widget: GTK_RADIO_BUTTON)
 			-- Creates a new GtkRadioButton, adding it to the same group
 			-- of `a_widget'. As with `make', a widget should be packed
 			-- into the radio button.
@@ -126,7 +126,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_radio_button_new_from_widget (a_widget.handle))
 		end
 
-	with_label (a_group: G_SLIST[GTK_RADIO_BUTTON]; a_label: STRING) is
+	with_label (a_group: G_SLIST[GTK_RADIO_BUTTON]; a_label: STRING)
 			-- Creates a new GTK_RADIO_BUTTON with `a_label' displayed
 			-- next to the radio button; `a_group' is an existing radio
 			-- button group, or Void if you are creating a new group.
@@ -140,7 +140,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_radio_button_new_with_label (ptr, a_label.to_external))
 		end
 
-	with_label_from_widget (a_widget: GTK_RADIO_BUTTON; a_label: STRING) is
+	with_label_from_widget (a_widget: GTK_RADIO_BUTTON; a_label: STRING)
 			-- Creates a new GtkRadioButton, adding it to the same group
 			-- of `a_widget'; `a_label' displayed next to the radio
 			-- button.
@@ -154,7 +154,7 @@ feature {} -- Creation
 		end
 
 
-	with_mnemonic (a_group: G_SLIST[GTK_RADIO_BUTTON]; a_label: STRING) is
+	with_mnemonic (a_group: G_SLIST[GTK_RADIO_BUTTON]; a_label: STRING)
 			-- Creates a new GtkRadioButton containing `a_label', adding
 			-- it to `a_group'. The label will be created using
 			-- GTK_LABEL.with_mnemonic, so underscores in label indicate
@@ -167,7 +167,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_radio_button_new_with_mnemonic (a_group.handle, a_label.to_external))
 		end
 
-	with_mnemonic_from_widget (a_widget: GTK_RADIO_BUTTON; a_label: STRING) is
+	with_mnemonic_from_widget (a_widget: GTK_RADIO_BUTTON; a_label: STRING)
 			-- Creates a new GTK_RADIO_BUTTON containing `a_label' to the
 			-- same group of `a_widget'. The label will be created using
 			-- GTK_LABEL.with_mnemonic, so underscores in label indicate
@@ -182,7 +182,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- group
-	set_group (a_group: G_SLIST[GTK_RADIO_BUTTON]) is
+	set_group (a_group: G_SLIST[GTK_RADIO_BUTTON])
 			-- Sets a Current's group to `a_group'. It should be noted
 			-- that this does not change the layout of your interface in
 			-- any way, so if you are changing the group, it is likely
@@ -192,7 +192,7 @@ feature {ANY} -- group
 			gtk_radio_button_set_group (handle,a_group.handle)
 		end
 
-	set_group_from (another: GTK_RADIO_BUTTON) is
+	set_group_from (another: GTK_RADIO_BUTTON)
 			-- Makes Current belong to the same group of `another'. The
 			-- implementation is (slightly) faster than
 			-- a_radio_button.set_group (another.group)
@@ -201,7 +201,7 @@ feature {ANY} -- group
 												 gtk_radio_button_get_group(another.handle))
 		end
 
-	group: G_SLIST[GTK_RADIO_BUTTON] is
+	group: G_SLIST[GTK_RADIO_BUTTON]
 			-- the group assigned to a radio button.
 		do
 			create {G_OBJECT_SLIST[GTK_RADIO_BUTTON]} Result.from_external_pointer (gtk_radio_button_get_group(handle))

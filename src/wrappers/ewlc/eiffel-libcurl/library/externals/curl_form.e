@@ -31,7 +31,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {}
 
-	is_valid_curl_form (a_form_code: INTEGER) : BOOLEAN is
+	is_valid_curl_form (a_form_code: INTEGER) : BOOLEAN
 		do
 			Result := (a_form_code = curl_form_copy_name or else
 			           a_form_code = curl_form_ptr_name or else
@@ -39,7 +39,7 @@ feature {}
 			           a_form_code = curl_form_end)
 		end
 
-	curl_form_copy_name: INTEGER is
+	curl_form_copy_name: INTEGER
 			-- followed by a string which provides the name of this part. libcurl
 			-- copies the string so your application doesn't need to keep it around
 			-- after this function call. If the name isn't null terminated, or if you'd
@@ -49,7 +49,7 @@ feature {}
 		alias "CURLFORM_COPYNAME"
 		end
 
-	curl_form_ptr_name: INTEGER is
+	curl_form_ptr_name: INTEGER
 			-- followed by a string which provides the name of this part. libcurl will
 			-- use the pointer and refer to the data in your application, so you must
 			-- make sure it remains until curl no longer needs it. If the name isn't
@@ -59,7 +59,7 @@ feature {}
 		alias "CURLFORM_PTRNAME"
 		end
 
-	curl_form_copy_contents: INTEGER is
+	curl_form_copy_contents: INTEGER
 			-- followed by a pointer to the contents of this part, the actual data to
 			-- send away. libcurl copies the provided data, so your application doesn't
 			-- need to keep it around after this function call. If the data isn't null
@@ -70,7 +70,7 @@ feature {}
 		alias "CURLFORM_COPYCONTENTS"
 		end
 
-	curl_form_ptr_contents: INTEGER is
+	curl_form_ptr_contents: INTEGER
 			-- followed by a pointer to the contents of this part, the actual data to
 			-- send away. libcurl will use the pointer and refer to the data in your
 			-- application, so you must make sure it remains until curl no longer needs
@@ -80,13 +80,13 @@ feature {}
 		alias "CURLFORM_PTRCONTENTS"
 		end
 
-	curl_form_contents_length: INTEGER is
+	curl_form_contents_length: INTEGER
 			-- followed by a long giving the length of the contents.
 		external "C macro use <curl/curl.h>"
 		alias "CURLFORM_CONTENTSLENGTH"
 		end
 
-	curl_form_file_content: INTEGER is
+	curl_form_file_content: INTEGER
 			-- followed by a filename, causes that file to be read and its contents
 			-- used as data in this part. This part does not automatically become a
 			-- file upload part simply because its data was read from a file.
@@ -94,7 +94,7 @@ feature {}
 		alias "CURLFORM_FILECONTENT"
 		end
 
-	curl_form_file: INTEGER is
+	curl_form_file: INTEGER
 			-- followed by a filename, makes this part a file upload part. It sets the
 			-- filename field to the basename of the provided filename, it reads the
 			-- contents of the file and passes them as data and sets the content-type
@@ -106,7 +106,7 @@ feature {}
 		alias "CURLFORM_FILE"
 		end
 
-	curl_form_content_type: INTEGER is
+	curl_form_content_type: INTEGER
 			-- is used in combination with CURLFORM_FILE. Followed by a pointer to a
 			-- string which provides the content-type for this part, possibly instead
 			-- of an internally chosen one.
@@ -114,7 +114,7 @@ feature {}
 		alias "CURLFORM_CONTENTTYPE"
 		end
 
-	curl_form_file_name: INTEGER is
+	curl_form_file_name: INTEGER
 			-- is used in combination with CURLFORM_FILE. Followed by a pointer to a
 			-- string, it tells libcurl to use the given string as the filename in the
 			-- file upload part instead of the actual file name.
@@ -163,7 +163,7 @@ feature {}
 			-- the CURLOPT_HTTPPOST option), you must not free the list until after
 			-- you've called curl_easy_cleanup(3) for the curl handle.
 
-	curl_form_end: INTEGER is
+	curl_form_end: INTEGER
 		external "C macro use <curl/curl.h>"
 		alias "CURLFORM_END"
 		end

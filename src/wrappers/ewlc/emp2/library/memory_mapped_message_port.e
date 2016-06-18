@@ -38,19 +38,19 @@ insert
 create {ANY} default_create, make
 
 feature	{} -- Creation
-	defualt_create is
+	defualt_create
 		do
 			size := default_size
 			allocate
 		end
 
-	make (a_size: INTEGER) is
+	make (a_size: INTEGER)
 		do
 			size := a_size
 			allocate
 		end
 
-	allocate is
+	allocate
 		do
 			start := mmap
 			(default_pointer, length, prot_read|prot_write,

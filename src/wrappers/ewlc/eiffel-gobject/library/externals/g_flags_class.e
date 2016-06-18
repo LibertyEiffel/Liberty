@@ -27,19 +27,19 @@ feature {} -- External calls
 --    guint n_values;          the number of possible values.
 --    GFlagsValue *values;     an array of GFlagsValue structs describing the
 --                             individual values.
-	get_mask (a_gflags: POINTER): INTEGER is
+	get_mask (a_gflags: POINTER): INTEGER
 			-- Get the mask covering all possible values.
 			-- TODO: should be NATURAL, since it's a guint
 		external "C struct GFlagsClass get mask use <glib-gobject.h>"
 		end
 
-	get_n_values (a_gflags: POINTER): INTEGER is
+	get_n_values (a_gflags: POINTER): INTEGER
 			-- Get the number of possible values.
 			-- TODO: should be NATURAL, since it's a guint
 		external "C struct GFlagsClass get n_values use <glib-gobject.h>"
 		end
 
-	get_values (a_gflags: POINTER): POINTER is
+	get_values (a_gflags: POINTER): POINTER
 			-- Get the an array of GFlagsValue structs describing the --
 			-- individual values.
 		external "C struct GFlagsClass get values use <glib-gobject.h>"

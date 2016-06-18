@@ -38,7 +38,7 @@ create {ANY}
 
 feature {ANY} -- Operations
 
-	open (a_context: AV_CODEC_CONTEXT): BOOLEAN is
+	open (a_context: AV_CODEC_CONTEXT): BOOLEAN
 		require
 			a_context /= Void
 			a_context.is_not_null
@@ -48,7 +48,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Access
 
-	name: STRING is
+	name: STRING
 		do
 			create Result.from_external_copy (av_codec_get_name (handle))
 		end
@@ -56,7 +56,7 @@ feature {ANY} -- Access
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <avformat.h>"
 		alias "sizeof(AVCodec)"
 		end

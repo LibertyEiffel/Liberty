@@ -42,7 +42,7 @@ insert
 	GTS_BINARY_HEAP_EXTERNALS
 
 feature {} -- Creation
-	make (a_factory: WRAPPER_FACTORY[ITEM]) is
+	make (a_factory: WRAPPER_FACTORY[ITEM])
 		require a_factory/=Void
 		do
 			factory := a_factory
@@ -50,21 +50,21 @@ feature {} -- Creation
 		end
 	
 feature {ANY}
-	comparison_function (an_item, another: like top): INTEGER is
+	comparison_function (an_item, another: like top): INTEGER
 		require
 			item_not_void: an_item /= Void
 			another_not_void: another /= Void
 		deferred
 		end
 
-	insert_item (an_item: like top) is
+	insert_item (an_item: like top)
 			-- Inserts `an_item' in the heap.
 		require item_not_void: an_item /= Void
 		do
 			gts_heap_insert(handle, an_item.handle)
 		end
 	
-	remove_top is
+	remove_top
 			-- Removes the element at the top of the heap.
 		
 			-- Note: the C implementation "returns the element at the
@@ -78,7 +78,7 @@ feature {ANY}
 		ensure item_removed: count = old count - 1
 		end
 
-	top: ITEM_ is
+	top: ITEM_
 			-- the element at the top of the heap.
 		local p: POINTER
 		do
@@ -87,7 +87,7 @@ feature {ANY}
 				Result := factory.wrapper(p)
 		end
 
-	freeze is
+	freeze
 			-- Freezes the heap. Any subsequent operation will not
 			-- preserve the heap property. Used in conjunction with
 			-- `insert_item' and `thaw' to create a heap in O(n) time.
@@ -95,7 +95,7 @@ feature {ANY}
 			gts_heap_freeze(handle)
 		end
 	
-	thaw is
+	thaw
 			-- If heap has been frozen previously using `freeze', reorder
 			-- it in O(n) time and unfreeze it.
 		do
@@ -110,7 +110,7 @@ feature {ANY}
 	-- heap : a GtsHeap.  func : the function to call for each element
 	-- in the heap. user_data : to pass to func.
 
-	count: INTEGER is
+	count: INTEGER
 			-- the number of items in heap.
 
 			-- TODO: Should be NATURAL, since it is a guint
@@ -120,7 +120,7 @@ feature {ANY}
 		end
 
 feature {} 
-	dispose is
+	dispose
 		do
 			gts_heap_destroy(handle)
 		end

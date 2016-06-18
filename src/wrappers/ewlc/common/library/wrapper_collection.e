@@ -39,7 +39,7 @@ inherit
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-	wrapper(a_pointer: POINTER): ITEM_ is
+	wrapper(a_pointer: POINTER): ITEM_
 			-- The wrapper for `a_pointer'. It could be newly created or
 			-- retrieved from a cache, a dictionary, from the underlying
 			-- object, depending on the implementation.

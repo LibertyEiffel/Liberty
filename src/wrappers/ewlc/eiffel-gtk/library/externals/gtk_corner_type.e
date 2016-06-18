@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_corner_type (a_corner_type :INTEGER): BOOLEAN is
+	is_valid_gtk_corner_type (a_corner_type :INTEGER): BOOLEAN
 		do	
 			Result:=((a_corner_type = gtk_corner_top_left) or else
 						(a_corner_type = gtk_corner_bottom_left) or else
@@ -33,26 +33,26 @@ feature {} -- enum
 						(a_corner_type = gtk_corner_bottom_right))
 		end
 	
-	gtk_corner_top_left: INTEGER is
+	gtk_corner_top_left: INTEGER
 			-- Place the scrollbars on the right and bottom of the widget
 			-- (default behaviour).
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CORNER_TOP_LEFT"
 		end
 	
-	gtk_corner_bottom_left: INTEGER is
+	gtk_corner_bottom_left: INTEGER
 			-- Place the scrollbars on the top and right of the widget.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CORNER_BOTTOM_LEFT"
 		end
 	
-	gtk_corner_top_right: INTEGER is
+	gtk_corner_top_right: INTEGER
 			-- Place the scrollbars on the left and bottom of the widget.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CORNER_TOP_RIGHT"
 		end
 	
-	gtk_corner_bottom_right: INTEGER is
+	gtk_corner_bottom_right: INTEGER
 			-- Place the scrollbars on the top and left of the widget.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CORNER_BOTTOM_RIGHT"

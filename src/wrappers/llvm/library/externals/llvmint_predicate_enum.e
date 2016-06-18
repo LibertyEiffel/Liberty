@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = eq_low_level)  or else
 				(a_value = ne_low_level)  or else
@@ -23,109 +23,109 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_eq is
+	set_eq
 		do
 			value := eq_low_level
 		end
 
-	set_ne is
+	set_ne
 		do
 			value := ne_low_level
 		end
 
-	set_sge is
+	set_sge
 		do
 			value := sge_low_level
 		end
 
-	set_sgt is
+	set_sgt
 		do
 			value := sgt_low_level
 		end
 
-	set_sle is
+	set_sle
 		do
 			value := sle_low_level
 		end
 
-	set_slt is
+	set_slt
 		do
 			value := slt_low_level
 		end
 
-	set_uge is
+	set_uge
 		do
 			value := uge_low_level
 		end
 
-	set_ugt is
+	set_ugt
 		do
 			value := ugt_low_level
 		end
 
-	set_ule is
+	set_ule
 		do
 			value := ule_low_level
 		end
 
-	set_ult is
+	set_ult
 		do
 			value := ult_low_level
 		end
 
 feature {ANY} -- Queries
-	is_eq: BOOLEAN is
+	is_eq: BOOLEAN
 		do
 			Result := (value=eq_low_level)
 		end
 
-	is_ne: BOOLEAN is
+	is_ne: BOOLEAN
 		do
 			Result := (value=ne_low_level)
 		end
 
-	is_sge: BOOLEAN is
+	is_sge: BOOLEAN
 		do
 			Result := (value=sge_low_level)
 		end
 
-	is_sgt: BOOLEAN is
+	is_sgt: BOOLEAN
 		do
 			Result := (value=sgt_low_level)
 		end
 
-	is_sle: BOOLEAN is
+	is_sle: BOOLEAN
 		do
 			Result := (value=sle_low_level)
 		end
 
-	is_slt: BOOLEAN is
+	is_slt: BOOLEAN
 		do
 			Result := (value=slt_low_level)
 		end
 
-	is_uge: BOOLEAN is
+	is_uge: BOOLEAN
 		do
 			Result := (value=uge_low_level)
 		end
 
-	is_ugt: BOOLEAN is
+	is_ugt: BOOLEAN
 		do
 			Result := (value=ugt_low_level)
 		end
 
-	is_ule: BOOLEAN is
+	is_ule: BOOLEAN
 		do
 			Result := (value=ule_low_level)
 		end
 
-	is_ult: BOOLEAN is
+	is_ult: BOOLEAN
 		do
 			Result := (value=ult_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	eq_low_level: INTEGER is
+	eq_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -134,7 +134,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ne_low_level: INTEGER is
+	ne_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -143,7 +143,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sge_low_level: INTEGER is
+	sge_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -152,7 +152,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sgt_low_level: INTEGER is
+	sgt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -161,7 +161,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sle_low_level: INTEGER is
+	sle_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -170,7 +170,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	slt_low_level: INTEGER is
+	slt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -179,7 +179,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uge_low_level: INTEGER is
+	uge_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -188,7 +188,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ugt_low_level: INTEGER is
+	ugt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -197,7 +197,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ule_low_level: INTEGER is
+	ule_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -206,7 +206,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ult_low_level: INTEGER is
+	ult_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

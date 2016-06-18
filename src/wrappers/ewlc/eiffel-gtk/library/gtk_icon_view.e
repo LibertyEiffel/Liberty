@@ -44,13 +44,13 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkIconView widget
 		do
 			from_external_pointer (gtk_icon_view_new)
 		end
 
-	with_model (a_model: GTK_TREE_MODEL) is
+	with_model (a_model: GTK_TREE_MODEL)
 			-- Creates a new GtkIconView widget with `a_model'.
 		require
 			a_model /= Void
@@ -65,31 +65,31 @@ feature {} -- Creation
 
 feature {ANY} -- Access
 
-	model: GTK_TREE_MODEL is
+	model: GTK_TREE_MODEL
 			-- the model the GtkIconView is based on. Void if the model is
 			-- unset.
 		do
 			Result := wrapper_or_void (gtk_icon_view_get_model (handle))
 		end
 
-	text_column: INTEGER is
+	text_column: INTEGER
 		do
 			Result := gtk_icon_view_get_text_column (handle)
 		end
 
-	markup_column: INTEGER is
+	markup_column: INTEGER
 		do
 			Result := gtk_icon_view_get_markup_column (handle)
 		end
 
-	pixbuf_column: INTEGER is
+	pixbuf_column: INTEGER
 		do
 			Result := gtk_icon_view_get_pixbuf_column (handle)
 		end
 
 feature {ANY} -- Operations
 
-	set_model (a_model: GTK_TREE_MODEL) is
+	set_model (a_model: GTK_TREE_MODEL)
 			-- Sets the model for a GtkIconView. If the Current icon view
 			-- already has a model set, it will remove it before setting
 			-- the new model. 
@@ -100,14 +100,14 @@ feature {ANY} -- Operations
 		ensure set: model = a_model
 		end
 
-	unset_model is
+	unset_model
 			-- Unset the old model.
 		do
 			gtk_icon_view_set_model (handle, default_pointer)
 			ensure unset: model = Void
 		end
 
-	set_text_column (a_column: INTEGER) is
+	set_text_column (a_column: INTEGER)
 			-- Sets the column with text for icon_view to be `a_column'.
 		require
 			-- TODO: The text column must be of type G_TYPE_STRING.
@@ -115,12 +115,12 @@ feature {ANY} -- Operations
 			gtk_icon_view_set_text_column (handle, a_column)
 		end
 
-	set_markup_column (a_column: INTEGER) is
+	set_markup_column (a_column: INTEGER)
 		do
 			gtk_icon_view_set_markup_column (handle, a_column)
 		end
 
-	set_pixbuf_column (a_column: INTEGER) is
+	set_pixbuf_column (a_column: INTEGER)
 		do
 			gtk_icon_view_set_pixbuf_column (handle, a_column)
 		end
@@ -162,13 +162,13 @@ feature {ANY} -- Operations
 -- void        gtk_icon_view_set_item_width    (GtkIconView *icon_view,
 --                                              gint item_width);
 
-	item_width: INTEGER is
+	item_width: INTEGER
 			-- Returns the value of the ::item-width property.
 		do
 			Result := gtk_icon_view_get_item_width (handle)
 		end
 
-	set_item_width (a_width: INTEGER) is
+	set_item_width (a_width: INTEGER)
 			-- Sets the ::item-width property which specifies the width
 			-- to use for each item. If it is set to -1, the icon view will
 			-- automatically determine a suitable item size.
@@ -364,7 +364,7 @@ feature {ANY} -- Operations
 
 -- Since 2.8
 
-	cursor: TUPLE [GTK_TREE_PATH, GTK_CELL_RENDERER] is
+	cursor: TUPLE [GTK_TREE_PATH, GTK_CELL_RENDERER]
 			-- Fills in path and cell with the current cursor path and cell.
 			-- If the cursor isn't currently set, then *path will be NULL.
 			-- If no cell currently has focus, then *cell will be NULL.
@@ -682,7 +682,7 @@ feature {ANY} -- Operations
 
 	enable_model_drag_source (a_start_button_mask: INTEGER;
 									  a_target: GTK_TARGET_ENTRY;
-									  some_actions: INTEGER) is
+									  some_actions: INTEGER)
 			-- Turns icon_view into a drag source for automatic DND.
 			-- start_button_mask : 	Mask of allowed buttons to start drag
 			-- some_targets : 	the table of targets that the drag will support
@@ -702,7 +702,7 @@ feature {ANY} -- Operations
 																 a_target.handle, 1, some_actions)
 		end
 
-	enable_model_drag_dest (a_target: GTK_TARGET_ENTRY; some_actions: INTEGER) is
+	enable_model_drag_dest (a_target: GTK_TARGET_ENTRY; some_actions: INTEGER)
 			-- Turns icon_view into a drop destination for automatic DND.
 			-- some_targets : 	the table of targets that the drag will support
 			-- n_targets : 	the number of items in targets
@@ -719,19 +719,19 @@ feature {ANY} -- Operations
 			gtk_icon_view_enable_model_drag_dest (handle, a_target.handle, 1, some_actions)
 		end
 
-	unset_model_drag_source is
+	unset_model_drag_source
 			-- Undoes the effect of `enable_model_drag_source'
 		do
 			gtk_icon_view_unset_model_drag_source (handle)
 		end
 
-	unset_model_drag_dest is
+	unset_model_drag_dest
 			-- Undoes the effect of `enable_model_drag_dest'
 		do
 			gtk_icon_view_unset_model_drag_dest (handle)
 		end
 
-	set_reorderable (a_boolean: BOOLEAN) is
+	set_reorderable (a_boolean: BOOLEAN)
 			-- This function is a convenience function to allow you to
 			-- reorder models that support the GtkTreeDragSourceIface
 			-- and the GtkTreeDragDestIface. Both GtkTreeStore
@@ -746,7 +746,7 @@ feature {ANY} -- Operations
 			gtk_icon_view_set_reorderable (handle, a_boolean.to_integer)
 		end
 
-	reorderable: BOOLEAN is
+	reorderable: BOOLEAN
 			-- Retrieves whether the user can reorder the list via drag-and-drop.
 			-- See `set_reorderable'.
 		do
@@ -782,7 +782,7 @@ feature {ANY} -- Operations
 
 -- Since 2.8
 
-	dest_item_at_pos (drag_x, drag_y: INTEGER): TUPLE [GTK_TREE_PATH, INTEGER] is
+	dest_item_at_pos (drag_x, drag_y: INTEGER): TUPLE [GTK_TREE_PATH, INTEGER]
 			-- Determines the destination item for a given position.
 			-- drag_x : 	the position to determine the destination item for
 			-- drag_y : 	the position to determine the destination item for
@@ -1091,7 +1091,7 @@ feature {ANY} -- TODO: Signals
 
 feature {ANY}
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkIconView)"
 		end

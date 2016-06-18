@@ -90,25 +90,25 @@ inherit GTK_WIDGET
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new drawing area.
 		do
 			from_external_pointer(gtk_drawing_area_new)
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkDrawingArea)"
 		end
 
 feature {} -- External calls
 
-	gtk_drawing_area_new: POINTER is
+	gtk_drawing_area_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drawing_area_size (a_darea: POINTER; a_width, an_height: INTEGER) is
+	gtk_drawing_area_size (a_darea: POINTER; a_width, an_height: INTEGER)
 			-- gtk_drawing_area_size (GtkDrawingArea *darea, gint width, gint 
 			-- height);
 		external "C use <gtk/gtk.h>"

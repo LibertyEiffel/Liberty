@@ -17,7 +17,7 @@ insert
 
 feature {} -- allocation
 
-	allocate is
+	allocate
 			-- Allocate an initialized structure
 		do
 			handle := g_try_malloc0 (struct_size)
@@ -30,7 +30,7 @@ feature {} -- allocation
 
 feature {ANY} -- Destroying
 
-	dispose  is
+	dispose
 			-- Frees the external pointer. Shall be called just before 
 			-- the garbage collector removes the wrapper object.
 		do
@@ -38,7 +38,7 @@ feature {ANY} -- Destroying
 			handle:= default_pointer -- null
 		end
 
-	free_handle is
+	free_handle
 			-- release the external memory
 		do
 			g_free (handle)

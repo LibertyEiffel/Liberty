@@ -36,7 +36,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (event_expose_ptr: POINTER; instance: POINTER): INTEGER is
+	callback (event_expose_ptr: POINTER; instance: POINTER): INTEGER
 		local
 			expose_event: GDK_EVENT_EXPOSE
 		do
@@ -48,14 +48,14 @@ feature {ANY}
 			expose_event.dispose
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_EXPOSE, GTK_WIDGET], BOOLEAN]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_EXPOSE, GTK_WIDGET], BOOLEAN])
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 																 signal_name.to_external,

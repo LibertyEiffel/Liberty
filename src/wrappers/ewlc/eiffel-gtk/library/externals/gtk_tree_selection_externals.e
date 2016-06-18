@@ -26,81 +26,81 @@ inherit ANY undefine is_equal, copy end
 insert GTK_SELECTION_MODE
 	
 feature {}
-	gtk_tree_selection_set_mode (a_gtktreeselection: POINTER; a_gtkselectionmode: INTEGER) is
+	gtk_tree_selection_set_mode (a_gtktreeselection: POINTER; a_gtkselectionmode: INTEGER)
 		require is_valid_mode: is_valid_gtk_selection_mode (a_gtkselectionmode)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_get_mode (a_gtktreeselection: POINTER): INTEGER is
+	gtk_tree_selection_get_mode (a_gtktreeselection: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		ensure is_valid_mode: is_valid_gtk_selection_mode (Result)
 		end
 	
-	gtk_tree_selection_set_select_function (a_gtktreeselection, a_gtktreeselectionfunc, some_data, a_gtkdestroynotify : POINTER) is
+	gtk_tree_selection_set_select_function (a_gtktreeselection, a_gtktreeselectionfunc, some_data, a_gtkdestroynotify : POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_get_user_data (a_gtktreeselection: POINTER): POINTER is
+	gtk_tree_selection_get_user_data (a_gtktreeselection: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_get_tree_view (a_gtktreeselection: POINTER): POINTER is
+	gtk_tree_selection_get_tree_view (a_gtktreeselection: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_selection_get_selected (a_gtktreeselection, a_gtktreemodel_ptr, a_gtktreeiter: POINTER): INTEGER is
+	gtk_tree_selection_get_selected (a_gtktreeselection, a_gtktreemodel_ptr, a_gtktreeiter: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_selection_selected_foreach (a_gtktreeselection, a_gtktreeselectionforeachfunc, some_data: POINTER) is
+	gtk_tree_selection_selected_foreach (a_gtktreeselection, a_gtktreeselectionforeachfunc, some_data: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_get_selected_rows (a_gtktreeselection, a_gtktreemodel_ptr: POINTER): POINTER is
+	gtk_tree_selection_get_selected_rows (a_gtktreeselection, a_gtktreemodel_ptr: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_count_selected_rows (a_gtktreeselection: POINTER): INTEGER is
+	gtk_tree_selection_count_selected_rows (a_gtktreeselection: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_select_path  (a_gtktreeselection, a_gtktreepath: POINTER) is
+	gtk_tree_selection_select_path  (a_gtktreeselection, a_gtktreepath: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_unselect_path (a_gtktreeselection, a_gtktreepath: POINTER) is
+	gtk_tree_selection_unselect_path (a_gtktreeselection, a_gtktreepath: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_path_is_selected (a_gtktreeselection, a_gtktreepath: POINTER): INTEGER is
+	gtk_tree_selection_path_is_selected (a_gtktreeselection, a_gtktreepath: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_select_iter  (a_gtktreeselection, a_gtktreeiter: POINTER) is
+	gtk_tree_selection_select_iter  (a_gtktreeselection, a_gtktreeiter: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_unselect_iter (a_gtktreeselection, a_gtktreeiter: POINTER) is
+	gtk_tree_selection_unselect_iter (a_gtktreeselection, a_gtktreeiter: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_selection_iter_is_selected (a_gtktreeselection, a_gtktreeiter: POINTER): INTEGER is
+	gtk_tree_selection_iter_is_selected (a_gtktreeselection, a_gtktreeiter: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_selection_select_all   (a_gtktreeselection: POINTER) is
+	gtk_tree_selection_select_all   (a_gtktreeselection: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_selection_unselect_all (a_gtktreeselection: POINTER) is
+	gtk_tree_selection_unselect_all (a_gtktreeselection: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_selection_select_range (a_gtktreeselection, a_start_gtk_tree_path, an_end_gtk_tree_path: POINTER) is
+	gtk_tree_selection_select_range (a_gtktreeselection, a_start_gtk_tree_path, an_end_gtk_tree_path: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_selection_unselect_range (a_gtktreeselection, a_start_gtk_tree_path, an_end_gtk_tree_path: POINTER) is
+	gtk_tree_selection_unselect_range (a_gtktreeselection, a_start_gtk_tree_path, an_end_gtk_tree_path: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 

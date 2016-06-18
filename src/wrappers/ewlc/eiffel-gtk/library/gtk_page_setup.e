@@ -74,28 +74,28 @@ insert
 create {ANY} make, copy, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			--   Creates a new GtkPageSetup.
 		do
 			from_external_pointer(gtk_page_setup_new)
 		end
 	
 feature {ANY} -- Copying
-	copy (another: GTK_PAGE_SETUP) is
+	copy (another: GTK_PAGE_SETUP)
 			--   Copies a GtkPageSetup.
 		do
 			from_external_pointer(gtk_page_setup_copy(another.handle))
 		end
 
 feature {ANY} -- Queries
-	orientation: INTEGER is
+	orientation: INTEGER
 			-- The page orientation of the GtkPageSetup.
 		do
 			Result:=gtk_page_setup_get_orientation(handle)
 		ensure valid: is_valid_gtk_page_orientation(Result)
 		end
 
-	paper_size: GTK_PAPER_SIZE is
+	paper_size: GTK_PAPER_SIZE
 			-- The paper size of the GtkPageSetup.
 		do
 			create Result.from_external_pointer
@@ -104,31 +104,31 @@ feature {ANY} -- Queries
 
 	unit: INTEGER -- The unit used for margins
 
-	top_margin: REAL is
+	top_margin: REAL
 			-- the top margin.
 		do
 			Result:=gtk_page_setup_get_top_margin(handle,unit)
 		end
 
-	bottom_margin: REAL is
+	bottom_margin: REAL
 			-- the bottom margin.
 		do
 			Result:=gtk_page_setup_get_bottom_margin(handle,unit)
 		end
 
-	left_margin: REAL is
+	left_margin: REAL
 			-- The left margin.
 		do
 			Result:=gtk_page_setup_get_left_margin (handle, unit)
 		end
 
-	right_margin: REAL is
+	right_margin: REAL
 			-- The right margin.
 		do
 			Result:=gtk_page_setup_get_right_margin (handle, unit)
 		end
 
-	paper_width: REAL is
+	paper_width: REAL
 			-- The paper width (expressed in `unit').
 
 			-- Note that this feature takes orientation, but not margins
@@ -137,7 +137,7 @@ feature {ANY} -- Queries
 			Result:=gtk_page_setup_get_paper_width(handle, unit)
 		end
 
-	paper_height: REAL is
+	paper_height: REAL
 			-- The paper height unit.
 
 			-- Note that this function takes orientation, but not margins
@@ -146,7 +146,7 @@ feature {ANY} -- Queries
 			Result:=gtk_page_setup_get_paper_height (handle,unit)
 		end
 
-	page_width: REAL is
+	page_width: REAL
 			-- The page width.
 
 			-- Note that this function takes orientation and margins into
@@ -155,7 +155,7 @@ feature {ANY} -- Queries
 			Result:=gtk_page_setup_get_page_width(handle,unit)
 		end	
 
-	page_height: REAL is
+	page_height: REAL
 			-- The page height.
 			
 			-- Note that this function takes orientation and margins into
@@ -165,14 +165,14 @@ feature {ANY} -- Queries
 		end	
 
 feature {ANY} -- Setters
-	set_orientation (an_orientation: INTEGER) is
+	set_orientation (an_orientation: INTEGER)
 			--   Sets the page orientation of the GtkPageSetup.
 		require valid: is_valid_gtk_page_orientation(an_orientation)
 		do
 			gtk_page_setup_set_orientation (handle, an_orientation)
 		end
 	
-	set_paper_size (a_paper_size: GTK_PAPER_SIZE) is
+	set_paper_size (a_paper_size: GTK_PAPER_SIZE)
 			-- Sets the paper size of the GtkPageSetup without changing
 			-- the margins. See `set_paper_size_and_default_margins'.
 		require size_not_void: a_paper_size /= Void
@@ -180,41 +180,41 @@ feature {ANY} -- Setters
 			gtk_page_setup_set_paper_size (handle, a_paper_size.handle)
 		end
 
-	set_unit (a_unit: INTEGER) is
+	set_unit (a_unit: INTEGER)
 			-- Use `a_unit' as the unit used to express margins
 		require valid_unit: is_valid_gtk_unit(a_unit)
 		do
 			unit := a_unit
 		end
 
-	set_top_margin (a_margin: REAL) is
+	set_top_margin (a_margin: REAL)
 			--   Sets the top margin of the GtkPageSetup to `a_margin'.
 		do
 			gtk_page_setup_set_top_margin(handle,a_margin, unit)
 		ensure set: a_margin=top_margin
 		end
 	
-	set_bottom_margin (a_margin: REAL) is
+	set_bottom_margin (a_margin: REAL)
 			-- Sets the bottom margin of the GtkPageSetup to `a_margin',
 			-- expressed in `unit'.
 		do
 			gtk_page_setup_set_bottom_margin(handle, a_margin, unit)
 		end
 
-	set_left_margin (a_margin: REAL) is
+	set_left_margin (a_margin: REAL)
 			-- Sets the left margin of the GtkPageSetup to `a_margin',
 			-- expressed in `unit'.
 		do
 			gtk_page_setup_set_left_margin  (handle, a_margin, unit)
 		end
 
-	set_right_margin (a_margin: REAL) is
+	set_right_margin (a_margin: REAL)
 			--   Sets the right margin of the GtkPageSetup.
 		do
 			gtk_page_setup_set_right_margin (handle, a_margin, unit)
 		end
 
-	set_paper_size_and_default_margins (a_size: GTK_PAPER_SIZE) is
+	set_paper_size_and_default_margins (a_size: GTK_PAPER_SIZE)
 			-- Sets the paper size of the GtkPageSetup and modifies the
 			-- margins according to `a_size'.
 		require size_not_void: a_size /= Void

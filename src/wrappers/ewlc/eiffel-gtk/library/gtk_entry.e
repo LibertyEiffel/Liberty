@@ -38,14 +38,14 @@ insert
 create {ANY} make, from_external_pointer
 	
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkEntry widget.
 		do
 			from_external_pointer (gtk_entry_new)
 		end
 
 feature {ANY}
-	set_text (a_text: STRING) is
+	set_text (a_text: STRING)
 			-- Sets the text in the widget to the given value, replacing
 			-- the current contents.
 		require valid_text: a_text/=Void
@@ -53,7 +53,7 @@ feature {ANY}
 			gtk_entry_set_text (handle, a_text.to_external)
 		end
 
-	text: STRING is
+	text: STRING
 			-- the contents of the entry widget.
 		do
 			-- TODO: implement something that doesn't involve copying 
@@ -65,7 +65,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- visibility
-	set_contents_visible is
+	set_contents_visible
 			-- Makes the contents of the entry visible.
 		do
 			gtk_entry_set_visibility (handle, 1)
@@ -73,7 +73,7 @@ feature {ANY} -- visibility
 			contents_visible
 		end
 
-	set_contents_invisible is
+	set_contents_invisible
 			-- Makes the contents of the entry invisible. Characters are
 			-- displayed as the invisible char, and will also appear that
 			-- way when the text in the entry widget is copied
@@ -85,13 +85,13 @@ feature {ANY} -- visibility
 			not contents_visible
 		end
 
-	contents_visible: BOOLEAN is
+	contents_visible: BOOLEAN
 			-- is the text currently visible?
 		do
 			Result := gtk_entry_get_visibility (handle).to_boolean
 		end
 
-	set_invisible_char (a_unicode: INTEGER) is
+	set_invisible_char (a_unicode: INTEGER)
 			-- Sets the character to use in place of the actual text when
 			-- is_visible is False. i.e. this is the character used in
 			-- "password mode" to show the user how many characters have
@@ -104,14 +104,14 @@ feature {ANY} -- visibility
 		end
 feature {ANY} -- maximum lenght
 
-	max_length: INTEGER is
+	max_length: INTEGER
 			-- the maximum allowed length of the text in entry; 0 if
 			-- there is no maximum.
 		do
 			Result := gtk_entry_get_max_length (handle)
 		end
 
-	set_max_length (a_maximum_length: INTEGER) is
+	set_max_length (a_maximum_length: INTEGER)
 			-- Sets the maximum allowed length of the contents of the
 			-- widget. If the current contents are longer than the given
 			-- length, then they will be truncated to fit. The value
@@ -120,42 +120,42 @@ feature {ANY} -- maximum lenght
 			gtk_entry_set_max_length (handle, a_maximum_length)
 		end
 
-	set_no_maximum_length is
+	set_no_maximum_length
 		do
 			gtk_entry_set_max_length (handle, 0)
 		end
 
-	activates_default: BOOLEAN is
+	activates_default: BOOLEAN
 			-- Will the entry activate the default widget?
 		do
 			Result := gtk_entry_get_activates_default (handle).to_boolean
 		end
 
-	has_frame: BOOLEAN is
+	has_frame: BOOLEAN
 			-- Has the entry a beveled frame?
 		do
 			Result := gtk_entry_get_has_frame (handle).to_boolean
 		end
 
-	set_has_frame is
+	set_has_frame
 		do
 			gtk_entry_set_has_frame (handle, 1)
 		end
 
-	unset_has_frame is
+	unset_has_frame
 		do
 			gtk_entry_set_has_frame (handle, 0)
 		end
 
 feature {ANY} -- 
 
-	width_chars: INTEGER is
+	width_chars: INTEGER
 			-- number of chars to request space for, or negative if unset
 		do
 			Result := gtk_entry_get_width_chars (handle)
 		end
 
-	set_width_chars (n_chars: INTEGER) is
+	set_width_chars (n_chars: INTEGER)
 			-- Changes the size request of the entry to be about the
 			-- right size for `n_chars' characters. Note that it changes
 			-- the size request, the size can still be affected by how
@@ -165,7 +165,7 @@ feature {ANY} --
 			gtk_entry_set_width_chars (handle, n_chars)
 		end
 
-	set_activates_default is
+	set_activates_default
 			-- Makes pressing Enter in the entry will activate the
 			-- default widget for the window containing the entry. This
 			-- usually means that the dialog box containing the entry
@@ -179,13 +179,13 @@ feature {ANY} --
 			gtk_entry_set_activates_default (handle, 1)
 		end
 
-	unset_activates_default is
+	unset_activates_default
 			-- When pressing Enter the default widget is not activated
 		do
 			gtk_entry_set_activates_default (handle, 0)
 		end
 
-	invisible_char: INTEGER is
+	invisible_char: INTEGER
 			-- the (unicode) character displayed in place of the real
 			-- characters for entries with visibility set to false. See
 			-- `set_invisible_char'. If 0 the entry does not show
@@ -195,7 +195,7 @@ feature {ANY} --
 		end
 
 feature {ANY} -- Alignment
-	set_alignment (an_x_align: REAL) is
+	set_alignment (an_x_align: REAL)
 			-- Sets the alignment for the contents of the entry. This
 			-- controls the horizontal positioning of the contents when
 			-- the displayed text is shorter than the width of the
@@ -205,14 +205,14 @@ feature {ANY} -- Alignment
 			gtk_entry_set_alignment (handle, an_x_align)
 		end
 
-	alignment: REAL is
+	alignment: REAL
 		-- the alignment for the contents of the entry. 
 		do
 			Result := gtk_entry_get_alignment (handle)
 		end
 
 	
-	layout: PANGO_LAYOUT is
+	layout: PANGO_LAYOUT
 			-- the PangoLayout used to display the entry. The layout is useful
 			-- to e.g. convert text positions to pixel positions, in
 			-- combination with `layout_offsets'. 
@@ -228,7 +228,7 @@ feature {ANY} -- Alignment
 			Result := factory.wrapper(gtk_entry_get_layout (handle))
 		end
 
-	layout_offsets: TUPLE[INTEGER,INTEGER] is
+	layout_offsets: TUPLE[INTEGER,INTEGER]
 			-- the position (in [x,y] format) of the PangoLayout used to
 			-- render text in the entry, in widget coordinates. Useful if
 			-- you want to line up the text in an entry with some other
@@ -257,7 +257,7 @@ feature {ANY} -- Alignment
 			create Result.make_2 (an_x, an_y)
 		end
 
-	layout_index_to_text_index (a_layout_index: INTEGER): INTEGER is
+	layout_index_to_text_index (a_layout_index: INTEGER): INTEGER
 			-- Converts from a position in the entry contents (returned
 			-- by `text') to a position in the entry's PangoLayout
 			-- (returned by `layout', with text retrieved via
@@ -271,7 +271,7 @@ feature {ANY} -- Alignment
 			Result := gtk_entry_layout_index_to_text_index (handle, a_layout_index)
 		end
 
-	text_index_to_layout_index (a_text_index: INTEGER): INTEGER is
+	text_index_to_layout_index (a_text_index: INTEGER): INTEGER
 			-- Converts from a position in the entry's PangoLayout
 			-- (returned by `layout') to a position in the
 			-- entry contents (returned by `text').
@@ -283,7 +283,7 @@ feature {ANY} -- Alignment
 			Result := gtk_entry_text_index_to_layout_index (handle, a_text_index)
 		end
 
-	set_completion (an_entry_completion: GTK_ENTRY_COMPLETION) is
+	set_completion (an_entry_completion: GTK_ENTRY_COMPLETION)
 			-- Sets completion to be the auxiliary completion object to
 			-- use with entry. All further configuration of the
 			-- completion mechanism is done on completion using the
@@ -292,7 +292,7 @@ feature {ANY} -- Alignment
 			gtk_entry_set_completion (handle, an_entry_completion.handle)
 		end
 
-	completion: GTK_ENTRY_COMPLETION is
+	completion: GTK_ENTRY_COMPLETION
 			-- the auxiliary completion object currently in use by entry.
 		do
 			create Result.from_external_pointer (gtk_entry_get_completion (handle))
@@ -403,18 +403,18 @@ feature {ANY} -- The "activate" signal
 
 	activate_signal_name: STRING is "activate"
 
-	on_activate is
+	on_activate
 			-- Built-in activate signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_activate is
+	enable_on_activate
 			-- Connects "activate" signal to `on_activate' feature.
 		do
 			connect (Current, activate_signal_name, $on_activate)
 		end
 
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ENTRY]]) is
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ENTRY]])
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -428,14 +428,14 @@ feature {ANY} -- The "backspace" signal
 
 	backspace_signal_name: STRING is "backspace"
 
-	on_backspace is
+	on_backspace
 			-- Built-in backspace signal handler; empty by design; redefine it.
 		local a_foo: INTEGER
 		do
 			a_foo := 12 -- Dummy instructions
 		end
 
-	enable_on_backspace is
+	enable_on_backspace
 			-- Connects "backspace" signal to `on_backspace' feature.
 		do
 			connect (Current, backspace_signal_name, $on_backspace)
@@ -449,12 +449,12 @@ feature {ANY} -- The "copy-clipboard" signal
 
 	copy_clipboard_signal_name: STRING is "copy-clipboard"
 
-	on_copy_clipboard is
+	on_copy_clipboard
 			-- Built-in copy-clipboard signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_copy_clipboard is
+	enable_on_copy_clipboard
 			-- Connects "copy_clipboard" signal to `on_copy_clipboard' feature.
 		do
 			connect (Current, copy_clipboard_signal_name, $on_copy_clipboard)
@@ -468,12 +468,12 @@ feature {ANY} -- The "cut-clipboard" signal
 
 	cut_clipboard_signal_name: STRING is "cut-clipboard"
 
-	on_cut_clipboard is
+	on_cut_clipboard
 			-- Built-in cut_clipboard signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_cut_clipboard is
+	enable_on_cut_clipboard
 			-- Connects "cut_clipboard" signal to `on_cut_clipboard' feature.
 		do
 			connect (Current, cut_clipboard_signal_name, $on_cut_clipboard)
@@ -522,12 +522,12 @@ feature {ANY} -- The "paste-clipboard" signal
 
 	paste_clipboard_signal_name: STRING is "paste-clipboard"
 
-	on_paste_clipboard is
+	on_paste_clipboard
 			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_paste_clipboard is
+	enable_on_paste_clipboard
 			-- Connects "paste-clipboard" signal to `on_paste_clipboard' feature.
 		do
 			connect (Current, paste_clipboard_signal_name, $on_paste_clipboard)
@@ -541,14 +541,14 @@ feature {ANY} -- The "populate-popup" signal
 
 	populate_popup_signal_name: STRING is "populate-popup"
 
-	on_populate_popup (a_menu: GTK_MENU) is
+	on_populate_popup (a_menu: GTK_MENU)
 			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
 		require
 			menu_not_void: a_menu /= Void
 		do
 		end
 
-	enable_on_populate_popup is
+	enable_on_populate_popup
 			-- Connects "paste-clipboard" signal to `on_populate_popup' feature.
 		do
 			connect (Current, populate_popup_signal_name, $hidden_on_populate_popup)
@@ -560,7 +560,7 @@ feature {ANY} -- The "populate-popup" signal
 
 feature {} -- populate-popup signal implementation
 
-	hidden_on_populate_popup (a_gtk_menu, a_gtk_entry: POINTER) is
+	hidden_on_populate_popup (a_gtk_menu, a_gtk_entry: POINTER)
 		require
 			menu_not_null: a_gtk_menu.is_not_null
 			entry_not_null: a_gtk_entry.is_not_null -- Otherwise very bad things are happening.
@@ -584,7 +584,7 @@ feature {ANY} -- The "toggle-overwrite" signal
 -- entry : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEntry)"
 		end

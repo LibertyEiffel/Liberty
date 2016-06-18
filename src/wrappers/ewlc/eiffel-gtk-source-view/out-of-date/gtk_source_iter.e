@@ -25,26 +25,26 @@ deferred class GTK_SOURCE_SEARCH
 	-- Features to search into a GtkSourceBuffer
 	
 feature {} --  Search flags (enum GtkSourceSearchFlags)
-	gtk_source_search_visible_only: INTEGER is
+	gtk_source_search_visible_only: INTEGER
 			-- GTK_SOURCE_SEARCH_VISIBLE_ONLY
 		external "C use <gtksourceview/gtksourceiter.h>"
 		alias "GTK_SOURCE_SEARCH_VISIBLE_ONLY"
 		end
         
-	gtk_source_search_text_only: INTEGER is
+	gtk_source_search_text_only: INTEGER
 			-- GTK_SOURCE_SEARCH_TEXT_ONLY
 		external "C use <gtksourceview/gtksourceiter.h>"
 		alias "GTK_SOURCE_SEARCH_TEXT_ONLY"
 		end
 
-	gtk_source_search_case_insensitive: INTEGER is
+	gtk_source_search_case_insensitive: INTEGER
 			-- GTK_SOURCE_SEARCH_CASE_INSENSITIVE
 		external "C use <gtksourceview/gtksourceiter.h>"
 		alias "GTK_SOURCE_SEARCH_CASE_INSENSITIVE"
 		end
        
 feature {ANY} -- Searching
-	backward_search (an_iter, a_limit: GTK_TEXT_ITER; a_string: STRING; some_flags: INTEGER): GTK_TEXT_SEARCH_RESULT is
+	backward_search (an_iter, a_limit: GTK_TEXT_ITER; a_string: STRING; some_flags: INTEGER): GTK_TEXT_SEARCH_RESULT
 			-- Search `a_string' backward, case insensitively, starting from
 			-- `an_iter', ending at `a_limit'. If `a_limit' is Void search is
 			-- extended till the the beginning of the buffer.
@@ -65,7 +65,7 @@ feature {ANY} -- Searching
 									null_or(a_limit)).to_boolean)
 		end
 	
-	forward_search  (an_iter, a_limit: GTK_TEXT_ITER; a_string: STRING; some_flags: INTEGER) is
+	forward_search  (an_iter, a_limit: GTK_TEXT_ITER; a_string: STRING; some_flags: INTEGER)
 			-- Searches forward for `a_string' starting from `an_iter'. Any match
 			-- is returned by setting match_start to the first character of the
 			-- match and match_end to the first character after the match. The
@@ -95,7 +95,7 @@ feature {ANY} -- Searching
 									null_or(a_limit)).to_boolean)
 		end
 
-	find_matching_bracket (an_iter: GTK_TEXT_ITER): BOOLEAN is
+	find_matching_bracket (an_iter: GTK_TEXT_ITER): BOOLEAN
 			-- Tries to match the bracket character currently at `an_iter' with its
 			-- opening/closing counterpart, and if found moves `an_iter' to the
 			-- position where it was found.
@@ -111,21 +111,21 @@ feature {ANY} -- Searching
 feature {} -- External calls
 	-- #include <gtksourceview/gtksourceiter.h>
 
-	gtk_source_iter_backward_search (an_iter, a_str: POINTER; some_flags: INTEGER; a_match_start, a_match_end, a_limit: POINTER): INTEGER is
+	gtk_source_iter_backward_search (an_iter, a_str: POINTER; some_flags: INTEGER; a_match_start, a_match_end, a_limit: POINTER): INTEGER
 			-- gboolean gtk_source_iter_backward_search (const GtkTextIter *iter,
 			-- const gchar *str, GtkSourceSearchFlags flags, GtkTextIter
 			-- *match_start, GtkTextIter *match_end, const GtkTextIter *limit);
 		external "C use <gtksourceview/gtksourceiter.h>"
 		end
 
-	gtk_source_iter_forward_search (an_iter, a_str: POINTER; some_flags: INTEGER; a_match_start, a_match_end, a_limit: POINTER): INTEGER is
+	gtk_source_iter_forward_search (an_iter, a_str: POINTER; some_flags: INTEGER; a_match_start, a_match_end, a_limit: POINTER): INTEGER
 			-- gboolean gtk_source_iter_forward_search (const GtkTextIter *iter,
 			-- const gchar *str, GtkSourceSearchFlags flags, GtkTextIter
 			-- *match_start, GtkTextIter *match_end, const GtkTextIter *limit);
 		external "C use <gtksourceview/gtksourceiter.h>"
 		end
 	
-	gtk_source_iter_find_matching_bracket (an_iter: POINTER): INTEGER is
+	gtk_source_iter_find_matching_bracket (an_iter: POINTER): INTEGER
 			-- 	gboolean gtk_source_iter_find_matching_bracket (GtkTextIter *iter);
 		external "C use <gtksourceview/gtksourceiter.h>"
 		end

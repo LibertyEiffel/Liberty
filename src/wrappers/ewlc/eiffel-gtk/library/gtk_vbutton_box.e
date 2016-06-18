@@ -45,20 +45,20 @@ inherit  GTK_BUTTON_BOX
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new vertical button box.
 		do
 			from_external_pointer(gtk_vbutton_box_new)
 		end
 
 feature {} -- External calls
-	gtk_vbutton_box_new: POINTER is
+	gtk_vbutton_box_new: POINTER
 			-- GtkWidget* gtk_vbutton_box_new (void);
 		external "C inline use <gtk/gtk.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVbuttonBox)"
 		end

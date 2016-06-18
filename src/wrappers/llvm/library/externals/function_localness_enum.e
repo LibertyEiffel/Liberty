@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = no_low_level)  or else
 				(a_value = unknown_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_no is
+	set_no
 		do
 			value := no_low_level
 		end
 
-	set_unknown is
+	set_unknown
 		do
 			value := unknown_low_level
 		end
 
-	set_yes is
+	set_yes
 		do
 			value := yes_low_level
 		end
 
 feature {ANY} -- Queries
-	is_no: BOOLEAN is
+	is_no: BOOLEAN
 		do
 			Result := (value=no_low_level)
 		end
 
-	is_unknown: BOOLEAN is
+	is_unknown: BOOLEAN
 		do
 			Result := (value=unknown_low_level)
 		end
 
-	is_yes: BOOLEAN is
+	is_yes: BOOLEAN
 		do
 			Result := (value=yes_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	no_low_level: INTEGER is
+	no_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown_low_level: INTEGER is
+	unknown_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	yes_low_level: INTEGER is
+	yes_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

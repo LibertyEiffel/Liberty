@@ -246,28 +246,28 @@ insert
 
 feature {ANY} -- Actions
 
-	set_open_action is
+	set_open_action
 			-- Set open mode. The file chooser will only let the user
 			-- pick an existing file.
 		do
 			gtk_file_chooser_set_action (handle,gtk_file_chooser_action_open)
 		end
 
-	set_save_action is
+	set_save_action
 			-- Set save mode. The file chooser will let the user pick an
 			-- existing file, or type in a new filename.
 		do
 			gtk_file_chooser_set_action (handle,gtk_file_chooser_action_save)
 		end
 
-	set_select_folder_action is
+	set_select_folder_action
 			-- Select open mode for selecting folders. The file chooser
 			-- will let the user pick an existing folder.
 		do
 			gtk_file_chooser_set_action (handle,gtk_file_chooser_action_select_folder)
 		end
 
-	set_create_folder_action is
+	set_create_folder_action
 			-- Select a mode to create a new folder. The file chooser
 			-- will let the user name an existing or new folder.
 		do
@@ -275,28 +275,28 @@ feature {ANY} -- Actions
 		end
 
 	-- GETTERS
-	is_action_open: BOOLEAN is
+	is_action_open: BOOLEAN
 			-- Set open mode. The file chooser will only let the user
 			-- pick an existing file.
 		do
 			Result := (gtk_file_chooser_get_action(handle)=gtk_file_chooser_action_open)
 		end
 
-	is_action_save: BOOLEAN is
+	is_action_save: BOOLEAN
 			-- Set save mode. The file chooser will let the user pick an
 			-- existing file, or type in a new filename.
 		do
 			Result := (gtk_file_chooser_get_action(handle)=gtk_file_chooser_action_save)
 		end
 
-	is_action_select_folder: BOOLEAN is
+	is_action_select_folder: BOOLEAN
 			-- Select open mode for selecting folders. The file chooser
 			-- will let the user pick an existing folder.
 		do
 			Result := (gtk_file_chooser_get_action(handle)=gtk_file_chooser_action_select_folder)
 		end
 
-	is_action_create_folder: BOOLEAN is
+	is_action_create_folder: BOOLEAN
 			-- Select a mode to create a new folder. The file chooser
 			-- will let the user name an existing or new folder.
 		do
@@ -304,7 +304,7 @@ feature {ANY} -- Actions
 		end
 	
 feature {ANY} -- Locality
-	set_local_only is
+	set_local_only
 			-- Makes only local files selectable in the file
 			-- selector. The selected file are files are guaranteed to be
 			-- accessible through the operating systems native file file
@@ -317,21 +317,21 @@ feature {ANY} -- Locality
 		ensure is_local_only
 		end
 
-	unset_local_only is
+	unset_local_only
 			-- Makes non-local files selectable in the file selector.
 		do
 			gtk_file_chooser_set_local_only (handle,0)
 		ensure not is_local_only
 		end
 
-	is_local_only: BOOLEAN is
+	is_local_only: BOOLEAN
 			-- Are only local files selectable in the file selector?. See `set_local_only'
 		do
 			Result:=(gtk_file_chooser_get_local_only (handle)).to_boolean
 		end
 	
 feature {ANY} -- Multiple selections
-	allow_multiple_selections is
+	allow_multiple_selections
 			-- Makes multiple files selectable in the file selector. This
 			-- is only relevant if `is_open_action' or
 			-- `is_save_action'. It cannot be set with either of the
@@ -343,35 +343,35 @@ feature {ANY} -- Multiple selections
 		ensure are_multiple_selection_allowed
 		end
 
-	forbid_multiple_selections is
+	forbid_multiple_selections
 			-- Makes multiple files not selectable in the file selector.
 		do
 			gtk_file_chooser_set_select_multiple (handle, 0)
 		ensure not are_multiple_selection_allowed
 		end
 
-	are_multiple_selection_allowed: BOOLEAN is
+	are_multiple_selection_allowed: BOOLEAN
 			-- Are multiple files can be selected in the file selector?
 		do
 			Result := (gtk_file_chooser_get_select_multiple(handle)).to_boolean
 		end
 
 feature {ANY} -- Hidden files handling
-	show_hidden is
+	show_hidden
 			-- Make hidden files and folders displayed in the file
 			-- selector.
 		do
 			gtk_file_chooser_set_show_hidden (handle,1)
 		end
 
-	hide_hidden is
+	hide_hidden
 			-- Make hidden files and folders not displayed in the file
 			-- selector.
 		do
 			gtk_file_chooser_set_show_hidden (handle,0)
 		end
 
-	are_hidden_shown: BOOLEAN is
+	are_hidden_shown: BOOLEAN
 			-- Are hidden files and folders displayed in the file
 			-- selector? See `GTK_FILE_CHOOSER.show_hidden'.
 		do
@@ -379,7 +379,7 @@ feature {ANY} -- Hidden files handling
 		end
 
 feature {ANY} -- Overwrite confirmation
-	set_overwrite_confirmation is
+	set_overwrite_confirmation
 			-- Makes a file chooser in GTK_FILE_CHOOSER_ACTION_SAVE mode
 			-- present a confirmation dialog if the user types a file
 			-- name that already exists.  Regardless of this setting, the
@@ -394,7 +394,7 @@ feature {ANY} -- Overwrite confirmation
 		ensure shall_overwrite_be_confirmed
 		end
 
-	unset_overwrite_confirmation is
+	unset_overwrite_confirmation
 			-- Makes a file chooser in GTK_FILE_CHOOSER_ACTION_SAVE mode
 			-- present a confirmation dialog if the user types a file
 			-- name that already exists.  Regardless of this setting, the
@@ -409,7 +409,7 @@ feature {ANY} -- Overwrite confirmation
 		ensure not shall_overwrite_be_confirmed
 		end
 	
-	shall_overwrite_be_confirmed: BOOLEAN is
+	shall_overwrite_be_confirmed: BOOLEAN
 			-- Is a file chooser set to confirm for overwriting when the
 			-- user types a file name that already exists? Note: this
 			-- query wraps C's
@@ -419,7 +419,7 @@ feature {ANY} -- Overwrite confirmation
 		end
 
 feature {ANY} -- Name, filenames and uris
-	filename: STRING is
+	filename: STRING
 			-- The filename for the currently selected file in the file
 			-- selector. If multiple files are selected, one of the
 			-- filenames will be returned at random. If the file chooser
@@ -437,7 +437,7 @@ feature {ANY} -- Name, filenames and uris
 			end
 		end
 
-	set_current_name (a_name: STRING) is
+	set_current_name (a_name: STRING)
 			-- Sets the current name in the file selector, as if entered
 			-- by the user. Note that the name passed in here is a UTF-8
 			-- string rather than a filename. This function is meant for
@@ -459,7 +459,7 @@ feature {ANY} -- Name, filenames and uris
 	is_last_action_successful: BOOLEAN
 			-- Returns : 	TRUE if both the folder could be changed and the file was selected successfully, FALSE otherwise.
 
-	set_filename (a_filename: STRING) is
+	set_filename (a_filename: STRING)
 			-- Sets filename as the current filename for the file
 			-- chooser, by changing to the file's parent folder and
 			-- actually selecting the file in list. If the chooser is in
@@ -499,7 +499,7 @@ feature {ANY} -- Name, filenames and uris
 			is_last_action_successful := (gtk_file_chooser_set_filename (handle, a_filename.to_external)).to_boolean
 		end
 
-	select_filename (a_filename: STRING) is
+	select_filename (a_filename: STRING)
 			-- Selects `a_filename'. If the file name isn't in the
 			-- current folder of chooser, then the current folder of
 			-- chooser will be changed to the folder containing filename.
@@ -512,7 +512,7 @@ feature {ANY} -- Name, filenames and uris
 			is_last_action_successful := (gtk_file_chooser_select_filename (handle, a_filename.to_external)).to_boolean
 		end
 
-	unselect_filename (a_filename: STRING) is
+	unselect_filename (a_filename: STRING)
 			-- Unselects a currently selected filename. If the `a_filename'
 			-- is not in the current directory, does not exist, or is
 			-- otherwise not currently selected, does nothing.
@@ -521,21 +521,21 @@ feature {ANY} -- Name, filenames and uris
 			gtk_file_chooser_unselect_filename (handle, a_filename.to_external)
 		end
 
-	select_all is
+	select_all
 			-- Selects all the files in the current folder of a file
 			-- chooser.
 		do
 			gtk_file_chooser_select_all (handle)
 		end
 
-	unselect_all is
+	unselect_all
 			-- Unselects all the files in the current folder of a file
 			-- chooser.
 		do
 			gtk_file_chooser_unselect_all (handle)
 		end
 
-	filenames: G_SLIST_STRING is
+	filenames: G_SLIST_STRING
 			-- all the selected files and subfolders in the current
 			-- folder of chooser. The names are full absolute paths. If
 			-- files in the current folder cannot be represented as local
@@ -548,7 +548,7 @@ feature {ANY} -- Name, filenames and uris
 			-- with g_free().
 		end
 
-	set_current_folder (a_folder_name: STRING) is
+	set_current_folder (a_folder_name: STRING)
 			-- Sets the current folder for chooser from a local
 			-- filename. The user will be shown the full contents of the
 			-- current folder, plus user interface elements for
@@ -564,7 +564,7 @@ feature {ANY} -- Name, filenames and uris
 													a_folder_name.to_external)).to_boolean
 		end
 
-	current_folder: STRING is
+	current_folder: STRING
 			-- the current folder of chooser as a local filename. See
 			-- `set_current_folder'. Void if the current path cannot be
 			-- represented as a local filename
@@ -580,7 +580,7 @@ feature {ANY} -- Name, filenames and uris
 			end
 		end
 
-	uri: STRING is
+	uri: STRING
 			-- the URI for the currently selected file in the file
 			-- selector. If multiple files are selected, one of the
 			-- filenames will be returned at random. If the file chooser
@@ -595,7 +595,7 @@ feature {ANY} -- Name, filenames and uris
 			end
 		end
 
-	set_uri (an_uri: STRING) is
+	set_uri (an_uri: STRING)
 			-- Sets the file referred to by `an_uri' as the current file
 			-- for the file chooser, by changing to the URI's parent
 			-- folder and actually selecting the URI in the list. If the
@@ -633,7 +633,7 @@ feature {ANY} -- Name, filenames and uris
 			is_last_action_successful := (gtk_file_chooser_set_uri (handle,an_uri.to_external)).to_boolean
 		end
 
-	select_uri (an_uri: STRING) is
+	select_uri (an_uri: STRING)
 			-- Selects the file to by `an_uri'. If `an_uri' doesn't refer
 			-- to a file in the current folder of chooser, then the
 			-- current folder of chooser will be changed to the folder
@@ -647,7 +647,7 @@ feature {ANY} -- Name, filenames and uris
 			is_last_action_successful:=(gtk_file_chooser_select_uri(handle,an_uri.to_external)).to_boolean
 		end
 
-	unselect_uri (an_uri: STRING) is
+	unselect_uri (an_uri: STRING)
 			-- Unselects the file referred to by `an_uri'. If the file is
 			-- not in the current directory, does not exist, or is
 			-- otherwise not currently selected, does nothing.
@@ -656,7 +656,7 @@ feature {ANY} -- Name, filenames and uris
 			gtk_file_chooser_unselect_uri (handle, an_uri.to_external)
 		end
 
-	uris: G_SLIST_STRING is
+	uris: G_SLIST_STRING
 			-- selected files and subfolders in the current folder of
 			-- chooser. The names are full absolute URIs.
 		do
@@ -664,7 +664,7 @@ feature {ANY} -- Name, filenames and uris
 		ensure uri_not_void: Result/=Void
 		end
 
-	set_current_folder_uri (an_uri: STRING) is
+	set_current_folder_uri (an_uri: STRING)
 			-- Sets the current folder for chooser from `an_uri'. The user
 			-- will be shown the full contents of the current folder, plus
 			-- user interface elements for navigating to other folders.
@@ -677,7 +677,7 @@ feature {ANY} -- Name, filenames and uris
 			is_last_action_successful:=(gtk_file_chooser_set_current_folder_uri (handle, an_uri.to_external)).to_boolean
 		end
 
-	get_current_folder_uri: STRING is
+	get_current_folder_uri: STRING
 			-- the current folder of chooser as an
 			-- URI. `set_current_folder_uri'. Can be Void if the file
 			-- chooser was unable to load the last folder that was
@@ -693,7 +693,7 @@ feature {ANY} -- Name, filenames and uris
 		end
 
 feature {ANY} -- Preview
-	set_preview_widget (a_widget: GTK_WIDGET) is
+	set_preview_widget (a_widget: GTK_WIDGET)
 			-- Sets an application-supplied widget to use to display a
 			-- custom preview of the currently selected file. To
 			-- implement a preview, after setting the preview widget, you
@@ -713,21 +713,21 @@ feature {ANY} -- Preview
 			gtk_file_chooser_set_preview_widget (handle, a_widget.handle)
 		end
 
-	preview_widget: GTK_WIDGET is
+	preview_widget: GTK_WIDGET
 			-- the current preview widget; can be Void; see `set_preview_widget'.
 		local factory: G_OBJECT_FACTORY [GTK_WIDGET]
 		do
 			Result := factory.wrapper_or_void (gtk_file_chooser_get_preview_widget(handle))
 		end
 
-	set_preview_widget_active is
+	set_preview_widget_active
 			-- Show the preview widget set by `set_preview_widget'. See
 			-- `set_preview_widget' for more details.
 		do
 			gtk_file_chooser_set_preview_widget_active (handle,1)
 		end
 
-	set_preview_widget_inactive is
+	set_preview_widget_inactive
 			-- Hide the preview widget set by `set_preview_widget'. The
 			-- file chooser may display an internally generated preview
 			-- of the current file or it may display no preview at
@@ -736,14 +736,14 @@ feature {ANY} -- Preview
 			gtk_file_chooser_set_preview_widget_active (handle,1)
 		end
 
-	is_preview_widget_active: BOOLEAN is
+	is_preview_widget_active: BOOLEAN
 			-- Is the preview widget set by `set_preview_widget' shown
 			-- for the current filename. See `set_preview_widget_active'.
 		do
 			Result:=(gtk_file_chooser_get_preview_widget_active(handle)).to_boolean
 		end
 
-	use_preview_label is
+	use_preview_label
 			-- Makes the file chooser display a stock label with the name
 			-- of the file that is being previewed; the default is
 			-- True. Applications that want to draw the whole preview
@@ -756,7 +756,7 @@ feature {ANY} -- Preview
 		ensure is_preview_label_used
 		end
 	
-	use_no_preview_label is
+	use_no_preview_label
 			-- Remove from the file chooser the stock label with the name
 			-- of the file that is being previewed; applications that want to draw the whole preview
 			-- area themselves should call this feature and display the
@@ -768,14 +768,14 @@ feature {ANY} -- Preview
 		ensure not is_preview_label_used
 		end
 	
-	is_preview_label_used: BOOLEAN is
+	is_preview_label_used: BOOLEAN
 			-- Is a stock label drawn with the name of the previewed
 			-- file? See `use_preview_label'.
 		do
 			Result:=gtk_file_chooser_get_use_preview_label(handle).to_boolean
 		end
 
-	preview_filename: STRING is
+	preview_filename: STRING
 			-- the filename that should be previewed in a custom preview
 			-- widget. See `set_preview_widget'. Can be Void if no file
 			-- is selected, or if the selected file cannot be represented
@@ -789,7 +789,7 @@ feature {ANY} -- Preview
 			end
 		end
 
-	preview_uri: STRING is
+	preview_uri: STRING
 			-- the URI that should be previewed in a custom preview
 			-- widget. See `set_preview_widget'. Can be Void if no file
 			-- is selected.
@@ -804,7 +804,7 @@ feature {ANY} -- Preview
 		end
 
 feature {ANY} -- Extra widget
-	set_extra_widget (a_widget: GTK_WIDGET) is
+	set_extra_widget (a_widget: GTK_WIDGET)
 			-- Sets an application-supplied widget to provide extra
 			-- options to the user.
 		require valid_widget: a_widget/=Void
@@ -812,7 +812,7 @@ feature {ANY} -- Extra widget
 			gtk_file_chooser_set_extra_widget (handle, a_widget.handle)
 		end
 
-	extra_widget: GTK_WIDGET is
+	extra_widget: GTK_WIDGET
 			-- the current preview widget; see `set_extra_widget'. Can be Void
 		local widget_ptr: POINTER
 		do
@@ -825,7 +825,7 @@ feature {ANY} -- Extra widget
 		end
 
 feature {ANY} -- Filters
-	add_filter (a_filter: GTK_FILE_FILTER) is
+	add_filter (a_filter: GTK_FILE_FILTER)
 			-- Adds `a_filter' to the list of filters that the user can
 			-- select between. When a filter is selected, only files that
 			-- are passed by that filter are displayed.
@@ -838,7 +838,7 @@ feature {ANY} -- Filters
 			gtk_file_chooser_add_filter (handle, a_filter.handle)
 		end
 
-	remove_filter (a_filter: GTK_FILE_FILTER) is
+	remove_filter (a_filter: GTK_FILE_FILTER)
 			-- Removes `a_filter' from the list of filters that the user
 			-- can select between.
 		require valid_filter: a_filter /= Void
@@ -846,14 +846,14 @@ feature {ANY} -- Filters
 			gtk_file_chooser_remove_filter  (handle, a_filter.handle)
 		end
 
-	filters: G_SLIST [GTK_FILE_FILTER] is
+	filters: G_SLIST [GTK_FILE_FILTER]
 			-- The current set of user-selectable filters; see `add_filter', `remove_filter'.		
 		do
 			create {G_OBJECT_SLIST [GTK_FILE_FILTER]} 
 			Result.from_external_pointer (gtk_file_chooser_list_filters (handle))
 		end
 
-	set_filter  (a_filter: GTK_FILE_FILTER) is
+	set_filter  (a_filter: GTK_FILE_FILTER)
 			-- Sets the current filter; only the files that pass the
 			-- filter will be displayed. If the user-selectable list of
 			-- filters is non-empty, then the filter should be one of the
@@ -873,7 +873,7 @@ feature {ANY} -- Filters
 		end
 
 
-	filter: GTK_FILE_FILTER is
+	filter: GTK_FILE_FILTER
 			-- The current filter; can be Void
 		local filter_ptr: POINTER
 		do
@@ -884,7 +884,7 @@ feature {ANY} -- Filters
 		end
 
 feature {ANY} -- Shortcuts folders
-	add_shortcut_folder (a_folder: STRING) is
+	add_shortcut_folder (a_folder: STRING)
 			-- Adds a folder to be displayed with the shortcut folders in
 			-- a file chooser. Note that shortcut folders do not get
 			-- saved, as they are provided by the application. For
@@ -910,7 +910,7 @@ feature {ANY} -- Shortcuts folders
 																									).to_boolean
 		end
 
-	remove_shortcut_folder (a_folder: STRING) is
+	remove_shortcut_folder (a_folder: STRING)
 			-- Removes `a_folder' from a file chooser's list of shortcut
 			-- folders.
 			
@@ -926,7 +926,7 @@ feature {ANY} -- Shortcuts folders
 																										 ).to_boolean
 		end
 
-	shortcut_folders: G_SLIST_STRING is
+	shortcut_folders: G_SLIST_STRING
 			-- The list of shortcut folders in the file chooser, as set
 			-- by `add_shortcut_folder'.
 
@@ -945,7 +945,7 @@ feature {ANY} -- Shortcuts folders
 			end
 		end
 
-	add_shortcut_folder_uri (an_uri: STRING) is
+	add_shortcut_folder_uri (an_uri: STRING)
 			-- Adds a folder URI to be displayed with the shortcut
 			-- folders in a file chooser. Note that shortcut folders do
 			-- not get saved, as they are provided by the
@@ -965,7 +965,7 @@ feature {ANY} -- Shortcuts folders
 													  ).to_boolean )
 		end
 
-	remove_shortcut_folder_uri  (an_uri: STRING) is
+	remove_shortcut_folder_uri  (an_uri: STRING)
 			-- Removes a folder URI from a file chooser's list of
 			-- shortcut folders.
 		require valid_uri: an_uri /= Void
@@ -976,7 +976,7 @@ feature {ANY} -- Shortcuts folders
 													  ).to_boolean )
 		end
 
-	shortcut_folder_uris: G_SLIST_STRING is
+	shortcut_folder_uris: G_SLIST_STRING
 			--  The list of shortcut folders in the file chooser, as set by `add_shortcut_folder_uri'.
 		local a_gslist: POINTER
 		do
@@ -1141,17 +1141,17 @@ feature {ANY} -- The "file-activated" signal
 		-- void        user_function                  (GtkFileChooser *chooser,
 		--                                             gpointer user_data);
 
-	enable_on_file_activated is
+	enable_on_file_activated
 			-- Connects "file-activated" signal to `on_file_activated' feature.
 		do
 			connect (Current, file_activated_signal_name, $on_file_activated)
 		end
 
-	on_file_activated is
+	on_file_activated
 		do
 		end
 
-	connect_agent_to_file_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+	connect_agent_to_file_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]])
 			-- chooser : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void
@@ -1181,17 +1181,17 @@ feature {ANY} -- The "selection-changed" signal
 
 	selection_changed_signal_name: STRING is "selection-changed"
 
-	enable_on_selection_changed is
+	enable_on_selection_changed
 			-- Connects "selection-changed" signal to `on_selection_changed' feature.
 		do
 			connect (Current, selection_changed_signal_name, $on_selection_changed)
 		end
 
-	on_selection_changed is
+	on_selection_changed
 		do
 		end
 
-	connect_agent_to_selection_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+	connect_agent_to_selection_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]])
 			-- chooser : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void
@@ -1228,17 +1228,17 @@ feature {ANY} -- The "update-preview" signal
 	update_preview_signal_name: STRING is "update-preview"
 		-- void user_function (GtkFileChooser *chooser, gpointer user_data);
 
-	enable_on_update_preview is
+	enable_on_update_preview
 			-- Connects "update-preview" signal to `on_update_preview' feature.
 		do
 			connect (Current, update_preview_signal_name, $on_update_preview)
 		end
 
-	on_update_preview is
+	on_update_preview
 		do
 		end
 
-	connect_agent_to_update_preview_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+	connect_agent_to_update_preview_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]])
 			-- chooser: the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void

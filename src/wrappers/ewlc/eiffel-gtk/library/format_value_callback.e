@@ -36,7 +36,7 @@ feature {ANY}
 	object: GTK_SCALE
 
 feature {ANY}
-	callback (value: REAL; instance: POINTER): POINTER is
+	callback (value: REAL; instance: POINTER): POINTER
 		require
 			instance_not_null: instance.is_not_null
 		do
@@ -49,14 +49,14 @@ feature {ANY}
 			Result := g_strdup (function.item ([value, object]).to_external)
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_SCALE; a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING]) is
+	connect (an_object: GTK_SCALE; a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING])
 		do
 			debug
 				print ("FORMAT_VALUE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

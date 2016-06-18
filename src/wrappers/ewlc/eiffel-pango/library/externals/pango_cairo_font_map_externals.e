@@ -27,23 +27,23 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	pango_cairo_font_map_new: POINTER is
+	pango_cairo_font_map_new: POINTER
 		external "C use <pango/pangocairo.h>"
 		end
 
-	pango_cairo_font_map_get_default: POINTER is
+	pango_cairo_font_map_get_default: POINTER
 		external "C use <pango/pangocairo.h>"
 		end
 
-	pango_cairo_font_map_set_resolution (a_handle: POINTER; a_dpi: REAL) is
+	pango_cairo_font_map_set_resolution (a_handle: POINTER; a_dpi: REAL)
 		external "C use <pango/pangocairo.h>"
 		end
 
-	pango_cairo_font_map_get_resolution (a_handle: POINTER): REAL is
+	pango_cairo_font_map_get_resolution (a_handle: POINTER): REAL
 		external "C use <pango/pangocairo.h>"
 		end
 
-	pango_cairo_font_map_create_context (a_handle: POINTER): POINTER is
+	pango_cairo_font_map_create_context (a_handle: POINTER): POINTER
 		external "C use <pango/pangocairo.h>"
 		end
 

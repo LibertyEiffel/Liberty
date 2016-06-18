@@ -25,82 +25,82 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	gtk_scroll_none: INTEGER is
+	gtk_scroll_none: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_NONE"
 		end
 
-	gtk_scroll_jump: INTEGER is
+	gtk_scroll_jump: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_JUMP"
 		end
 
-	gtk_scroll_step_backward: INTEGER is
+	gtk_scroll_step_backward: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_STEP_BACKWARD"
 		end
 
-	gtk_scroll_step_forward: INTEGER is
+	gtk_scroll_step_forward: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_STEP_FORWARD"
 		end
 
-	gtk_scroll_page_backward: INTEGER is
+	gtk_scroll_page_backward: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_PAGE_BACKWARD"
 		end
 
-	gtk_scroll_page_forward: INTEGER is
+	gtk_scroll_page_forward: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_PAGE_FORWARD"
 		end
 
-	gtk_scroll_step_up: INTEGER is
+	gtk_scroll_step_up: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_STEP_UP"
 		end
 
-	gtk_scroll_step_down: INTEGER is
+	gtk_scroll_step_down: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_STEP_DOWN"
 		end
 
-	gtk_scroll_page_up: INTEGER is
+	gtk_scroll_page_up: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_PAGE_UP"
 		end
 
-	gtk_scroll_page_down: INTEGER is
+	gtk_scroll_page_down: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_PAGE_DOWN"
 		end
 
-	gtk_scroll_step_left: INTEGER is
+	gtk_scroll_step_left: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_STEP_LEFT"
 		end
 
-	gtk_scroll_step_right: INTEGER is
+	gtk_scroll_step_right: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_STEP_RIGHT"
 		end
 
-	gtk_scroll_page_left: INTEGER is
+	gtk_scroll_page_left: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_PAGE_LEFT"
 		end
 
-	gtk_scroll_page_right: INTEGER is
+	gtk_scroll_page_right: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_PAGE_RIGHT"
 		end
 
-	gtk_scroll_start: INTEGER is
+	gtk_scroll_start: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_START"
 		end
 
-	gtk_scroll_end: INTEGER is
+	gtk_scroll_end: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SCROLL_END"
 		end

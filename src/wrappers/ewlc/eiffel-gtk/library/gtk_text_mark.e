@@ -52,7 +52,7 @@ create {ANY} from_external_pointer
 
 feature {ANY}
 
-	set_visible is
+	set_visible
 			-- Makes the mark visible; the insertion point is normally
 			-- visible, i.e. you can see it as a vertical bar. Also, the
 			-- text widget uses a visible mark to indicate where a drop
@@ -63,20 +63,20 @@ feature {ANY}
 		ensure visible: is_visible
 		end
 
-	set_invisible is
+	set_invisible
 			-- Makes the mark invisible; see also `set_visible'
 		do
 			gtk_text_mark_set_visible (handle, 0)
 		ensure invisible: not is_visible
 		end
 
-	is_visible: BOOLEAN is
+	is_visible: BOOLEAN
 			-- Is the mark visible ? (i.e. a cursor is displayed for it)
 		do
 			Result := (gtk_text_mark_get_visible (handle).to_boolean)
 		end
 
-	is_deleted: BOOLEAN is
+	is_deleted: BOOLEAN
 			-- Has the mark been removed from its buffer with
 			-- `GTK_TEXT_BUFFER.delete_mark'?. Marks can't be used once
 			-- deleted.
@@ -84,7 +84,7 @@ feature {ANY}
 			Result := (gtk_text_mark_get_deleted (handle).to_boolean)
 		end
 
-	name: STRING is
+	name: STRING
 			-- the mark name; Void for anonymous marks.
 		local ptr: POINTER
 		do
@@ -94,7 +94,7 @@ feature {ANY}
 			end
 		end
 
-	buffer: GTK_TEXT_BUFFER is
+	buffer: GTK_TEXT_BUFFER
 			-- the buffer this mark is located inside, or Void if the
 			-- mark is deleted.
 		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_TEXT_BUFFER]
@@ -102,7 +102,7 @@ feature {ANY}
 			Result := factory.wrapper_or_void (gtk_text_mark_get_buffer (handle))
 		end
 
-	has_left_gravity: BOOLEAN is
+	has_left_gravity: BOOLEAN
 			-- Does the mark have left gravity? "left" and "right" here
 			-- refer to logical direction (left is the toward the start
 			-- of the buffer); in some languages such as Hebrew the
@@ -113,13 +113,13 @@ feature {ANY}
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextMark)"
 		end
 
 feature {} -- External features
-	gtk_text_mark_set_visible (a_mark: POINTER; a_gboolean_setting: INTEGER) is
+	gtk_text_mark_set_visible (a_mark: POINTER; a_gboolean_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	

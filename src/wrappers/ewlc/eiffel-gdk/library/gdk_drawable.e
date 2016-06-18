@@ -43,7 +43,7 @@ inherit G_OBJECT
 insert GDK_DRAWABLE_EXTERNALS
 
 feature {ANY}
-	context: CAIRO_CONTEXT is
+	context: CAIRO_CONTEXT
     	-- A (newly allocated) context for drawing to drawable. 
 	do
     	create Result.from_external_pointer (handle)
@@ -91,7 +91,7 @@ feature {ANY}
 	-- drawable : 	a GdkDrawable
 	-- Returns : 	the colormap, or NULL
 
-	depth: INTEGER is
+	depth: INTEGER
 			-- the bit depth of the drawable, that is, the number of bits
 			-- that make up a pixel in the drawable's visual. Examples
 			-- are 8 bits per pixel, 24 bits per pixel, etc.
@@ -99,7 +99,7 @@ feature {ANY}
 			Result := gdk_drawable_get_depth (handle)
 		end
 
-	dimensions: TUPLE [INTEGER, INTEGER] is
+	dimensions: TUPLE [INTEGER, INTEGER]
 			-- width and height with the size of drawable. On the X11
 			-- platform, if drawable is a GdkWindow, the returned size is
 			-- the size reported in the most-recently-processed configure
@@ -111,7 +111,7 @@ feature {ANY}
 		ensure not_void: Result /= Void
 		end
 
-	width: INTEGER is
+	width: INTEGER
 			-- width of the drawable. On the X11 platform, if drawable is
 			-- a GdkWindow, the returned size is the size reported in the
 			-- most-recently-processed configure event, rather than the
@@ -120,7 +120,7 @@ feature {ANY}
 			gdk_drawable_get_size (handle, $Result, default_pointer)
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- height of the drawable. On the X11 platform, if drawable is
 			-- a GdkWindow, the returned size is the size reported in the
 			-- most-recently-processed configure event, rather than the
@@ -129,7 +129,7 @@ feature {ANY}
 			gdk_drawable_get_size (handle, default_pointer, $Result)
 		end
 
-	clip_region: GDK_REGION is
+	clip_region: GDK_REGION
 			-- the region of a drawable that potentially can be written
 			-- to by drawing primitives. This region will not take into
 			-- account the clip region for the GC, and may also not take
@@ -140,7 +140,7 @@ feature {ANY}
 			create Result.from_external_pointer (gdk_drawable_get_clip_region (handle))
 		end
 
-	visible_region: GDK_REGION is
+	visible_region: GDK_REGION
 			-- the region of a drawable that is potentially visible. This
 			-- does not necessarily take into account if the window is
 			-- obscured by other windows, but no area outside of this
@@ -149,7 +149,7 @@ feature {ANY}
 			create Result.from_external_pointer (gdk_drawable_get_visible_region (handle))
 		end
 	
-	draw_point (a_gc: GDK_GC; an_x, an_y: INTEGER) is
+	draw_point (a_gc: GDK_GC; an_x, an_y: INTEGER)
 			-- Draws a point, using the foreground color and other
 			-- attributes of the GDK_GC.
 		do
@@ -170,7 +170,7 @@ feature {ANY}
 	-- points : 	an array of GdkPoint structures.
 	-- npoints : 	the number of points to be drawn.
 
-	draw_line (a_gc: GDK_GC; x1, y1, x2, y2: INTEGER) is
+	draw_line (a_gc: GDK_GC; x1, y1, x2, y2: INTEGER)
 			-- Draws a line, using the foreground color and other attributes
 			-- of the GdkGC.
 		do
@@ -254,7 +254,7 @@ feature {ANY}
 	-- gint y2; 	the y coordinate of the end point.
 	-- gdk_draw_rectangle ()
 
-	draw_rectangle (a_gc: GDK_GC; filled: BOOLEAN; an_x, an_y, a_width, a_height: INTEGER) is
+	draw_rectangle (a_gc: GDK_GC; filled: BOOLEAN; an_x, an_y, a_width, a_height: INTEGER)
 			-- Draws a rectangular outline or filled rectangle, using the
 			-- foreground color and other attributes of the GdkGC.
 			--
@@ -270,7 +270,7 @@ feature {ANY}
 		end
 
 	draw_arc (a_gc: GDK_GC; a_filled: BOOLEAN; an_x, an_y,
-							 a_width, a_height, angle1, angle2: INTEGER) is
+							 a_width, a_height, angle1, angle2: INTEGER)
 			-- Draws an arc or a filled 'pie slice'. The arc is defined by
 			-- the bounding rectangle of the entire ellipse, and the start
 			-- and end angles of the part of the ellipse to be drawn.
@@ -415,7 +415,7 @@ feature {ANY}
 	-- background : 	background override color, or NULL for none
 
 
-	draw_layout (a_gc: GDK_GC; an_x, an_y: INTEGER; a_layout: PANGO_LAYOUT) is
+	draw_layout (a_gc: GDK_GC; an_x, an_y: INTEGER; a_layout: PANGO_LAYOUT)
 			-- Render a PangoLayout onto a GDK drawable
 			--
 			-- If the layout's PANGO_CONTEXT has a transformation matrix set,
@@ -432,7 +432,7 @@ feature {ANY}
 		end
 
 	draw_layout_with_colors (a_gc: GDK_GC; an_x, an_y: INTEGER;
-				a_layout: PANGO_LAYOUT; a_foreground, a_background: GDK_COLOR) is
+				a_layout: PANGO_LAYOUT; a_foreground, a_background: GDK_COLOR)
 			-- Render a PANGO_LAYOUT onto a GDK_DRAWABLE, overriding the
 			-- layout's normal colors with a_foreground and/or a_background.
 			-- a_foreground and a_background need not be allocated.
@@ -456,7 +456,7 @@ feature {ANY}
 		end
 
 	draw_drawable (a_gc: GDK_GC; a_drawable: GDK_DRAWABLE; xsrc, ysrc, xdest,
-					ydest, a_width, a_height: INTEGER) is
+					ydest, a_width, a_height: INTEGER)
 			-- Copies the <width x height> region of a_drawable at coordinates
 			-- (xsrc, ysrc) to coordinates (xdest, ydest) in Current.
 			-- a_width and/or a_height may be given as -1, in which case the

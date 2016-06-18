@@ -5,7 +5,7 @@ inherit LLVM_TERMINATOR_INST
 insert CORE_EXTERNALS
 create {LLVM_BUILDER} from_external_pointer
 feature {ANY} 
-	add_case (a_value: LLVM_VALUE; a_destionation: LLVM_BASIC_BLOCK) is
+	add_case (a_value: LLVM_VALUE; a_destionation: LLVM_BASIC_BLOCK)
 		-- Add to Current the case for `a_value' that will execute `a_destionation'
 	require 
 		a_value/=Void

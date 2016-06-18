@@ -8,27 +8,27 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_referer_replace_refs (an_iface: POINTER; a_replacements: POINTER) is
+	gda_referer_replace_refs (an_iface: POINTER; a_replacements: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_referer_get_ref_objects (an_iface: POINTER): POINTER is
+	gda_referer_get_ref_objects (an_iface: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_referer_is_active (an_iface: POINTER): INTEGER_32 is
+	gda_referer_is_active (an_iface: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_referer_deactivate (an_iface: POINTER) is
+	gda_referer_deactivate (an_iface: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_referer_activate (an_iface: POINTER): INTEGER_32 is
+	gda_referer_activate (an_iface: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_referer_get_type: INTEGER_32 is
+	gda_referer_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

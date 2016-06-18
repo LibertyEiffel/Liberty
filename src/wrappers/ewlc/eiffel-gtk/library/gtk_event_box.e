@@ -35,13 +35,13 @@ create {ANY} make, from_external_pointer
 
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEventBox)"
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkEventBox.
 		do
 			from_external_pointer (gtk_event_box_new)
@@ -49,7 +49,7 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	set_above_child(above: BOOLEAN) is
+	set_above_child(above: BOOLEAN)
 			-- Set whether the event box window is positioned above the
 			-- windows of its child, as opposed to below it. If the
 			-- window is above, all events inside the event box will
@@ -62,14 +62,14 @@ feature {ANY} -- Operations
 			gtk_event_box_set_above_child(handle, above.to_integer)
 		end
 
-	above_child: BOOLEAN is
+	above_child: BOOLEAN
 			-- Returns whether the event box window is above or below
 			-- the windows of its child. See set_above_child() for details.
 		do
 			Result := gtk_event_box_get_above_child (handle).to_boolean
 		end
 
-	set_visible_window (a_visible: BOOLEAN) is
+	set_visible_window (a_visible: BOOLEAN)
 			-- Set whether the event box uses a visible or invisible child
 			-- window. The default is to use visible windows.
 			--
@@ -107,7 +107,7 @@ feature {ANY} -- Operations
 			gtk_event_box_set_visible_window(handle, a_visible.to_integer)
 		end
 
-		visible_window: BOOLEAN is
+		visible_window: BOOLEAN
 				-- Returns whether the event box has a visible window.
 				-- See set_visible_window() for details.
 			do

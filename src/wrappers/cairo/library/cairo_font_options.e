@@ -44,7 +44,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Create a new font options object with all options initialized to
 			-- default values.
 		do
@@ -58,7 +58,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Disposing
-	dispose is
+	dispose
 			-- Destroys a cairo_font_options_t
 		do
 			if not is_shared then 
@@ -69,7 +69,7 @@ feature {ANY} -- Disposing
 
 feature {ANY} -- Access
 
-	status: INTEGER is
+	status: INTEGER
 			-- The status of this font options object 
 		do
 			Result := cairo_font_options_status(handle)
@@ -77,7 +77,7 @@ feature {ANY} -- Access
 							(Result = cairo_status_no_memory))
 		end
 
-	hash: INTEGER_64 is
+	hash: INTEGER_64
 			-- An hash for the font options object; this value will be useful when
 			--   storing an object containing a cairo_font_options_t in a hash table.
 			-- Note: the hash value for the font options object is a
@@ -87,14 +87,14 @@ feature {ANY} -- Access
 			Result := cairo_font_options_hash (handle)
 		end
 
-	subpixel_order: INTEGER is
+	subpixel_order: INTEGER
 			-- the subpixel order for the font options object. See the
 			-- documentation for `CAIRO_SUBPIXEL_ORDER' for full details.
 		do
 			Result := cairo_font_options_get_subpixel_order (handle)
 		end
 
-	antialias: INTEGER is
+	antialias: INTEGER
 			-- the antialising mode for the font options object.
 		require
 			valid_antialias: is_valid_antialias_type (Result)
@@ -102,7 +102,7 @@ feature {ANY} -- Access
 			Result := cairo_font_options_get_antialias (handle)
 		end
 
-	hint_style: INTEGER is
+	hint_style: INTEGER
 			-- the hint style for font outlines for the font options
 			-- object. See `CAIRO_HINT_STYLE' for full details.
 		do
@@ -110,7 +110,7 @@ feature {ANY} -- Access
 		ensure is_valid_hint_style: is_valid_hint_style (Result)
 		end
 
-	hint_metrics: INTEGER is
+	hint_metrics: INTEGER
 			-- the metrics hinting mode for the font options object. See
 			-- `CAIRO_HINT_METRICS' for full details.
 		do
@@ -119,7 +119,7 @@ feature {ANY} -- Access
 
 feature {ANY} -- Comparison
 
-	copy (another: like Current) is
+	copy (another: like Current)
 			-- Allocates a new font options object copying the option values from
 			-- `another'.
 		do
@@ -132,7 +132,7 @@ feature {ANY} -- Comparison
 			-- cairo_font_options_status().
 		end
 
-	is_equal (another: like Current): BOOLEAN is
+	is_equal (another: like Current): BOOLEAN
 			-- Do all fields of the two font options objects match?
 		do
 			Result := (cairo_font_options_equal (handle, another.handle).to_boolean)
@@ -140,7 +140,7 @@ feature {ANY} -- Comparison
 
 feature {ANY} -- Operations
 
-	merge (another: CAIRO_FONT_OPTIONS) is
+	merge (another: CAIRO_FONT_OPTIONS)
 			-- Merges non-default options from other into options,
 			-- replacing existing values. This operation can be thought
 			-- of as somewhat similar to compositing other onto options
@@ -150,7 +150,7 @@ feature {ANY} -- Operations
 			cairo_font_options_merge (handle,another.handle)
 		end
 
-	set_antialias (an_antialias: INTEGER) is
+	set_antialias (an_antialias: INTEGER)
 			-- Sets the antiliasing mode for the font options
 			-- object. This specifies the type of antialiasing to do when
 			-- rendering text.
@@ -159,7 +159,7 @@ feature {ANY} -- Operations
 			cairo_font_options_set_antialias (handle,an_antialias)
 		end
 
-	set_subpixel_order (a_subpixel_order: INTEGER) is
+	set_subpixel_order (a_subpixel_order: INTEGER)
 			-- Sets the subpixel order for the font options object. The
 			-- subpixel order specifies the order of color elements
 			-- within each pixel on the display device when rendering
@@ -171,7 +171,7 @@ feature {ANY} -- Operations
 			cairo_font_options_set_subpixel_order (handle, a_subpixel_order)
 		end
 
-	set_hint_style (a_style: INTEGER) is
+	set_hint_style (a_style: INTEGER)
 			-- Sets the hint style for font outlines for the font options
 			-- object. This controls whether to fit font outlines to the
 			-- pixel grid, and if so, whether to optimize for fidelity or
@@ -181,7 +181,7 @@ feature {ANY} -- Operations
 			cairo_font_options_set_hint_style (handle, a_style)
 		end
 
-	set_hint_metrics (a_metrics: INTEGER) is
+	set_hint_metrics (a_metrics: INTEGER)
 			-- Sets the metrics hinting mode for the font options
 			-- object. This controls whether metrics are quantized to
 			-- integer values in device units. See `CAIRO_HINT_METRICS'

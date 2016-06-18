@@ -10,17 +10,17 @@ create {ANY}
 
 feature {ANY}
 
-	on_delete_event (a_gtk_object: GTK_OBJECT) is
+	on_delete_event (a_gtk_object: GTK_OBJECT)
 		do
 			gtk.quit
 		end
 
-	motion_notified (an_event_motion: GDK_EVENT_MOTION; a_widget: GTK_WIDGET): BOOLEAN is
+	motion_notified (an_event_motion: GDK_EVENT_MOTION; a_widget: GTK_WIDGET): BOOLEAN
 		do
 			print ("(" + an_event_motion.x.to_string + ", " + an_event_motion.y.to_string + ")%N")
 		end
 
-	make is
+	make
 		local
 			event_box: GTK_EVENT_BOX
 		do

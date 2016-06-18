@@ -36,11 +36,11 @@ feature {} -- External calls
 	
 	-- enum        GtkTreeModelFlags;
 
-	gtk_tree_path_new: POINTER  is
+	gtk_tree_path_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_new_from_string (a_path: POINTER): POINTER is
+	gtk_tree_path_new_from_string (a_path: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -50,63 +50,63 @@ feature {} -- External calls
 	-- external "C use <gtk/gtk.h>"
 	-- end
 
-	gtk_tree_path_to_string (a_path: POINTER): POINTER is
+	gtk_tree_path_to_string (a_path: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_new_first: POINTER is
+	gtk_tree_path_new_first: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_append_index (a_path: POINTER; an_index: INTEGER) is
+	gtk_tree_path_append_index (a_path: POINTER; an_index: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_prepend_index (a_gtk_tree_path: POINTER; an_index: INTEGER) is
+	gtk_tree_path_prepend_index (a_gtk_tree_path: POINTER; an_index: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_get_depth (a_gtk_tree_path: POINTER): INTEGER is
+	gtk_tree_path_get_depth (a_gtk_tree_path: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_get_indices (a_gtk_tree_path: POINTER): POINTER is
+	gtk_tree_path_get_indices (a_gtk_tree_path: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_free (a_gtk_tree_path: POINTER) is
+	gtk_tree_path_free (a_gtk_tree_path: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_copy (a_gtk_tree_path: POINTER): POINTER is
+	gtk_tree_path_copy (a_gtk_tree_path: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_compare (a_gtktreepath, another_gtktreepath: POINTER): INTEGER is
+	gtk_tree_path_compare (a_gtktreepath, another_gtktreepath: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_next (a_gtk_tree_path: POINTER) is
+	gtk_tree_path_next (a_gtk_tree_path: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_prev (a_gtk_tree_path: POINTER): INTEGER is
+	gtk_tree_path_prev (a_gtk_tree_path: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_up (a_gtk_tree_path: POINTER): INTEGER is
+	gtk_tree_path_up (a_gtk_tree_path: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_down (a_gtk_tree_path: POINTER) is
+	gtk_tree_path_down (a_gtk_tree_path: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_is_ancestor (a_gtk_tree_path, another_gtktreepath: POINTER): INTEGER is
+	gtk_tree_path_is_ancestor (a_gtk_tree_path, another_gtktreepath: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_path_is_descendant (a_gtk_tree_path, another_gtktreepath: POINTER): INTEGER is
+	gtk_tree_path_is_descendant (a_gtk_tree_path, another_gtktreepath: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -126,11 +126,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_row_reference_valid (a_gtktreerowreference: POINTER): INTEGER is
+	gtk_tree_row_reference_valid (a_gtktreerowreference: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_row_reference_free (a_gtktreerowreference: POINTER) is
+	gtk_tree_row_reference_free (a_gtktreerowreference: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -138,24 +138,24 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_row_reference_inserted (a_gobject, a_gtk_tree_path: POINTER) is
+	gtk_tree_row_reference_inserted (a_gobject, a_gtk_tree_path: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_row_reference_deleted (a_gobject, a_gtk_tree_path: POINTER) is
+	gtk_tree_row_reference_deleted (a_gobject, a_gtk_tree_path: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_row_reference_reordered (a_gobject, a_gtk_tree_path, a_gtktreeiter, a_gint_ptr: POINTER) is
+	gtk_tree_row_reference_reordered (a_gobject, a_gtk_tree_path, a_gtktreeiter, a_gint_ptr: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_get_flags (a_gtktreemodel: POINTER): INTEGER is
+	gtk_tree_model_get_flags (a_gtktreemodel: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 			-- ensure is_gtk_tree_model_flags (result)
 		end
 
-	gtk_tree_model_get_n_columns (a_gtktreemodel: POINTER): INTEGER is
+	gtk_tree_model_get_n_columns (a_gtktreemodel: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -163,15 +163,15 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 	end
 
-	gtk_tree_model_get_iter (a_gtktreemodel, a_gtktreeiter, a_gtk_tree_path: POINTER): INTEGER is
+	gtk_tree_model_get_iter (a_gtktreemodel, a_gtktreeiter, a_gtk_tree_path: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_get_iter_from_string (a_gtktreemodel, a_gtktreeiter, a_gchar: POINTER): INTEGER is
+	gtk_tree_model_get_iter_from_string (a_gtktreemodel, a_gtktreeiter, a_gchar: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_get_iter_first (a_gtktreemodel, a_gtktreeiter: POINTER): INTEGER is
+	gtk_tree_model_get_iter_first (a_gtktreemodel, a_gtktreeiter: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -179,31 +179,31 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_get_value (a_gtktreemodel, a_gtktreeiter: POINTER; a_column: INTEGER; a_gvalue: POINTER) is
+	gtk_tree_model_get_value (a_gtktreemodel, a_gtktreeiter: POINTER; a_column: INTEGER; a_gvalue: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_iter_next (a_gtktreemodel, a_gtktreeiter: POINTER): INTEGER is
+	gtk_tree_model_iter_next (a_gtktreemodel, a_gtktreeiter: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_iter_children (a_gtktreemodel, a_gtk_tree_iter, a_parent_gtk_tree_iter: POINTER): INTEGER is
+	gtk_tree_model_iter_children (a_gtktreemodel, a_gtk_tree_iter, a_parent_gtk_tree_iter: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 	end
 
-	gtk_tree_model_iter_has_child (a_gtktreemodel, a_gtktreeiter: POINTER): INTEGER is
+	gtk_tree_model_iter_has_child (a_gtktreemodel, a_gtktreeiter: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_iter_n_children (a_gtktreemodel, a_gtktreeiter: POINTER): INTEGER is
+	gtk_tree_model_iter_n_children (a_gtktreemodel, a_gtktreeiter: POINTER): INTEGER
 	external "C use <gtk/gtk.h>"
 	end
 
-	gtk_tree_model_iter_nth_child (a_gtktreemodel, a_gtktreeiter, a_parent_gtktreeiter: POINTER; an_index: INTEGER): INTEGER is
+	gtk_tree_model_iter_nth_child (a_gtktreemodel, a_gtktreeiter, a_parent_gtktreeiter: POINTER; an_index: INTEGER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_iter_parent (a_gtktreemodel, a_gtktreeiter, a_child_gtktreeiter: POINTER): INTEGER is
+	gtk_tree_model_iter_parent (a_gtktreemodel, a_gtktreeiter, a_child_gtktreeiter: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -211,11 +211,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_ref_node (a_gtktreemodel, a_gtktreeiter: POINTER) is
+	gtk_tree_model_ref_node (a_gtktreemodel, a_gtktreeiter: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_unref_node (a_gtktreemodel, a_gtktreeiter: POINTER) is
+	gtk_tree_model_unref_node (a_gtktreemodel, a_gtktreeiter: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -229,27 +229,27 @@ feature {} -- External calls
 	-- external "C use <gtk/gtk.h>"
 	-- end
 
-	gtk_tree_model_foreach (a_gtktreemodel, a_gtktreemodelforeachfunc, a_gpointer_user_data: POINTER) is
+	gtk_tree_model_foreach (a_gtktreemodel, a_gtktreemodelforeachfunc, a_gpointer_user_data: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_row_changed (a_gtktreemodel, a_gtk_tree_path, a_gtktreeiter: POINTER) is
+	gtk_tree_model_row_changed (a_gtktreemodel, a_gtk_tree_path, a_gtktreeiter: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_row_inserted (a_gtktreemodel, a_gtk_tree_path, a_gtktreeiter: POINTER) is
+	gtk_tree_model_row_inserted (a_gtktreemodel, a_gtk_tree_path, a_gtktreeiter: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_row_has_child_toggled (a_gtktreemodel, a_gtk_tree_path, a_gtktreeiter: POINTER) is
+	gtk_tree_model_row_has_child_toggled (a_gtktreemodel, a_gtk_tree_path, a_gtktreeiter: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_row_deleted (a_gtktreemodel, a_gtk_tree_path: POINTER) is
+	gtk_tree_model_row_deleted (a_gtktreemodel, a_gtk_tree_path: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_rows_reordered (a_gtktreemodel, a_gtk_tree_path, a_gtktreeiter: POINTER; a_gint_new_order: POINTER) is
+	gtk_tree_model_rows_reordered (a_gtktreemodel, a_gtk_tree_path, a_gtktreeiter: POINTER; a_gint_new_order: POINTER)
 		external "C use <gtk/gtk.h>"
 	end
 

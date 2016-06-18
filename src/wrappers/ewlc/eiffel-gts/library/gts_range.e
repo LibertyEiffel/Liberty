@@ -38,7 +38,7 @@ inherit
 create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Allocate and initializes a GtsRange.
 		do
 			allocate
@@ -46,25 +46,25 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Commands
-	add_value (a_value: REAL) is
+	add_value (a_value: REAL)
 			-- Adds `a_value' to range.
 		do
 			gts_range_add_value(handle, a_value)
 		end
 
-	update is
+	update
 			-- Updates the fields of range.
 		do
 			gts_range_update (handle)
 		end
 
-	reset is
+	reset
 			-- Sets all the fields of r to 0.
 		do
 			gts_range_reset(handle)
 		end
 
-	print_on (a_file: OUTPUT_STREAM) is
+	print_on (a_file: OUTPUT_STREAM)
 			-- Writes a text representation of range on `a_file'.
 		require
 			file_not_void: a_file /= Void
@@ -74,63 +74,63 @@ feature {ANY} -- Commands
 		end
 
 feature {ANY} -- Queries
-	min: REAL is
+	min: REAL
 			-- Minimum value of the population.
 		do
 			Result:=get_min(handle)
 		end
 
-	max: REAL is
+	max: REAL
 			-- Maximum value of the population.
 		do
 			Result:=get_max(handle)
 		end
 
-	sum: REAL is
+	sum: REAL
 		do
 			Result:=get_sum(handle)
 		end
 
-	mean: REAL is
+	mean: REAL
 			-- Average value of the population.
 		do
 			Result:=get_mean(handle)
 		end
 
-	stddev: REAL is
+	stddev: REAL
 			-- Standard deviation of the population.
 		do
 			Result:=get_stddev(handle)
 		end
 	
-	count: INTEGER is
+	count: INTEGER
 			-- Number of samples in the population.
 		do
 			Result:=get_n(handle)
 		end
 
 feature {} -- External calls
-	gts_range_init (a_range: POINTER) is
+	gts_range_init (a_range: POINTER)
 			-- void gts_range_init (GtsRange *r);
 		external "C use <gts.h>"
 		end
 
-	gts_range_add_value (a_range: POINTER; a_val: REAL) is
+	gts_range_add_value (a_range: POINTER; a_val: REAL)
 			-- void gts_range_add_value (GtsRange *r, gdouble val);
 		external "C use <gts.h>"
 		end
 	
-	gts_range_update (a_range: POINTER) is
+	gts_range_update (a_range: POINTER)
 			-- void gts_range_update (GtsRange *r);
 		external "C use <gts.h>"
 		end
 	
-	gts_range_reset (a_range: POINTER) is
+	gts_range_reset (a_range: POINTER)
 			-- void gts_range_reset (GtsRange *r);
 		external "C use <gts.h>"
 		end
 	
-	gts_range_print (a_range, a_fptr: POINTER) is
+	gts_range_print (a_range, a_fptr: POINTER)
 			-- void gts_range_print (GtsRange *r, FILE *fptr);
 		external "C use <gts.h>"
 		end
@@ -144,43 +144,43 @@ feature {} -- Structure getter/setter calls
 	-- A simple statistics structure.
 
 	-- gdouble min;	
-	get_min (a_struct: POINTER): REAL is
+	get_min (a_struct: POINTER): REAL
 		external "C struct GtsRange get min use <$include>"
 		end
 
 	-- gdouble max;	
-	get_max (a_struct: POINTER): REAL is
+	get_max (a_struct: POINTER): REAL
 		external "C struct GtsRange get max use <$include>"
 		end
 	
 	-- gdouble sum;	
-	get_sum (a_struct: POINTER): REAL is
+	get_sum (a_struct: POINTER): REAL
 		external "C struct GtsRange get sum use <$include>"
 		end
 
 	-- gdouble sum2;	
-	get_sum2 (a_struct: POINTER): REAL is
+	get_sum2 (a_struct: POINTER): REAL
 		external "C struct GtsRange get sum2 use <$include>"
 		end
 	
 	-- gdouble mean;	
-	get_mean (a_struct: POINTER): REAL is
+	get_mean (a_struct: POINTER): REAL
 		external "C struct GtsRange get mean use <$include>"
 		end
 
 	-- gdouble stddev;	
-	get_stddev (a_struct: POINTER): REAL is
+	get_stddev (a_struct: POINTER): REAL
 		external "C struct GtsRange get stddev use <$include>"
 		end
 	
 	-- guint n;	
-	get_n (a_struct: POINTER): INTEGER is
+	get_n (a_struct: POINTER): INTEGER
 			-- TODO: should be NATURAL
 		external "C struct GtsRange get n use <$include>"
 		end
  
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsRange)"
 		end

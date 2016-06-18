@@ -28,19 +28,19 @@ inherit
 
 feature {} -- External calls
 
-	av_rational_get_numerator (a_handle: POINTER): INTEGER is
+	av_rational_get_numerator (a_handle: POINTER): INTEGER
 		external "C struct AVRational get num use <rational.h>"
 		end
 
-	av_rational_get_denominator (a_handle: POINTER): INTEGER is
+	av_rational_get_denominator (a_handle: POINTER): INTEGER
 		external "C struct AVRational get den use <rational.h>"
 		end
 
-	av_rational_set_numerator (a_handle: POINTER; a_num: INTEGER) is
+	av_rational_set_numerator (a_handle: POINTER; a_num: INTEGER)
 		external "C struct AVRational set num use <rational.h>"
 		end
 
-	av_rational_set_denominator (a_handle: POINTER; a_den: INTEGER) is
+	av_rational_set_denominator (a_handle: POINTER; a_den: INTEGER)
 		external "C struct AVRational set den use <rational.h>"
 		end
 

@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_regex_caseless) or else 
 				(a_value = g_regex_multiline) or else 
@@ -25,216 +25,216 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_caseless is
+	default_create, set_caseless
 		do
 			value := g_regex_caseless
 		end
 
-	set_multiline is
+	set_multiline
 		do
 			value := g_regex_multiline
 		end
 
-	set_dotall is
+	set_dotall
 		do
 			value := g_regex_dotall
 		end
 
-	set_extended is
+	set_extended
 		do
 			value := g_regex_extended
 		end
 
-	set_anchored is
+	set_anchored
 		do
 			value := g_regex_anchored
 		end
 
-	set_dollar_endonly is
+	set_dollar_endonly
 		do
 			value := g_regex_dollar_endonly
 		end
 
-	set_ungreedy is
+	set_ungreedy
 		do
 			value := g_regex_ungreedy
 		end
 
-	set_raw is
+	set_raw
 		do
 			value := g_regex_raw
 		end
 
-	set_no_auto_capture is
+	set_no_auto_capture
 		do
 			value := g_regex_no_auto_capture
 		end
 
-	set_optimize is
+	set_optimize
 		do
 			value := g_regex_optimize
 		end
 
-	set_dupnames is
+	set_dupnames
 		do
 			value := g_regex_dupnames
 		end
 
-	set_newline_cr is
+	set_newline_cr
 		do
 			value := g_regex_newline_cr
 		end
 
-	set_newline_lf is
+	set_newline_lf
 		do
 			value := g_regex_newline_lf
 		end
 
-	set_newline_crlf is
+	set_newline_crlf
 		do
 			value := g_regex_newline_crlf
 		end
 
 
 feature {ANY} -- Queries
-	is_caseless: BOOLEAN is
+	is_caseless: BOOLEAN
 		do
 			Result := (value=g_regex_caseless)
 		end
 
-	is_multiline: BOOLEAN is
+	is_multiline: BOOLEAN
 		do
 			Result := (value=g_regex_multiline)
 		end
 
-	is_dotall: BOOLEAN is
+	is_dotall: BOOLEAN
 		do
 			Result := (value=g_regex_dotall)
 		end
 
-	is_extended: BOOLEAN is
+	is_extended: BOOLEAN
 		do
 			Result := (value=g_regex_extended)
 		end
 
-	is_anchored: BOOLEAN is
+	is_anchored: BOOLEAN
 		do
 			Result := (value=g_regex_anchored)
 		end
 
-	is_dollar_endonly: BOOLEAN is
+	is_dollar_endonly: BOOLEAN
 		do
 			Result := (value=g_regex_dollar_endonly)
 		end
 
-	is_ungreedy: BOOLEAN is
+	is_ungreedy: BOOLEAN
 		do
 			Result := (value=g_regex_ungreedy)
 		end
 
-	is_raw: BOOLEAN is
+	is_raw: BOOLEAN
 		do
 			Result := (value=g_regex_raw)
 		end
 
-	is_no_auto_capture: BOOLEAN is
+	is_no_auto_capture: BOOLEAN
 		do
 			Result := (value=g_regex_no_auto_capture)
 		end
 
-	is_optimize: BOOLEAN is
+	is_optimize: BOOLEAN
 		do
 			Result := (value=g_regex_optimize)
 		end
 
-	is_dupnames: BOOLEAN is
+	is_dupnames: BOOLEAN
 		do
 			Result := (value=g_regex_dupnames)
 		end
 
-	is_newline_cr: BOOLEAN is
+	is_newline_cr: BOOLEAN
 		do
 			Result := (value=g_regex_newline_cr)
 		end
 
-	is_newline_lf: BOOLEAN is
+	is_newline_lf: BOOLEAN
 		do
 			Result := (value=g_regex_newline_lf)
 		end
 
-	is_newline_crlf: BOOLEAN is
+	is_newline_crlf: BOOLEAN
 		do
 			Result := (value=g_regex_newline_crlf)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_regex_caseless: INTEGER is
+	g_regex_caseless: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_CASELESS"
 		end
 
-	g_regex_multiline: INTEGER is
+	g_regex_multiline: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MULTILINE"
 		end
 
-	g_regex_dotall: INTEGER is
+	g_regex_dotall: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_DOTALL"
 		end
 
-	g_regex_extended: INTEGER is
+	g_regex_extended: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_EXTENDED"
 		end
 
-	g_regex_anchored: INTEGER is
+	g_regex_anchored: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ANCHORED"
 		end
 
-	g_regex_dollar_endonly: INTEGER is
+	g_regex_dollar_endonly: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_DOLLAR_ENDONLY"
 		end
 
-	g_regex_ungreedy: INTEGER is
+	g_regex_ungreedy: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_UNGREEDY"
 		end
 
-	g_regex_raw: INTEGER is
+	g_regex_raw: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_RAW"
 		end
 
-	g_regex_no_auto_capture: INTEGER is
+	g_regex_no_auto_capture: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_NO_AUTO_CAPTURE"
 		end
 
-	g_regex_optimize: INTEGER is
+	g_regex_optimize: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_OPTIMIZE"
 		end
 
-	g_regex_dupnames: INTEGER is
+	g_regex_dupnames: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_DUPNAMES"
 		end
 
-	g_regex_newline_cr: INTEGER is
+	g_regex_newline_cr: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_NEWLINE_CR"
 		end
 
-	g_regex_newline_lf: INTEGER is
+	g_regex_newline_lf: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_NEWLINE_LF"
 		end
 
-	g_regex_newline_crlf: INTEGER is
+	g_regex_newline_crlf: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_NEWLINE_CRLF"
 		end

@@ -8,31 +8,31 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_query_field_func_get_args (a_func: POINTER): POINTER is
+	gda_query_field_func_get_args (a_func: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_func_set_args (a_func: POINTER; an_args: POINTER): INTEGER_32 is
+	gda_query_field_func_set_args (a_func: POINTER; an_args: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_func_get_ref_func_name (a_func: POINTER): POINTER is
+	gda_query_field_func_get_ref_func_name (a_func: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_func_get_ref_func (a_func: POINTER): POINTER is
+	gda_query_field_func_get_ref_func (a_func: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_func_new (a_query: POINTER; a_func_name: POINTER): POINTER is
+	gda_query_field_func_new (a_query: POINTER; a_func_name: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_func_get_type: INTEGER_32 is
+	gda_query_field_func_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_func_error_quark: INTEGER_32 is
+	gda_query_field_func_error_quark: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

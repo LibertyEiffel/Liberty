@@ -27,87 +27,87 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	pango_layout_get_text (a_layout: POINTER): POINTER is
+	pango_layout_get_text (a_layout: POINTER): POINTER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_set_markup (a_layout, a_markup: POINTER; a_length: INTEGER) is
+	pango_layout_set_markup (a_layout, a_markup: POINTER; a_length: INTEGER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_set_text (a_layout, a_markup: POINTER; a_length: INTEGER) is
+	pango_layout_set_text (a_layout, a_markup: POINTER; a_length: INTEGER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_set_attributes (a_layout, a_attrs: POINTER) is
+	pango_layout_set_attributes (a_layout, a_attrs: POINTER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_new (a_context: POINTER): POINTER is
+	pango_layout_new (a_context: POINTER): POINTER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_context (a_layout: POINTER): POINTER is
+	pango_layout_get_context (a_layout: POINTER): POINTER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_context_changed (a_layout: POINTER) is
+	pango_layout_context_changed (a_layout: POINTER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_size (a_layout, a_width, a_height: POINTER) is
+	pango_layout_get_size (a_layout, a_width, a_height: POINTER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_wrap (a_layout: POINTER): INTEGER is
+	pango_layout_get_wrap (a_layout: POINTER): INTEGER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_set_wrap (a_layout: POINTER; a_wrap_mode: INTEGER) is
+	pango_layout_set_wrap (a_layout: POINTER; a_wrap_mode: INTEGER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_width (a_layout: POINTER): INTEGER is
+	pango_layout_get_width (a_layout: POINTER): INTEGER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_set_width (a_layout: POINTER; a_width: INTEGER) is
+	pango_layout_set_width (a_layout: POINTER; a_width: INTEGER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_alignment (a_layout: POINTER): INTEGER is
+	pango_layout_get_alignment (a_layout: POINTER): INTEGER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_set_alignment (a_layout: POINTER; an_alignment: INTEGER) is
+	pango_layout_set_alignment (a_layout: POINTER; an_alignment: INTEGER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_spacing (a_layout: POINTER): INTEGER is
+	pango_layout_get_spacing (a_layout: POINTER): INTEGER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_justify (a_layout: POINTER): INTEGER is
+	pango_layout_get_justify (a_layout: POINTER): INTEGER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_set_justify (a_layout: POINTER; a_justify: INTEGER) is
+	pango_layout_set_justify (a_layout: POINTER; a_justify: INTEGER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_font_description (a_layout: POINTER): POINTER is
+	pango_layout_get_font_description (a_layout: POINTER): POINTER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_set_font_description (a_layout, a_font_description: POINTER) is
+	pango_layout_set_font_description (a_layout, a_font_description: POINTER)
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_line_count (a_layout: POINTER): INTEGER is
+	pango_layout_get_line_count (a_layout: POINTER): INTEGER
 		external "C use <pango/pango-layout.h>"
 		end
 
-	pango_layout_get_line (a_layout: POINTER; a_index: INTEGER): POINTER is
+	pango_layout_get_line (a_layout: POINTER; a_index: INTEGER): POINTER
 		external "C use <pango/pango-layout.h>"
 		end
 

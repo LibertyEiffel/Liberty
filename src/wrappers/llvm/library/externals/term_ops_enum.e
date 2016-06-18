@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = br_low_level)  or else
 				(a_value = indirect_br_low_level)  or else
@@ -22,99 +22,99 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_br is
+	set_br
 		do
 			value := br_low_level
 		end
 
-	set_indirect_br is
+	set_indirect_br
 		do
 			value := indirect_br_low_level
 		end
 
-	set_invoke is
+	set_invoke
 		do
 			value := invoke_low_level
 		end
 
-	set_resume is
+	set_resume
 		do
 			value := resume_low_level
 		end
 
-	set_ret is
+	set_ret
 		do
 			value := ret_low_level
 		end
 
-	set_switch is
+	set_switch
 		do
 			value := switch_low_level
 		end
 
-	set_term_ops_begin is
+	set_term_ops_begin
 		do
 			value := term_ops_begin_low_level
 		end
 
-	set_term_ops_end is
+	set_term_ops_end
 		do
 			value := term_ops_end_low_level
 		end
 
-	set_unreachable is
+	set_unreachable
 		do
 			value := unreachable_low_level
 		end
 
 feature {ANY} -- Queries
-	is_br: BOOLEAN is
+	is_br: BOOLEAN
 		do
 			Result := (value=br_low_level)
 		end
 
-	is_indirect_br: BOOLEAN is
+	is_indirect_br: BOOLEAN
 		do
 			Result := (value=indirect_br_low_level)
 		end
 
-	is_invoke: BOOLEAN is
+	is_invoke: BOOLEAN
 		do
 			Result := (value=invoke_low_level)
 		end
 
-	is_resume: BOOLEAN is
+	is_resume: BOOLEAN
 		do
 			Result := (value=resume_low_level)
 		end
 
-	is_ret: BOOLEAN is
+	is_ret: BOOLEAN
 		do
 			Result := (value=ret_low_level)
 		end
 
-	is_switch: BOOLEAN is
+	is_switch: BOOLEAN
 		do
 			Result := (value=switch_low_level)
 		end
 
-	is_term_ops_begin: BOOLEAN is
+	is_term_ops_begin: BOOLEAN
 		do
 			Result := (value=term_ops_begin_low_level)
 		end
 
-	is_term_ops_end: BOOLEAN is
+	is_term_ops_end: BOOLEAN
 		do
 			Result := (value=term_ops_end_low_level)
 		end
 
-	is_unreachable: BOOLEAN is
+	is_unreachable: BOOLEAN
 		do
 			Result := (value=unreachable_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	br_low_level: INTEGER is
+	br_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	indirect_br_low_level: INTEGER is
+	indirect_br_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invoke_low_level: INTEGER is
+	invoke_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	resume_low_level: INTEGER is
+	resume_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ret_low_level: INTEGER is
+	ret_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	switch_low_level: INTEGER is
+	switch_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	term_ops_begin_low_level: INTEGER is
+	term_ops_begin_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -177,7 +177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	term_ops_end_low_level: INTEGER is
+	term_ops_end_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -186,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unreachable_low_level: INTEGER is
+	unreachable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

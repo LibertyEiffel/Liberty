@@ -29,14 +29,14 @@ create {ANY} from_external_pointer
 feature {} -- Creation
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextAttributes)"
 		end
 
 feature {ANY} -- Access
 
-	font: PANGO_FONT_DESCRIPTION is
+	font: PANGO_FONT_DESCRIPTION
 		do
 			create Result.from_external_pointer (gtk_text_attributes_get_font (handle))
 		end
@@ -104,7 +104,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_attributes_copy_values (src_gtktextattributes, dest_gtktextattributes: POINTER) is
+	gtk_text_attributes_copy_values (src_gtktextattributes, dest_gtktextattributes: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -128,7 +128,7 @@ feature {} -- Structure accessing
 
 	--    /* Individual chunks of this can be set/unset as a group */
 
-	gtk_text_attributes_get_font (a_text_attr: POINTER): POINTER is
+	gtk_text_attributes_get_font (a_text_attr: POINTER): POINTER
 		external "C struct GtkTextAttributes get font use <gtk/gtk.h>"
 		end
 

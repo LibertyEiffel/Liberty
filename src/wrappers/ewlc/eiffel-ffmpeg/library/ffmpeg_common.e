@@ -26,31 +26,31 @@ class FFMPEG_COMMON
 
 feature {ANY}
 
-	ffmpeg_init is
+	ffmpeg_init
 			-- call av_register_all and any other initialization for the video
 			-- system
 		once
 			av_register_all
 		end
 
-	av_codec_version: STRING is
+	av_codec_version: STRING
 		do
 			Result := string_version_from_integer (av_codec_get_version)
 		end
 
-	av_format_version: STRING is
+	av_format_version: STRING
 		do
 			Result := string_version_from_integer (av_format_get_version)
 		end
 
-	av_util_version: STRING is
+	av_util_version: STRING
 		do
 			Result := string_version_from_integer (av_util_get_version)
 		end
 
 feature {} -- Utils
 
-	string_version_from_integer (an_integer: INTEGER): STRING is
+	string_version_from_integer (an_integer: INTEGER): STRING
 		do
 			Result := ((an_integer |>>> 16) & 255).to_string + "." +
 			          ((an_integer |>>>  8) & 255).to_string + "." +
@@ -59,32 +59,32 @@ feature {} -- Utils
 
 feature {} -- Externals
 
-	av_register_all is
+	av_register_all
 			-- Don't call this method directly!! use ffmpeg_init instead
 		external "C use <avformat.h>"
 		end
 
-	av_time_base: INTEGER is
+	av_time_base: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "AV_TIME_BASE"
 		end
 
-	av_nopts_value: INTEGER_64 is
+	av_nopts_value: INTEGER_64
 		external "C macro use <avcodec.h>"
 		alias "AV_NOPTS_VALUE"
 		end
 
-	av_codec_get_version: INTEGER is
+	av_codec_get_version: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "LIBAVCODEC_VERSION_INT"
 		end
 
-	av_format_get_version: INTEGER is
+	av_format_get_version: INTEGER
 		external "C macro use <avformat.h>"
 		alias "LIBAVFORMAT_VERSION_INT"
 		end
 
-	av_util_get_version: INTEGER is
+	av_util_get_version: INTEGER
 		external "C macro use <avutil.h>"
 		alias "LIBAVUTIL_VERSION_INT"
 		end

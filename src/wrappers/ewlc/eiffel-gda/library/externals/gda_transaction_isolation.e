@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = gda_transaction_isolation_unknown) or else 
 				(a_value = gda_transaction_isolation_read_committed) or else 
@@ -16,81 +16,81 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_unknown is
+	default_create, set_unknown
 		do
 			value := gda_transaction_isolation_unknown
 		end
 
-	set_read_committed is
+	set_read_committed
 		do
 			value := gda_transaction_isolation_read_committed
 		end
 
-	set_read_uncommitted is
+	set_read_uncommitted
 		do
 			value := gda_transaction_isolation_read_uncommitted
 		end
 
-	set_repeatable_read is
+	set_repeatable_read
 		do
 			value := gda_transaction_isolation_repeatable_read
 		end
 
-	set_serializable is
+	set_serializable
 		do
 			value := gda_transaction_isolation_serializable
 		end
 
 
 feature {ANY} -- Queries
-	is_unknown: BOOLEAN is
+	is_unknown: BOOLEAN
 		do
 			Result := (value=gda_transaction_isolation_unknown)
 		end
 
-	is_read_committed: BOOLEAN is
+	is_read_committed: BOOLEAN
 		do
 			Result := (value=gda_transaction_isolation_read_committed)
 		end
 
-	is_read_uncommitted: BOOLEAN is
+	is_read_uncommitted: BOOLEAN
 		do
 			Result := (value=gda_transaction_isolation_read_uncommitted)
 		end
 
-	is_repeatable_read: BOOLEAN is
+	is_repeatable_read: BOOLEAN
 		do
 			Result := (value=gda_transaction_isolation_repeatable_read)
 		end
 
-	is_serializable: BOOLEAN is
+	is_serializable: BOOLEAN
 		do
 			Result := (value=gda_transaction_isolation_serializable)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gda_transaction_isolation_unknown: INTEGER is
+	gda_transaction_isolation_unknown: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_UNKNOWN"
 		end
 
-	gda_transaction_isolation_read_committed: INTEGER is
+	gda_transaction_isolation_read_committed: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_READ_COMMITTED"
 		end
 
-	gda_transaction_isolation_read_uncommitted: INTEGER is
+	gda_transaction_isolation_read_uncommitted: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED"
 		end
 
-	gda_transaction_isolation_repeatable_read: INTEGER is
+	gda_transaction_isolation_repeatable_read: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_REPEATABLE_READ"
 		end
 
-	gda_transaction_isolation_serializable: INTEGER is
+	gda_transaction_isolation_serializable: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_SERIALIZABLE"
 		end

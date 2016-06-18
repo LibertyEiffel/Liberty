@@ -40,13 +40,13 @@ insert GTK_FONT_BUTTON_EXTERNALS
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new font picker widget.
 		do
 			from_external_pointer(gtk_font_button_new)
 		end
 
-	with_font (a_font_name: STRING) is
+	with_font (a_font_name: STRING)
 			-- Creates a new font picker widget. `a_font_name' is the
 			-- name of font to display in font selection dialog
 		require
@@ -57,7 +57,7 @@ feature {} -- Creation
 
 feature {ANY}
 
-	set_font_name (a_font_name: STRING) is
+	set_font_name (a_font_name: STRING)
 			-- Sets or updates the currently-displayed font in font
 			-- picker dialog.
 
@@ -78,14 +78,14 @@ feature {ANY}
 	font_exists: BOOLEAN 
 			-- Has the last call to `set_font' successful?
 
-	font_name: STRING is
+	font_name: STRING
 			-- The name of the currently selected font. 
 			-- Default value: "Sans 12"
 		do
 			create Result.from_external_copy (gtk_font_button_get_font_name(handle))
 		end
 
-	set_show_style (a_setting: BOOLEAN) is
+	set_show_style (a_setting: BOOLEAN)
 			-- If `a_setting' is True, the font style will be displayed
 			-- along with name of the selected font.
 		
@@ -98,13 +98,13 @@ feature {ANY}
 		ensure set: a_setting = is_style_shown
 		end
 
-	is_style_shown: BOOLEAN is
+	is_style_shown: BOOLEAN
 			-- Will the font style be shown in the label?
 		do
 			Result:=gtk_font_button_get_show_style(handle).to_boolean
 		end
 	
-	set_show_size (a_setting: BOOLEAN) is
+	set_show_size (a_setting: BOOLEAN)
 			-- If `a_setting' is True, the font size will be displayed
 			-- along with the name of the selected font.
 		do
@@ -112,7 +112,7 @@ feature {ANY}
 		ensure set: a_setting = is_size_shown
 		end	
 
-	is_size_shown: BOOLEAN is
+	is_size_shown: BOOLEAN
 			-- Will the font size be shown in the label?
 
 			-- If this property is set to True, the selected font size
@@ -122,7 +122,7 @@ feature {ANY}
 			Result:=gtk_font_button_get_show_size(handle).to_boolean
 		end
 
-	set_use_font (a_setting: BOOLEAN) is
+	set_use_font (a_setting: BOOLEAN)
 			-- If `a_setting' is True, the font name will be written
 			-- using the selected font.
 		do
@@ -130,13 +130,13 @@ feature {ANY}
 		ensure set: a_setting = is_font_used
 		end
 	
-	is_font_used: BOOLEAN is
+	is_font_used: BOOLEAN
 			-- Is the selected font used in the label?
 		do
 			Result:=gtk_font_button_get_use_font(handle).to_boolean
 		end
 
-	set_use_size (a_setting: BOOLEAN) is
+	set_use_size (a_setting: BOOLEAN)
 			-- If `a_setting' is TRUE, the font name will be written
 			-- using the selected size.
 		do
@@ -144,13 +144,13 @@ feature {ANY}
 		ensure set: a_setting = is_size_used
 		end
 
-	is_size_used: BOOLEAN is
+	is_size_used: BOOLEAN
 			-- Is the selected size used in the label?
 		do
 			Result:=gtk_font_button_get_use_size(handle) /= 0
 		end
 
-	set_title (a_title: STRING) is
+	set_title (a_title: STRING)
 			-- Sets the title for the font selection dialog.
 		require title_not_void: a_title /= Void
 		do
@@ -158,7 +158,7 @@ feature {ANY}
 		ensure set: a_title.is_equal(title)
 		end
 
-	title: CONST_STRING is
+	title: CONST_STRING
 			-- the title of the font selection dialog.
 		do
 			create Result.from_external(gtk_font_button_get_title(handle))
@@ -191,7 +191,7 @@ feature {ANY}
 
 feature {ANY} -- The "font-set" signal
 
-	connect_agent_to_font_set_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_FONT_BUTTON]]) is
+	connect_agent_to_font_set_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_FONT_BUTTON]])
 			--   The ::font-set signal is emitted when the user selects a font. When
 			--   handling this signal, use `font_name()' to find out
 			--   which font was just selected.

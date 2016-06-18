@@ -19,16 +19,16 @@ inherit ANY undefine is_equal, copy end
 
 
 feature {} -- Structure getter/setter calls
-	get_triangles (a_struct: POINTER): POINTER is
+	get_triangles (a_struct: POINTER): POINTER
 		external "C struct GtsEdge get triangles use <gts.h>"
 		end
 
-	set_triangles (a_struct: POINTER; a_triangles: POINTER) is
+	set_triangles (a_struct: POINTER; a_triangles: POINTER)
 		external "C struct GtsEdge set triangles use <gts.h>"
 		end
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsEdge)"
 		end

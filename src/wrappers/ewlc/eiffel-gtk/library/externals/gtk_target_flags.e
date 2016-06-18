@@ -28,7 +28,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} --Gtk_Accel_Flags
 
-	gtk_target_same_app: INTEGER is 
+	gtk_target_same_app: INTEGER
 			-- If this is set, the target will only be selected for drags
 			-- within a single application.
 
@@ -37,7 +37,7 @@ feature {} --Gtk_Accel_Flags
 		alias "GTK_TARGET_SAME_APP"
 		end
 
-	gtk_target_same_widget: INTEGER is 
+	gtk_target_same_widget: INTEGER
 			-- If this is set, the target will only be selected for drags
 			-- within a single widget.
 				  

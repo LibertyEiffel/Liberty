@@ -26,7 +26,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Create a undefined GValue.
 		do
 			handle := g_try_malloc0 (struct_size)
@@ -36,7 +36,7 @@ feature {} -- Creation
 			not_valid: not is_valid
 		end
 
-	with_gtype (a_gtype: INTEGER) is
+	with_gtype (a_gtype: INTEGER)
 			-- Create a GValue that holds values of a_gtype type index. A
 			-- GType is a numerical value which represents the unique
 			-- identifier of a type registered in the GObject type
@@ -52,7 +52,7 @@ feature {} -- Creation
 			handle := g_value_init (malloc_g_value, a_gtype)
 		end
 
-	make_boolean is
+	make_boolean
 			-- create a new boolean G_VALUE
 		local ptr: POINTER
 		do
@@ -67,56 +67,56 @@ feature {} -- Creation
 		ensure is_boolean: is_boolean
 		end
 
-	make_integer is
+	make_integer
 			-- create a new integer G_VALUE
 		do
 			handle := g_value_init (malloc_g_value, g_type_int)
 		ensure is_integer: is_integer
 		end
 
-	make_natural is
+	make_natural
 			-- create a new natural G_VALUE
 		do
 			handle := g_value_init (malloc_g_value, g_type_uint)
 		ensure is_natural: is_natural
 		end
 
-	make_real, make_real_64 is
+	make_real, make_real_64
 			-- create a new real G_VALUE (Note: using C type `double'
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
 		ensure is_real: is_real
 		end
 
-	make_real_32 is
+	make_real_32
 			-- create a new REAL_32 G_VALUE (Note: using C type `float')
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
 		ensure is_real: is_real
 		end
 
-	make_string is
+	make_string
 			-- create a new string G_VALUE
 		do
 			handle := g_value_init (malloc_g_value, g_type_string)
 		ensure is_string: is_string
 		end
 
-	make_object is
+	make_object
 			-- create a new object G_VALUE
 		do
 			handle := g_value_init (malloc_g_value, g_type_object)
 		ensure is_object: is_object
 		end
 
-	make_pointer is
+	make_pointer
 			-- create a new pointer G_VALUE
 		do
 			handle := g_value_init (malloc_g_value, g_type_pointer)
 		ensure is_pointer: is_pointer
 		end
 
-	from_boolean (a_boolean: BOOLEAN) is
+	from_boolean (a_boolean: BOOLEAN)
 			-- create a new boolean G_VALUE
 		local ptr: POINTER
 		do
@@ -134,7 +134,7 @@ feature {} -- Creation
 			value_set: boolean = a_boolean
 		end
 
-	from_integer (a_integer: INTEGER) is
+	from_integer (a_integer: INTEGER)
 			-- create a new integer G_VALUE
 		do
 			handle := g_value_init (malloc_g_value, g_type_int)
@@ -144,7 +144,7 @@ feature {} -- Creation
 			value_set: integer = a_integer
 		end
 
-	from_natural (a_natural: INTEGER) is
+	from_natural (a_natural: INTEGER)
 			-- create a new natural G_VALUE
 		do
 			handle := g_value_init (malloc_g_value, g_type_uint)
@@ -154,7 +154,7 @@ feature {} -- Creation
 			value_set: natural = a_natural
 		end
 
-	from_real, from_real_64 (a_real: REAL_64) is
+	from_real, from_real_64 (a_real: REAL_64)
 			-- create a new real G_VALUE (Note: using C type `double'
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
@@ -164,7 +164,7 @@ feature {} -- Creation
 			value_set: real = a_real
 		end
 
-	from_real_32 (a_real_32: REAL_32) is
+	from_real_32 (a_real_32: REAL_32)
 			-- create a new REAL_32 G_VALUE (Note: using C type `float')
 		do
 			handle := g_value_init (malloc_g_value, g_type_float)
@@ -174,7 +174,7 @@ feature {} -- Creation
 			value_set: real_32 = a_real_32
 		end
 
-	from_string (a_string: STRING) is
+	from_string (a_string: STRING)
 			-- create a new string G_VALUE
 		require string_not_void: a_string/=Void
 		do
@@ -185,7 +185,7 @@ feature {} -- Creation
 			value_set: string.is_equal(a_string)
 		end
 
-	from_object (an_object: G_OBJECT) is
+	from_object (an_object: G_OBJECT)
 			-- create a new object G_VALUE
 		require object_not_void: an_object/=Void
 		do
@@ -196,7 +196,7 @@ feature {} -- Creation
 			value_set: object.is_equal(an_object.handle)
 		end
 
-	from_pointer (a_pointer: POINTER) is
+	from_pointer (a_pointer: POINTER)
 			-- create a new pointer G_VALUE
 		do
 			handle := g_value_init (malloc_g_value, g_type_pointer)
@@ -208,36 +208,36 @@ feature {} -- Creation
 
 feature {ANY}
 
-	is_initialized: BOOLEAN is
+	is_initialized: BOOLEAN
 			-- Returns True if value is a valid and initialized G_VALUE
 		do
 			Result := g_is_value (handle).to_boolean
 		end
 
-	type_name: STRING is
+	type_name: STRING
 			-- type name of value
 		do
 			create Result.from_external (g_value_type_name (handle))
 		end
 
-	type: INTEGER is
+	type: INTEGER
 			-- GType numerical value
 		do
 			Result := g_value_type (handle)
 		end
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 		do
 			Result := (type /= g_type_invalid)
 		end
 
-	is_a (a_type: INTEGER): BOOLEAN is
+	is_a (a_type: INTEGER): BOOLEAN
 			-- Is Current gtype conforming to `a_type'?
 		do
 			Result := g_type_is_a (type, a_type).to_boolean
 		end
 
-	holds (a_type: INTEGER): BOOLEAN is
+	holds (a_type: INTEGER): BOOLEAN
 		require
 			is_g_type (a_type)
 		do
@@ -245,13 +245,13 @@ feature {ANY}
 		end
 
 feature {ANY} -- Boolean
-	is_boolean: BOOLEAN is
+	is_boolean: BOOLEAN
 			-- Is current value a boolean?
 		do
 			Result := g_value_holds_boolean (handle).to_boolean
 		end
 
-	boolean: BOOLEAN is
+	boolean: BOOLEAN
 			-- If the current value is a boolean, return it
 		require
 			is_boolean: is_boolean
@@ -260,7 +260,7 @@ feature {ANY} -- Boolean
 		end
 
 
-	set_boolean (a_value: BOOLEAN) is
+	set_boolean (a_value: BOOLEAN)
 			-- If the current value is a boolean, set it.
 		require
 			is_boolean: is_boolean
@@ -269,13 +269,13 @@ feature {ANY} -- Boolean
 		end
 
 feature {ANY} -- Integer
-	is_integer: BOOLEAN is
+	is_integer: BOOLEAN
 			-- Is current value an integer?
 		do
 			Result := g_value_holds_int (handle).to_boolean
 		end
 
-	integer: INTEGER is
+	integer: INTEGER
 			-- If current value is an integer, returns it
 		require
 			is_integer: is_integer
@@ -283,7 +283,7 @@ feature {ANY} -- Integer
 			Result := g_value_get_int (handle)
 		end
 
-	set_integer (a_value: INTEGER) is
+	set_integer (a_value: INTEGER)
 			-- If the current value is a integer, set it.
 		require
 			is_integer: is_integer
@@ -292,13 +292,13 @@ feature {ANY} -- Integer
 		end
 
 feature {ANY} -- Natural
-	is_natural: BOOLEAN is
+	is_natural: BOOLEAN
 			-- Is current value an natural?
 		do
 			Result := g_value_holds_uint (handle).to_boolean
 		end
 
-	natural: INTEGER is
+	natural: INTEGER
 			-- If current value is an natural, returns it
 		require
 			is_natural: is_natural
@@ -306,7 +306,7 @@ feature {ANY} -- Natural
 			Result := g_value_get_uint (handle)
 		end
 
-	set_natural (a_value: INTEGER) is
+	set_natural (a_value: INTEGER)
 			-- If the current value is a natural, set it.
 		require
 			is_natural: is_natural
@@ -316,13 +316,13 @@ feature {ANY} -- Natural
 
 feature {ANY} -- Real
 
-	is_real, is_real_64: BOOLEAN is
+	is_real, is_real_64: BOOLEAN
 			-- Is current value a real? Note: REAL is mapped to C double
 		do
 			Result := g_value_holds_double (handle).to_boolean
 		end
 
-	real, real_64: REAL is
+	real, real_64: REAL
 			-- If current value is an real, returns it. Note: REAL is mapped to C double
 		require
 			is_real: is_real
@@ -330,7 +330,7 @@ feature {ANY} -- Real
 			Result := g_value_get_double (handle)
 		end
 
-	set_real, set_real_64 (a_value: REAL_64) is
+	set_real, set_real_64 (a_value: REAL_64)
 			-- If the current value is a real, set it. Note: REAL is mapped to C double
 		require
 			is_real: is_real
@@ -340,13 +340,13 @@ feature {ANY} -- Real
 
 feature {ANY} -- Real_32
 
-	is_real_32: BOOLEAN is
+	is_real_32: BOOLEAN
 			-- Is current value a REAL_32? Note: REAL is mapped to C float
 		do
 			Result := g_value_holds_float (handle).to_boolean
 		end
 
-	real_32: REAL_32 is
+	real_32: REAL_32
 			-- If current value is an real_32, returns it. Note: REAL is mapped to C float
 		require
 			is_real_32: is_real_32
@@ -354,7 +354,7 @@ feature {ANY} -- Real_32
 			Result := g_value_get_float (handle)
 		end
 
-	set_real_32 (a_value: REAL_32) is
+	set_real_32 (a_value: REAL_32)
 			-- If the current value is a REAL_32, set it. Note: REAL_32 is mapped to C float
 		require
 			is_real_32: is_real_32
@@ -364,13 +364,13 @@ feature {ANY} -- Real_32
 
 feature {ANY} -- Character
 
-	is_character: BOOLEAN is
+	is_character: BOOLEAN
 			-- Is current value a character?
 		do
 			Result := g_value_holds_char (handle).to_boolean
 		end
 
-	character: CHARACTER is
+	character: CHARACTER
 			-- If current value is an character, returns it.
 		require
 			is_character: is_character
@@ -378,7 +378,7 @@ feature {ANY} -- Character
 			Result := g_value_get_char (handle)
 		end
 
-	set_character (a_value: CHARACTER) is
+	set_character (a_value: CHARACTER)
 			-- If the current value is a character, set it.
 		require
 			is_character: is_character
@@ -388,13 +388,13 @@ feature {ANY} -- Character
 
 feature {ANY} -- String
 
-	is_string: BOOLEAN is
+	is_string: BOOLEAN
 			-- Is current value a string?
 		do
 			Result := g_value_holds_string (handle).to_boolean
 		end
 
-	string: STRING is
+	string: STRING
 			-- If current value is an string, returns it.
 			-- Note that a gvalue might be holding a NULL string
 		require
@@ -410,7 +410,7 @@ feature {ANY} -- String
 			end
 		end
 
-	set_string (a_value: STRING) is
+	set_string (a_value: STRING)
 			-- If the current value is a string, set it.
 		require
 			is_string: is_string
@@ -421,13 +421,13 @@ feature {ANY} -- String
 
 feature {ANY} -- Object
 
-	is_object: BOOLEAN is
+	is_object: BOOLEAN
 			-- Is current value an object?
 		do
 			Result := g_value_holds_object(handle).to_boolean
 		end
 
-	object: POINTER is
+	object: POINTER
 			-- If current value is an string, returns it.
 		require
 			is_object: is_object
@@ -435,7 +435,7 @@ feature {ANY} -- Object
 			Result := g_value_get_object (handle)
 		end
 
-	set_object (a_value: G_OBJECT) is
+	set_object (a_value: G_OBJECT)
 			-- If the current value is an object, set it.
 		require
 			a_value /= Void
@@ -446,13 +446,13 @@ feature {ANY} -- Object
 
 feature {ANY} -- Pointer
 
-	is_pointer: BOOLEAN is
+	is_pointer: BOOLEAN
 			-- Is current value a pointer?
 		do
 			Result := g_value_holds_pointer (handle).to_boolean
 		end
 
-	pointer: POINTER is
+	pointer: POINTER
 			-- If current value is a pointer, returns it.
 		require
 			is_pointer: is_pointer
@@ -460,7 +460,7 @@ feature {ANY} -- Pointer
 			Result := g_value_get_pointer (handle)
 		end
 
-	set_pointer (a_value: POINTER) is
+	set_pointer (a_value: POINTER)
 			-- If the current value is a pointer, set it.
 		require
 			is_pointer: is_pointer
@@ -473,7 +473,7 @@ feature {ANY} -- Pointer
 
 feature {G_OBJECT} -- Type changing features
 
-	turn_to_boolean is
+	turn_to_boolean
 			-- Reset Current and make it a boolean value
 		do
 			if is_initialized then
@@ -484,7 +484,7 @@ feature {G_OBJECT} -- Type changing features
 			is_boolean: is_boolean
 		end
 
-	turn_to_integer is
+	turn_to_integer
 			-- Reset Current and make it a integer value
 		do
 			if is_initialized then
@@ -495,7 +495,7 @@ feature {G_OBJECT} -- Type changing features
 			is_integer: is_integer
 		end
 
-	turn_to_natural is
+	turn_to_natural
 			-- Reset Current and make it a natural value
 		do
 			if is_initialized then
@@ -506,7 +506,7 @@ feature {G_OBJECT} -- Type changing features
 			is_natural: is_natural
 		end
 
-	turn_to_real, turn_to_real_64 is
+	turn_to_real, turn_to_real_64
 			-- Reset Current and make it a real value
 		do
 			if is_initialized then
@@ -517,7 +517,7 @@ feature {G_OBJECT} -- Type changing features
 			is_real: is_real
 		end
 
-	turn_to_real_32 is
+	turn_to_real_32
 			-- Reset Current and make it a REAL_32 value
 		do
 			if is_initialized then
@@ -528,7 +528,7 @@ feature {G_OBJECT} -- Type changing features
 			is_real_32: is_real_32
 		end
 
-	turn_to_string is
+	turn_to_string
 			-- Reset Current and make it a string value
 		do
 			if is_initialized then
@@ -540,14 +540,14 @@ feature {G_OBJECT} -- Type changing features
 		end
 
 feature {ANY}
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValue)"
 		end
 
 feature {} -- Disposing
 
-	dispose is
+	dispose
 		-- If not petriefied unset and free the value.
 		do
 			if not is_petrified then

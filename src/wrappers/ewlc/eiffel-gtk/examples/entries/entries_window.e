@@ -5,7 +5,7 @@ insert
 	G_SIGNALS
 	GTK
 create {ANY} make
-feature {ANY} make is
+feature {ANY} make
 		do
 			Precursor
 			check is_entries_window_a_g_object: g_is_object (handle) /= 0 end
@@ -52,7 +52,7 @@ feature {ANY} -- Widgets
 	real_spin: REAL_SPIN
 	
 feature {ANY} -- Callbacks
-	on_destroy is
+	on_destroy
 		do
 			print ("Entries demo ending%N")
 			gtk.quit

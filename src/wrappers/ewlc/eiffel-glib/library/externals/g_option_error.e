@@ -24,7 +24,7 @@ deferred class G_OPTION_ERROR
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_option_error (an_error: INTEGER): BOOLEAN is
+	is_valid_option_error (an_error: INTEGER): BOOLEAN
 		do	
 			Result:=((an_error = g_option_error_unknown_option) or else
 						(an_error = g_option_error_bad_value) or else
@@ -32,7 +32,7 @@ feature {} -- enum
 		end
 	
 
-	g_option_error_unknown_option: INTEGER is
+	g_option_error_unknown_option: INTEGER
 			-- An option was not known to the parser. This error will
 			-- only be reported, if the parser hasn't been instructed to
 			-- ignore unknown options, see
@@ -42,13 +42,13 @@ feature {} -- enum
 		end
 
 	
-	g_option_error_bad_value: INTEGER is
+	g_option_error_bad_value: INTEGER
 			-- A value couldn't be parsed.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_ERROR_BAD_VALUE"
 		end
 
-	g_option_error_failed: INTEGER is
+	g_option_error_failed: INTEGER
 			-- A GOptionArgFunc callback failed.
 		external "C macro use <glib.h>"
 		alias "G_OPTION_ERROR_FAILED"

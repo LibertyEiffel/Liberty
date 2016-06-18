@@ -29,7 +29,7 @@ deferred class PANGO_ELLIPSIZE_MODE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_pango_ellipsize_mode (a_mode :INTEGER): BOOLEAN is
+	is_valid_pango_ellipsize_mode (a_mode :INTEGER): BOOLEAN
 		do	
 			Result:=((a_mode = pango_ellipsize_none) or else
 						(a_mode = pango_ellipsize_start) or else
@@ -37,25 +37,25 @@ feature {ANY}  -- enum
 						(a_mode = pango_ellipsize_end))
 		end
 
-	pango_ellipsize_none: INTEGER is
+	pango_ellipsize_none: INTEGER
 			-- No ellipsization
 		external "C macro use <gtk/gtk.h>"
 		alias "PANGO_ELLIPSIZE_NONE"
 		end
 	
-	pango_ellipsize_start: INTEGER is
+	pango_ellipsize_start: INTEGER
 			-- Omit characters at the start of the text
 		external "C macro use <gtk/gtk.h>"
 		alias "PANGO_ELLIPSIZE_START"
 		end
 	
-	pango_ellipsize_middle: INTEGER is
+	pango_ellipsize_middle: INTEGER
 			-- Omit characters in the middle of the text
 		external "C macro use <gtk/gtk.h>"
 		alias "PANGO_ELLIPSIZE_MIDDLE"
 		end
 	
-	pango_ellipsize_end: INTEGER is
+	pango_ellipsize_end: INTEGER
 			-- Omit characters at the end of the text
 		external "C macro use <gtk/gtk.h>"
 		alias "PANGO_ELLIPSIZE_END"

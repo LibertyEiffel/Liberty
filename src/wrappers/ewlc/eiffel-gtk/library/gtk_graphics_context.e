@@ -56,26 +56,26 @@ feature {} -- Creation
 	--   Returns :     a GdkGC.
 
 feature {ANY} 
-	dispose is
+	dispose
 			--   Releases a GdkGC.
 		do
 			gtk_gc_release(handle)
 		end
 
 feature {} -- External calls
-	gtk_gc_get (a_depth: INTEGER; a_colormap, some_gc_values: POINTER; somegdkgcvaluesmask: INTEGER): POINTER is
+	gtk_gc_get (a_depth: INTEGER; a_colormap, some_gc_values: POINTER; somegdkgcvaluesmask: INTEGER): POINTER
 			-- GdkGC* gtk_gc_get (gint depth, GdkColormap *colormap,
 			-- GdkGCValues *values, GdkGCValuesMask values_mask);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_gc_release (a_gc: POINTER) is
+	gtk_gc_release (a_gc: POINTER)
 			-- void gtk_gc_release (GdkGC *gc);
 		external "C use <gtk/gtk.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkGC)"
 		end

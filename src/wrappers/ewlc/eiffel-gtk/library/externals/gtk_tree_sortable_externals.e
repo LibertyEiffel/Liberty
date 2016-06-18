@@ -35,30 +35,30 @@ feature {} -- External calls
 	--                                              GtkTreeIter *b,
 	--                                              gpointer user_data);
 	
-	gtk_tree_sortable_sort_column_changed (a_gtktreesortable: POINTER) is
+	gtk_tree_sortable_sort_column_changed (a_gtktreesortable: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_sortable_get_sort_column_id (a_gtktreesortable, gint_sort_column_id, a_gtksorttype_order: POINTER): INTEGER is
+	gtk_tree_sortable_get_sort_column_id (a_gtktreesortable, gint_sort_column_id, a_gtksorttype_order: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_tree_sortable_set_sort_column_id (a_gtktreesortable: POINTER; a_sort_column_id: INTEGER;
-													  an_order: INTEGER) is
+													  an_order: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_tree_sortable_set_sort_func (a_gtktreesortable: POINTER;
 												a_sort_column_id: INTEGER;
-												a_gtktreeitercomparefunc, user_data a_gtkdestroynotify: POINTER) is
+												a_gtktreeitercomparefunc, user_data a_gtkdestroynotify: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_sortable_set_default_sort_func (a_gtktreesortable, a_gtktreeitercomparefunc, user_data, a_gtkdestroynotify: POINTER) is
+	gtk_tree_sortable_set_default_sort_func (a_gtktreesortable, a_gtktreeitercomparefunc, user_data, a_gtkdestroynotify: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_sortable_has_default_sort_func (a_gtktreesortable: POINTER): INTEGER is
+	gtk_tree_sortable_has_default_sort_func (a_gtktreesortable: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 

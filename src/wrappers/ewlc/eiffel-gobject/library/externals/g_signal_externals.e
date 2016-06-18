@@ -58,20 +58,20 @@ feature {} -- External calls
 --                                              GType return_type,
 --                                              guint n_params,
 --                                              va_list args);
-	g_signal_query (an_id: INTEGER; a_gsignalquery: POINTER) is
+	g_signal_query (an_id: INTEGER; a_gsignalquery: POINTER)
 			-- TODO: `an_id: INTEGER' maps `guint signal_id'; it shall be NATURAL
 		require positive_id: an_id>0
 		external "C use <glib-object.h>"
 		end
 
-	g_signal_lookup (a_name: POINTER; a_type: INTEGER): INTEGER is
+	g_signal_lookup (a_name: POINTER; a_type: INTEGER): INTEGER
 		require valid_type: a_type>0
 		external "C use <glib-object.h>"
 		end
 		
 		
 
-	g_signal_name (an_id: INTEGER): POINTER is
+	g_signal_name (an_id: INTEGER): POINTER
 			-- TODO: `an_id: INTEGER' maps `guint signal_id'; it shall be NATURAL
 		require positive_id: an_id>0
 		external "C use <glib-object.h>"
@@ -95,26 +95,26 @@ feature {} -- External calls
 --                                              GQuark detail,
 --                                              va_list var_args);
 
-	g_signal_connect (instance, detailed_signal, c_handler, data: POINTER): INTEGER is
+	g_signal_connect (instance, detailed_signal, c_handler, data: POINTER): INTEGER
 		external "C macro use <glib-object.h>"
 		ensure positive_result: Result>=0
 		end
 	
 	-- #define     g_signal_connect_after          (instance, detailed_signal, c_handler, data)
 	
-	g_signal_connect_swapped (instance, detailed_signal, c_handler, data: POINTER): INTEGER is
+	g_signal_connect_swapped (instance, detailed_signal, c_handler, data: POINTER): INTEGER
 		external "C macro use <glib-object.h>"
 		ensure positive_result: Result>=0
 		end
 
 	g_signal_connect_object  (instance, signal_name, c_handler, gobject: POINTER;
-									  connect_flags: INTEGER): INTEGER is
+									  connect_flags: INTEGER): INTEGER
 		external "C use <glib-object.h>"
 		ensure positive: Result>=0 -- TODO: Result is actually a gulong!
 		end
 
 	g_signal_connect_data (an_instance, a_detailed_signal, c_handler, data, destroy_data: POINTER
-								  connect_flags: INTEGER): INTEGER_64 is
+								  connect_flags: INTEGER): INTEGER_64
 			-- Result is actually gulong, i.e. a NATURAL_64
 		require
 			valid_instance: an_instance.is_not_null
@@ -127,7 +127,7 @@ feature {} -- External calls
 		end
 		
 	g_signal_connect_closure (an_instance, a_detailed_signal, a_closure: POINTER
-									  after: INTEGER): INTEGER_64 is
+									  after: INTEGER): INTEGER_64
 			-- Result is actually gulong, i.e. a NATURAL_64
 		require
 			valid_instance: an_instance.is_not_null
@@ -190,7 +190,7 @@ feature {} -- External calls
 -- void        g_signal_stop_emission          (gpointer instance,
 --                                              guint signal_id,
 --                                              GQuark detail);
-	g_signal_stop_emission_by_name (an_instance, a_detailed_signal: POINTER) is
+	g_signal_stop_emission_by_name (an_instance, a_detailed_signal: POINTER)
 		require
 			valid_instance: an_instance.is_not_null
 			valid_detailed_signal: a_detailed_signal.is_not_null

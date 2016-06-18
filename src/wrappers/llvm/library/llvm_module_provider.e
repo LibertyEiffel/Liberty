@@ -16,7 +16,7 @@ feature {ANY}
 	module: LLVM_MODULE 
 	-- The module owned by Current provider
 feature {} -- Creation
-	from_module (a_module: LLVM_MODULE) is
+	from_module (a_module: LLVM_MODULE)
 		-- Encapsulates `a_module' in a new module provider, taking ownership of the module.
 	require 
 		a_module/=Void
@@ -32,7 +32,7 @@ feature {} -- Creation
 	end
 
 feature {} -- Disposing
-	dispose is
+	dispose
 		-- Destroys the module provider MP as well as the contained module. See the destructor llvm::ModuleProvider::~ModuleProvider.
 
 		--
@@ -40,7 +40,7 @@ feature {} -- Disposing
 		llvmdispose_module_provider(handle)
 	end
 feature {ANY} 
-	struct_size: like size_t is
+	struct_size: like size_t
 		do
 			not_yet_implemented
 		end

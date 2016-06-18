@@ -44,14 +44,14 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkAssistant.
 		do
 			from_external_pointer(gtk_assistant_new)
 		end
 	
 feature {ANY}
-	current_page: INTEGER is
+	current_page: INTEGER
 			-- The index (starting from 0) of the current page in the
 			-- assistant, if the assistant has no pages, it will be -1.
 		do
@@ -59,7 +59,7 @@ feature {ANY}
 		ensure valid: Result >= -1
 		end
 
-	set_current_page (a_page_num: INTEGER) is
+	set_current_page (a_page_num: INTEGER)
 			-- Switches the page to `a_page_num'. Note that this will
 			-- only be necessary in custom buttons, as the assistant flow
 			-- can be set with `set_forward_page_func'.
@@ -72,13 +72,13 @@ feature {ANY}
 			gtk_assistant_set_current_page (handle, a_page_num)
 		end
 
-	pages_n: INTEGER is
+	pages_n: INTEGER
 			-- The number of pages in the assistant.
 		do
 			Result:=gtk_assistant_get_n_pages(handle)
 		end
 
-	item (a_page_num: INTEGER): GTK_WIDGET is
+	item (a_page_num: INTEGER): GTK_WIDGET
 			-- The child widget contained in page number `a_page_num';
 			-- set it to -1 to get the last page; Result is Void
 			-- `a_page_num' is out of bounds.
@@ -101,7 +101,7 @@ feature {ANY}
 	last_inserted_page: INTEGER
 			-- The index (starting at 0) of the inserted page
 	
-	prepend (a_page: GTK_WIDGET) is
+	prepend (a_page: GTK_WIDGET)
 			-- Prepends `a_page' to the assistant. `last_inserted_page' 
 			-- will be updated.
 		require page_not_void: a_page /= Void
@@ -109,7 +109,7 @@ feature {ANY}
 			last_inserted_page:=gtk_assistant_prepend_page(handle, a_page.handle)
 		end
 
-	append (a_page: GTK_WIDGET) is
+	append (a_page: GTK_WIDGET)
 			-- Appends `a_page' to the assistant. `last_inserted_page' 
 			-- will be updated.
 		require page_not_void: a_page /= Void
@@ -117,7 +117,7 @@ feature {ANY}
 			last_inserted_page:=gtk_assistant_append_page(handle,a_page.handle)
 		end
 
-	insert_page (a_page: GTK_WIDGET; a_position: INTEGER) is
+	insert_page (a_page: GTK_WIDGET; a_position: INTEGER)
 			-- Inserts `a_page' in the assistant at `a_position',
 			-- starting at 0; -1 to append the page to the assistant.
 		require page_not_void: a_page /= Void
@@ -154,7 +154,7 @@ feature {ANY}
 	--    data :      user data for page_func
 	--    destroy :   destroy notifier for data
 	
-	set_page_type (a_page: GTK_WIDGET; a_type: INTEGER) is
+	set_page_type (a_page: GTK_WIDGET; a_type: INTEGER)
 			-- Sets the page type for `a_page'. The page type determines the
 			-- page behavior in the assistant.
 		require
@@ -164,7 +164,7 @@ feature {ANY}
 			gtk_assistant_set_page_type (handle, a_page.handle, a_type)
 		end
 
-	page_type (a_page: GTK_WIDGET): INTEGER is
+	page_type (a_page: GTK_WIDGET): INTEGER
 			-- The type of `a_page'.
 		require page_not_void: a_page /= Void
 		do
@@ -172,7 +172,7 @@ feature {ANY}
 		ensure valid_page_type: is_valid_gtk_page_type(Result)
 		end
 
-	set_page_title (a_page: GTK_WIDGET; a_title: STRING) is
+	set_page_title (a_page: GTK_WIDGET; a_title: STRING)
 			-- Sets `a_title' for `a_page'. The title is displayed in the
 			-- header area of the assistant when page is the current
 			-- page.
@@ -183,7 +183,7 @@ feature {ANY}
 			gtk_assistant_set_page_title(handle, a_page.handle, a_title.to_external)
 		end
 
-	page_title (a_page: GTK_WIDGET): STRING is
+	page_title (a_page: GTK_WIDGET): STRING
 			-- the title for `a_page'.
 		require page_not_void: a_page /= Void
 		do
@@ -191,7 +191,7 @@ feature {ANY}
 			(gtk_assistant_get_page_title(handle, a_page.handle))
 		end
 
-	set_page_header_image (a_page: GTK_WIDGET; a_pixbuf: GDK_PIXBUF) is
+	set_page_header_image (a_page: GTK_WIDGET; a_pixbuf: GDK_PIXBUF)
 			-- Sets a header image for page. This image is displayed in
 			-- the header area of the assistant when page is the current
 			-- page.
@@ -202,7 +202,7 @@ feature {ANY}
 			gtk_assistant_set_page_header_image(handle, a_page.handle, a_pixbuf.handle)
 		end
 
-	page_header_image (a_page: GTK_WIDGET): GDK_PIXBUF is
+	page_header_image (a_page: GTK_WIDGET): GDK_PIXBUF
 			-- The header image for page; Void if there's no header image
 			-- for the page.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GDK_PIXBUF]
@@ -212,7 +212,7 @@ feature {ANY}
 			(handle, a_page.handle))
 		end
 
-	set_page_side_image (a_page: GTK_WIDGET; a_pixbuf: GDK_PIXBUF) is
+	set_page_side_image (a_page: GTK_WIDGET; a_pixbuf: GDK_PIXBUF)
 		-- Sets a header image for `a_page'. This image is displayed
 		-- in the side area of the assistant when page is the current
 		-- page.
@@ -223,7 +223,7 @@ feature {ANY}
 		gtk_assistant_set_page_side_image(handle, a_page.handle, a_pixbuf.handle)
 	end
 
-	page_side_image (a_page: GTK_WIDGET): GDK_PIXBUF is
+	page_side_image (a_page: GTK_WIDGET): GDK_PIXBUF
 			-- The side image for page, or Void if there's no side image
 			-- for the page.
 		require page_not_void: a_page /= Void
@@ -232,7 +232,7 @@ feature {ANY}
 			Result:=factory.wrapper_or_void(gtk_assistant_get_page_side_image(handle, a_page.handle))
 		end
 	
-	set_page_complete (a_page: GTK_WIDGET; is_complete: BOOLEAN) is
+	set_page_complete (a_page: GTK_WIDGET; is_complete: BOOLEAN)
 			-- Sets whether page contents are complete. This will make
 			-- assistant update the buttons state to be able to continue
 			-- the task.
@@ -241,28 +241,28 @@ feature {ANY}
 			gtk_assistant_set_page_complete (handle, a_page.handle, is_complete.to_integer)
 		end
 
-	is_page_complete (a_page: GTK_WIDGET): BOOLEAN is
+	is_page_complete (a_page: GTK_WIDGET): BOOLEAN
 			-- Is `a_page' complete?
 		require page_not_void: a_page /= Void
 		do
 			Result:=(gtk_assistant_get_page_complete (handle,a_page.handle)).to_boolean
 		end
 
-	add_action_widget (a_child: GTK_WIDGET) is
+	add_action_widget (a_child: GTK_WIDGET)
 			-- Adds `a_child' to the action area of a GtkAssistant.
 		require child_not_void: a_child /= Void
 		do
 			gtk_assistant_add_action_widget (handle, a_child.handle)
 		end
 	
-	remove_action_widget (a_child: GTK_WIDGET) is
+	remove_action_widget (a_child: GTK_WIDGET)
 			-- Removes `a_child' from the action area of a GtkAssistant.
 		require child_not_void: a_child /= Void
 		do
 			gtk_assistant_remove_action_widget(handle, a_child.handle)
 		end
 
-	update_buttons_state is
+	update_buttons_state
 			-- Forces assistant to recompute the buttons state. GTK+
 			-- automatically takes care of this in most situations,
 			-- e.g. when the user goes to a different page, or when the
@@ -386,13 +386,13 @@ feature {ANY} -- The "apply" signal
 
 	apply_signal_name: STRING is "apply"
 
-	enable_on_apply is
+	enable_on_apply
 			-- Connects "apply" signal to `on_apply' feature.
 		do
 			connect (Current, apply_signal_name, $on_apply)
 		end
 
-	on_apply is
+	on_apply
 			-- Built-in activate signal handler; empty by design; redefine it.
 		
 			-- The ::apply signal is emitted when the apply button is
@@ -409,7 +409,7 @@ feature {ANY} -- The "apply" signal
 		do
 		end
 
-	connect_agent_to_apply_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
+	connect_agent_to_apply_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]])
 		require
 			valid_procedure: a_procedure /= Void
 		local

@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_option_arg_none) or else 
 				(a_value = g_option_arg_string) or else 
@@ -20,141 +20,141 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_none is
+	default_create, set_none
 		do
 			value := g_option_arg_none
 		end
 
-	set_string is
+	set_string
 		do
 			value := g_option_arg_string
 		end
 
-	set_int is
+	set_int
 		do
 			value := g_option_arg_int
 		end
 
-	set_callback is
+	set_callback
 		do
 			value := g_option_arg_callback
 		end
 
-	set_filename is
+	set_filename
 		do
 			value := g_option_arg_filename
 		end
 
-	set_string_array is
+	set_string_array
 		do
 			value := g_option_arg_string_array
 		end
 
-	set_filename_array is
+	set_filename_array
 		do
 			value := g_option_arg_filename_array
 		end
 
-	set_double is
+	set_double
 		do
 			value := g_option_arg_double
 		end
 
-	set_int64 is
+	set_int64
 		do
 			value := g_option_arg_int64
 		end
 
 
 feature {ANY} -- Queries
-	is_none: BOOLEAN is
+	is_none: BOOLEAN
 		do
 			Result := (value=g_option_arg_none)
 		end
 
-	is_string: BOOLEAN is
+	is_string: BOOLEAN
 		do
 			Result := (value=g_option_arg_string)
 		end
 
-	is_int: BOOLEAN is
+	is_int: BOOLEAN
 		do
 			Result := (value=g_option_arg_int)
 		end
 
-	is_callback: BOOLEAN is
+	is_callback: BOOLEAN
 		do
 			Result := (value=g_option_arg_callback)
 		end
 
-	is_filename: BOOLEAN is
+	is_filename: BOOLEAN
 		do
 			Result := (value=g_option_arg_filename)
 		end
 
-	is_string_array: BOOLEAN is
+	is_string_array: BOOLEAN
 		do
 			Result := (value=g_option_arg_string_array)
 		end
 
-	is_filename_array: BOOLEAN is
+	is_filename_array: BOOLEAN
 		do
 			Result := (value=g_option_arg_filename_array)
 		end
 
-	is_double: BOOLEAN is
+	is_double: BOOLEAN
 		do
 			Result := (value=g_option_arg_double)
 		end
 
-	is_int64: BOOLEAN is
+	is_int64: BOOLEAN
 		do
 			Result := (value=g_option_arg_int64)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_option_arg_none: INTEGER is
+	g_option_arg_none: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ARG_NONE"
 		end
 
-	g_option_arg_string: INTEGER is
+	g_option_arg_string: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ARG_STRING"
 		end
 
-	g_option_arg_int: INTEGER is
+	g_option_arg_int: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ARG_INT"
 		end
 
-	g_option_arg_callback: INTEGER is
+	g_option_arg_callback: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ARG_CALLBACK"
 		end
 
-	g_option_arg_filename: INTEGER is
+	g_option_arg_filename: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ARG_FILENAME"
 		end
 
-	g_option_arg_string_array: INTEGER is
+	g_option_arg_string_array: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ARG_STRING_ARRAY"
 		end
 
-	g_option_arg_filename_array: INTEGER is
+	g_option_arg_filename_array: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ARG_FILENAME_ARRAY"
 		end
 
-	g_option_arg_double: INTEGER is
+	g_option_arg_double: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ARG_DOUBLE"
 		end
 
-	g_option_arg_int64: INTEGER is
+	g_option_arg_int64: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ARG_INT64"
 		end

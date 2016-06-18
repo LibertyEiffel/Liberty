@@ -44,7 +44,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GTK_TEXT_VIEW. If you don't call
 			-- `set_buffer' before using the text view, an empty
 			-- default buffer will be created for you. Get
@@ -56,7 +56,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_text_view_new)
 		end
 
-	make_with_buffer (a_buffer: GTK_TEXT_BUFFER) is
+	make_with_buffer (a_buffer: GTK_TEXT_BUFFER)
 			-- Creates a new GTK_TEXT_VIEW widget displaying the buffer
 			-- `a_buffer'. One buffer can be shared among many widgets.
 			-- The text view adds its own reference count to the buffer;
@@ -81,7 +81,7 @@ feature {ANY} -- Queries
 
 feature {ANY} -- Operations
 
-	set_buffer (a_buffer: GTK_TEXT_BUFFER) is
+	set_buffer (a_buffer: GTK_TEXT_BUFFER)
 			-- Sets `a_buffer' as the buffer being displayed.
 			-- The previous buffer displayed by the text view is unreferenced,
 			-- and a reference is added to `a_buffer'.
@@ -99,7 +99,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Access
 
-	buffer: GTK_TEXT_BUFFER is
+	buffer: GTK_TEXT_BUFFER
 			-- The GTK_TEXT_BUFFER being displayed by this text view.
 		local
 			c_buff: POINTER
@@ -152,7 +152,7 @@ feature {ANY} -- Style properties:
 
 feature {ANY}
 	scroll_to_mark (a_mark: GTK_TEXT_MARK; within_margin: REAL;
-					  use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
+					  use_align: BOOLEAN; an_x_align, an_y_align: REAL)
 			-- Scrolls Current so that `a_mark' is on the screen in the
 			-- position indicated by `an_x_align' and `an_y_align'. An
 			-- alignment of 0.0 indicates left or top, 1.0 indicates
@@ -179,7 +179,7 @@ feature {ANY}
 		end
 
 	scroll_to_iter (an_iter: GTK_TEXT_ITER; within_margin: REAL;
-					  use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
+					  use_align: BOOLEAN; an_x_align, an_y_align: REAL)
 			-- Scrolls text_view so that iter is on the screen in the
 			-- position indicated by xalign and yalign. An alignment of
 			-- 0.0 indicates left or top, 1.0 indicates right or bottom,
@@ -214,7 +214,7 @@ feature {ANY}
 									 use_align.to_integer, an_x_align, an_y_align) ).to_boolean
 		end
 
-	mark_onscreen (a_mark: GTK_TEXT_MARK) is
+	mark_onscreen (a_mark: GTK_TEXT_MARK)
 			-- Scrolls text view the minimum distance such that `a_mark'
 			-- is contained within the visible area of the widget.
 		require mark_not_void: a_mark /= Void
@@ -222,7 +222,7 @@ feature {ANY}
 			gtk_text_view_scroll_mark_onscreen (handle, a_mark.handle)
 		end
 
-	move_mark_onscreen (a_mark: GTK_TEXT_MARK): BOOLEAN is
+	move_mark_onscreen (a_mark: GTK_TEXT_MARK): BOOLEAN
 			-- Moves a mark within the buffer so that it's located within
 			-- the currently-visible text area.
 		
@@ -232,7 +232,7 @@ feature {ANY}
 			Result := (gtk_text_view_move_mark_onscreen (handle, a_mark.handle)).to_boolean
 		end
 
-	place_cursor_onscreen is
+	place_cursor_onscreen
 			-- Moves the cursor to the currently visible region of the
 			-- buffer, if it isn't there already.
 			-- `have_been_cursor_moved' will be true if the cursor had to
@@ -241,7 +241,7 @@ feature {ANY}
 			have_been_cursor_moved:= gtk_text_view_place_cursor_onscreen (handle).to_boolean
 		end
 
-	visible_rect: GDK_RECTANGLE is
+	visible_rect: GDK_RECTANGLE
 			-- the currently-visible region of the buffer, in buffer
 			-- coordinates. Convert to window coordinates with
 			-- `buffer_to_window_coords'.
@@ -250,7 +250,7 @@ feature {ANY}
 			gtk_text_view_get_visible_rect (handle, Result.handle)
 		end
 
-	iter_location (an_iterator: GTK_TEXT_ITER): GDK_RECTANGLE is
+	iter_location (an_iterator: GTK_TEXT_ITER): GDK_RECTANGLE
 			-- A rectangle which roughly contains the character at
 			-- `an_iterator'. The rectangle position is in buffer
 			-- coordinates; use `buffer_to_window_coords' to convert
@@ -262,7 +262,7 @@ feature {ANY}
 			gtk_text_view_get_iter_location (handle, an_iterator.handle, Result.handle)
 		end
 
-	set_iter_line_at_y (an_iterator: GTK_TEXT_ITER; a_y: INTEGER) is
+	set_iter_line_at_y (an_iterator: GTK_TEXT_ITER; a_y: INTEGER)
 			-- Sets `an_iterator' at the start of the line containing the
 			-- coordinate `an_y'. `an_y' is in buffer coordinates,
 			-- convert from window coordinates with
@@ -296,7 +296,7 @@ feature {ANY}
 	-- 			create Result.make_2 (y,height)
 	-- 		end
 
-	iter_at_location (an_x, an_y: INTEGER): GTK_TEXT_ITER is
+	iter_at_location (an_x, an_y: INTEGER): GTK_TEXT_ITER
 			-- Retrieves the iterator at buffer coordinates `an_x' and
 			-- `an_y'. Buffer coordinates are coordinates for the entire
 			-- buffer, not just the currently-displayed portion. If you
@@ -308,7 +308,7 @@ feature {ANY}
 		ensure result_not_void: Result /= Void
 		end
 	
-	iter_at_position (an_x, an_y: INTEGER): TUPLE[GTK_TEXT_ITER,INTEGER] is
+	iter_at_position (an_x, an_y: INTEGER): TUPLE[GTK_TEXT_ITER,INTEGER]
 			-- the iterator pointing to the character at buffer
 			-- coordinates `an_x' and `an_y' and the number of characters
 			-- in the grapheme (0 represents the trailing edge of the
@@ -333,7 +333,7 @@ feature {ANY}
 		end
 
 	buffer_to_window_coords (a_window_type: INTEGER;
-									 buffer_x, buffer_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+									 buffer_x, buffer_y: INTEGER): TUPLE[INTEGER, INTEGER]
 			-- Converts coordinate (buffer_x, buffer_y) to coordinates
 			-- for the window of `a_widndow_type' (except gtk_text_window_private). Result is
 			-- [window_x,window_y].
@@ -353,7 +353,7 @@ feature {ANY}
 		end
 
 	window_to_buffer_coords (a_window_type: INTEGER;
-								  window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+								  window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER]
 			-- Converts coordinates on the window identified by win to
 			-- buffer coordinates, storing the result in
 			-- (buffer_x,buffer_y).
@@ -370,7 +370,7 @@ feature {ANY}
 			create Result.make_2 (buffer_x, buffer_y)
 		end
 
-	window (a_text_window_type: INTEGER) : GDK_WINDOW is
+	window (a_text_window_type: INTEGER) : GDK_WINDOW
 			-- The GDK_WINDOW corresponding to an area of the text view;
 			-- possible windows include the overall widget window, child
 			-- windows on the left, right, top, bottom, and the window
@@ -383,7 +383,7 @@ feature {ANY}
 			Result := factory.wrapper (gtk_text_view_get_window (handle, a_text_window_type))
 		end
 
-	window_type (a_window: GDK_WINDOW): INTEGER is
+	window_type (a_window: GDK_WINDOW): INTEGER
 			-- Usually used to find out which window an event corresponds
 			-- to. If you connect to an event signal on text_view, this
 			-- function should be called on event->window to see which
@@ -393,7 +393,7 @@ feature {ANY}
 		ensure is_valid_gtk_text_window_type (Result)
 		end
 
-	set_border_window_size (a_window_type: INTEGER; a_size: INTEGER) is
+	set_border_window_size (a_window_type: INTEGER; a_size: INTEGER)
 			-- Sets the width of `gtk_text_window_left' or
 			-- `gtk_text_window_right', or the height of
 			-- `gtk_text_window_top' or
@@ -412,7 +412,7 @@ feature {ANY}
 			gtk_text_view_set_border_window_size (handle, a_window_type, a_size)
 		end
 
-	border_window_size (a_window_type: INTEGER): INTEGER is
+	border_window_size (a_window_type: INTEGER): INTEGER
 			-- the width of the specified border window. See
 			-- `set_border_window_size'.
 		require
@@ -422,7 +422,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Iterator moving command
-	forward_display_line (an_iterator: GTK_TEXT_ITER) is
+	forward_display_line (an_iterator: GTK_TEXT_ITER)
 			-- Moves `an_iterator' forward by one display (wrapped)
 			-- line. A display line is different from a
 			-- paragraph. Paragraphs are separated by newlines or other
@@ -441,7 +441,7 @@ feature {ANY} -- Iterator moving command
 			was_iter_moved := gtk_text_view_forward_display_line (handle, an_iterator.handle).to_boolean
 		end
 
-	backward_display_line (an_iter: GTK_TEXT_ITER) is
+	backward_display_line (an_iter: GTK_TEXT_ITER)
 			-- Moves `an_iter' backward by one display (wrapped) line. A
 			-- display line is different from a paragraph. Paragraphs are
 			-- separated by newlines or other paragraph separator
@@ -459,7 +459,7 @@ feature {ANY} -- Iterator moving command
 			was_iter_moved := gtk_text_view_backward_display_line(handle,an_iter.handle).to_boolean
 		end
 
-	forward_display_line_end (an_iter: GTK_TEXT_ITER) is
+	forward_display_line_end (an_iter: GTK_TEXT_ITER)
 			-- Moves `an_iter' forward to the next display line end. A
 			-- display line is different from a paragraph. Paragraphs are
 			-- separated by newlines or other paragraph separator
@@ -477,7 +477,7 @@ feature {ANY} -- Iterator moving command
 			was_iter_moved:=gtk_text_view_forward_display_line_end(handle,an_iter.handle).to_boolean
 		end
 
-	backward_display_line_start (an_iter: GTK_TEXT_ITER) is
+	backward_display_line_start (an_iter: GTK_TEXT_ITER)
 			-- Moves `an_iter' backward to the next display line start. A
 			-- display line is different from a paragraph. Paragraphs are
 			-- separated by newlines or other paragraph separator
@@ -497,7 +497,7 @@ feature {ANY} -- Iterator moving command
 
 feature {ANY} -- Iterator queries
 
-	does_start_display_line (an_iter: GTK_TEXT_ITER): BOOLEAN is
+	does_start_display_line (an_iter: GTK_TEXT_ITER): BOOLEAN
 			-- Does `an_iter' begin a display (wrapped) line? See
 			-- `forward_display_line' for an explanation of display lines
 			-- vs. paragraphs.
@@ -597,14 +597,14 @@ feature {ANY} -- Iterator queries
 
 feature {ANY} -- Wrap mode
 
-	set_wrap_mode (a_mode: INTEGER) is
+	set_wrap_mode (a_mode: INTEGER)
 			-- 	Sets the line wrapping for the view.
 		require valid_mode: is_valid_gtk_wrap_mode (a_mode)
 		do
 			gtk_text_view_set_wrap_mode     (handle, a_mode)
 		end
 
-	wrap_mode: INTEGER is
+	wrap_mode: INTEGER
 			-- the line wrapping for the view.
 		do
 			Result := gtk_text_view_get_wrap_mode (handle)
@@ -613,7 +613,7 @@ feature {ANY} -- Wrap mode
 
 feature {ANY} -- Editabilty
 
-	set_editable is
+	set_editable
 			-- Makes Current GtkTextView editable. You can override this
 			-- default setting with tags in the buffer, using the
 			-- "editable" attribute of tags.
@@ -622,7 +622,7 @@ feature {ANY} -- Editabilty
 		ensure editable: is_editable
 		end
 
-	set_uneditable is
+	set_uneditable
 			-- Makes Current GtkTextView not editable. You can override this
 			-- default setting with tags in the buffer, using the
 			-- "editable" attribute of tags.
@@ -631,7 +631,7 @@ feature {ANY} -- Editabilty
 		ensure uneditable: not is_editable
 		end
 
-	is_editable: BOOLEAN is
+	is_editable: BOOLEAN
 			-- Is Current GTK_TEXT_VIEW editable? Tags in the buffer may
 			-- override this setting for some ranges of text.
 		do
@@ -640,14 +640,14 @@ feature {ANY} -- Editabilty
 
 feature {ANY} -- Cursor visibility
 
-	set_cursor_visible is
+	set_cursor_visible
 			-- Displays the insertion point.
 		do
 			gtk_text_view_set_cursor_visible (handle, 1)
 		ensure visible_cursor: is_cursor_visible
 		end
 
-	set_cursor_invisible is
+	set_cursor_invisible
 			-- Hides the insertion point. A buffer with no editable text
 			-- probably shouldn't have a visible cursor, so you may want
 			-- to turn the cursor off.
@@ -656,7 +656,7 @@ feature {ANY} -- Cursor visibility
 		ensure invisible_cursor: not is_cursor_visible
 		end
 
-	is_cursor_visible: BOOLEAN is
+	is_cursor_visible: BOOLEAN
 			-- Is  the cursor being displayed?
 		do
 			Result := gtk_text_view_get_cursor_visible (handle).to_boolean
@@ -664,14 +664,14 @@ feature {ANY} -- Cursor visibility
 
 feature {ANY}
 
-	set_overwrite is
+	set_overwrite
 			-- Turns the GtkTextView overwrite mode on.
 		do
 			gtk_text_view_set_overwrite (handle, 1)
 		ensure overwrite_set: is_overwrite_set
 		end
 
-	unset_overwrite is
+	unset_overwrite
 			-- Turns the GtkTextView overwrite mode off.
 		do
 			gtk_text_view_set_overwrite (handle, 0)
@@ -679,7 +679,7 @@ feature {ANY}
 		end
 
 
-	is_overwrite_set: BOOLEAN is
+	is_overwrite_set: BOOLEAN
 			-- Is the GtkTextView is in overwrite mode?
 		do
 			Result := gtk_text_view_get_overwrite (handle).to_boolean
@@ -687,7 +687,7 @@ feature {ANY}
 
 
 feature {ANY} -- Pixels above and below lines
-	set_pixels_above_lines (a_setting: INTEGER) is
+	set_pixels_above_lines (a_setting: INTEGER)
 			-- Sets the default number of blank pixels above paragraphs
 			-- in text_view. Tags in the buffer may override the
 			-- defaults.
@@ -697,13 +697,13 @@ feature {ANY} -- Pixels above and below lines
 			set: pixels_above_lines = a_setting
 		end
 
-	pixels_above_lines: INTEGER is
+	pixels_above_lines: INTEGER
 			-- the default number of pixels to put above paragraphs.
 		do
 			Result:=gtk_text_view_get_pixels_above_lines(handle)
 		end
 
-	set_pixels_below_lines (a_setting: INTEGER) is
+	set_pixels_below_lines (a_setting: INTEGER)
 			-- Sets the default number of pixels of blank space to put
 			-- below paragraphs in text_view. May be overridden by tags
 			-- applied to text_view's buffer.
@@ -713,13 +713,13 @@ feature {ANY} -- Pixels above and below lines
 			set: pixels_below_lines = a_setting
 		end
 
-	pixels_below_lines: INTEGER is
+	pixels_below_lines: INTEGER
 			-- default number of blank pixels below paragraphs
 		do
 			Result := gtk_text_view_get_pixels_below_lines(handle)
 		end
 
-	set_pixels_inside_wrap (a_setting: INTEGER) is
+	set_pixels_inside_wrap (a_setting: INTEGER)
 			-- Sets the default number of pixels of blank space to leave
 			-- between display/wrapped lines within a paragraph. May be
 			-- overridden by tags in text_view's buffer.
@@ -729,14 +729,14 @@ feature {ANY} -- Pixels above and below lines
 			set: pixels_inside_wrap = a_setting
 		end
 
-	pixels_inside_wrap: INTEGER is
+	pixels_inside_wrap: INTEGER
 			-- the default number of pixels of blank space between
 			-- wrapped lines
 		do
 			Result:=gtk_text_view_get_pixels_inside_wrap(handle)
 		end
 
-	set_justification (a_justification: INTEGER) is
+	set_justification (a_justification: INTEGER)
 			-- Sets the default justification of text in text view. Tags
 			-- in the view's buffer may override the default.
 		require valid_justification: is_valid_gtk_justification(a_justification)
@@ -745,7 +745,7 @@ feature {ANY} -- Pixels above and below lines
 		ensure set: a_justification = justification
 		end
 
-	justification: INTEGER is
+	justification: INTEGER
 			-- the default justification of paragraphs in text view. Tags
 			-- in the buffer may override the default.
 		do
@@ -753,7 +753,7 @@ feature {ANY} -- Pixels above and below lines
 		ensure valid: is_valid_gtk_justification(Result)
 		end
 
-	set_left_margin (a_left_margin: INTEGER) is
+	set_left_margin (a_left_margin: INTEGER)
 			-- Sets the default left margin for text in text view. Tags
 			-- in the buffer may override the default. Margin in
 			-- expressed in pixels.
@@ -762,7 +762,7 @@ feature {ANY} -- Pixels above and below lines
 		ensure set: a_left_margin = left_margin
 		end
 
-	left_margin: INTEGER is
+	left_margin: INTEGER
 			-- the default left margin size of paragraphs in the text
 			-- view. Tags in the buffer may override the default.  Margin
 			-- is expressed in pixels.
@@ -770,7 +770,7 @@ feature {ANY} -- Pixels above and below lines
 			Result:=gtk_text_view_get_left_margin(handle)
 		end
 
-	set_right_margin (a_right_margin: INTEGER) is
+	set_right_margin (a_right_margin: INTEGER)
 			-- Sets the default right margin for text in text view. Tags
 			-- in the buffer may override the default. Margin in
 			-- expressed in pixels.
@@ -779,7 +779,7 @@ feature {ANY} -- Pixels above and below lines
 		ensure set: a_right_margin = right_margin
 		end
 
-	right_margin: INTEGER is
+	right_margin: INTEGER
 			-- the default right margin size of paragraphs in the text
 			-- view. Tags in the buffer may override the default.  Margin
 			-- is expressed in pixels.
@@ -787,14 +787,14 @@ feature {ANY} -- Pixels above and below lines
 			Result:=gtk_text_view_get_right_margin(handle)
 		end
 
-	set_indent (an_indent: INTEGER) is
+	set_indent (an_indent: INTEGER)
 			-- Sets the default indentation (in pixels) for paragraphs in
 			-- text view. Tags in the buffer may override the default.
 		do
 			gtk_text_view_set_indent(handle, an_indent)
 		end
 
-	indent: INTEGER is
+	indent: INTEGER
 			-- The default indentation (in pixels) of paragraphs in text
 			-- view. Tags in the view's buffer may override the
 			-- default. The indentation may be negative.
@@ -863,7 +863,7 @@ feature {ANY} -- Pixels above and below lines
 
 	-- 	-----------------------------------------------------------------------
 
-	default_attributes: GTK_TEXT_ATTRIBUTES is
+	default_attributes: GTK_TEXT_ATTRIBUTES
 			-- 	Obtains a copy of the default text attributes. These are the attributes
 			-- 	used for text unless a tag overrides them. You'd typically pass the
 			-- 	default attributes in to TEXT_ITER:attributes() in order to get
@@ -1090,7 +1090,7 @@ feature {} -- TODO: Signals
 -- 	-----------------------------------------------------------------------
 
 feature {ANY} --   The "insert-at-cursor" signal
-	connect_agent_to_insert_at_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, GTK_TEXT_VIEW]]) is
+	connect_agent_to_insert_at_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, GTK_TEXT_VIEW]])
 			-- 	textview :  the object which received the signal.
 			-- 	arg1 :
 		require
@@ -1107,7 +1107,7 @@ feature {ANY} --   The "insert-at-cursor" signal
 
 feature {ANY} -- The "move-cursor" signal
 
-	connect_agent_to_move_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]) is
+	connect_agent_to_move_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]])
 			-- 	The ::move-cursor signal is a keybinding signal which gets emitted when
 			-- 	the user initiates a cursor movement.
 
@@ -1173,7 +1173,7 @@ feature {ANY} -- The "move-cursor" signal
 
 feature {ANY} -- The "paste-clipboard" signal
 
-	connect_agent_to_paste_clipboard_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_TEXT_VIEW]]) is
+	connect_agent_to_paste_clipboard_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_TEXT_VIEW]])
 			-- The ::paste-clipboard signal is a keybinding signal which gets
 			-- emitted to paste the contents of the clipboard into the text view.
 			--
@@ -1251,7 +1251,7 @@ feature {ANY} -- The "paste-clipboard" signal
 
 feature {ANY} -- struct size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextView)"
 		end

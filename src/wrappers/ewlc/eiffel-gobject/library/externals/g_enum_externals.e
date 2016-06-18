@@ -10,27 +10,27 @@ deferred class G_ENUM_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	g_enum_class_type (a_class: POINTER) is
+	g_enum_class_type (a_class: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_ENUM_CLASS_TYPE"
 		end
 
-	g_enum_class_type_name (a_class: POINTER) is
+	g_enum_class_type_name (a_class: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_ENUM_CLASS_TYPE_NAME"
 		end
 
-	g_type_is_enum (a_type: POINTER) is
+	g_type_is_enum (a_type: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_IS_ENUM"
 		end
 
-	g_enum_class (a_class: POINTER) is
+	g_enum_class (a_class: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_ENUM_CLASS"
 		end
 
-	g_is_enum_class (a_class: POINTER) is
+	g_is_enum_class (a_class: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_IS_ENUM_CLASS"
 		end
@@ -52,7 +52,7 @@ feature {} -- External calls
 		end
 
 	g_enum_complete_type_info (a_g_enum_type: INTEGER; a_gtypeinfo: POINTER;
-										some_const_genumvalues: POINTER) is
+										some_const_genumvalues: POINTER)
 		external "C macro use <glib-object.h>"
 		end
 end

@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_type_debug_none) or else 
 				(a_value = g_type_debug_objects) or else 
@@ -15,66 +15,66 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_none is
+	default_create, set_none
 		do
 			value := g_type_debug_none
 		end
 
-	set_objects is
+	set_objects
 		do
 			value := g_type_debug_objects
 		end
 
-	set_signals is
+	set_signals
 		do
 			value := g_type_debug_signals
 		end
 
-	set_mask is
+	set_mask
 		do
 			value := g_type_debug_mask
 		end
 
 
 feature {ANY} -- Queries
-	is_none: BOOLEAN is
+	is_none: BOOLEAN
 		do
 			Result := (value=g_type_debug_none)
 		end
 
-	is_objects: BOOLEAN is
+	is_objects: BOOLEAN
 		do
 			Result := (value=g_type_debug_objects)
 		end
 
-	is_signals: BOOLEAN is
+	is_signals: BOOLEAN
 		do
 			Result := (value=g_type_debug_signals)
 		end
 
-	is_mask: BOOLEAN is
+	is_mask: BOOLEAN
 		do
 			Result := (value=g_type_debug_mask)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_type_debug_none: INTEGER is
+	g_type_debug_none: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_DEBUG_NONE"
 		end
 
-	g_type_debug_objects: INTEGER is
+	g_type_debug_objects: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_DEBUG_OBJECTS"
 		end
 
-	g_type_debug_signals: INTEGER is
+	g_type_debug_signals: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_DEBUG_SIGNALS"
 		end
 
-	g_type_debug_mask: INTEGER is
+	g_type_debug_mask: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_DEBUG_MASK"
 		end

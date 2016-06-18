@@ -49,7 +49,7 @@ inherit G_OBJECT
 feature {ANY} -- 
 	is_last_action_successful: BOOLEAN
 		
-	receive_data (a_path: GTK_TREE_PATH; a_selection_data: GTK_SELECTION_DATA) is
+	receive_data (a_path: GTK_TREE_PATH; a_selection_data: GTK_SELECTION_DATA)
 			-- Try to insert a row before `a_path', deriving the contents
 			-- of the row from
 			-- `a_selection_data'. `is_last_action_successful' will be
@@ -66,7 +66,7 @@ feature {ANY} --
 				 (handle, a_path.handle, a_selection_data.handle)).to_boolean
 		end
 	
-	is_row_drop_possible (a_path: GTK_TREE_PATH; a_selection_data: GTK_SELECTION_DATA): BOOLEAN is
+	is_row_drop_possible (a_path: GTK_TREE_PATH; a_selection_data: GTK_SELECTION_DATA): BOOLEAN
 			-- Determines whether a drop is possible before the given
 			-- dest_path, at the same depth as dest_path. i.e., can we
 			-- drop the data in selection_data at that

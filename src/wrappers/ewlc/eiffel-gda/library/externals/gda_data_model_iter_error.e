@@ -5,28 +5,28 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = gda_data_model_iter_what_error))
 		end
 
 
 feature {ANY} -- Setters
-	default_create, set_gda_data_model_iter_what_error is
+	default_create, set_gda_data_model_iter_what_error
 		do
 			value := gda_data_model_iter_what_error
 		end
 
 
 feature {ANY} -- Queries
-	is_gda_data_model_iter_what_error: BOOLEAN is
+	is_gda_data_model_iter_what_error: BOOLEAN
 		do
 			Result := (value=gda_data_model_iter_what_error)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gda_data_model_iter_what_error: INTEGER is
+	gda_data_model_iter_what_error: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ITER_WHAT_ERROR"
 		end

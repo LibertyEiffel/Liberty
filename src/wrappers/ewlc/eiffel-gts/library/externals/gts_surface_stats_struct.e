@@ -12,87 +12,87 @@ inherit ANY undefine is_equal, copy end
 	
 feature {} -- Structure getter/setter calls
 
-	get_n_faces (a_struct: POINTER): INTEGER is
+	get_n_faces (a_struct: POINTER): INTEGER
 		external "C struct GtsSurfaceStats get n_faces use <gts.h>"
 		end
 
-	set_n_faces (a_struct: POINTER; a_n_faces: INTEGER) is
+	set_n_faces (a_struct: POINTER; a_n_faces: INTEGER)
 		external "C struct GtsSurfaceStats set n_faces use <gts.h>"
 		end
 
 	--    guint n_incompatible_faces;
-	get_n_incompatible_faces (a_struct: POINTER): INTEGER is
+	get_n_incompatible_faces (a_struct: POINTER): INTEGER
 		external "C struct GtsSurfaceStats get n_incompatible_faces use <gts.h>"
 		end
 
-	set_n_incompatible_faces (a_struct: POINTER; a_n_incompatible_faces: INTEGER) is
+	set_n_incompatible_faces (a_struct: POINTER; a_n_incompatible_faces: INTEGER)
 		external "C struct GtsSurfaceStats set n_incompatible_faces use <gts.h>"
 		end
 --    guint n_duplicate_faces;
-	get_n_duplicate_faces (a_struct: POINTER): INTEGER is
+	get_n_duplicate_faces (a_struct: POINTER): INTEGER
 		external "C struct GtsSurfaceStats get n_duplicate_faces use <gts.h>"
 		end
 
-	set_n_duplicate_faces (a_struct: POINTER; a_n_duplicate_faces: INTEGER) is
+	set_n_duplicate_faces (a_struct: POINTER; a_n_duplicate_faces: INTEGER)
 		external "C struct GtsSurfaceStats set n_duplicate_faces use <gts.h>"
 		end
 	
 --    guint n_duplicate_edges;
-	get_n_duplicate_edges (a_struct: POINTER): INTEGER is
+	get_n_duplicate_edges (a_struct: POINTER): INTEGER
 		external "C struct GtsSurfaceStats get n_duplicate_edges use <gts.h>"
 		end
 
-	set_n_duplicate_edges (a_struct: POINTER; a_n_duplicate_edges: INTEGER) is
+	set_n_duplicate_edges (a_struct: POINTER; a_n_duplicate_edges: INTEGER)
 		external "C struct GtsSurfaceStats set n_duplicate_edges use <gts.h>"
 		end
 	
 --    guint n_boundary_edges;
-	get_n_boundary_edges (a_struct: POINTER): INTEGER is
+	get_n_boundary_edges (a_struct: POINTER): INTEGER
 		external "C struct GtsSurfaceStats get n_boundary_edges use <gts.h>"
 		end
 
-	set_n_boundary_edges (a_struct: POINTER; a_n_boundary_edges: INTEGER) is
+	set_n_boundary_edges (a_struct: POINTER; a_n_boundary_edges: INTEGER)
 		external "C struct GtsSurfaceStats set n_boundary_edges use <gts.h>"
 		end
 	
 --    guint n_non_manifold_edges;
-	get_n_non_manifold_edges (a_struct: POINTER): INTEGER is
+	get_n_non_manifold_edges (a_struct: POINTER): INTEGER
 		external "C struct GtsSurfaceStats get n_non_manifold_edges use <gts.h>"
 		end
 
-	set_n_non_manifold_edges (a_struct: POINTER; a_n_non_manifold_edges: INTEGER) is
+	set_n_non_manifold_edges (a_struct: POINTER; a_n_non_manifold_edges: INTEGER)
 		external "C struct GtsSurfaceStats set n_non_manifold_edges use <gts.h>"
 		end
 	
 	--    GtsRange edges_per_vertex;
-	get_edges_per_vertex (a_struct: POINTER): POINTER is
+	get_edges_per_vertex (a_struct: POINTER): POINTER
 		external "C struct GtsSurfaceStats get edges_per_vertex use <gts.h>"
 		end
 
-	set_edges_per_vertex (a_struct: POINTER; a_edges_per_vertex: POINTER) is
+	set_edges_per_vertex (a_struct: POINTER; a_edges_per_vertex: POINTER)
 		external "C struct GtsSurfaceStats set edges_per_vertex use <gts.h>"
 		end
 
 	--    GtsRange faces_per_edge;
-	get_faces_per_edge (a_struct: POINTER): POINTER is
+	get_faces_per_edge (a_struct: POINTER): POINTER
 		external "C struct GtsSurfaceStats get faces_per_edge use <gts.h>"
 		end
 
-	set_faces_per_edge (a_struct: POINTER; a_faces_per_edge: POINTER) is
+	set_faces_per_edge (a_struct: POINTER; a_faces_per_edge: POINTER)
 		external "C struct GtsSurfaceStats set faces_per_edge use <gts.h>"
 		end
 	
 	--    GtsSurface * parent;
-	get_parent (a_struct: POINTER): POINTER is
+	get_parent (a_struct: POINTER): POINTER
 		external "C struct GtsSurfaceStats get parent use <gts.h>"
 		end
 
-	set_parent (a_struct: POINTER; a_parent: POINTER) is
+	set_parent (a_struct: POINTER; a_parent: POINTER)
 		external "C struct GtsSurfaceStats set parent use <gts.h>"
 		end
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsSurfaceStats)"
 		end

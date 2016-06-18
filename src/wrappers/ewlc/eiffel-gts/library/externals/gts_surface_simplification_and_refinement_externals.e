@@ -24,7 +24,7 @@ deferred class GTS_SURFACE_SIMPLIFICATION_AND_REFINEMENT_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gts_surface_refine (a_surface, a_cost_func, a_cost_data, a_refine_func, a_refine_data, a_stop_func, a_stop_data: POINTER) is
+	gts_surface_refine (a_surface, a_cost_func, a_cost_data, a_refine_func, a_refine_data, a_stop_func, a_stop_data: POINTER)
 			-- void gts_surface_refine (GtsSurface *surface, GtsKeyFunc cost_func,
 			-- gpointer cost_data, GtsRefineFunc refine_func, gpointer refine_data,
 			-- GtsStopFunc stop_func, gpointer stop_data);
@@ -40,7 +40,7 @@ feature {} -- External calls
 
 	--  gboolean (*GtsStopFunc) (gdouble cost, guint nedge, gpointer data);
 
-	gts_surface_coarsen (a_surface, a_cost_func, a_cost_data, a_coarsen_func, a_coarsen_data, a_stop_func, a_stop_data: POINTER; a_min_angle: REAL) is
+	gts_surface_coarsen (a_surface, a_cost_func, a_cost_data, a_coarsen_func, a_coarsen_data, a_stop_func, a_stop_data: POINTER; a_min_angle: REAL)
 			-- void gts_surface_coarsen (GtsSurface *surface, GtsKeyFunc cost_func,
 			-- gpointer cost_data, GtsCoarsenFunc coarsen_func, gpointer
 			-- coarsen_data, GtsStopFunc stop_func, gpointer stop_data, gdouble
@@ -48,7 +48,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_coarsen_stop_number (a_cost: REAL; a_nedge: INTEGER; a_min_number: POINTER): INTEGER is
+	gts_coarsen_stop_number (a_cost: REAL; a_nedge: INTEGER; a_min_number: POINTER): INTEGER
 			-- gboolean gts_coarsen_stop_number (gdouble cost, guint nedge, guint
 			-- *min_number);
 
@@ -56,7 +56,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	 gts_coarsen_stop_cost (a_cost: REAL; a_nedge: INTEGER; a_max_cost: POINTER): INTEGER is
+	 gts_coarsen_stop_cost (a_cost: REAL; a_nedge: INTEGER; a_max_cost: POINTER): INTEGER
 			-- gboolean gts_coarsen_stop_cost (gdouble cost, guint nedge, gdouble
 			-- *max_cost);
 
@@ -67,24 +67,24 @@ feature {} -- External calls
 
 	--  GtsVolumeOptimizedParams;
 
-	 gts_volume_optimized_vertex (a_edge, a_klass, a_params: POINTER): POINTER is
+	 gts_volume_optimized_vertex (a_edge, a_klass, a_params: POINTER): POINTER
 			-- GtsVertex* gts_volume_optimized_vertex (GtsEdge *edge,
 			-- GtsVertexClass *klass, GtsVolumeOptimizedParams *params);
 		external "C use <gts.h>"
 		end
 
-	 gts_volume_optimized_cost (an_edge, a_volumeoptimizedparams: POINTER): REAL is
+	 gts_volume_optimized_cost (an_edge, a_volumeoptimizedparams: POINTER): REAL
 			--  gdouble gts_volume_optimized_cost (GtsEdge *e,
 			--  GtsVolumeOptimizedParams *params);
 		external "C use <gts.h>"
 		end
 
-	gts_edge_collapse_is_valid (an_edge: POINTER): INTEGER is
+	gts_edge_collapse_is_valid (an_edge: POINTER): INTEGER
 			--  gboolean gts_edge_collapse_is_valid (GtsEdge *e);
 		external "C use <gts.h>"
 		end
 
-	gts_edge_collapse_creates_fold (an_edge, a_vertex: POINTER; a_max: REAL): INTEGER  is
+	gts_edge_collapse_creates_fold (an_edge, a_vertex: POINTER; a_max: REAL): INTEGER
 			--  gboolean gts_edge_collapse_creates_fold (GtsEdge *e,
 			--  GtsVertex *v, gdouble max);
 		external "C use <gts.h>"

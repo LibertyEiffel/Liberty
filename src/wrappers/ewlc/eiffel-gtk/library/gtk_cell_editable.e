@@ -37,7 +37,7 @@ insert
 	GTK_CELL_EDITABLE_EXTERNALS
 
 feature {ANY} -- Editing
-	start_editing (a_gdkevent: GDK_EVENT) is
+	start_editing (a_gdkevent: GDK_EVENT)
 			-- Begins editing on a cell_editable. `a_gdkevent' began the
 			-- editing process; it may be Void, in the instance that
 			-- editing was initiated through programatic means.
@@ -48,14 +48,14 @@ feature {ANY} -- Editing
 			end
 		end
 
-	editing_done is
+	editing_done
 			-- Emits the "editing_done" signal. This signal is a sign for
 			-- the cell renderer to update its value from the cell.
 		do
 			gtk_cell_editable_editing_done  (handle)
 		end
 
-	remove_widget is
+	remove_widget
 			-- Emits the "remove_widget" signal. This signal is meant to
 			-- indicate that the cell is finished editing, and the widget
 			-- may now be destroyed.
@@ -79,17 +79,17 @@ feature {ANY} -- "editing-done"
 		-- void        user_function                  (GtkCellEditable *celleditable,
 		--                                             gpointer         user_data)         : Run last
 
-	enable_on_editing_done is
+	enable_on_editing_done
 			-- Connects "editing-done" signal to `on_editing_done' feature.
 		do
 			connect (Current, editing_done_signal_name, $on_editing_done)
 		end
 
-	on_editing_done: INTEGER is
+	on_editing_done: INTEGER
 		do
 		end
 
-	connect_agent_to_editing_done_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_EDITABLE]]) is
+	connect_agent_to_editing_done_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_EDITABLE]])
 			-- celleditable : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void

@@ -33,26 +33,26 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			handle := avcodec_alloc_frame
 		end
 
 feature {ANY} -- Access
 
-	is_keyframe: BOOLEAN is
+	is_keyframe: BOOLEAN
 		do
 			Result := av_frame_get_is_keyframe (handle).to_boolean
 		end
 
-	pts: INTEGER_64 is
+	pts: INTEGER_64
 		do
 			Result := av_frame_get_pts (handle)
 		end
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <avcodec.h>"
 		alias "sizeof(AVFrame)"
 		end

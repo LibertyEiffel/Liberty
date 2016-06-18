@@ -43,7 +43,7 @@ insert
 create {ANY}  make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 		do
 			--  GtsPSurface* gts_psurface_new (GtsPSurfaceClass *klass, GtsSurface
 			--  *surface, GtsSplitClass *split_class, GtsKeyFunc cost_func,

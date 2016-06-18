@@ -15,7 +15,7 @@ insert G_TYPES
 create {ANY} make
 
 feature {ANY} 
-	make is
+	make
 		do
 			with_model (programmers, name_column_n)
 			create completion.make 
@@ -33,7 +33,7 @@ feature {ANY} -- Programmers' model columns
 feature  {} -- Implementation
 	completion: GTK_ENTRY_COMPLETION
 
-	programmers_array: FAST_ARRAY[TUPLE[STRING,INTEGER]] is
+	programmers_array: FAST_ARRAY[TUPLE[STRING,INTEGER]]
 			-- Programmers name and Eiffelliness level
 		do
 			Result:= ( { FAST_ARRAY[TUPLE[STRING,INTEGER]]
@@ -45,7 +45,7 @@ feature  {} -- Implementation
 		end
 							  
 	
-	programmers: GTK_LIST_STORE is
+	programmers: GTK_LIST_STORE
 			-- tree model with some data set
 		local iter: GTK_TREE_ITER; i:INTEGER
 		once 

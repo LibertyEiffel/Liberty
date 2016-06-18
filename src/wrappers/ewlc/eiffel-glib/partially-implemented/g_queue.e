@@ -36,7 +36,7 @@ create {ANY}  make, copy, from_external_pointer
 
 feature {ANY} -- Copying
 
-	copy (another: like Current) is
+	copy (another: like Current)
 			-- Copies a queue. Note that is a shallow copy. If the elements in the
 			-- queue consist of pointers to data, the pointers are copied, but the
 			-- actual data is not.
@@ -45,7 +45,7 @@ feature {ANY} -- Copying
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GQueue.
 		do
 			handle:=g_queue_new
@@ -54,19 +54,19 @@ feature {} -- Creation
 	-- TODO: 	with_capacity (needed_capacity: INTEGER) is
 
 feature {ANY}
-	dispose is
+	dispose
 			-- Frees the memory allocated for the GQueue.
 		do
 			g_queue_free (handle)
 		end
 
-	is_empty: BOOLEAN is
+	is_empty: BOOLEAN
 			-- Is the queue empty.
 		do
 			Result := (g_queue_is_empty(handle)).to_boolean
 		end
 
-	count: INTEGER is
+	count: INTEGER
 			-- the number of items in queue.
 			-- TODO: should be NATURAL
 		do
@@ -74,14 +74,14 @@ feature {ANY}
 		ensure positive: Result >= 0
 		end
 
-	reverse is
+	reverse
 			-- Reverses the order of the items in queue.
 		do
 			g_queue_reverse (handle)
 		end
 
 
-	foreach (a_procedure: PROCEDURE [TUPLE [like first]]) is
+	foreach (a_procedure: PROCEDURE [TUPLE [like first]])
 			-- Calls `a_procedure' for each element in the queue passing user_data
 			-- to the function.
 		do
@@ -131,21 +131,21 @@ feature {ANY}
 	-- compare_func
 
 	-- Since 2.4
-	add (an_item: like first) is
+	add (an_item: like first)
 			-- Adds `an_item' at the head of the queue.
 		require item_not_void: an_item /= Void
 		do
 			g_queue_push_head (handle, an_item.handle)
 		end
 	
-	add_last, push_tail (an_item: like first) is
+	add_last, push_tail (an_item: like first)
 			-- Adds `an_item' at the tail of the queue.
 		require item_not_void: an_item /= Void
 		do
 			g_queue_push_tail (handle, an_item.handle)
 		end
 
-	put (an_item: like first; an_index: INTEGER) is
+	put (an_item: like first; an_index: INTEGER)
 			-- Inserts `an_item' into queue at `an_index' position. If `an_index'
 			-- is negative or larger than the number of elements in the queue, the
 			-- element is added to the end of the queue.
@@ -155,7 +155,7 @@ feature {ANY}
 		end
 
 
-	remove is
+	remove
 			-- Removes the first element of the queue.
 		local ptr: POINTER
 		do
@@ -164,7 +164,7 @@ feature {ANY}
 			-- or NULL if the queue is empty.
 		end
 
-	remove_tail is
+	remove_tail
 			-- Removes the last element of the queue.
 		local ptr: POINTER
 		do
@@ -174,7 +174,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Other features
-	pop_nth (an_index: INTEGER): ITEM is
+	pop_nth (an_index: INTEGER): ITEM
 			-- Removes the element of queue at `an_index'. Void if is_empty
 		require 
 			unsigned_index: an_index >= 0
@@ -191,7 +191,7 @@ feature {ANY} -- Other features
 		ensure is_empty implies Result = Void
 		end
 
-	first, head: ITEM is
+	first, head: ITEM
 			-- the first element of the queue.
 		local ptr: POINTER
 		do
@@ -205,7 +205,7 @@ feature {ANY} -- Other features
 		ensure is_empty implies Result = Void
 		end
 	
-	last, tail: like first is
+	last, tail: like first
 		local ptr: POINTER
 		do
 			ptr := g_queue_peek_tail (handle) 
@@ -218,7 +218,7 @@ feature {ANY} -- Other features
 		ensure is_empty implies Result = Void
 		end
 
-	get_new_iterator: ITERATOR[ITEM] is
+	get_new_iterator: ITERATOR[ITEM]
 		obsolete "get_new_iterator is not implemented"
 		do
 			check implemented: False end
@@ -449,7 +449,7 @@ feature {} -- struct GQueue
 -- GList *tail; 	a pointer to the last element of the queue.
 -- guint length; 	the number of elements in the queue.
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GQueue)"
 		end
@@ -460,7 +460,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_queue_free (a_queue: POINTER) is
+	g_queue_free (a_queue: POINTER)
 		external "C use <glib.h>"
 		end
 	
@@ -473,7 +473,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-	g_queue_reverse (a_queue: POINTER) is
+	g_queue_reverse (a_queue: POINTER)
 		external "C use <glib.h>"
 		end
 	
@@ -481,7 +481,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-	g_queue_foreach (a_queue, a_func, user_data: POINTER) is
+	g_queue_foreach (a_queue, a_func, user_data: POINTER)
 		external "C use <glib.h>"
 		end
 	
@@ -493,19 +493,19 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-	g_queue_sort (a_queue, a_g_compare_data_func, user_data: POINTER) is
+	g_queue_sort (a_queue, a_g_compare_data_func, user_data: POINTER)
 		external "C use <glib.h>"
 		end
 
-	g_queue_push_head (a_queue, data: POINTER) is
+	g_queue_push_head (a_queue, data: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_push_tail (a_queue, data: POINTER) is
+	g_queue_push_tail (a_queue, data: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_push_nth (a_queue, data: POINTER; an_index: INTEGER) is
+	g_queue_push_nth (a_queue, data: POINTER; an_index: INTEGER)
 		external "C use <glib.h>"
 		end
 	
@@ -539,35 +539,35 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-	g_queue_remove (a_queue, const_data: POINTER) is
+	g_queue_remove (a_queue, const_data: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_remove_all (a_queue, const_data: POINTER) is
+	g_queue_remove_all (a_queue, const_data: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_insert_before (a_queue, a_glist_sibling, some_data: POINTER) is
+	g_queue_insert_before (a_queue, a_glist_sibling, some_data: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_insert_after (a_queue, a_glist_sibling, some_data: POINTER) is
+	g_queue_insert_after (a_queue, a_glist_sibling, some_data: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_insert_sorted (a_queue, data, a_g_compare_data_func, user_data: POINTER) is
+	g_queue_insert_sorted (a_queue, data, a_g_compare_data_func, user_data: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_push_head_link (a_queue, glist_link: POINTER) is
+	g_queue_push_head_link (a_queue, glist_link: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_push_tail_link (a_queue, glist_link: POINTER) is
+	g_queue_push_tail_link (a_queue, glist_link: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_push_nth_link (a_queue: POINTER; an_index: INTEGER; glist_link: POINTER) is
+	g_queue_push_nth_link (a_queue: POINTER; an_index: INTEGER; glist_link: POINTER)
 		external "C use <glib.h>"
 		end
 	
@@ -601,11 +601,11 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_queue_unlink (a_queue, glist_link: POINTER) is
+	g_queue_unlink (a_queue, glist_link: POINTER)
 		external "C use <glib.h>"
 		end
 	
-	g_queue_delete_link (a_queue, glist_link: POINTER) is
+	g_queue_delete_link (a_queue, glist_link: POINTER)
 		external "C use <glib.h>"
 		end
 end

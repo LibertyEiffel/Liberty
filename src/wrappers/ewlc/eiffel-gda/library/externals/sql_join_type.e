@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = sql_cross_join) or else 
 				(a_value = sql_inner_join) or else 
@@ -16,81 +16,81 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_cross_join is
+	default_create, set_cross_join
 		do
 			value := sql_cross_join
 		end
 
-	set_inner_join is
+	set_inner_join
 		do
 			value := sql_inner_join
 		end
 
-	set_left_join is
+	set_left_join
 		do
 			value := sql_left_join
 		end
 
-	set_right_join is
+	set_right_join
 		do
 			value := sql_right_join
 		end
 
-	set_full_join is
+	set_full_join
 		do
 			value := sql_full_join
 		end
 
 
 feature {ANY} -- Queries
-	is_cross_join: BOOLEAN is
+	is_cross_join: BOOLEAN
 		do
 			Result := (value=sql_cross_join)
 		end
 
-	is_inner_join: BOOLEAN is
+	is_inner_join: BOOLEAN
 		do
 			Result := (value=sql_inner_join)
 		end
 
-	is_left_join: BOOLEAN is
+	is_left_join: BOOLEAN
 		do
 			Result := (value=sql_left_join)
 		end
 
-	is_right_join: BOOLEAN is
+	is_right_join: BOOLEAN
 		do
 			Result := (value=sql_right_join)
 		end
 
-	is_full_join: BOOLEAN is
+	is_full_join: BOOLEAN
 		do
 			Result := (value=sql_full_join)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	sql_cross_join: INTEGER is
+	sql_cross_join: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_cross_join"
 		end
 
-	sql_inner_join: INTEGER is
+	sql_inner_join: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_inner_join"
 		end
 
-	sql_left_join: INTEGER is
+	sql_left_join: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_left_join"
 		end
 
-	sql_right_join: INTEGER is
+	sql_right_join: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_right_join"
 		end
 
-	sql_full_join: INTEGER is
+	sql_full_join: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_full_join"
 		end

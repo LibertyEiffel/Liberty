@@ -8,15 +8,15 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_graph_query_sync_targets (a_graph: POINTER) is
+	gda_graph_query_sync_targets (a_graph: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_graph_query_new (a_query: POINTER): POINTER is
+	gda_graph_query_new (a_query: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_graph_query_get_type: INTEGER_32 is
+	gda_graph_query_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

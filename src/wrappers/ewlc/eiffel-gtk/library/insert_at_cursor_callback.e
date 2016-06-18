@@ -35,7 +35,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (an_arg, instance: POINTER) is
+	callback (an_arg, instance: POINTER)
 		local
 			input: STRING
 		do
@@ -47,14 +47,14 @@ feature {ANY}
 			procedure.call ([input, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TEXT_VIEW; a_procedure: PROCEDURE [ANY, TUPLE[STRING, GTK_TEXT_VIEW]]) is
+	connect (an_object: GTK_TEXT_VIEW; a_procedure: PROCEDURE [ANY, TUPLE[STRING, GTK_TEXT_VIEW]])
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 																 signal_name.to_external,

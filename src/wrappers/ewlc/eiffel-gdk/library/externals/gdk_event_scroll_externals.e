@@ -25,31 +25,31 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gdk_event_scroll_get_time (ptr: POINTER): INTEGER is
+	gdk_event_scroll_get_time (ptr: POINTER): INTEGER
 		external "C struct GdkEventScroll get time use <gdk/gdk.h>"
 		end
 
-	gdk_event_scroll_get_x (ptr: POINTER): REAL_64 is
+	gdk_event_scroll_get_x (ptr: POINTER): REAL_64
 		external "C struct GdkEventScroll get x use <gdk/gdk.h>"
 		end
 
-	gdk_event_scroll_get_y (ptr: POINTER): REAL_64 is
+	gdk_event_scroll_get_y (ptr: POINTER): REAL_64
 		external "C struct GdkEventScroll get y use <gdk/gdk.h>"
 		end
 
-	gdk_event_scroll_get_state (ptr: POINTER): INTEGER is
+	gdk_event_scroll_get_state (ptr: POINTER): INTEGER
 		external "C struct GdkEventScroll get state use <gdk/gdk.h>"
 		end
 
-	gdk_event_scroll_get_direction (ptr: POINTER): INTEGER is
+	gdk_event_scroll_get_direction (ptr: POINTER): INTEGER
 		external "C struct GdkEventScroll get direction use <gdk/gdk.h>"
 		end
 
-	gdk_event_scroll_get_x_root (ptr: POINTER): REAL_64 is
+	gdk_event_scroll_get_x_root (ptr: POINTER): REAL_64
 		external "C struct GdkEventScroll get x_root use <gdk/gdk.h>"
 		end
 
-	gdk_event_scroll_get_y_root (ptr: POINTER): REAL_64 is
+	gdk_event_scroll_get_y_root (ptr: POINTER): REAL_64
 		external "C struct GdkEventScroll get y_root use <gdk/gdk.h>"
 		end
 

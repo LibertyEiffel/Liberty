@@ -68,7 +68,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_target: CAIRO_SURFACE) is
+	make (a_target: CAIRO_SURFACE)
 			-- Creates a new context with all graphics state parameters
 			-- set to default values and with target as a target
 			-- surface. `a_target' should be a backend-specific surface 
@@ -87,16 +87,16 @@ feature {} -- Creation
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 
-	from_external_pointer (a_ptr: POINTER) is
+	from_external_pointer (a_ptr: POINTER)
 		do
 			Precursor(a_ptr)
 			ref
 		end
 
 feature {ANY} -- State and memory handling
-	dispose is do unref end
+	dispose do unref end
 
-	ref is
+	ref
 			-- Increases the reference count on cr by one. This prevents
 			-- cr from being destroyed until a matching call to `dispose'
 			-- is made.
@@ -106,7 +106,7 @@ feature {ANY} -- State and memory handling
 			ptr := cairo_reference(handle)
 		end
 
-	unref is
+	unref
 			-- Decreases the reference count on cr by one. If the result
 			-- is zero, then cr and all associated resources are
 			-- freed. See `ref'.
@@ -114,7 +114,7 @@ feature {ANY} -- State and memory handling
 			cairo_destroy (handle)
 		end
 
-	status: INTEGER is
+	status: INTEGER
 			--  the current status of this context; see CAIRO_STATUS. 
 		do
 			Result := cairo_status (handle)
@@ -122,7 +122,7 @@ feature {ANY} -- State and memory handling
 			valid_status: is_valid_cairo_status (Result)
 		end
 
-	save is
+	save
 			-- Makes a copy of the current state of cr and saves it on an
 			-- internal stack of saved states for cr. When `restore' is
 			-- called, cr will be restored to the saved state. Multiple
@@ -138,7 +138,7 @@ feature {ANY} -- State and memory handling
 			cairo_save (handle)
 		end
 
-	restore is
+	restore
 			-- Restores the context to the state saved by a preceding
 			-- call to `save' and removes that state from the stack of
 			-- saved states.
@@ -146,7 +146,7 @@ feature {ANY} -- State and memory handling
 			cairo_restore (handle)
 		end
 
-	target: CAIRO_SURFACE is
+	target: CAIRO_SURFACE
 			--  the target surface for the cairo context as passed to `make'.
 
 			-- This function will always return a valid pointer, but the
@@ -163,7 +163,7 @@ feature {ANY} -- State and memory handling
 			Result.ref
 		end
 
-	push_group is
+	push_group
 			-- Temporarily redirects drawing to an intermediate surface
 			-- known as a group.  The redirection lasts until the group
 			-- is completed by a call to cairo_pop_group() or
@@ -299,7 +299,7 @@ feature {ANY} -- State and memory handling
 	--   Since 1.2
 	--
 
-	set_source_rgb (a_red, a_green, a_blue: REAL) is
+	set_source_rgb (a_red, a_green, a_blue: REAL)
 			-- Sets the source pattern within cr to an opaque color. This
 			-- opaque color will then be used for any subsequent drawing
 			-- operation until a new source pattern is set.
@@ -315,7 +315,7 @@ feature {ANY} -- State and memory handling
 			cairo_set_source_rgb (handle, a_red, a_green, a_blue)
 		end
 
-	set_source_rgba (a_red, a_green, a_blue, an_alpha: REAL) is
+	set_source_rgba (a_red, a_green, a_blue, an_alpha: REAL)
 			-- Sets the source pattern within cr to a translucent
 			-- color. This color will then be used for any subsequent
 			-- drawing operation until a new source pattern is set.
@@ -332,7 +332,7 @@ feature {ANY} -- State and memory handling
 			cairo_set_source_rgba (handle, a_red, a_green, a_blue, an_alpha)
 		end
 
-	set_source (a_source: CAIRO_PATTERN) is
+	set_source (a_source: CAIRO_PATTERN)
 			-- Sets the source pattern within context to source. This
 			-- pattern will then be used for any subsequent drawing
 			-- operation until a new source pattern is set.
@@ -347,7 +347,7 @@ feature {ANY} -- State and memory handling
 			cairo_set_source (handle, a_source.handle)
 		end
 
-	set_source_surface (a_surface: CAIRO_SURFACE; an_x, an_y: REAL) is
+	set_source_surface (a_surface: CAIRO_SURFACE; an_x, an_y: REAL)
 			-- A convenience feature for creating a pattern from surface
 			-- and setting it as the source with `set_source'.
 
@@ -376,7 +376,7 @@ feature {ANY} -- State and memory handling
 			cairo_set_source_surface (handle, a_surface.handle, an_x, an_y)
 		end
 
-	source: CAIRO_PATTERN is
+	source: CAIRO_PATTERN
 			--  the current source pattern for context.
 		do
 			create Result.from_external_pointer(cairo_get_source(handle))
@@ -386,7 +386,7 @@ feature {ANY} -- State and memory handling
 			Result.ref
 		end
 
-	set_antialias (an_antialias_type: INTEGER) is
+	set_antialias (an_antialias_type: INTEGER)
 			-- Set the antialiasing mode of the rasterizer used for
 			-- drawing shapes. This value is a hint, and a particular
 			-- backend may or may not support a particular value. At the
@@ -401,7 +401,7 @@ feature {ANY} -- State and memory handling
 			cairo_set_antialias (handle, an_antialias_type)
 		end
 
-	antialias: INTEGER is
+	antialias: INTEGER
 			-- the current shape antialiasing mode, as set by
 			-- `set_shape_antialias'.
 		do
@@ -410,13 +410,13 @@ feature {ANY} -- State and memory handling
 
 feature {ANY} -- Dashing
 
-	disable_dashes is
+	disable_dashes
 			-- Disable dashing
 		do
 			cairo_set_dash (handle, default_pointer, 1, 0.0)
 		end
 
-	set_dash (some_dashes: ARRAY[REAL]; an_offset: REAL) is
+	set_dash (some_dashes: ARRAY[REAL]; an_offset: REAL)
 			-- Sets the dash pattern to be used by `stroke'. A dash
 			-- pattern is specified by dashes, an array of positive
 			-- values. Each value provides the length of alternate "on"
@@ -451,7 +451,7 @@ feature {ANY} -- Dashing
 							some_dashes.count, an_offset)
 		end
 
-	set_fill_rule (a_rule: INTEGER) is
+	set_fill_rule (a_rule: INTEGER)
 			-- Set the current fill rule within the cairo context. The
 			-- fill rule is used to determine which regions are inside or
 			-- outside a complex (potentially self-intersecting)
@@ -464,7 +464,7 @@ feature {ANY} -- Dashing
 			cairo_set_fill_rule (handle, a_rule)
 		end
 
-	fill_rule: INTEGER is
+	fill_rule: INTEGER
 			-- the current fill rule.
 		do
 			Result := cairo_get_fill_rule(handle)
@@ -472,7 +472,7 @@ feature {ANY} -- Dashing
 			valid: is_valid_fill_rule (Result)
 		end
 
-	set_line_cap (a_line_cap: INTEGER) is
+	set_line_cap (a_line_cap: INTEGER)
 			-- Sets the current line cap style within the cairo
 			-- context. See CAIRO_LINE_CAP for details about how the
 			-- available line cap styles are drawn.
@@ -490,7 +490,7 @@ feature {ANY} -- Dashing
 			cairo_set_line_cap (handle, a_line_cap)
 		end
 
-	line_cap: INTEGER is
+	line_cap: INTEGER
 			-- the current line cap style, as set by `set_line_cap'.
 		do
 			Result := cairo_get_line_cap (handle)
@@ -498,7 +498,7 @@ feature {ANY} -- Dashing
 			is_valid_line_cap: is_valid_line_cap (Result)
 		end
 
-	set_line_join (a_line_join: INTEGER) is
+	set_line_join (a_line_join: INTEGER)
 			-- Sets the current line join style within the cairo
 			-- context. See CAIRO_LINE_JOIN for details about how the
 			-- available line join styles are drawn.
@@ -513,7 +513,7 @@ feature {ANY} -- Dashing
 			cairo_set_line_join (handle, a_line_join)
 		end
 
-	line_join: INTEGER is
+	line_join: INTEGER
 			-- the current line join style, as set by `set_line_join'.
 		do
 			Result := cairo_get_line_join (handle)
@@ -521,7 +521,7 @@ feature {ANY} -- Dashing
 			is_valid_line_join: is_valid_line_join (Result)
 		end
 
-	set_line_width (a_width: REAL) is
+	set_line_width (a_width: REAL)
 			-- Sets the current line width within the cairo context. The
 			-- line width value specifies the diameter of a pen that is
 			-- circular in user space, (though device-space pen may be an
@@ -548,7 +548,7 @@ feature {ANY} -- Dashing
 			cairo_set_line_width (handle, a_width)
 		end
 
-	line_width: REAL is
+	line_width: REAL
 			-- the current line width value exactly as set by
 			-- `set_line_width'. Note that the value is unchanged even if
 			-- the CTM has changed between the calls to `set_line_width'
@@ -557,18 +557,18 @@ feature {ANY} -- Dashing
 			Result := cairo_get_line_width (handle)
 		end
 	
-	set_miter_limit (a_limit: REAL) is
+	set_miter_limit (a_limit: REAL)
 		do
 			cairo_set_miter_limit (handle, a_limit)
 		end
 
-	miter_limit: REAL is
+	miter_limit: REAL
 			-- the current miter limit, as set by `set_miter_limit'.
 		do
 			Result := cairo_get_miter_limit (handle)
 		end
 	
-	set_operator (an_operator: INTEGER) is
+	set_operator (an_operator: INTEGER)
 			-- Sets the compositing operator to be used for all drawing
 			-- operations. See `CAIRO_OPERATOR' for details on the
 			-- semantics of each available compositing operator.
@@ -578,7 +578,7 @@ feature {ANY} -- Dashing
 			cairo_set_operator (handle, an_operator)
 		end
 
-	operator: INTEGER is
+	operator: INTEGER
 			-- the current compositing operator for a cairo context.
 		do
 			Result := cairo_get_operator (handle)
@@ -586,7 +586,7 @@ feature {ANY} -- Dashing
 			valid_operator: is_valid_operator (Result)
 		end
 
-	set_tolerance (a_tolerance: REAL) is
+	set_tolerance (a_tolerance: REAL)
 			-- Sets the tolerance used when converting paths into
 			-- trapezoids. Curved segments of the path will be subdivided
 			-- until the maximum deviation between the original path and
@@ -599,13 +599,13 @@ feature {ANY} -- Dashing
 			cairo_set_tolerance (handle, a_tolerance)
 		end
 
-	tolerance: REAL is
+	tolerance: REAL
 			-- the current tolerance value, as set by `set_tolerance'.
 		do
 			Result := cairo_get_tolerance (handle)
 		end
 
-	clip is
+	clip
 			-- Establishes a new clip region by intersecting the current
 			-- clip region with the current path as it would be filled by
 			-- `fill' and according to the current fill rule (see
@@ -629,7 +629,7 @@ feature {ANY} -- Dashing
 			cairo_clip (handle)
 		end
 
-	clip_preserve is
+	clip_preserve
 			-- Establishes a new clip region by intersecting the current
 			-- clip region with the current path as it would be filled by
 			-- `fill'() and according to the current fill rule (see
@@ -652,7 +652,7 @@ feature {ANY} -- Dashing
 			cairo_clip_preserve (handle)
 		end
 
-	reset_clip is
+	reset_clip
 			-- Reset the current clip region to its original,
 			-- unrestricted state. That is, set the clip region to an
 			-- infinitely large shape containing the target
@@ -669,7 +669,7 @@ feature {ANY} -- Dashing
 			cairo_reset_clip (handle)
 		end
 
-	fill is
+	fill
 			-- A drawing operator that fills the current path according
 			-- to the current fill rule, (each sub-path is implicitly
 			-- closed before being filled). After cairo_fill, the current
@@ -679,7 +679,7 @@ feature {ANY} -- Dashing
 			cairo_fill (handle)
 		end
 
-	fill_preserve is
+	fill_preserve
 			-- A drawing operator that fills the current path according
 			-- to the current fill rule, (each sub-path is implicitly
 			-- closed before being filled). Unlike `fill',
@@ -691,7 +691,7 @@ feature {ANY} -- Dashing
 			cairo_fill_preserve (handle)
 		end
 
-	extents: TUPLE [CAIRO_POINT, CAIRO_POINT] is
+	extents: TUPLE [CAIRO_POINT, CAIRO_POINT]
 			-- The extents in format [x1,y1,x2,y2]
 		local
 			an_x1, an_y1, an_x2, an_y2: REAL
@@ -703,7 +703,7 @@ feature {ANY} -- Dashing
 			create Result.make_2 (p1, p2)
 		end
 
-	in_fill (an_x, an_y: REAL): BOOLEAN is
+	in_fill (an_x, an_y: REAL): BOOLEAN
 			-- Is the given point on the area filled by doing a `stroke'
 			-- operation on current context given the current path and filling
 			-- parameters?
@@ -716,7 +716,7 @@ feature {ANY} -- Dashing
 			Result := cairo_in_fill (handle, an_x, an_y).to_boolean
 		end
 
-	mask (a_pattern: CAIRO_PATTERN) is
+	mask (a_pattern: CAIRO_PATTERN)
 			-- A drawing operator that paints the current source using
 			-- the alpha channel of pattern as a mask. (Opaque areas of
 			-- pattern are painted with the source, transparent areas are
@@ -727,7 +727,7 @@ feature {ANY} -- Dashing
 			cairo_mask (handle, a_pattern.handle)
 		end
 
-	mask_surface (a_surface: CAIRO_SURFACE; an_x, an_y: REAL) is
+	mask_surface (a_surface: CAIRO_SURFACE; an_x, an_y: REAL)
 			-- A drawing operator that paints the current source using
 			-- the alpha channel of surface as a mask. (Opaque areas of
 			-- surface are painted with the source, transparent areas are
@@ -742,14 +742,14 @@ feature {ANY} -- Dashing
 			cairo_mask_surface (handle, a_surface.handle, an_x, an_y)
 		end
 
-	paint is
+	paint
 			-- A drawing operator that paints the current source
 			-- everywhere within the current clip region.
 		do
 			cairo_paint (handle)
 		end
 
-	paint_with_alpha (an_alpha: REAL) is
+	paint_with_alpha (an_alpha: REAL)
 			-- A drawing operator that paints the current source
 			-- everywhere within the current clip region using a mask of
 			-- constant `an_alpha' value. The effect is similar to
@@ -760,7 +760,7 @@ feature {ANY} -- Dashing
 			cairo_paint_with_alpha (handle, an_alpha)
 		end
 
-	stroke is
+	stroke
 			-- A drawing operator that strokes the current path according
 			-- to the current line width, line join, line cap, and dash
 			-- settings. After `stroke,' the current path will be cleared
@@ -795,7 +795,7 @@ feature {ANY} -- Dashing
 			cairo_stroke(handle)
 		end
 
-	stroke_preserve is
+	stroke_preserve
 			-- A drawing operator that strokes the current path according
 			-- to the current line width, line join, line cap, and dash
 			-- settings. Unlike `stroke', cairo_stroke_preserve preserves
@@ -807,7 +807,7 @@ feature {ANY} -- Dashing
 			cairo_stroke_preserve(handle)
 		end
 	
-	stroke_extents: TUPLE [CAIRO_POINT, CAIRO_POINT] is
+	stroke_extents: TUPLE [CAIRO_POINT, CAIRO_POINT]
 			-- The stroke extents in format [(x1,y1),(x2,y2)]
 		local
 			an_x1, an_y1, an_x2, an_y2: REAL
@@ -819,7 +819,7 @@ feature {ANY} -- Dashing
 			create Result.make_2(p1, p2)
 		end
 
-	in_stroke (an_x, an_y: REAL): BOOLEAN is
+	in_stroke (an_x, an_y: REAL): BOOLEAN
 			-- Is the given point is on the area stroked by doing a
 			-- `stroke' operation on current context given the current
 			-- path and stroking parameters?
@@ -834,7 +834,7 @@ feature {ANY} -- Dashing
 			Result := cairo_in_stroke (handle, an_x, an_y).to_boolean
 		end
 
-	copy_page is
+	copy_page
 			-- Emits the current page for backends that support multiple
 			-- pages, but doesn't clear it, so, the contents of the
 			-- current page will be retained for the next page too. Use
@@ -844,7 +844,7 @@ feature {ANY} -- Dashing
 			cairo_copy_page (handle)
 		end
 
-	show_page is
+	show_page
 			-- Emits and clears the current page for backends that
 			-- support multiple pages. Use `copy_page' if you don't want
 			-- to clear the page.
@@ -853,7 +853,7 @@ feature {ANY} -- Dashing
 		end
 
 feature {ANY} -- Path managing
-	get_path: CAIRO_PATH is
+	get_path: CAIRO_PATH
 			-- Creates a copy of the current path and returns it to the
 			-- user as a cairo_path_t. See cairo_path_data_t for hints on
 			-- how to iterate over the returned data structure.
@@ -872,7 +872,7 @@ feature {ANY} -- Path managing
 			create Result.from_external_pointer (cairo_copy_path (handle))
 		end
 
-	get_flat_path: CAIRO_PATHG is
+	get_flat_path: CAIRO_PATHG
 			-- Gets a newly-allocated flattened copy of the current path
 	
 			-- This feature is like `get_path' except that any curves in
@@ -897,7 +897,7 @@ feature {ANY} -- Path managing
 			from_external_pointer (cairo_copy_path_flat (handle))
 		end
 
-	append_path (a_path: CAIRO_PATH) is
+	append_path (a_path: CAIRO_PATH)
 			-- Append the path onto the current path. The path may be
 			-- either obtained from `get_path' or `get_flat_path' or it
 			-- may be created manually. 
@@ -908,14 +908,14 @@ feature {ANY} -- Path managing
 			cairo_append_path (handle, a_path.handle)
 		end
 	
-	has_current_point: BOOLEAN is
+	has_current_point: BOOLEAN
 			-- TODO: implenment it, without using cairo_get_current_point
 			-- which is *not* general; in fact it fails to discriminate
 			-- between no point and the origin.
 		do
 		end
 
-	current_point: CAIRO_POINT is
+	current_point: CAIRO_POINT
 			-- the current point [x,y] of the current path, which is
 			-- conceptually the final point reached by the path so far.
 
@@ -939,14 +939,14 @@ feature {ANY} -- Path managing
 			not_void: Result /= Void
 		end
 
-	new_path is
+	new_path
 			-- Clears the current path. After this call there will be no
 			-- path and no current point.
 		do
 			cairo_new_path (handle)
 		end
 
-	new_sub_path is
+	new_sub_path
 			-- Begin a new sub-path. Note that the existing path is not
 			-- affected. After this call there will be no current point.
 
@@ -962,7 +962,7 @@ feature {ANY} -- Path managing
 			cairo_new_sub_path(handle)
 		end
 
-	close_path is
+	close_path
 			-- Adds a line segment to the path from the current point to
 			-- the beginning of the current sub-path, (the most recent
 			-- point passed to `move_to'), and closes this
@@ -991,7 +991,7 @@ feature {ANY} -- Path managing
 			cairo_close_path (handle)
 		end
 
-	arc (an_x, an_y, a_radiud, an_angle_1, an_angle_2: REAL) is
+	arc (an_x, an_y, a_radiud, an_angle_1, an_angle_2: REAL)
 			-- Adds a circular arc of the given radius to the current
 			-- path. The arc is centered at (`an_x', `an_y'), begins at
 			-- `an_angle_1' and proceeds in the direction of increasing
@@ -1039,7 +1039,7 @@ feature {ANY} -- Path managing
 			cairo_arc(handle, an_x, an_y, a_radiud, an_angle_1, an_angle_2)
 		end
 
-	arc_negative (an_x, an_y, a_radiud, an_angle_1, an_angle_2: REAL) is
+	arc_negative (an_x, an_y, a_radiud, an_angle_1, an_angle_2: REAL)
 			-- Adds a circular arc of the given radius to the current
 			-- path. The arc is centered at (`an_x', `an_y'), begins at
 			-- `an_angle_1' and proceeds in the direction of decreasing
@@ -1059,7 +1059,7 @@ feature {ANY} -- Path managing
 			cairo_arc_negative (handle, an_x, an_y, a_radiud, an_angle_1, an_angle_2)
 		end
 
-	curve_to (x1,y1,x2,y2,x3,y3: REAL) is
+	curve_to (x1,y1,x2,y2,x3,y3: REAL)
 			-- Adds a cubic Bezier spline to the path from the current
 			-- point to position (x3, y3) in user-space coordinates,
 			-- using (x1, y1) and (x2, y2) as the control points. After
@@ -1079,7 +1079,7 @@ feature {ANY} -- Path managing
 			cairo_curve_to(handle, x1, y1, x2,y2, x3, y3)
 		end
 
-	line_to (an_x, an_y: REAL) is
+	line_to (an_x, an_y: REAL)
 			-- Adds a line to the path from the current point to position
 			-- (`an_x', `an_y') in user-space coordinates. After this call the
 			-- current point will be (`an_x', `an_y').
@@ -1093,7 +1093,7 @@ feature {ANY} -- Path managing
 			cairo_line_to(handle,an_x,an_y)
 		end
 
-	move_to (an_x, an_y: REAL) is
+	move_to (an_x, an_y: REAL)
 			-- Begin a new sub-path. After this call the current point
 			-- will be (`an_x', `an_y').
 		
@@ -1103,7 +1103,7 @@ feature {ANY} -- Path managing
 				cairo_move_to(handle,an_x,an_y)
 		end
 
-	rectangle (an_x,an_y,a_width,an_height: REAL) is
+	rectangle (an_x,an_y,a_width,an_height: REAL)
 			-- Adds a closed sub-path rectangle of the given size to the
 			-- current path at position (`an_x', `an_y') in user-space
 			-- coordinates.
@@ -1135,7 +1135,7 @@ feature {ANY} -- Path managing
 
 
 
-	relative_curve_to (dx1,dy1,dx2,dy2,dx3,dy3: REAL) is
+	relative_curve_to (dx1,dy1,dx2,dy2,dx3,dy3: REAL)
 			-- Relative-coordinate version of `curve_to'. All offsets are
 			-- relative to the current point. Adds a cubic Bezier spline
 			-- to the path from the current point to a point offset from
@@ -1162,7 +1162,7 @@ feature {ANY} -- Path managing
 			cairo_rel_curve_to(handle,dx1,dy1,dx2,dy2,dx3,dy3)
 		end
 			
-	relative_line_to (dx, dy: REAL) is
+	relative_line_to (dx, dy: REAL)
 			-- Relative-coordinate version of `line_to'. Adds a
 			-- line to the path from the current point to a point that is
 			-- offset from the current point by (dx, dy) in user
@@ -1182,7 +1182,7 @@ feature {ANY} -- Path managing
 			cairo_rel_line_to(handle, dx, dy)
 		end
 
-	relative_move_to (dx,dy: REAL) is
+	relative_move_to (dx,dy: REAL)
 			-- Begin a new sub-path. After this call the current point
 			-- will offset by (x, y).
 		
@@ -1200,7 +1200,7 @@ feature {ANY} -- Path managing
 		end
 
 feature {ANY} --   Transformations, manipulating the current transformation matrix
-	translate (an_x, an_y: REAL) is
+	translate (an_x, an_y: REAL)
 			-- Modifies the current transformation matrix (CTM) by
 			-- translating the user-space origin by (`an_x',`an_y'). This
 			-- offset is interpreted as a user-space coordinate according
@@ -1214,7 +1214,7 @@ feature {ANY} --   Transformations, manipulating the current transformation matr
 			cairo_translate(handle, an_x, an_y)
 		end
 	
-	scale (an_x, an_y: REAL) is
+	scale (an_x, an_y: REAL)
 			-- Modifies the current transformation matrix (CTM) by
 			-- scaling the X and Y user-space axes by `an_x' and `an_y'
 			-- respectively. The scaling of the axes takes place after
@@ -1226,7 +1226,7 @@ feature {ANY} --   Transformations, manipulating the current transformation matr
 			cairo_scale(handle,an_x,an_y)
 		end
 
-	rotate (an_angle: REAL) is
+	rotate (an_angle: REAL)
 			-- Modifies the current transformation matrix (CTM) by
 			-- rotating the user-space axes by angle radians. The
 			-- rotation of the axes takes places after any existing
@@ -1240,7 +1240,7 @@ feature {ANY} --   Transformations, manipulating the current transformation matr
 			cairo_rotate(handle, an_angle)
 		end
 	
-	transform (a_matrix: CAIRO_MATRIX) is
+	transform (a_matrix: CAIRO_MATRIX)
 			-- Modifies the current transformation matrix (CTM) by
 			-- applying `a_matrix' as an additional transformation. The
 			-- new transformation of user space takes place after any
@@ -1250,7 +1250,7 @@ feature {ANY} --   Transformations, manipulating the current transformation matr
 			cairo_transform(handle, a_matrix.handle)
 		end
 
-	set_matrix (a_matrix: CAIRO_MATRIX) is
+	set_matrix (a_matrix: CAIRO_MATRIX)
 			-- Modifies the current transformation matrix (CTM) by
 			-- setting it equal to `a_matrix', a transformation matrix
 			-- from user space to device space.
@@ -1259,14 +1259,14 @@ feature {ANY} --   Transformations, manipulating the current transformation matr
 			cairo_set_matrix (handle, a_matrix.handle)
 		end
 
-	matrix: CAIRO_MATRIX is
+	matrix: CAIRO_MATRIX
 			-- a new copy of the current transformation matrix (CTM).
 		do
 			create Result.allocate
 			cairo_get_matrix (handle, Result.handle)
 		end
 
-	reset_transformation is
+	reset_transformation
 			-- Resets the current transformation matrix (CTM) by setting
 			-- it equal to the identity matrix. That is, the user-space
 			-- and device-space axes will be aligned and one user-space
@@ -1276,7 +1276,7 @@ feature {ANY} --   Transformations, manipulating the current transformation matr
 		end
 
 feature {ANY} --   Text -- Rendering text and sets of glyphs
-	select_font_face (a_family: STRING; a_slant, a_weight: INTEGER) is
+	select_font_face (a_family: STRING; a_slant, a_weight: INTEGER)
 			-- Selects a family and style of font from a simplified
 			-- description as a family name, slant and weight. This
 			-- function is meant to be used only for applications with
@@ -1298,7 +1298,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 										  a_slant, a_weight)
 		end
 
-	set_font_size (a_size: REAL) is
+	set_font_size (a_size: REAL)
 			-- Sets the current font matrix to a scale by a factor of size,
 			-- replacing any font matrix previously set with `set_font_size' or
 			-- `set_font_matrix'. This results in a font size of size user
@@ -1310,7 +1310,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 			cairo_set_font_size (handle, a_size)
 		end
 
-	set_font_matrix (a_matrix: CAIRO_MATRIX) is
+	set_font_matrix (a_matrix: CAIRO_MATRIX)
 			-- Sets the current font matrix to matrix. The font matrix gives a
 			-- transformation from the design space of the font (in this space, the
 			-- em-square is 1 unit by 1 unit) to user space. Normally, a simple
@@ -1326,7 +1326,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 			cairo_set_font_matrix (handle, a_matrix.handle)
 		end
 
-	font_matrix: CAIRO_MATRIX is
+	font_matrix: CAIRO_MATRIX
 			-- the current font matrix.
 		do
 			create Result.allocate
@@ -1335,7 +1335,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 			Result /= Void
 		end
 
-	set_font_options (some_options: CAIRO_FONT_OPTIONS) is
+	set_font_options (some_options: CAIRO_FONT_OPTIONS)
 			-- Sets a set of custom font rendering options for the
 			-- context. Rendering options are derived by merging these options with
 			-- the options derived from underlying surface; if the value in options
@@ -1347,7 +1347,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 			cairo_set_font_options(handle, some_options.handle)
 		end
 
-	font_options: CAIRO_FONT_OPTIONS is
+	font_options: CAIRO_FONT_OPTIONS
 			-- Retrieves font rendering options set via
 			-- `set_font_options'. Note that the returned options do not
 			-- include any options derived from the underlying surface;
@@ -1358,7 +1358,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 			cairo_get_font_options (handle, Result.handle)
 		end
 
-	show_text (an_utf8: STRING) is
+	show_text (an_utf8: STRING)
 			-- A drawing operator that generates the shape from a string
 			-- of UTF-8 characters, rendered according to the current
 			-- font_face, font_size (font_matrix), and font_options.
@@ -1386,7 +1386,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 			cairo_show_text (handle, an_utf8.to_external)
 		end
 
-	show_glyphs (some_glyphs: ARRAY [INTEGER_32]) is
+	show_glyphs (some_glyphs: ARRAY [INTEGER_32])
 		require
 			glyphs_not_void: some_glyphs /= Void
 		do
@@ -1394,7 +1394,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 									some_glyphs.count)
 		end
 
-	font_face: CAIRO_FONT_FACE is
+	font_face: CAIRO_FONT_FACE
 			-- the current font face for a cairo_t.
 		local
 			ptr: POINTER
@@ -1422,7 +1422,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 	--   extents : a cairo_font_extents_t object into which the results will be
 	--             stored.
 
-	set_font_face (a_font_face: CAIRO_FONT_FACE) is
+	set_font_face (a_font_face: CAIRO_FONT_FACE)
 			-- Replaces the current font face in the context with
 			-- `a_font_face'. The replaced font face will be destroyed if
 			-- there are no other references to it.
@@ -1433,7 +1433,7 @@ feature {ANY} --   Text -- Rendering text and sets of glyphs
 			cairo_set_font_face (handle, a_font_face.handle)
 		end
 
-	set_default_font_face is
+	set_default_font_face
 			-- Restore to the default font
 		do
 			cairo_set_font_face (handle, default_pointer)

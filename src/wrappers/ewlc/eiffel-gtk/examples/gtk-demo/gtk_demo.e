@@ -47,7 +47,7 @@ feature {ANY} -- labels text
 	source_label_string: STRING is "_Source"
 	
 feature {ANY} -- widgets
-	window: GTK_WINDOW is
+	window: GTK_WINDOW
 		once 
 			create Result.make -- a new toplevel window
 			Result.set_title (window_title);
@@ -58,14 +58,14 @@ feature {ANY} -- widgets
 			Result.set_default_size (600, 400)			
 		end
 
-   hbox: GTK_HBOX is
+   hbox: GTK_HBOX
 		once 
 			create Result.make (False, 0)
 			Result.pack_start (demo_list, False, False, 0)
 			Result.pack_start (notebook, True, True, 0)
 		end
 
-   notebook: GTK_NOTEBOOK is
+   notebook: GTK_NOTEBOOK
 		once 
 			create Result.make
 			Result.append_page (text_from (info_buffer),
@@ -77,7 +77,7 @@ feature {ANY} -- widgets
 
    tag: GTK_TEXT_TAG
 
-	demo_list: GTK_TREE_VIEW is
+	demo_list: GTK_TREE_VIEW
 		local
 			tree_view: GTK_TREE_VIEW
 			selection: GTK_TREE_SELECTION;
@@ -125,7 +125,7 @@ feature {ANY} -- widgets
 			tree_view.grab_focus
 		end
 														 
-	setup_default_icon is
+	setup_default_icon
 		local
 			pixbuf, transparent: GDK_PIXBUF
 			list: G_LIST [GDK_PIXBUF]
@@ -155,7 +155,7 @@ feature {ANY} -- widgets
 		end
 
 feature {} -- Creation
-	make is
+	make
 		do
 			gtk.initialize
 			
@@ -165,7 +165,7 @@ feature {} -- Creation
 			gtk.run_main_loop
 		end
 
-	find_file (a_base_filename: STRING): STRING is
+	find_file (a_base_filename: STRING): STRING
 			-- Looks for `a_base_filename' first in the current directory, then in the
 			-- location GTK+ where it will be installed on make install,
 			-- returns the first file found. If `a_base_filename' is not found 
@@ -191,7 +191,7 @@ feature {} -- Creation
 		ensure implemented: False
 		end
 	
-	window_closed_callback (a_window: GTK_WINDOW) is
+	window_closed_callback (a_window: GTK_WINDOW)
 		do
 			--   CallbackData *cbdata = data;
 			--   GtkTreeIter iter;
@@ -361,7 +361,7 @@ feature {} -- Creation
 
 	row_activated_callback (a_path: GTK_TREE_PATH;
 									a_column: GTK_TREE_VIEW_COLUMN;
-									a_tree_view: GTK_TREE_VIEW) is
+									a_tree_view: GTK_TREE_VIEW)
 		do
 			-- {
 			--   GtkTreeIter iter;
@@ -402,7 +402,7 @@ feature {} -- Creation
 			-- }
 		end
 	
-	selection_callback (a_selection: GTK_TREE_SELECTION) is
+	selection_callback (a_selection: GTK_TREE_SELECTION)
 		local iter: GTK_TREE_ITER
 		do
 			debug print ("selection_callback unimplemented%N") end
@@ -413,7 +413,7 @@ feature {} -- Creation
 			end
 		end
 
-	text_from (a_buffer: GTK_TEXT_BUFFER): GTK_SCROLLED_WINDOW is
+	text_from (a_buffer: GTK_TEXT_BUFFER): GTK_SCROLLED_WINDOW
 		local
 			text_view: GTK_TEXT_VIEW
 			buffer: GTK_TEXT_BUFFER
@@ -443,7 +443,7 @@ feature {} -- Creation
 			Result.add (text_view)
 		end
 
-	source_widget_from (a_buffer: GTK_TEXT_BUFFER): GTK_SCROLLED_WINDOW is
+	source_widget_from (a_buffer: GTK_TEXT_BUFFER): GTK_SCROLLED_WINDOW
 		local
 			text_view: GTK_TEXT_VIEW
 			buffer: GTK_TEXT_BUFFER
@@ -480,7 +480,7 @@ feature {} -- Creation
 
 feature {ANY} -- Demos
 	
-	model: GTK_TREE_STORE is
+	model: GTK_TREE_STORE
 		local
 			demo, subdemo: DEMO;
 			demos_iterator, child_iterator: ITERATOR [DEMO];
@@ -525,7 +525,7 @@ feature {ANY} -- Demos
 			end -- loop over demos
 		end
 	
-	demos:  LINKED_LIST [DEMO] is
+	demos:  LINKED_LIST [DEMO]
 		once
 			Result := {LINKED_LIST[DEMO] << application_window,
 													  -- button_box,
@@ -559,7 +559,7 @@ feature {ANY} 	-- demos singletons
 	expander: EXPANDER is once create Result.make end
 	
 feature {ANY} -- callbacks
-	quit (an_object: GTK_OBJECT) is
+	quit (an_object: GTK_OBJECT)
 		do
 			print (once "Quitting Eiffel Gtk-demo applicaiton%N")
 			gtk.quit

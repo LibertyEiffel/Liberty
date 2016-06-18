@@ -48,7 +48,7 @@ insert
 create {ANY} make, allocate, from_external_pointer
 
 feature {} -- Creation
-	make (an_xx, an_yx, an_xy, an_yy, an_x0, an_y0: REAL) is
+	make (an_xx, an_yx, an_xy, an_yy, an_x0, an_y0: REAL)
 			-- Create matrix to be the affine transformation given by xx,
 			-- yx, xy, yy, x0, y0. The transformation is given by:
 
@@ -66,14 +66,14 @@ feature {} -- Creation
 			cairo_matrix_init(handle, xx, yx, xy, yy, x0, y0);
 		end
 
-	identity is
+	identity
 			-- Create a matrix for the identity transformation.
 		do
 			allocate
 			cairo_matrix_init_identity (handle)
 		end
 
-	translation (a_tx, a_ty: REAL) is
+	translation (a_tx, a_ty: REAL)
 			-- Initializes matrix to a transformation that translates by
 			-- `a_tx' and `a_ty' in the X and Y dimensions, respectively.
 		do
@@ -81,7 +81,7 @@ feature {} -- Creation
 			cairo_matrix_init_translate (handle, a_tx, a_ty)
 		end
 
-	scaling (an_x_scale, an_y_scale: REAL) is
+	scaling (an_x_scale, an_y_scale: REAL)
 			-- Create matrix to a transformation that scales by
 			-- `an_x_scale' and `an_y_scale' in the X and Y dimensions,
 			-- respectively.
@@ -90,7 +90,7 @@ feature {} -- Creation
 			cairo_matrix_init_scale(handle,an_x_scale,an_y_scale)
 		end
 
-	rotation (some_radians: REAL) is
+	rotation (some_radians: REAL)
 			-- Create matrix as a transformation that rotates by `some_radians'.
 
 			-- `some_radians': angle of rotation, in radians. The
@@ -104,44 +104,44 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Access
-	xx: REAL is
+	xx: REAL
 			-- xx component of the affine transformation
 		do
 			Result := cairo_matrix_get_xx(handle)
 		end
 
-	yx: REAL is
+	yx: REAL
 			-- yx component of the affine transformation
 		do
 			Result := cairo_matrix_get_yx(handle)
 		end
 
-	xy: REAL is
+	xy: REAL
 			-- xy component of the affine transformation
 		do
 			Result := cairo_matrix_get_xy(handle)
 		end
 
-	yy: REAL is
+	yy: REAL
 			-- yy component of the affine transformation
 		do
 			Result := cairo_matrix_get_yy(handle)
 		end
 
-	x0: REAL is
+	x0: REAL
 			-- x0 component of the affine transformation
 		do
 			Result := cairo_matrix_get_x0(handle)
 		end
 
-	y0: REAL is
+	y0: REAL
 			-- y0 component of the affine transformation
 		do
 			Result := cairo_matrix_get_y0(handle)
 		end
 
 feature {ANY}
-	translate (a_tx, a_ty: REAL) is
+	translate (a_tx, a_ty: REAL)
 			-- Applies a translation by `a_tx', `a_ty' to the
 			-- transformation in matrix. The effect of the new
 			-- transformation is to first translate the coordinates by
@@ -154,7 +154,7 @@ feature {ANY}
 			cairo_matrix_translate(handle,a_tx,a_ty)
 		end			
 
-	scale (an_sx, an_sy: REAL) is
+	scale (an_sx, an_sy: REAL)
 			-- Applies scaling by `an_sx', `an_sy' to the transformation
 			-- in matrix. The effect of the new transformation is to
 			-- first scale the coordinates by `an_sx' and `an_sy', then
@@ -166,7 +166,7 @@ feature {ANY}
 			cairo_matrix_scale(handle,an_sx,an_sy)
 		end
 
-	rotate (some_radians: REAL) is
+	rotate (some_radians: REAL)
 			-- Applies rotation by `some_radians' to the transformation
 			-- in matrix. The effect of the new transformation is to
 			-- first rotate the coordinates by radians, then apply the
@@ -181,7 +181,7 @@ feature {ANY}
 			cairo_matrix_rotate(handle,some_radians)
 		end
 
-	inverse: CAIRO_MATRIX is
+	inverse: CAIRO_MATRIX
 			-- The inverse of Current value. Void if Current does not
 			-- have inverse, i.e.: if the matrix collapses points
 			-- together (it is degenerate), then it has no inverse and
@@ -198,7 +198,7 @@ feature {ANY}
 			end
 		end
 
-	inverted: BOOLEAN is
+	inverted: BOOLEAN
 			-- True if matrix could be changed into the inverse of it's
 			-- original value.
 
@@ -211,7 +211,7 @@ feature {ANY}
 			Result:=(cairo_matrix_invert(handle) /= cairo_status_invalid_matrix)
 		end
 
-	infix "*" (another: like Current): like Current is
+	infix "*" (another: like Current): like Current
 			-- A new matrix containing the multiplication of the affine
 			-- transformations of Current and `another' together. The
 			-- effect of the resulting transformation is to first apply
@@ -227,7 +227,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Memory handling
-	dispose is
+	dispose
 		do
 			free(handle)
 		end

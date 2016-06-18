@@ -36,14 +36,14 @@ create {ANY} from_external_pointer
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <xmlrpc-c/base.h>"
 		alias "sizeof (xmlrpc_value)"
 		end
 
 feature {ANY} -- Creation
 
-	from_external_pointer (a_pointer: POINTER) is
+	from_external_pointer (a_pointer: POINTER)
 		do
 			set_shared
 			{C_STRUCT} Precursor (a_pointer)
@@ -51,7 +51,7 @@ feature {ANY} -- Creation
 
 feature {ANY}
 
-	type: INTEGER is
+	type: INTEGER
 		require
 			handle.is_not_null
 		do
@@ -60,71 +60,71 @@ feature {ANY}
 			is_valid_xmlrpc_value_type (Result)
 		end
 
-	is_value_int: BOOLEAN is
+	is_value_int: BOOLEAN
 		do
 			Result := type = xmlrpc_value_int
 		end
 
-	is_value_bool: BOOLEAN is
+	is_value_bool: BOOLEAN
 		do
 			Result := type = xmlrpc_value_bool
 		end
 
-	is_value_double: BOOLEAN is
+	is_value_double: BOOLEAN
 		do
 			Result := type = xmlrpc_value_double
 		end
 
-	is_value_datetime: BOOLEAN is
+	is_value_datetime: BOOLEAN
 		do
 			Result := type = xmlrpc_value_datetime
 		end
 
-	is_value_string: BOOLEAN is
+	is_value_string: BOOLEAN
 		do
 			Result := type = xmlrpc_value_string
 		end
 
-	is_value_base64: BOOLEAN is
+	is_value_base64: BOOLEAN
 		do
 			Result := type = xmlrpc_value_base64
 		end
 
-	is_value_array: BOOLEAN is
+	is_value_array: BOOLEAN
 		do
 			Result := type = xmlrpc_value_array
 		end
 
-	is_value_struct: BOOLEAN is
+	is_value_struct: BOOLEAN
 		do
 			Result := type = xmlrpc_value_struct
 		end
 
-	is_value_c_ptr: BOOLEAN is
+	is_value_c_ptr: BOOLEAN
 		do
 			Result := type = xmlrpc_value_c_ptr
 		end
 
-	is_value_nil: BOOLEAN is
+	is_value_nil: BOOLEAN
 		do
 			Result := type = xmlrpc_value_nil
 		end
 
-	is_value_dead: BOOLEAN is
+	is_value_dead: BOOLEAN
 		do
 			Result := type = xmlrpc_value_dead
 		end
 
 feature {ANY} -- Convertion to different value types
 
-	value_int: XMLRPC_VALUE_INT is
+	value_int: XMLRPC_VALUE_INT
 		require
 			is_value_int
 		do
 			create Result.from_value (Current)
 		end
 
-	value_bool: XMLRPC_VALUE_BOOL is
+	value_bool: XMLRPC_VALUE_BOOL
 		require
 			is_value_bool
 		do
@@ -159,7 +159,7 @@ feature {ANY} -- Convertion to different value types
 --			create Result.from_value (Current)
 --		end
 
-	value_array: XMLRPC_VALUE_ARRAY is
+	value_array: XMLRPC_VALUE_ARRAY
 		require
 			is_value_array
 		do

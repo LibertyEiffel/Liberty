@@ -29,12 +29,12 @@ inherit
 feature {} -- External calls
 
 	gtk_aspect_frame_new (a_label: POINTER; gfloat_xalign, gfloat_yalign, gfloat_ratio: REAL_32;
-								 obey_child: INTEGER): POINTER is
+								 obey_child: INTEGER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_aspect_frame_set (an_aspect_frame: POINTER; gfloat_xalign, gfloat_yalign, gfloat_ratio: REAL_32;
-								 obey_child: INTEGER) is
+								 obey_child: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 end

@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_wrap_mode (a_mode :INTEGER): BOOLEAN is
+	is_valid_gtk_wrap_mode (a_mode :INTEGER): BOOLEAN
 		do
 			Result:=((a_mode=gtk_wrap_none) or else
 						(a_mode=gtk_wrap_char) or else
@@ -33,13 +33,13 @@ feature {} -- enum
 						(a_mode=gtk_wrap_word_char))
 		end
 
-	gtk_wrap_none: INTEGER is
+	gtk_wrap_none: INTEGER
 			-- do not wrap lines; just make the text area wider
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WRAP_NONE"
 		end
 
-	gtk_wrap_char: INTEGER is
+	gtk_wrap_char: INTEGER
 			-- wrap text, breaking lines anywhere the cursor can appear
 			-- (between characters, usually - if you want to be
 			-- technical, between graphemes, see pango_get_log_attrs())
@@ -47,13 +47,13 @@ feature {} -- enum
 		alias "GTK_WRAP_CHAR"
 		end
 
-	gtk_wrap_word: INTEGER is
+	gtk_wrap_word: INTEGER
 			-- wrap text, breaking lines in between words
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WRAP_WORD"
 		end
 
-	gtk_wrap_word_char: INTEGER is
+	gtk_wrap_word_char: INTEGER
 			-- wrap text, breaking lines in between words, or if that is
 			-- not enough, also between graphemes.
 		external "C macro use <gtk/gtk.h>"

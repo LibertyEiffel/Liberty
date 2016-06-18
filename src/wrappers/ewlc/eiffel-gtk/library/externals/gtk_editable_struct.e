@@ -30,19 +30,19 @@ feature {} -- Access calls
 	-- fields should be considered read-only. They should never be set
 	-- by an application.)
 	
-	get_selection_start (an_editable: POINTER): INTEGER is
+	get_selection_start (an_editable: POINTER): INTEGER
 			--	(guint) the starting position of the selected characters
 			--	in the widget.
 		external "C macro get GtkEditable <gtk/gtk.h>"
 		end
 	
-	get_selection_end (an_editable: POINTER): INTEGER is
+	get_selection_end (an_editable: POINTER): INTEGER
 			-- (guint) the end position of the selected characters in the
 			-- widget.
 		external "C macro get GtkEditable <gtk/gtk.h>"
 		end
 	
-	get_editable  (an_editable: POINTER): INTEGER is
+	get_editable  (an_editable: POINTER): INTEGER
 			-- (guint) a flag indicating whether or not the widget is
 			-- editable by the user.
 		external "C macro get GtkEditable <gtk/gtk.h>"

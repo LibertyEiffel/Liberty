@@ -26,7 +26,7 @@ inherit CAIRO_PATTERN
 create {ANY} from_surface, from_external_pointer
 
 feature {} -- Creation
-	from_surface (a_surface: CAIRO_SURFACE) is
+	from_surface (a_surface: CAIRO_SURFACE)
 			-- Create a new cairo_pattern_t for the given surface.
 		require surface_not_void: a_surface /= Void
 		do

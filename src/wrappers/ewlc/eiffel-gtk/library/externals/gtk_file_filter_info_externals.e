@@ -29,7 +29,7 @@ inherit
 
 feature {} -- Getters
 
-	get_contains (a_gtk_file_filter_info: POINTER): INTEGER is
+	get_contains (a_gtk_file_filter_info: POINTER): INTEGER
 		-- Flags indicating which of the following fields need are filled
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo get contains use <gtk/gtk.h>"
@@ -37,32 +37,32 @@ feature {} -- Getters
 			-- ensure are_valid_file_filter_flags (Result)
 		end
 	
-	get_filename (a_gtk_file_filter_info: POINTER): POINTER is
+	get_filename (a_gtk_file_filter_info: POINTER): POINTER
 		-- 	the filename of the file being tested
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo get contains use <gtk/gtk.h>"
 		end
 
-	get_uri (a_gtk_file_filter_info: POINTER): POINTER is 
+	get_uri (a_gtk_file_filter_info: POINTER): POINTER
 		-- 	the URI for the file being tested
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo get contains use <gtk/gtk.h>"
 		end
 
-	get_display_name (a_gtk_file_filter_info: POINTER): POINTER is
+	get_display_name (a_gtk_file_filter_info: POINTER): POINTER
 		-- 	the string that will be used to display the file in the file chooser
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo get contains use <gtk/gtk.h>"
 		end
 
-	get_mime_type (a_gtk_file_filter_info: POINTER): POINTER is
+	get_mime_type (a_gtk_file_filter_info: POINTER): POINTER
 		-- 	the mime type of the file
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo get contains use <gtk/gtk.h>"
 		end
 
 feature {} -- Setters
-	set_contains (a_gtk_file_filter_info: POINTER; a_contains: INTEGER) is
+	set_contains (a_gtk_file_filter_info: POINTER; a_contains: INTEGER)
 		-- Flags indicating which of the following fields need are filled
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo set contains use <gtk/gtk.h>"
@@ -70,25 +70,25 @@ feature {} -- Setters
 			-- ensure are_valid_file_filter_flags (Result)
 		end
 
-	set_filename (a_gtk_file_filter_info, a_filename: POINTER) is
+	set_filename (a_gtk_file_filter_info, a_filename: POINTER)
 		-- 	the filename of the file being tested
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo set contains use <gtk/gtk.h>"
 		end
 
-	set_uri (a_gtk_file_filter_info, an_uri: POINTER) is
+	set_uri (a_gtk_file_filter_info, an_uri: POINTER)
 		-- 	the URI for the file being tested
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo set contains use <gtk/gtk.h>"
 		end
 
-	set_display_name (a_gtk_file_filter_info: POINTER; a_display_name: POINTER) is
+	set_display_name (a_gtk_file_filter_info: POINTER; a_display_name: POINTER)
 		-- 	the string that will be used to display the file in the file chooser
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo set contains use <gtk/gtk.h>"
 		end
 	
-	set_mime_type (a_gtk_file_filter_info: POINTER; a_mime_type: POINTER) is
+	set_mime_type (a_gtk_file_filter_info: POINTER; a_mime_type: POINTER)
 			-- 	the mime type of the file
 		require a_gtk_file_filter_info.is_not_null
 			a_mime_type.is_not_null

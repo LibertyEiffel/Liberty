@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = global_relocations_low_level)  or else
 				(a_value = local_relocation_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_global_relocations is
+	set_global_relocations
 		do
 			value := global_relocations_low_level
 		end
 
-	set_local_relocation is
+	set_local_relocation
 		do
 			value := local_relocation_low_level
 		end
 
-	set_no_relocation is
+	set_no_relocation
 		do
 			value := no_relocation_low_level
 		end
 
 feature {ANY} -- Queries
-	is_global_relocations: BOOLEAN is
+	is_global_relocations: BOOLEAN
 		do
 			Result := (value=global_relocations_low_level)
 		end
 
-	is_local_relocation: BOOLEAN is
+	is_local_relocation: BOOLEAN
 		do
 			Result := (value=local_relocation_low_level)
 		end
 
-	is_no_relocation: BOOLEAN is
+	is_no_relocation: BOOLEAN
 		do
 			Result := (value=no_relocation_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	global_relocations_low_level: INTEGER is
+	global_relocations_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	local_relocation_low_level: INTEGER is
+	local_relocation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	no_relocation_low_level: INTEGER is
+	no_relocation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -27,37 +27,37 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	gtk_win_pos_none: INTEGER is
+	gtk_win_pos_none: INTEGER
 			-- No influence is made on placement.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIN_POS_NONE"
 		end
 
-	gtk_win_pos_center: INTEGER is
+	gtk_win_pos_center: INTEGER
 			-- Windows should be placed in the center of the screen.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIN_POS_CENTER"
 		end
 
-	gtk_win_pos_mouse: INTEGER is
+	gtk_win_pos_mouse: INTEGER
 			-- Windows should be placed at the current mouse position.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIN_POS_MOUSE"
 		end
 
-	gtk_win_pos_center_always: INTEGER is
+	gtk_win_pos_center_always: INTEGER
 			-- Keep window centered as it changes size, etc.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIN_POS_CENTER_ALWAYS"
 		end
 
-	gtk_win_pos_center_on_parent: INTEGER is
+	gtk_win_pos_center_on_parent: INTEGER
 			-- Center the window on its transient parent (see gtk_window_set_transient_for(). 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIN_POS_CENTER_ON_PARENT"
 		end
 
-	is_valid_gtk_window_position (a_position: INTEGER): BOOLEAN is
+	is_valid_gtk_window_position (a_position: INTEGER): BOOLEAN
 			-- is `a_position' a valid gtk_window_position_flag?
 		do
 			Result:=((a_position = gtk_win_pos_none) or else

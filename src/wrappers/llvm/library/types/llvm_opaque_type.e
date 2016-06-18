@@ -3,12 +3,12 @@ class LLVM_OPAQUE_TYPE
 inherit LLVM_TYPE
 create {ANY} make, in_context, from_external_pointer
 feature {ANY} -- Creation
-   make is
+   make
       do
          handle:=llvmopaque_type
       end
 
-   in_context (a_context: LLVM_CONTEXT) is
+   in_context (a_context: LLVM_CONTEXT)
       require a_context/=Void
       do
          handle:=llvmopaque_type_in_context(a_context.handle)

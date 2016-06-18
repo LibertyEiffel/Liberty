@@ -8,7 +8,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_init is
+	gda_init
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 

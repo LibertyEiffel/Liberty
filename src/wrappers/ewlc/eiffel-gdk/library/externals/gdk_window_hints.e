@@ -35,7 +35,7 @@ deferred class GDK_WINDOW_HINTS
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_window_hint (an_hint :INTEGER): BOOLEAN is
+	is_valid_window_hint (an_hint :INTEGER): BOOLEAN
 		do	
 			Result:=((an_hint = gdk_hint_pos) or else
 						(an_hint = gdk_hint_min_size) or else
@@ -48,55 +48,55 @@ feature {ANY}  -- enum
 						(an_hint = gdk_hint_user_size))
 		end
 
-	gdk_hint_pos: INTEGER is
+	gdk_hint_pos: INTEGER
 			-- indicates that the program has positioned the window
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HINT_POS"
 		end
 
-	gdk_hint_min_size: INTEGER is
+	gdk_hint_min_size: INTEGER
 			-- min size fields are set
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HINT_MIN_SIZE"
 		end
 
-	gdk_hint_max_size: INTEGER is
+	gdk_hint_max_size: INTEGER
 			-- max size fields are set
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HINT_MAX_SIZE"
 		end
 
-	gdk_hint_base_size: INTEGER is
+	gdk_hint_base_size: INTEGER
 			-- base size fields are set
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HINT_BASE_SIZE"
 		end
 
-	gdk_hint_aspect: INTEGER is
+	gdk_hint_aspect: INTEGER
 			-- aspect ratio fields are set
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HINT_ASPECT"
 		end
 
-	gdk_hint_resize_inc: INTEGER is
+	gdk_hint_resize_inc: INTEGER
 			-- resize increment fields are set
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HINT_RESIZE_INC"
 		end
 
-	gdk_hint_win_gravity: INTEGER is
+	gdk_hint_win_gravity: INTEGER
 			-- window gravity field is set
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HINT_WIN_GRAVITY"
 		end
 
-	gdk_hint_user_pos: INTEGER is
+	gdk_hint_user_pos: INTEGER
 			-- indicates that the window's position was explicitly set by the user
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HINT_USER_POS"
 		end
 
-	gdk_hint_user_size: INTEGER is
+	gdk_hint_user_size: INTEGER
 			-- indicates that the window's size was explicitly set by the user
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HINT_USER_SIZE"

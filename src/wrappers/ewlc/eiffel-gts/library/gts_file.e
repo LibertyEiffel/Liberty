@@ -33,26 +33,26 @@ insert
 create {ANY}  make, from_standard_input, from_external_pointer
 
 feature {} -- Creation
-	make (a_file: INPUT_STREAM) is
+	make (a_file: INPUT_STREAM)
 		require file_not_void: a_file/=Void
 		do
 			from_external_pointer(gts_file_new(a_file.stream_pointer))
 		end
 
-	from_standard_input is
+	from_standard_input
 		do
 			from_external_pointer(gts_file_new(std_input.stream_pointer))
 		end
 	
 feature {ANY}
 
-	next_token is
+	next_token
 			-- Reads next token and updates token and delim fields.
 		do
 			gts_file_next_token(handle)
 		end
 
-	first_token_after (a_type: INTEGER) is
+	first_token_after (a_type: INTEGER)
 			-- Finds and sets the first token of `a_type' different from type
 			-- occuring after a token of `a_type'.
 		require valid_type: is_valid_token(a_type)
@@ -60,7 +60,7 @@ feature {ANY}
 			gts_file_first_token_after(handle,a_type)
 		end
 
-	assign_start (some_variables: C_ARRAY[GTS_FILE_VARIABLE]) is
+	assign_start (some_variables: C_ARRAY[GTS_FILE_VARIABLE])
 			--  Opens a block delimited by braces to read a list of optional
 			--  arguments specified by some_variables.
 		
@@ -239,48 +239,48 @@ feature {}
 	
 	-- GtsFileVariable;
 
-	gts_file_new (a_file: POINTER): POINTER is
+	gts_file_new (a_file: POINTER): POINTER
 			-- 	GtsFile* gts_file_new (FILE *fp);
 		external "C use <gts.h>"
 		end
 
-	gts_file_next_token (a_gts_file: POINTER) is
+	gts_file_next_token (a_gts_file: POINTER)
 			--  void gts_file_next_token (GtsFile *f);
 		external "C use <gts.h>"
 		end
 
-	gts_file_first_token_after (a_gts_file: POINTER; a_gts_token_type: INTEGER) is
+	gts_file_first_token_after (a_gts_file: POINTER; a_gts_token_type: INTEGER)
 			--  void gts_file_first_token_after (GtsFile *f, GtsTokenType type);
 		external "C use <gts.h>"
 		end
 
-	gts_file_assign_start (a_gts_file, some_gts_file_variable: POINTER) is
+	gts_file_assign_start (a_gts_file, some_gts_file_variable: POINTER)
 			--  void gts_file_assign_start (GtsFile *f, GtsFileVariable *vars);
 		external "C use <gts.h>"
 		end
 
-	gts_file_assign_next (a_gts_file, a_gts_file_variable: POINTER): POINTER is
+	gts_file_assign_next (a_gts_file, a_gts_file_variable: POINTER): POINTER
 			-- GtsFileVariable* gts_file_assign_next (GtsFile *f, GtsFileVariable
 			-- *vars);
 		external "C use <gts.h>"
 		end
 
-	gts_file_assign_variables (a_gts_file, a_gts_file_variable: POINTER) is
+	gts_file_assign_variables (a_gts_file, a_gts_file_variable: POINTER)
 			--  void gts_file_assign_variables (GtsFile *f, GtsFileVariable *vars);
 		external "C use <gts.h>"
 		end
 
-	gts_file_getc (a_gts_file: POINTER): INTEGER is
+	gts_file_getc (a_gts_file: POINTER): INTEGER
 			--  gint gts_file_getc (GtsFile *f);
 		external "C use <gts.h>"
 		end
 
-	gts_file_getc_scope (a_gts_file: POINTER): INTEGER is
+	gts_file_getc_scope (a_gts_file: POINTER): INTEGER
 			--  gint gts_file_getc_scope (GtsFile *f);
 		external "C use <gts.h>"
 		end
 
-	gts_file_read (a_gts_file, a_ptr: POINTER; a_guint_size, a_guint_nmemb: INTEGER): INTEGER is
+	gts_file_read (a_gts_file, a_ptr: POINTER; a_guint_size, a_guint_nmemb: INTEGER): INTEGER
 			-- guint gts_file_read (GtsFile *f, gpointer ptr, guint size, guint
 			-- nmemb);
 
@@ -288,7 +288,7 @@ feature {}
 		external "C use <gts.h>"
 		end
 
-	gts_file_variable_error (a_gts_file, some_gts_file_variable, a_name, a_format: POINTER) is
+	gts_file_variable_error (a_gts_file, some_gts_file_variable, a_name, a_format: POINTER)
 			--  void gts_file_variable_error (GtsFile *f, GtsFileVariable *vars,
 			--  const gchar *name, const gchar *format, ...);
 		external "C use <gts.h>"
@@ -297,19 +297,19 @@ feature {}
 	-- Unwrappable: void gts_file_verror (GtsFile *f, const gchar *format,
 	-- va_list args);
 
-	gts_file_error (a_gts_file, a_format: POINTER) is
+	gts_file_error (a_gts_file, a_format: POINTER)
 			--  void gts_file_error (GtsFile *f, const gchar *format, ...);
 		external "C use <gts.h>"
 		end
 
-	gts_file_destroy (a_gts_file: POINTER) is
+	gts_file_destroy (a_gts_file: POINTER)
 			--  void gts_file_destroy (GtsFile *f);
 		external "C use <gts.h>"
 		end
 
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(	GtsFile)"
 		end

@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_response_type (a_response :INTEGER): BOOLEAN is
+	is_valid_gtk_response_type (a_response :INTEGER): BOOLEAN
 		do
 			Result:=((a_response = gtk_response_none) or else
 						(a_response = gtk_response_reject) or else
@@ -42,67 +42,67 @@ feature {} -- enum
 						(a_response = gtk_response_help))
 		end
 
-	gtk_response_none: INTEGER is
+	gtk_response_none: INTEGER
 			-- Returned if an action widget has no response id, or if the dialog gets programmatically hidden or destroyed.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_NONE"
 		end
 	
-	gtk_response_reject: INTEGER is
+	gtk_response_reject: INTEGER
 			-- Generic response id, not used by GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_REJECT"
 		end
 
-	gtk_response_accept: INTEGER is
+	gtk_response_accept: INTEGER
 			-- Generic response id, not used by GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_ACCEPT"
 		end
 
-	gtk_response_delete_event: INTEGER is
+	gtk_response_delete_event: INTEGER
 			-- Returned if the dialog is deleted.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_DELETE_EVENT"
 		end
 
-	gtk_response_ok: INTEGER is
+	gtk_response_ok: INTEGER
 			-- 	Returned by OK buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_OK"
 		end
 
-	gtk_response_cancel: INTEGER is
+	gtk_response_cancel: INTEGER
 			-- 	Returned by Cancel buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_CANCEL"
 		end
 
-	gtk_response_close: INTEGER is
+	gtk_response_close: INTEGER
 			-- 	Returned by Close buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_CLOSE"
 		end
 
-	gtk_response_yes: INTEGER is
+	gtk_response_yes: INTEGER
 			-- 	Returned by Yes buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_YES"
 		end
 
-	gtk_response_no: INTEGER is
+	gtk_response_no: INTEGER
 			-- 	Returned by No buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_NO"
 		end
 
-	gtk_response_apply: INTEGER is
+	gtk_response_apply: INTEGER
 			-- 	Returned by Apply buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_APPLY"
 		end
 
-	gtk_response_help: INTEGER is
+	gtk_response_help: INTEGER
 			-- 	Returned by Help buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_HELP"

@@ -49,7 +49,7 @@ insert
 
 feature {ANY} -- Constants
 
-	primary: GDK_ATOM is
+	primary: GDK_ATOM
 			-- A GdkAtom representing the PRIMARY selection.
 		do
 			Result.from_external_pointer (gdk_selection_primary)
@@ -61,7 +61,7 @@ feature {ANY} -- Constants
 -- 
 -- A GdkAtom representing the SECONDARY selection.
 
-	clipboard: GDK_ATOM is
+	clipboard: GDK_ATOM
 			-- A GdkAtom representing the CLIPBOARD selection.
 		do
 			Result.from_external_pointer (gdk_selection_clipboard)
@@ -318,14 +318,14 @@ feature {} -- Externals
 -- typedef             GdkSelectionType;
 -- typedef             GdkTarget;
 
-	gdk_selection_primary: POINTER is
+	gdk_selection_primary: POINTER
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SELECTION_PRIMARY"
 		end
 
 -- #define             GDK_SELECTION_SECONDARY
 
-	gdk_selection_clipboard: POINTER is
+	gdk_selection_clipboard: POINTER
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SELECTION_CLIPBOARD"
 		end

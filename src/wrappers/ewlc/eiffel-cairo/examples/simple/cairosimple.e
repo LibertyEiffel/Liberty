@@ -10,7 +10,7 @@ feature {ANY}
 
 	pi: REAL is 3.14159265358979323846 -- PI
 
-	make is
+	make
 		local
 			context: CAIRO_CONTEXT
 			surface: CAIRO_IMAGE_SURFACE

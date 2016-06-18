@@ -27,14 +27,14 @@ insert
 
 feature {ANY} -- Operations
 
-	parse (a_filename: STRING) is
+	parse (a_filename: STRING)
 		require
 			a_filename /= Void
 		do
 			gtk_rc_parse (a_filename.to_external)
 		end
 
-	default_files: ARRAY [STRING] is
+	default_files: ARRAY [STRING]
 		local
 			native_array: NATIVE_ARRAY [POINTER]
 			i: INTEGER
@@ -48,7 +48,7 @@ feature {ANY} -- Operations
 			end
 		end
 
-	set_default_files (some_default_files: ARRAY [STRING]) is
+	set_default_files (some_default_files: ARRAY [STRING])
 		require
 			some_default_files /= Void
 		local

@@ -1,7 +1,7 @@
 class MY_SEP
 inherit SEPARATE
 feature {ANY} 
-	main is
+	main
 		local rem: INTEGER
 		do
 			from until False loop

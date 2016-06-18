@@ -5,7 +5,7 @@ obsolete "use LLVM_C_TYPES"
 
 insert ANY undefine copy, is_equal end
 feature {ANY} --
-   pointer(a_type: LLVM_TYPE): LLVM_POINTER_TYPE is
+   pointer(a_type: LLVM_TYPE): LLVM_POINTER_TYPE
          -- The type of a pointer to `a_type'; i.e. pointer(int_32) represents "int*".
       require a_type/=Void
       do

@@ -35,14 +35,14 @@ inherit
 insert GLOBAL_CACHE
          
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-   from_external_pointer (a_ptr: POINTER) is
+   from_external_pointer (a_ptr: POINTER)
 		do
          Precursor (a_ptr)
          wrappers.put (Current, a_ptr)
       end
 
 feature {}
-	dispose is
+	dispose
 		do
 			wrappers.remove (handle)
 		end

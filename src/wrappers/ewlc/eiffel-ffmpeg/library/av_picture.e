@@ -33,7 +33,7 @@ insert
 
 feature {ANY} -- Operations
 
-	convert (a_dest: AV_PICTURE; a_dest_pix_fmt, a_src_pix_fmt, a_width, a_height: INTEGER): BOOLEAN is
+	convert (a_dest: AV_PICTURE; a_dest_pix_fmt, a_src_pix_fmt, a_width, a_height: INTEGER): BOOLEAN
 		require
 			is_valid_av_pixel_format (a_dest_pix_fmt)
 			is_valid_av_pixel_format (a_src_pix_fmt)
@@ -41,7 +41,7 @@ feature {ANY} -- Operations
 			Result := img_convert (a_dest.handle, a_dest_pix_fmt, handle, a_src_pix_fmt, a_width, a_height) = 0
 		end
 
-	allocate (a_pixel_format, a_width, a_height: INTEGER): BOOLEAN is
+	allocate (a_pixel_format, a_width, a_height: INTEGER): BOOLEAN
 			-- Allocate memory for a picture.
 			-- Call deallocate to free it.
 			--
@@ -57,14 +57,14 @@ feature {ANY} -- Operations
 			Result := avpicture_alloc (handle, a_pixel_format, a_width, a_height) = 0
 		end
 
-	deallocate, free_picture is
+	deallocate, free_picture
 			-- Free the memory allocated for the picture but not the AVPicture
 			-- structure itself
 		do
 			avpicture_free (handle)
 		end
 
-	size (a_pixel_format, a_width, a_height: INTEGER): INTEGER is
+	size (a_pixel_format, a_width, a_height: INTEGER): INTEGER
 			-- Returns the amount of memory necessary for a picture
 			-- `a_width' x `a_height' in `a_ pixel_format' format.
 		require
@@ -73,28 +73,28 @@ feature {ANY} -- Operations
 			Result := avpicture_get_size (a_pixel_format, a_width, a_height)
 		end
 
-	linesize (a_channel: INTEGER): INTEGER is
+	linesize (a_channel: INTEGER): INTEGER
 		require
 			a_channel.in_range (1, 4)
 		do
 			Result := av_picture_get_linesize (handle, a_channel - 1)
 		end
 
-	data (a_channel: INTEGER): POINTER is
+	data (a_channel: INTEGER): POINTER
 		require
 			is_valid_channel (a_channel)
 		do
 			Result := av_picture_get_data (handle, a_channel - 1)
 		end
 
-	is_valid_channel (a_channel: INTEGER): BOOLEAN is
+	is_valid_channel (a_channel: INTEGER): BOOLEAN
 		require
 			a_channel.in_range (1, 4)
 		do
 			Result := av_picture_get_data (handle, a_channel - 1).is_not_null
 		end
 
-	num_channels: INTEGER is
+	num_channels: INTEGER
 		local
 			i: INTEGER
 		do
@@ -112,7 +112,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <avcodec.h>"
 		alias "sizeof(AVPicture)"
 		end

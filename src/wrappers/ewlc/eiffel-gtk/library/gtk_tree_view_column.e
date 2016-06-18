@@ -51,14 +51,14 @@ create {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkTreeViewColumn.
 		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_tree_view_column_new)
 		end
 
-	with_attributes (a_title: STRING; a_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION [TUPLE[STRING,INTEGER]]) is
+	with_attributes (a_title: STRING; a_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION [TUPLE[STRING,INTEGER]])
 			-- Creates a new GtkTreeViewColumn with a number of default
 			-- values. This is equivalent to calling `set_title',
 			-- `pack_start', and `set_attributes' on the newly created
@@ -88,7 +88,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	pack_start (a_cell: GTK_CELL_RENDERER; does_expand: BOOLEAN) is
+	pack_start (a_cell: GTK_CELL_RENDERER; does_expand: BOOLEAN)
 			-- Packs `a_cell' into the beginning of the column. If
 			-- `does_expand' is False, then the cell is allocated no more
 			-- space than it needs. Any unused space is divided evenly
@@ -97,7 +97,7 @@ feature {ANY}
 			gtk_tree_view_column_pack_start (handle, a_cell.handle, does_expand.to_integer)
 		end
 
-	pack_end (a_cell: GTK_CELL_RENDERER; does_expand: BOOLEAN) is
+	pack_end (a_cell: GTK_CELL_RENDERER; does_expand: BOOLEAN)
 			-- Adds `a_cell' to end of the column. If `does_expand' is
 			-- False, then the cell is allocated no more space than it
 			-- needs. Any unused space is divided evenly between cells
@@ -106,13 +106,13 @@ feature {ANY}
 			gtk_tree_view_column_pack_end (handle, a_cell.handle, does_expand.to_integer)
 		end
 
-	clear is
+	clear
 			-- Unsets all the mappings on all renderers on the column.
 		do
 			gtk_tree_view_column_clear (handle)
 		end
 
-	cell_renderers: G_LIST [GTK_CELL_RENDERER] is
+	cell_renderers: G_LIST [GTK_CELL_RENDERER]
 			-- a GList of all the cell renderers in the column, in no
 			-- particular order.
 		do
@@ -125,7 +125,7 @@ feature {ANY}
 			Result/=Void
 		end
 
-	add_attribute (a_cell_renderer: GTK_CELL_RENDERER; an_attribute: STRING; a_column: INTEGER) is
+	add_attribute (a_cell_renderer: GTK_CELL_RENDERER; an_attribute: STRING; a_column: INTEGER)
 			-- Adds `an_attribute' mapping to the list in
 			-- tree_column. `a_column' is the column of the model to get
 			-- a value from, and the attribute is the parameter on
@@ -145,7 +145,7 @@ feature {ANY}
 												an_attribute.to_external, a_column)
 		end
 	
-	set_attributes (a_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION [TUPLE[STRING,INTEGER]]) is
+	set_attributes (a_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION [TUPLE[STRING,INTEGER]])
 			-- Sets the list as the attributes (`some_attributes') of
 			-- tree column. All existing attributes are removed, and
 			-- replaced with the new attributes.
@@ -178,7 +178,7 @@ feature {ANY}
 	-- func_data : 	The user data for func.
 	-- destroy : 	The destroy notification for func_data
 	
-	clear_attributes (a_cell_renderer: GTK_CELL_RENDERER) is
+	clear_attributes (a_cell_renderer: GTK_CELL_RENDERER)
 			-- Clears all existing attributes previously set with
 			-- `set_attributes'.
 
@@ -189,42 +189,42 @@ feature {ANY}
 		end
 
 feature {ANY} -- Spacing
-	set_spacing (a_spacing: INTEGER) is
+	set_spacing (a_spacing: INTEGER)
 			-- Sets the spacing field of tree_column, which is the number
 			-- of pixels to place between cell renderers packed into it.
 		do
 			gtk_tree_view_column_set_spacing (handle, a_spacing)
 		end
 
-	spacing: INTEGER is
+	spacing: INTEGER
 			-- the spacing of the tree column.
 		do
 			Result := gtk_tree_view_column_get_spacing (handle)
 		end
 	
 feature {ANY} -- Visibility
-	set_visible is
+	set_visible
 			-- Makes the column visible
 		do
 			gtk_tree_view_column_set_visible (handle, 1)
 		ensure visible: is_visible
 		end
 
-	set_invisible is
+	set_invisible
 			-- Makes the column visible
 		do
 			gtk_tree_view_column_set_visible (handle, 0)
 		ensure invisible: not is_visible
 		end
 
-	is_visible: BOOLEAN is
+	is_visible: BOOLEAN
 			-- Is the tree column visible, i.e. shown by the tree?
 		do
 			Result := (gtk_tree_view_column_get_visible (handle)).to_boolean
 		end
 
 feature {ANY} -- Resizability
-	set_resizable is
+	set_resizable
 		-- Allow the user to explicitly resize the column by grabbing
 		-- the outer edge of the column button. If sizing mode of
 		-- the column is `gtk_tree_view_column_autosize', then the sizing
@@ -234,14 +234,14 @@ feature {ANY} -- Resizability
 		ensure resizable: is_resizable
 		end
 
-	unset_resizable is
+	unset_resizable
 		-- Forbid the user to  resize the column.
 		do
 			gtk_tree_view_column_set_resizable (handle, 0)
 		ensure unresizable: not is_resizable
 		end
 
-	is_resizable: BOOLEAN is
+	is_resizable: BOOLEAN
 			-- Can the tree_column be resized by the end user?
 		do
 			Result:=gtk_tree_view_column_get_resizable(handle).to_boolean
@@ -250,63 +250,63 @@ feature {ANY} -- Resizability
 
 feature {ANY} -- Sizing
 
-	set_sizing (a_type: INTEGER) is
+	set_sizing (a_type: INTEGER)
 			-- Sets the growth behavior of tree_column to `a_type'.
 		require valid_type: is_valid_gtk_tree_view_column_sizing (a_type)
 		do
 			gtk_tree_view_column_set_sizing (handle, a_type)
 		end
 
-	set_grow_only is
+	set_grow_only
 			-- Makes the column bigger only in reaction to changes in the
 			-- model
 		do
 			set_sizing (gtk_tree_view_column_grow_only)
 		end
 
-	set_autosize is
+	set_autosize
 			-- Makes the column size to be the optimal size everytime the
 			-- model changes.
 		do
 			set_sizing (gtk_tree_view_column_autosize)
 		end
 	
-	set_fixed is
+	set_fixed
 			-- Makes the column a fixed numbers of pixels wide.
 		do
 			set_sizing (gtk_tree_view_column_fixed)
 		end
 
-	sizing_type: INTEGER is
+	sizing_type: INTEGER
 			-- the current type of tree_column.
 		do
 			Result :=  gtk_tree_view_column_get_sizing (handle)
 		ensure valid_type: is_valid_gtk_tree_view_column_sizing (Result)
 		end
 
-	is_grow_only: BOOLEAN is
+	is_grow_only: BOOLEAN
 		do
 			Result := (sizing_type = gtk_tree_view_column_grow_only)
 		end
 
-	is_autosize: BOOLEAN is
+	is_autosize: BOOLEAN
 		do
 			Result := (sizing_type = gtk_tree_view_column_autosize)
 		end
 	
-	is_fixed:BOOLEAN is
+	is_fixed:BOOLEAN
 		do
 			Result := (sizing_type = gtk_tree_view_column_fixed)
 		end
 
 feature {ANY} -- Width
-	width: INTEGER is
+	width: INTEGER
 			-- the current size of tree column in pixels.
 		do
 			Result := gtk_tree_view_column_get_width  (handle)
 		end
 
-	fixed_width: INTEGER is
+	fixed_width: INTEGER
 			-- The fixed width of the column. This value is only meaning
 			-- may not be the actual width of the column on the screen,
 			-- just what is requested.
@@ -314,7 +314,7 @@ feature {ANY} -- Width
 			Result := gtk_tree_view_column_get_fixed_width (handle)
 		end
 
-	set_fixed_width (a_width: INTEGER) is
+	set_fixed_width (a_width: INTEGER)
 			-- Sets the size of the column in pixels. This is meaningful
 			-- only if the sizing type is gtk_tree_view_column_fixed
 			-- (is_fixed = True). The size of the column is clamped to
@@ -327,7 +327,7 @@ feature {ANY} -- Width
 			gtk_tree_view_column_set_fixed_width (handle, a_width)
 		end
 
-	set_min_width (a_width: INTEGER) is
+	set_min_width (a_width: INTEGER)
 			-- Sets the minimum width of the tree_column. If min_width is -1, then the minimum width is unset.
 		require valid_width: a_width > 0
 		do
@@ -335,21 +335,21 @@ feature {ANY} -- Width
 		ensure set: min_width = a_width
 		end
 
-	unset_min_width is
+	unset_min_width
 			-- Unsets the minimum width of the tree_column. If queried, min_width is -1,
 		do
 			gtk_tree_view_column_set_min_width (handle, -1)
 		ensure unset: min_width = -1
 		end
 
-	min_width: INTEGER is
+	min_width: INTEGER
 			-- The minimum width in pixels of the tree_column, or -1 if no minimum width is set.
 		do
 			Result := gtk_tree_view_column_get_min_width (handle)
 		ensure valid: Result >= -1
 		end
 
-	set_max_width (a_width: INTEGER) is
+	set_max_width (a_width: INTEGER)
 			-- Sets the maximum width of the tree_column. If max_width is
 			-- -1, then the maximum width is unset. Note, the column can
 			-- actually be wider than max width if it's the last column
@@ -360,7 +360,7 @@ feature {ANY} -- Width
 		ensure set: max_width = a_width
 		end
 
-	unset_max_width is
+	unset_max_width
 			-- Unset the maximum width. See `set_max_width'
 		do
 			gtk_tree_view_column_set_max_width (handle, -1)
@@ -368,7 +368,7 @@ feature {ANY} -- Width
 		end
 
 
-	max_width: INTEGER is
+	max_width: INTEGER
 			-- the maximum width in pixels of the tree_column, or -1 if
 			-- no maximum width is set.
 		do
@@ -376,14 +376,14 @@ feature {ANY} -- Width
 		end
 
 feature {ANY}
-	clicked is
+	clicked
 			-- Emits the "clicked" signal on the column. It will only
 			-- work if tree_column is clickable.
 		do
 			gtk_tree_view_column_clicked (handle)
 		end
 
-	set_title (a_title: STRING) is
+	set_title (a_title: STRING)
 			-- Sets the title of the tree column. If a custom widget has
 			-- been set, then this value is ignored.
 		require valid_title: a_title /= Void
@@ -391,7 +391,7 @@ feature {ANY}
 			gtk_tree_view_column_set_title  (handle, a_title.to_external)
 		end
 
-	title: STRING is
+	title: STRING
 		-- The title of the widget.
 		do
 			-- the title of the column. This string should not be
@@ -401,7 +401,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Expandability
-	set_expand is
+	set_expand
 			-- Sets the column to take available extra space. This space
 			-- is shared equally amongst all columns that have the expand
 			-- set to True. If no column has this option set, then the
@@ -412,7 +412,7 @@ feature {ANY} -- Expandability
 		ensure is_expanded: is_expanded
 		end
 
-	unset_expand is
+	unset_expand
 			-- Makes the column unexpanded. This is the default. See
 			-- `set_expand'
 		do
@@ -420,14 +420,14 @@ feature {ANY} -- Expandability
 		ensure not_expanded: not is_expanded
 		end
 
-	is_expanded: BOOLEAN is
+	is_expanded: BOOLEAN
 			-- Does the column expand to take any available space?
 		do
 			Result := gtk_tree_view_column_get_expand (handle).to_boolean
 		end
 
 feature {ANY} -- Clickability
-	set_clickable is
+	set_clickable
 			-- Sets the header to be active if active. When the header is
 			-- active, then it can take keyboard focus, and can be
 			-- clicked.
@@ -436,34 +436,34 @@ feature {ANY} -- Clickability
 		ensure clickable: is_clickable
 		end
 
-	unset_clickable is
+	unset_clickable
 			-- Sets the header to be inactive.
 		do
 			gtk_tree_view_column_set_clickable (handle, 0)
 		ensure unclickable: not is_clickable
 		end
 
-	is_clickable: BOOLEAN is
+	is_clickable: BOOLEAN
 			-- Can the user click on the header for the column?
 		do
 			Result := gtk_tree_view_column_get_clickable(handle).to_boolean
 		end
 
-	set_widget (a_widget: GTK_WIDGET) is
+	set_widget (a_widget: GTK_WIDGET)
 			-- Sets the widget in the header to be widget.
 		require valid_widget: a_widget/=Void
 		do
 			gtk_tree_view_column_set_widget (handle, a_widget.handle)
 		end
 
-	unset_widget  is
+	unset_widget
 			-- The header button is set with a GtkLabel set to `title'.
 		do
 			gtk_tree_view_column_set_widget (handle, default_pointer)
 		end
 
 
-	widget: GTK_WIDGET is
+	widget: GTK_WIDGET
 			-- the GtkWidget in the button on the column header. If a custom
 			-- widget has not been set then Void is returned.
 		do
@@ -472,7 +472,7 @@ feature {ANY} -- Clickability
 		ensure implemented: False
 		end
 
-	set_alignment (xalign: REAL_32) is
+	set_alignment (xalign: REAL_32)
 			-- Sets the alignment of the title or custom widget inside
 			-- the column header. The alignment determines its location
 			-- inside the button 0.0 for left, 0.5 for center, 1.0 for
@@ -482,7 +482,7 @@ feature {ANY} -- Clickability
 			gtk_tree_view_column_set_alignment (handle, xalign)
 		end
 
-	alignment: REAL_32 is
+	alignment: REAL_32
 			-- the current x alignment of tree_column. This value can
 			-- range between 0.0 and 1.0.
 		do
@@ -492,27 +492,27 @@ feature {ANY} -- Clickability
 
 feature {ANY} -- Reorderability
 
-	set_reorderable is
+	set_reorderable
 			-- The column can be reordered by the end user dragging the header.
 		do
 			gtk_tree_view_column_set_reorderable (handle, 1)
 		ensure reorderable: is_reorderable
 		end
 
-	unset_reorderable is
+	unset_reorderable
 			-- Makes the column not reorderable
 		do
 			gtk_tree_view_column_set_reorderable (handle, 0)
 		ensure not_reorderable: not is_reorderable
 		end
 
-	is_reorderable: BOOLEAN is
+	is_reorderable: BOOLEAN
 			-- Can  the tree column be reordered by the user?
 		do
 			Result:=gtk_tree_view_column_get_reorderable(handle).to_boolean
 		end
 
-	set_sort_column_id (a_column_id: INTEGER) is
+	set_sort_column_id (a_column_id: INTEGER)
 			-- Sets the logical `a_column_id' that this column sorts on
 			-- when this column is selected for sorting. Doing so makes
 			-- the column header clickable.
@@ -521,7 +521,7 @@ feature {ANY} -- Reorderability
 		ensure set: sort_column_id = a_column_id
 		end
 
-	sort_column_id: INTEGER is
+	sort_column_id: INTEGER
 			-- the logical sort_column_id that the model sorts on when
 			-- this column is selected for sorting. See
 			-- `set_sort_column_id'.  -1 if this column can't be used for
@@ -530,7 +530,7 @@ feature {ANY} -- Reorderability
 			Result:=gtk_tree_view_column_get_sort_column_id(handle)
 		end
 
-	show_sort_indicator is
+	show_sort_indicator
 			-- Display an arrow in the header button indicating the
 			-- column is sorted. Call `set_sort_order' to change the
 			-- direction of the arrow.
@@ -539,19 +539,19 @@ feature {ANY} -- Reorderability
 		ensure shown: sort_indicator_shown
 		end
 
-	hide_sort_indicator is
+	hide_sort_indicator
 			-- Remove the arrow in the header button indicating the column is sorted.
 		do
 			gtk_tree_view_column_set_sort_indicator (handle, 0)
 		ensure hided: sort_indicator_shown
 		end
 
-	sort_indicator_shown: BOOLEAN is
+	sort_indicator_shown: BOOLEAN
 		do
 			Result:=gtk_tree_view_column_get_sort_indicator(handle).to_boolean
 		end
 
-	set_sort_order_ascending is
+	set_sort_order_ascending
 			-- Changes the appearance of the sort indicator to ascending.
 		
 			-- This does not actually sort the model. Use
@@ -570,14 +570,14 @@ feature {ANY} -- Reorderability
 		ensure set: is_sort_order_ascending
 		end
 
-	set_sort_order_descending is
+	set_sort_order_descending
 			-- Changes the appearance of the sort indicator to
 			-- descending. See also `set_sort_order_ascending'.
 		do
 			gtk_tree_view_column_set_sort_order (handle,gtk_sort_descending)
 		end
 
-	is_sort_order_ascending: BOOLEAN is
+	is_sort_order_ascending: BOOLEAN
 			-- Is the sort order ascending?
 		do
 			Result:=(gtk_tree_view_column_get_sort_order(handle)=gtk_sort_ascending)
@@ -606,7 +606,7 @@ feature {ANY} -- Reorderability
 	
 	-- is_expanded : 	TRUE, if the row has visible children
 	
-	cell_size: TUPLE[INTEGER,INTEGER,INTEGER,INTEGER] is
+	cell_size: TUPLE[INTEGER,INTEGER,INTEGER,INTEGER]
 			-- x_offset,y_offset,width,height needed to render the
 			-- column.
 		local an_x_offset,an_y_offset,a_width,an_height: INTEGER
@@ -640,7 +640,7 @@ feature {ANY} -- Reorderability
 	-- width : 	return location for the width of cell, may be NULL
 	-- Returns : 	TRUE if cell belongs to tree_column.
 
-	is_cell_visible: BOOLEAN is
+	is_cell_visible: BOOLEAN
 			-- Is any of the cells packed into the tree_column visible?
 			-- For this to be meaningful, you must first initialize the
 			-- cells with `set_cell_data'.
@@ -648,14 +648,14 @@ feature {ANY} -- Reorderability
 			Result:= gtk_tree_view_column_cell_is_visible(handle).to_boolean
 		end
 
-	focus_cell (a_cell_renderer: GTK_CELL_RENDERER) is
+	focus_cell (a_cell_renderer: GTK_CELL_RENDERER)
 			-- Sets the current keyboard focus to be at cell, if the
 			-- column contains 2 or more editable and activatable cells.
 		do
 			gtk_tree_view_column_focus_cell (handle, a_cell_renderer.handle)
 		end
 
-	queue_resize is
+	queue_resize
 			-- Flags the column, and the cell renderers added to this column, to have their sizes renegotiated.
 		do
 			gtk_tree_view_column_queue_resize(handle)
@@ -815,7 +815,7 @@ feature {ANY} -- TODO: Properties and signals
 	-- treeviewcolumn : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeViewColumn)"
 		end

@@ -26,19 +26,19 @@ inherit G_STRUCT
 create {ANY} from_external_pointer
 
 feature {ANY} -- Getters
-	x: INTEGER is
+	x: INTEGER
 			-- x coordinate of the first pixel.
 		do
 			Result := get_x (handle)
 		end
 
-	y: INTEGER is
+	y: INTEGER
 			-- y coordinate of the first pixel.
 		do
 			Result := get_y (handle)
 		end
 
-	width: INTEGER is
+	width: INTEGER
 			-- number of pixels in the span.
 		do
 			Result := get_width (handle)
@@ -47,22 +47,22 @@ feature {ANY} -- Getters
 feature {ANY} -- TODO: Setters (if needed)
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkSpan)"
 		end
 
 feature {} -- Struct accesing
 
-	get_x (span: POINTER): INTEGER is
+	get_x (span: POINTER): INTEGER
 		external "C struct GdkSpan get x use <gdk/gdk.h>"
 		end
 
-	get_y (span: POINTER): INTEGER is
+	get_y (span: POINTER): INTEGER
 		external "C struct GdkSpan get y use <gdk/gdk.h>"
 		end
 	
-	get_width (span: POINTER): INTEGER is
+	get_width (span: POINTER): INTEGER
 		external "C struct GdkSpan get width use <gdk/gdk.h>"
 		end
 end

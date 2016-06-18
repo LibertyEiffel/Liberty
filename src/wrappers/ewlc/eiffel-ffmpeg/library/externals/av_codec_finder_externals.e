@@ -24,19 +24,19 @@ deferred class AV_CODEC_FINDER_EXTERNALS
 
 feature {} -- External Calls
 
-	avcodec_find_decoder (a_decoder_id: INTEGER): POINTER is
+	avcodec_find_decoder (a_decoder_id: INTEGER): POINTER
 		external "C use <avcodec.h>"
 		end
 
-	avcodec_find_encoder (a_decoder_id: INTEGER): POINTER is
+	avcodec_find_encoder (a_decoder_id: INTEGER): POINTER
 		external "C use <avcodec.h>"
 		end
 
-	avcodec_find_decoder_by_name (a_name: POINTER): POINTER is
+	avcodec_find_decoder_by_name (a_name: POINTER): POINTER
 		external "C use <avcodec.h>"
 		end
 
-	avcodec_find_encoder_by_name (a_name: POINTER): POINTER is
+	avcodec_find_encoder_by_name (a_name: POINTER): POINTER
 		external "C use <avcodec.h>"
 		end
 

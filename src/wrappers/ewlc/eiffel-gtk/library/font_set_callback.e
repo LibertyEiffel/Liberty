@@ -38,21 +38,21 @@ feature {ANY}
 	object: GTK_FONT_BUTTON
 
 feature {ANY}
-	callback (instance: POINTER) is
+	callback (instance: POINTER)
 		do
 			check has_eiffel_wrapper_stored (instance) end
 			object := wrapper(instance)
 			procedure.call ([object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_FONT_BUTTON; a_procedure: like procedure) is
+	connect (an_object: GTK_FONT_BUTTON; a_procedure: like procedure)
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 													 signal_name.to_external,

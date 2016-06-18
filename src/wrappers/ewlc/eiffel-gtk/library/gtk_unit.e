@@ -24,7 +24,7 @@ deferred class GTK_UNIT
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_unit (a_unit: INTEGER): BOOLEAN is
+	is_valid_gtk_unit (a_unit: INTEGER): BOOLEAN
 		do	
 			Result:=((a_unit = gtk_unit_pixel) or else
 						(a_unit = gtk_unit_points) or else
@@ -32,25 +32,25 @@ feature {ANY}  -- enum
 						(a_unit = gtk_unit_mm))
 		end
 
-	gtk_unit_pixel: INTEGER is
+	gtk_unit_pixel: INTEGER
 			-- GTK_UNIT_PIXEL
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UNIT_PIXEL"
 		end
 
-	gtk_unit_points: INTEGER is
+	gtk_unit_points: INTEGER
 			-- GTK_UNIT_POINTS
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UNIT_POINTS"
 		end
 
-	gtk_unit_inch: INTEGER is
+	gtk_unit_inch: INTEGER
 			-- GTK_UNIT_INCH
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UNIT_INCH"
 		end
 
-	gtk_unit_mm: INTEGER is
+	gtk_unit_mm: INTEGER
 			-- GTK_UNIT_MM
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UNIT_MM"

@@ -32,7 +32,7 @@ insert
 
 feature {ANY} -- Access
 
-	get (name: STRING): W is
+	get (name: STRING): W
 		require
 			name /= Void
 		local

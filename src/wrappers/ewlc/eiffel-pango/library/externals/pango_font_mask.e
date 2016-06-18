@@ -29,54 +29,54 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_pango_font_mask (a_stretch :INTEGER): BOOLEAN is
+	is_valid_pango_font_mask (a_stretch :INTEGER): BOOLEAN
 		do
 			Result := a_stretch & ~pango_font_mask_all = 0
 		end
 
-	pango_font_mask_family: INTEGER is
+	pango_font_mask_family: INTEGER
 			-- the font family is specified.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_FONT_MASK_FAMILY"
 		end
 
-	pango_font_mask_style: INTEGER is
+	pango_font_mask_style: INTEGER
 			-- 	the font style is specified.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_FONT_MASK_STYLE"
 		end
 
-	pango_font_mask_variant: INTEGER is
+	pango_font_mask_variant: INTEGER
 			-- the font variant is specified.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_FONT_MASK_VARIANT"
 		end
 
-	pango_font_mask_weight: INTEGER is
+	pango_font_mask_weight: INTEGER
 			-- the font weight is specified.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_FONT_MASK_WEIGHT"
 		end
 
-	pango_font_mask_stretch: INTEGER is
+	pango_font_mask_stretch: INTEGER
 			-- the font stretch is specified.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_FONT_MASK_STRETCH"
 		end
 
-	pango_font_mask_size: INTEGER is
+	pango_font_mask_size: INTEGER
 			-- the font size is specified.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_FONT_MASK_SIZE"
 		end
 
-	pango_font_mask_gravity: INTEGER is
+	pango_font_mask_gravity: INTEGER
 			-- the font gravity is specified (Since: 1.16.)
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_FONT_MASK_GRAVITY"
 		end
 
-	pango_font_mask_all: INTEGER is
+	pango_font_mask_all: INTEGER
 		do
 			Result := pango_font_mask_family |
 			          pango_font_mask_style |

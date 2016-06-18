@@ -25,62 +25,62 @@ feature {} -- Structure getter/setter calls
 	--
 
 
-	get_xx (a_struct: POINTER): REAL is
+	get_xx (a_struct: POINTER): REAL
 			--   double xx; xx component of the affine transformation
 		external "C struct cairo_matrix_t get xx use <pango.h>"
 		end
 
-	set_xx_external (a_struct: POINTER; a_xx: REAL) is
+	set_xx_external (a_struct: POINTER; a_xx: REAL)
 		external "C struct cairo_matrix_t set xx use <pango.h>"
 		end
 
 	--   double yx; yx component of the affine transformation
-	get_yx (a_struct: POINTER): REAL is
+	get_yx (a_struct: POINTER): REAL
 		external "C struct cairo_matrix_t get yx use <pango.h>"
 		end
 
-	set_yx_external (a_struct: POINTER; a_yx: REAL) is
+	set_yx_external (a_struct: POINTER; a_yx: REAL)
 		external "C struct cairo_matrix_t set yx use <pango.h>"
 		end
 
 	--   double xy; xy component of the affine transformation
-	get_xy (a_struct: POINTER): REAL is
+	get_xy (a_struct: POINTER): REAL
 		external "C struct cairo_matrix_t get xy use <pango.h>"
 		end
 
-	set_xy_external (a_struct: POINTER; a_xy: REAL) is
+	set_xy_external (a_struct: POINTER; a_xy: REAL)
 		external "C struct cairo_matrix_t set xy use <pango.h>"
 		end
 
 	--   double yy; yy component of the affine transformation
-	get_yy (a_struct: POINTER): REAL is
+	get_yy (a_struct: POINTER): REAL
 		external "C struct cairo_matrix_t get yy use <pango.h>"
 		end
 
-	set_yy_external (a_struct: POINTER; a_yy: REAL) is
+	set_yy_external (a_struct: POINTER; a_yy: REAL)
 		external "C struct cairo_matrix_t set yy use <pango.h>"
 		end
 
 	--   double x0; X translation component of the affine transformation
-	get_x0 (a_struct: POINTER): REAL is
+	get_x0 (a_struct: POINTER): REAL
 		external "C struct cairo_matrix_t get x0 use <pango.h>"
 		end
 
-	set_x0_external (a_struct: POINTER; a_x0: REAL) is
+	set_x0_external (a_struct: POINTER; a_x0: REAL)
 		external "C struct cairo_matrix_t set x0 use <pango.h>"
 		end
 
 	--   double y0; Y translation component of the affine transformation
-	get_y0 (a_struct: POINTER): REAL is
+	get_y0 (a_struct: POINTER): REAL
 		external "C struct cairo_matrix_t get y0 use <pango.h>"
 		end
 
-	set_y0_external (a_struct: POINTER; a_y0: REAL) is
+	set_y0_external (a_struct: POINTER; a_y0: REAL)
 		external "C struct cairo_matrix_t set y0 use <pango.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <pango.h>"
 		alias "sizeof(cairo_matrix_t)"
 		end

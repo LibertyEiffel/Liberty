@@ -30,7 +30,7 @@ insert CAIRO_SVG_VERSION
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_filename: STRING; a_width_in_points, an_height_in_points: REAL) is
+	make (a_filename: STRING; a_width_in_points, an_height_in_points: REAL)
 			-- Creates a SVG surface of the specified size in points to
 			-- be written to filename.
 
@@ -82,7 +82,7 @@ feature {} -- Creation
 	--   Since 1.2
 	--
 feature {ANY}
-	restrict_to_version (a_version: INTEGER) is
+	restrict_to_version (a_version: INTEGER)
 			-- Restricts the generated SVG file to version. See
 			-- `versions' for a list of available version values that can
 			-- be used here.
@@ -123,34 +123,34 @@ feature {ANY}
 	--
 	--   Since 1.2
 feature {}
-	cairo_svg_surface_create (a_filename: POINTER; a_width_in_points, an_height_in_points: REAL): POINTER is
+	cairo_svg_surface_create (a_filename: POINTER; a_width_in_points, an_height_in_points: REAL): POINTER
 			-- cairo_surface_t* cairo_svg_surface_create (const char
 			-- *filename, double width_in_points, double
 			-- height_in_points);
 		external "C use <cairo.h>"
 		end
 	
-	cairo_svg_surface_create_for_stream (a_write_func, a_closure: POINTER; a_width_in_points, an_height_in_points: REAL): POINTER is
+	cairo_svg_surface_create_for_stream (a_write_func, a_closure: POINTER; a_width_in_points, an_height_in_points: REAL): POINTER
 			-- cairo_surface_t* cairo_svg_surface_create_for_stream
 			-- (cairo_write_func_t write_func, void *closure, double
 			-- width_in_points, double height_in_points);
 		external "C use <cairo.h>"
 		end
 	
-	cairo_svg_surface_restrict_to_version (a_surface: POINTER; a_version: INTEGER) is
+	cairo_svg_surface_restrict_to_version (a_surface: POINTER; a_version: INTEGER)
 			-- void cairo_svg_surface_restrict_to_version
 			-- (cairo_surface_t *surface, cairo_svg_version_t version);
 		external "C use <cairo.h>"
 		end
 	
 	--	enum cairo_svg_version_t;
-	cairo_svg_get_versions (some_versions, a_num_versions: POINTER) is
+	cairo_svg_get_versions (some_versions, a_num_versions: POINTER)
 			-- void cairo_svg_get_versions (cairo_svg_version_t const
 			-- **versions, int *num_versions);
 		external "C use <cairo.h>"
 		end
 
-	cairo_svg_version_to_string (a_version: INTEGER): POINTER is
+	cairo_svg_version_to_string (a_version: INTEGER): POINTER
 		--	const char* cairo_svg_version_to_string (cairo_svg_version_t
 		--	version);
 		external "C use <cairo.h>"

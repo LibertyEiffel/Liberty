@@ -32,13 +32,13 @@ create {ANY}
 	make, from_polygon, from_external_pointer, from_rectangle, copy, from_external_copy
 
 feature {ANY} -- Creation
-	make is
+	make
 			-- Creates a new empty GdkRegion.
 		do
 			handle := gdk_region_new
 		end
 	
-	from_polygon (some_points: ARRAY[GDK_POINT]; a_fill_rule: INTEGER) is
+	from_polygon (some_points: ARRAY[GDK_POINT]; a_fill_rule: INTEGER)
 			-- Creates a new GdkRegion using the polygon defined by a
 			-- number of points.  `some_points': an array of GdkPoint
 			-- structs.  `a_fill_rule' specifies which pixels are
@@ -62,7 +62,7 @@ feature {ANY} -- Creation
 			handle := gdk_region_polygon (array.to_external,some_points.count,a_fill_rule)
 		end
 	
-	from_rectangle (a_rectangle: GDK_RECTANGLE) is
+	from_rectangle (a_rectangle: GDK_RECTANGLE)
 			-- Creates a new region containing the area `a_rectangle'.
 		require rectangle_not_void: a_rectangle /= Void
 		do
@@ -70,7 +70,7 @@ feature {ANY} -- Creation
 		end
 
 
-	dispose is
+	dispose
 			-- Destroys a GdkRegion.
 		do
 			gdk_region_destroy (handle)
@@ -79,7 +79,7 @@ feature {ANY} -- Creation
 	
 feature {ANY} -- Duplication
 
-	copy (another: GDK_REGION) is
+	copy (another: GDK_REGION)
 			-- Copies region, creating an identical new region.
 		do
 			handle := gdk_region_copy (another.handle)
@@ -210,7 +210,7 @@ feature {} -- Unwrapped code
 -- source2 : 	another GdkRegion
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkRegion)"
 		end
@@ -233,15 +233,15 @@ feature {} -- extnernal features
 		external "C use  <gdk/gdk.h>"
 		end
 
-	gdk_region_destroy (a_region: POINTER) is
+	gdk_region_destroy (a_region: POINTER)
 		external "C use  <gdk/gdk.h>"
 		end
 	
-	gdk_region_get_clipbox (a_region, a_gdk_rectangle: POINTER) is
+	gdk_region_get_clipbox (a_region, a_gdk_rectangle: POINTER)
 		external "C use  <gdk/gdk.h>"
 		end
 	
-	gdk_region_get_rectangles (a_region, rectangles, n_rectangles: POINTER) is
+	gdk_region_get_rectangles (a_region, rectangles, n_rectangles: POINTER)
 		-- Note GdkRectangle **rectangles; gint *n_rectangles
 		external "C use  <gdk/gdk.h>"
 		end

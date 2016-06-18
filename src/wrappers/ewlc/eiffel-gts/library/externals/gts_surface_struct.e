@@ -23,21 +23,21 @@ deferred class GTS_SURFACE_STRUCT
 inherit ANY undefine is_equal, copy end
 
 feature {} -- Structure getter/setter calls
-	get_object_internal (a_struct: POINTER): POINTER is
+	get_object_internal (a_struct: POINTER): POINTER
 			-- GtsObject object;
 		external "C struct GtsSurface get object use <gts.h>"
 		end
 
-	set_object_internal (a_struct: POINTER; a_object: POINTER) is
+	set_object_internal (a_struct: POINTER; a_object: POINTER)
 		external "C struct GtsSurface set object use <gts.h>"
 		end
 
-	use_surface_btree: INTEGER is
+	use_surface_btree: INTEGER
 		external "C macro use <gts.h>"
 		alias "USE_SURFACE_BTREE"
 		end
 	
-	get_faces_internal (a_struct: POINTER): POINTER is
+	get_faces_internal (a_struct: POINTER): POINTER
 			-- #ifdef USE_SURFACE_BTREE
 			--   GTree * faces;
 			-- #else /* not USE_SURFACE_BTREE */
@@ -46,45 +46,45 @@ feature {} -- Structure getter/setter calls
 		external "C struct GtsSurface get faces use <gts.h>"
 		end
 
-	set_faces_internal (a_struct: POINTER; a_faces: POINTER) is
+	set_faces_internal (a_struct: POINTER; a_faces: POINTER)
 		external "C struct GtsSurface set faces use <gts.h>"
 		end
 
-  get_face_class_internal (a_struct: POINTER): POINTER is
+  get_face_class_internal (a_struct: POINTER): POINTER
 			-- GtsFaceClass * face_class;
 		external "C struct GtsSurface get face_class use <gts.h>"
 		end
 
-	set_face_class_internal (a_struct: POINTER; a_face_class: POINTER) is
+	set_face_class_internal (a_struct: POINTER; a_face_class: POINTER)
 		external "C struct GtsSurface set face_class use <gts.h>"
 		end
 
 
-  get_edge_class_internal (a_struct: POINTER): POINTER is
+  get_edge_class_internal (a_struct: POINTER): POINTER
 			--  GtsEdgeClass * edge_class;
 		external "C struct GtsSurface get edge_class use <gts.h>"
 		end
 
-	set_edge_class_internal (a_struct: POINTER; a_edge_class: POINTER) is
+	set_edge_class_internal (a_struct: POINTER; a_edge_class: POINTER)
 		external "C struct GtsSurface set edge_class use <gts.h>"
 		end
 
-  get_vertex_class_internal (a_struct: POINTER): POINTER is
+  get_vertex_class_internal (a_struct: POINTER): POINTER
 			-- GtsVertexClass * vertex_class;
 		external "C struct GtsSurface get vertex_class use <gts.h>"
 		end
 	
-	set_vertex_class_internal (a_struct: POINTER; a_vertex_class: POINTER) is
+	set_vertex_class_internal (a_struct: POINTER; a_vertex_class: POINTER)
 		external "C struct GtsSurface set vertex_class use <gts.h>"
 		end
 
 
-	get_keep_faces_internal (a_struct: POINTER): INTEGER is
+	get_keep_faces_internal (a_struct: POINTER): INTEGER
 			--		  gboolean keep_faces;
 		external "C struct GtsSurface get keep_faces use <gts.h>"
 		end
 	
-	set_keep_faces_internal (a_struct: POINTER; a_keep_faces: INTEGER) is
+	set_keep_faces_internal (a_struct: POINTER; a_keep_faces: INTEGER)
 		external "C struct GtsSurface set keep_faces use <gts.h>"
 		end
 

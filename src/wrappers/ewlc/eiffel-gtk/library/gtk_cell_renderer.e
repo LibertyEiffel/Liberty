@@ -61,7 +61,7 @@ insert
 
 feature {ANY}
 
-	size (a_widget: GTK_WIDGET): TUPLE[INTEGER,INTEGER,INTEGER,INTEGER,GDK_RECTANGLE] is
+	size (a_widget: GTK_WIDGET): TUPLE[INTEGER,INTEGER,INTEGER,INTEGER,GDK_RECTANGLE]
 			-- The x and y offset width and height needed to render the
 			-- cell. Used by view widgets to determine the appropriate
 			-- size for the cell_area passed to `render'. x and y offsets
@@ -161,7 +161,7 @@ feature {ANY}
 	-- flags : 	render flags
 	-- Returns : 	A new GtkCellEditable, or NULL
 
-	stop_editing (emit_editing_canceled_signal: BOOLEAN) is
+	stop_editing (emit_editing_canceled_signal: BOOLEAN)
 			-- Informs the cell renderer that the editing is stopped. If
 			-- `emit_editing_canceled_signal' is True, the cell renderer
 			-- will emit the "editing-canceled" signal. This function
@@ -171,7 +171,7 @@ feature {ANY}
 			gtk_cell_renderer_stop_editing (handle, emit_editing_canceled_signal.to_integer)
 		end
 
-	fixed_size: TUPLE[INTEGER,INTEGER] is
+	fixed_size: TUPLE[INTEGER,INTEGER]
 			-- the fixed width  and  height of the widget
 		local a_width, an_height: INTEGER
 		do
@@ -179,7 +179,7 @@ feature {ANY}
 			create Result.make_2 (a_width, an_height)
 		end
 
-	set_fixed_size (a_width, an_height: INTEGER) is
+	set_fixed_size (a_width, an_height: INTEGER)
 			-- Sets the renderer size to be explicit, independent of the
 			-- properties set. `a_width': the width of the cell renderer,
 			-- or -1; `an_height': the height of the cell renderer, or -1
@@ -301,20 +301,20 @@ feature {ANY} -- "editing-canceled"
 		-- void        user_function                  (GtkCellRenderer *renderer,
 		--                                             gpointer user_data);
 
-	enable_on_editing_canceled is
+	enable_on_editing_canceled
 			-- Connects "editing-canceled" signal to `on_editing_canceled' feature.
 		do
 			connect (Current, editing_canceled_signal_name, $on_editing_canceled)
 		end
 
-	on_editing_canceled: INTEGER is
+	on_editing_canceled: INTEGER
 			-- This signal gets emitted when the user cancels the process of
 			-- editing a cell. For example, an editable cell renderer could be
 			-- written to cancel editing when the user presses Escape.
 		do
 		end
 
-	connect_agent_to_editing_canceled_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_RENDERER]]) is
+	connect_agent_to_editing_canceled_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_RENDERER]])
 			-- renderer : 	the object which received the signal
 		require
 			valid_procedure: a_procedure /= Void
@@ -335,13 +335,13 @@ feature {ANY} -- "editing-started"
 		--                                             gchar *path,
 		--                                             gpointer user_data);
 
-	enable_on_editing_started is
+	enable_on_editing_started
 			-- Connects "editing-started" signal to `on_editing_started' feature.
 		do
 			connect (Current, editing_started_signal_name, $on_editing_started)
 		end
 
-	on_editing_started: INTEGER is
+	on_editing_started: INTEGER
 			-- This signal gets emitted when a cell starts to be edited. The
 			-- indended use of this signal is to do special setup on editable, e.g.
 			-- adding a GtkEntryCompletion or setting up additional columns in a
@@ -371,7 +371,7 @@ feature {ANY} -- "editing-started"
 		end
 
 	connect_agent_to_editing_started_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_EDITABLE,
-																										 STRING, GTK_CELL_RENDERER]]) is
+																										 STRING, GTK_CELL_RENDERER]])
 			-- renderer : 	the object which received the signal
 			-- editable : 	the GtkCellEditable
 			-- path     : 	the path identifying the edited cell

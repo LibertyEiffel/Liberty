@@ -8,27 +8,27 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_handler_time_get_format (a_dh: POINTER; a_type: INTEGER_32): POINTER is
+	gda_handler_time_get_format (a_dh: POINTER; a_type: INTEGER_32): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_handler_time_get_no_locale_str_from_value (a_dh: POINTER; a_value: POINTER): POINTER is
+	gda_handler_time_get_no_locale_str_from_value (a_dh: POINTER; a_value: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_handler_time_set_sql_spec (a_dh: POINTER; a_first: INTEGER_32; a_sec: INTEGER_32; a_third: INTEGER_32; a_separator: CHARACTER; a_twodigits_years: INTEGER_32) is
+	gda_handler_time_set_sql_spec (a_dh: POINTER; a_first: INTEGER_32; a_sec: INTEGER_32; a_third: INTEGER_32; a_separator: CHARACTER; a_twodigits_years: INTEGER_32)
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_handler_time_new_no_locale: POINTER is
+	gda_handler_time_new_no_locale: POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_handler_time_new: POINTER is
+	gda_handler_time_new: POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_handler_time_get_type: INTEGER_32 is
+	gda_handler_time_get_type: INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 

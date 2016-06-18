@@ -30,107 +30,107 @@ inherit
 
 feature {} -- External calls
 
-	pango_font_description_new: POINTER is
+	pango_font_description_new: POINTER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_from_string (a_string: POINTER): POINTER is
+	pango_font_description_from_string (a_string: POINTER): POINTER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_hash (a_font_description: POINTER): INTEGER is
+	pango_font_description_hash (a_font_description: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_get_family (a_font_description: POINTER): POINTER is
+	pango_font_description_get_family (a_font_description: POINTER): POINTER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_get_style (a_font_description: POINTER): INTEGER is
+	pango_font_description_get_style (a_font_description: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_get_variant (a_font_description: POINTER): INTEGER is
+	pango_font_description_get_variant (a_font_description: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_get_weight (a_font_description: POINTER): INTEGER is
+	pango_font_description_get_weight (a_font_description: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_get_stretch (a_font_description: POINTER): INTEGER is
+	pango_font_description_get_stretch (a_font_description: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_get_size (a_font_description: POINTER): INTEGER is
+	pango_font_description_get_size (a_font_description: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_get_size_is_absolute (a_font_description: POINTER): INTEGER is
+	pango_font_description_get_size_is_absolute (a_font_description: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_get_set_fields (a_font_description: POINTER): INTEGER is
+	pango_font_description_get_set_fields (a_font_description: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_better_match (a_fd, b_fd, c_fd: POINTER): INTEGER is
+	pango_font_description_better_match (a_fd, b_fd, c_fd: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_to_string (a_font_description: POINTER): POINTER is
+	pango_font_description_to_string (a_font_description: POINTER): POINTER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_to_filename (a_font_description: POINTER): POINTER is
+	pango_font_description_to_filename (a_font_description: POINTER): POINTER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_set_family (a_font_description: POINTER; a_family: POINTER) is
+	pango_font_description_set_family (a_font_description: POINTER; a_family: POINTER)
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_set_style (a_font_description: POINTER; a_style: INTEGER) is
+	pango_font_description_set_style (a_font_description: POINTER; a_style: INTEGER)
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_set_variant (a_font_description: POINTER; a_variant: INTEGER) is
+	pango_font_description_set_variant (a_font_description: POINTER; a_variant: INTEGER)
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_set_weight (a_font_description: POINTER; a_weight: INTEGER) is
+	pango_font_description_set_weight (a_font_description: POINTER; a_weight: INTEGER)
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_set_stretch (a_font_description: POINTER; a_stretch: INTEGER) is
+	pango_font_description_set_stretch (a_font_description: POINTER; a_stretch: INTEGER)
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_set_size (a_font_description: POINTER; a_size: INTEGER) is
+	pango_font_description_set_size (a_font_description: POINTER; a_size: INTEGER)
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_set_absolute_size (a_fd: POINTER; a_size: REAL) is
+	pango_font_description_set_absolute_size (a_fd: POINTER; a_size: REAL)
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_unset_fields (a_font_description: POINTER; a_fields: INTEGER) is
+	pango_font_description_unset_fields (a_font_description: POINTER; a_fields: INTEGER)
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_merge (a_fd, b_fd: POINTER; replace_existing: INTEGER) is
+	pango_font_description_merge (a_fd, b_fd: POINTER; replace_existing: INTEGER)
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_equal (a_font_description, b_font_description: POINTER): INTEGER is
+	pango_font_description_equal (a_font_description, b_font_description: POINTER): INTEGER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_copy (a_font_description: POINTER): POINTER is
+	pango_font_description_copy (a_font_description: POINTER): POINTER
 		external "C use <pango/pango.h>"
 		end
 
-	pango_font_description_free (a_font_description: POINTER) is
+	pango_font_description_free (a_font_description: POINTER)
 		external "C use <pango/pango.h>"
 		end
 

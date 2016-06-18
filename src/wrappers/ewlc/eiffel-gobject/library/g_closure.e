@@ -55,7 +55,7 @@ inherit
 	C_STRUCT
 
 feature {ANY} -- Callback pointer
-	callback_pointer: POINTER is 
+	callback_pointer: POINTER
 					-- The address of the actual Eiffel callback feature
 			-- `function'. Even if the body of this feature is common to
 			-- all heirs it must be nevertheless made deferred. The
@@ -76,7 +76,7 @@ feature {ANY} -- Callback pointer
 	object: G_OBJECT
 
 feature {ANY} -- Creation
-	link_to (an_object: like object) is
+	link_to (an_object: like object)
 			-- Creates a new closure which invokes 'callback'
 			
 			-- TODO: add destroy_notify callback support
@@ -167,7 +167,7 @@ feature {ANY} -- Creation
 	-- 	--------------------------------------------------------------------------------------------------------
 	
 feature {ANY} -- Reference counting and memory handling
-	ref is
+	ref
 		local ptr: POINTER
 		do
 			ptr := g_closure_ref (handle)
@@ -175,7 +175,7 @@ feature {ANY} -- Reference counting and memory handling
 			-- convenience
 		end
 
-	unref is
+	unref
 			-- Decrements the reference count of a closure after it was
 			-- previously incremented by the same caller. If no other
 			-- callers are using the closure, then the closure will be
@@ -184,7 +184,7 @@ feature {ANY} -- Reference counting and memory handling
 			g_closure_unref (handle)
 		end
 
-	sink is
+	sink
 			-- Takes over the initial ownership of a closure. Each
 			-- closure is initially created in afloating state, which
 			-- means that the initial reference count is not owned by any
@@ -240,7 +240,7 @@ feature {ANY} -- Reference counting and memory handling
 			-- 	closure : GClosure to decrement the initial reference count on, if it's still being held 
 		end
 
-	dispose is
+	dispose
 		do
 			-- Note: memory handling is done by gobject
 			unref
@@ -249,7 +249,7 @@ feature {ANY} -- Reference counting and memory handling
 
 feature {ANY} -- Invoking
 
-	invoke (some_parameters: G_VALUE_ARRAY): G_VALUE is
+	invoke (some_parameters: G_VALUE_ARRAY): G_VALUE
 			-- Invokes the closure, i.e. executes the callback
 			-- represented by the closure.
 
@@ -785,21 +785,21 @@ feature {ANY} -- Invoking
 
 -- 	Another name for g_cclosure_marshal_BOOLEAN__FLAGS().
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GCLosure)"
 		end
 
 feature {} -- Externals
 
-	g_closure_needs_marshal (a_closure: POINTER): INTEGER is
+	g_closure_needs_marshal (a_closure: POINTER): INTEGER
 			-- Returns TRUE if a GClosureMarshal marshaller has not yet been
 			-- set on closure. See g_closure_set_marshal().
 		external "C macro use <glib-object.h>"
 		alias "G_CLOSURE_NEEDS_MARSHAL (*($a_closure))"
 		end
 	
-	g_closure_n_notifiers (a_closure: POINTER): INTEGER  is
+	g_closure_n_notifiers (a_closure: POINTER): INTEGER
 			-- Returns the total number of notifiers connected with the
 			-- closure cl. The count includes the meta marshaller, the
 			-- finalize and invalidate notifiers and the marshal
@@ -812,7 +812,7 @@ feature {} -- Externals
 		alias "G_CLOSURE_N_NOTIFIERS"
 		end
 
-	g_cclosure_swap_data (a_cclosure: POINTER): INTEGER  is
+	g_cclosure_swap_data (a_cclosure: POINTER): INTEGER
 			-- Returns (a gboolean, i.e. an int) whether the user data of
 			-- the GCClosure should be passed as the first parameter to
 			-- the callback. See g_cclosure_new_swap.
@@ -830,7 +830,7 @@ feature {} -- Externals
 	-- which is used (e.g. the signal to which it is connected). Use
 	-- G_CALLBACK() to cast the callback function to a GCallback.
 
-	g_type_closure: INTEGER is
+	g_type_closure: INTEGER
 			-- The GType for GClosure.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_CLOSURE"
@@ -867,36 +867,36 @@ feature {} -- Externals
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_sink (a_closure: POINTER) is
+	g_closure_sink (a_closure: POINTER)
 		external "C use <glib-object.h>"
 		end
 
-	g_closure_unref (a_closure: POINTER) is
+	g_closure_unref (a_closure: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_invoke (a_closure, a_return_value: POINTER; n_param_values: INTEGER; const_gvalue_param_values, invocation_hint: POINTER) is
+	g_closure_invoke (a_closure, a_return_value: POINTER; n_param_values: INTEGER; const_gvalue_param_values, invocation_hint: POINTER)
 		 -- Note: n_param_values is guint, i.e. a NATURAL
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_invalidate (a_closure: POINTER) is
+	g_closure_invalidate (a_closure: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_add_finalize_notifier (a_closure, notify_data, notify_func: POINTER) is
+	g_closure_add_finalize_notifier (a_closure, notify_data, notify_func: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_add_invalidate_notifier (a_closure, notify_data, notify_func: POINTER) is
+	g_closure_add_invalidate_notifier (a_closure, notify_data, notify_func: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_remove_finalize_notifier (a_closure, notify_data, notify_func: POINTER) is
+	g_closure_remove_finalize_notifier (a_closure, notify_data, notify_func: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_remove_invalidate_notifier (a_closure, notify_data, notify_func: POINTER) is
+	g_closure_remove_invalidate_notifier (a_closure, notify_data, notify_func: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
@@ -905,152 +905,152 @@ feature {} -- Externals
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_set_marshal (a_closure, a_marshal: POINTER) is
+	g_closure_set_marshal (a_closure, a_marshal: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_add_marshal_guards (a_closure, pre_marshal_data, pre_marshal_notify, post_marshal_data, post_marshal_notify: POINTER) is
+	g_closure_add_marshal_guards (a_closure, pre_marshal_data, pre_marshal_notify, post_marshal_data, post_marshal_notify: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
-	g_closure_set_meta_marshal (a_closure, marshal_data, meta_marshal: POINTER) is
+	g_closure_set_meta_marshal (a_closure, marshal_data, meta_marshal: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
-	g_source_set_closure (a_gsource, a_closure: POINTER) is
+	g_source_set_closure (a_gsource, a_closure: POINTER)
 		external "C use <glib-object.h>"
 		end
 	
-	g_type_io_channel is
+	g_type_io_channel
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_IO_CHANNEL"
 		end
 
-	g_type_io_condition is
+	g_type_io_condition
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_IO_CONDITION"
 		end
 	
 
 	g_cclosure_marshal_void__void (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											 const_gvalue_param_values, invocation_hint, marshal_data: POINTER) is
+											 const_gvalue_param_values, invocation_hint, marshal_data: POINTER)
 		-- Note: n_param_values is a guint/NATURAL
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__VOID"
 		end
 	
 	g_cclosure_marshal_void__boolean	(a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-												 const_gvalue_param_values, invocation_hint, marshal_data: POINTER) is
+												 const_gvalue_param_values, invocation_hint, marshal_data: POINTER)
 		-- Note: n_param_values is a guint/NATURAL
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__BOOLEAN"
 		end
 	
 	g_cclosure_marshal_void__char (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											 const_gvalue_param_values, invocation_hint, marshal_data: POINTER) is
+											 const_gvalue_param_values, invocation_hint, marshal_data: POINTER)
 		-- Note: n_param_values is a guint/NATURAL
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__CHAR"
 		end
 
 	g_cclosure_marshal_void__uchar (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											  const_gvalue_param_values, invocation_hint, marshal_data: POINTER) is
+											  const_gvalue_param_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__UCHAR"
 		end
 	
 	g_cclosure_marshal_void__int (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+											const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__INT"
 		end
 	
 	g_cclosure_marshal_void__uint (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											 const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+											 const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__UINT"
 		end
 	
 	g_cclosure_marshal_void__long (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											 const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+											 const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__LONG"
 		end
 	
 	g_cclosure_marshal_void__ulong (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__ULONG"
 		end
 
 	g_cclosure_marshal_void__enum (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											 const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+											 const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__ENUM"
 		end
 
 	g_cclosure_marshal_void__flags (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__FLAGS"
 		end
 
 	g_cclosure_marshal_void__float (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__FLOAT"
 		end
 
 	g_cclosure_marshal_void__double (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-												const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+												const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__DOUBLE"
 		end
 
 	g_cclosure_marshal_void__string (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-												const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+												const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__STRING"
 		end
 
 	g_cclosure_marshal_void__param (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__PARAM"
 		end
 	
 	g_cclosure_marshal_void__boxed (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+											  const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__BOXED"
 		end
 
 	g_cclosure_marshal_void__pointer	(a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-												 const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+												 const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__POINTER"
 		end
 	
 	g_cclosure_marshal_void__object (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-												const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+												const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__OBJECT"
 		end
 	
 	g_cclosure_marshal_string__object_pointer (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-															 const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+															 const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_STRING__OBJECT_POINTER"
 		end
 	
 	g_cclosure_marshal_void__uint_pointer (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-														const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+														const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__UINT_POINTER"
 		end
 
 	g_cclosure_marshal_boolean__flags (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
-												  const_gvalueparam_values, invocation_hint, marshal_data: POINTER) is
+												  const_gvalueparam_values, invocation_hint, marshal_data: POINTER)
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_BOOLEAN__FLAGS"
 		end
@@ -1068,11 +1068,11 @@ feature {}-- GClosure struct
 	-- volatile guint is_invalid : 1; Indicates whether the closure has
 	-- been invalidated by g_closure_invalidate()
 	
-	get_gstruct_in_marshal (a_gclosure: POINTER): INTEGER is
+	get_gstruct_in_marshal (a_gclosure: POINTER): INTEGER
 		external "C struct get in_marshal use <glib-object.h>"
 		end
 	
-	get_gstruct_is_invalid (a_gclosure: POINTER): INTEGER is
+	get_gstruct_is_invalid (a_gclosure: POINTER): INTEGER
 		external "C struct get is_invalid use <glib-object.h>"
 		end
 	

@@ -29,7 +29,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Validator
 
-	is_valid_curl_http_version (a_http_version: INTEGER) : BOOLEAN is
+	is_valid_curl_http_version (a_http_version: INTEGER) : BOOLEAN
 		do
 			Result := (a_http_version = curl_http_version_none or else
 			           a_http_version = curl_http_version_1_0 or else
@@ -38,20 +38,20 @@ feature {} -- Validator
 
 feature {}
 
-	curl_http_version_none: INTEGER is
+	curl_http_version_none: INTEGER
 			-- We don't care about what version the library uses. libcurl will use
 			-- whatever it thinks fit.
 		external "C macro use <curl/curl.h>"
 		alias "CURL_HTTP_VERSION_NONE"
 		end
 
-	curl_http_version_1_0: INTEGER is
+	curl_http_version_1_0: INTEGER
 			-- Enforce HTTP 1.0 requests.
 		external "C macro use <curl/curl.h>"
 		alias "CURL_HTTP_VERSION_1_0"
 		end
 
-	curl_http_version_1_1: INTEGER is
+	curl_http_version_1_1: INTEGER
 			-- Enforce HTTP 1.1 requests.
 		external "C macro use <curl/curl.h>"
 		alias "CURL_HTTP_VERSION_1_1"

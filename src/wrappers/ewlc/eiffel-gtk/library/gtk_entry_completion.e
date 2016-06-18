@@ -60,21 +60,21 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 	
-	make is
+	make
 			-- Creates a new GtkEntryCompletion object.
 		do
 			from_external_pointer (gtk_entry_completion_new)
 		end
 	
 feature {ANY}
-	entry: GTK_ENTRY is
+	entry: GTK_ENTRY
 			-- the entry completion has been attached to.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_ENTRY]
 		do
 			Result := factory.wrapper (gtk_entry_completion_get_entry (handle))
 		end
 	
-	set_model (a_model: GTK_TREE_MODEL) is
+	set_model (a_model: GTK_TREE_MODEL)
 			-- Sets `a_model' for a GtkEntryCompletion. If completion 
 			-- already has a model set, it will remove it before setting
 			-- the new model.      
@@ -84,13 +84,13 @@ feature {ANY}
 			gtk_entry_completion_set_model (handle, a_model.handle)
 		end
 
-	unset_model is
+	unset_model
 			-- Unsets the model for GtkEntryCompletion. 
 		do
 			gtk_entry_completion_set_model (handle, default_pointer)
 		end
 
-	model: GTK_TREE_MODEL is
+	model: GTK_TREE_MODEL
 			-- the model the GtkEntryCompletion is using as data source
 		require
 			is_model_set
@@ -98,7 +98,7 @@ feature {ANY}
 			Result := wrapper (gtk_entry_completion_get_model (handle))
 		end
 	
-	is_model_set: BOOLEAN is
+	is_model_set: BOOLEAN
 			-- Is the model of GtkEntryCompletion set?
 		do
 			Result := (gtk_entry_completion_get_model (handle)).is_not_null
@@ -118,7 +118,7 @@ feature {ANY}
 	-- func_notify : 	Destroy notifier for func_data.
 
 
-	set_minimum_key_length (a_length: INTEGER) is
+	set_minimum_key_length (a_length: INTEGER)
 			-- Requires the length of the search key for completion to be
 			-- at least `a_length'. This is useful for long lists, where
 			-- completing using a small key takes a lot of time and will
@@ -128,13 +128,13 @@ feature {ANY}
 			gtk_entry_completion_set_minimum_key_length (handle, a_length)
 		end
 
-	minimum_key_length: INTEGER is
+	minimum_key_length: INTEGER
 			-- the minimum key length as set for completion.
 		do
 			Result := gtk_entry_completion_get_minimum_key_length (handle)
 		end
 
-	complete is
+	complete
 			-- Requests a completion operation, or in other words a
 			-- refiltering of the current list with completions, using
 			-- the current key. The completion list view will be updated
@@ -144,13 +144,13 @@ feature {ANY}
 		end
 
 
-	insert_prefix is
+	insert_prefix
 			-- Requests a prefix insertion.
 		do
 			gtk_entry_completion_insert_prefix (handle)
 		end
 
-	insert_action_text (an_index: INTEGER; a_text: STRING) is
+	insert_action_text (an_index: INTEGER; a_text: STRING)
 			-- Inserts an action in completion's action item list at
 			-- position index_ with text text. If you want the action
 			-- item to have markup, use
@@ -161,7 +161,7 @@ feature {ANY}
 			gtk_entry_completion_insert_action_text (handle, an_index,a_text.to_external)
 		end
 
-	set_text_column (a_column: INTEGER) is
+	set_text_column (a_column: INTEGER)
 			-- Convenience function for setting up the most used case of this code:
 			-- a completion list with just strings.
 			-- This function will set up completion to have a list displaying all (and just)
@@ -174,21 +174,21 @@ feature {ANY}
 			gtk_entry_completion_set_text_column (handle, a_column)
 		end
 
-	text_column: INTEGER is
+	text_column: INTEGER
 			-- Returns the column in the model of completion to get
 			-- strings from.
 		do
 			Result := gtk_entry_completion_get_text_column (handle)
 		end
 
-	set_inline_completion (a_boolean: BOOLEAN) is
+	set_inline_completion (a_boolean: BOOLEAN)
 			-- Sets whether the common prefix of the possible completions
 			-- should be automatically inserted in the entry.
 		do
 			gtk_entry_completion_set_inline_completion (handle, a_boolean.to_integer)
 		end
 
-	inline_completion: BOOLEAN is
+	inline_completion: BOOLEAN
 			-- Returns whether the common prefix of the possible completions
 			-- should be automatically inserted in the entry.
 		do
@@ -221,33 +221,33 @@ feature {ANY}
 	-- completion : 	A GtkEntryCompletion.
 	-- index_ : 	The index of the item to Delete.
 
-	set_popup_completion (a_boolean: BOOLEAN) is
+	set_popup_completion (a_boolean: BOOLEAN)
 			-- Sets whether the completions should be presented in a popup window.
 		do
 			gtk_entry_completion_set_popup_completion (handle, a_boolean.to_integer)
 		end
 
-	popup_completion: BOOLEAN is
+	popup_completion: BOOLEAN
 			-- Returns whether the completions should be presented in a popup window.
 		do
 			Result := gtk_entry_completion_get_popup_completion (handle).to_boolean
 		end
 
-	set_popup_set_width (a_boolean: BOOLEAN) is
+	set_popup_set_width (a_boolean: BOOLEAN)
 			-- Sets whether the completion popup window will be resized to
 			-- be the same width as the entry.
 		do
 			gtk_entry_completion_set_popup_set_width (handle, a_boolean.to_integer)
 		end
 
-	popup_set_width: BOOLEAN is
+	popup_set_width: BOOLEAN
 			-- Returns whether the completion popup window will be resized
 			-- to the width of the entry.
 		do
 			Result := gtk_entry_completion_get_popup_set_width (handle).to_boolean
 		end
 
-	set_popup_single_match (a_boolean: BOOLEAN) is
+	set_popup_single_match (a_boolean: BOOLEAN)
 			-- Sets whether the completion popup window will appear even if
 			-- there is only a single match.
 			-- You may want to set this to FALSE if you are using inline completion.
@@ -255,7 +255,7 @@ feature {ANY}
 			gtk_entry_completion_set_popup_single_match (handle, a_boolean.to_integer)
 		end
 
-	popup_single_match: BOOLEAN is
+	popup_single_match: BOOLEAN
 			-- Returns whether the completion popup window will appear even if
 			-- there is only a single match.
 		do
@@ -361,12 +361,12 @@ feature {ANY} -- The "match-selected" signal
 
 	match_selected_signal_name: STRING is "match-selected"
 
-	on_match_selected is
+	on_match_selected
 			-- Built-in clicked signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_match_selected is
+	enable_on_match_selected
 			-- Connects "match-selected" signal to `on_match_selected' feature.
 
 			-- Emitted when the button has been activated (pressed and released).
@@ -378,7 +378,7 @@ feature {ANY} -- The "match-selected" signal
 			connect (Current, match_selected_signal_name, $on_match_selected)
 		end
 
-	connect_agent_to_match_selected_signal (a_function: FUNCTION [ANY, TUPLE [GTK_TREE_MODEL, GTK_TREE_ITER, GTK_ENTRY_COMPLETION], BOOLEAN]) is
+	connect_agent_to_match_selected_signal (a_function: FUNCTION [ANY, TUPLE [GTK_TREE_MODEL, GTK_TREE_ITER, GTK_ENTRY_COMPLETION], BOOLEAN])
 			-- widget : 	 the object which received the signal
 			-- model : 	the GtkTreeModel containing the matches
 			-- iter : 	a GtkTreeIter positioned at the selected match
@@ -415,7 +415,7 @@ feature {ANY} -- The "match-selected" signal
 	-- Returns : 	TRUE if iter should be displayed as a possible completion for key
 
 feature {ANY}
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEntryCompletion)"
 		end

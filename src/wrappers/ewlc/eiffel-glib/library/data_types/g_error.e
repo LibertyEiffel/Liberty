@@ -336,14 +336,14 @@ create {ANY}
 
 feature {} -- Creation
 
-	make (a_domain: G_QUARK; a_code: INTEGER; a_message: STRING) is
+	make (a_domain: G_QUARK; a_code: INTEGER; a_message: STRING)
 			-- Creates a new G_ERROR
 		do
 			from_external_pointer (g_error_new_literal (a_domain.quark, a_code, a_message.to_external))
 		ensure not_null: is_not_null
 		end
 
-	empty is
+	empty
 		do
 			-- This feature is empty by design. No initialization is
 			-- needed because the feature that will return an error will
@@ -353,19 +353,19 @@ feature {} -- Creation
 	
 feature {ANY} -- Access
 
-	domain: G_QUARK is
+	domain: G_QUARK
 		require not_null: is_not_null
 		do
 			Result.set_quark (g_error_get_domain (handle))
 		end 
 
-	code: INTEGER is
+	code: INTEGER
 		require not_null: is_not_null
 		do
 			Result := g_error_get_code (handle)
 		end
 
-	message: STRING is
+	message: STRING
 		require
 			not_null: is_not_null
 		local
@@ -379,7 +379,7 @@ feature {ANY} -- Access
 	
 feature {ANY} -- Comparation
 
-	matches (a_domain: G_QUARK; a_code: INTEGER): BOOLEAN is
+	matches (a_domain: G_QUARK; a_code: INTEGER): BOOLEAN
 			-- Returns True if error matches domain and code, False otherwise.
 		require not_null: is_not_null
 		do
@@ -388,7 +388,7 @@ feature {ANY} -- Comparation
 
 feature {ANY} -- Disposing
 
-	dispose is
+	dispose
 			-- Frees a G_ERROR and associated resources.
 		do
 			if handle.is_not_null then
@@ -396,7 +396,7 @@ feature {ANY} -- Disposing
 			end
 		end
 
-	free_handle is
+	free_handle
 		require
 			handle.is_not_null
 		do
@@ -405,7 +405,7 @@ feature {ANY} -- Disposing
 		end
 
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GError)"
 		end

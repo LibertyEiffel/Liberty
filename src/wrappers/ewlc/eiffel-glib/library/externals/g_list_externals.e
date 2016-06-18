@@ -55,37 +55,37 @@ inherit ANY undefine is_equal, copy end
 feature {} -- Access to GList struct
 	-- The GList struct is used for each element in a doubly-linked
 	-- list.
-	g_list_get_data (glist: POINTER): POINTER is
+	g_list_get_data (glist: POINTER): POINTER
 			-- gpointer data; holds the element's data, which can be a
 			-- pointer to any kind of data, or any integer value using
 			-- the Type Conversion Macros.
 		external "C struct GList get data use <glib.h>"
 		end
 
-	g_list_get_next (glist: POINTER): POINTER is
+	g_list_get_next (glist: POINTER): POINTER
 			-- GList *next; contains the link to the next element in the
 			-- list.
 		external "C struct GList get next use <glib.h>"
 		end
 	
-	g_list_get_prev (glist: POINTER): POINTER is
+	g_list_get_prev (glist: POINTER): POINTER
 			-- GList *prev; contains the link to the previous element in
 			-- the -- list.
 		external "C struct GList get prev use <glib.h>"
 		end
 
-	g_list_set_data (a_gslist,a_data: POINTER) is
+	g_list_set_data (a_gslist,a_data: POINTER)
 		external "C struct GSList set data use <glib.h>"
 		end
-	g_list_set_next (a_gslist,a_next: POINTER) is
+	g_list_set_next (a_gslist,a_next: POINTER)
 		external "C struct GSList set next use <glib.h>"
 		end
-	g_list_set_prev (a_gslist,a_prev: POINTER) is
+	g_list_set_prev (a_gslist,a_prev: POINTER)
 		external "C struct GSList set prev use <glib.h>"
 		end
 
 feature {} -- external calls
-	g_list_append (list,data: POINTER): POINTER is
+	g_list_append (list,data: POINTER): POINTER
 			-- Adds a new element on to the end of the list.
 
 			-- Note: The return value is the new start of the list, which
@@ -104,7 +104,7 @@ feature {} -- external calls
 		end
 
 
-	g_list_prepend (list,data:POINTER): POINTER is
+	g_list_prepend (list,data:POINTER): POINTER
 			-- Adds a new element on to the start of the list.
 		
 			-- Note: The return value is the new start of the list, which
@@ -120,7 +120,7 @@ feature {} -- external calls
 		end
 
 
-	g_list_insert (list,data: POINTER; position: INTEGER): POINTER is
+	g_list_insert (list,data: POINTER; position: INTEGER): POINTER
 			-- Inserts a new element into the list at the given position.
 			-- list : a pointer to a GList.  data : the data for the new
 			-- element.  position : the position to insert the
@@ -132,7 +132,7 @@ feature {} -- external calls
 		end
 
 
-	g_list_insert_before (list,sibling,data: POINTER):POINTER is
+	g_list_insert_before (list,sibling,data: POINTER):POINTER
 			-- Inserts a new element into the list before the given
 			-- position.  list : a pointer to a GList.  sibling : the
 			-- list element before which the new element is inserted or
@@ -141,7 +141,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 
-	g_list_insert_sorted (list,data,func: POINTER): POINTER is 
+	g_list_insert_sorted (list,data,func: POINTER): POINTER
 			-- Inserts a new element into the list, using the given
 			-- comparison function to determine its position.  list : a
 			-- pointer to a GList.  data : the data for the new element.
@@ -152,7 +152,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 
-	g_list_remove (list,data: POINTER): POINTER is
+	g_list_remove (list,data: POINTER): POINTER
 			-- Removes an element from a GList. If two elements contain
 			-- the same -- data, only the first is removed. If none of
 			-- the elements contain the data, the GList is unchanged.
@@ -162,7 +162,7 @@ feature {} -- external calls
 		end
 
 
-	g_list_remove_link (list,llink: POINTER): POINTER is
+	g_list_remove_link (list,llink: POINTER): POINTER
 			-- Removes an element from a GList, without freeing the
 			-- element. The removed element's prev and next links are set
 			-- to NULL, so that it becomes a self-contained list with one
@@ -172,14 +172,14 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 	
-	g_list_delete_link (list, link: POINTER): POINTER is
+	g_list_delete_link (list, link: POINTER): POINTER
 			-- Deletes the node link_ from list.  list : a GList.  link_
 			-- node to delete from list.  Returns : the new head of list.
 		external "C use <glib.h>"
 		end
 	
 
-	g_list_remove_all  (list, data: POINTER): POINTER is
+	g_list_remove_all  (list, data: POINTER): POINTER
 			-- Removes all list nodes with data equal to data. Returns
 			-- the new head of the list. Contrast with g_list_remove()
 			-- which removes only the first node matching the given data.
@@ -188,7 +188,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 
-	g_list_free (list: POINTER) is
+	g_list_free (list: POINTER)
 			-- Frees all of the memory used by a GList. The freed
 			-- elements are added to the GAllocator free list.
 		
@@ -220,13 +220,13 @@ feature {} -- external calls
 		-- external "C use <glib.h>"
 -- end
 
-	g_list_length (list: POINTER): INTEGER is
+	g_list_length (list: POINTER): INTEGER
 			-- (guint) Gets the number of elements in a GList.  list : a
 			-- GList.  Returns : the number of elements in the GList.
 		external "C use <glib.h>"
 		end
 
-	g_list_copy  (list: POINTER): POINTER is
+	g_list_copy  (list: POINTER): POINTER
 			-- Copies a GList.
 
 			-- Note that this is a "shallow" copy. If the list elements
@@ -236,7 +236,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 
-	g_list_reverse (list: POINTER): POINTER is
+	g_list_reverse (list: POINTER): POINTER
 			-- 	Reverses a GList. It simply switches the next and prev pointers
 			-- 	of each element.
 			-- 	list : a GList.
@@ -244,7 +244,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 
-	g_list_sort (list, gcomparefunc: POINTER): POINTER is
+	g_list_sort (list, gcomparefunc: POINTER): POINTER
 			-- Sorts a GList using the given comparison function.  list :
 			-- a GList.  compare_func : the comparison function used to
 			-- sort the GList.  This function is passed 2 elements of the
@@ -299,7 +299,7 @@ feature {} -- external calls
 	-- end
 	
 	
-	g_list_concat (list1, list2: POINTER): POINTER is
+	g_list_concat (list1, list2: POINTER): POINTER
 			-- Adds the second GList onto the end of the first
 			-- GList. Note that the elements of the second GList are not
 			-- copied. They are used directly.  list1 : a GList.  list2 :
@@ -309,7 +309,7 @@ feature {} -- external calls
 		end
 
 
-	g_list_foreach (list, func, user_data: POINTER) is
+	g_list_foreach (list, func, user_data: POINTER)
 			-- Calls a function for each element of a GList.  list : a
 			-- GList.  func : the function to call with each element's
 			-- data.  user_data : user data to pass to the function.
@@ -328,14 +328,14 @@ feature {} -- external calls
 	-- external "C use <glib.h>"
 	-- end
 
-	g_list_first (list: POINTER): POINTER is
+	g_list_first (list: POINTER): POINTER
 			-- Gets the first element in a GList.  -- list : a GList.  --
 			-- Returns : the first element in a GList, or NULL if the
 			-- 	GList has no elements.
 		external "C use <glib.h>"
 		end
 
-	g_list_last (list: POINTER): POINTER is
+	g_list_last (list: POINTER): POINTER
 			-- Gets the last element in a GList.  list : a GList.
 			-- Returns : the last element in the GList, or NULL if the
 			-- GList has no elements.
@@ -358,7 +358,7 @@ feature {} -- external calls
 	-- there are no more elements.  external "C use <glib.h>" -- end
 
 	
-	g_list_nth (list: POINTER; a_guint_n: INTEGER): POINTER is
+	g_list_nth (list: POINTER; a_guint_n: INTEGER): POINTER
 			-- Gets the element at the given position in a GList.  list :
 			-- a GList.  n : the position of the element, counting from
 			-- 0.  Returns : the element, or NULL if the position is off
@@ -366,7 +366,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 
-	g_list_nth_data (list: POINTER; a_guint_n: INTEGER): POINTER is
+	g_list_nth_data (list: POINTER; a_guint_n: INTEGER): POINTER
 			-- Gets the data of the element at the given position.  list:
 			-- a GList. n: the position of the element.  Returns: the
 			-- element's data, or NULL if the position is off the end of
@@ -374,7 +374,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 
-	g_list_nth_prev (list: POINTER; a_guint_n: INTEGER): POINTER is
+	g_list_nth_prev (list: POINTER; a_guint_n: INTEGER): POINTER
 			-- Gets the element n places before list.  list : a GList.  n
 			-- : the position of the element, counting from 0.  Returns :
 			-- the element, or NULL if the position is off the end of the
@@ -382,7 +382,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 	
-	g_list_find (list,data: POINTER): POINTER is
+	g_list_find (list,data: POINTER): POINTER
 			-- Finds the element in a GList which contains the given
 			-- data.  list : a GList.  data : the element data to find.
 			-- Returns : the found GList element, or NULL if it is not
@@ -391,7 +391,7 @@ feature {} -- external calls
 		end
 
 
-	g_list_find_custom (list, data, a_gcomparefunc: POINTER): POINTER is
+	g_list_find_custom (list, data, a_gcomparefunc: POINTER): POINTER
 			-- Finds an element in a GList, using a supplied function to
 			-- find the desired element. It iterates over the list,
 			-- calling the given function which should return 0 when the
@@ -405,7 +405,7 @@ feature {} -- external calls
 		external "C use <glib.h>"
 		end
 
-	g_list_position (list, a_link: POINTER): INTEGER is
+	g_list_position (list, a_link: POINTER): INTEGER
 			-- Gets the position of the given element in the GList
 			-- (starting from 0).  list : a GList.  llink : an element in
 			-- the GList.  Returns : the position of the element in the
@@ -414,7 +414,7 @@ feature {} -- external calls
 		end
 
 
-	g_list_index (list, data: POINTER): INTEGER is
+	g_list_index (list, data: POINTER): INTEGER
 			-- Gets the position of the element containing the given data
 			-- (starting from 0).  -- list : a GList.  -- data : the data
 			-- to find.  -- Returns : the index of the element containing

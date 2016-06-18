@@ -43,9 +43,9 @@ insert
 create {ANY} from_external_pointer
 
 feature {ANY} -- Memory handling
-	dispose is do unref end
+	dispose do unref end
 
-	ref is
+	ref
 			-- Increases the reference count on font_face by one. This
 			-- prevents font_face from being destroyed until a matching
 			-- call to CAIRO_FONT_FACE's `destroy' is made.
@@ -54,7 +54,7 @@ feature {ANY} -- Memory handling
 			p:=cairo_font_face_reference(handle)
 		end
 
-	unref is
+	unref
 			-- Decreases the reference count on font_face by one. If the
 			-- result is zero, then font_face and all associated
 			-- resources are freed. See `reference'.
@@ -63,7 +63,7 @@ feature {ANY} -- Memory handling
 		end
 
 feature {ANY}
-	status: INTEGER is
+	status: INTEGER
 			-- The status of font face. Useful to check whether an error has previously occurred.
 		do
 			Result:=cairo_font_face_status(handle)
@@ -110,7 +110,7 @@ feature {ANY}
 	--
 
 feature {WRAPPER, WRAPPER_HANDLER}
-	type: INTEGER is
+	type: INTEGER
 			-- The type of the backend used to create a font face.  See
 			-- CAIRO_FONT_TYPE for available types.
 

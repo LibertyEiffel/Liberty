@@ -43,7 +43,7 @@ insert
 create {ANY} default_create
 
 feature {ANY} 
-	default_create is
+	default_create
 		-- Create the singleton global GTK_ACCELERATOR_MAP object. This object
 		-- is useful only for notification of changes to the accelerator map
 		-- via the ::changed signal; it isn't a parameter to the other

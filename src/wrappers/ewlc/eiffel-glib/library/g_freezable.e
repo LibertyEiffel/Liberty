@@ -31,40 +31,40 @@ deferred class G_FREEZABLE
 insert ANY undefine copy, is_equal, fill_tagged_out_memory end
 
 feature {ANY}
-	freeze is
+	freeze
 			-- Forbid further changes to Current until thaw is invoked
 		do
 			state := state.max(freezed_state)
 		end
 
-	thaw is
+	thaw
 			-- Allow changes to Current
 		require can_be_thawed
 		do
 			state := mutable_state
 		end
 
-	petrify is
+	petrify
 		do
 			state := petrified_state
 		end
 
-	is_mutable: BOOLEAN is
+	is_mutable: BOOLEAN
 		do
 			Result := state=mutable_state
 		end
 
-	is_freezed: BOOLEAN is
+	is_freezed: BOOLEAN
 		do
 			Result := state>=freezed_state
 		end
 
-	can_be_thawed: BOOLEAN is
+	can_be_thawed: BOOLEAN
 		do
 			Result := not is_petrified
 		end
 
-	is_petrified: BOOLEAN is
+	is_petrified: BOOLEAN
 		do
 			Result := state>=petrified_state
 		end

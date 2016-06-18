@@ -11,7 +11,7 @@ inherit
 	PREPARED_STATEMENT
 
 feature {ANY}
-	last_result: RESULT_SET[RESULT_ROW] is
+	last_result: RESULT_SET[RESULT_ROW]
 			-- The results of the current query
 		require
 			success: last_exec_success

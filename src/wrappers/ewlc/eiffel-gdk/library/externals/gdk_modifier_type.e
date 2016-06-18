@@ -39,7 +39,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gdk_modifier_type (a_modifier: INTEGER) : BOOLEAN is
+	is_valid_gdk_modifier_type (a_modifier: INTEGER) : BOOLEAN
 		do
 			Result := True
 			-- Used to be a_modifier.bit_and (gdk_modifier_mask.bit_not) = 0
@@ -47,26 +47,26 @@ feature {} -- enum
 			-- set by XKB
 		end
 
-	gdk_shift_mask: INTEGER is
+	gdk_shift_mask: INTEGER
 			-- the Shift key.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SHIFT_MASK"
 		end
 
-	gdk_lock_mask: INTEGER is
+	gdk_lock_mask: INTEGER
 			-- a Lock key (depending on the modifier mapping of the X server
 			-- this may either be CapsLock or ShiftLock).
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_LOCK_MASK"
 		end
 
-	gdk_control_mask: INTEGER is
+	gdk_control_mask: INTEGER
 			-- the Control key.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_CONTROL_MASK"
 		end
 
-	gdk_mod1_mask: INTEGER is
+	gdk_mod1_mask: INTEGER
 			-- the fourth modifier key (it depends on the modifier mapping
 			-- of the X server which key is interpreted as this modifier,
 			-- but normally it is the Alt key).
@@ -74,90 +74,90 @@ feature {} -- enum
 		alias "GDK_MOD1_MASK"
 		end
 
-	gdk_mod2_mask: INTEGER is
+	gdk_mod2_mask: INTEGER
 			-- the fifth modifier key (it depends on the modifier mapping of
 			-- the X server which key is interpreted as this modifier). 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_MOD2_MASK"
 		end
 
-	gdk_mod3_mask: INTEGER is
+	gdk_mod3_mask: INTEGER
 			-- the sixth modifier key (it depends on the modifier mapping of
 			-- the X server which key is interpreted as this modifier). 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_MOD3_MASK"
 		end
 
-	gdk_mod4_mask: INTEGER is
+	gdk_mod4_mask: INTEGER
 			-- the seventh modifier key (it depends on the modifier mapping of
 			-- the X server which key is interpreted as this modifier). 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_MOD4_MASK"
 		end
 
-	gdk_mod5_mask: INTEGER is
+	gdk_mod5_mask: INTEGER
 			-- the eighth modifier key (it depends on the modifier mapping of
 			-- the X server which key is interpreted as this modifier). 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_MOD5_MASK"
 		end
 
-	gdk_button1_mask: INTEGER is
+	gdk_button1_mask: INTEGER
 			-- the first mouse button.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON1_MASK"
 		end
 
-	gdk_button2_mask: INTEGER is
+	gdk_button2_mask: INTEGER
 			-- the second mouse button.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON2_MASK"
 		end
 
-	gdk_button3_mask: INTEGER is
+	gdk_button3_mask: INTEGER
 			-- the third mouse button.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON3_MASK"
 		end
 
-	gdk_button4_mask: INTEGER is
+	gdk_button4_mask: INTEGER
 			-- the fourth mouse button.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON4_MASK"
 		end
 
-	gdk_button5_mask: INTEGER is
+	gdk_button5_mask: INTEGER
 			-- the fifrh mouse button.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON5_MASK"
 		end
 
-	gdk_super_mask: INTEGER is
+	gdk_super_mask: INTEGER
 			-- the Super modifier. Since 2.10
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SUPER_MASK"
 		end
 
-	gdk_hyper_mask: INTEGER is
+	gdk_hyper_mask: INTEGER
 			-- the Hyper modifier. Since 2.10
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_HYPER_MASK"
 		end
 
-	gdk_meta_mask: INTEGER is
+	gdk_meta_mask: INTEGER
 			-- the Meta modifier. Since 2.10
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_META_MASK"
 		end
 
-	gdk_release_mask: INTEGER is
+	gdk_release_mask: INTEGER
 			-- not used in GDK itself. GTK+ uses it to differentiate between
 			-- (keyval, modifiers) pairs from key press and release events.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_RELEASE_MASK"
 		end
 
-	gdk_modifier_mask: INTEGER is
+	gdk_modifier_mask: INTEGER
 			-- a mask covering all modifier types.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_MODIFIER_MASK"

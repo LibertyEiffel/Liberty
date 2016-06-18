@@ -62,7 +62,7 @@ create {ANY}
 
 feature {} -- Initialization
 
-	make is
+	make
 			-- Create a new GtkProgressBar.
 		require gtk_initialized: gtk.is_initialized
 		do
@@ -70,14 +70,14 @@ feature {} -- Initialization
 		end
 
 feature {ANY} -- Element change
-	pulse is
+	pulse
 			-- Move the bar with `pulse_step'.
 		do
 			gtk_progress_bar_pulse(handle)
 		end
 
 feature {ANY} -- Status setting
-	set_text (a_text : STRING) is
+	set_text (a_text : STRING)
 			-- Set the text to appear superimposed on the progress bar.
 		require
 			valid_text: a_text/=Void
@@ -85,7 +85,7 @@ feature {ANY} -- Status setting
 			gtk_progress_bar_set_text(handle,a_text.to_external)
 		end
 
-	set_fraction (a_fraction : REAL) is
+	set_fraction (a_fraction : REAL)
 			-- Cause the progress bar to "fill in" the given fraction of the bar.
 		require
 			valid_fraction: a_fraction >= 0 and a_fraction <= 1
@@ -93,7 +93,7 @@ feature {ANY} -- Status setting
 			gtk_progress_bar_set_fraction(handle,a_fraction)
 		end
 
-	set_pulse_step (a_fraction : REAL) is
+	set_pulse_step (a_fraction : REAL)
 			-- Sets the fraction of total progress bar length to move the bouncing block for each call to `pulse'.
 		require
 			valid_fraction: a_fraction >= 0 and a_fraction <= 1
@@ -101,7 +101,7 @@ feature {ANY} -- Status setting
 			gtk_progress_bar_set_pulse_step(handle,a_fraction)
 		end
 
-	set_orientation (an_orientation: INTEGER) is
+	set_orientation (an_orientation: INTEGER)
 			-- Causes the progress bar to switch to a different
 			-- orientation (left-to-right, right-to-left, top-to-bottom,
 			-- or bottom-to-top).
@@ -110,7 +110,7 @@ feature {ANY} -- Status setting
 			gtk_progress_bar_set_orientation (handle, an_orientation)
 		end
 
-	set_ellipsize (a_mode: INTEGER) is
+	set_ellipsize (a_mode: INTEGER)
 			-- Sets the mode used to ellipsize (add an ellipsis: "...")
 			-- the text if there is not enough space to render the entire
 			-- string.
@@ -120,7 +120,7 @@ feature {ANY} -- Status setting
 		end
 
 feature {ANY} -- Status report
-	text : STRING is
+	text : STRING
 			-- Text displayed superimposed on the progress bar.
 		local ptr: POINTER
 		do
@@ -132,13 +132,13 @@ feature {ANY} -- Status report
 			end
 		end
 
-	fraction: REAL is
+	fraction: REAL
 			-- Current fraction of the task that's been completed
 		do
 			Result := gtk_progress_bar_get_fraction (handle)
 		end
 
-	orientation: INTEGER is
+	orientation: INTEGER
 			-- the current progress bar orientation
 		do
 			Result:=gtk_progress_bar_get_orientation(handle)
@@ -146,14 +146,14 @@ feature {ANY} -- Status report
 			is_valid_gtk_progress_bar_orientation (Result)
 		end
 
-	ellipsize_mode: INTEGER is
+	ellipsize_mode: INTEGER
 			-- the ellipsizing position of the progressbar. See `set_ellipsize'
 		do
 			Result := gtk_progress_bar_get_ellipsize (handle)
 		ensure valid_ellipsize_mode: is_valid_pango_ellipsize_mode(Result)
 		end
 
-	pulse_step: REAL is
+	pulse_step: REAL
 			-- The fraction of total progress to move the bouncing block
 			-- when pulsed.
 		do
@@ -169,19 +169,19 @@ feature {ANY} -- Status report
 feature {} -- Properties implementation
 	pulse_step_label: STRING is "pulse-step"
 							
-	pulse_step_property: G_PARAM_SPEC is
+	pulse_step_property: G_PARAM_SPEC
 		once
 			Result := find_property(pulse_step_label)
 		end
 
-	pulse_step_gvalue: G_VALUE is
+	pulse_step_gvalue: G_VALUE
 		once
 			create Result.with_gtype (pulse_step_property.value_gtype)
 		ensure not_void: Result /= Void
 		end
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkProgressBar)"
 		end

@@ -113,14 +113,14 @@ create {ANY} empty, with_label, with_mnemonic, with_markup_label, from_external_
 
 feature {} -- Creation
 
-	empty is
+	empty
 			-- Creates a new empty label
 		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_label_new(default_pointer))
 		end
 
-	with_label (a_label: STRING) is
+	with_label (a_label: STRING)
 			-- Creates a new label with the given text inside it.
 		require
 			gtk_initialized: gtk.is_initialized
@@ -131,7 +131,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_label_new(a_label.to_external))
 		end
 
-	with_mnemonic (a_label: STRING) is
+	with_mnemonic (a_label: STRING)
 			-- Creates a new GtkLabel, containing the text in
 			-- `a_label'. If characters in `a_label' are preceded by an
 			-- underscore, they are underlined. If you need a literal
@@ -154,7 +154,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_label_new_with_mnemonic(a_label.to_external))
 		end
 
-	with_markup_label (a_label: STRING) is
+	with_markup_label (a_label: STRING)
 			-- Creates a new GtkLabel, containing the text in
 			-- `a_label', formatted using Pango markup language.
 		require
@@ -167,7 +167,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	set_text (a_string: STRING) is
+	set_text (a_string: STRING)
 			-- Sets the text within the GtkLabel widget. It overwrites
 			-- any text that was there before. This will also clear any
 			-- previously set mnemonic accelerators.
@@ -184,7 +184,7 @@ feature {ANY}
 	-- "use_markup" property is TRUE. label : a GtkLabelattrs : a
 	-- PangoAttrList
 
-	set_markup (a_string: STRING) is
+	set_markup (a_string: STRING)
 			-- Parses `a_string' which is marked up with the Pango text
 			-- markup language, setting the label's text and attribute
 			-- list based on the parse results. TODO: Eiffelize this "If
@@ -198,7 +198,7 @@ feature {ANY}
 			gtk_label_set_markup (handle,a_string.to_external)
 		end
 
-	set_markup_with_mnemonic (a_string: STRING)  is
+	set_markup_with_mnemonic (a_string: STRING)
 			-- Parses `a_string' which is marked up with the Pango text
 			-- markup language, setting the label's text and attribute
 			-- list based on the parse results. If characters in
@@ -214,7 +214,7 @@ feature {ANY}
 			gtk_label_set_markup_with_mnemonic (handle, a_string.to_external)
 		end
 
-	set_pattern (a_pattern: STRING) is
+	set_pattern (a_pattern: STRING)
 			--	The pattern of underlines you want under the existing text
 			--	within the GtkLabel widget. For example if the current
 			--	text of the label says "FooBarBaz" passing a pattern of
@@ -225,7 +225,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Justification
-	set_left_justify is
+	set_left_justify
 			-- Makes the lines in the text of the label left-aligned. If
 			-- you instead want to set the alignment of the label as a
 			-- whole, use `GTK_MISC.set_alignment' instead. Has no effect
@@ -234,7 +234,7 @@ feature {ANY} -- Justification
 			gtk_label_set_justify (handle,gtk_justify_left)
 		end
 
-	set_right_justify is
+	set_right_justify
 			-- Makes the lines in the text of the label right-aligned. If
 			-- you instead want to set the alignment of the label as a
 			-- whole, use `GTK_MISC.set_alignment' instead. Has no effect
@@ -243,7 +243,7 @@ feature {ANY} -- Justification
 			gtk_label_set_justify (handle,gtk_justify_left)
 		end
 
-	set_center_justify is
+	set_center_justify
 			-- Makes the lines in the text of the label center-aligned. If
 			-- you instead want to set the alignment of the label as a
 			-- whole, use `GTK_MISC.set_alignment' instead. Has no effect
@@ -252,7 +252,7 @@ feature {ANY} -- Justification
 			gtk_label_set_justify (handle,gtk_justify_center)
 		end
 
-	set_fill_justify is
+	set_fill_justify
 			-- Makes the lines in the text of the label distributed
 			-- across the label. If you instead want to set the alignment
 			-- of the label as a whole, use `GTK_MISC.set_alignment'
@@ -262,25 +262,25 @@ feature {ANY} -- Justification
 			gtk_label_set_justify (handle,gtk_justify_fill)
 		end
 
-	is_justify_left: BOOLEAN is
+	is_justify_left: BOOLEAN
 			-- Is the text placed at the left edge of the label?
 		do
 			Result:=(gtk_label_get_justify(handle)=gtk_justify_left)
 		end
 	
-	is_justify_right: BOOLEAN is
+	is_justify_right: BOOLEAN
 			-- Is the text placed at the right edge of the label?
 		do
 			Result:=(gtk_label_get_justify(handle)=gtk_justify_right)
 		end
 	
-	is_justify_center: BOOLEAN is
+	is_justify_center: BOOLEAN
 			-- Is the text placed at the center of the label?
 		do
 			Result:=(gtk_label_get_justify(handle)=gtk_justify_center)
 		end
 	
-	is_justify_fill: BOOLEAN is
+	is_justify_fill: BOOLEAN
 			-- Is the text distribuited across the label?
 		do
 			Result:=(gtk_label_get_justify(handle)=gtk_justify_fill)
@@ -293,39 +293,39 @@ feature {ANY} -- width desired or maximum
 	-- to the text if there is not enough space to render the entire
 	-- string.label : a GtkLabelmode : a PangoEllipsizeMode
 
-	set_desired_width (n_chars: INTEGER) is
+	set_desired_width (n_chars: INTEGER)
 			-- Sets the desired width in characters of label to `n_chars' characters.
 		do
 			gtk_label_set_width_chars (handle, n_chars)
 		end
 
-	set_max_width (n_chars: INTEGER) is
+	set_max_width (n_chars: INTEGER)
 			-- Sets the desired maximum width in characters of label to `n_chars'.
 		do
 			gtk_label_set_max_width_chars (handle, n_chars)
 		end
 
-	width_chars: INTEGER is
+	width_chars: INTEGER
 			-- the desired width of label, in characters. See `set_desired_width'.
 		do
 			Result := (gtk_label_get_width_chars(handle))
 		end
 
-	max_width: INTEGER is
+	max_width: INTEGER
 			-- the desired maximum width of label, in characters. See `width_chars'.
 		do
 			Result:=gtk_label_get_max_width_chars(handle)
 		end
 
 feature {ANY} -- Line wrap
-	set_line_wrap is
+	set_line_wrap
 			-- Toggles line wrapping within the GtkLabel widget. It
 			-- breaks lines if text exceeds the widget's size.
 		do
 			gtk_label_set_line_wrap (handle, 1)
 		end
 
-	unset_line_wrap is
+	unset_line_wrap
 			-- Toggles line wrapping within the GtkLabel widget. It lets
 			-- the text get cut off by the edge of the widget if it
 			-- exceeds the widget size.
@@ -348,7 +348,7 @@ feature {ANY} -- Line wrap
 	-- offset of layout, or NULL
 	
 feature {ANY} -- mnemonic
-	mnemonic_keyval: INTEGER is
+	mnemonic_keyval: INTEGER
 			-- The keyval usable for accelerators, or GDK_VoidSymbol. If
 			-- the label has been set so that it has an mnemonic key this
 			-- function returns the keyval used for the mnemonic
@@ -359,27 +359,27 @@ feature {ANY} -- mnemonic
 		end
 
 feature {ANY} -- Seletability
-	is_selectable: BOOLEAN is
+	is_selectable: BOOLEAN
 			-- Can the user copy text from the label?
 		do
 			Result := gtk_label_get_selectable (handle).to_boolean
 		end
 
-	set_selectable is
+	set_selectable
 			-- Makes the label selectable to allow the user to select
 			-- text from the it, for copy-and-paste.
 		do
 			gtk_label_set_selectable (handle,1)
 		end
 			
-	set_unselectable is
+	set_unselectable
 			-- Makes the label not selectable.
 		do
 			gtk_label_set_selectable (handle,0)
 		end
 
 feature {ANY} -- Text label
-	text: STRING is
+	text: STRING
 			-- the text from a label widget, as displayed on the
 			-- screen. This does not include any embedded underlines
 			-- indicating mnemonics or Pango markup. (See
@@ -391,7 +391,7 @@ feature {ANY} -- Text label
 			create Result.from_external_copy(gtk_label_get_text(handle))
 		end
 
-	label: STRING is
+	label: STRING
 			-- the text from a label widget including any embedded underlines indicating mnemonics and Pango markup. (`text')
 		do
 			create Result.from_external_copy (gtk_label_get_label(handle))
@@ -400,7 +400,7 @@ feature {ANY} -- Text label
 			-- modified or freed.
 		end
 
-	set_label (a_string: STRING) is
+	set_label (a_string: STRING)
 			-- Sets the label's text from `a_string'. The label is
 			-- interpreted as including embedded underlines and/or Pango
 			-- markup depending on the values of is_underline_used and
@@ -410,7 +410,7 @@ feature {ANY} -- Text label
 			gtk_label_set_label (handle,a_string.to_external)
 		end
 
-	set_text_with_mnemonic (a_string: STRING) is
+	set_text_with_mnemonic (a_string: STRING)
 			-- Sets the label's text from `a_string'. If characters in
 			-- `a_string' are preceded by an underscore, they are
 			-- underlined indicating that they represent a keyboard
@@ -423,7 +423,7 @@ feature {ANY} -- Text label
 		end
 
 feature {ANY} -- mnemonic widget
-	set_mnemonic_widget (a_widget: GTK_WIDGET) is
+	set_mnemonic_widget (a_widget: GTK_WIDGET)
 			-- If the label has been set so that it has an mnemonic key
 			-- (using i.e. `set_markup_with_mnemonic'),
 			-- `set_text_with_mnemonic', `with_mnemonic' or the
@@ -460,7 +460,7 @@ feature {ANY} -- mnemonic widget
 	-- 		end
 
 feature {ANY} -- Other
-	select_region (a_start_offset, an_end_offset: INTEGER) is
+	select_region (a_start_offset, an_end_offset: INTEGER)
 		-- Selects a range of characters in the label, if the label is
 		-- selectable. See `set_selectable'. If the label is not
 		-- selectable, this function has no effect. If `a_start_offset'
@@ -495,13 +495,13 @@ feature {ANY} -- Other
 	-- the label so need not be freed by the caller.
 	
 
-	is_line_wrapped: BOOLEAN is
+	is_line_wrapped: BOOLEAN
 			-- Is the lines of the label automatically wrapped? 
 		do
 			Result:=(gtk_label_get_line_wrap(handle)).to_boolean
 		end
 
-	selection_bounds: TUPLE[BOOLEAN,INTEGER,INTEGER] is
+	selection_bounds: TUPLE[BOOLEAN,INTEGER,INTEGER]
 			-- the selected range of characters in the label, with the
 			-- format: [`is_non_empty', `a_start', `an_end'] `a_start',
 			-- the start of selection, as a character offset; `an_end'
@@ -512,21 +512,21 @@ feature {ANY} -- Other
 		end
 
 feature {ANY} -- Markup
-	use_markup is
+	use_markup
 			-- Signal that the text of the label contains markup in
 			-- Pango's text markup language. See `set_markup'.
 		do
 			gtk_label_set_use_markup (handle,1)
 		end
 
-	dont_use_markup is
+	dont_use_markup
 			-- Signal that the text of the label does not contain markup in
 			-- Pango's text markup language. 
 		do
 			gtk_label_set_use_markup (handle,0)
 		end
 
-	is_marked_up: BOOLEAN is
+	is_marked_up: BOOLEAN
 			-- Is the label's text interpreted as marked up with the Pango
 			-- text markup language?. See `set_use_markup'.
 		do
@@ -534,20 +534,20 @@ feature {ANY} -- Markup
 		end
 
 feature {ANY} -- Underline indicating mnemonic
-	is_underline_used: BOOLEAN is
+	is_underline_used: BOOLEAN
 		-- Does an embedded underline indicate a mnemonic in the label? See `set_use_underline'.
 		do
 			Result:=(gtk_label_get_use_underline(handle)).to_boolean
 		end
 
-	use_underline is
+	use_underline
 			-- Puts an underline in the text indicating the next
 			-- character used for the mnemonic accelerator key.
 		do
 			gtk_label_set_use_underline(handle,1)
 		end
 
-	use_no_underline is
+	use_no_underline
 			-- Remove the undeline that indicates the character used for
 			-- the mnemonic accelerator key.
 		do
@@ -555,32 +555,32 @@ feature {ANY} -- Underline indicating mnemonic
 		end
 
 feature {ANY} -- single line mode
-	is_mode_single_line_mode: BOOLEAN is
+	is_mode_single_line_mode: BOOLEAN
 			-- Is  the label in single line mode?
 		do
 			Result:=(gtk_label_get_single_line_mode(handle)).to_boolean
 		end
 
-	set_single_line_mode is
+	set_single_line_mode
 			-- Puts the label in single line mode.
 		do
 			gtk_label_set_single_line_mode  (handle,1)
 		end
 	
-	set_multi_line_mode is
+	set_multi_line_mode
 			-- Puts the label in multi line mode.
 		do
 			gtk_label_set_single_line_mode  (handle,0)
 		end
 
 feature {ANY} -- Angle
-	angle: REAL is
+	angle: REAL
 			-- The angle of rotation for the label. See `set_angle'.
 		do
 			Result:=gtk_label_get_angle(handle)
 		end
 	
-	set_angle (an_angle: REAL) is
+	set_angle (an_angle: REAL)
 			-- Sets the angle of rotation for the label. An angle of 90
 			-- reads from from bottom to top, an angle of 270, from top
 			-- to bottom. The angle setting for the label is ignored if
@@ -758,7 +758,7 @@ feature {ANY} -- Property Details
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkLabel)"
 		end

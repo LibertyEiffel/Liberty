@@ -27,11 +27,11 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Externals
 
-	gtk_color_selection_new (title: POINTER): POINTER is
+	gtk_color_selection_new (title: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_selection_dialog_get_colorsel (csd: POINTER): POINTER is
+	gtk_color_selection_dialog_get_colorsel (csd: POINTER): POINTER
 		external "C struct GtkColorSelectionDialog get colorsel use <gtk/gtk.h>"
 		end
 

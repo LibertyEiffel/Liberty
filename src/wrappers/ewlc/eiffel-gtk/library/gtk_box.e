@@ -71,7 +71,7 @@ feature {} -- Hack to avoid warnings
 
 feature {ANY}
 
-	pack_start (a_widget: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER) is
+	pack_start (a_widget: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER)
 			-- Add `a_widget' to box, packed with reference to the start
 			-- of box. The child is packed after any other child packed
 			-- with reference to the start of box.  When `expand' is True
@@ -97,7 +97,7 @@ feature {ANY}
 									  a_padding);
 		end
 
-	pack_end (a_widget: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER) is
+	pack_end (a_widget: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER)
 			-- Adds `a_widget' to box, packed with reference to the end
 			-- of box. The child is packed after (away from end of) any
 			-- other child packed with reference to the end of box. See pack_end
@@ -110,7 +110,7 @@ feature {ANY}
 		end
 
 		
-	pack_start_defaults (a_widget: GTK_WIDGET) is
+	pack_start_defaults (a_widget: GTK_WIDGET)
 			-- Add `a_widget' to box, packed with reference to the start
 			-- of box. The child is packed after any other child packed
 			-- with reference to the start of box.  Parameters for how to
@@ -123,7 +123,7 @@ feature {ANY}
 			gtk_box_pack_start_defaults (handle, a_widget.handle)
 		end
 
-	pack_end_defaults (a_widget: GTK_WIDGET) is
+	pack_end_defaults (a_widget: GTK_WIDGET)
 			-- Add `a_widget' to box, packed with reference to the end
 			-- of box. The child is packed after any other child packed
 			-- with reference to the end of box.  Parameters for how to
@@ -137,38 +137,38 @@ feature {ANY}
 		end
 
 
-	is_homogeneous: BOOLEAN is
+	is_homogeneous: BOOLEAN
 			-- Is the box homogeneous? It means that all children are the same size
 		do
 			Result:=(gtk_box_get_homogeneous(handle)).to_boolean
 		end
 
-	set_homogeneous is
+	set_homogeneous
 			-- Give all children of box equal space in the box.
 		do
 			gtk_box_set_homogeneous (handle,1)
 		end
 
-	unset_homogeneous is
+	unset_homogeneous
 			-- Give children of box variable space in the box.
 		do
 			gtk_box_set_homogeneous (handle,0)
 		end
 
-	spacing: INTEGER is
+	spacing: INTEGER
 		do
 			Result:= gtk_box_get_spacing (handle)
 		end
 	
 
-	set_spacing (a_spacing: INTEGER) is
+	set_spacing (a_spacing: INTEGER)
 			-- Sets the spacing field of GTK_BOX, which is the number of
 			-- pixels to place between children of box.
 		do
 			gtk_box_set_spacing (handle,a_spacing)
 		end
 
-	reorder_child (a_child: GTK_WIDGET; a_position: INTEGER) is
+	reorder_child (a_child: GTK_WIDGET; a_position: INTEGER)
 			-- Moves `a_child' to a new position in the list of box
 			-- children. The list is the children field of GtkBox-struct,
 			-- and contains both widgets packed GTK_PACK_START as well as
@@ -187,7 +187,7 @@ feature {ANY}
 		end
 
 
-	child_packing (a_child: GTK_WIDGET): TUPLE[BOOLEAN,BOOLEAN,INTEGER,INTEGER] is
+	child_packing (a_child: GTK_WIDGET): TUPLE[BOOLEAN,BOOLEAN,INTEGER,INTEGER]
 			-- informations about how child is packed into box, with format
 
 			-- [expand, fill, padding, pack_type]
@@ -201,14 +201,14 @@ feature {ANY}
 		ensure valid_packing: is_valid_gtk_pack_type (Result.item_4)
 		end
 
-	set_child_packing_start (a_child: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER) is
+	set_child_packing_start (a_child: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER)
 			-- Sets the way child is packed into box. From the start
 		require valid_child: a_child/=Void
 		do
 			gtk_box_set_child_packing (handle,  a_child.handle, expand.to_integer, fill.to_integer,
 												a_padding, gtk_pack_start)
 		end
-	set_child_packing_end (a_child: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER) is
+	set_child_packing_end (a_child: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER)
 			-- Sets the way child is packed into box. From the end
 		require valid_child: a_child/=Void
 		do

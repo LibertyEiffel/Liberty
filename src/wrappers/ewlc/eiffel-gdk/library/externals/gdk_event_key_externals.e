@@ -25,15 +25,15 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gdk_event_key_get_time (ptr: POINTER): INTEGER is
+	gdk_event_key_get_time (ptr: POINTER): INTEGER
 		external "C struct GdkEventKey get time use <gdk/gdk.h>"
 		end
 
-	gdk_event_key_get_state (ptr: POINTER): INTEGER is
+	gdk_event_key_get_state (ptr: POINTER): INTEGER
 		external "C struct GdkEventKey get state use <gdk/gdk.h>"
 		end
 
-	gdk_event_key_get_keyval (ptr: POINTER): INTEGER is
+	gdk_event_key_get_keyval (ptr: POINTER): INTEGER
 		external "C struct GdkEventKey get keyval use <gdk/gdk.h>"
 		end
 

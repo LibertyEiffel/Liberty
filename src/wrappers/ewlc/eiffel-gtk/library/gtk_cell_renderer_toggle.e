@@ -34,13 +34,13 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRenderer)"
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkCellRendererToggle. Adjust rendering
 			-- parameters using object properties. Object properties can
 			-- be set globally (with G_OBJECT.set). Also, with
@@ -54,13 +54,13 @@ feature {} -- Creation
 		end
 
 feature {ANY} 
-	is_radio_toggle: BOOLEAN is
+	is_radio_toggle: BOOLEAN
 			-- Is Current cell rendering a radio toggle rather than a checkbox?
 		do
 			Result:=(gtk_cell_renderer_toggle_get_radio(handle).to_boolean)
 		end
 	
-	set_radio is
+	set_radio
 			-- Makes the cell renderer to render a radio toggle (i.e. a
 			-- toggle in a group of mutually-exclusive toggles). This can
 			-- be set globally for the cell renderer, or changed just
@@ -72,7 +72,7 @@ feature {ANY}
 		ensure set: is_radio_toggle
 		end
 
-	unset_radio is
+	unset_radio
 			-- Makes the cell renderer to render a check toggle (a
 			-- standalone boolean option). See also 'set_radio'.
 			-- with cell renderer properties).
@@ -82,20 +82,20 @@ feature {ANY}
 		end
 
 feature {ANY} -- State
-	is_active: BOOLEAN is
+	is_active: BOOLEAN
 			-- Is the cell renderer is active? See 'set_active'.
 		do
 			Result:=gtk_cell_renderer_toggle_get_active(handle).to_boolean
 		end
 
-	set_active is
+	set_active
 			-- Activates a cell renderer.
 		do
 			gtk_cell_renderer_toggle_set_active (handle,1)
 		ensure set: is_active
 		end
 
-	unset_active, set_inactive is
+	unset_active, set_inactive
 			-- Deactivates a cell renderer. Note TODO: this feature has 
 			-- a double name currently: 'unset_active' is more 
 			-- consistent and follow a common naming scheme while 

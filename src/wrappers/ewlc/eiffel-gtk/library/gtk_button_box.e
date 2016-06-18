@@ -49,28 +49,28 @@ inherit GTK_BOX
 	--   GtkButtonBox implements AtkImplementorIface.
 
 feature {ANY} 
-	layout: INTEGER is
+	layout: INTEGER
 			-- the method used to arrange the buttons in a button box.
 		do
 			Result:=gtk_button_box_get_layout(handle)
 		ensure valid_button_box_style: is_valid_gtk_button_box_style(Result)
 		end
 
-	is_child_secondary (a_child: GTK_WIDGET): BOOLEAN is
+	is_child_secondary (a_child: GTK_WIDGET): BOOLEAN
 			-- Should `a_child' appear in a secondary group of children?
 		require child_not_void: a_child/=Void
 		do
 			Result:=gtk_button_box_get_child_secondary(handle,a_child.handle).to_boolean
 		end
 
-	set_layout (a_style: INTEGER) is
+	set_layout (a_style: INTEGER)
 			--   Changes the way buttons are arranged in their container.
 		require valid_button_box_style: is_valid_gtk_button_box_style(a_style)
 		do
 			gtk_button_box_set_layout(handle, a_style)
 		end
 
-	set_child_secondary (a_child: GTK_WIDGET; a_setting: BOOLEAN) is
+	set_child_secondary (a_child: GTK_WIDGET; a_setting: BOOLEAN)
 			-- Sets whether `a_child' should appear in a secondary group
 			-- of children. A typical use of a secondary child is the
 			-- help button in a dialog.
@@ -178,25 +178,25 @@ feature {ANY} -- Properties
 	--
 	--
 feature {} -- External calls
-	gtk_button_box_get_layout (a_widget: POINTER): INTEGER is
+	gtk_button_box_get_layout (a_widget: POINTER): INTEGER
 			-- GtkButtonBoxStyle gtk_button_box_get_layout (GtkButtonBox
 			-- *widget);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_button_box_get_child_secondary (a_widget, a_child: POINTER): INTEGER is
+	gtk_button_box_get_child_secondary (a_widget, a_child: POINTER): INTEGER
 			-- gboolean gtk_button_box_get_child_secondary (GtkButtonBox
 			-- *widget, GtkWidget *child);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_button_box_set_layout (widget: POINTER; a_layout_style: INTEGER) is
+	gtk_button_box_set_layout (widget: POINTER; a_layout_style: INTEGER)
 			-- void gtk_button_box_set_layout (GtkButtonBox *widget,
 			-- GtkButtonBoxStyle layout_style);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_button_box_set_child_secondary (a_widget, a_child: POINTER; is_secondary_bool: INTEGER) is
+	gtk_button_box_set_child_secondary (a_widget, a_child: POINTER; is_secondary_bool: INTEGER)
 			-- void gtk_button_box_set_child_secondary (GtkButtonBox
 			-- *widget, GtkWidget *child, gboolean is_secondary);
 		external "C use <gtk/gtk.h>"

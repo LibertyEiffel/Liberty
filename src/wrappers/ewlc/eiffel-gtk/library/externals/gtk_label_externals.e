@@ -31,31 +31,31 @@ inherit
 
 feature {} -- External calls
 
-	gtk_label_new (a_string: POINTER): POINTER is
+	gtk_label_new (a_string: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_label_set_text (a_label,a_string: POINTER) is
+	gtk_label_set_text (a_label,a_string: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_label_set_attributes (a_label, pangoattrlist: POINTER;) is
+	gtk_label_set_attributes (a_label, pangoattrlist: POINTER;)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_markup (a_label, a_string: POINTER) is
+	gtk_label_set_markup (a_label, a_string: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_markup_with_mnemonic (a_label, a_string: POINTER) is
+	gtk_label_set_markup_with_mnemonic (a_label, a_string: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_pattern (a_label,a_pattern: POINTER) is
+	gtk_label_set_pattern (a_label,a_pattern: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_justify (a_label: POINTER; a_justification: INTEGER) is
+	gtk_label_set_justify (a_label: POINTER; a_justification: INTEGER)
 		require is_valid_gtk_justification (a_justification)
 		external "C use <gtk/gtk.h>"
 		end
@@ -64,60 +64,60 @@ feature {} -- External calls
 	-- POINTER;PangoEllipsizeMode mode) is external "C use <gtk/gtk.h>"
 	-- end
 
-	gtk_label_set_width_chars (a_label: POINTER; n_chars: INTEGER) is
+	gtk_label_set_width_chars (a_label: POINTER; n_chars: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_max_width_chars (a_label: POINTER; n_chars: INTEGER) is
+	gtk_label_set_max_width_chars (a_label: POINTER; n_chars: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_line_wrap (a_label: POINTER; a_wrap: INTEGER) is
+	gtk_label_set_line_wrap (a_label: POINTER; a_wrap: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_layout_offsets (a_label, an_y, a_y: POINTER) is
+	gtk_label_get_layout_offsets (a_label, an_y, a_y: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_mnemonic_keyval   (a_label: POINTER): INTEGER is
+	gtk_label_get_mnemonic_keyval   (a_label: POINTER): INTEGER
 			-- TODO Result is guint
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_selectable (a_label: POINTER): INTEGER is
+	gtk_label_get_selectable (a_label: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_text (a_label: POINTER): POINTER is
+	gtk_label_get_text (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_new_with_mnemonic (a_string: POINTER): POINTER is
+	gtk_label_new_with_mnemonic (a_string: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_select_region (a_label: POINTER;a_start_offset,an_end_offset: INTEGER) is
+	gtk_label_select_region (a_label: POINTER;a_start_offset,an_end_offset: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_mnemonic_widget (a_label, a_widget: POINTER) is
+	gtk_label_set_mnemonic_widget (a_label, a_widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_selectable (a_label: POINTER;a_setting: INTEGER) is
+	gtk_label_set_selectable (a_label: POINTER;a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_text_with_mnemonic (a_label, a_string: POINTER) is
+	gtk_label_set_text_with_mnemonic (a_label, a_string: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_attributes     (a_label: POINTER): INTEGER is
+	gtk_label_get_attributes     (a_label: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_justify      (a_label: POINTER): INTEGER is
+	gtk_label_get_justify      (a_label: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		ensure valid: is_valid_gtk_justification (Result)
 		end
@@ -125,67 +125,67 @@ feature {} -- External calls
 	-- TODO PangoEllipsizeMode gtk_label_get_ellipsize (a_label:
 	-- POINTER) is external "C use <gtk/gtk.h>" end
 
-	gtk_label_get_width_chars (a_label: POINTER): INTEGER is
+	gtk_label_get_width_chars (a_label: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_max_width_chars   (a_label: POINTER): INTEGER is
+	gtk_label_get_max_width_chars   (a_label: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_label            (a_label: POINTER): POINTER is
+	gtk_label_get_label            (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_layout           (a_label: POINTER): POINTER is
+	gtk_label_get_layout           (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_line_wrap (a_label: POINTER): INTEGER is
+	gtk_label_get_line_wrap (a_label: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_mnemonic_widget   (a_label: POINTER): POINTER is
+	gtk_label_get_mnemonic_widget   (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_selection_bounds (a_label,a_start,an_end: POINTER): INTEGER is
+	gtk_label_get_selection_bounds (a_label,a_start,an_end: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_use_markup (a_label: POINTER): INTEGER is
+	gtk_label_get_use_markup (a_label: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_label_get_use_underline (a_label: POINTER): INTEGER is
+	gtk_label_get_use_underline (a_label: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_label_get_single_line_mode (a_label: POINTER): INTEGER is
+	gtk_label_get_single_line_mode (a_label: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_get_angle             (a_label: POINTER): REAL is
+	gtk_label_get_angle             (a_label: POINTER): REAL
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_label (a_label,a_string: POINTER) is
+	gtk_label_set_label (a_label,a_string: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_use_markup (a_label: POINTER;a_setting: INTEGER) is
+	gtk_label_set_use_markup (a_label: POINTER;a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_use_underline (a_label: POINTER; a_setting: INTEGER) is
+	gtk_label_set_use_underline (a_label: POINTER; a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_label_set_single_line_mode (a_label: POINTER; single_line_mode: INTEGER) is
+	gtk_label_set_single_line_mode (a_label: POINTER; single_line_mode: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_label_set_angle (a_label: POINTER;an_angle: REAL) is
+	gtk_label_set_angle (a_label: POINTER;an_angle: REAL)
 		external "C use <gtk/gtk.h>"
 		end
 

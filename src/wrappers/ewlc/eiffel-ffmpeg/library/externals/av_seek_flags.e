@@ -28,22 +28,22 @@ inherit
 
 feature {ANY}
 
-	is_valid_av_seek_flags (some_flags: INTEGER): BOOLEAN is
+	is_valid_av_seek_flags (some_flags: INTEGER): BOOLEAN
 		do
 			Result := some_flags & ~(av_seek_flag_any | av_seek_flag_backward | av_seek_flag_byte) = 0
 		end
 
-	av_seek_flag_any: INTEGER is
+	av_seek_flag_any: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "AVSEEK_FLAG_ANY"
 		end
 
-	av_seek_flag_byte: INTEGER is
+	av_seek_flag_byte: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "AVSEEK_FLAG_BYTE"
 		end
 
-	av_seek_flag_backward: INTEGER is
+	av_seek_flag_backward: INTEGER
 		external "C macro use <avcodec.h>"
 		alias "AVSEEK_FLAG_BACKWARD"
 		end

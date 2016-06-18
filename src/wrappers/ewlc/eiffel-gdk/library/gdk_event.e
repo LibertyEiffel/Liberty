@@ -85,7 +85,7 @@ insert
 create {WRAPPER_HANDLER} from_external_pointer
 
 feature {ANY} 
-	from_external_pointer (a_pointer: POINTER) is
+	from_external_pointer (a_pointer: POINTER)
 		do
 			Precursor(a_pointer)
 			debug
@@ -103,19 +103,19 @@ feature {ANY}
 		end
 feature {ANY}
 	
-	type, event_type: INTEGER is
+	type, event_type: INTEGER
 		do
 			Result := gdk_event_type (handle)
 		ensure
 			is_valid_gdk_event_type (Result)
 		end
 	
-	is_event_motion: BOOLEAN is
+	is_event_motion: BOOLEAN
 		do
 			Result := event_type = gdk_event_motion_notify
 		end
 
-	is_event_button: BOOLEAN is
+	is_event_button: BOOLEAN
 		do
 			Result := (event_type = gdk_event_button_press) or else
 						 (event_type = gdk_event_2button_press) or else
@@ -123,35 +123,35 @@ feature {ANY}
 						 (event_type = gdk_event_button_release)
 		end
 
-	is_event_scroll: BOOLEAN is
+	is_event_scroll: BOOLEAN
 		do
 			Result := event_type = gdk_event_scroll
 		end
 
-	is_event_key: BOOLEAN is
+	is_event_key: BOOLEAN
 		do
 			Result := (event_type = gdk_event_key_press) or else
 						 (event_type = gdk_event_key_release)
 		end
 
-	is_event_focus: BOOLEAN is
+	is_event_focus: BOOLEAN
 		do
 			Result := (event_type = gdk_event_focus_change)
 		end
 
-	is_event_crossing: BOOLEAN is
+	is_event_crossing: BOOLEAN
 		do
 			Result := (event_type = gdk_event_enter_notify) or else
 						 (event_type = gdk_event_leave_notify)
 		end
 
-	is_event_expose: BOOLEAN is
+	is_event_expose: BOOLEAN
 		do
 			Result := (event_type = gdk_event_expose)
 		end
 
 feature {ANY} -- Common fields 
-	window: GDK_WINDOW is
+	window: GDK_WINDOW
 			-- the window which received the event.
 		local
 			 factory: G_OBJECT_EXPANDED_FACTORY[GDK_WINDOW]
@@ -162,7 +162,7 @@ feature {ANY} -- Common fields
 			Result:=internal_window
 		end
 
-	send_event: BOOLEAN is
+	send_event: BOOLEAN
 			-- 	TRUE if the event was sent explicitly (e.g. using XSendEvent).
 		do
 			Result := gdk_event_any_get_send_event (handle).to_boolean
@@ -170,7 +170,7 @@ feature {ANY} -- Common fields
 
 feature {ANY} -- Memory handling
 
-	dispose is
+	dispose
 		do
 			-- TODO: See if this class could be an EIFFEL_OWNED heir.
 
@@ -183,7 +183,7 @@ feature {ANY} -- Memory handling
 			end
 		end
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkEvent)"
 		end

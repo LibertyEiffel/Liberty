@@ -15,7 +15,7 @@ inherit
 	PREPARED_STATEMENT
 
 feature {ANY}
-	last_affected_rows: INTEGER is
+	last_affected_rows: INTEGER
 		-- require success: last_exec_success
 		deferred
 		-- ensure meningful: Result >= 0

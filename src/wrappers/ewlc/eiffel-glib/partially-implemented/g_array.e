@@ -55,7 +55,7 @@ create {ANY} make, empty, from_external_pointer
 
 feature {} -- Creation
 
-	make (zero_terminated, cleared: BOOLEAN) is
+	make (zero_terminated, cleared: BOOLEAN)
 			-- Creates a new G_ARRAY. `zero_terminated' is True when the
 			-- array should have an extra element at the end which is set
 			-- to 0. `cleared' is True if elements should be
@@ -69,7 +69,7 @@ feature {} -- Creation
 							  element_size))
 		end
 
-	with_capacity (a_capacity: INTEGER) is
+	with_capacity (a_capacity: INTEGER)
 			-- Creates a new GArray with `a_capacity' elements
 			-- preallocated. This avoids frequent reallocation, if you
 			-- are going to add many elements to the array. Note however
@@ -89,7 +89,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} 
-	append (an_item: like first) is
+	append (an_item: like first)
 			-- Adds the value on to the end of the array. The array will
 			-- grow in size automatically if necessary.
 		require item_not_void: an_item /= Void
@@ -100,7 +100,7 @@ feature {ANY}
 			-- it with literal values such as "27". You must use variables.
 		end
 
-	append_values (some_items: ARRAY[ITEM]) is
+	append_values (some_items: ARRAY[ITEM])
 			-- Adds `some_elements' onto the end of the array.
 		require 
 			items_not_void: some_items /= Void
@@ -114,7 +114,7 @@ feature {ANY}
 			end
 		end
 
-	prepend (an_item: like first) is
+	prepend (an_item: like first)
 			-- Adds `an_item' on to the start of the array. The array
 			-- will grow in size automatically if necessary.
 		
@@ -130,7 +130,7 @@ feature {ANY}
 			-- use variables. 
 		end
 
-	prepend_values (some_items: ARRAY[ITEM]) is
+	prepend_values (some_items: ARRAY[ITEM])
 			-- Adds `some_items' onto the start of the array.
 
 			-- This operation is slower than `append_values' since the
@@ -148,7 +148,7 @@ feature {ANY}
 			end
 		end
 
-	insert_value (an_item: ITEM; an_index: INTEGER) is
+	insert_value (an_item: ITEM; an_index: INTEGER)
 			-- Inserts `an_item' into Current array at `an_index'.
 		require
 			item_not_void: an_item /= Void
@@ -166,7 +166,7 @@ feature {ANY}
 		ensure -- TODO: value_put
 		end
 
-	insert_values (some_values: ARRAY[ITEM]; an_index: INTEGER) is
+	insert_values (some_values: ARRAY[ITEM]; an_index: INTEGER)
 			-- Inserts `some_values' into Current GArray at `an_index'.
 		require
 			values_not_void: some_values /= Void
@@ -181,7 +181,7 @@ feature {ANY}
 			end
 		end
 
-	remove_index (an_index: INTEGER) is
+	remove_index (an_index: INTEGER)
 			-- Removes the element at `an_index' from Current GArray. The
 			-- following elements are moved down one place.
 		require valid_index: is_valid_index (an_index)
@@ -194,7 +194,7 @@ feature {ANY}
 		ensure count_decreased: count = old count - 1 
 		end
 
-	remove_index_fast (an_index: INTEGER) is
+	remove_index_fast (an_index: INTEGER)
 			-- Removes the element at `an_index' from Current GArray. The
 			-- last element in the array is used to fill in the space, so
 			-- this function does not preserve the order of the
@@ -211,7 +211,7 @@ feature {ANY}
 			last_moved_to_an_index: old last = item(an_index)
 		end
 
-	remove_range (an_index, a_number: INTEGER) is
+	remove_range (an_index, a_number: INTEGER)
 			-- Removes `a_number' elements starting at `an_index' from a
 			-- GArray. The following elements are moved to close the gap.
 		require 
@@ -244,7 +244,7 @@ feature {ANY}
 	-- data argument.  array : a GArray.  compare_func : comparison
 	-- function.  user_data : data to pass to compare_func.
 
-	item (an_index: INTEGER): ITEM is
+	item (an_index: INTEGER): ITEM
 			-- the element of Current GArray at `an_index'. 
 
 			-- Example 4. Getting a pointer to an element in a GArray
@@ -259,7 +259,7 @@ feature {ANY}
 		ensure implemented: False
 		end
 
-	set_size (a_length: INTEGER) is
+	set_size (a_length: INTEGER)
 			-- Sets the size of the array, expanding it if necessary. If the array
 			-- was created with `cleared' set to True, the new elements are
 			-- set to Void.
@@ -269,7 +269,7 @@ feature {ANY}
 			ptr:=g_array_set_size(handle,a_length)
 		end
 
-	dispose is
+	dispose
 		local p: POINTER
 		do
 			-- g_array_free frees the memory allocated for the GArray. If
@@ -287,12 +287,12 @@ feature {ANY}
 		end
 
 feature {} -- External calls
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GArray)"
 		end
 
-	g_array_new (zero_terminated_bool, clear_bool, an_element_size: INTEGER): POINTER is
+	g_array_new (zero_terminated_bool, clear_bool, an_element_size: INTEGER): POINTER
 			-- GArray* g_array_new (gboolean zero_terminated, gboolean
 			-- clear_, guint element_size);
 		
@@ -300,7 +300,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_array_sized_new (zero_terminated_bool, clear_bool, an_element_size, a_reserverd_size: INTEGER): POINTER is
+	g_array_sized_new (zero_terminated_bool, clear_bool, an_element_size, a_reserverd_size: INTEGER): POINTER
 			-- GArray* g_array_sized_new (gboolean zero_terminated, gboolean clear_, guint element_size, guint reserved_size);
 
 			-- TODO: an_element_size should be NATURAL
@@ -308,12 +308,12 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_array_append_val (a,v: POINTER) is
+	g_array_append_val (a,v: POINTER)
 			-- #define g_array_append_val (a,v)
 		external "C macro use <glib.h>"
 		end
 
-	g_array_append_vals (an_array, some_data: INTEGER; a_len: INTEGER): POINTER is
+	g_array_append_vals (an_array, some_data: INTEGER; a_len: INTEGER): POINTER
 			-- GArray* g_array_append_vals (GArray *array, gconstpointer
 			-- data, guint len);
 
@@ -321,12 +321,12 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_array_prepend_val (a,v: POINTER) is
+	g_array_prepend_val (a,v: POINTER)
 			-- #define g_array_prepend_val (a,v)
 		external "C macro use <glib.h>"
 		end
 
-	g_array_prepend_vals (an_array, some_data: POINTER; a_len: INTEGER): POINTER is
+	g_array_prepend_vals (an_array, some_data: POINTER; a_len: INTEGER): POINTER
 			-- GArray* g_array_prepend_vals (GArray *array, gconstpointer
 			-- data, guint len);
 
@@ -334,12 +334,12 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-	g_array_insert_val (an_array: POINTER; an_index: INTEGER; a_value: POINTER) is
+	g_array_insert_val (an_array: POINTER; an_index: INTEGER; a_value: POINTER)
 		-- #define g_array_insert_val (a,i,v)
 		external "C macro use <glib.h>"
 		end
 	
-	g_array_insert_vals (an_array: POINTER; guint_index: INTEGER; some_data: POINTER; guint_len: INTEGER): POINTER is
+	g_array_insert_vals (an_array: POINTER; guint_index: INTEGER; some_data: POINTER; guint_len: INTEGER): POINTER
 			-- GArray* g_array_insert_vals (GArray *array, guint index_,
 			-- gconstpointer data, guint len);
 
@@ -347,7 +347,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_array_remove_index (an_array: POINTER; guint_index: INTEGER): POINTER is
+	g_array_remove_index (an_array: POINTER; guint_index: INTEGER): POINTER
 			-- GArray* g_array_remove_index (GArray *array, guint
 			-- index_);
 
@@ -355,7 +355,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_array_remove_index_fast (an_array: POINTER; guint_index: INTEGER): POINTER is
+	g_array_remove_index_fast (an_array: POINTER; guint_index: INTEGER): POINTER
 			-- GArray* g_array_remove_index_fast (GArray *array, guint
 			-- index_);
 
@@ -364,7 +364,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_array_remove_range (an_array: POINTER; guint_index, guint_length: INTEGER): POINTER is
+	g_array_remove_range (an_array: POINTER; guint_index, guint_length: INTEGER): POINTER
 			-- GArray* g_array_remove_range (GArray *array, guint index_,
 			-- guint length);
 
@@ -372,31 +372,31 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_array_sort (an_array, a_compare_func: POINTER) is
+	g_array_sort (an_array, a_compare_func: POINTER)
 			-- void g_array_sort (GArray *array, GCompareFunc compare_func);
 		external "C use <glib.h>"
 		end
 
-	g_array_sort_with_data (an_array, a_compare_func, some_data: POINTER) is
+	g_array_sort_with_data (an_array, a_compare_func, some_data: POINTER)
 			-- void g_array_sort_with_data (GArray *array,
 			-- GCompareDataFunc compare_func, gpointer user_data);
 		external "C use <glib.h>"
 		end
 	
-	g_array_index (an_array: POINTER; an_index: INTEGER): POINTER is
+	g_array_index (an_array: POINTER; an_index: INTEGER): POINTER
 			-- #define g_array_index (a,t,i)
 		external "C macro use <glib.h>"
 		alias "g_array_index ($an_array, (void *), $an_index)"
 		end
 	
-	g_array_set_size (an_array: POINTER; a_length): POINTER is
+	g_array_set_size (an_array: POINTER; a_length): POINTER
 			-- GArray* g_array_set_size (GArray *array, guint length);
 
 			-- TODO: a_length should be NATURAL
 		external "C use <glib.h>"
 		end
 	
-	g_array_free (an_array: POINTER; free_segment_bool: INTEGER): POINTER is
+	g_array_free (an_array: POINTER; free_segment_bool: INTEGER): POINTER
 			-- gchar* g_array_free (GArray *array, gboolean free_segment);
 		external "C use <glib.h>"
 		end

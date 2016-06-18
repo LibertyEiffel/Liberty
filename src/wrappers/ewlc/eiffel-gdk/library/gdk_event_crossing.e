@@ -34,7 +34,7 @@ create {ANY} from_external_pointer
 
 feature {ANY} -- access
 
-	subwindow: GDK_WINDOW is
+	subwindow: GDK_WINDOW
 			-- the window that was entered or left.
 		local
 			window_ptr: POINTER; factory: G_OBJECT_FACTORY[GDK_WINDOW]
@@ -46,56 +46,56 @@ feature {ANY} -- access
 			end
 		end
 
-	time: INTEGER is
+	time: INTEGER
 			-- the time of the event in milliseconds.
 		do
 			Result := gdk_event_crossing_get_time (handle)
 		end
 
-	x: REAL_64 is
+	x: REAL_64
 			-- the x coordinate of the pointer relative to the window.
 		do
 			Result := gdk_event_crossing_get_x (handle)
 		end
 
-	y: REAL_64 is
+	y: REAL_64
 			-- the y coordinate of the pointer relative to the window.
 		do
 			Result := gdk_event_crossing_get_y (handle)
 		end
 
-	x_root: REAL_64 is
+	x_root: REAL_64
 			-- the x coordinate of the pointer relative to the root of the screen.
 		do
 			Result := gdk_event_crossing_get_x_root (handle)
 		end
 
-	y_root: REAL_64 is
+	y_root: REAL_64
 			-- the y coordinate of the pointer relative to the root of the screen.
 		do
 			Result := gdk_event_crossing_get_y_root (handle)
 		end
 
-	mode: INTEGER is
+	mode: INTEGER
 		do
 			Result := gdk_event_crossing_get_mode (handle)
 		ensure
 			is_valid_gdk_crossing_mode (Result)
 		end
 
-	detail: INTEGER is
+	detail: INTEGER
 		do
 			Result := gdk_event_crossing_get_detail (handle)
 		ensure
 			is_valid_gdk_notify_type (Result)
 		end
 
-	focus: BOOLEAN is
+	focus: BOOLEAN
 		do
 			Result := gdk_event_crossing_get_focus (handle).to_boolean
 		end
 
-	state: INTEGER is
+	state: INTEGER
 			-- a bit-mask representing the state of the modifier keys
 			-- (e.g. Control, Shift and Alt) and the pointer buttons.
 			-- See GDK_MODIFIER_TYPE.

@@ -48,7 +48,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_paper_name: STRING) is
+	make (a_paper_name: STRING)
 			-- Creates a new GtkPaperSize object by parsing a PWG
 			-- 5101.1-2002 PWG `a_paper_name'.
 		require name_not_void: a_paper_name /= Void
@@ -56,14 +56,14 @@ feature {} -- Creation
 			from_external_pointer(gtk_paper_size_new(a_paper_name.to_external))
 		end
 
-	make_default is 
+	make_default
 			-- Creates a new GtkPaperSize object for the default paper
 			-- size.
 		do
 			from_external_pointer(gtk_paper_size_new(default_pointer))
 		end
 
-	from_ppd (a_ppd_name, a_ppd_display_name: STRING; a_width, an_height: REAL) is
+	from_ppd (a_ppd_name, a_ppd_display_name: STRING; a_width, an_height: REAL)
 			-- Creates a new GtkPaperSize object by using PPD
 			-- information.
 
@@ -87,7 +87,7 @@ feature {} -- Creation
 											a_width, an_height))
 		end
 
-	make_custom (a_name, a_display_name: STRING; a_width, an_height: REAL; a_unit: INTEGER) is
+	make_custom (a_name, a_display_name: STRING; a_width, an_height: REAL; a_unit: INTEGER)
 			-- Creates a new GtkPaperSize object with the given
 			-- parameters.
 			
@@ -111,20 +111,20 @@ feature {} -- Creation
 		end	
 	
 feature {ANY} -- Copying
-	copy (another: GTK_PAPER_SIZE) is
+	copy (another: GTK_PAPER_SIZE)
 			--   Copies an existing GtkPaperSize.
 		do
 			from_external_pointer(gtk_paper_size_copy(another.handle))
 		end	
 
 feature {ANY} -- Queries
-	is_equal (another: GTK_PAPER_SIZE): BOOLEAN is
+	is_equal (another: GTK_PAPER_SIZE): BOOLEAN
 			-- Do Current and `another' represent the same paper size?
 		do
 			Result:=gtk_paper_size_is_equal(handle, another.handle).to_boolean
 		end
 
-	name: CONST_STRING is
+	name: CONST_STRING
 			-- the name of the GtkPaperSize.
 		do
 			if stored_name=Void then 
@@ -133,7 +133,7 @@ feature {ANY} -- Queries
 			Result:=stored_name
 		end
 
-	display_name: CONST_STRING is
+	display_name: CONST_STRING
 			-- the human-readable name of the GtkPaperSize.
 		do
 			if stored_display_name=Void then
@@ -142,7 +142,7 @@ feature {ANY} -- Queries
 			Result:=stored_display_name
 		end
 	
-	ppd_name:CONST_STRING is
+	ppd_name:CONST_STRING
 			-- the PPD name of the GtkPaperSize, which may be Void.
 		local ptr: POINTER
 		do
@@ -159,57 +159,57 @@ feature {ANY} -- Queries
 	unit: INTEGER 
 			-- the unit measure for all the further queries
 	
-	width: REAL is
+	width: REAL
 			-- the paper width of the GtkPaperSize
 		do
 			Result:=gtk_paper_size_get_width(handle, unit)
 		end
 
-	height: REAL is
+	height: REAL
 			--  the paper height of the GtkPaperSize
 		do
 			Result:=gtk_paper_size_get_height(handle, unit)
 		end
 	
-	is_custom: BOOLEAN is
+	is_custom: BOOLEAN
 			-- Is size not a standard paper size?
 		do
 			Result:=gtk_paper_size_is_custom(handle).to_boolean
 		end
 
-	default_top_margin: REAL is
+	default_top_margin: REAL
 			-- The default top margin for the GtkPaperSize.
 		do
 			Result:=gtk_paper_size_get_default_top_margin(handle,unit)
 		end
 
-	default_bottom_margin: REAL is
+	default_bottom_margin: REAL
 			--  the default bottom margin for the GtkPaperSize.
 		do
 			Result:=gtk_paper_size_get_default_bottom_margin(handle,unit)
 		end
 
-	default_left_margin: REAL is
+	default_left_margin: REAL
 			-- the default left margin for the GtkPaperSize.
 		do
 			Result:=gtk_paper_size_get_default_left_margin(handle, unit)
 		end
 
-	default_right_margin: REAL is
+	default_right_margin: REAL
 			-- the default right margin for the GtkPaperSize.
 		do
 			Result:=gtk_paper_size_get_default_right_margin(handle,unit)
 		end
 
 feature {ANY} -- Setters
-	set_unit (a_unit: INTEGER) is
+	set_unit (a_unit: INTEGER)
 			-- Set the unit measure for all the further queries
 		do
 			unit:=a_unit
 		ensure set: unit = a_unit
 		end
 	
-	set_size (a_width, an_height: REAL; a_unit: INTEGER) is
+	set_size (a_width, an_height: REAL; a_unit: INTEGER)
 			-- Changes the dimensions of a size to `a_width' x `an_height', 
 			-- expressed in `a_unit'.
 		require valid_unit: is_valid_gtk_unit(a_unit)

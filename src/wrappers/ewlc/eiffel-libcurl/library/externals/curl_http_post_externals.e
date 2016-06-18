@@ -61,13 +61,13 @@ insert
 
 feature {} -- Externals
 
-	curl_formfree (a_ptr: POINTER) is
+	curl_formfree (a_ptr: POINTER)
 			-- void curl_formfree(struct curl_httppost * form);
 		external "C use <curl/curl.h>"
 		end
 
 	curl_formadd (post, last: POINTER; name_code: INTEGER; name: POINTER;
-			      content_code: INTEGER; content: POINTER; end_code: INTEGER): INTEGER is
+			      content_code: INTEGER; content: POINTER; end_code: INTEGER): INTEGER
 			-- CURLFORMcode curl_formadd(struct curl_httppost ** firstitem,
 			--                           struct curl_httppost ** lastitem, ...);
 		require

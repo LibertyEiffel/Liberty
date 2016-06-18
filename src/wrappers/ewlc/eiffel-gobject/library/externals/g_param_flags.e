@@ -10,7 +10,7 @@ deferred class G_PARAM_FLAGS
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	are_valid_param_flags (some_flags :INTEGER): BOOLEAN is
+	are_valid_param_flags (some_flags :INTEGER): BOOLEAN
 		do	
 			Result:=(some_flags & (g_param_readable | g_param_writable |
 										  g_param_construct | g_param_construct_only |
@@ -21,31 +21,31 @@ feature {ANY}  -- enum
 		end
 
 
-	g_param_readable: INTEGER is
+	g_param_readable: INTEGER
 			-- the parameter is readable
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_READABLE"
 		end
 
-	g_param_writable: INTEGER is
+	g_param_writable: INTEGER
 			-- the parameter is writable
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_WRITABLE"
 		end
 
-	g_param_construct: INTEGER is
+	g_param_construct: INTEGER
 			-- the parameter will be set upon object construction
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_CONSTRUCT"
 		end
 
-	g_param_construct_only: INTEGER is
+	g_param_construct_only: INTEGER
 			-- the parameter will only be set upon object construction
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_CONSTRUCT_ONLY"
 		end
 
-	g_param_lax_validation: INTEGER is
+	g_param_lax_validation: INTEGER
 			-- upon parameter conversion (see g_param_value_convert())
 			-- strict validation is not required
 		external "C macro use <glib-object.h>"
@@ -77,19 +77,19 @@ feature {ANY}  -- enum
 --		alias "G_PARAM_STATIC_BLURB"
 --		end
 
-	g_param_readwrite: INTEGER is
+	g_param_readwrite: INTEGER
 			-- GParamFlags value alias for G_PARAM_READABLE | G_PARAM_WRITABLE.
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_READWRITE"
 		end
 
-	g_param_mask: INTEGER is
+	g_param_mask: INTEGER
 			-- Mask containing the bits of GParamSpec.flags which are reserved for GLib.
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_MASK"
 		end
 	
-	g_param_user_shift: INTEGER is
+	g_param_user_shift: INTEGER
 			-- Minimum shift count to be used for user defined flags, to
 			-- be stored in GParamSpec.flags.
 		external "C macro use <glib-object.h>"

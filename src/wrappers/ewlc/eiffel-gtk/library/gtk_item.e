@@ -31,19 +31,19 @@ insert
 	GTK_ITEM_EXTERNALS
 
 feature {ANY}
-	select_signal is
+	select_signal
 			-- Emits the "select" signal on the given item.
 		do
 			gtk_item_select (handle)
 		end
 
-	deselect is
+	deselect
 			-- Emits the "deselect" signal on the given item.
 		do
 			gtk_item_deselect (handle)
 		end
 
-	toggle is
+	toggle
 			-- Emits the "toggle" signal on the given item.
 		do
 			gtk_item_toggle (handle)

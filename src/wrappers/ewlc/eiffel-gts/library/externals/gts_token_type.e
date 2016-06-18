@@ -24,7 +24,7 @@ deferred class GTS_TOKEN_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_token (a_token: INTEGER): BOOLEAN is
+	is_valid_token (a_token: INTEGER): BOOLEAN
 		do	
 			Result:=((a_token = gts_none) or else
 						(a_token = gts_int) or else
@@ -36,49 +36,49 @@ feature {} -- enum
 						(a_token = gts_error))
 		end
 	
-   gts_none: INTEGER is
+   gts_none: INTEGER
 			-- GTS_NONE = 1 < < 8
 		external "C macro use <gts.h>"
 		alias "GTS_NONE"
 		end
 
-   gts_int: INTEGER is
+   gts_int: INTEGER
 			-- GTS_INT = 1 < < 9
 		external "C macro use <gts.h>"
 		alias "GTS_INT"
 		end
 
-   gts_uint: INTEGER is
+   gts_uint: INTEGER
 			-- GTS_UINT = 1 < < 10
 		external "C macro use <gts.h>"
 		alias "GTS_UINT"
 		end
 
-   gts_float: INTEGER is
+   gts_float: INTEGER
 			-- GTS_FLOAT = 1 < < 11
 		external "C macro use <gts.h>"
 		alias "GTS_FLOAT"
 		end
 
-   gts_double: INTEGER is
+   gts_double: INTEGER
 			-- GTS_DOUBLE = 1 < < 12
 		external "C macro use <gts.h>"
 		alias "GTS_DOUBLE"
 		end
 
-   gts_string: INTEGER is
+   gts_string: INTEGER
 			-- GTS_STRING = 1 < < 13
 		external "C macro use <gts.h>"
 		alias "GTS_STRING"
 		end
 
-   gts_file: INTEGER is
+   gts_file: INTEGER
 			-- GTS_FILE = 1 < < 14
 		external "C macro use <gts.h>"
 		alias "GTS_FILE"
 		end
 
-   gts_error: INTEGER is
+   gts_error: INTEGER
 			-- GTS_ERROR = 1 < < 15
 		external "C macro use <gts.h>"
 		alias "GTS_ERROR"

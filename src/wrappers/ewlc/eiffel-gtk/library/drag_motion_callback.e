@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_WIDGET
 
 feature {ANY}
-	callback (drag_context_ptr: POINTER; x, y, time: INTEGER; instance: POINTER): INTEGER is
+	callback (drag_context_ptr: POINTER; x, y, time: INTEGER; instance: POINTER): INTEGER
 		local drag_context: GDK_DRAG_CONTEXT
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
@@ -48,7 +48,7 @@ feature {ANY}
 			Result := function.item ([drag_context, x, y, time, object]).to_integer
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
@@ -56,7 +56,7 @@ feature {ANY}
 		end
 
 	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-																							INTEGER, GTK_WIDGET], BOOLEAN]) is
+																							INTEGER, GTK_WIDGET], BOOLEAN])
 		do
 			debug
 				print ("DRAG_MOTION_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

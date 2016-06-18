@@ -30,12 +30,12 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_dest_defaults (a_dest_default :INTEGER): BOOLEAN is
+	is_valid_gtk_dest_defaults (a_dest_default :INTEGER): BOOLEAN
 		do
 			Result := a_dest_default.bit_and (gtk_dest_default_all.bit_not) = 0
 		end
 
-	gtk_dest_default_motion: INTEGER is
+	gtk_dest_default_motion: INTEGER
 			-- If set for a widget, GTK+, during a drag over this widget will
 			-- check if the drag matches this widget's list of possible
 			-- targets and actions. GTK+ will then call gdk_drag_status() as
@@ -44,7 +44,7 @@ feature {} -- enum
 		alias "GTK_DEST_DEFAULT_MOTION"
 		end
 
-	gtk_dest_default_highlight: INTEGER is
+	gtk_dest_default_highlight: INTEGER
 			-- If set for a widget, GTK+ will draw a highlight on this widget
 			-- as long as a drag is over this widget and the widget drag
 			-- format and action are acceptable.
@@ -52,7 +52,7 @@ feature {} -- enum
 		alias "GTK_DEST_DEFAULT_HIGHLIGHT"
 		end
 
-	gtk_dest_default_drop: INTEGER is
+	gtk_dest_default_drop: INTEGER
 			-- If set for a widget, when a drop occurs, GTK+ will will check
 			-- if the drag matches this widget's list of possible targets
 			-- and actions. If so, GTK+ will call gtk_drag_get_data() on
@@ -64,7 +64,7 @@ feature {} -- enum
 		alias "GTK_DEST_DEFAULT_DROP"
 		end
 
-	gtk_dest_default_all: INTEGER is
+	gtk_dest_default_all: INTEGER
 			--  If set, specifies that all default actions should be taken.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_DEST_DEFAULT_ALL"

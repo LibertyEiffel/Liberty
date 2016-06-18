@@ -37,7 +37,7 @@ inherit GTK_RANGE
 
 feature {ANY} -- The "fixed-slider-length" style property
 
-	is_slider_length_fixed: BOOLEAN is
+	is_slider_length_fixed: BOOLEAN
 			-- Don't change slider size, just lock it to the minimum
 			-- length.  Default value: False
 		do
@@ -47,7 +47,7 @@ feature {ANY} -- The "fixed-slider-length" style property
 feature {} -- "fixed-slider-lenght" Implementation
 	fixed_slider_lenght_property_property_name: STRING is "fixed-slider-length"
 
-	fixed_slider_lenght_pspec: G_PARAM_SPEC is
+	fixed_slider_lenght_pspec: G_PARAM_SPEC
 		require has_property (fixed_slider_lenght_property_property_name)
 		once
 			create Result.from_external_pointer
@@ -58,7 +58,7 @@ feature {} -- "fixed-slider-lenght" Implementation
 
 feature {ANY} -- The "has-backward-stepper" style property
 
-	has_backward_stepper: BOOLEAN is
+	has_backward_stepper: BOOLEAN
 			-- Is the standard backward arrow button displayed?  Default
 			-- value: True
 		do
@@ -68,7 +68,7 @@ feature {ANY} -- The "has-backward-stepper" style property
 feature {} -- "has-backward-stepper" Implementation
 	has_backward_stepper_property_property_name: STRING is "has-backward-stepper"
 
-	has_backward_stepper_pspec: G_PARAM_SPEC is
+	has_backward_stepper_pspec: G_PARAM_SPEC
 		require has_property (has_backward_stepper_property_property_name)
 		once
 			create Result.from_external_pointer
@@ -79,7 +79,7 @@ feature {} -- "has-backward-stepper" Implementation
 
 feature {ANY} -- The "has-forward-stepper" style property
 
-	has_forward_stepper: BOOLEAN is
+	has_forward_stepper: BOOLEAN
 			-- Is the standard forward arrow button displayed?  Default
 			-- value: True
 		do
@@ -89,7 +89,7 @@ feature {ANY} -- The "has-forward-stepper" style property
 feature {} -- "has-forward-stepper" Implementation
 	has_forward_stepper_property_property_name: STRING is "has-forward-stepper"
 
-	has_forward_stepper_pspec: G_PARAM_SPEC is
+	has_forward_stepper_pspec: G_PARAM_SPEC
 		require has_property (has_forward_stepper_property_property_name)
 		once
 			create Result.from_external_pointer

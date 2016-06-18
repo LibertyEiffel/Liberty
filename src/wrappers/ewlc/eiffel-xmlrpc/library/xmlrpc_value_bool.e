@@ -32,7 +32,7 @@ create {ANY} make, from_value
 
 feature {} -- Creation
 
-	make (a_bool: BOOLEAN) is
+	make (a_bool: BOOLEAN)
 		local
 			res_ptr: POINTER
 		do
@@ -46,7 +46,7 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	read: BOOLEAN is
+	read: BOOLEAN
 		do
 			xmlrpc_read_bool (env.handle, handle, $Result)
 		end

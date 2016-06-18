@@ -59,20 +59,20 @@ insert
 create {ANY} make, copy, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 		-- Creates a new GdaStatement object
 	do
 		from_external_pointer(gda_statement_new)
 	end
 
 feature {ANY}	
-	copy (another: like Current) is
+	copy (another: like Current)
 		-- Creates a new GDA_STATEMENT from another.
 	do
 		from_external_pointer(gda_statement_copy(another.handle))
 	end
 	
-	deserialize (a_string: STRING) is
+	deserialize (a_string: STRING)
 		-- Creates a new GDA_STATEMENT from `a_string'...
 	
 		--   error :   a place to store errors, or NULL
@@ -86,14 +86,14 @@ feature {ANY}
 	end
 
 feature {ANY} 
-	to_string: STRING is
+	to_string: STRING
 		-- A string containing the serialized version of Current statement
 	require is_not_null
 	do
 		create Result.from_external(gda_statement_serialize(handle))
 	end
 
-	parameters: GDA_SET is
+	parameters: GDA_SET
 		--   all the execution parameters which Current statement needs, grouped into a GDA_SET.
 	
 		-- Void if the statement does not need any parameter.
@@ -145,7 +145,7 @@ feature {ANY}
 	--   Returns :     a new string if no error occurred
 	
 	
-	statement_type: GDA_SQL_STATEMENT_TYPE is
+	statement_type: GDA_SQL_STATEMENT_TYPE
 		-- the type of statement. It will be gda_sql_statement_none
 		-- if it does not hold any statement.
 	do
@@ -323,7 +323,7 @@ feature {} -- Unwrapped documentation of enumerations.
 	-- } GdaStatementError;
 	--
 feature {ANY}
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaStatement)"
 		end

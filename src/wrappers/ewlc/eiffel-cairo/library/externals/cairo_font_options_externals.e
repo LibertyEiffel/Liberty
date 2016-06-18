@@ -30,91 +30,91 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	cairo_font_options_create: POINTER is
+	cairo_font_options_create: POINTER
 			-- cairo_font_options_t* cairo_font_options_create (void);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_copy (a_font_options: POINTER): POINTER is
+	cairo_font_options_copy (a_font_options: POINTER): POINTER
 			-- cairo_font_options_t* cairo_font_options_copy
 			--                       (const cairo_font_options_t *original);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_destroy (a_font_options: POINTER) is
+	cairo_font_options_destroy (a_font_options: POINTER)
 			--void        cairo_font_options_destroy      (cairo_font_options_t *options);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_status (a_font_options: POINTER): INTEGER is
+	cairo_font_options_status (a_font_options: POINTER): INTEGER
 			--cairo_status_t cairo_font_options_status    (cairo_font_options_t *options);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_merge (a_font_options, another: POINTER) is
+	cairo_font_options_merge (a_font_options, another: POINTER)
 			--void        cairo_font_options_merge        (cairo_font_options_t *options,
 			--                                             const cairo_font_options_t *other);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_hash (a_font_options: POINTER): INTEGER_64 is
+	cairo_font_options_hash (a_font_options: POINTER): INTEGER_64
 			--unsigned long cairo_font_options_hash       (const cairo_font_options_t *options);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_equal (a_font_options, another: POINTER): INTEGER is
+	cairo_font_options_equal (a_font_options, another: POINTER): INTEGER
 			--cairo_bool_t cairo_font_options_equal       (const cairo_font_options_t *options,
 			--                                             const cairo_font_options_t *other);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_set_antialias (a_font_options: POINTER; an_antialias: INTEGER) is
+	cairo_font_options_set_antialias (a_font_options: POINTER; an_antialias: INTEGER)
 			--void        cairo_font_options_set_antialias
 			--                                            (cairo_font_options_t *options,
 			--                                             cairo_antialias_t antialias);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_get_antialias (a_font_options: POINTER): INTEGER is
+	cairo_font_options_get_antialias (a_font_options: POINTER): INTEGER
 			--cairo_antialias_t cairo_font_options_get_antialias
 			--                                            (const cairo_font_options_t *options);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_set_subpixel_order (a_font_options: POINTER; an_order: INTEGER) is
+	cairo_font_options_set_subpixel_order (a_font_options: POINTER; an_order: INTEGER)
 			--void        cairo_font_options_set_subpixel_order
 			--                                            (cairo_font_options_t *options,
 			--                                          cairo_subpixel_order_t subpixel_order);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_get_subpixel_order (a_font_options: POINTER): INTEGER is
+	cairo_font_options_get_subpixel_order (a_font_options: POINTER): INTEGER
 			--cairo_subpixel_order_t cairo_font_options_get_subpixel_order
 			--                                         (const cairo_font_options_t *options);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_set_hint_style (a_font_options: POINTER; a_style: INTEGER) is
+	cairo_font_options_set_hint_style (a_font_options: POINTER; a_style: INTEGER)
 			--void        cairo_font_options_set_hint_style
 			--                                            (cairo_font_options_t *options,
 			--                                             cairo_hint_style_t hint_style);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_get_hint_style (a_font_options: POINTER): INTEGER is
+	cairo_font_options_get_hint_style (a_font_options: POINTER): INTEGER
 			--cairo_hint_style_t cairo_font_options_get_hint_style
 			--                                        (const cairo_font_options_t *options);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_set_hint_metrics (a_font_options: POINTER; a_metric: INTEGER) is
+	cairo_font_options_set_hint_metrics (a_font_options: POINTER; a_metric: INTEGER)
 			--void        cairo_font_options_set_hint_metrics
 			--                                            (cairo_font_options_t *options,
 			--                                             cairo_hint_metrics_t hint_metrics);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_get_hint_metrics (a_font_options: POINTER): INTEGER is
+	cairo_font_options_get_hint_metrics (a_font_options: POINTER): INTEGER
 			--cairo_hint_metrics_t cairo_font_options_get_hint_metrics
 			--                                        (const cairo_font_options_t *options);
 		external "C use <cairo.h>"
@@ -122,7 +122,7 @@ feature {} -- External calls
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <cairo.h>"
 		alias "sizeof(cairo_font_options_t)"
 		end

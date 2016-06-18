@@ -13,7 +13,7 @@ inherit
 create {ANY}	make
 	
 feature {} -- creation
-	make is
+	make
 		do
 			gtk.initialize
 			create window.make
@@ -40,7 +40,7 @@ feature {ANY}
 	label: STRING is "Hello world\nfrom eiffel-gtk!"
 			-- button's label
 feature {ANY} -- callbacks
-	on_destroy (a_gobject: G_OBJECT) is
+	on_destroy (a_gobject: G_OBJECT)
 		do
 			print ("A gobject is being destroyed. And we quit%N")
 			check

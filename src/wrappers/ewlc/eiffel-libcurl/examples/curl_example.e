@@ -30,7 +30,7 @@ insert
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			create curl.make
 			check curl.is_valid end
@@ -56,7 +56,7 @@ feature {}
 
 feature {} -- Callbacks
 
-	read_from_string (array: NATIVE_ARRAY [CHARACTER]; size, nmemb: INTEGER): INTEGER is
+	read_from_string (array: NATIVE_ARRAY [CHARACTER]; size, nmemb: INTEGER): INTEGER
 		require
 			curl.is_valid
 			array.is_not_null
@@ -77,7 +77,7 @@ feature {} -- Callbacks
 			curl.is_valid
 		end
 
-	write_to_string (array: NATIVE_ARRAY [CHARACTER]; size, nmemb: INTEGER): INTEGER is
+	write_to_string (array: NATIVE_ARRAY [CHARACTER]; size, nmemb: INTEGER): INTEGER
 		require
 			curl.is_valid
 			array.is_not_null

@@ -27,19 +27,19 @@ deferred class GTK_ORIENTATION
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_gtk_orientation (an_orientation :INTEGER): BOOLEAN is
+	is_valid_gtk_orientation (an_orientation :INTEGER): BOOLEAN
 		do	
 			Result:=((an_orientation = gtk_orientation_horizontal) or else
 						(an_orientation = gtk_orientation_vertical))
 		end
 
-	gtk_orientation_horizontal: INTEGER is
+	gtk_orientation_horizontal: INTEGER
 			-- The widget is in horizontal orientation.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ORIENTATION_HORIZONTAL"
 		end
 		
-	gtk_orientation_vertical: INTEGER is
+	gtk_orientation_vertical: INTEGER
 			-- The widget is in vertical orientation. 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ORIENTATION_VERTICAL"

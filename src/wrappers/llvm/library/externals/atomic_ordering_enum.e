@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = acquire_low_level)  or else
 				(a_value = acquire_release_low_level)  or else
@@ -20,79 +20,79 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_acquire is
+	set_acquire
 		do
 			value := acquire_low_level
 		end
 
-	set_acquire_release is
+	set_acquire_release
 		do
 			value := acquire_release_low_level
 		end
 
-	set_monotonic is
+	set_monotonic
 		do
 			value := monotonic_low_level
 		end
 
-	set_not_atomic is
+	set_not_atomic
 		do
 			value := not_atomic_low_level
 		end
 
-	set_release is
+	set_release
 		do
 			value := release_low_level
 		end
 
-	set_sequentially_consistent is
+	set_sequentially_consistent
 		do
 			value := sequentially_consistent_low_level
 		end
 
-	set_unordered is
+	set_unordered
 		do
 			value := unordered_low_level
 		end
 
 feature {ANY} -- Queries
-	is_acquire: BOOLEAN is
+	is_acquire: BOOLEAN
 		do
 			Result := (value=acquire_low_level)
 		end
 
-	is_acquire_release: BOOLEAN is
+	is_acquire_release: BOOLEAN
 		do
 			Result := (value=acquire_release_low_level)
 		end
 
-	is_monotonic: BOOLEAN is
+	is_monotonic: BOOLEAN
 		do
 			Result := (value=monotonic_low_level)
 		end
 
-	is_not_atomic: BOOLEAN is
+	is_not_atomic: BOOLEAN
 		do
 			Result := (value=not_atomic_low_level)
 		end
 
-	is_release: BOOLEAN is
+	is_release: BOOLEAN
 		do
 			Result := (value=release_low_level)
 		end
 
-	is_sequentially_consistent: BOOLEAN is
+	is_sequentially_consistent: BOOLEAN
 		do
 			Result := (value=sequentially_consistent_low_level)
 		end
 
-	is_unordered: BOOLEAN is
+	is_unordered: BOOLEAN
 		do
 			Result := (value=unordered_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	acquire_low_level: INTEGER is
+	acquire_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -101,7 +101,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	acquire_release_low_level: INTEGER is
+	acquire_release_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -110,7 +110,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	monotonic_low_level: INTEGER is
+	monotonic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -119,7 +119,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	not_atomic_low_level: INTEGER is
+	not_atomic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -128,7 +128,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	release_low_level: INTEGER is
+	release_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -137,7 +137,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sequentially_consistent_low_level: INTEGER is
+	sequentially_consistent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -146,7 +146,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unordered_low_level: INTEGER is
+	unordered_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

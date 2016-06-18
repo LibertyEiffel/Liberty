@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = gda_connection_feature_aggregates) or else 
 				(a_value = gda_connection_feature_blobs) or else 
@@ -28,261 +28,261 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_aggregates is
+	default_create, set_aggregates
 		do
 			value := gda_connection_feature_aggregates
 		end
 
-	set_blobs is
+	set_blobs
 		do
 			value := gda_connection_feature_blobs
 		end
 
-	set_indexes is
+	set_indexes
 		do
 			value := gda_connection_feature_indexes
 		end
 
-	set_inheritance is
+	set_inheritance
 		do
 			value := gda_connection_feature_inheritance
 		end
 
-	set_namespaces is
+	set_namespaces
 		do
 			value := gda_connection_feature_namespaces
 		end
 
-	set_procedures is
+	set_procedures
 		do
 			value := gda_connection_feature_procedures
 		end
 
-	set_sequences is
+	set_sequences
 		do
 			value := gda_connection_feature_sequences
 		end
 
-	set_sql is
+	set_sql
 		do
 			value := gda_connection_feature_sql
 		end
 
-	set_transactions is
+	set_transactions
 		do
 			value := gda_connection_feature_transactions
 		end
 
-	set_savepoints is
+	set_savepoints
 		do
 			value := gda_connection_feature_savepoints
 		end
 
-	set_savepoints_remove is
+	set_savepoints_remove
 		do
 			value := gda_connection_feature_savepoints_remove
 		end
 
-	set_triggers is
+	set_triggers
 		do
 			value := gda_connection_feature_triggers
 		end
 
-	set_updatable_cursor is
+	set_updatable_cursor
 		do
 			value := gda_connection_feature_updatable_cursor
 		end
 
-	set_users is
+	set_users
 		do
 			value := gda_connection_feature_users
 		end
 
-	set_views is
+	set_views
 		do
 			value := gda_connection_feature_views
 		end
 
-	set_xa_transactions is
+	set_xa_transactions
 		do
 			value := gda_connection_feature_xa_transactions
 		end
 
-	set_last is
+	set_last
 		do
 			value := gda_connection_feature_last
 		end
 
 
 feature {ANY} -- Queries
-	is_aggregates: BOOLEAN is
+	is_aggregates: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_aggregates)
 		end
 
-	is_blobs: BOOLEAN is
+	is_blobs: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_blobs)
 		end
 
-	is_indexes: BOOLEAN is
+	is_indexes: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_indexes)
 		end
 
-	is_inheritance: BOOLEAN is
+	is_inheritance: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_inheritance)
 		end
 
-	is_namespaces: BOOLEAN is
+	is_namespaces: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_namespaces)
 		end
 
-	is_procedures: BOOLEAN is
+	is_procedures: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_procedures)
 		end
 
-	is_sequences: BOOLEAN is
+	is_sequences: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_sequences)
 		end
 
-	is_sql: BOOLEAN is
+	is_sql: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_sql)
 		end
 
-	is_transactions: BOOLEAN is
+	is_transactions: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_transactions)
 		end
 
-	is_savepoints: BOOLEAN is
+	is_savepoints: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_savepoints)
 		end
 
-	is_savepoints_remove: BOOLEAN is
+	is_savepoints_remove: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_savepoints_remove)
 		end
 
-	is_triggers: BOOLEAN is
+	is_triggers: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_triggers)
 		end
 
-	is_updatable_cursor: BOOLEAN is
+	is_updatable_cursor: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_updatable_cursor)
 		end
 
-	is_users: BOOLEAN is
+	is_users: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_users)
 		end
 
-	is_views: BOOLEAN is
+	is_views: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_views)
 		end
 
-	is_xa_transactions: BOOLEAN is
+	is_xa_transactions: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_xa_transactions)
 		end
 
-	is_last: BOOLEAN is
+	is_last: BOOLEAN
 		do
 			Result := (value=gda_connection_feature_last)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gda_connection_feature_aggregates: INTEGER is
+	gda_connection_feature_aggregates: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_AGGREGATES"
 		end
 
-	gda_connection_feature_blobs: INTEGER is
+	gda_connection_feature_blobs: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_BLOBS"
 		end
 
-	gda_connection_feature_indexes: INTEGER is
+	gda_connection_feature_indexes: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_INDEXES"
 		end
 
-	gda_connection_feature_inheritance: INTEGER is
+	gda_connection_feature_inheritance: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_INHERITANCE"
 		end
 
-	gda_connection_feature_namespaces: INTEGER is
+	gda_connection_feature_namespaces: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_NAMESPACES"
 		end
 
-	gda_connection_feature_procedures: INTEGER is
+	gda_connection_feature_procedures: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_PROCEDURES"
 		end
 
-	gda_connection_feature_sequences: INTEGER is
+	gda_connection_feature_sequences: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_SEQUENCES"
 		end
 
-	gda_connection_feature_sql: INTEGER is
+	gda_connection_feature_sql: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_SQL"
 		end
 
-	gda_connection_feature_transactions: INTEGER is
+	gda_connection_feature_transactions: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_TRANSACTIONS"
 		end
 
-	gda_connection_feature_savepoints: INTEGER is
+	gda_connection_feature_savepoints: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_SAVEPOINTS"
 		end
 
-	gda_connection_feature_savepoints_remove: INTEGER is
+	gda_connection_feature_savepoints_remove: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_SAVEPOINTS_REMOVE"
 		end
 
-	gda_connection_feature_triggers: INTEGER is
+	gda_connection_feature_triggers: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_TRIGGERS"
 		end
 
-	gda_connection_feature_updatable_cursor: INTEGER is
+	gda_connection_feature_updatable_cursor: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_UPDATABLE_CURSOR"
 		end
 
-	gda_connection_feature_users: INTEGER is
+	gda_connection_feature_users: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_USERS"
 		end
 
-	gda_connection_feature_views: INTEGER is
+	gda_connection_feature_views: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_VIEWS"
 		end
 
-	gda_connection_feature_xa_transactions: INTEGER is
+	gda_connection_feature_xa_transactions: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_XA_TRANSACTIONS"
 		end
 
-	gda_connection_feature_last: INTEGER is
+	gda_connection_feature_last: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_LAST"
 		end

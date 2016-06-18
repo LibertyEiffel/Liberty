@@ -16,45 +16,45 @@ create {ANY}
       -- TODO: allow creation of fp128 and ppc_fp128
 
 feature {} -- Creation
-   as_float is
+   as_float
       do
          handle := llvmfloat_type
       end
 
-   as_float_in_context (a_context: LLVM_CONTEXT) is
+   as_float_in_context (a_context: LLVM_CONTEXT)
       require a_context/=Void
       do
          handle:=llvmfloat_type_in_context(a_context.handle)
       end
 
-   as_double is
+   as_double
       do
          handle := llvmdouble_type
       end
 
-   with_128bits is
+   with_128bits
       do
          handle := llvmfp128type
       end
 
-   with_128bits_in_context (a_context: LLVM_CONTEXT) is
+   with_128bits_in_context (a_context: LLVM_CONTEXT)
       require a_context/=Void
       do
          handle:=llvmfp128type_in_context(a_context.handle)
       end
 
-   as_double_in_context (a_context: LLVM_CONTEXT) is
+   as_double_in_context (a_context: LLVM_CONTEXT)
       require a_context/=Void
       do
          handle:=llvmdouble_type_in_context(a_context.handle)
       end
 
-   as_x86 is
+   as_x86
       do
          handle := llvmx86fp80type
       end
 
-   as_x86_in_context (a_context: LLVM_CONTEXT) is
+   as_x86_in_context (a_context: LLVM_CONTEXT)
       require a_context/=Void
       do
          handle:=llvmx86fp80type_in_context(a_context.handle)

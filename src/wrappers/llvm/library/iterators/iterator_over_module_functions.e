@@ -14,7 +14,7 @@ create {ANY}
    from_module
 
 feature {LLVM_MODULE}
-   from_module (a_module: LLVM_MODULE) is
+   from_module (a_module: LLVM_MODULE)
       require
          a_module /= Void
       do
@@ -24,27 +24,27 @@ feature {LLVM_MODULE}
 feature {ANY}
    module: LLVM_MODULE
 
-   start is
+   start
       do
          item := function_wrapper_or_void(llvmget_first_function(module.handle))
       end
 
-   finish is
+   finish
       do
          item := function_wrapper_or_void(llvmget_last_function(module.handle))
       end
 
-   next is
+   next
       do
          item := function_wrapper_or_void(llvmget_next_function(module.handle))
       end
 
-   previous is
+   previous
       do
          item := function_wrapper_or_void(llvmget_previous_function(module.handle))
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result:=(item=Void)
       end

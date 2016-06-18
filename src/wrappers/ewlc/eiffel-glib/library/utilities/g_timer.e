@@ -13,7 +13,7 @@ insert G_TIMER_EXTERNALS undefine default_create end
 -- creation make
 
 feature {} -- 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GTimer)"
 		end
@@ -25,26 +25,26 @@ feature {ANY} -- Creation
 			handle := g_timer_new
 		end
 	
-	dispose is
+	dispose
 		do
 			g_timer_destroy (handle)
 			handle := default_pointer
 		end
 	
 feature {ANY}
-	start is
+	start
 			-- (Re)starts timing
 		do
 			g_timer_start(handle)
 		end
 
-	stop is 
+	stop
 			-- Marks an end time
 		do
 			 g_timer_stop (handle)
 		end
 
-	continue is
+	continue
 			-- Resumes a timer that has previously been stopped
 		require
 			-- TODO is_stopped
@@ -52,7 +52,7 @@ feature {ANY}
 			g_timer_continue (handle)
 		end
 
-	elapsed: REAL is
+	elapsed: REAL
 			-- If timer has been started but not stopped, obtains the
 			-- time since the timer was started. If timer has been
 			-- stopped, obtains the elapsed time between the time it was

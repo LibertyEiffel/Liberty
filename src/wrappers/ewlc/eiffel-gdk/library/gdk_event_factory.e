@@ -27,7 +27,7 @@ insert
 	EXCEPTIONS
 
 feature {ANY}
-	wrapper (an_event_pointer: POINTER): GDK_EVENT is
+	wrapper (an_event_pointer: POINTER): GDK_EVENT
 		local a_type: INTEGER
 		do
 			a_type:=gdk_event_type(an_event_pointer)

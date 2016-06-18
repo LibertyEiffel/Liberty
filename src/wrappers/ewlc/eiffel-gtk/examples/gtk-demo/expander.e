@@ -43,7 +43,7 @@ feature {ANY} -- widgets
 	expander: GTK_EXPANDER
 	
 feature {ANY}
-	make is
+	make
 		do
 			if window=Void then
 				create {GTK_DIALOG} window.with_buttons ("GtkExpander", -- Window label

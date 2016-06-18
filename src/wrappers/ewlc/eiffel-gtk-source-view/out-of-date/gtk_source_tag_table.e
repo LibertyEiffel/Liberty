@@ -33,7 +33,7 @@ inherit
 create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkSourceTagTable. The table contains no tags by
 			-- default.
 		do
@@ -41,7 +41,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	add_tags (some_tags: G_SLIST[GTK_TEXT_TAG]) is
+	add_tags (some_tags: G_SLIST[GTK_TEXT_TAG])
 			-- Adds a list of tag to the table. The added tags are assigned the
 			-- highest priority in the table.
 
@@ -52,7 +52,7 @@ feature {ANY}
 			gtk_source_tag_table_add_tags(handle,some_tags.handle)
 		end
 
-	remove_source_tags is
+	remove_source_tags
 			-- Removes all the source tags from the table. This will remove the
 			-- table's reference to the tags, so be careful - tags will end up
 			-- destroyed if you don't have a reference to them.
@@ -73,24 +73,24 @@ feature {ANY} -- Signals
 	--   user_data :      user data set when the signal handler was connected.
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtksourceview/gtksourcetagtable.h>"
 		alias "sizeof(GtkSourceTagTable)"
 		end
 	
 feature {} -- External calls
-	gtk_source_tag_table_new: POINTER is
+	gtk_source_tag_table_new: POINTER
 			-- GtkSourceTagTable* gtk_source_tag_table_new (void);
 		external "C use <gtksourceview/gtksourcetagtable.h>"
 		end
 	
-	gtk_source_tag_table_add_tags (a_table, some_tags: POINTER) is
+	gtk_source_tag_table_add_tags (a_table, some_tags: POINTER)
 			-- void gtk_source_tag_table_add_tags (GtkSourceTagTable *table, const
 			-- GSList *tags);
 		external "C use <gtksourceview/gtksourcetagtable.h>"
 		end
 	
-	gtk_source_tag_table_remove_source_tags (a_table: POINTER) is
+	gtk_source_tag_table_remove_source_tags (a_table: POINTER)
 			-- void gtk_source_tag_table_remove_source_tags (GtkSourceTagTable
 			-- *table);
 		external "C use <gtksourceview/gtksourcetagtable.h>"

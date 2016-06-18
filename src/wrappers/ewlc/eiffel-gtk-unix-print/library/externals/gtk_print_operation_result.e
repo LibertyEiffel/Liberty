@@ -24,7 +24,7 @@ deferred class GTK_PRINT_OPERATION_RESULT
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_print_operation_result (a_result :INTEGER): BOOLEAN is
+	is_valid_gtk_print_operation_result (a_result :INTEGER): BOOLEAN
 		do	
 			Result:=((a_result = gtk_print_operation_result_error) or else
 						(a_result = gtk_print_operation_result_apply) or else
@@ -32,26 +32,26 @@ feature {ANY}  -- enum
 						(a_result = gtk_print_operation_result_in_progress))
 		end
 
-	gtk_print_operation_result_error: INTEGER is
+	gtk_print_operation_result_error: INTEGER
 				-- An error has occured.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_OPERATION_RESULT_ERROR"
 		end
 
-	gtk_print_operation_result_apply: INTEGER is
+	gtk_print_operation_result_apply: INTEGER
 				-- The print settings should be stored.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_OPERATION_RESULT_APPLY"
 		end
 
-	gtk_print_operation_result_cancel: INTEGER is
+	gtk_print_operation_result_cancel: INTEGER
 				-- The print operation has been canceled, the print
 				-- settings should not be stored.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_OPERATION_RESULT_CANCEL"
 		end
 
-	gtk_print_operation_result_in_progress: INTEGER is
+	gtk_print_operation_result_in_progress: INTEGER
 				-- The print operation is complete yet. This value will
 				-- only be returned when running asynchronously.
 		external "C macro use <gtk/gtk.h>"

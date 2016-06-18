@@ -9,7 +9,7 @@ class QUARK_EXAMPLE
 create {ANY} make
 feature {ANY}
 	quark, another, unexisting: G_QUARK
-	make is
+	make
 		do
 			create quark.from_string (once "Ciccio")
 			create another.from_string (once "Ciccio")

@@ -27,38 +27,38 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_misc_set_alignment (a_misc: POINTER; a_gfloat_xalign,a_gfloat_yalign: REAL) is
+	gtk_misc_set_alignment (a_misc: POINTER; a_gfloat_xalign,a_gfloat_yalign: REAL)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_misc_set_padding (a_misc: POINTER; an_xpad, an_ypad: INTEGER) is
+	gtk_misc_set_padding (a_misc: POINTER; an_xpad, an_ypad: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_misc_get_alignment (a_misc,gfloat_xalign,gfloat_yalign: POINTER) is
+	gtk_misc_get_alignment (a_misc,gfloat_xalign,gfloat_yalign: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_misc_get_padding (a_misc,gint_xpad,gint_ypad: POINTER) is
+	gtk_misc_get_padding (a_misc,gint_xpad,gint_ypad: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
 feature {} -- accessing  GtkMisc structure
 
-	get_xalign (a_gtk_misc: POINTER): REAL_32 is
+	get_xalign (a_gtk_misc: POINTER): REAL_32
 		external "C struct GtkMisc get xalign use <gtk/gtk.h>"
 		end
 
-	get_yalign (a_gtk_misc: POINTER): REAL_32 is
+	get_yalign (a_gtk_misc: POINTER): REAL_32
 		external "C struct GtkMisc get xalign use <gtk/gtk.h>"
 		end
 
-	get_xpad (a_gtk_misc: POINTER): INTEGER_16 is
+	get_xpad (a_gtk_misc: POINTER): INTEGER_16
 			-- TODO shall be NATURAL_16
 		external "C struct GtkMisc get xalign use <gtk/gtk.h>"
 		end
 
-	get_ypad (a_gtk_misc: POINTER): INTEGER_16 is
+	get_ypad (a_gtk_misc: POINTER): INTEGER_16
 			-- TODO shall be NATURAL_16
 		external "C struct GtkMisc get xalign use <gtk/gtk.h>"
 		end

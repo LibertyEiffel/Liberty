@@ -23,7 +23,7 @@ feature {} -- Destructors constants
    }"
 		end
 
-	sqlite_transient: POINTER is
+	sqlite_transient: POINTER
 		-- asdads
 		external "plug_in"
 		alias "{

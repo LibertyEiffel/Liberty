@@ -10,19 +10,19 @@ feature {ANY}
     make do end -- absolutely nothing
 
 feature {SQLITE_PREPARED_STATEMENT} 
-	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) is
+	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER)
         local res: INTEGER
 		do
 			res := sqlite3_bind_null(a_statement.handle, 0)
 		end
 		 
 feature {ANY}
-	as_string: STRING is 
+	as_string: STRING
 		do
 			Result := once "NULL"
 		end
 
-	type: INTEGER is 
+	type: INTEGER
 	do
 		Result := sqlite_null
 	end

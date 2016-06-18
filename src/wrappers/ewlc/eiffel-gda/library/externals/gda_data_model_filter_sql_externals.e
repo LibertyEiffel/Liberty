@@ -8,23 +8,23 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_data_model_filter_sql_run (a_sel: POINTER): INTEGER_32 is
+	gda_data_model_filter_sql_run (a_sel: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_data_model_filter_sql_set_sql (a_sel: POINTER; a_sql: POINTER) is
+	gda_data_model_filter_sql_set_sql (a_sel: POINTER; a_sql: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_data_model_filter_sql_add_source (a_sel: POINTER; a_name: POINTER; a_source: POINTER) is
+	gda_data_model_filter_sql_add_source (a_sel: POINTER; a_name: POINTER; a_source: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_data_model_filter_sql_new: POINTER is
+	gda_data_model_filter_sql_new: POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_data_model_filter_sql_get_type: INTEGER_32 is
+	gda_data_model_filter_sql_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

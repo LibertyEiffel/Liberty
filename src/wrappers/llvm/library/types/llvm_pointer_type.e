@@ -4,7 +4,7 @@ inherit LLVM_SEQUENCE_TYPE
 
 create {ANY} make, from_external_pointer
 feature {ANY} -- Creation
-   make (a_type: LLVM_TYPE) is
+   make (a_type: LLVM_TYPE)
          -- Creates a pointer type referring to `a_type'
 
          -- TODO: the C call has an undocumented/misunderstood `unsigned
@@ -14,7 +14,7 @@ feature {ANY} -- Creation
          handle:=llvmpointer_type(a_type.handle, 0.to_natural_32)
       end
 
-   address_space: NATURAL_32 is
+   address_space: NATURAL_32
          -- The address space of the pointer
       do
          Result:=llvmget_pointer_address_space(handle)

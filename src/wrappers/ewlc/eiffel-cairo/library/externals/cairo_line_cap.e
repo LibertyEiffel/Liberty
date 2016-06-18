@@ -25,27 +25,27 @@ deferred class CAIRO_LINE_CAP
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_line_cap (a_cap: INTEGER): BOOLEAN is
+	is_valid_line_cap (a_cap: INTEGER): BOOLEAN
 		do	
 			Result:=((a_cap =	cairo_line_cap_butt) or else
 						(a_cap =	cairo_line_cap_round) or else
 						(a_cap =	cairo_line_cap_square))
 		end
 	
-	cairo_line_cap_butt: INTEGER is
+	cairo_line_cap_butt: INTEGER
 			-- start(stop) the line exactly at the start(end) point
 		external "C macro use <cairo.h>"
 		alias "CAIRO_LINE_CAP_BUTT"
 		end
 
-	cairo_line_cap_round: INTEGER is
+	cairo_line_cap_round: INTEGER
 			-- use a round ending, the center of the circle is the end
 			-- point
 		external "C macro use <cairo.h>"
 		alias "CAIRO_LINE_CAP_ROUND"
 		end
 
-	cairo_line_cap_square: INTEGER is
+	cairo_line_cap_square: INTEGER
 			-- use squared ending, the center of the square is the end
 			-- point)
 		external "C macro use <cairo.h>"

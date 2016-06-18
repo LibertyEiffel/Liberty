@@ -27,31 +27,31 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_radio_button_new (gslist_group: POINTER): POINTER is
+	gtk_radio_button_new (gslist_group: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_radio_button_new_from_widget (gtkradiobutton_group: POINTER): POINTER is
+	gtk_radio_button_new_from_widget (gtkradiobutton_group: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_radio_button_new_with_label (gslist_group, a_label: POINTER): POINTER is
+	gtk_radio_button_new_with_label (gslist_group, a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_radio_button_new_with_label_from_widget (gtkradiobutton_group, a_label: POINTER): POINTER is
+	gtk_radio_button_new_with_label_from_widget (gtkradiobutton_group, a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_radio_button_new_with_mnemonic (gslist_group, a_label: POINTER): POINTER is
+	gtk_radio_button_new_with_mnemonic (gslist_group, a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_radio_button_new_with_mnemonic_from_widget (gtkradiobutton_group, a_label: POINTER): POINTER is
+	gtk_radio_button_new_with_mnemonic_from_widget (gtkradiobutton_group, a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_radio_button_set_group (a_radio_button, gslist_group: POINTER) is
+	gtk_radio_button_set_group (a_radio_button, gslist_group: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 

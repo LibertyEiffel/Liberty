@@ -34,7 +34,7 @@ inherit
 		end
 
 feature {} -- Creation
-	default_create is
+	default_create
 		do
 			create port
 			child_pid:=fork
@@ -50,12 +50,12 @@ feature {} -- Creation
 			end
 		end
 
-	main is
+	main
 		-- Wait for messages to arrive on `port' and process
 	port: MEMORY_MAPPED_MESSAGE_PORT
 
 feature {} -- Implementation
-	is_child: BOOLEAN is
+	is_child: BOOLEAN
 		do
 			Result := (child_pid=0)
 		end	

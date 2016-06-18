@@ -22,65 +22,65 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Structure getter/setter calls
    -- GtsSurface * s;
-	get_s (a_struct: POINTER): POINTER is
+	get_s (a_struct: POINTER): POINTER
 		external "C struct GtsPSurface get s use <gts.h>"
 		end
 
-	set_s (a_struct: POINTER; a_s: POINTER) is
+	set_s (a_struct: POINTER; a_s: POINTER)
 		external "C struct GtsPSurface set s use <gts.h>"
 		end
 
    -- GPtrArray * split;
-	get_split (a_struct: POINTER): POINTER is
+	get_split (a_struct: POINTER): POINTER
 		external "C struct GtsPSurface get split use <gts.h>"
 		end
 
-	set_split (a_struct: POINTER; a_split: POINTER) is
+	set_split (a_struct: POINTER; a_split: POINTER)
 		external "C struct GtsPSurface set split use <gts.h>"
 		end
 	
    -- GtsSplitClass * split_class;
-	get_split_class (a_struct: POINTER): POINTER is
+	get_split_class (a_struct: POINTER): POINTER
 		external "C struct GtsPSurface get split_class use <gts.h>"
 		end
 
-	set_split_class (a_struct: POINTER; a_split_class: POINTER) is
+	set_split_class (a_struct: POINTER; a_split_class: POINTER)
 		external "C struct GtsPSurface set split_class use <gts.h>"
 		end
 
-	get_pos (a_struct: POINTER): INTEGER is
+	get_pos (a_struct: POINTER): INTEGER
 			-- TODO: should be NATURAL, since it is a guint
 		external "C struct GtsPSurface get pos use <gts.h>"
 		end
 	
-	set_pos (a_struct: POINTER; a_pos: INTEGER) is
+	set_pos (a_struct: POINTER; a_pos: INTEGER)
 			-- TODO: a_pos should be NATURAL, since it is a guint
 		external "C struct GtsPSurface set pos use <gts.h>"
 		end
 	
-	get_min (a_struct: POINTER): INTEGER is
+	get_min (a_struct: POINTER): INTEGER
 			-- TODO: should be NATURAL, since it is a guint
 		external "C struct GtsPSurface get min use <gts.h>"
 		end
 	
-	set_min (a_struct: POINTER; a_min: INTEGER) is
+	set_min (a_struct: POINTER; a_min: INTEGER)
 			-- TODO: a_min should be NATURAL, since it is a guint
 		external "C struct GtsPSurface set min use <gts.h>"			
 		end
 	
-	get_vertices (a_struct: POINTER): POINTER is
+	get_vertices (a_struct: POINTER): POINTER
 		external "C struct GtsPSurface get vertices use <gts.h>"
 		end
 	
-	set_vertices (a_struct: POINTER; a_vertices: POINTER) is
+	set_vertices (a_struct: POINTER; a_vertices: POINTER)
 		external "C struct GtsPSurface set vertices use <gts.h>"
 		end
 
-	get_faces (a_struct: POINTER): POINTER is
+	get_faces (a_struct: POINTER): POINTER
 		external "C struct GtsPSurface get faces use <gts.h>"
 		end
 
-	set_faces (a_struct: POINTER; a_faces: POINTER) is
+	set_faces (a_struct: POINTER; a_faces: POINTER)
 		external "C struct GtsPSurface set faces use <gts.h>"
 		end
 

@@ -27,25 +27,25 @@ inherit
 	ANY undefine is_equal, copy end
 
 feature  {} -- enum
-	are_valid_attach_options (an_attach_options: INTEGER): BOOLEAN is
+	are_valid_attach_options (an_attach_options: INTEGER): BOOLEAN
 		do	
 			Result:=(an_attach_options & (gtk_expand | gtk_shrink | gtk_fill)).to_boolean
 		end
 
-	gtk_expand: INTEGER is
+	gtk_expand: INTEGER
 			-- the widget should expand to take up any extra space in its container
 			-- that has been allocated.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_EXPAND"
 		end
 	
-	gtk_shrink: INTEGER is
+	gtk_shrink: INTEGER
 			-- the widget should shrink as and when possible.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHRINK"
 		end
 	
-	gtk_fill: INTEGER is
+	gtk_fill: INTEGER
 			-- the widget should fill the space allocated to it.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_FILL"

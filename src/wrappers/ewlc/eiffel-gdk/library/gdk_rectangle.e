@@ -27,31 +27,31 @@ create {ANY} from_external_pointer, from_external_copy, make
 
 feature {ANY} --Creation
 
-	make is
+	make
 		do
 			allocate
 		end
 
 feature {ANY}
-	x: INTEGER is
+	x: INTEGER
 			-- the x coordinate of the left edge of the rectangle.
 		do
 			Result:=get_x(handle)
 		end
 
-	y: INTEGER is
+	y: INTEGER
 			-- the y coordinate of the top of the rectangle.
 		do
 			Result:=get_y(handle)
 		end
 
-	width: INTEGER is
+	width: INTEGER
 			-- the width of the rectangle.
 		do
 			Result:=get_width(handle)
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- the height of the rectangle.
 		do
 			Result:=get_height(handle)
@@ -59,7 +59,7 @@ feature {ANY}
 	
 feature {ANY} -- Union and intersection
 
-	intersection (a_rectangle, another_rectangle: GDK_RECTANGLE): BOOLEAN is
+	intersection (a_rectangle, another_rectangle: GDK_RECTANGLE): BOOLEAN
 			-- Makes Current the intersection of two rectangles; Result
 			-- is True if they actually intersect.
 		require
@@ -70,7 +70,7 @@ feature {ANY} -- Union and intersection
 															handle).to_boolean)
 		end
 	
-	union (a_rectangle, another_rectangle: GDK_RECTANGLE) is
+	union (a_rectangle, another_rectangle: GDK_RECTANGLE)
 			-- Makes Current the union of two rectangles. The union of
 			-- `a_rectangle' and `another_rectangle' is the smallest
 			-- rectangle which includes both within it.
@@ -82,26 +82,26 @@ feature {ANY} -- Union and intersection
 		end
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkRectangle)"
 		end
 
 feature {} -- Struct accesing
 
-	get_x (span: POINTER): INTEGER is
+	get_x (span: POINTER): INTEGER
 		external "C struct GdkRectangle get x use <gdk/gdk.h>"
 		end
 
-	get_y (span: POINTER): INTEGER is
+	get_y (span: POINTER): INTEGER
 		external "C struct GdkRectangle get y use <gdk/gdk.h>"
 		end
 	
-	get_width (span: POINTER): INTEGER is
+	get_width (span: POINTER): INTEGER
 		external "C struct GdkRectangle get width use <gdk/gdk.h>"
 		end
 
-	get_height (span: POINTER): INTEGER is
+	get_height (span: POINTER): INTEGER
 		external "C struct GdkRectangle get height use <gdk/gdk.h>"
 		end
 
@@ -111,7 +111,7 @@ feature {} -- External features
 		external "C use  <gdk/gdk.h>"
 		end
 	
-	gdk_rectangle_union (a_src1_rectangle, a_src2_rectangle, a_dest_rectangle: POINTER) is
+	gdk_rectangle_union (a_src1_rectangle, a_src2_rectangle, a_dest_rectangle: POINTER)
 		external "C use  <gdk/gdk.h>"
 		end
 end

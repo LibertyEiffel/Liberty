@@ -5,20 +5,20 @@ deferred class GDA_BINARY_STRUCT
 inherit ANY undefine is_equal, copy end
 
 feature {} -- Low-level setters
-	low_level_set_data (a_structure: POINTER; a_value: POINTER) is
+	low_level_set_data (a_structure: POINTER; a_value: POINTER)
 		external "C struct GdaBinary set data use <library/externals/all-gda-includes.h>"
 		end
 
-	low_level_set_binary_length (a_structure: POINTER; a_value: INTEGER_32) is
+	low_level_set_binary_length (a_structure: POINTER; a_value: INTEGER_32)
 		external "C struct GdaBinary set binary_length use <library/externals/all-gda-includes.h>"
 		end
 
 feature {} -- Low-level queries
-	get_data (a_structure: POINTER): POINTER is
+	get_data (a_structure: POINTER): POINTER
 		external "C struct GdaBinary get data use <library/externals/all-gda-includes.h>"
 		end
 
-	get_binary_length (a_structure: POINTER): INTEGER_32 is
+	get_binary_length (a_structure: POINTER): INTEGER_32
 		external "C struct GdaBinary get binary_length use <library/externals/all-gda-includes.h>"
 		end
 

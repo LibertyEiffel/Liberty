@@ -32,11 +32,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_tag_table_add (a_table, a_tag: POINTER) is
+	gtk_text_tag_table_add (a_table, a_tag: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_tag_table_remove (a_table, a_tag: POINTER) is
+	gtk_text_tag_table_remove (a_table, a_tag: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_tag_table_foreach (a_table, a_gtktexttagtableforeach_func, some_data: POINTER) is
+	gtk_text_tag_table_foreach (a_table, a_gtktexttagtableforeach_func, some_data: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 

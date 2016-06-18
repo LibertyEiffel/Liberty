@@ -37,7 +37,7 @@ inherit
 	
 
 feature {ANY}
-	pack_start (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
+	pack_start (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN)
 			-- Packs `a_cell_renderer' into the beginning of Current cell
 			-- layout. If expand is False, then the cell is allocated no
 			-- more space than it needs. Any unused space is divided
@@ -49,7 +49,7 @@ feature {ANY}
 	gtk_cell_layout_pack_start (handle, a_cell_renderer.handle, expand.to_integer)
 		end
 	
-	pack_end (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
+	pack_end (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN)
 			-- Packs the cell to the end of Current cell layout. If expand is
 			-- FALSE, then the cell is allocated no more space than it needs. Any
 			-- unused space is divided evenly between cells for which expand is
@@ -61,7 +61,7 @@ feature {ANY}
 			gtk_cell_layout_pack_end (handle, a_cell_renderer.handle, expand.to_integer)
 		end
 
-	reorder  (a_cell_renderer: GTK_CELL_RENDERER; a_position: INTEGER) is
+	reorder  (a_cell_renderer: GTK_CELL_RENDERER; a_position: INTEGER)
 			-- Re-inserts cell at position. Note that cell has already to be packed
 			-- into cell_layout for this to function properly.
 		require
@@ -72,14 +72,14 @@ feature {ANY}
 		end
 
 
-	clear is
+	clear
 			-- Unsets all the mappings on all renderers on cell_layout and removes
 			-- all renderers from cell_layout.
 		do
 			gtk_cell_layout_clear (handle)
 		end			
 
-	set_attributes (a_cell_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION[TUPLE[STRING,INTEGER]]) is
+	set_attributes (a_cell_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION[TUPLE[STRING,INTEGER]])
 			-- Sets `some_attributes' as the attributes of the cell
 			-- layout. All existing attributes are removed, and replaced
 			-- with the new attributes.
@@ -107,7 +107,7 @@ feature {ANY}
 			end
 		end
 
-	add_attribute (a_cell_renderer: GTK_CELL_RENDERER; an_attribute: STRING; a_column: INTEGER) is
+	add_attribute (a_cell_renderer: GTK_CELL_RENDERER; an_attribute: STRING; a_column: INTEGER)
 			-- Adds `an_attribute' mapping to the list in cell
 			-- layout. `a_column' is the column of the model to get a
 			-- value from, and `an_attribute' is the parameter on cell to
@@ -140,7 +140,7 @@ feature {ANY}
 	-- func_data : 	The user data for func.
 	-- destroy : 	The destroy notification for func_data.
 
-	clear_attributes (a_cell_renderer: GTK_CELL_RENDERER) is
+	clear_attributes (a_cell_renderer: GTK_CELL_RENDERER)
 			-- Clears all existing attributes previously set with
 			-- `set_attributes'.
 		require			
@@ -149,7 +149,7 @@ feature {ANY}
 			gtk_cell_layout_clear_attributes(handle, a_cell_renderer.handle)	
 		end
 feature {ANY} -- Precondition helping features
-	is_tuple_valid (item: TUPLE[STRING,INTEGER]): BOOLEAN is
+	is_tuple_valid (item: TUPLE[STRING,INTEGER]): BOOLEAN
 			-- Is `item' not Void and then the string contained not Void?
 		do
 			Result := ((item /= Void) and then (item.item_1 /= Void))
@@ -168,20 +168,20 @@ feature {} -- External calls
 	-- *iter, gpointer data);
 
 	gtk_cell_layout_pack_start (a_cell_layout, a_cell_renderer: POINTER;
-										 a_expand_bool: INTEGER ) is
+										 a_expand_bool: INTEGER )
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_cell_layout_pack_end (a_cell_layout, a_cell_renderer: POINTER;a_expand_bool: INTEGER) is
+	gtk_cell_layout_pack_end (a_cell_layout, a_cell_renderer: POINTER;a_expand_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
 	gtk_cell_layout_reorder (a_cell_layout, a_cell_renderer: POINTER;
-									 a_position: INTEGER) is
+									 a_position: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_cell_layout_clear (a_cell_layout: POINTER) is
+	gtk_cell_layout_clear (a_cell_layout: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -189,13 +189,13 @@ feature {} -- External calls
 	-- be wrapped correctly and it hasn't been wrapped. The high level 
 	-- set_attibutes has been implemented mimicking the C implementation.
 	
-	gtk_cell_layout_add_attribute (a_cell_layout, a_cell_renderer: POINTER; an_attribute: POINTER; a_column: INTEGER) is
+	gtk_cell_layout_add_attribute (a_cell_layout, a_cell_renderer: POINTER; an_attribute: POINTER; a_column: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- gtk_cell_layout_set_cell_data_func (a_cell_layout: POINTER, a_cell_renderer: POINTER, GtkCellLayoutDataFunc func, gpointer func_data, GDestroyNotify destroy) is	external "C use <gtk/gtk.h>"	end
 
-	gtk_cell_layout_clear_attributes (a_cell_layout: POINTER; a_cell_renderer: POINTER) is
+	gtk_cell_layout_clear_attributes (a_cell_layout: POINTER; a_cell_renderer: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	

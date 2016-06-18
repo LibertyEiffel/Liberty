@@ -27,7 +27,7 @@ inherit
 
 feature {} -- External calls
 
-	glade_xml_new (fname, root, domain: POINTER): POINTER is
+	glade_xml_new (fname, root, domain: POINTER): POINTER
 		require
 			fname.is_not_null
 		external "C use <glade/glade.h>"
@@ -35,11 +35,11 @@ feature {} -- External calls
 			Result.is_not_null
 		end
 
-	glade_xml_signal_autoconnect (self: POINTER) is
+	glade_xml_signal_autoconnect (self: POINTER)
 		external "C use <glade/glade.h>"
 		end
 
-	glade_xml_get_widget (self, name: POINTER): POINTER is
+	glade_xml_get_widget (self, name: POINTER): POINTER
 		require
 			self.is_not_null
 			name.is_not_null

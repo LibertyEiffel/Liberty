@@ -8,7 +8,7 @@ note
 expanded class SQLITE_TYPE_CODES
 
 feature {} -- Type codes
-	sqlite_integer: INTEGER is
+	sqlite_integer: INTEGER
 			-- #define SQLITE_INTEGER 1
 		external "plug_in"
 		alias "{
@@ -18,7 +18,7 @@ feature {} -- Type codes
 			}"
 		end
 
-	sqlite_float: INTEGER is
+	sqlite_float: INTEGER
 			-- #define SQLITE_FLOAT 2
 		external "plug_in"
 		alias "{
@@ -28,7 +28,7 @@ feature {} -- Type codes
 			}"
 		end
 
-	sqlite_text: INTEGER is
+	sqlite_text: INTEGER
 			-- #define SQLITE3_TEXT 
 		external "plug_in"
 		alias "{
@@ -38,7 +38,7 @@ feature {} -- Type codes
 			}"
 		end
 
-	sqlite_blob: INTEGER is
+	sqlite_blob: INTEGER
 			-- #define SQLITE_BLOB 4
 		external "plug_in"
 		alias "{
@@ -48,7 +48,7 @@ feature {} -- Type codes
 			}"
 		end
 
-	sqlite_null: INTEGER is
+	sqlite_null: INTEGER
 			-- #define SQLITE_NULL 5
 		external "plug_in"
 		alias "{

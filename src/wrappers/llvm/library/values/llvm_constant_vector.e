@@ -4,7 +4,7 @@ inherit
 		redefine type end
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature {ANY} 
-	type: LLVM_VECTOR_TYPE is
+	type: LLVM_VECTOR_TYPE
 		do
 			create Result.from_external_pointer(llvmtype_of(handle))
 		end

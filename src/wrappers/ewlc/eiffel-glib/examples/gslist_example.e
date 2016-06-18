@@ -11,7 +11,7 @@ create {ANY} make
 feature {ANY}
 	list: G_SLIST[G_STRING]
 	first: G_STRING
-feature {ANY} make is
+feature {ANY} make
 		local i: ITERATOR [G_STRING]
 		do
 			create list.make_empty

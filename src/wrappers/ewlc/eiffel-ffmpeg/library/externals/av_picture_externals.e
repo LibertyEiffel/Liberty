@@ -28,30 +28,30 @@ inherit
 
 feature {} -- External calls
 
-	av_picture_get_linesize (a_pict: POINTER; a_channel: INTEGER): INTEGER is
+	av_picture_get_linesize (a_pict: POINTER; a_channel: INTEGER): INTEGER
 		external "C inline <avcodec.h>"
 		alias "(((AVPicture *)$a_pict)->linesize[$a_channel])"
 		end
 
-	av_picture_get_data (a_pict: POINTER; a_channel: INTEGER): POINTER is
+	av_picture_get_data (a_pict: POINTER; a_channel: INTEGER): POINTER
 		external "C inline <avcodec.h>"
 		alias "(((AVPicture *)$a_pict)->data[$a_channel])"
 		end
 
 	img_convert (a_dest: POINTER; a_dest_pix_fmt: INTEGER; a_src: POINTER;
-					 a_src_pix_fmt, a_width, a_height: INTEGER): INTEGER is
+					 a_src_pix_fmt, a_width, a_height: INTEGER): INTEGER
 		external "C use <avcodec.h>"
 		end
 
-	avpicture_alloc (a_pict: POINTER; a_pixel_format, a_width, a_height: INTEGER): INTEGER is
+	avpicture_alloc (a_pict: POINTER; a_pixel_format, a_width, a_height: INTEGER): INTEGER
 		external "C use <avcodec.h>"
 		end
 
-	avpicture_free (a_pict: POINTER) is
+	avpicture_free (a_pict: POINTER)
 		external "C use <avcodec.h>"
 		end
 
-	avpicture_get_size (a_pixel_format, a_width, a_height: INTEGER): INTEGER is
+	avpicture_get_size (a_pixel_format, a_width, a_height: INTEGER): INTEGER
 		external "C use <avcodec.h>"
 		end
 

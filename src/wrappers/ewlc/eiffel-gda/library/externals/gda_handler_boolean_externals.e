@@ -8,11 +8,11 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_handler_boolean_new: POINTER is
+	gda_handler_boolean_new: POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_handler_boolean_get_type: INTEGER_32 is
+	gda_handler_boolean_get_type: INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 

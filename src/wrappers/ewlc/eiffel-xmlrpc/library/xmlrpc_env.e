@@ -37,14 +37,14 @@ create {ANY}
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <xmlrpc-c/base.h>"
 		alias "sizeof (xmlrpc_env)"
 		end
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			allocate
 			xmlrpc_env_init (handle)
@@ -52,7 +52,7 @@ feature {} -- Creation
 
 feature {ANY} -- Destruction
 
-	dispose is
+	dispose
 		do
 			xmlrpc_env_clean (handle)
 			Precursor
@@ -60,19 +60,19 @@ feature {ANY} -- Destruction
 
 feature {ANY}
 
-	fault_occurred: BOOLEAN is
+	fault_occurred: BOOLEAN
 		do
 			Result := xmlrpc_env_fault_occurred (handle).to_boolean
 		end
 
-	fault_code: INTEGER is
+	fault_code: INTEGER
 		do
 			Result := xmlrpc_env_fault_code (handle)
 		ensure
 			is_valid_xmlrpc_error_type (Result)
 		end
 
-	fault_string: STRING is
+	fault_string: STRING
 		local
 			res_ptr: POINTER
 		do

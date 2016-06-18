@@ -26,7 +26,7 @@ inherit WRAPPER_HANDLER
 insert GTS_POINT_EXTERNALS
 
 feature {ANY} 
-	orientation (p1,p2,p3: GTS_POINT): REAL is
+	orientation (p1,p2,p3: GTS_POINT): REAL
 			-- Checks for orientation of the projection of three points
 			-- on the (x,y) plane. The result is an approximation of
 			-- twice the signed area of the triangle defined by the three
@@ -44,7 +44,7 @@ feature {ANY}
 			Result := gts_point_orientation (p1.handle, p2.handle, p3.handle)
 		end
 
-	orientation_sos (p1,p2,p3: GTS_POINT): INTEGER is
+	orientation_sos (p1,p2,p3: GTS_POINT): INTEGER
 			-- Checks for orientation of the projection of three points
 			-- on the (x,y) plane.
 		

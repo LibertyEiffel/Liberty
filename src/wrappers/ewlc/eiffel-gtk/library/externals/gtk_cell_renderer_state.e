@@ -26,7 +26,7 @@ deferred class GTK_CELL_RENDERER_STATE
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_gtk_cell_renderer_state (a_state :INTEGER): BOOLEAN is
+	is_valid_gtk_cell_renderer_state (a_state :INTEGER): BOOLEAN
 		do
 			Result:=((a_state = gtk_cell_renderer_selected) or else
 						(a_state = gtk_cell_renderer_prelit) or else
@@ -37,31 +37,31 @@ feature {} -- enum
 						(a_state = gtk_cell_renderer_focused))
 		end
 
-	gtk_cell_renderer_selected: INTEGER is
+	gtk_cell_renderer_selected: INTEGER
 			-- 	The cell is currently selected, and probably has a selection colored background to render to.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CELL_RENDERER_SELECTED"
 		end
 	
-	gtk_cell_renderer_prelit: INTEGER is
+	gtk_cell_renderer_prelit: INTEGER
 			-- 	The mouse is hovering over the cell.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CELL_RENDERER_PRELIT"
 		end
 	
-	gtk_cell_renderer_insensitive: INTEGER is
+	gtk_cell_renderer_insensitive: INTEGER
 			-- 	The cell is drawn in an insensitive manner
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CELL_RENDERER_INSENSITIVE"
 		end
 	
-	gtk_cell_renderer_sorted: INTEGER is
+	gtk_cell_renderer_sorted: INTEGER
 			-- 	The cell is in a sorted row
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CELL_RENDERER_SORTED"
 		end
 
-	gtk_cell_renderer_focused: INTEGER is
+	gtk_cell_renderer_focused: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CELL_RENDERER_FOCUSED"
 		end

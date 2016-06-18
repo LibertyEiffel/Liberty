@@ -33,19 +33,19 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	are_valid_tree_model_flags (some_flags: INTEGER): BOOLEAN is
+	are_valid_tree_model_flags (some_flags: INTEGER): BOOLEAN
 		do
 			Result:=(some_flags & (gtk_tree_model_iters_persist |
 										  gtk_tree_model_list_only)).to_boolean
 		end
 
-	gtk_tree_model_iters_persist: INTEGER is
+	gtk_tree_model_iters_persist: INTEGER
 			-- 	Iterators survive all signals emitted by the tree.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_MODEL_ITERS_PERSIST"
 		end
 
-	gtk_tree_model_list_only: INTEGER is
+	gtk_tree_model_list_only: INTEGER
 			-- 	The model is a list only, and never has children
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_MODEL_LIST_ONLY"

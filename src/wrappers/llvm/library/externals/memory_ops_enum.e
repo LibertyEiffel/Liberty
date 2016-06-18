@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = alloca_low_level)  or else
 				(a_value = atomic_cmp_xchg_low_level)  or else
@@ -22,99 +22,99 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_alloca is
+	set_alloca
 		do
 			value := alloca_low_level
 		end
 
-	set_atomic_cmp_xchg is
+	set_atomic_cmp_xchg
 		do
 			value := atomic_cmp_xchg_low_level
 		end
 
-	set_atomic_rmw is
+	set_atomic_rmw
 		do
 			value := atomic_rmw_low_level
 		end
 
-	set_fence is
+	set_fence
 		do
 			value := fence_low_level
 		end
 
-	set_get_element_ptr is
+	set_get_element_ptr
 		do
 			value := get_element_ptr_low_level
 		end
 
-	set_load is
+	set_load
 		do
 			value := load_low_level
 		end
 
-	set_memory_ops_begin is
+	set_memory_ops_begin
 		do
 			value := memory_ops_begin_low_level
 		end
 
-	set_memory_ops_end is
+	set_memory_ops_end
 		do
 			value := memory_ops_end_low_level
 		end
 
-	set_store is
+	set_store
 		do
 			value := store_low_level
 		end
 
 feature {ANY} -- Queries
-	is_alloca: BOOLEAN is
+	is_alloca: BOOLEAN
 		do
 			Result := (value=alloca_low_level)
 		end
 
-	is_atomic_cmp_xchg: BOOLEAN is
+	is_atomic_cmp_xchg: BOOLEAN
 		do
 			Result := (value=atomic_cmp_xchg_low_level)
 		end
 
-	is_atomic_rmw: BOOLEAN is
+	is_atomic_rmw: BOOLEAN
 		do
 			Result := (value=atomic_rmw_low_level)
 		end
 
-	is_fence: BOOLEAN is
+	is_fence: BOOLEAN
 		do
 			Result := (value=fence_low_level)
 		end
 
-	is_get_element_ptr: BOOLEAN is
+	is_get_element_ptr: BOOLEAN
 		do
 			Result := (value=get_element_ptr_low_level)
 		end
 
-	is_load: BOOLEAN is
+	is_load: BOOLEAN
 		do
 			Result := (value=load_low_level)
 		end
 
-	is_memory_ops_begin: BOOLEAN is
+	is_memory_ops_begin: BOOLEAN
 		do
 			Result := (value=memory_ops_begin_low_level)
 		end
 
-	is_memory_ops_end: BOOLEAN is
+	is_memory_ops_end: BOOLEAN
 		do
 			Result := (value=memory_ops_end_low_level)
 		end
 
-	is_store: BOOLEAN is
+	is_store: BOOLEAN
 		do
 			Result := (value=store_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	alloca_low_level: INTEGER is
+	alloca_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	atomic_cmp_xchg_low_level: INTEGER is
+	atomic_cmp_xchg_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	atomic_rmw_low_level: INTEGER is
+	atomic_rmw_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fence_low_level: INTEGER is
+	fence_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	get_element_ptr_low_level: INTEGER is
+	get_element_ptr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	load_low_level: INTEGER is
+	load_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	memory_ops_begin_low_level: INTEGER is
+	memory_ops_begin_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -177,7 +177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	memory_ops_end_low_level: INTEGER is
+	memory_ops_end_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -186,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	store_low_level: INTEGER is
+	store_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -32,7 +32,7 @@ insert
 
 feature {ANY}-- Initialization
 
-	initialization (application_id, version: STRING) is
+	initialization (application_id, version: STRING)
 		--   Initializes the GDA library.
 	do
 		gda_init 

@@ -27,7 +27,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make (x0,y0,x1,y1: REAL) is
+	make (x0,y0,x1,y1: REAL)
 			-- Create a new linear gradient along the line defined by
 			-- (x0, y0) and (x1, y1). Before using the gradient pattern,
 			-- a number of color stops should be defined using

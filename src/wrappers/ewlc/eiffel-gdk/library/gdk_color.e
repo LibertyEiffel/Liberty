@@ -17,22 +17,22 @@ create {ANY}
 
 feature {ANY} 
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkColor)"
 		end
 
-	make is
+	make
 		do
 			allocate
 		end
 
-	dispose is
+	dispose
 		do
 			gdk_color_free (handle)			
 		end
 	
-	copy (another: like Current) is
+	copy (another: like Current)
 		do
 			from_external_pointer(gdk_color_copy(handle))
 		end
@@ -44,7 +44,7 @@ feature {ANY} -- Getters and setters
 		-- Shall be set to True after a call to gdk_color_alloc()
 		-- or gdk_colors_alloc()
 
-	pixel: INTEGER is
+	pixel: INTEGER
 			-- For allocated colors, the value used to draw this color on the
 			-- screen.
 		require
@@ -55,7 +55,7 @@ feature {ANY} -- Getters and setters
 			Result > 0
 		end
 
-	red: INTEGER is
+	red: INTEGER
 			-- The red component of the color. This is a value between 0 and
 			-- 65535, with 65535 indicating full intensitiy.
 		do
@@ -64,7 +64,7 @@ feature {ANY} -- Getters and setters
 			Result.in_range (0, 65535)
 		end
 
-	green: INTEGER is
+	green: INTEGER
 			-- The green component of the color.
 		do
 			Result := get_green_external (handle)
@@ -72,7 +72,7 @@ feature {ANY} -- Getters and setters
 			Result.in_range (0, 65535)
 		end
 
-	blue: INTEGER is
+	blue: INTEGER
 			-- The blue component of the color.
 		do
 			Result := get_blue_external (handle)
@@ -80,7 +80,7 @@ feature {ANY} -- Getters and setters
 			Result.in_range (0, 65535)
 		end
 
-	set_red (a_red: INTEGER) is
+	set_red (a_red: INTEGER)
 		require
 			a_red.in_range (0, 65535)
 		do
@@ -89,7 +89,7 @@ feature {ANY} -- Getters and setters
 			red = a_red
 		end
 
-	set_green (a_green: INTEGER) is
+	set_green (a_green: INTEGER)
 		require
 			a_green.in_range (0, 65535)
 		do
@@ -98,7 +98,7 @@ feature {ANY} -- Getters and setters
 			green = a_green
 		end
 
-	set_blue (a_blue: INTEGER) is
+	set_blue (a_blue: INTEGER)
 		require
 			a_blue.in_range (0, 65535)
 		do
@@ -109,47 +109,47 @@ feature {ANY} -- Getters and setters
 
 feature {} -- Low level access
 
-	gdk_color_copy (a_color: POINTER): POINTER is
+	gdk_color_copy (a_color: POINTER): POINTER
 			-- GdkColor* gdk_color_copy (const GdkColor *color);
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_color_free (a_color: POINTER) is
+	gdk_color_free (a_color: POINTER)
 			-- void gdk_color_free (GdkColor *color);
 		external "C use <gdk/gdk.h>"
 		end
 
-	get_pixel_external (ptr: POINTER): INTEGER is
+	get_pixel_external (ptr: POINTER): INTEGER
 			-- Note: Result shall be NATURAL_32 since itr's a guint32
 		external "C struct GdkColor get pixel use <gdk/gdk.h>"
 		end
 
-	get_red_external (ptr: POINTER): INTEGER is
+	get_red_external (ptr: POINTER): INTEGER
 			-- Note: Result shall be NATURAL_16 since itr's a guint16
 		external "C struct GdkColor get red use <gdk/gdk.h>"
 		end
 
-	set_red_external (ptr: POINTER; a_red: INTEGER) is
+	set_red_external (ptr: POINTER; a_red: INTEGER)
 			-- NOTE: a_red shall be a NATURAL_16 since it's a guint16
 		external "C struct GdkColor set red use <gdk/gdk.h>"
 		end
 
-	get_green_external (ptr: POINTER): INTEGER is
+	get_green_external (ptr: POINTER): INTEGER
 			-- Note: Result shall be NATURAL_16 since itr's a guint16
 		external "C struct GdkColor get green use <gdk/gdk.h>"
 		end
 
-	set_green_external (ptr: POINTER; a_green: INTEGER) is
+	set_green_external (ptr: POINTER; a_green: INTEGER)
 			-- NOTE: a_ shall be a NATURAL_16 since it's a guint16
 		external "C struct GdkColor set green use <gdk/gdk.h>"
 		end
 
-	get_blue_external (ptr: POINTER): INTEGER is
+	get_blue_external (ptr: POINTER): INTEGER
 			-- Note: Result shall be NATURAL_16 since itr's a guint16
 		external "C struct GdkColor get blue use <gdk/gdk.h>"
 		end
 
-	set_blue_external (ptr: POINTER; a_blue: INTEGER) is
+	set_blue_external (ptr: POINTER; a_blue: INTEGER)
 			-- NOTE: a_blue shall be a NATURAL_16 since it's a guint16
 		external "C struct GdkColor set blue use <gdk/gdk.h>"
 		end

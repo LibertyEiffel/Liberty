@@ -17,7 +17,7 @@ feature {} -- Implementation
 feature {}
 
 
-	ffi_type_void: POINTER is
+	ffi_type_void: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -26,7 +26,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_sint8: POINTER is
+	ffi_type_sint8: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -35,7 +35,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_uint64: POINTER is
+	ffi_type_uint64: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -44,7 +44,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_uint8: POINTER is
+	ffi_type_uint8: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -53,7 +53,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_pointer: POINTER is
+	ffi_type_pointer: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -62,7 +62,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_sint16: POINTER is
+	ffi_type_sint16: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -71,7 +71,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_sint32: POINTER is
+	ffi_type_sint32: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -80,7 +80,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_sint64: POINTER is
+	ffi_type_sint64: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -89,7 +89,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_float: POINTER is
+	ffi_type_float: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -98,7 +98,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_uint16: POINTER is
+	ffi_type_uint16: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -107,7 +107,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_uint32: POINTER is
+	ffi_type_uint32: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -116,7 +116,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_longdouble: POINTER is
+	ffi_type_longdouble: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"
@@ -125,7 +125,7 @@ feature {}
 		}"
 		end
 
-	ffi_type_double: POINTER is
+	ffi_type_double: POINTER
 		external "plug_in"
 		alias "{
 			location: "generated"

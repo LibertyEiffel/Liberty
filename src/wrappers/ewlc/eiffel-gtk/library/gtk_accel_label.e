@@ -86,7 +86,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_label: STRING) is
+	make (a_label: STRING)
 			-- Creates a new GtkAccelLabel with `a_label'.
 		require label_not_void: a_label /= Void
 		do
@@ -103,7 +103,7 @@ feature {ANY}
 	-- accel_closure : 	the closure to monitor for accelerator 
 	-- changes.
 
-	accel_widget: GTK_WIDGET is
+	accel_widget: GTK_WIDGET
 			-- Fetches the widget monitored by this accelerator
 			-- label. Can be Void. See `set_accel_widget'.
 		local ptr: POINTER
@@ -114,13 +114,13 @@ feature {ANY}
 			end
 		end
 
-	set_accel_widget (a_widget: GTK_WIDGET) is
+	set_accel_widget (a_widget: GTK_WIDGET)
 			-- Sets the widget to be monitored by this accelerator label.
 		do
 			gtk_accel_label_set_accel_widget (handle, a_widget.handle)
 		end
 
-	accel_width: INTEGER is
+	accel_width: INTEGER
 			-- the width needed to display the accelerator key(s). This
 			-- is used by menus to align all of the GtkMenuItem widgets,
 			-- and shouldn't be needed by applications.
@@ -128,7 +128,7 @@ feature {ANY}
 			Result:=gtk_accel_label_get_accel_width (handle)
 		end
 
-	refetch is
+	refetch
 			-- Recreates the string representing the accelerator
 			-- keys. This should not be needed since the string is
 			-- automatically updated whenever accelerators are added or
@@ -161,7 +161,7 @@ feature {ANY} -- TODO, if necessary: Properties
 	-- The widget to be monitored for accelerator changes.
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAccelLabel)"
 		end

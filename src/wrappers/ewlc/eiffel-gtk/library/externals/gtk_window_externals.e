@@ -32,7 +32,7 @@ inherit
 
 feature {} -- External calls
 	
-	gtk_window_new (type: INTEGER): POINTER is
+	gtk_window_new (type: INTEGER): POINTER
 			-- Creates a new GtkWindow, which is a toplevel window that
 			-- can contain other widgets. Nearly always, the type of the
 			-- window should be GTK_WINDOW_TOPLEVEL. If you're
@@ -49,7 +49,7 @@ feature {} -- External calls
 		end
 
 	
-	gtk_window_set_title (window, title: POINTER) is
+	gtk_window_set_title (window, title: POINTER)
 			-- Sets the title of the GtkWindow. The title of a window
 			-- will be displayed in its title bar; on the X Window
 			-- System, the title bar is rendered by the window manager,
@@ -85,7 +85,7 @@ feature {} -- External calls
 	-- wmclass_name : 	window name hint
 	-- wmclass_class : 	window class hint
 
-	gtk_window_set_resizable (window: POINTER; resizable: INTEGER) is
+	gtk_window_set_resizable (window: POINTER; resizable: INTEGER)
 			-- Sets whether the user can resize a window. Windows are
 			-- user resizable by default.
 		
@@ -94,7 +94,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 		
-	gtk_window_get_resizable (window: POINTER): INTEGER is
+	gtk_window_get_resizable (window: POINTER): INTEGER
 			-- Gets the value set by gtk_window_set_resizable().
 
 			-- window : 	a GtkWindow
@@ -102,7 +102,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_add_accel_group (window,accel_group: POINTER) is
+	gtk_window_add_accel_group (window,accel_group: POINTER)
 			-- Associate accel_group with window, such that calling gtk_accel_groups_activate() on window will activate accelerators in accel_group.
 
 			-- window : 	window to attach accelerator group to
@@ -111,7 +111,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_remove_accel_group (window,accel_group: POINTER) is
+	gtk_window_remove_accel_group (window,accel_group: POINTER)
 			-- Reverses the effects of gtk_window_add_accel_group().
 
 			-- window : 	a GtkWindow
@@ -120,7 +120,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_activate_focus (window: POINTER): INTEGER is
+	gtk_window_activate_focus (window: POINTER): INTEGER
 			-- Activates the current focused widget within the window.
 
 			-- window : 	a GtkWindow
@@ -129,7 +129,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_activate_default (window: POINTER): INTEGER is
+	gtk_window_activate_default (window: POINTER): INTEGER
 			-- Activates the default widget for the window, unless the current focused widget has been configured to receive the default action (see GTK_RECEIVES_DEFAULT in GtkWidgetFlags), in which case the focused widget is activated.
 
 			-- window : 	a GtkWindow
@@ -138,7 +138,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_modal (window: POINTER; modal: INTEGER) is
+	gtk_window_set_modal (window: POINTER; modal: INTEGER)
 			-- Sets a window modal or non-modal. Modal windows prevent
 			-- interaction with other windows in the same application. To
 			-- keep modal dialogs on top of main application windows, use
@@ -152,7 +152,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_default_size (window: POINTER; width, height: INTEGER) is
+	gtk_window_set_default_size (window: POINTER; width, height: INTEGER)
 			-- Sets the default size of a window. If the window's
 			-- "natural" size (its size request) is larger than the
 			-- default, the default will be ignored. More generally, if
@@ -196,7 +196,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_geometry_hints (window, geometry_widget, geometry: POINTER; geom_mask: INTEGER) is
+	gtk_window_set_geometry_hints (window, geometry_widget, geometry: POINTER; geom_mask: INTEGER)
 			-- This function sets up hints about how a window can be
 			-- resized by the user. You can set a minimum and maximum
 			-- size; allowed resize increments (e.g. for xterm, you can
@@ -212,7 +212,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_gravity (window: POINTER; gdkgravity_gravity: INTEGER) is
+	gtk_window_set_gravity (window: POINTER; gdkgravity_gravity: INTEGER)
 			-- Window gravity defines the meaning of coordinates passed
 			-- to gtk_window_move(). See gtk_window_move() and GdkGravity
 			-- for more details.
@@ -227,7 +227,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_gravity (window: POINTER): INTEGER is
+	gtk_window_get_gravity (window: POINTER): INTEGER
 			-- Gets the value set by gtk_window_set_gravity().
 	
 			-- window : 	a GtkWindow
@@ -237,7 +237,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_position (window: POINTER; a_position: INTEGER) is
+	gtk_window_set_position (window: POINTER; a_position: INTEGER)
 			-- Sets a position constraint for this window. If the old or
 			-- new constraint is GTK_WIN_POS_CENTER_ALWAYS, this will
 			-- also cause the window to be repositioned to satisfy the
@@ -249,7 +249,7 @@ feature {} -- External calls
 		end
 	
 
-	gtk_window_set_transient_for (window,parent: POINTER) is
+	gtk_window_set_transient_for (window,parent: POINTER)
 			-- Dialog windows should be set transient for the main
 			-- application window they were spawned from. This allows
 			-- window managers to e.g. keep the dialog on top of the main
@@ -268,7 +268,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_destroy_with_parent (window: POINTER; setting: INTEGER) is
+	gtk_window_set_destroy_with_parent (window: POINTER; setting: INTEGER)
 			-- If setting is TRUE, then destroying the transient parent
 			-- of window will also destroy window itself. This is useful
 			-- for dialogs that shouldn't persist beyond the lifetime of
@@ -305,7 +305,7 @@ feature {} -- External calls
 	--end
 
 
-	gtk_window_is_active (window: POINTER): INTEGER is 
+	gtk_window_is_active (window: POINTER): INTEGER
 			-- Returns whether the window is part of the current active
 			-- toplevel. (That is, the toplevel window receiving
 			-- keystrokes.) The return value is TRUE if the window is
@@ -321,7 +321,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_has_toplevel_focus (window: POINTER): INTEGER is
+	gtk_window_has_toplevel_focus (window: POINTER): INTEGER
 			-- Returns whether the input focus is within this
 			-- GtkWindow. For real toplevel windows, this is identical to
 			-- gtk_window_is_active(), but for embedded windows, like
@@ -333,7 +333,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_list_toplevels: POINTER is
+	gtk_window_list_toplevels: POINTER
 			-- Returns a list of all existing toplevel windows. The
 			-- widgets in the list are not individually referenced. If
 			-- you want to iterate through the list and perform actions
@@ -408,7 +408,7 @@ feature {} -- External calls
 --		end
 
 
-	gtk_window_get_focus (window: POINTER): POINTER is
+	gtk_window_get_focus (window: POINTER): POINTER
 		-- Retrieves the current focused widget within the window. Note
 		-- that this is the widget that would have the focus if the
 		-- toplevel window focused; if the toplevel window is not
@@ -421,7 +421,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_focus (window,focus: POINTER) is
+	gtk_window_set_focus (window,focus: POINTER)
 		-- If focus is not the current focus widget, and is focusable,
 		-- sets it as the focus widget for the window. If focus is NULL,
 		-- unsets the focus widget for this window. To set the focus to
@@ -435,7 +435,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_default (window,default_widget: POINTER) is
+	gtk_window_set_default (window,default_widget: POINTER)
 		-- The default widget is the widget that's activated when the
 		-- user presses Enter in a dialog (for example). This function
 		-- sets or unsets the default widget for a GtkWindow about. When
@@ -451,7 +451,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_present (window: POINTER) is
+	gtk_window_present (window: POINTER)
 			-- Presents a window to the user. This may mean raising the
 			-- window in the stacking order, deiconifying it, moving it
 			-- to the current desktop, and/or giving it the keyboard
@@ -477,7 +477,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_present_with_time (window: POINTER; guint32_timestamp: INTEGER_32) is
+	gtk_window_present_with_time (window: POINTER; guint32_timestamp: INTEGER_32)
 			-- Presents a window to the user in response to a user
 			-- interaction. If you need to present a window without a
 			-- timestamp, use gtk_window_present(). See
@@ -490,7 +490,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_iconify (window: POINTER) is
+	gtk_window_iconify (window: POINTER)
 			-- Asks to iconify (i.e. minimize) the specified window. Note
 			-- that you shouldn't assume the window is definitely
 			-- iconified afterward, because other entities (e.g. the user
@@ -511,7 +511,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_deiconify (window: POINTER) is
+	gtk_window_deiconify (window: POINTER)
 			-- Asks to deiconify (i.e. unminimize) the specified
 			-- window. Note that you shouldn't assume the window is
 			-- definitely deiconified afterward, because other entities
@@ -526,7 +526,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_stick (window: POINTER) is
+	gtk_window_stick (window: POINTER)
 			-- Asks to stick window, which means that it will appear on
 			-- all user desktops. Note that you shouldn't assume the
 			-- window is definitely stuck afterward, because other
@@ -545,7 +545,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_unstick (window: POINTER) is
+	gtk_window_unstick (window: POINTER)
 			-- Asks to unstick window, which means that it will appear on
 			-- only one of the user's desktops. Note that you shouldn't
 			-- assume the window is definitely unstuck afterward, because
@@ -560,7 +560,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_maximize (window: POINTER) is
+	gtk_window_maximize (window: POINTER)
 			-- Asks to maximize window, so that it becomes
 			-- full-screen. Note that you shouldn't assume the window is
 			-- definitely maximized afterward, because other entities
@@ -581,7 +581,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_unmaximize (window: POINTER) is
+	gtk_window_unmaximize (window: POINTER)
 			-- Asks to unmaximize window. Note that you shouldn't assume
 			-- the window is definitely unmaximized afterward, because
 			-- other entities (e.g. the user or window manager) could
@@ -597,7 +597,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_fullscreen (window: POINTER) is
+	gtk_window_fullscreen (window: POINTER)
 			-- Asks to place window in the fullscreen state. Note that you
 			-- shouldn't assume the window is definitely full screen
 			-- afterward, because other entities (e.g. the user or window
@@ -614,7 +614,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_unfullscreen (window: POINTER) is
+	gtk_window_unfullscreen (window: POINTER)
 			-- Asks to toggle off the fullscreen state for window. Note
 			-- that you shouldn't assume the window is definitely not
 			-- full screen afterward, because other entities (e.g. the
@@ -632,7 +632,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_keep_above (window: POINTER; setting: INTEGER) is 
+	gtk_window_set_keep_above (window: POINTER; setting: INTEGER)
 			-- Asks to keep window above, so that it stays on top. Note
 			-- that you shouldn't assume the window is definitely above
 			-- afterward, because other entities (e.g. the user or window
@@ -659,7 +659,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_keep_below (window:POINTER; setting: INTEGER) is
+	gtk_window_set_keep_below (window:POINTER; setting: INTEGER)
 			-- Asks to keep window below, so that it stays in
 			-- bottom. Note that you shouldn't assume the window is
 			-- definitely below afterward, because other entities
@@ -688,7 +688,7 @@ feature {} -- External calls
 
 	gtk_window_begin_resize_drag (window: POINTER;
 											edge, button, root_x, root_y: INTEGER;
-											guint32_timestamp: INTEGER) is
+											guint32_timestamp: INTEGER)
 			-- Starts resizing a window. This function is used if an
 			-- application has window resizing controls. When GDK can
 			-- support it, the resize will be done using the standard
@@ -708,7 +708,7 @@ feature {} -- External calls
 
 	gtk_window_begin_move_drag (window: POINTER;
 										 button, root_x, root_y: INTEGER;
-										 guint32_timestamp: INTEGER_32) is
+										 guint32_timestamp: INTEGER_32)
 			-- Starts moving a window. This function is used if an
 			-- application has window movement grips. When GDK can support
 			-- it, the window movement will be done using the standard
@@ -726,7 +726,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_set_decorated (window: POINTER; setting: INTEGER) is
+	gtk_window_set_decorated (window: POINTER; setting: INTEGER)
 			-- By default, windows are decorated with a title bar, resize
 			-- controls, etc. Some window managers allow GTK+ to disable
 			-- these decorations, creating a borderless window. If you
@@ -746,7 +746,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_frame_dimensions (window: POINTER; left,top,right,bottom: INTEGER) is
+	gtk_window_set_frame_dimensions (window: POINTER; left,top,right,bottom: INTEGER)
 			-- (Note: this is a special-purpose function intended for the
 			-- framebuffer port; see gtk_window_set_has_frame(). It will
 			-- have no effect on the window border drawn by the window
@@ -764,7 +764,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_has_frame (window: POINTER; setting: INTEGER) is
+	gtk_window_set_has_frame (window: POINTER; setting: INTEGER)
 			-- (Note: this is a special-purpose function for the
 			-- framebuffer port, that causes GTK+ to draw its own window
 			-- border. For most applications, you want
@@ -814,7 +814,7 @@ feature {} -- External calls
 --		end
 
 
-	gtk_window_set_type_hint (window: POINTER; a_hint: INTEGER) is
+	gtk_window_set_type_hint (window: POINTER; a_hint: INTEGER)
 			-- By setting the type hint for the window, you allow the window
 			-- manager to decorate and handle the window in a way which is
 			-- suitable to the function of the window in your application.
@@ -830,7 +830,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_skip_taskbar_hint (window: POINTER; setting: INTEGER) is
+	gtk_window_set_skip_taskbar_hint (window: POINTER; setting: INTEGER)
 			-- Windows may set a hint asking the desktop environment not
 			-- to display the window in the task bar. This function sets
 			-- this hint.
@@ -841,7 +841,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_skip_pager_hint (window: POINTER; setting: INTEGER) is
+	gtk_window_set_skip_pager_hint (window: POINTER; setting: INTEGER)
 			-- Windows may set a hint asking the desktop environment not to display the window in the pager. This function sets this hint. (A "pager" is any desktop navigation tool such as a workspace switcher that displays a thumbnail representation of the windows on the screen.)
 
 			-- window : 	a GtkWindow
@@ -850,7 +850,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_urgency_hint (window: POINTER; setting: INTEGER) is
+	gtk_window_set_urgency_hint (window: POINTER; setting: INTEGER)
 			-- Windows may set a hint asking the desktop environment to
 			-- draw the users attention to the window. This function sets
 			-- this hint.
@@ -861,7 +861,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_set_accept_focus (window: POINTER; setting: INTEGER) is
+	gtk_window_set_accept_focus (window: POINTER; setting: INTEGER)
 			-- Windows may set a hint asking the desktop environment not
 			-- to receive the input focus. This function sets this hint.
 
@@ -870,7 +870,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_set_focus_on_map (window: POINTER; setting: INTEGER) is
+	gtk_window_set_focus_on_map (window: POINTER; setting: INTEGER)
 			-- Windows may set a hint asking the desktop environment not
 			-- to receive the input focus when the window is mapped. This
 			-- function sets this hint.
@@ -881,7 +881,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_decorated (window: POINTER): INTEGER is
+	gtk_window_get_decorated (window: POINTER): INTEGER
 			-- Returns whether the window has been set to have
 			-- decorations such as a title bar via
 			-- gtk_window_set_decorated().
@@ -902,7 +902,7 @@ feature {} -- External calls
 	--end
 
 
-	gtk_window_get_default_size (window, gint_width, gint_height: POINTER) is
+	gtk_window_get_default_size (window, gint_width, gint_height: POINTER)
 			-- Gets the default size of the window. A value of -1 for the
 			-- width or height indicates that a default size has not been
 			-- explicitly set for that dimension, so the "natural" size
@@ -915,7 +915,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_destroy_with_parent (window: POINTER): INTEGER is
+	gtk_window_get_destroy_with_parent (window: POINTER): INTEGER
 			-- Returns whether the window will be destroyed with its
 			-- transient parent. See
 			-- gtk_window_set_destroy_with_parent().
@@ -926,7 +926,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_frame_dimensions (window,left,top,right,bottom: POINTER) is
+	gtk_window_get_frame_dimensions (window,left,top,right,bottom: POINTER)
 			-- (Note: this is a special-purpose function intended for the
 			-- framebuffer port; see gtk_window_set_has_frame(). It will
 			-- not return the size of the window border drawn by the
@@ -947,7 +947,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_has_frame (window: POINTER): INTEGER is
+	gtk_window_get_has_frame (window: POINTER): INTEGER
 			-- Accessor for whether the window has a frame window
 			-- exterior to window->window. Gets the value set by
 			-- gtk_window_set_has_frame().
@@ -958,7 +958,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_icon (window: POINTER): POINTER is
+	gtk_window_get_icon (window: POINTER): POINTER
 		-- Gets the value set by gtk_window_set_icon() (or if you've
 		-- called gtk_window_set_icon_list(), gets the first icon in the
 		-- icon list).
@@ -969,7 +969,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_icon_list (window: POINTER): POINTER is
+	gtk_window_get_icon_list (window: POINTER): POINTER
 			-- Retrieves the list of icons set by
 			-- gtk_window_set_icon_list(). The list is copied, but the
 			-- reference count on each member won't be incremented.
@@ -980,7 +980,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_icon_name (window: POINTER): POINTER is
+	gtk_window_get_icon_name (window: POINTER): POINTER
 			-- Returns the name of the themed icon for the window, see
 			-- gtk_window_set_icon_name().
 			-- window : a GtkWindow
@@ -1001,7 +1001,7 @@ feature {} -- External calls
 --		end
 
 
-	gtk_window_get_modal (window: POINTER): INTEGER is
+	gtk_window_get_modal (window: POINTER): INTEGER
 			-- Returns whether the window is modal. See
 			-- gtk_window_set_modal().
 
@@ -1011,7 +1011,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_position (window, root_x, root_y: POINTER) is
+	gtk_window_get_position (window, root_x, root_y: POINTER)
 			-- This function returns the position you need to pass to
 			-- gtk_window_move() to keep window in its current
 			-- position. This means that the meaning of the returned
@@ -1075,7 +1075,7 @@ feature {} -- External calls
 	--end
 
 
-	gtk_window_get_size (window, width, height: POINTER) is
+	gtk_window_get_size (window, width, height: POINTER)
 			-- Obtains the current size of window. If window is not
 			-- onscreen, it returns the size GTK+ will suggest to the
 			-- window manager for the initial window size (but this is
@@ -1132,7 +1132,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_title (window: POINTER): POINTER is
+	gtk_window_get_title (window: POINTER): POINTER
 			-- Retrieves the title of the window. See
 			-- gtk_window_set_title().
 		
@@ -1145,7 +1145,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_transient_for (window: POINTER): POINTER is
+	gtk_window_get_transient_for (window: POINTER): POINTER
 			-- Fetches the transient parent for this window. See
 			-- gtk_window_set_transient_for().
 
@@ -1156,7 +1156,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_type_hint  (window: POINTER): INTEGER is
+	gtk_window_get_type_hint  (window: POINTER): INTEGER
 			-- Gets the type hint for this window. See gtk_window_set_type_hint().
 
 			-- window : 	a GtkWindow
@@ -1166,7 +1166,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_skip_taskbar_hint (window: POINTER): INTEGER is
+	gtk_window_get_skip_taskbar_hint (window: POINTER): INTEGER
 			-- Gets the value set by gtk_window_set_skip_taskbar_hint()
 			-- window : a GtkWindow Returns : TRUE if window shouldn't be
 			-- in taskbar
@@ -1174,14 +1174,14 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_skip_pager_hint (window: POINTER): INTEGER is
+	gtk_window_get_skip_pager_hint (window: POINTER): INTEGER
 			-- Gets the value set by gtk_window_set_skip_pager_hint().
 			-- window : 	a GtkWindow
 			-- Returns : 	TRUE if window shouldn't be in pager
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_get_urgency_hint (window: POINTER): INTEGER is
+	gtk_window_get_urgency_hint (window: POINTER): INTEGER
 			-- Gets the value set by gtk_window_set_urgency_hint()
 			-- window : 	a GtkWindow
 			-- Returns : 	TRUE if window is urgent
@@ -1189,7 +1189,7 @@ feature {} -- External calls
 		end
 
 
-	gtk_window_get_accept_focus (window: POINTER): INTEGER is
+	gtk_window_get_accept_focus (window: POINTER): INTEGER
 			-- Gets the value set by gtk_window_set_accept_focus().  window
 			-- : a GtkWindow Returns : TRUE if window should receive the
 			-- input focus
@@ -1209,7 +1209,7 @@ feature {} -- External calls
 		--end
 
 
-	gtk_window_move (window: POINTER; an_x, an_y: INTEGER) is
+	gtk_window_move (window: POINTER; an_x, an_y: INTEGER)
 			-- Asks the window manager to move window to the given position.
 			-- Window managers are free to ignore this; most window managers
 			-- ignore requests for initial window positions (instead using a
@@ -1357,7 +1357,7 @@ feature {} -- External calls
 		--external "C use <gtk/gtk.h>"
 		--end
 
-	gtk_window_set_icon (window, icon: POINTER) is
+	gtk_window_set_icon (window, icon: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 

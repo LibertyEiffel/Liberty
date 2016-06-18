@@ -78,7 +78,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make (file: STRING) is
+	make (file: STRING)
 			-- Load Glade XML from `file'
 		require
 			file_not_null: file /= Void
@@ -90,7 +90,7 @@ feature {} -- Creation
 			handle.is_not_null
 		end
 
-	make_with_root (file, root: STRING) is
+	make_with_root (file, root: STRING)
 			-- Load Glade XML from `file' with root `root'
 		require
 			file_not_null: file /= Void
@@ -105,7 +105,7 @@ feature {} -- Creation
 
 feature {ANY} -- Access
 
-	get_widget (name: STRING): POINTER is
+	get_widget (name: STRING): POINTER
 		obsolete "use get_xxx instead (where xxx is the widget name, like %"window%", %"button%", etc.)"
 		do
 			Result := glade_xml_get_widget (handle, name.to_external)
@@ -113,14 +113,14 @@ feature {ANY} -- Access
 
 feature {ANY} -- Operations
 
-	signal_autoconnect is
+	signal_autoconnect
 		do
 			glade_xml_signal_autoconnect (handle)
 		end
 
 feature {ANY} -- struct size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glade/glade.h>"
 		alias "sizeof (GladeXML)"
 		end

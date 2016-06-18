@@ -28,15 +28,15 @@ inherit
 
 feature {ANY}
 
-	avcodec_alloc_frame: POINTER is
+	avcodec_alloc_frame: POINTER
 		external "C use <avcodec.h>"
 		end
 
-	av_frame_get_is_keyframe (a_frame: POINTER): INTEGER is
+	av_frame_get_is_keyframe (a_frame: POINTER): INTEGER
 		external "C struct AVFrame get key_frame use <avcodec.h>"
 		end
 
-	av_frame_get_pts (a_frame: POINTER): INTEGER is
+	av_frame_get_pts (a_frame: POINTER): INTEGER
 		external "C struct AVFrame get pts use <avcodec.h>"
 		end
 

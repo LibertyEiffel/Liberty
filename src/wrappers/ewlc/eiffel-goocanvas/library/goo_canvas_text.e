@@ -31,13 +31,13 @@ create {ANY}
 	make, from_external_pointer
 	
 feature {} -- creation
-	make (parent : GOO_CANVAS_ITEM; string : STRING; x, y, width : REAL_64; anchor : INTEGER) is
+	make (parent : GOO_CANVAS_ITEM; string : STRING; x, y, width : REAL_64; anchor : INTEGER)
 		do
 			from_external_pointer (goo_canvas_text_new (parent.handle, string.to_external, x, y, width, anchor))
 		end
 	
 	
-	goo_canvas_text_new (parent, string : POINTER; x, y, width : REAL_64; anchor : INTEGER) : POINTER is
+	goo_canvas_text_new (parent, string : POINTER; x, y, width : REAL_64; anchor : INTEGER) : POINTER
 	 -- TODO: GtkAnchorType anchor ??
 		external "C use <goocanvas-1.0/goocanvastext.h>"
 		end
@@ -48,7 +48,7 @@ feature {} -- creation
 --                                                         PangoRectangle *logical_rect)
 
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <goocanvas-1.0/goocanvastext.h>"
 		alias "sizeof(GooCanvasText)"
 		end

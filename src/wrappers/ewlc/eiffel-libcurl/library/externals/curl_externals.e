@@ -34,7 +34,7 @@ insert
 
 feature {} -- Externals
 
-	curl_easy_init: POINTER is
+	curl_easy_init: POINTER
 			-- This function must be the first function to call, and it returns a CURL
 			-- easy handle that you must use as input to other easy-functions.
 			-- curl_easy_init initializes curl and this call MUST have a corresponding
@@ -57,7 +57,7 @@ feature {} -- Externals
 		external "C use <curl/curl.h>"
 		end
 
-	curl_easy_cleanup (curl: POINTER) is
+	curl_easy_cleanup (curl: POINTER)
 			-- This function must be the last function to call for an easy session.
 			-- It is the opposite of the curl_easy_init(3) function and must be called
 			-- with the same handle as input that the curl_easy_init call returned.
@@ -73,11 +73,11 @@ feature {} -- Externals
 		external "C use <curl/curl.h>"
 		end
 
-	new_curl_closure (c, f: POINTER): POINTER is
+	new_curl_closure (c, f: POINTER): POINTER
 		external "C use <curl_callback.h>"
 		end
 
-	free_curl_closure (ptr: POINTER): POINTER is
+	free_curl_closure (ptr: POINTER): POINTER
 		external "C use <curl_callback.h>"
 		end
 
@@ -91,20 +91,20 @@ feature {} -- Externals
 		alias "ReadCallback"
 		end
 
-	new_curl_progress_closure (c, f: POINTER): POINTER is
+	new_curl_progress_closure (c, f: POINTER): POINTER
 		external "C use <curl_callback.h>"
 		end
 
-	free_curl_progress_closure (ptr: POINTER): POINTER is
+	free_curl_progress_closure (ptr: POINTER): POINTER
 		external "C use <curl_callback.h>"
 		end
 
-	c_progress_callback: POINTER is
+	c_progress_callback: POINTER
 		external "C macro use <curl_callback.h>"
 		alias "ProgressCallback"
 		end
 
-	curl_easy_setopt_pointer (curl: POINTER; opt: INTEGER; ptr: POINTER): INTEGER is
+	curl_easy_setopt_pointer (curl: POINTER; opt: INTEGER; ptr: POINTER): INTEGER
 			-- To set `char *', `void *', `FILE *', `struct curl_httppost *',
 			-- `struct curl_slist *', `struct Curl_share *'
 			--
@@ -115,7 +115,7 @@ feature {} -- Externals
 		ensure is_valid_curl_code (Result)
 		end
 
-	curl_easy_setopt_boolean (curl: POINTER; opt: INTEGER; b: BOOLEAN): INTEGER is
+	curl_easy_setopt_boolean (curl: POINTER; opt: INTEGER; b: BOOLEAN): INTEGER
 			-- To set `BOOL'. BOOL implementation in libcurl is a CHAR.
 			-- from curl/lib/mprintf.c:77
 			-- # define TRUE  ((char)(1 == 1))
@@ -129,7 +129,7 @@ feature {} -- Externals
 		ensure is_valid_curl_code (Result)
 		end
 
-	curl_easy_setopt_integer (curl: POINTER; opt: INTEGER; i: INTEGER): INTEGER is
+	curl_easy_setopt_integer (curl: POINTER; opt: INTEGER; i: INTEGER): INTEGER
 			-- To set `int', `long', `curl_off_t'
 			--
 			-- CURLcode curl_easy_setopt(CURL *handle, CURLoption option, parameter);
@@ -139,7 +139,7 @@ feature {} -- Externals
 		ensure is_valid_curl_code (Result)
 		end
 
-	curl_easy_getinfo_pointer (curl: POINTER; info: INTEGER; ptr: POINTER): INTEGER is
+	curl_easy_getinfo_pointer (curl: POINTER; info: INTEGER; ptr: POINTER): INTEGER
 			-- CURLcode curl_easy_getinfo(CURL *curl, CURLINFO info, ... );
 		require is_valid_curl_info (info)
 		external "C use <curl/curl.h>"
@@ -147,7 +147,7 @@ feature {} -- Externals
 		ensure is_valid_curl_code (Result)
 		end
 
-	curl_easy_perform (curl: POINTER): INTEGER is
+	curl_easy_perform (curl: POINTER): INTEGER
 			-- This function is called after the init and all the curl_easy_setopt(3)
 			-- calls are made, and will perform the transfer as described in the
 			-- options. It must be called with the same handle as input as the
@@ -282,7 +282,7 @@ feature {} -- Externals
 	--
 	-- THERE IS MORE!!!
 
-	curl_version: POINTER is
+	curl_version: POINTER
 		external "C macro use <curl/curlver.h>"
 		alias "LIBCURL_VERSION"
 		end

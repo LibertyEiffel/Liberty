@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (some_flags: INTEGER): BOOLEAN is
+	is_valid_value (some_flags: INTEGER): BOOLEAN
 		do
 			Result := (some_flags & (g_test_trap_silence_stdout | 
 				g_test_trap_silence_stderr | 
@@ -14,71 +14,71 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create is
+	default_create
 		-- Default creation feature; it leaves all the bits cleared.
 	do
 	end
 
-	set_g_test_trap_silence_stdout is
+	set_g_test_trap_silence_stdout
 		do
 			value := value.bit_or(g_test_trap_silence_stdout)
 		end
 
-	unset_g_test_trap_silence_stdout is
+	unset_g_test_trap_silence_stdout
 		do
 			value := value.bit_xor(g_test_trap_silence_stdout)
 		end
 
-	set_g_test_trap_silence_stderr is
+	set_g_test_trap_silence_stderr
 		do
 			value := value.bit_or(g_test_trap_silence_stderr)
 		end
 
-	unset_g_test_trap_silence_stderr is
+	unset_g_test_trap_silence_stderr
 		do
 			value := value.bit_xor(g_test_trap_silence_stderr)
 		end
 
-	set_g_test_trap_inherit_stdin is
+	set_g_test_trap_inherit_stdin
 		do
 			value := value.bit_or(g_test_trap_inherit_stdin)
 		end
 
-	unset_g_test_trap_inherit_stdin is
+	unset_g_test_trap_inherit_stdin
 		do
 			value := value.bit_xor(g_test_trap_inherit_stdin)
 		end
 
 
 feature {ANY} -- Queries
-	is_g_test_trap_silence_stdout: BOOLEAN is
+	is_g_test_trap_silence_stdout: BOOLEAN
 		do
 			Result := (value &g_test_trap_silence_stdout).to_boolean
 		end
 
-	is_g_test_trap_silence_stderr: BOOLEAN is
+	is_g_test_trap_silence_stderr: BOOLEAN
 		do
 			Result := (value &g_test_trap_silence_stderr).to_boolean
 		end
 
-	is_g_test_trap_inherit_stdin: BOOLEAN is
+	is_g_test_trap_inherit_stdin: BOOLEAN
 		do
 			Result := (value &g_test_trap_inherit_stdin).to_boolean
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_test_trap_silence_stdout: INTEGER is
+	g_test_trap_silence_stdout: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TEST_TRAP_SILENCE_STDOUT"
 		end
 
-	g_test_trap_silence_stderr: INTEGER is
+	g_test_trap_silence_stderr: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TEST_TRAP_SILENCE_STDERR"
 		end
 
-	g_test_trap_inherit_stdin: INTEGER is
+	g_test_trap_inherit_stdin: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TEST_TRAP_INHERIT_STDIN"
 		end

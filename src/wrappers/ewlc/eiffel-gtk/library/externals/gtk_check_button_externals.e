@@ -27,15 +27,15 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_check_button_new: POINTER is
+	gtk_check_button_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_check_button_new_with_label (a_label: POINTER): POINTER is
+	gtk_check_button_new_with_label (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_check_button_new_with_mnemonic (a_label: POINTER): POINTER is
+	gtk_check_button_new_with_mnemonic (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 end

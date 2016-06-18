@@ -8,23 +8,23 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_data_model_hash_insert_row (a_model: POINTER; a_rownum: INTEGER_32; a_row: POINTER) is
+	gda_data_model_hash_insert_row (a_model: POINTER; a_rownum: INTEGER_32; a_row: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_data_model_hash_set_n_columns (a_model: POINTER; a_cols: INTEGER_32) is
+	gda_data_model_hash_set_n_columns (a_model: POINTER; a_cols: INTEGER_32)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_data_model_hash_clear (a_model: POINTER) is
+	gda_data_model_hash_clear (a_model: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_data_model_hash_new (a_cols: INTEGER_32): POINTER is
+	gda_data_model_hash_new (a_cols: INTEGER_32): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_data_model_hash_get_type: INTEGER_32 is
+	gda_data_model_hash_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

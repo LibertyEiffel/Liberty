@@ -70,7 +70,7 @@ insert
 		-- GtkEntry, GtkOldEditable, GtkSpinButton and GtkText.
 
 feature {ANY}
-	select_region (a_start, an_end: INTEGER) is
+	select_region (a_start, an_end: INTEGER)
 			-- Selects a region of text. The characters that are selected
 			-- are those characters at positions from `a_start' up to,
 			-- but not including `an_end'. If `an_end' is negative, then
@@ -80,7 +80,7 @@ feature {ANY}
 			gtk_editable_select_region (handle, a_start, an_end)
 		end
 
-	selection_bounds: TUPLE[BOOLEAN,INTEGER,INTEGER] is
+	selection_bounds: TUPLE[BOOLEAN,INTEGER,INTEGER]
 			-- current selection bounds, and if there is a selection. The
 			-- format of the tuple is [`is_there_a_selection',
 			-- `start',`end'].
@@ -90,7 +90,7 @@ feature {ANY}
 			create Result.make_3 (is_there.to_boolean,a_start,an_end)
 		end
 
-	insert_text (a_text: STRING; a_position: REFERENCE [INTEGER]) is
+	insert_text (a_text: STRING; a_position: REFERENCE [INTEGER])
 			-- Inserts `a_text' at `a_position'.
 		local io_position: INTEGER
 		do
@@ -111,7 +111,7 @@ feature {ANY}
 			a_position.set_item (io_position)
 		end
 
-	delete_text (a_start, an_end: INTEGER) is
+	delete_text (a_start, an_end: INTEGER)
 			-- Deletes a sequence of characters. The characters that are
 			-- deleted are those characters at positions from `a_start'
 			-- up to, but not including `an_end'. If `an_end' is
@@ -121,7 +121,7 @@ feature {ANY}
 			gtk_editable_delete_text (handle,a_start, an_end)
 		end
 
-	substring (a_start, an_end: INTEGER): STRING is
+	substring (a_start, an_end: INTEGER): STRING
 			-- Retrieves a sequence of characters. The characters that
 			-- are retrieved are those characters at positions from
 			-- `a_start' up to, but not including `an_end'. If `an_end'
@@ -135,34 +135,34 @@ feature {ANY}
 			-- application is finished with it.
 		end
 
-	cut_clipboard is
+	cut_clipboard
 			-- Causes the characters in the current selection to be
 			-- copied to the clipboard and then deleted from the widget.
 		do
 			gtk_editable_cut_clipboard (handle)
 		end
 
-	copy_clipboard is
+	copy_clipboard
 			-- Causes the characters in the current selection to be
 			-- copied to the clipboard.
 		do
 			gtk_editable_copy_clipboard (handle)
 		end
 
-	paste_clipboard is
+	paste_clipboard
 			-- Causes the contents of the clipboard to be pasted into the
 			-- given widget at the current cursor position.
 		do
 			gtk_editable_paste_clipboard (handle)
 		end
 
-	delete_selection is
+	delete_selection
 			-- Deletes the current contents of the widgets selection and disclaims the selection.
 		do
 			gtk_editable_delete_selection (handle)
 		end
 
-	set_position (a_position: INTEGER) is
+	set_position (a_position: INTEGER)
 			-- Sets the cursor position. The cursor is displayed before
 			-- the character with the given (base 0) index in the
 			-- widget. The value must be less than or equal to the number
@@ -174,7 +174,7 @@ feature {ANY}
 			gtk_editable_set_position (handle,a_position)
 		end
 
-	position: INTEGER is
+	position: INTEGER
 			-- current cursor position. The cursor is displayed before
 			-- the character with the given (base 0) index in the
 			-- widget. The value will be less than or equal to the number
@@ -184,21 +184,21 @@ feature {ANY}
 			Result:=gtk_editable_get_position (handle)
 		end
 
-	set_editable is
+	set_editable
 			-- Allow the user to edit the text
 		do
 			gtk_editable_set_editable (handle,1)
 		ensure is_editable
 		end
 
-	unset_editable is
+	unset_editable
 			-- Forbid the user to edit the text
 		do
 			gtk_editable_set_editable (handle,0)
 		ensure not is_editable
 		end
 
-	is_editable: BOOLEAN is
+	is_editable: BOOLEAN
 			-- is the text editable by the user?
 		do
 			Result := (gtk_editable_get_editable(handle)).to_boolean
@@ -206,20 +206,20 @@ feature {ANY}
 
 feature {ANY} -- The "changed" signal
 	changed_signal_name: STRING is "changed"
-	enable_on_changed is
+	enable_on_changed
 			-- Connects "changed" signal to `on_changed' feature.
 		do
 			connect (Current, changed_signal_name, $on_changed)
 		end
 
-	on_changed is
+	on_changed
 			-- Built-in changed signal handler; empty by design; redefine it.
 
 			-- Indicates that the user has changed the contents of the widget.
 		do
 		end
 
-	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]])
 		require valid_procedure: a_procedure /= Void
 		local changed_callback: CHANGED_CALLBACK [like Current]
 		do
@@ -265,12 +265,12 @@ feature {ANY} -- The "insert-text" signal
 		--                                             gint        *position,
 		--                                             gpointer     user_data)            : Run last
 
-	on_insert_text is
+	on_insert_text
 			-- Built-in insert-text signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_insert_text is
+	enable_on_insert_text
 			-- Connects "insert-text" signal to `on_insert_text' feature.
 			
 			-- This signal is emitted when text is inserted into the widget by
@@ -283,7 +283,7 @@ feature {ANY} -- The "insert-text" signal
 			connect (Current, insert_text_signal_name, $on_insert_text)
 		end
 
-	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]) is
+	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]])
 			-- editable : 	the object which received the signal.
 			-- new_text : 	the new text to insert.
 			-- new_text_length : 	the length of the new text, in bytes,

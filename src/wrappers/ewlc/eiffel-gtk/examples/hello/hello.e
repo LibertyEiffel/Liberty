@@ -11,7 +11,7 @@ insert GTK_MAIN
 create {ANY}	make
 	
 feature {ANY}
-	on_clicked (a_button: GTK_BUTTON) is
+	on_clicked (a_button: GTK_BUTTON)
 		require valid_button: a_button /= Void 
 		do
 			print (once "Button `")
@@ -20,7 +20,7 @@ feature {ANY}
 		end
 			
 feature {} -- creation
-	make is
+	make
 		local 
 			w1,w2: GTK_WIDGET; win: GTK_WINDOW; b: GTK_BUTTON 
 			rw: GTK_WINDOW; rb: GTK_BUTTON

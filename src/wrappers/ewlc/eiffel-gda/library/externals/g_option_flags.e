@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (some_flags: INTEGER): BOOLEAN is
+	is_valid_value (some_flags: INTEGER): BOOLEAN
 		do
 			Result := (some_flags & (g_option_flag_hidden | 
 				g_option_flag_in_main | 
@@ -18,151 +18,151 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create is
+	default_create
 		-- Default creation feature; it leaves all the bits cleared.
 	do
 	end
 
-	set_hidden is
+	set_hidden
 		do
 			value := value.bit_or(g_option_flag_hidden)
 		end
 
-	unset_hidden is
+	unset_hidden
 		do
 			value := value.bit_xor(g_option_flag_hidden)
 		end
 
-	set_in_main is
+	set_in_main
 		do
 			value := value.bit_or(g_option_flag_in_main)
 		end
 
-	unset_in_main is
+	unset_in_main
 		do
 			value := value.bit_xor(g_option_flag_in_main)
 		end
 
-	set_reverse is
+	set_reverse
 		do
 			value := value.bit_or(g_option_flag_reverse)
 		end
 
-	unset_reverse is
+	unset_reverse
 		do
 			value := value.bit_xor(g_option_flag_reverse)
 		end
 
-	set_no_arg is
+	set_no_arg
 		do
 			value := value.bit_or(g_option_flag_no_arg)
 		end
 
-	unset_no_arg is
+	unset_no_arg
 		do
 			value := value.bit_xor(g_option_flag_no_arg)
 		end
 
-	set_filename is
+	set_filename
 		do
 			value := value.bit_or(g_option_flag_filename)
 		end
 
-	unset_filename is
+	unset_filename
 		do
 			value := value.bit_xor(g_option_flag_filename)
 		end
 
-	set_optional_arg is
+	set_optional_arg
 		do
 			value := value.bit_or(g_option_flag_optional_arg)
 		end
 
-	unset_optional_arg is
+	unset_optional_arg
 		do
 			value := value.bit_xor(g_option_flag_optional_arg)
 		end
 
-	set_noalias is
+	set_noalias
 		do
 			value := value.bit_or(g_option_flag_noalias)
 		end
 
-	unset_noalias is
+	unset_noalias
 		do
 			value := value.bit_xor(g_option_flag_noalias)
 		end
 
 
 feature {ANY} -- Queries
-	is_hidden: BOOLEAN is
+	is_hidden: BOOLEAN
 		do
 			Result := (value &g_option_flag_hidden).to_boolean
 		end
 
-	is_in_main: BOOLEAN is
+	is_in_main: BOOLEAN
 		do
 			Result := (value &g_option_flag_in_main).to_boolean
 		end
 
-	is_reverse: BOOLEAN is
+	is_reverse: BOOLEAN
 		do
 			Result := (value &g_option_flag_reverse).to_boolean
 		end
 
-	is_no_arg: BOOLEAN is
+	is_no_arg: BOOLEAN
 		do
 			Result := (value &g_option_flag_no_arg).to_boolean
 		end
 
-	is_filename: BOOLEAN is
+	is_filename: BOOLEAN
 		do
 			Result := (value &g_option_flag_filename).to_boolean
 		end
 
-	is_optional_arg: BOOLEAN is
+	is_optional_arg: BOOLEAN
 		do
 			Result := (value &g_option_flag_optional_arg).to_boolean
 		end
 
-	is_noalias: BOOLEAN is
+	is_noalias: BOOLEAN
 		do
 			Result := (value &g_option_flag_noalias).to_boolean
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_option_flag_hidden: INTEGER is
+	g_option_flag_hidden: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_HIDDEN"
 		end
 
-	g_option_flag_in_main: INTEGER is
+	g_option_flag_in_main: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_IN_MAIN"
 		end
 
-	g_option_flag_reverse: INTEGER is
+	g_option_flag_reverse: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_REVERSE"
 		end
 
-	g_option_flag_no_arg: INTEGER is
+	g_option_flag_no_arg: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_NO_ARG"
 		end
 
-	g_option_flag_filename: INTEGER is
+	g_option_flag_filename: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_FILENAME"
 		end
 
-	g_option_flag_optional_arg: INTEGER is
+	g_option_flag_optional_arg: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_OPTIONAL_ARG"
 		end
 
-	g_option_flag_noalias: INTEGER is
+	g_option_flag_noalias: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_NOALIAS"
 		end

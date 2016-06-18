@@ -21,7 +21,7 @@ feature {ANY}
 			-- Integer representation. TODO: Shall be instead a
 			-- NATURAL_32 since in C it's a guint32
 
-	from_string (a_string: STRING) is
+	from_string (a_string: STRING)
 			-- Retrieve the G_QUARK identifying `a_string'. If the string
 			-- does not currently have an associated G_QUARK, a new
 			-- G_Quark is created, using a copy of the string.
@@ -33,7 +33,7 @@ feature {ANY}
 		end
 
 
-	to_string: STRING is
+	to_string: STRING
 			-- The string associated with the Current G_QUARK.
 		require
 			is_valid
@@ -50,7 +50,7 @@ feature {ANY}
 			valid_result: Result /= Void
 		end
 
-	try_string (a_string: STRING) is
+	try_string (a_string: STRING)
 			-- Retrieves the G_QUARK associated with the given
 			-- string. `is_valid' will be false if the string has no
 			-- associated G_QUARK. If you want the G_QUARK to be created
@@ -60,13 +60,13 @@ feature {ANY}
 			quark := g_quark_try_string (a_string.to_external)
 		end
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 			-- Is Current a valid G_QUARK, linked to a string?
 		do
 			Result := (quark /= 0)
 		end
 
-	set_quark (a_quark: INTEGER) is
+	set_quark (a_quark: INTEGER)
 		do
 			quark := a_quark
 		ensure

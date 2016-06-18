@@ -5,37 +5,37 @@ deferred class SQL_TABLE_STRUCT
 inherit ANY undefine is_equal, copy end
 
 feature {} -- Low-level setters
-	low_level_set_type (a_structure: POINTER; a_value: INTEGER_32) is
+	low_level_set_type (a_structure: POINTER; a_value: INTEGER_32)
 		external "C struct sql_table set type use <libgda/libgda.h>"
 		end
 
-	low_level_set_as (a_structure: POINTER; a_value: POINTER) is
+	low_level_set_as (a_structure: POINTER; a_value: POINTER)
 		external "C struct sql_table set as use <libgda/libgda.h>"
 		end
 
-	low_level_set_join_type (a_structure: POINTER; a_value: INTEGER_32) is
+	low_level_set_join_type (a_structure: POINTER; a_value: INTEGER_32)
 		external "C struct sql_table set join_type use <libgda/libgda.h>"
 		end
 
-	low_level_set_join_cond (a_structure: POINTER; a_value: POINTER) is
+	low_level_set_join_cond (a_structure: POINTER; a_value: POINTER)
 		external "C struct sql_table set join_cond use <libgda/libgda.h>"
 		end
 
 feature {} -- Low-level queries
-	get_type (a_structure: POINTER): INTEGER_32 is
+	get_type (a_structure: POINTER): INTEGER_32
 		external "C struct sql_table get type use <libgda/libgda.h>"
 		end
 
 	-- Unwrappable d: Unhnalded union type
-	get_as (a_structure: POINTER): POINTER is
+	get_as (a_structure: POINTER): POINTER
 		external "C struct sql_table get as use <libgda/libgda.h>"
 		end
 
-	get_join_type (a_structure: POINTER): INTEGER_32 is
+	get_join_type (a_structure: POINTER): INTEGER_32
 		external "C struct sql_table get join_type use <libgda/libgda.h>"
 		end
 
-	get_join_cond (a_structure: POINTER): POINTER is
+	get_join_cond (a_structure: POINTER): POINTER
 		external "C struct sql_table get join_cond use <libgda/libgda.h>"
 		end
 

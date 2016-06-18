@@ -27,43 +27,43 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_combo_box_new: POINTER is
+	gtk_combo_box_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_new_with_model (a_model: POINTER): POINTER is
+	gtk_combo_box_new_with_model (a_model: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_get_wrap_width (a_combo_box: POINTER): INTEGER is
+	gtk_combo_box_get_wrap_width (a_combo_box: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_set_wrap_width (a_combo_box: POINTER; a_width: INTEGER) is
+	gtk_combo_box_set_wrap_width (a_combo_box: POINTER; a_width: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_get_row_span_column (a_combo_box: POINTER): INTEGER is
+	gtk_combo_box_get_row_span_column (a_combo_box: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_set_row_span_column (a_combo_box: POINTER; a_row_span: INTEGER) is
+	gtk_combo_box_set_row_span_column (a_combo_box: POINTER; a_row_span: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_get_column_span_column (a_combo_box: POINTER): INTEGER is
+	gtk_combo_box_get_column_span_column (a_combo_box: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_set_column_span_column (a_combo_box: POINTER; a_column_span: INTEGER) is
+	gtk_combo_box_set_column_span_column (a_combo_box: POINTER; a_column_span: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_get_active (a_combo_box: POINTER): INTEGER is
+	gtk_combo_box_get_active (a_combo_box: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_set_active (a_combo_box: POINTER; an_index: INTEGER) is
+	gtk_combo_box_set_active (a_combo_box: POINTER; an_index: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -71,7 +71,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_set_active_iter (a_combo_box: POINTER; a_gtktreeiter: POINTER) is
+	gtk_combo_box_set_active_iter (a_combo_box: POINTER; a_gtktreeiter: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -79,7 +79,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_set_model (a_combo_box: POINTER; a_model: POINTER) is
+	gtk_combo_box_set_model (a_combo_box: POINTER; a_model: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -87,19 +87,19 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_append_text (a_combo_box: POINTER; a_text: POINTER) is
+	gtk_combo_box_append_text (a_combo_box: POINTER; a_text: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_insert_text (a_combo_box: POINTER; a_position: INTEGER; a_text: POINTER) is
+	gtk_combo_box_insert_text (a_combo_box: POINTER; a_position: INTEGER; a_text: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_prepend_text (a_combo_box: POINTER; a_text: POINTER) is
+	gtk_combo_box_prepend_text (a_combo_box: POINTER; a_text: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_remove_text (a_combo_box: POINTER; a_position: INTEGER) is
+	gtk_combo_box_remove_text (a_combo_box: POINTER; a_position: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -107,11 +107,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_popup (a_combo_box: POINTER) is
+	gtk_combo_box_popup (a_combo_box: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_popdown (a_combo_box: POINTER) is
+	gtk_combo_box_popdown (a_combo_box: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -123,11 +123,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_set_row_separator_func (a_combo_box: POINTER; a_gtktreeviewrowseparatorfunc: POINTER; some_data: POINTER; a_gtkdestroynotify: POINTER) is
+	gtk_combo_box_set_row_separator_func (a_combo_box: POINTER; a_gtktreeviewrowseparatorfunc: POINTER; some_data: POINTER; a_gtkdestroynotify: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_set_add_tearoffs (a_combo_box: POINTER; add_tearoffs: INTEGER) is
+	gtk_combo_box_set_add_tearoffs (a_combo_box: POINTER; add_tearoffs: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -135,7 +135,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_set_focus_on_click (a_combo_box: POINTER; focus_on_click: INTEGER) is
+	gtk_combo_box_set_focus_on_click (a_combo_box: POINTER; focus_on_click: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 

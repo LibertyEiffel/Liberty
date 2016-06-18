@@ -45,12 +45,12 @@ create {ANY} make, copy, copy_from_pointer, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			allocate
 		end
 
-	copy_from_pointer (a_ptr: POINTER) is
+	copy_from_pointer (a_ptr: POINTER)
 		require
 			a_ptr.is_not_null
 		do
@@ -61,58 +61,58 @@ feature {} -- Creation
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRequisition)"
 		end
 
 feature {ANY}
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 		do
 			Result := width = other.width and height = other.height
 		end
 
-	width: INTEGER is
+	width: INTEGER
 			-- the widget's desired width
 		do
 			Result := get_width_external (handle)
 		end
 
-	set_width (a_width: INTEGER) is
+	set_width (a_width: INTEGER)
 		do
 			set_width_external (handle, a_width)
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- the widget's desired height
 		do
 			Result := get_height_external (handle)
 		end
 
-	set_height (an_height: INTEGER) is
+	set_height (an_height: INTEGER)
 		do
 			set_height_external (handle, an_height)
 		end
 
 feature {} -- External
 
-	get_width_external (ptr: POINTER): INTEGER is
+	get_width_external (ptr: POINTER): INTEGER
 		require valid_ptr: ptr.is_not_null
 		external "C struct GtkRequisition get width use <gtk/gtk.h>"
 		end
 
-	set_width_external (ptr: POINTER; a_width:INTEGER) is
+	set_width_external (ptr: POINTER; a_width:INTEGER)
 		require valid_ptr: ptr.is_not_null
 		external "C struct GtkRequisition set width use <gtk/gtk.h>"
 		end
 
-	get_height_external (ptr: POINTER): INTEGER is
+	get_height_external (ptr: POINTER): INTEGER
 		require valid_ptr: ptr.is_not_null
 		external "C struct GtkRequisition get height use <gtk/gtk.h>"
 		end
 
-	set_height_external (ptr: POINTER; an_height:INTEGER) is
+	set_height_external (ptr: POINTER; an_height:INTEGER)
 		require valid_ptr: ptr.is_not_null
 		external "C struct GtkRequisition set height use <gtk/gtk.h>"
 		end

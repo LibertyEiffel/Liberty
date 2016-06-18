@@ -35,7 +35,7 @@ insert GTK_HBOX_EXTERNALS
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (an_homogeneous: BOOLEAN; a_spacing: INTEGER) is
+	make (an_homogeneous: BOOLEAN; a_spacing: INTEGER)
 			-- Creates a new GtkHBox. If `an_homogeneous' is True all
 			-- children are to be given equal space
 			-- allotments. `a_spacing' is the number of pixels to place
@@ -45,7 +45,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_hbox_new (an_homogeneous.to_integer, a_spacing))
 		end
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHBox)"
 		end

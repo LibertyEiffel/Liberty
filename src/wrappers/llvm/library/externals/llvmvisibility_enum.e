@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = default_visibility_low_level)  or else
 				(a_value = hidden_visibility_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_default_visibility is
+	set_default_visibility
 		do
 			value := default_visibility_low_level
 		end
 
-	set_hidden_visibility is
+	set_hidden_visibility
 		do
 			value := hidden_visibility_low_level
 		end
 
-	set_protected_visibility is
+	set_protected_visibility
 		do
 			value := protected_visibility_low_level
 		end
 
 feature {ANY} -- Queries
-	is_default_visibility: BOOLEAN is
+	is_default_visibility: BOOLEAN
 		do
 			Result := (value=default_visibility_low_level)
 		end
 
-	is_hidden_visibility: BOOLEAN is
+	is_hidden_visibility: BOOLEAN
 		do
 			Result := (value=hidden_visibility_low_level)
 		end
 
-	is_protected_visibility: BOOLEAN is
+	is_protected_visibility: BOOLEAN
 		do
 			Result := (value=protected_visibility_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	default_visibility_low_level: INTEGER is
+	default_visibility_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hidden_visibility_low_level: INTEGER is
+	hidden_visibility_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	protected_visibility_low_level: INTEGER is
+	protected_visibility_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -8,15 +8,15 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_query_object_get_int_id (a_qobj: POINTER): INTEGER_32 is
+	gda_query_object_get_int_id (a_qobj: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_object_set_int_id (a_qobj: POINTER; an_id: INTEGER_32) is
+	gda_query_object_set_int_id (a_qobj: POINTER; an_id: INTEGER_32)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_object_get_type: INTEGER_32 is
+	gda_query_object_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

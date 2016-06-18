@@ -38,7 +38,7 @@ feature {} -- Creation
 
 feature {} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <polka/.h>"
 		alias "sizeof ()"
 		end

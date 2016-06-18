@@ -3,7 +3,7 @@ class TEST_2
 create {ANY} make
 
 feature {ANY} 
-	make is
+	make
 		do
 			from create separated
 			until False -- i.e. forever
@@ -18,7 +18,7 @@ feature {ANY}
 		-- 
 		port: MEMORY_MAPPED_MESSAGE_PORT
 
-	make_something is
+	make_something
 		do
 			print(once "Making some random calculation")
 		end

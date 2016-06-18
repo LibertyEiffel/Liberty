@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_in_order) or else 
 				(a_value = g_pre_order) or else 
@@ -15,66 +15,66 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_in_order is
+	default_create, set_in_order
 		do
 			value := g_in_order
 		end
 
-	set_pre_order is
+	set_pre_order
 		do
 			value := g_pre_order
 		end
 
-	set_post_order is
+	set_post_order
 		do
 			value := g_post_order
 		end
 
-	set_level_order is
+	set_level_order
 		do
 			value := g_level_order
 		end
 
 
 feature {ANY} -- Queries
-	is_in_order: BOOLEAN is
+	is_in_order: BOOLEAN
 		do
 			Result := (value=g_in_order)
 		end
 
-	is_pre_order: BOOLEAN is
+	is_pre_order: BOOLEAN
 		do
 			Result := (value=g_pre_order)
 		end
 
-	is_post_order: BOOLEAN is
+	is_post_order: BOOLEAN
 		do
 			Result := (value=g_post_order)
 		end
 
-	is_level_order: BOOLEAN is
+	is_level_order: BOOLEAN
 		do
 			Result := (value=g_level_order)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_in_order: INTEGER is
+	g_in_order: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IN_ORDER"
 		end
 
-	g_pre_order: INTEGER is
+	g_pre_order: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PRE_ORDER"
 		end
 
-	g_post_order: INTEGER is
+	g_post_order: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_POST_ORDER"
 		end
 
-	g_level_order: INTEGER is
+	g_level_order: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LEVEL_ORDER"
 		end

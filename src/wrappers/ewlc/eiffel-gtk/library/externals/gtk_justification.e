@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_justification (a_justification :INTEGER): BOOLEAN is
+	is_valid_gtk_justification (a_justification :INTEGER): BOOLEAN
 		do	
 			Result:=((a_justification= gtk_justify_left) or else
 						(a_justification= gtk_justify_right) or else
@@ -35,25 +35,25 @@ feature {} -- enum
 						(a_justification= gtk_justify_fill))
 		end
 
-	gtk_justify_left: INTEGER is
+	gtk_justify_left: INTEGER
 			-- 	The text is placed at the left edge of the label.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_JUSTIFY_LEFT"
 		end
 	
-	gtk_justify_right: INTEGER is
+	gtk_justify_right: INTEGER
 			-- 	The text is placed at the right edge of the label.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_JUSTIFY_RIGHT"
 		end
 	
-	gtk_justify_center: INTEGER is
+	gtk_justify_center: INTEGER
 			-- 	The text is placed in the center of the label.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_JUSTIFY_CENTER"
 		end
 	
-	gtk_justify_fill: INTEGER is
+	gtk_justify_fill: INTEGER
 			-- 	The text is distributed across the label.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_JUSTIFY_FILL"

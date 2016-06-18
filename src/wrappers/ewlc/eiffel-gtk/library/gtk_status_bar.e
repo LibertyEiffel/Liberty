@@ -67,13 +67,13 @@ insert GTK_SHADOW_TYPE
 create {ANY} make, from_external_pointer
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkStatusBar)"
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkStatusbar ready for messages.
 		require gtk_initialized: gtk.is_initialized
 		do
@@ -82,7 +82,7 @@ feature {} -- Creation
 
 feature {ANY} -- Context ids
 
-	new_context_id (description: STRING) is
+	new_context_id (description: STRING)
 		require
 			description /= Void
 		do
@@ -93,7 +93,7 @@ feature {ANY} -- Context ids
 
 feature {ANY} -- Stack like behaviour
 
-	push (context_id: INTEGER; a_message: STRING) is
+	push (context_id: INTEGER; a_message: STRING)
 			-- Pushes `a_message' onto a statusbar's stack.
 			-- `context_id' will be used
 		require
@@ -106,35 +106,35 @@ feature {ANY} -- Stack like behaviour
 	last_pushed: INTEGER
 			-- Message id for the last message pushed
 
-	pop (context_id: INTEGER) is
+	pop (context_id: INTEGER)
 			-- Pop last message with current (i.e.: last) context id.
 		do
 			gtk_statusbar_pop (handle, context_id);
 			-- Removes the message at the top of a GtkStatusBar's stack.
 		end
 
-	remove_message (context_id, a_message_id: INTEGER) is
+	remove_message (context_id, a_message_id: INTEGER)
 			-- Forces the removal of a message from a statusbar's
 			-- stack. The exact `message_id' must be specified.
 		do
 			gtk_statusbar_remove (handle, context_id, a_message_id)
 		end
 
-	set_has_resize_grip (a_setting: BOOLEAN) is
+	set_has_resize_grip (a_setting: BOOLEAN)
 			-- Sets whether the statusbar has a resize grip. True by default.
 		do
 			gtk_statusbar_set_has_resize_grip(handle, a_setting.to_integer)
 		ensure set: a_setting = has_resize_grip
 		end			
 
-	has_resize_grip: BOOLEAN is
+	has_resize_grip: BOOLEAN
 			-- Does the statusbar have a resize grip?
 		do
 			Result := gtk_statusbar_get_has_resize_grip(handle).to_boolean
 		end
 
 feature {ANY} -- Style Properties
-	shadow_type: INTEGER is
+	shadow_type: INTEGER
 			-- Style of bevel around the statusbar text. Note: in C it is a
 			-- GtkShadowType.  Default value: `gtk_shadow_in'.
 		do
@@ -181,7 +181,7 @@ feature {ANY} -- TODO: Signals
 feature {} -- Implementation
 	shadow_type_property_name: STRING is "shadow-type"
 
-	shadow_type_property_spec: G_PARAM_SPEC is
+	shadow_type_property_spec: G_PARAM_SPEC
 		once
 			Result:=find_property(shadow_type_property_name)
 		ensure not_void: Result /= Void
@@ -189,7 +189,7 @@ feature {} -- Implementation
 
 	shadow_type_gvalue: G_VALUE
 	
-	print_shadow_type_notice is
+	print_shadow_type_notice
 		once
 			print ("[
 					  Note: GTK_STATUS_BAR's shadow_type feature relies on the assumption that a GValue
@@ -201,18 +201,18 @@ feature {} -- Implementation
 
 feature {} -- External calls 
 
-	gtk_statusbar_new: POINTER is
+	gtk_statusbar_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_statusbar_get_context_id (a_statusbar, a_context_description: POINTER): INTEGER  is
+	gtk_statusbar_get_context_id (a_statusbar, a_context_description: POINTER): INTEGER
 			-- Note Result shall be NATURAL since it's a guint
 		external "C use <gtk/gtk.h>"
 		ensure positive: Result > 0
 		end
 	
 	gtk_statusbar_push (a_statusbar: POINTER; a_context_id: INTEGER;
-							  a_text: POINTER): INTEGER  is
+							  a_text: POINTER): INTEGER
 		require
 			-- Note: `a_context_id' is a guint and shall be a NATURAL
 			positive_context_id: a_context_id >= 0 
@@ -220,7 +220,7 @@ feature {} -- External calls
 		ensure positive: Result > 0
 		end
 
-	gtk_statusbar_pop (a_statusbar: POINTER; a_context_id: INTEGER)  is
+	gtk_statusbar_pop (a_statusbar: POINTER; a_context_id: INTEGER)
 		require
 			-- Note: `a_context_id' is a guint and shall be a NATURAL
 			positive_context_id: a_context_id >= 0 
@@ -228,7 +228,7 @@ feature {} -- External calls
 		end
 
 	gtk_statusbar_remove (a_statusbar: POINTER; a_context_id,
-								 a_message_id: INTEGER)  is
+								 a_message_id: INTEGER)
 		require
 			-- Note: `a_context_id' and `a_message_id' are guint and shall be NATURAL
 			positive_context_id: a_context_id >= 0 
@@ -236,11 +236,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_statusbar_set_has_resize_grip (a_statusbar: POINTER; a_setting: INTEGER) is
+	gtk_statusbar_set_has_resize_grip (a_statusbar: POINTER; a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_statusbar_get_has_resize_grip (a_statusbar: POINTER): INTEGER is
+	gtk_statusbar_get_has_resize_grip (a_statusbar: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 

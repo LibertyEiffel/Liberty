@@ -40,25 +40,25 @@ insert
 
 feature {} -- Externals
 
-	xmlrpc_env_init (an_env_ptr: POINTER) is
+	xmlrpc_env_init (an_env_ptr: POINTER)
 		require
 			an_env_ptr.is_not_null
 		external "C use <xmlrpc-c/base.h>"
 		end
 
-	xmlrpc_env_clean (an_env_ptr: POINTER) is
+	xmlrpc_env_clean (an_env_ptr: POINTER)
 		require
 			an_env_ptr.is_not_null
 		external "C use <xmlrpc-c/base.h>"
 		end
 
-	xmlrpc_env_fault_occurred (an_env_ptr: POINTER): INTEGER is
+	xmlrpc_env_fault_occurred (an_env_ptr: POINTER): INTEGER
 		require
 			an_env_ptr.is_not_null
 		external "C struct xmlrpc_env get fault_occurred use <xmlrpc-c/base.h>"
 		end
 
-	xmlrpc_env_fault_code (an_env_ptr: POINTER): INTEGER is
+	xmlrpc_env_fault_code (an_env_ptr: POINTER): INTEGER
 		require
 			an_env_ptr.is_not_null
 		external "C struct xmlrpc_env get fault_code use <xmlrpc-c/base.h>"
@@ -66,7 +66,7 @@ feature {} -- Externals
 			is_valid_xmlrpc_error_type (Result)
 		end
 
-	xmlrpc_env_fault_string (an_env_ptr: POINTER): POINTER is
+	xmlrpc_env_fault_string (an_env_ptr: POINTER): POINTER
 		require
 			an_env_ptr.is_not_null
 		external "C struct xmlrpc_env get fault_string use <xmlrpc-c/base.h>"

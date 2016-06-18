@@ -1,7 +1,7 @@
 class REAL_SPIN
 inherit GTK_SPIN_BUTTON rename make as make_spin redefine on_changed end
 create {ANY} make
-feature {ANY} make is
+feature {ANY} make
 		local adj: GTK_ADJUSTMENT
 		do
 			create adj.make (0.0,0.0, 100.0, 2.5, 10.0, 20.0)
@@ -9,7 +9,7 @@ feature {ANY} make is
 			connect (Current, "changed", $on_changed)
 		end
 
-	on_changed is
+	on_changed
 		do
 			print(value.out) print ("%% of non-Eiffel code%N")
 		end

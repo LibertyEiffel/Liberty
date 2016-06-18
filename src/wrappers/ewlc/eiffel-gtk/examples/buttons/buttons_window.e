@@ -3,7 +3,7 @@ inherit
 	GTK_WINDOW redefine make, on_destroy end
 	GTK
 create {ANY} make
-feature {ANY} make is
+feature {ANY} make
 		do
 			Precursor
 			set_title (once "Buttons demo")
@@ -52,13 +52,13 @@ feature {ANY} -- Strings
 feature {ANY}  -- Callbacks
 	smarteiffel_choosen: TOGGLED_CALLBACK[GTK_RADIO_BUTTON]
 
-	on_destroy is
+	on_destroy
 		do
 			print ("Buttons demo ending%N")
 			gtk.quit
 		end
 
-	on_gnu_compiler_toggled (a_toggle: GTK_TOGGLE_BUTTON) is
+	on_gnu_compiler_toggled (a_toggle: GTK_TOGGLE_BUTTON)
 		do
 			print ("on_gnu_compiler_toggled reached%N")
 			if a_toggle.is_active

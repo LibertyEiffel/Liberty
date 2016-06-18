@@ -12,7 +12,7 @@ feature {ANY}
 	array: G_REFERENCE_ARRAY[G_STRING]
 	first: G_STRING
 
-feature {ANY} make is
+feature {ANY} make
 		local i: ITERATOR [G_STRING]
 		do
 			create array.make_empty

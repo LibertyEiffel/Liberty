@@ -25,7 +25,7 @@ deferred class GDK_WINDOW_EDGE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_window_edge (an_edge :INTEGER): BOOLEAN is
+	is_valid_window_edge (an_edge :INTEGER): BOOLEAN
 		do	
 			Result:=((an_edge = gdk_window_edge_north_west) or else
 						(an_edge = gdk_window_edge_north) or else
@@ -37,49 +37,49 @@ feature {ANY}  -- enum
 						(an_edge = gdk_window_edge_south_east))
 		end
 	
-	gdk_window_edge_north_west: INTEGER is
+	gdk_window_edge_north_west: INTEGER
 			-- the top left corner.
 		external "C macro <gdk/gdk.h>"
 		alias "GDK_WINDOW_EDGE_NORTH_WEST"
 		end
 
-	gdk_window_edge_north: INTEGER is
+	gdk_window_edge_north: INTEGER
 			-- the top edge.
 		external "C macro <gdk/gdk.h>"
 		alias "GDK_WINDOW_EDGE_NORTH"
 		end
 
-	gdk_window_edge_north_east: INTEGER is
+	gdk_window_edge_north_east: INTEGER
 			-- the top right corner.
 		external "C macro <gdk/gdk.h>"
 		alias "GDK_WINDOW_EDGE_NORTH_EAST"
 		end
 
-	gdk_window_edge_west: INTEGER is
+	gdk_window_edge_west: INTEGER
 			-- the left edge.
 		external "C macro <gdk/gdk.h>"
 		alias "GDK_WINDOW_EDGE_WEST"
 		end
 
-	gdk_window_edge_east: INTEGER is
+	gdk_window_edge_east: INTEGER
 			-- the right edge.
 		external "C macro <gdk/gdk.h>"
 		alias "GDK_WINDOW_EDGE_EAST"
 		end
 
-	gdk_window_edge_south_west: INTEGER is
+	gdk_window_edge_south_west: INTEGER
 			-- the lower left corner.
 		external "C macro <gdk/gdk.h>"
 		alias "GDK_WINDOW_EDGE_SOUTH_WEST"
 		end
 
-	gdk_window_edge_south: INTEGER is
+	gdk_window_edge_south: INTEGER
 			-- the lower edge.
 		external "C macro <gdk/gdk.h>"
 		alias "GDK_WINDOW_EDGE_SOUTH"
 		end
 
-	gdk_window_edge_south_east: INTEGER is
+	gdk_window_edge_south_east: INTEGER
 			-- the lower right corner.
 		external "C macro <gdk/gdk.h>"
 		alias "GDK_WINDOW_EDGE_SOUTH_EAST"

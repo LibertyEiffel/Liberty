@@ -54,14 +54,14 @@ insert GTK_ABOUT_DIALOG_EXTERNALS
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- a newly created GtkAboutDialog
 		do
 			from_external_pointer (gtk_about_dialog_new)
 		end
 
 feature {ANY} -- Queries
-	program_name: STRING is
+	program_name: STRING
 			-- the program name displayed in the about dialog.
 		do
 			-- The string returned by gtk_about_dialog_get_name is owned
@@ -69,39 +69,39 @@ feature {ANY} -- Queries
 			create {CONST_STRING} Result.from_external (gtk_about_dialog_get_program_name (handle))
 		end
 
-	version: STRING is
+	version: STRING
 		do
 			create {CONST_STRING} Result.from_external
 			(gtk_about_dialog_get_version (handle))
 		end
 
-	copyright: STRING is
+	copyright: STRING
 			-- the copyright string
 		do
 			create {CONST_STRING} Result.from_external
 			(gtk_about_dialog_get_copyright (handle))
 		end
 
-	comments: STRING is
+	comments: STRING
 		do
 			create {CONST_STRING} Result.from_external
 			(gtk_about_dialog_get_comments (handle))
 		end
 
-	license: STRING is
+	license: STRING
 			-- the license information
 		do
 			create {CONST_STRING} Result.from_external
 			(gtk_about_dialog_get_license (handle))
 		end
 
-	is_license_wrapped: BOOLEAN is
+	is_license_wrapped: BOOLEAN
 			-- Is the license text in about automatically wrapped?
 		do
 			Result:=(gtk_about_dialog_get_wrap_license(handle)).to_boolean
 		end
 
-	website: STRING is
+	website: STRING
 			-- The website URL. 
 		do
 			create {CONST_STRING} Result.from_external
@@ -110,7 +110,7 @@ feature {ANY} -- Queries
 			-- modified.
 		end
 
-	website_label: STRING is
+	website_label: STRING
 			-- The label used for the website link. 
 		do
 			-- The C string is owned by the about dialog and must not be 
@@ -128,7 +128,7 @@ feature {ANY} -- Queries
 	-- Returns : 	A NULL-terminated string array containing the authors. The array is owned by the about dialog and must not be modified.
 
 feature {ANY} -- Setters
-	set_program_name (a_name: STRING) is
+	set_program_name (a_name: STRING)
 			-- Sets the name to display in the about dialog. If this is
 			-- not set, it defaults to result of the C function-g_get_application_name().
 		require
@@ -137,14 +137,14 @@ feature {ANY} -- Setters
 			gtk_about_dialog_set_program_name (handle, a_name.to_external)
 		end
 
-	set_version (a_version: STRING) is
+	set_version (a_version: STRING)
 			-- Sets the version string to display in the about dialog.
 		require version_not_void: a_version /= Void
 		do
 			gtk_about_dialog_set_version (handle, a_version.to_external)
 		end
 
-	set_copyright (a_copyright: STRING) is
+	set_copyright (a_copyright: STRING)
 			-- Sets the copyright string to display in the about dialog. This
 			-- should be a short string of one or two lines.
 		require copyright_not_void: a_copyright /= Void
@@ -152,7 +152,7 @@ feature {ANY} -- Setters
 			gtk_about_dialog_set_copyright (handle, a_copyright.to_external)
 		end
 
-	set_comments (some_comments: STRING) is
+	set_comments (some_comments: STRING)
 			-- Sets the comments string to display in the about dialog. This should
 			-- be a short string of one or two lines.
 		require comments_not_void: some_comments /= Void
@@ -160,7 +160,7 @@ feature {ANY} -- Setters
 			gtk_about_dialog_set_comments (handle, some_comments.to_external)
 		end
 
-	set_license (a_license: STRING) is
+	set_license (a_license: STRING)
 			-- Sets the license information to be displayed in the secondary
 			-- license dialog. 
 		require license_not_void: a_license /= Void
@@ -169,32 +169,32 @@ feature {ANY} -- Setters
 			gtk_about_dialog_set_license (handle, a_license.to_external)
 		end
 
-	hide_license is
+	hide_license
 			-- Hide the license button.
 		do
 			gtk_about_dialog_set_license (handle, default_pointer)
 		end
 
-	set_wrap_license is
+	set_wrap_license
 			-- Automatically wraps the license text in about.
 		do
 			gtk_about_dialog_set_wrap_license (handle, 1)
 		end
 
-	unset_wrap_license is
+	unset_wrap_license
 			-- Automatically unwraps the license text in about.
 		do
 			gtk_about_dialog_set_wrap_license (handle, 0)
 		end
 
-	set_website (a_website: STRING) is
+	set_website (a_website: STRING)
 			-- Sets the URL to use for the website link. `a_website' is
 			-- an URL starting with "http://"
 		do
 			gtk_about_dialog_set_website (handle, a_website.to_external)
 		end
 
-	set_website_label (a_website_label: STRING) is
+	set_website_label (a_website_label: STRING)
 			-- Sets the label to be used for the website link. It defaults to the website URL.
 		do
 			gtk_about_dialog_set_website_label (handle, a_website_label.to_external)
@@ -257,7 +257,7 @@ feature {ANY} -- Setters
 
 	-- Since 2.6
 
-	translator_credits: STRING is
+	translator_credits: STRING
 			-- The translator credits string.
 		do
 			-- The string is owned by the about dialog and must not be
@@ -266,7 +266,7 @@ feature {ANY} -- Setters
 			(gtk_about_dialog_get_translator_credits (handle))
 		end
 
-	set_translator_credits (some_translator_credits: STRING) is
+	set_translator_credits (some_translator_credits: STRING)
 			-- Sets the translator credits string which is displayed in
 			-- the translators tab of the secondary credits dialog.
 		
@@ -287,7 +287,7 @@ feature {ANY} -- Setters
 			(handle, some_translator_credits.to_external)
 		end
 
-	logo: GDK_PIXBUF is
+	logo: GDK_PIXBUF
 			-- the pixbuf displayed as logo in the about dialog.
 		local ptr: POINTER
 		do
@@ -302,7 +302,7 @@ feature {ANY} -- Setters
 			end
 		end
 
-	set_logo (a_pixbuf: GDK_PIXBUF) is
+	set_logo (a_pixbuf: GDK_PIXBUF)
 			-- Sets the pixbuf to be displayed as logo in the about
 			-- dialog. If it is NULL, the default window icon set with
 			-- gtk_window_set_default_icon() will be used.
@@ -311,14 +311,14 @@ feature {ANY} -- Setters
 			gtk_about_dialog_set_logo (handle, a_pixbuf.handle)
 		end
 
-	unset_logo is
+	unset_logo
 			-- Use the default window icon set with
 			-- `GTK_WINDOW.set_default_icon' will be used.
 		do
 			gtk_about_dialog_set_logo (handle, default_pointer)
 		end
 
-	logo_icon_name: STRING is
+	logo_icon_name: STRING
 			-- The icon name displayed as logo in the about dialog.
 		do
 			create {CONST_STRING} Result.from_external
@@ -329,7 +329,7 @@ feature {ANY} -- Setters
 			-- g_strdup() on it.
 		end
 
-	set_logo_icon_name (an_icon_name: STRING) is
+	set_logo_icon_name (an_icon_name: STRING)
 			-- Sets the pixbuf to be displayed as logo in the about
 			-- dialog. 
 		require name_not_void: an_icon_name /= Void
@@ -337,7 +337,7 @@ feature {ANY} -- Setters
 			gtk_about_dialog_set_logo_icon_name (handle, an_icon_name.to_external)
 		end
 
-	unset_logo_icon_name (an_icon_name: STRING) is
+	unset_logo_icon_name (an_icon_name: STRING)
 			-- Use the default window icon set with
 			-- `GTK_WINDOW.set_default_icon' will be used.
 		do
@@ -537,7 +537,7 @@ feature {ANY} -- Property Details
 	--   "wrap-license"         gboolean              : Read / Write
 
 feature {ANY}
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAboutDialog)"
 		end

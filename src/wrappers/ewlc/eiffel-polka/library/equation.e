@@ -42,7 +42,7 @@ create {ANY}	make
 
 feature {} -- Creation
 
-	make (a_dimension: INTEGER) is
+	make (a_dimension: INTEGER)
 		require
 			a_dimension > 0
 		do
@@ -56,7 +56,7 @@ feature {} -- Representation
 
 feature {ANY} -- Operations
 
-	set_var (a_variable: INTEGER) is
+	set_var (a_variable: INTEGER)
 		require
 			a_variable.in_range (0, dimension - polka_dec)
 		do
@@ -65,7 +65,7 @@ feature {ANY} -- Operations
 			variable = a_variable
 		end
 
-	set_assignment (an_assignment: ARRAY [PKINT]) is
+	set_assignment (an_assignment: ARRAY [PKINT])
 		require
 			an_assignment /= Void
 			not an_assignment.has (Void)
@@ -78,14 +78,14 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Access
 
-	variable: INTEGER is
+	variable: INTEGER
 		do
 			Result := equation_get_var (handle)
 		ensure
 			variable.in_range (0, dimension - polka_dec)
 		end
 
-	assignment: ARRAY [PKINT] is
+	assignment: ARRAY [PKINT]
 		local
 			c_ptr: POINTER
 			i: INTEGER
@@ -105,7 +105,7 @@ feature {ANY} -- Access
 
 feature {} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <polka/.h>"
 		alias "sizeof (equation_t)"
 		end

@@ -8,11 +8,11 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_data_model_row_get_row (a_model: POINTER; a_row: INTEGER_32; an_error: POINTER): POINTER is
+	gda_data_model_row_get_row (a_model: POINTER; a_row: INTEGER_32; an_error: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_row_get_type: INTEGER_32 is
+	gda_data_model_row_get_type: INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 

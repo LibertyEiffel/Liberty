@@ -34,7 +34,7 @@ insert GTK
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 		-- Creates a new GtkTextChildAnchor. Usually you would then
 		-- insert it into a GTK_TEXT_BUFFER with
 		-- `insert_child_anchor'. To perform the creation and insertion
@@ -47,13 +47,13 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	widgets: G_LIST [GTK_WIDGET] is
+	widgets: G_LIST [GTK_WIDGET]
 			-- a list of all widgets anchored at this child anchor.
 		do
 			create {G_OBJECT_LIST[GTK_WIDGET]} Result.from_external_pointer (gtk_text_child_anchor_get_widgets (handle))
 		end
 
-	get_deleted: BOOLEAN is
+	get_deleted: BOOLEAN
 			-- Has the child anchor been deleted from its buffer? Keep in
 			-- mind that the child anchor will be unreferenced when
 			-- removed from the buffer, so you need to hold your own
@@ -65,7 +65,7 @@ feature {ANY}
 		end
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextChildAnchor)"
 

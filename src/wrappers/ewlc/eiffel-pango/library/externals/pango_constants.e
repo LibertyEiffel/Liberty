@@ -26,7 +26,7 @@ deferred class PANGO_CONSTANTS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- Constants
-	pango_scale: INTEGER is
+	pango_scale: INTEGER
 		external "C macro use <pango/pango-types.h>"
 		alias "PANGO_SCALE"
 		end

@@ -42,7 +42,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation 
-	make (a_title: STRING; a_printer: GTK_PRINTER; some_settings: GTK_PRINT_SETTINGS; a_page_setup: GTK_PAGE_SETUP) is
+	make (a_title: STRING; a_printer: GTK_PRINTER; some_settings: GTK_PRINT_SETTINGS; a_page_setup: GTK_PAGE_SETUP)
 			--   Creates a new GtkPrintJob.
 		require
 			title_not_void: a_title /= Void
@@ -55,7 +55,7 @@ feature {} -- Creation
 		end
 	
 feature {ANY}
-	settings: GTK_PRINT_SETTINGS is
+	settings: GTK_PRINT_SETTINGS
 			-- the GtkPrintSettings of the print job.
 		local p: POINTER; r: G_OBJECT_EXPANDED_FACTORY[GTK_PRINT_SETTINGS]
 		do
@@ -68,7 +68,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	printer: GTK_PRINTER is
+	printer: GTK_PRINTER
 			-- the GtkPrinter of the print job.
 		local p: POINTER; r: G_OBJECT_EXPANDED_FACTORY[GTK_PRINTER]
 		do
@@ -80,14 +80,14 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 			
-	title: CONST_STRING is
+	title: CONST_STRING
 			-- the job title.
 		do
 			create Result.from_external (gtk_print_job_get_title(handle))
 		ensure not_void: Result /= Void
 		end
 
-	status: INTEGER is
+	status: INTEGER
 			-- the status of the print job.
 		do
 			Result:=gtk_print_job_get_status(handle)
@@ -97,7 +97,7 @@ feature {ANY}
 	is_successful: BOOLEAN
 			-- Have the last call of `set_source_file' been successful?
 
-	set_source_file (a_filename: STRING) is
+	set_source_file (a_filename: STRING)
 			-- Send an existing document to the printing system. The file
 			-- can be in any format understood by the platforms printing
 			-- system (typically PostScript, but on many platforms PDF
@@ -148,7 +148,7 @@ feature {ANY}
 	--   Since 2.10
 	--
 
-	set_track_print_status (a_track_status: BOOLEAN) is
+	set_track_print_status (a_track_status: BOOLEAN)
 			-- If `a_track_status' is True, the print job will try to
 			-- continue report on the status of the print job in the
 			-- printer queues and printer. This can allow your
@@ -161,7 +161,7 @@ feature {ANY}
 			gtk_print_job_set_track_print_status(handle,a_track_status.to_integer)
 		end
 
-	tracked_after_printing: BOOLEAN is
+	tracked_after_printing: BOOLEAN
 			--  Will jobs be tracked after printing? For details, see
 			--   `set_track_print_status'.
 		do
@@ -259,63 +259,63 @@ feature {} -- External calls
 	-- void (*GtkPrintJobCompleteFunc) (GtkPrintJob *print_job, gpointer
 	-- user_data, GError *error);
 	
-	gtk_print_job_new (a_title, a_printer, a_settings, a_page_setup: POINTER): POINTER is
+	gtk_print_job_new (a_title, a_printer, a_settings, a_page_setup: POINTER): POINTER
 			-- GtkPrintJob* gtk_print_job_new (const gchar *title, GtkPrinter
 			-- *printer, GtkPrintSettings *settings, GtkPageSetup *page_setup);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_job_get_settings (a_job: POINTER): POINTER is
+	gtk_print_job_get_settings (a_job: POINTER): POINTER
 			-- GtkPrintSettings* gtk_print_job_get_settings (GtkPrintJob *job);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_job_get_printer (a_job: POINTER): POINTER is
+	gtk_print_job_get_printer (a_job: POINTER): POINTER
 			-- GtkPrinter* gtk_print_job_get_printer (GtkPrintJob *job);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_job_get_title (a_job: POINTER): POINTER is
+	gtk_print_job_get_title (a_job: POINTER): POINTER
 			-- const gchar* gtk_print_job_get_title (GtkPrintJob *job);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_job_get_status (a_job: POINTER): INTEGER is
+	gtk_print_job_get_status (a_job: POINTER): INTEGER
 			-- 	GtkPrintStatus gtk_print_job_get_status (GtkPrintJob *job);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_job_set_source_file (a_job, a_filename, an_error_handle: POINTER): INTEGER is
+	gtk_print_job_set_source_file (a_job, a_filename, an_error_handle: POINTER): INTEGER
 			-- gboolean gtk_print_job_set_source_file (GtkPrintJob *job, const
 			-- gchar *filename, GError **error);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_print_job_get_surface (a_job, an_error_handle: POINTER): POINTER is
+	gtk_print_job_get_surface (a_job, an_error_handle: POINTER): POINTER
 			-- cairo_surface_t* gtk_print_job_get_surface (GtkPrintJob *job, GError
 			-- **error);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_job_send (a_job, a_callback, some_user_data, a_destroy_notify: POINTER) is
+	gtk_print_job_send (a_job, a_callback, some_user_data, a_destroy_notify: POINTER)
 			-- void gtk_print_job_send (GtkPrintJob *job, GtkPrintJobCompleteFunc
 			-- callback, gpointer user_data, GDestroyNotify dnotify);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_job_set_track_print_status (a_job: POINTER; a_track_status: INTEGER) is
+	gtk_print_job_set_track_print_status (a_job: POINTER; a_track_status: INTEGER)
 			-- void gtk_print_job_set_track_print_status (GtkPrintJob *job,
 			-- gboolean track_status);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_job_get_track_print_status (a_job: POINTER): INTEGER is
+	gtk_print_job_get_track_print_status (a_job: POINTER): INTEGER
 			-- 	gboolean gtk_print_job_get_track_print_status (GtkPrintJob *job);
 		external "C use <gtk/gtk.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintJob)"
 		end

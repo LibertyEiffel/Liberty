@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_EDITABLE
 
 feature {ANY}
-	callback (new_text: POINTER; new_text_length: INTEGER; position: POINTER; instance: POINTER) is
+	callback (new_text: POINTER; new_text_length: INTEGER; position: POINTER; instance: POINTER)
 		local
 			new_text_obj: STRING
 			position_obj: REFERENCE [INTEGER]
@@ -51,14 +51,14 @@ feature {ANY}
 			int_ptr.put (position_obj.item, 0)
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_EDITABLE; a_procedure: like procedure) is
+	connect (an_object: GTK_EDITABLE; a_procedure: like procedure)
 		do
 			debug
 				print ("INSERT_TEXT_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

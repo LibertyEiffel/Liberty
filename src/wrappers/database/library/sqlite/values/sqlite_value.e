@@ -38,7 +38,7 @@ insert
     SQLITE_CONSTANTS
 
 feature {SQLITE_PREPARED_STATEMENT} 
-	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) is
+	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER)
 			-- Bind Current value as parameter to `an_index' placeholder in `a_statement'.
 		require 
 			a_statement/=Void
@@ -48,7 +48,7 @@ feature {SQLITE_PREPARED_STATEMENT}
 		 
 feature {ANY}
 	
-    type: INTEGER is
+    type: INTEGER
 		deferred
 		end
 end

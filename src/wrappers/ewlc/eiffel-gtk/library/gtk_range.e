@@ -29,7 +29,7 @@ inherit
 
 feature {ANY} -- The adjustment
 
-	adjustment: GTK_ADJUSTMENT is
+	adjustment: GTK_ADJUSTMENT
 			-- the GtkAdjustment which is the "model" object for
 			-- GtkRange. It contains the current value of this range
 			-- object.
@@ -47,7 +47,7 @@ feature {ANY} -- The adjustment
 			valid_adjustment: Result /= Void
 		end
 
-	set_adjustment (an_adjustment: GTK_ADJUSTMENT) is
+	set_adjustment (an_adjustment: GTK_ADJUSTMENT)
 			-- Sets the adjustment to be used as the "model" object for
 			-- this range widget. The adjustment indicates the current
 			-- range value, the minimum and maximum range values, the
@@ -62,7 +62,7 @@ feature {ANY} -- The adjustment
 		end
 
 feature {ANY} -- update policy
-	set_continous_update_policy is
+	set_continous_update_policy
 			-- Sets the update policy for the range. GTK_UPDATE_CONTINUOUS
 			-- means that anytime the range slider is moved, the range value
 			-- will change and the value_changed signal will be
@@ -72,7 +72,7 @@ feature {ANY} -- update policy
 		ensure is_update_policy_continous
 		end
 
-	is_update_policy_continous: BOOLEAN is
+	is_update_policy_continous: BOOLEAN
 			-- Sets the update policy for the range. GTK_UPDATE_CONTINUOUS
 			-- means that anytime the range slider is moved, the range value
 			-- will change and the value_changed signal will be
@@ -81,7 +81,7 @@ feature {ANY} -- update policy
 			Result := (gtk_range_get_update_policy (handle) = gtk_update_continuous)
 		end
 
-	set_discontinous_update_policy is
+	set_discontinous_update_policy
 			-- Sets the update policy for the range. GTK_UPDATE_DELAYED
 			-- means that the value will be updated after a brief timeout
 			-- where no slider motion occurs, so updates are spaced by a
@@ -91,7 +91,7 @@ feature {ANY} -- update policy
 		ensure is_update_policy_discontinous
 		end
 
-	is_update_policy_discontinous: BOOLEAN is
+	is_update_policy_discontinous: BOOLEAN
 			-- Sets the update policy for the range. GTK_UPDATE_DELAYED
 			-- means that the value will be updated after a brief timeout
 			-- where no slider motion occurs, so updates are spaced by a
@@ -100,7 +100,7 @@ feature {ANY} -- update policy
 			Result := (gtk_range_get_update_policy (handle) = gtk_update_discontinuous)
 		end
 
-	set_delayed_update_policy is
+	set_delayed_update_policy
 			-- Sets the update policy for the
 			-- range. GTK_UPDATE_DISCONTINUOUS means that the value will
 			-- only be updated when the user releases the button and ends
@@ -110,7 +110,7 @@ feature {ANY} -- update policy
 		ensure is_update_policy_delayed
 		end
 
-	is_update_policy_delayed: BOOLEAN is
+	is_update_policy_delayed: BOOLEAN
 			-- Sets the update policy for the
 			-- range. GTK_UPDATE_DISCONTINUOUS means that the value will
 			-- only be updated when the user releases the button and ends
@@ -121,14 +121,14 @@ feature {ANY} -- update policy
 
 feature {ANY} -- Inverted-ness
 
-	is_inverted: BOOLEAN is
+	is_inverted: BOOLEAN
 			-- Is the range inverted? An inverted direction slider moves
 			-- to increase range value.
 		do
 			Result := (gtk_range_get_inverted (handle)).to_boolean
 		end
 
-	set_inverted is
+	set_inverted
 			-- Ranges normally move from lower to higher values as the
 			-- slider moves from top to bottom or left to right. Inverted
 			-- ranges have higher values at the top or on the right
@@ -138,7 +138,7 @@ feature {ANY} -- Inverted-ness
 		ensure is_inverted
 		end
 
-	set_normal is
+	set_normal
 			-- Ranges normally move from lower to higher values as the
 			-- slider moves from top to bottom or left to right. Inverted
 			-- ranges have higher values at the top or on the right
@@ -150,13 +150,13 @@ feature {ANY} -- Inverted-ness
 
 feature {ANY} -- value
 
-	value: REAL_64 is
+	value: REAL_64
 			-- the current value of the range.
 		do
 			Result := gtk_range_get_value (handle)
 		end
 
-	set_value (a_value: REAL_64) is
+	set_value (a_value: REAL_64)
 			-- Sets the current value of the range; if `a_value' is
 			-- outside the minimum or maximum range values, it will be
 			-- clamped to fit inside them. The range emits the
@@ -166,7 +166,7 @@ feature {ANY} -- value
 		end
 
 feature {ANY} -- increments
-	set_increments (a_step, a_page: REAL) is
+	set_increments (a_step, a_page: REAL)
 			-- Sets the step and page sizes for the range. The step size
 			-- is used when the user clicks the GtkScrollbar arrows or
 			-- moves GtkScale via arrow keys. The page size is used for
@@ -177,7 +177,7 @@ feature {ANY} -- increments
 
 feature {ANY} -- range
 
-	set_range (a_min,a_max: REAL_64) is
+	set_range (a_min,a_max: REAL_64)
 			-- Sets the allowable values in the GtkRange, and clamps the
 			-- range value to be between min and max. (If the range has a
 			-- non-zero page size, it is clamped between min and max -
@@ -279,18 +279,18 @@ feature {ANY} -- The "change-value" signal
 		--                                             gdouble value,
 		--                                             gpointer user_data);
 
-	enable_on_change_value is
+	enable_on_change_value
 			-- Connects "change-value" signal to `on_change_value' feature.
 		do
 			connect (Current, change_value_signal_name, $on_change_value)
 		end
 
-	on_change_value: INTEGER is
+	on_change_value: INTEGER
 			-- Built-in change-value signal handler; empty by design; redefine it.
 		do
 		end
 
-	connect_agent_to_change_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]) is
+	connect_agent_to_change_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN])
 			-- range : the range that received the signal.
 			-- scroll: the type of scroll action that was performed.
 			-- value : the new value resulting from the scroll action.
@@ -327,18 +327,18 @@ feature {ANY} -- The "value-changed" signal
 
 	value_changed_signal_name: STRING is "value-changed"
 
-	on_value_changed is
+	on_value_changed
 			-- Built-in value_changed signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_value_changed is
+	enable_on_value_changed
 			-- Connects "value_changed" signal to `on_value_changed' feature.
 		do
 			connect (Current, value_changed_signal_name, $on_value_changed)
 		end
 
-	connect_agent_to_value_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_RANGE]]) is
+	connect_agent_to_value_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_RANGE]])
 		require valid_procedure: a_procedure /= Void
 		local value_changed_callback: VALUE_CHANGED_CALLBACK
 		do

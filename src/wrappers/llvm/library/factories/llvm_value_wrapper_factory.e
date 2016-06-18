@@ -12,7 +12,7 @@ insert
    EXCEPTIONS undefine copy, is_equal end
 
 feature {WRAPPER, WRAPPER_HANDLER}
-   value_wrapper (p: POINTER): LLVM_VALUE is
+   value_wrapper (p: POINTER): LLVM_VALUE
       local type: LLVMTYPE_KIND_ENUM
       do
          debug

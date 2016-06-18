@@ -37,7 +37,7 @@ feature {} -- Creation
 	-- Note: space allocated in storage must always be capacity+1 large, to
 	-- store the ending NULL pointer
 
-	from_external (an_array: POINTER) is
+	from_external (an_array: POINTER)
 			-- Initialize the NULL_TERMINATED_C_ARRAY from `an_array'
 			-- pointer. The array is inspected from the beginning to
 			-- discover the first NULL pointer that marks its end.
@@ -59,7 +59,7 @@ feature {} -- Creation
 			capacity := count
 		end
 	
-	with_capacity (a_capacity: INTEGER) is
+	with_capacity (a_capacity: INTEGER)
 		do
 			capacity := a_capacity
 			upper := -1
@@ -67,7 +67,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	is_null_terminated: BOOLEAN is
+	is_null_terminated: BOOLEAN
 		do
 			-- 0 1 2 3 4
 			-- a b c d NULL

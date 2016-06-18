@@ -76,14 +76,14 @@ insert
 create {ANY} new, make, with_markup, from_external_pointer
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMessageDialog)"
 		end
 
 feature {} -- Creation
 
-	make (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
+	make (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING)
 			-- Creates a new message dialog, which is a simple dialog
 			-- with an icon indicating the dialog `a_type' (error,
 			-- warning, etc.) and some text the user may want to
@@ -105,13 +105,13 @@ feature {} -- Creation
 			end
 		end
 
-	new (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
+	new (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING)
 		obsolete "use `make' instead."
 		do
 			make (a_parent, some_flags, a_type, some_buttons, a_message)
 		end
 
-	with_markup (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
+	with_markup (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING)
 			-- Creates a new message dialog, which is a simple dialog
 			-- with an icon indicating the dialog type (error, warning,
 			-- etc.) and some text which is marked up with the Pango text
@@ -154,7 +154,7 @@ feature {} -- Creation
 
 feature {ANY} -- Dialog's message
 
-	set_markup (a_string: STRING) is
+	set_markup (a_string: STRING)
 			-- Sets the text of the message dialog to be `a_string',
 			-- which is marked up with the Pango text markup language.
 		require valid_string: a_string/=Void
@@ -162,7 +162,7 @@ feature {ANY} -- Dialog's message
 			gtk_message_dialog_set_markup (handle,a_string.to_external)
 		end
 
-	set_secondary_text (a_string: STRING) is
+	set_secondary_text (a_string: STRING)
 			-- Sets the secondary text of the message dialog to be
 			-- `a_string' (note: it must follow C's printf()-style).
 			
@@ -173,13 +173,13 @@ feature {ANY} -- Dialog's message
 			gtk_message_dialog_format_secondary_text (handle, a_string.to_external)
 		end
 
-	unset_secondary_text is
+	unset_secondary_text
 			-- Remove any secondary text of the message dialog.
 		do
 			gtk_message_dialog_format_secondary_text (handle, default_pointer)
 		end
 
-	set_secondary_markup (a_string: STRING) is
+	set_secondary_markup (a_string: STRING)
 			-- Sets the secondary text of the message dialog to be
 			-- `a_string' (with printf()-style), which is marked up with
 			-- the Pango text markup language.
@@ -204,7 +204,7 @@ feature {ANY} -- Dialog's message
 			gtk_message_dialog_format_secondary_markup (handle, a_string.to_external)
 		end
 
-	unset_secondary_markup is
+	unset_secondary_markup
 			-- Unsets the secondary text of the message dialog.
 		do
 			gtk_message_dialog_format_secondary_markup (handle, default_pointer)

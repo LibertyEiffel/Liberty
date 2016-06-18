@@ -29,23 +29,23 @@ inherit
 	
 feature {} -- externals
 	
-	goo_canvas_item_simple_check_style (item : POINTER)  is
+	goo_canvas_item_simple_check_style (item : POINTER)
 		external "C use <goocanvas-1.0/goocanvasitemsimple.h>"
 		end
 		
-	goo_canvas_item_simple_get_line_width (item : POINTER) : REAL_64  is
+	goo_canvas_item_simple_get_line_width (item : POINTER) : REAL_64
 		external "C use <goocanvas-1.0/goocanvasitemsimple.h>"
 		end
 		
-  goo_canvas_item_simple_get_path_bounds (item, cr, bounds : POINTER)  is
+  goo_canvas_item_simple_get_path_bounds (item, cr, bounds : POINTER)
 		external "C use <goocanvas-1.0/goocanvasitemsimple.h>"
 		end
 		
-  goo_canvas_item_simple_user_bounds_to_device (item, cr, bounds : POINTER)  is
+  goo_canvas_item_simple_user_bounds_to_device (item, cr, bounds : POINTER)
 		external "C use <goocanvas-1.0/goocanvasitemsimple.h>"
 		end
 		
-  goo_canvas_item_simple_user_bounds_to_parent (item, cr, bounds : POINTER)  is
+  goo_canvas_item_simple_user_bounds_to_parent (item, cr, bounds : POINTER)
 		external "C use <goocanvas-1.0/goocanvasitemsimple.h>"
 		end
 		
@@ -55,15 +55,15 @@ feature {} -- externals
 --                                                         gdouble y,
 --                                                         cairo_t *cr,
 --                                                         GooCanvasPointerEvents pointer_events);
-  goo_canvas_item_simple_paint_path (item, cr : POINTER)  is
+  goo_canvas_item_simple_paint_path (item, cr : POINTER)
 		external "C use <goocanvas-1.0/goocanvasitemsimple.h>"
 		end
 		
-  goo_canvas_item_simple_changed (item : POINTER; recompute_bounds : BOOLEAN)  is
+  goo_canvas_item_simple_changed (item : POINTER; recompute_bounds : BOOLEAN)
 		external "C use <goocanvas-1.0/goocanvasitemsimple.h>"
 		end
 		
-  goo_canvas_item_simple_set_model (item, model : POINTER)  is
+  goo_canvas_item_simple_set_model (item, model : POINTER)
 		external "C use <goocanvas-1.0/goocanvasitemsimple.h>"
 		end
 		

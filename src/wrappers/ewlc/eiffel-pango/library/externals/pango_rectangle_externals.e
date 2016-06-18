@@ -27,19 +27,19 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	pango_rectangle_get_x (point_star: POINTER): INTEGER is
+	pango_rectangle_get_x (point_star: POINTER): INTEGER
 		external "C struct PangoRectangle get x use <pango/pango-types.h>"
 		end
 
-	pango_rectangle_get_y (point_star: POINTER): INTEGER is
+	pango_rectangle_get_y (point_star: POINTER): INTEGER
 		external "C struct PangoRectangle get y use <pango/pango-types.h>"
 		end
 
-	pango_rectangle_get_width (point_star: POINTER): INTEGER is
+	pango_rectangle_get_width (point_star: POINTER): INTEGER
 		external "C struct PangoRectangle get width use <pango/pango-types.h>"
 		end
 
-	pango_rectangle_get_height (point_star: POINTER): INTEGER is
+	pango_rectangle_get_height (point_star: POINTER): INTEGER
 		external "C struct PangoRectangle get height use <pango/pango-types.h>"
 		end
 

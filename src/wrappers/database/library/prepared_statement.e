@@ -8,7 +8,7 @@ note
 deferred class PREPARED_STATEMENT
 
 feature {} -- Creation
-	make (a_database: DATABASE; some_sql: ABSTRACT_STRING) is
+	make (a_database: DATABASE; some_sql: ABSTRACT_STRING)
 			-- Makes a prepared command from `some_sql'
 		require
 			database_not_void: a_database /= Void 
@@ -18,7 +18,7 @@ feature {} -- Creation
 		end
 
 feature	{ANY}
-	parameter_count: INTEGER is
+	parameter_count: INTEGER
 			-- The number of paramenters to be provided to execute the
 			-- statement. This number depends on `some_sql' passed to
 			-- `make' feature.
@@ -46,7 +46,7 @@ feature	{ANY}
          end-- loop
       end -- are_valid_parameters
 
-	is_valid_parameter (a_parameter: VARIANT; an_index: INTEGER): BOOLEAN is
+	is_valid_parameter (a_parameter: VARIANT; an_index: INTEGER): BOOLEAN
 			-- Is `a_parameter' placeble in statement's `an_index'-th parameter?
 		require 
 			parameter_not_void: a_parameter /= Void
@@ -55,7 +55,7 @@ feature	{ANY}
 		deferred 
 		end
 
-	execute (some_parameters: TRAVERSABLE[VARIANT]) is
+	execute (some_parameters: TRAVERSABLE[VARIANT])
 			-- Execute the current SQL statment with `some_parameters'
 			-- and set last_exec_success
 		require 

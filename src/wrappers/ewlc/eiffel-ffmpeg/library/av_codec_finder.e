@@ -29,7 +29,7 @@ insert
 
 feature {} -- Private access
 
-	get_decoder (a_codec_id: INTEGER): AV_CODEC is
+	get_decoder (a_codec_id: INTEGER): AV_CODEC
 		require
 			is_valid_av_codec_id (a_codec_id)
 		local
@@ -41,7 +41,7 @@ feature {} -- Private access
 			end
 		end
 
-	get_encoder (a_codec_id: INTEGER): AV_CODEC is
+	get_encoder (a_codec_id: INTEGER): AV_CODEC
 		require
 			is_valid_av_codec_id (a_codec_id)
 		local
@@ -53,7 +53,7 @@ feature {} -- Private access
 			end
 		end
 
-	get_decoder_by_name (a_name: STRING): AV_CODEC is
+	get_decoder_by_name (a_name: STRING): AV_CODEC
 		require
 			a_name /= Void
 		local
@@ -65,7 +65,7 @@ feature {} -- Private access
 			end
 		end
 
-	get_encoder_by_name (a_name: STRING): AV_CODEC is
+	get_encoder_by_name (a_name: STRING): AV_CODEC
 		require
 			a_name /= Void
 		local
@@ -77,7 +77,7 @@ feature {} -- Private access
 			end
 		end
 
-	wrapper (a_ptr: POINTER): AV_CODEC is
+	wrapper (a_ptr: POINTER): AV_CODEC
 		do
 			Result ?= wrappers.reference_at(a_ptr)
 			if Result = Void then 

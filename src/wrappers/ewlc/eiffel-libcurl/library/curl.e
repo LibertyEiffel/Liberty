@@ -38,14 +38,14 @@ create {ANY}
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <curl/curl.h>"
 		alias "sizeof (CURL)"
 		end
 
 feature {} -- Creation
 
-	make is
+	make
 		local
 			c_ptr: POINTER
 		do
@@ -108,7 +108,7 @@ feature {} -- Creation
 
 feature {} -- Destruction
 
-	dispose is
+	dispose
 		do
 			write_callback_closure := free_curl_closure (write_callback_closure)
 			read_callback_closure := free_curl_closure (read_callback_closure)
@@ -120,7 +120,7 @@ feature {} -- Destruction
 
 feature {ANY} -- Representation
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 		do
 			Result := error_code = curl_ok
 		end
@@ -132,7 +132,7 @@ feature {ANY} -- Representation
 	last_string: STRING
 	last_curl_list: CURL_LIST
 
-	version: STRING is
+	version: STRING
 		do
 			create Result.from_external_copy (curl_version)
 		end
@@ -147,7 +147,7 @@ feature {} -- Representation
 	--                                      void *outstream);
 	write_function: FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER]
 
-	write_callback (ptr: POINTER; size, nmemb: INTEGER): INTEGER is
+	write_callback (ptr: POINTER; size, nmemb: INTEGER): INTEGER
 		require
 			ptr_not_null: ptr.is_not_null
 			size >= 0 and nmemb >= 0
@@ -167,7 +167,7 @@ feature {} -- Representation
 	--                                      void *instream);
 	read_function:  FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER]
 
-	read_callback (ptr: POINTER; size, nmemb: INTEGER): INTEGER is
+	read_callback (ptr: POINTER; size, nmemb: INTEGER): INTEGER
 		require
 			ptr_not_null: ptr.is_not_null
 			size >= 0 and nmemb >= 0
@@ -188,7 +188,7 @@ feature {} -- Representation
 	--                                      double ulnow);
 	progress_function: FUNCTION [ANY, TUPLE [REAL, REAL, REAL, REAL], INTEGER]
 
-	progress_callback (dltotal, dlnow, ultotal, ulnow: REAL): INTEGER is
+	progress_callback (dltotal, dlnow, ultotal, ulnow: REAL): INTEGER
 		do
 			if progress_function /= Void then
 				Result := progress_function.item ([dltotal, dlnow, ultotal, ulnow])
@@ -197,7 +197,7 @@ feature {} -- Representation
 
 feature {ANY} -- Operations
 
-	set_write_callback (a_function: FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER]) is
+	set_write_callback (a_function: FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER])
 		require
 			a_function /= Void
 		do
@@ -208,7 +208,7 @@ feature {ANY} -- Operations
 			is_valid
 		end
 
-	set_read_callback (a_function: FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER]) is
+	set_read_callback (a_function: FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER])
 		require
 			a_function /= Void
 		do
@@ -219,7 +219,7 @@ feature {ANY} -- Operations
 			is_valid
 		end
 
-	set_progress_callback (a_function: FUNCTION [ANY, TUPLE [REAL, REAL, REAL, REAL], INTEGER]) is
+	set_progress_callback (a_function: FUNCTION [ANY, TUPLE [REAL, REAL, REAL, REAL], INTEGER])
 		require
 			a_function /= Void
 		do
@@ -230,7 +230,7 @@ feature {ANY} -- Operations
 			is_valid
 		end
 
-	perform is
+	perform
 		do
 			error_code := curl_easy_perform (handle)
 		end
@@ -270,21 +270,21 @@ feature {ANY} -- set_option_xxx (option: INTEGER; x: XXX)
 		-- because the library is too old to support it or the option was removed
 		-- in a recent version, this function will return CURLE_FAILED_INIT.
 
-	set_option_verbose (i: INTEGER) is
+	set_option_verbose (i: INTEGER)
 		do
 			error_code := curl_easy_setopt_integer (handle, curl_option_verbose, i)
 		ensure
 			is_valid
 		end
 
-	set_option_post (i: INTEGER) is
+	set_option_post (i: INTEGER)
 		do
 			error_code := curl_easy_setopt_integer (handle, curl_option_post, i)
 		ensure
 			is_valid
 		end
 
-	set_option_url (url: STRING) is
+	set_option_url (url: STRING)
 		require
 			url /= Void
 		do
@@ -293,7 +293,7 @@ feature {ANY} -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid
 		end
 
-	set_option_integer (option: INTEGER; i: INTEGER) is
+	set_option_integer (option: INTEGER; i: INTEGER)
 		require
 			is_valid_curl_option (option)
 		do
@@ -302,7 +302,7 @@ feature {ANY} -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid
 		end
 
-	set_option_string (option: INTEGER; str: STRING) is
+	set_option_string (option: INTEGER; str: STRING)
 		require
 			is_valid_curl_option (option)
 			str /= Void
@@ -312,7 +312,7 @@ feature {ANY} -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid
 		end
 
-	set_option_input_stream (option: INTEGER; stream: INPUT_STREAM) is
+	set_option_input_stream (option: INTEGER; stream: INPUT_STREAM)
 		require
 			is_valid_curl_option (option)
 			stream /= Void
@@ -324,7 +324,7 @@ feature {ANY} -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid
 		end
 
-	set_option_output_stream (option: INTEGER; stream: OUTPUT_STREAM) is
+	set_option_output_stream (option: INTEGER; stream: OUTPUT_STREAM)
 		require
 			is_valid_curl_option (option)
 			stream /= Void
@@ -336,7 +336,7 @@ feature {ANY} -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid
 		end
 
-	set_option_curl_list (option: INTEGER; list: CURL_LIST) is
+	set_option_curl_list (option: INTEGER; list: CURL_LIST)
 		require
 			is_valid_curl_option (option)
 			list /= Void
@@ -346,7 +346,7 @@ feature {ANY} -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid
 		end
 
-	set_option_null (option: INTEGER) is
+	set_option_null (option: INTEGER)
 		require
 			is_valid_curl_option (option)
 		do
@@ -355,7 +355,7 @@ feature {ANY} -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid
 		end
 
-	set_option_cookies (cookies: DICTIONARY[STRING, STRING]) is
+	set_option_cookies (cookies: DICTIONARY[STRING, STRING])
 			-- The cookies passed in will be used to set a cookie in the http request.
 			-- Using this option multiple times will only make the latest cookies override the
 			-- previous ones.
@@ -394,21 +394,21 @@ feature {ANY} -- get_info_XXX (info: INTEGER): XXX
 		-- RETURN VALUE: If the operation was successful, CURLE_OK is returned.
 		-- Otherwise an appropriate error code will be returned.
 
-	get_info_integer (info: INTEGER) is
+	get_info_integer (info: INTEGER)
 		require
 			is_valid_curl_info (info)
 		do
 			error_code := curl_easy_getinfo_pointer (handle, info, $last_integer)
 		end
 
-	get_info_real64 (info: INTEGER) is
+	get_info_real64 (info: INTEGER)
 		require
 			is_valid_curl_info (info)
 		do
 			error_code := curl_easy_getinfo_pointer (handle, info, $last_real64)
 		end
 
-	get_info_string (info: INTEGER) is
+	get_info_string (info: INTEGER)
 		require
 			is_valid_curl_info (info)
 		local
@@ -420,7 +420,7 @@ feature {ANY} -- get_info_XXX (info: INTEGER): XXX
 			end
 		end
 
-	get_info_curl_list (info: INTEGER) is
+	get_info_curl_list (info: INTEGER)
 		require
 			is_valid_curl_info (info)
 		local

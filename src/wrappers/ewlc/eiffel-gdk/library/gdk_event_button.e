@@ -32,25 +32,25 @@ create {ANY} from_external_pointer
 
 feature {ANY} -- access
 
-	time: INTEGER is
+	time: INTEGER
 			-- the time of the event in milliseconds.
 		do
 			Result := gdk_event_button_get_time (handle)
 		end
 
-	x: REAL_64 is
+	x: REAL_64
 			-- the x coordinate of the pointer relative to the window.
 		do
 			Result := gdk_event_button_get_x (handle)
 		end
 
-	y: REAL_64 is
+	y: REAL_64
 			-- the y coordinate of the pointer relative to the window.
 		do
 			Result := gdk_event_button_get_y (handle)
 		end
 
-	axes: TUPLE [REAL_64, REAL_64] is
+	axes: TUPLE [REAL_64, REAL_64]
 			-- x, y translated to the axes of device, or Void if device is the mouse.
 		local
 			device_axes: NATIVE_ARRAY [REAL_64]
@@ -61,7 +61,7 @@ feature {ANY} -- access
 			end
 		end
 
-	state: INTEGER is
+	state: INTEGER
 			-- a bit-mask representing the state of the modifier keys
 			-- (e.g. Control, Shift and Alt) and the pointer buttons.
 			-- See GDK_MODIFIER_TYPE.
@@ -71,7 +71,7 @@ feature {ANY} -- access
 			is_valid_gdk_modifier_type (Result)
 		end
 
-	button: INTEGER is
+	button: INTEGER
 			-- the button which was pressed or released, numbered from 1 to 5.
 			-- Normally button 1 is the left mouse button, 2 is the middle
 			-- button, and 3 is the right button. On 2-button mice, the middle
@@ -85,13 +85,13 @@ feature {ANY} -- access
 
 -- Not implemented: GdkDevice *device; 	the device where the event originated.
 
-	x_root: REAL_64 is
+	x_root: REAL_64
 			-- the x coordinate of the pointer relative to the root of the screen.
 		do
 			Result := gdk_event_button_get_x_root (handle)
 		end
 
-	y_root: REAL_64 is
+	y_root: REAL_64
 			-- the y coordinate of the pointer relative to the root of the screen.
 		do
 			Result := gdk_event_button_get_y_root (handle)

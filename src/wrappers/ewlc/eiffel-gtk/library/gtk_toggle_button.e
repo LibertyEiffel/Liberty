@@ -72,7 +72,7 @@ create {ANY} make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new toggle button. A widget should be packed
 			-- into the button, as GTK_BUTTON.make.
 		require gtk_initialized: gtk.is_initialized
@@ -80,7 +80,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_toggle_button_new)
 		end
 
-	with_label (a_label: STRING) is
+	with_label (a_label: STRING)
 			-- Creates a new toggle button with a text `a_label'.
 		require else
 			gtk_initialized: gtk.is_initialized
@@ -89,7 +89,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_toggle_button_new_with_label (a_label.to_external))
 		end
 
-	with_mnemonic (a_label: STRING) is
+	with_mnemonic (a_label: STRING)
 			-- Creates a new GtkToggleButton containing `a_label'. The
 			-- label will be created using GTK_LABEL.with_mnemonic, so
 			-- underscores in label indicate the mnemonic for the button.
@@ -102,7 +102,7 @@ feature {} -- Creation
 
 feature {ANY}
 
-	draw_indicator is
+	draw_indicator
 			-- Makes the button displayed as a separate indicator and
 			-- label. This feature only effects instances of classes like
 			-- GtkCheckButton and GtkRadioButton that derive from
@@ -112,7 +112,7 @@ feature {ANY}
 		ensure is_indicator_drawn
 		end
 
-	draw_as_button is
+	draw_as_button
 			-- Makes the button look like a normal button.  This function
 			-- only effects instances of classes like GtkCheckButton and
 			-- GtkRadioButton that derive from GtkToggleButton, not
@@ -122,19 +122,19 @@ feature {ANY}
 		ensure drawn_as_button
 		end
 
-	is_indicator_drawn: BOOLEAN is
+	is_indicator_drawn: BOOLEAN
 			-- is the button displayed as a separate indicator and label?
 		do
 			Result := (gtk_toggle_button_get_mode(handle) = 1)
 		end
 
-	drawn_as_button: BOOLEAN is
+	drawn_as_button: BOOLEAN
 			-- is the toggle button drawn as a normal button?
 		do
 			Result := (gtk_toggle_button_get_mode(handle) = 0)
 		end
 
-	toggled is
+	toggled
 			-- Emits the toggled signal on the GtkToggleButton. There is
 			-- no good reason for an application ever to call this
 			-- function.
@@ -142,21 +142,21 @@ feature {ANY}
 			gtk_toggle_button_toggled (handle)
 		end
 
-	is_active: BOOLEAN is
+	is_active: BOOLEAN
 			-- Is the toggle button pressed? (False means that it is
 			-- raised).
 		do
 			Result:=(gtk_toggle_button_get_active(handle)).to_boolean
 		end
 
-	set_active is
+	set_active
 			-- Sets the status of the toggle button to be 'pressed
 			-- in'. This action causes the toggled signal to be emitted.
 		do
 			gtk_toggle_button_set_active (handle,1)
 		end
 
-	set_inactive is
+	set_inactive
 			-- Sets the status of the toggle button to be 'pressed out',
 			-- i.e.  to raise it. This action causes the toggled signal
 			-- to be emitted.
@@ -164,13 +164,13 @@ feature {ANY}
 			gtk_toggle_button_set_active (handle,0)
 		end
 
-	is_inconsistent: BOOLEAN is
+	is_inconsistent: BOOLEAN
 			-- Is button inconsistent?
 		do
 			Result := (gtk_toggle_button_get_inconsistent (handle)).to_boolean
 		end
 
-	set_inconsistent is
+	set_inconsistent
 			-- If the user has selected a range of elements (such as some
 			-- text or spreadsheet cells) that are affected by a toggle
 			-- button, and the current values in that range are
@@ -186,7 +186,7 @@ feature {ANY}
 		ensure is_inconsistent
 		end
 
-	set_consistent is
+	set_consistent
 		do
 			gtk_toggle_button_set_inconsistent (handle,0)
 		ensure not is_inconsistent
@@ -220,13 +220,13 @@ feature {ANY} -- The "toggled" signal
 		-- void        user_function                  (GtkToggleButton *togglebutton,
 		--                                             gpointer user_data);
 
-	on_toggled is
+	on_toggled
 			-- Built-in toggled signal handler; empty by design; redefine it.
 		do
 			-- local a_foo: INTEGER --a_foo := 12 -- Dummy instructions
 		end
 
-	enable_on_toggled is
+	enable_on_toggled
 			-- Connects "toggled" signal to `on_toggled' feature.
 
 			-- Should be connected if you wish to perform an action
@@ -235,7 +235,7 @@ feature {ANY} -- The "toggled" signal
 			connect (Current, toggled_signal_name, $on_toggled)
 		end
 
-	connect_to_toggled_signal, connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]]) is
+	connect_to_toggled_signal, connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]])
 			-- togglebutton : 	the object which received the signal.
 		require valid_procedure: a_procedure /= Void
 		local toggled_callback: TOGGLED_CALLBACK [like Current]

@@ -43,7 +43,7 @@ create {ANY} from_external_pointer, make
 
 feature {} -- Creation
 
-	make (a_drawable: GDK_DRAWABLE) is
+	make (a_drawable: GDK_DRAWABLE)
 			-- Create a new graphics context with default values.
 		do
 			from_external_pointer (gdk_gc_new (a_drawable.handle))
@@ -51,14 +51,14 @@ feature {} -- Creation
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkGc)"
 		end
 
 feature {ANY} -- Operations
 
-	set_rgb_fg_color (a_color: GDK_COLOR) is
+	set_rgb_fg_color (a_color: GDK_COLOR)
 			-- Set the foreground color of a GC using an unallocated color.
 			-- The pixel value for the color will be determined using GdkRGB.
 			-- If the colormap for the GC has not previously been initialized
@@ -71,7 +71,7 @@ feature {ANY} -- Operations
 			gdk_gc_set_rgb_fg_color (handle, a_color.handle)
 		end
 
-	set_rgb_bg_color (a_color: GDK_COLOR) is
+	set_rgb_bg_color (a_color: GDK_COLOR)
 			-- Set the background color of a GC using an unallocated color.
 			-- The pixel value for the color will be determined using GdkRGB.
 			-- If the colormap for the GC has not previously been initialized

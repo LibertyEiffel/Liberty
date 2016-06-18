@@ -31,26 +31,26 @@ inherit ANY undefine is_equal, copy end
 
 feature {ANY} -- enum
 
-	is_valid_pango_wrap_mode (a_wrap_mode: INTEGER) : BOOLEAN is
+	is_valid_pango_wrap_mode (a_wrap_mode: INTEGER) : BOOLEAN
 		do
 			Result:=((a_wrap_mode = pango_wrap_word) or else
 			         (a_wrap_mode = pango_wrap_char) or else
 			         (a_wrap_mode = pango_wrap_word_char))
 		end
 
-	pango_wrap_word: INTEGER is
+	pango_wrap_word: INTEGER
 			-- wrap lines at word boundaries.
 		external "C macro use <pango/pango-layout.h>"
 		alias "PANGO_WRAP_WORD"
 		end
 
-	pango_wrap_char: INTEGER is
+	pango_wrap_char: INTEGER
 			-- wrap lines at character boundaries.
 		external "C macro use <pango/pango-layout.h>"
 		alias "PANGO_WRAP_CHAR"
 		end
 
-	pango_wrap_word_char: INTEGER is
+	pango_wrap_word_char: INTEGER
 			-- wrap lines at word boundaries, but fall back to character
 			-- boundaries if there is not enough space for a full word.
 		external "C macro use <pango/pango-layout.h>"

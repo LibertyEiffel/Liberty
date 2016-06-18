@@ -35,7 +35,7 @@ feature {ANY} -- Access
 
 feature {ANY} -- Operations
 
-	enable (interval: INTEGER_32) is
+	enable (interval: INTEGER_32)
 			-- Start periodic event call every `interval' ms
 		require
 			not enabled
@@ -46,7 +46,7 @@ feature {ANY} -- Operations
 			enabled
 		end
 
-	disable is
+	disable
 			-- Stop periodic event call
 		require
 			enabled
@@ -56,7 +56,7 @@ feature {ANY} -- Operations
 			not enabled
 		end
 
-	tick is
+	tick
 			-- Called every interval. Call `disable' from here to be the last
 			-- tick.
 		deferred
@@ -66,7 +66,7 @@ feature {} -- Internal
 
 	event_id: INTEGER_32
 
-	callback: INTEGER_32 is
+	callback: INTEGER_32
 		do
 			tick
 			Result := enabled.to_integer
@@ -74,7 +74,7 @@ feature {} -- Internal
 
 feature {} -- Externals
 
-	g_timeout_add (interval: INTEGER_32; function, data: POINTER): INTEGER_32 is
+	g_timeout_add (interval: INTEGER_32; function, data: POINTER): INTEGER_32
 			-- Sets a `function' to be called at regular intervals, with the
 			-- default priority, G_PRIORITY_DEFAULT. The function is called
 			-- repeatedly until it returns FALSE, at which point the timeout

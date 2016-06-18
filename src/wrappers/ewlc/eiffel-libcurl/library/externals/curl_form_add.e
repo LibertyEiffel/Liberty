@@ -43,18 +43,18 @@ inherit ANY undefine is_equal, copy end
 
 feature {}
 
-	is_valid_curl_form_add (a_form_add_code: INTEGER) : BOOLEAN is
+	is_valid_curl_form_add (a_form_add_code: INTEGER) : BOOLEAN
 		do
 			Result := a_form_add_code.in_range (curl_form_add_ok, curl_form_add_last)
 		end
 
-	curl_form_add_ok: INTEGER is
+	curl_form_add_ok: INTEGER
 			-- on success
 		external "C macro use <curl/curl.h>"
 		alias "CURL_FORMADD_OK"
 		end
 
-	curl_form_add_last: INTEGER is
+	curl_form_add_last: INTEGER
 			-- last
 		external "C macro use <curl/curl.h>"
 		alias "CURL_FORMADD_LAST"

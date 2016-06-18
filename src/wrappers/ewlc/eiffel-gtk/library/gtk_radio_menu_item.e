@@ -63,7 +63,7 @@ create {ANY}
 	from_external_pointer
 
 feature {} -- Creation
-	from_group (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]) is
+	from_group (a_group: G_SLIST [GTK_RADIO_MENU_ITEM])
 			-- Creates a new GtkRadioMenuItem; the radio menu item is to
 			-- attached to `a_group'. If `a_group' is Void a new group 
 			-- is made.
@@ -72,7 +72,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_radio_menu_item_new (null_or(a_group)))
 		end
 
-	with_group_label (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
+	with_group_label (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING)
 			-- Creates a new GtkRadioMenuItem whose child is
 			-- `a_label'. The radio menu item is to be attached to
 			-- `a_group'. If `a_group' is Void a new group will be
@@ -85,7 +85,7 @@ feature {} -- Creation
 										  (null_or(a_group), a_label.to_external))
 		end
 
-	with_mnemonic (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
+	with_mnemonic (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING)
 			-- Creates a new GtkRadioMenuItem containing `a_label'. An
 			-- underscores in label indicate the mnemonic for the menu
 			-- item. The menu item will be added to `a_group'; if it is
@@ -98,7 +98,7 @@ feature {} -- Creation
 										  (null_or(a_group), a_label.to_external))
 		end
 
-	from_widget (a_widget: GTK_RADIO_MENU_ITEM) is
+	from_widget (a_widget: GTK_RADIO_MENU_ITEM)
 			-- Creates a new GtkRadioMenuItem adding it to the same group
 			-- of `a_widget'.
 		require
@@ -109,7 +109,7 @@ feature {} -- Creation
 		end
 
 
-	with_label_from_widget (a_widget: GTK_RADIO_MENU_ITEM; a_label: STRING) is
+	with_label_from_widget (a_widget: GTK_RADIO_MENU_ITEM; a_label: STRING)
 			-- Creates a new GtkRadioMenuItem whose child is a simple
 			-- GtkLabel with `a_label' as text. The new GtkRadioMenuItem
 			-- is added to the same group of `a_widget'.
@@ -123,7 +123,7 @@ feature {} -- Creation
 			store_eiffel_wrapper
 		end
 
-	with_mnemonic_from_widget (a_widget: GTK_RADIO_MENU_ITEM; a_label: STRING) is
+	with_mnemonic_from_widget (a_widget: GTK_RADIO_MENU_ITEM; a_label: STRING)
 			-- Creates a new GtkRadioMenuItem containing a label. An
 			-- underscore in `a_label' indicates the mnemonic for the
 			-- menu item. The new GtkRadioMenuItem is added to the same
@@ -139,13 +139,13 @@ feature {} -- Creation
 		end
 
 feature {ANY} 
-	set_group (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]) is
+	set_group (a_group: G_SLIST [GTK_RADIO_MENU_ITEM])
 			--    Sets the group of a radio menu item, or changes it.		
 		do
 			gtk_radio_menu_item_set_group (handle, a_group.handle)
 		end
 
-	group: G_SLIST [GTK_RADIO_MENU_ITEM] is
+	group: G_SLIST [GTK_RADIO_MENU_ITEM]
 			--    Returns the group to which the radio menu item belongs, as a GList of
 			--    GtkRadioMenuItem. The list belongs to GTK+ and should not be freed.
 		do
@@ -161,21 +161,21 @@ feature {ANY}
 feature {ANY} -- TODO:  The "group-changed" signal
 	group_changed_signal_name: STRING is "group-changed"
 	
-	on_group_changed is do  end
+	on_group_changed do  end
 
-	enable_on_group_changed is
+	enable_on_group_changed
 		do
 			connect (Current, group_changed_signal_name, $on_group_changed)
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRadioMenuItem)"
 		end
 
 feature {} -- External calls
-	gtk_radio_menu_item_new (a_group: POINTER): POINTER is
+	gtk_radio_menu_item_new (a_group: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	gtk_radio_menu_item_new_with_label (a_group, a_label: POINTER): POINTER is -- GtkWidget*
@@ -198,7 +198,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_radio_menu_item_set_group (radio_menu_item, a_group: POINTER) is
+	gtk_radio_menu_item_set_group (radio_menu_item, a_group: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	

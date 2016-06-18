@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_WIDGET
 
 feature {ANY}
-	callback (drag_context_ptr, selection_data_ptr: POINTER; info, time: INTEGER; instance: POINTER) is
+	callback (drag_context_ptr, selection_data_ptr: POINTER; info, time: INTEGER; instance: POINTER)
 		require
 			info >= 0
 			time >= 0
@@ -61,7 +61,7 @@ feature {ANY}
 			time >= 0
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
@@ -69,7 +69,7 @@ feature {ANY}
 		end
 
 	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_SELECTION_DATA,
-																							  INTEGER_32, INTEGER_32, GTK_WIDGET]]) is
+																							  INTEGER_32, INTEGER_32, GTK_WIDGET]])
 		do
 			debug
 				print ("DRAG_DATA_GET_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

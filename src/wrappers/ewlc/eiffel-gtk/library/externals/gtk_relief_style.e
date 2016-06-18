@@ -25,26 +25,26 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_relief_style (a_style: INTEGER): BOOLEAN is
+	is_valid_gtk_relief_style (a_style: INTEGER): BOOLEAN
 		do
 			Result:=((a_style=gtk_relief_normal) or else
 						(a_style=gtk_relief_half) or else
 						(a_style=gtk_relief_none))
 		end
 
-	gtk_relief_normal: INTEGER is
+	gtk_relief_normal: INTEGER
 			-- Draw a normal relief.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RELIEF_NORMAL"
 		end
 
-	gtk_relief_half: INTEGER is
+	gtk_relief_half: INTEGER
 			-- A half relief.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RELIEF_HALF"
 		end
 
-	gtk_relief_none: INTEGER is
+	gtk_relief_none: INTEGER
 			-- No relief.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RELIEF_NONE"

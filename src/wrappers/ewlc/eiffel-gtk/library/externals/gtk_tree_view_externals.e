@@ -39,11 +39,11 @@ feature {} -- External calls
 	-- gint column, const gchar *key, GtkTreeIter *iter, gpointer
 	-- search_data);
 
-	gtk_tree_view_new: POINTER is
+	gtk_tree_view_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_new_with_model (a_gtktreemodel: POINTER): POINTER is
+	gtk_tree_view_new_with_model (a_gtktreemodel: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -51,7 +51,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_model (a_gtktreeview, a_gtktreemodel: POINTER) is 
+	gtk_tree_view_set_model (a_gtktreeview, a_gtktreemodel: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -63,7 +63,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_hadjustment (a_gtktreeview, a_gtkadjustment: POINTER) is
+	gtk_tree_view_set_hadjustment (a_gtktreeview, a_gtkadjustment: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -71,7 +71,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_vadjustment (a_gtktreeview, a_gtkadjustment: POINTER) is
+	gtk_tree_view_set_vadjustment (a_gtktreeview, a_gtkadjustment: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -79,19 +79,19 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_headers_visible (a_gtktreeview: POINTER; headers_visible: INTEGER) is
+	gtk_tree_view_set_headers_visible (a_gtktreeview: POINTER; headers_visible: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_columns_autosize (a_gtktreeview: POINTER) is
+	gtk_tree_view_columns_autosize (a_gtktreeview: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_headers_clickable (a_gtktreeview: POINTER;a_setting: INTEGER) is
+	gtk_tree_view_set_headers_clickable (a_gtktreeview: POINTER;a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_rules_hint (a_gtktreeview: POINTER; a_setting: INTEGER) is
+	gtk_tree_view_set_rules_hint (a_gtktreeview: POINTER; a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -99,15 +99,15 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_append_column (a_gtktreeview, a_gtktreeviewcolumn: POINTER): INTEGER is
+	gtk_tree_view_append_column (a_gtktreeview, a_gtktreeviewcolumn: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_remove_column (a_gtktreeview, a_gtktreeviewcolumn: POINTER): INTEGER is
+	gtk_tree_view_remove_column (a_gtktreeview, a_gtktreeviewcolumn: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_insert_column (a_gtktreeview, a_gtktreeviewcolumn: POINTER; a_position: INTEGER): INTEGER is
+	gtk_tree_view_insert_column (a_gtktreeview, a_gtktreeviewcolumn: POINTER; a_position: INTEGER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -130,11 +130,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_move_column_after (a_gtktreeview, a_columnb, a_base_column: POINTER) is
+	gtk_tree_view_move_column_after (a_gtktreeview, a_columnb, a_base_column: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_expander_column (a_gtktreeview, a_gtktreeviewcolumn: POINTER) is
+	gtk_tree_view_set_expander_column (a_gtktreeview, a_gtktreeviewcolumn: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -142,43 +142,43 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_column_drag_function (a_gtktreeview, a_gtktreeviewcolumndropfunc, user_data, a_gtkdestroynotify: POINTER) is
+	gtk_tree_view_set_column_drag_function (a_gtktreeview, a_gtktreeviewcolumndropfunc, user_data, a_gtkdestroynotify: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_scroll_to_point (a_gtktreeview: POINTER; a_tree_x, a_tree_y: INTEGER) is
+	gtk_tree_view_scroll_to_point (a_gtktreeview: POINTER; a_tree_x, a_tree_y: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_scroll_to_cell (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn: POINTER; use_align: INTEGER; a_row_align, a_col_align: REAL_32) is
+	gtk_tree_view_scroll_to_cell (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn: POINTER; use_align: INTEGER; a_row_align, a_col_align: REAL_32)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_cursor (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn: POINTER; start_editing_bool: INTEGER) is
+	gtk_tree_view_set_cursor (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn: POINTER; start_editing_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_cursor_on_cell (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn, a_gtkcellrenderer: POINTER; start_editing_bool: INTEGER) is
+	gtk_tree_view_set_cursor_on_cell (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn, a_gtkcellrenderer: POINTER; start_editing_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_get_cursor (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn_focus: POINTER) is
+	gtk_tree_view_get_cursor (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn_focus: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_row_activated (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn: POINTER) is
+	gtk_tree_view_row_activated (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_expand_all (a_gtktreeview: POINTER) is
+	gtk_tree_view_expand_all (a_gtktreeview: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_collapse_all (a_gtktreeview: POINTER) is
+	gtk_tree_view_collapse_all (a_gtktreeview: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_expand_to_path (a_gtktreeview, a_gtktreepath: POINTER) is
+	gtk_tree_view_expand_to_path (a_gtktreeview, a_gtktreepath: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -190,7 +190,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_map_expanded_rows (a_gtktreeview, a_gtktreeviewmappingfunc, some_data: POINTER) is
+	gtk_tree_view_map_expanded_rows (a_gtktreeview, a_gtktreeviewmappingfunc, some_data: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -198,7 +198,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_reorderable (a_gtktreeview: POINTER; reorderable_bool: INTEGER) is
+	gtk_tree_view_set_reorderable (a_gtktreeview: POINTER; reorderable_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -210,15 +210,15 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_get_cell_area (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn, a_gdkrectangle: POINTER) is
+	gtk_tree_view_get_cell_area (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn, a_gdkrectangle: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_get_background_area (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn, a_gdkrectangle: POINTER) is
+	gtk_tree_view_get_background_area (a_gtktreeview, a_gtktreepath, a_gtktreeviewcolumn, a_gdkrectangle: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_get_visible_rect (a_gtktreeview, a_gdkrectangle: POINTER) is
+	gtk_tree_view_get_visible_rect (a_gtktreeview, a_gdkrectangle: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -226,39 +226,39 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_get_bin_window (a_gtktreeview: POINTER): POINTER is
+	gtk_tree_view_get_bin_window (a_gtktreeview: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_widget_to_tree_coords (a_gtktreeview: POINTER; a_wx, a_wy: INTEGER; a_tx, a_ty: POINTER) is
+	gtk_tree_view_widget_to_tree_coords (a_gtktreeview: POINTER; a_wx, a_wy: INTEGER; a_tx, a_ty: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_tree_to_widget_coords (a_gtktreeview: POINTER; a_tx, a_ty: INTEGER; a_wx,a_wy: POINTER) is
+	gtk_tree_view_tree_to_widget_coords (a_gtktreeview: POINTER; a_tx, a_ty: INTEGER; a_wx,a_wy: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_enable_model_drag_dest (a_gtktreeview, a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER) is
+	gtk_tree_view_enable_model_drag_dest (a_gtktreeview, a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_enable_model_drag_source (a_gtktreeview: POINTER; a_start_button_mask: INTEGER; a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER) is
+	gtk_tree_view_enable_model_drag_source (a_gtktreeview: POINTER; a_start_button_mask: INTEGER; a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_unset_rows_drag_source (a_gtktreeview: POINTER) is
+	gtk_tree_view_unset_rows_drag_source (a_gtktreeview: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_unset_rows_drag_dest (a_gtktreeview: POINTER) is
+	gtk_tree_view_unset_rows_drag_dest (a_gtktreeview: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_drag_dest_row (a_gtktreeview, a_gtktreepath: POINTER; a_gtktreeviewdropposition: INTEGER) is
+	gtk_tree_view_set_drag_dest_row (a_gtktreeview, a_gtktreepath: POINTER; a_gtktreeviewdropposition: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_get_drag_dest_row (a_gtktreeview, a_gtktreepath: POINTER; a_gtktreeviewdropposition: POINTER) is
+	gtk_tree_view_get_drag_dest_row (a_gtktreeview, a_gtktreepath: POINTER; a_gtktreeviewdropposition: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -270,7 +270,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_enable_search (a_gtktreeview: POINTER; enable_search_bool: INTEGER) is
+	gtk_tree_view_set_enable_search (a_gtktreeview: POINTER; enable_search_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -278,11 +278,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_get_search_column (a_gtktreeview: POINTER): INTEGER is
+	gtk_tree_view_get_search_column (a_gtktreeview: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_search_column (a_gtktreeview: POINTER; a_column: INTEGER) is
+	gtk_tree_view_set_search_column (a_gtktreeview: POINTER; a_column: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -290,7 +290,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_search_equal_func (a_gtktreeview, a_gtktreeviewsearchequalfunc, search_user_data, a_gtkdestroynotify: POINTER) is
+	gtk_tree_view_set_search_equal_func (a_gtktreeview, a_gtktreeviewsearchequalfunc, search_user_data, a_gtkdestroynotify: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -298,7 +298,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_fixed_height_mode (a_gtktreeview: POINTER; enable_bool: INTEGER) is
+	gtk_tree_view_set_fixed_height_mode (a_gtktreeview: POINTER; enable_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -306,7 +306,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_hover_selection (a_gtktreeview: POINTER; hover_bool: INTEGER) is
+	gtk_tree_view_set_hover_selection (a_gtktreeview: POINTER; hover_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -314,11 +314,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_hover_expand (a_gtktreeview: POINTER; expand_bool: INTEGER) is
+	gtk_tree_view_set_hover_expand (a_gtktreeview: POINTER; expand_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_destroy_count_func (a_gtktreeview, a_gtktreedestroycountfunc, some_data, a_gtkdestroynotify: POINTER) is
+	gtk_tree_view_set_destroy_count_func (a_gtktreeview, a_gtktreedestroycountfunc, some_data, a_gtkdestroynotify: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -326,7 +326,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_view_set_row_separator_func (a_gtktreeview, a_gtktreeviewrowseparatorfunc, some_data, a_gtkdestroynotify: POINTER) is
+	gtk_tree_view_set_row_separator_func (a_gtktreeview, a_gtktreeviewrowseparatorfunc, some_data, a_gtkdestroynotify: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 

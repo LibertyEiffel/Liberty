@@ -33,7 +33,7 @@ feature {} -- Creation
 			 match_empty_string_at_beginning: BOOLEAN;
 			 match_empty_string_at_end: BOOLEAN;
 			 a_beginning_regex: STRING;
-			 an_end_regex: STRING) is
+			 an_end_regex: STRING)
 			-- Creates a new keyword list tag object with the provided arguments.
 		
 			-- `an_id': the ID for the tag.

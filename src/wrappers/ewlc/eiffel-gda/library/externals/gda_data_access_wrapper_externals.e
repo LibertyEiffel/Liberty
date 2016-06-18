@@ -8,15 +8,15 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_data_access_wrapper_row_exists (a_wrapper: POINTER; a_row: INTEGER_32): INTEGER_32 is
+	gda_data_access_wrapper_row_exists (a_wrapper: POINTER; a_row: INTEGER_32): INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_access_wrapper_new (a_model: POINTER): POINTER is
+	gda_data_access_wrapper_new (a_model: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_access_wrapper_get_type: INTEGER_32 is
+	gda_data_access_wrapper_get_type: INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 

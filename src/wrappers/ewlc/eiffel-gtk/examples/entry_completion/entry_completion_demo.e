@@ -28,7 +28,7 @@ insert
 	
 create {ANY} make
 feature {ANY}
-	make is
+	make
 		do
 			gtk.initialize
 			create window.make
@@ -47,7 +47,7 @@ feature {ANY}
 			gtk.run_main_loop
 		end
 
-	on_destroy_window (an_obj: GTK_OBJECT) is
+	on_destroy_window (an_obj: GTK_OBJECT)
 		local a_win: GTK_WINDOW
 		do
 			a_win ::= an_obj

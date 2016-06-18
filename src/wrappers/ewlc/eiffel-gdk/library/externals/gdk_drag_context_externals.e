@@ -42,52 +42,52 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Representation
 
-	gtk_drag_finish (a_ptr: POINTER; success, delete, time: INTEGER) is
+	gtk_drag_finish (a_ptr: POINTER; success, delete, time: INTEGER)
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_drag_status (a_ptr: POINTER; an_action, time: INTEGER) is
+	gdk_drag_status (a_ptr: POINTER; an_action, time: INTEGER)
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_drag_context_parent_instance (a_drag_context: POINTER): POINTER is
+	gdk_drag_context_parent_instance (a_drag_context: POINTER): POINTER
 		external "C inline use <gdk/gdk.h>"
 		alias "&(((GdkDragContext*) $a_drag_context)->parent_instance)"
 		end
 
-	gdk_drag_context_protocol (a_drag_context: POINTER): POINTER is
+	gdk_drag_context_protocol (a_drag_context: POINTER): POINTER
 		external "C struct GdkDragContext get protocol use <gdk/gdk.h>"
 		end
 
-	gdk_drag_context_is_source (a_drag_context: POINTER): INTEGER is
+	gdk_drag_context_is_source (a_drag_context: POINTER): INTEGER
 		external "C struct GdkDragContext get is_source use <gdk/gdk.h>"
 		end
 
-	gdk_drag_context_source_window (a_drag_context: POINTER): POINTER is
+	gdk_drag_context_source_window (a_drag_context: POINTER): POINTER
 		external "C struct GdkDragContext get source_window use <gdk/gdk.h>"
 		end
 
-	gdk_drag_context_dest_window (a_drag_context: POINTER): POINTER is
+	gdk_drag_context_dest_window (a_drag_context: POINTER): POINTER
 		external "C struct GdkDragContext get dest_window use <gdk/gdk.h>"
 		end
 
-	gdk_drag_context_targets (a_drag_context: POINTER): POINTER is
+	gdk_drag_context_targets (a_drag_context: POINTER): POINTER
 		external "C struct GdkDragContext get targets use <gdk/gdk.h>"
 		end
 
-	gdk_drag_context_actions (a_drag_context: POINTER): INTEGER is
+	gdk_drag_context_actions (a_drag_context: POINTER): INTEGER
 		external "C struct GdkDragContext get actions use <gdk/gdk.h>"
 		end
 
-	gdk_drag_context_suggested_action (a_drag_context: POINTER): INTEGER is
+	gdk_drag_context_suggested_action (a_drag_context: POINTER): INTEGER
 		external "C struct GdkDragContext get suggested_action use <gdk/gdk.h>"
 		end
 
-	gdk_drag_context_action (a_drag_context: POINTER): INTEGER is
+	gdk_drag_context_action (a_drag_context: POINTER): INTEGER
 		external "C struct GdkDragContext get action use <gdk/gdk.h>"
 		end
 
-	gdk_drag_context_start_time (a_drag_context: POINTER): INTEGER_64 is
+	gdk_drag_context_start_time (a_drag_context: POINTER): INTEGER_64
 		external "C struct GdkDragContext get start_time use <gdk/gdk.h>"
 		end
 

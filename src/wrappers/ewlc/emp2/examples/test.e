@@ -1,7 +1,7 @@
 class TEST
 create {ANY} make
 feature {ANY} 
-	make is
+	make
 		local rem: INTEGER
 		do
 			create separated
@@ -13,7 +13,7 @@ feature {ANY}
 		end
 	
 	separated: MY_SEP
-	sleep (a_sec: INTEGER): INTEGER is
+	sleep (a_sec: INTEGER): INTEGER
 		external "C use <unistd.h>"
 		end
 end

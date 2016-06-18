@@ -30,7 +30,7 @@ insert CAIRO_PDF_SURFACE_EXTERNALS
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_filename: STRING; a_width_in_points, an_height_in_points: REAL) is
+	make (a_filename: STRING; a_width_in_points, an_height_in_points: REAL)
 			-- Creates a PDF surface of the specified size in points to
 			-- be written to filename.
 
@@ -79,7 +79,7 @@ feature {} -- Creation
 	--                      can use cairo_surface_status() to check for this.
 
 feature {ANY}
-	set_size (a_width_in_points, an_height_in_points: REAL) is
+	set_size (a_width_in_points, an_height_in_points: REAL)
 			-- Changes the size of a PDF surface for the current (and subsequent) pages.
 
 			-- This function should only be called before any drawing

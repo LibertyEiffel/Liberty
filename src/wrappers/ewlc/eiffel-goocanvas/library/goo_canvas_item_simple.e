@@ -35,7 +35,7 @@ create {ANY}
 	from_external_pointer
 	
 feature {ANY} 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <goocanvas-1.0/goocanvasitemsimple.h>"
 		alias "sizeof(GooCanvasItemSimple)"
 		end

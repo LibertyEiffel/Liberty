@@ -38,39 +38,39 @@ deferred class CAIRO_GLYPH_STRUCT
 	--   this glyph.
 feature {} -- Structure getter/setter calls
 
-	get_index (a_struct: POINTER): INTEGER_32 is
+	get_index (a_struct: POINTER): INTEGER_32
 			--   unsigned long        index;
 		external "C struct cairo_glyph_t get index use <pango.h>"
 		end
 
-	set_index (a_struct: POINTER; a_index: INTEGER_32) is
+	set_index (a_struct: POINTER; a_index: INTEGER_32)
 		external "C struct cairo_glyph_t set index use <pango.h>"
 		end
 
-	get_x (a_struct: POINTER): REAL is
+	get_x (a_struct: POINTER): REAL
 			-- double x; the offset in the X direction between the origin
 			-- used for drawing or measuring the string and the origin of
 			-- this glyph.
 		external "C struct cairo_glyph_t get x use <pango.h>"
 		end
 
-	set_x (a_struct: POINTER; a_x: REAL) is
+	set_x (a_struct: POINTER; a_x: REAL)
 		external "C struct cairo_glyph_t set x use <pango.h>"
 		end
 
-	get_y (a_struct: POINTER): REAL is
+	get_y (a_struct: POINTER): REAL
 			-- double y; the offset in the Y direction between the origin
 			-- used for drawing or measuring the string and the origin of
 			-- this glyph.
 		external "C struct cairo_glyph_t get y use <pango.h>"
 		end
 
-	set_y (a_struct: POINTER; a_y: REAL) is
+	set_y (a_struct: POINTER; a_y: REAL)
 		external "C struct cairo_glyph_t set y use <pango.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <pango.h>"
 		alias "sizeof(cairo_glyph_t)"
 		end

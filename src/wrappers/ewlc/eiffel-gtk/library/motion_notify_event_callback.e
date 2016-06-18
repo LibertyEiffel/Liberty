@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_WIDGET
 
 feature {ANY}
-	callback (motion_event_ptr: POINTER; instance: POINTER): INTEGER is
+	callback (motion_event_ptr: POINTER; instance: POINTER): INTEGER
 		local
 			motion_event: GDK_EVENT_MOTION
 		do
@@ -50,14 +50,14 @@ feature {ANY}
 			motion_event.dispose
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN])
 		do
 			debug
 				print ("MOTION_NOTIFY_EVENT_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

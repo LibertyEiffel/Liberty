@@ -48,7 +48,7 @@ deferred class CAIRO_PATTERN_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_pattern_type (a_type: INTEGER): BOOLEAN is
+	is_valid_pattern_type (a_type: INTEGER): BOOLEAN
 		do
 			Result := ((a_type = cairo_pattern_type_solid) or else
 						(a_type = cairo_pattern_type_surface) or else
@@ -56,26 +56,26 @@ feature {ANY}  -- enum
 						(a_type = cairo_pattern_type_radial))
 		end
 
-	cairo_pattern_type_solid: INTEGER is
+	cairo_pattern_type_solid: INTEGER
 			-- The pattern is a solid (uniform) color. It may be opaque
 			-- or translucent.
 		external "C macro use <pango.h>"
 		alias "CAIRO_PATTERN_TYPE_SOLID"
 		end
 
-	cairo_pattern_type_surface: INTEGER is
+	cairo_pattern_type_surface: INTEGER
 			-- The pattern is a based on a surface (an image).
 		external "C macro use <pango.h>"
 		alias "CAIRO_PATTERN_TYPE_SURFACE"
 		end
 
-	cairo_pattern_type_linear: INTEGER is
+	cairo_pattern_type_linear: INTEGER
 			-- The pattern is a linear gradient.
 		external "C macro use <pango.h>"
 		alias "CAIRO_PATTERN_TYPE_LINEAR"
 		end
 
-	cairo_pattern_type_radial: INTEGER is
+	cairo_pattern_type_radial: INTEGER
 			-- The pattern is a radial gradient.
 		external "C macro use <pango.h>"
 		alias "CAIRO_PATTERN_TYPE_RADIAL"

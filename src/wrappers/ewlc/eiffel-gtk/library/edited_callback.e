@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_CELL_RENDERER_TEXT
 
 feature {ANY}
-	callback (arg1, arg2, instance: POINTER) is
+	callback (arg1, arg2, instance: POINTER)
 		local
 			str1, str2: STRING
 		do
@@ -56,14 +56,14 @@ feature {ANY}
 			procedure.call ([str1, str2, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_CELL_RENDERER_TEXT; a_procedure: PROCEDURE [ANY, TUPLE[STRING, STRING, GTK_CELL_RENDERER_TEXT]]) is
+	connect (an_object: GTK_CELL_RENDERER_TEXT; a_procedure: PROCEDURE [ANY, TUPLE[STRING, STRING, GTK_CELL_RENDERER_TEXT]])
 		do
 			debug
 				print ("EDITED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

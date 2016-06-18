@@ -13,17 +13,17 @@ inherit
 	C_STRUCT
 
 feature {ANY} 
-	rowcount: INTEGER is
+	rowcount: INTEGER
 		do
 		end
 
 	
-	close is
+	close
 			-- Close the cursor.
 		deferred 
 		end
 
-	execute (some_sql: STRING; some_parameters: COLLECTION[ANY]) is
+	execute (some_sql: STRING; some_parameters: COLLECTION[ANY])
 			-- Prepare and execute a database operation (query or
 			-- command).  
 		do
@@ -105,24 +105,24 @@ feature {ANY}
 		end
 
 
-	execute_many(an_operation: STRING; some_parametes: COLLECTION[COLLECTION[ANY]]) is
+	execute_many(an_operation: STRING; some_parametes: COLLECTION[COLLECTION[ANY]])
 			-- Prepare a database operation (query or command) and then
 			-- execute it against `some_paramaters'.
 		deferred
 		end
 
-	fetchone: RESULT_ROW is
+	fetchone: RESULT_ROW
 			-- Fetch the next row of a query result set, returning a
 			-- single sequence, or Void when no more data is available.
 		deferred
 		end
 
-	fetchmany (row_number: INTEGER): TRAVERSABLE[RESULT_ROW] is
+	fetchmany (row_number: INTEGER): TRAVERSABLE[RESULT_ROW]
 			-- Fetch `row_number' rows of a query result.
 		deferred
 		end
 
-	fetch_all: TRAVERSABLE[RESULT_ROW] is
+	fetch_all: TRAVERSABLE[RESULT_ROW]
 			-- Fetch all (remaining) rows of a query result.
 		deferred
 		end

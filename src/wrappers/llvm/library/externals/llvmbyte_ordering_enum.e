@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = big_endian_low_level)  or else
 				(a_value = little_endian_low_level) )
@@ -15,29 +15,29 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_big_endian is
+	set_big_endian
 		do
 			value := big_endian_low_level
 		end
 
-	set_little_endian is
+	set_little_endian
 		do
 			value := little_endian_low_level
 		end
 
 feature {ANY} -- Queries
-	is_big_endian: BOOLEAN is
+	is_big_endian: BOOLEAN
 		do
 			Result := (value=big_endian_low_level)
 		end
 
-	is_little_endian: BOOLEAN is
+	is_little_endian: BOOLEAN
 		do
 			Result := (value=little_endian_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	big_endian_low_level: INTEGER is
+	big_endian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -46,7 +46,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	little_endian_low_level: INTEGER is
+	little_endian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

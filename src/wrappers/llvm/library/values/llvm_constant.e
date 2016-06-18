@@ -21,14 +21,14 @@ deferred class LLVM_CONSTANT
 inherit LLVM_USER
 insert CORE_EXTERNALS
 feature {ANY} 
-	null_from (a_type: LLVM_TYPE) is
+	null_from (a_type: LLVM_TYPE)
 	-- Create a null constant of `a_type'
 	require a_type/=Void
 	do
 		handle:=llvmconst_null(a_type.handle)
 	end
 
-	undef_from (a_type: LLVM_TYPE) is
+	undef_from (a_type: LLVM_TYPE)
 	-- Create an undefined constant of `a_type'
 	require a_type/=Void
 	do
@@ -36,19 +36,19 @@ feature {ANY}
 	end
 
 feature {ANY} -- Queries
-	is_constant: BOOLEAN is 
+	is_constant: BOOLEAN
 		-- TODO: as far as I understand this feature shall belong to LLVM_VALUE. 
 	do
 		Result := llvmis_constant(handle).to_boolean
 	end
 
-	is_null: BOOLEAN is
+	is_null: BOOLEAN
 		-- Is Current constant null?
 	do
 		Result := llvmis_null(handle).to_boolean
 	end
 
-	is_undefined: BOOLEAN is
+	is_undefined: BOOLEAN
 		-- Is Current constant not defined?
 	do
 		Result := llvmis_undef(handle).to_boolean

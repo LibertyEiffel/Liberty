@@ -32,7 +32,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
 
-	is_valid_antialias_type (a_type: INTEGER): BOOLEAN is
+	is_valid_antialias_type (a_type: INTEGER): BOOLEAN
 		do
 			Result := ((a_type = cairo_antialias_default) or else
 						(a_type = cairo_antialias_none) or else
@@ -40,26 +40,26 @@ feature {ANY}  -- enum
 						(a_type = cairo_antialias_subpixel))
 		end
 
-	cairo_antialias_default: INTEGER is
+	cairo_antialias_default: INTEGER
 			-- Use the default antialiasing for the subsystem and target device
 		external "C macro use <cairo.h>"
 		alias "CAIRO_ANTIALIAS_DEFAULT"
 		end
 
-	cairo_antialias_none: INTEGER is
+	cairo_antialias_none: INTEGER
 			-- Use a bilevel alpha mask
 		external "C macro use <cairo.h>"
 		alias "CAIRO_ANTIALIAS_NONE"
 		end
 
-	cairo_antialias_gray: INTEGER is
+	cairo_antialias_gray: INTEGER
 			-- Perform single-color antialiasing (using shades of gray for black
 			-- text on a white background, for example).
 		external "C macro use <cairo.h>"
 		alias "CAIRO_ANTIALIAS_GRAY"
 		end
 
-	cairo_antialias_subpixel: INTEGER is
+	cairo_antialias_subpixel: INTEGER
 			-- Perform antialiasing by taking advantage of the order of subpixel
 			-- elements on devices such as LCD panels
 		external "C macro use <cairo.h>"

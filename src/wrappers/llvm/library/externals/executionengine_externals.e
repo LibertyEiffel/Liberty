@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	llvmadd_global_mapping (an_ee: POINTER; a_global: POINTER; an_addr: POINTER) is
+	llvmadd_global_mapping (an_ee: POINTER; a_global: POINTER; an_addr: POINTER)
  		-- LLVMAddGlobalMapping
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmadd_module (an_ee: POINTER; a_m: POINTER) is
+	llvmadd_module (an_ee: POINTER; a_m: POINTER)
  		-- LLVMAddModule
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmadd_module_provider (an_ee: POINTER; a_mp: POINTER) is
+	llvmadd_module_provider (an_ee: POINTER; a_mp: POINTER)
  		-- LLVMAddModuleProvider
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_execution_engine (an_out_ee: POINTER; a_mp: POINTER; an_out_error: POINTER): INTEGER is
+	llvmcreate_execution_engine (an_out_ee: POINTER; a_mp: POINTER; an_out_error: POINTER): INTEGER
  		-- LLVMCreateExecutionEngine
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_execution_engine_for_module (an_out_ee: POINTER; a_m: POINTER; an_out_error: POINTER): INTEGER is
+	llvmcreate_execution_engine_for_module (an_out_ee: POINTER; a_m: POINTER; an_out_error: POINTER): INTEGER
  		-- LLVMCreateExecutionEngineForModule
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_generic_value_of_float (a_ty: POINTER; a_n: REAL): POINTER is
+	llvmcreate_generic_value_of_float (a_ty: POINTER; a_n: REAL): POINTER
  		-- LLVMCreateGenericValueOfFloat
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_generic_value_of_int (a_ty: POINTER; a_n: NATURAL_64; an_is_signed: INTEGER): POINTER is
+	llvmcreate_generic_value_of_int (a_ty: POINTER; a_n: NATURAL_64; an_is_signed: INTEGER): POINTER
  		-- LLVMCreateGenericValueOfInt
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_generic_value_of_pointer (a_p: POINTER): POINTER is
+	llvmcreate_generic_value_of_pointer (a_p: POINTER): POINTER
  		-- LLVMCreateGenericValueOfPointer
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_interpreter (an_out_interp: POINTER; a_mp: POINTER; an_out_error: POINTER): INTEGER is
+	llvmcreate_interpreter (an_out_interp: POINTER; a_mp: POINTER; an_out_error: POINTER): INTEGER
  		-- LLVMCreateInterpreter
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_interpreter_for_module (an_out_interp: POINTER; a_m: POINTER; an_out_error: POINTER): INTEGER is
+	llvmcreate_interpreter_for_module (an_out_interp: POINTER; a_m: POINTER; an_out_error: POINTER): INTEGER
  		-- LLVMCreateInterpreterForModule
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_jitcompiler (an_out_jit: POINTER; a_mp: POINTER; an_opt_level: NATURAL; an_out_error: POINTER): INTEGER is
+	llvmcreate_jitcompiler (an_out_jit: POINTER; a_mp: POINTER; an_opt_level: NATURAL; an_out_error: POINTER): INTEGER
  		-- LLVMCreateJITCompiler
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmcreate_jitcompiler_for_module (an_out_jit: POINTER; a_m: POINTER; an_opt_level: NATURAL; an_out_error: POINTER): INTEGER is
+	llvmcreate_jitcompiler_for_module (an_out_jit: POINTER; a_m: POINTER; an_opt_level: NATURAL; an_out_error: POINTER): INTEGER
  		-- LLVMCreateJITCompilerForModule
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmdispose_execution_engine (an_ee: POINTER) is
+	llvmdispose_execution_engine (an_ee: POINTER)
  		-- LLVMDisposeExecutionEngine
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmdispose_generic_value (a_gen_val: POINTER) is
+	llvmdispose_generic_value (a_gen_val: POINTER)
  		-- LLVMDisposeGenericValue
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmfind_function (an_ee: POINTER; a_name: POINTER; an_out_fn: POINTER): INTEGER is
+	llvmfind_function (an_ee: POINTER; a_name: POINTER; an_out_fn: POINTER): INTEGER
  		-- LLVMFindFunction
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmfree_machine_code_for_function (an_ee: POINTER; a_f: POINTER) is
+	llvmfree_machine_code_for_function (an_ee: POINTER; a_f: POINTER)
  		-- LLVMFreeMachineCodeForFunction
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmgeneric_value_int_width (a_gen_val_ref: POINTER): NATURAL is
+	llvmgeneric_value_int_width (a_gen_val_ref: POINTER): NATURAL
  		-- LLVMGenericValueIntWidth
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmgeneric_value_to_float (a_ty_ref: POINTER; a_gen_val: POINTER): REAL is
+	llvmgeneric_value_to_float (a_ty_ref: POINTER; a_gen_val: POINTER): REAL
  		-- LLVMGenericValueToFloat
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmgeneric_value_to_int (a_gen_val: POINTER; an_is_signed: INTEGER): NATURAL_64 is
+	llvmgeneric_value_to_int (a_gen_val: POINTER; an_is_signed: INTEGER): NATURAL_64
  		-- LLVMGenericValueToInt
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmgeneric_value_to_pointer (a_gen_val: POINTER): POINTER is
+	llvmgeneric_value_to_pointer (a_gen_val: POINTER): POINTER
  		-- LLVMGenericValueToPointer
 		external "plug_in"
 		alias "{
@@ -209,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_execution_engine_target_data (an_ee: POINTER): POINTER is
+	llvmget_execution_engine_target_data (an_ee: POINTER): POINTER
  		-- LLVMGetExecutionEngineTargetData
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmget_pointer_to_global (an_ee: POINTER; a_global: POINTER): POINTER is
+	llvmget_pointer_to_global (an_ee: POINTER; a_global: POINTER): POINTER
  		-- LLVMGetPointerToGlobal
 		external "plug_in"
 		alias "{
@@ -229,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmlink_in_interpreter is
+	llvmlink_in_interpreter
  		-- LLVMLinkInInterpreter
 		external "plug_in"
 		alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmlink_in_jit is
+	llvmlink_in_jit
  		-- LLVMLinkInJIT
 		external "plug_in"
 		alias "{
@@ -249,7 +249,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmrecompile_and_relink_function (an_ee: POINTER; a_fn: POINTER): POINTER is
+	llvmrecompile_and_relink_function (an_ee: POINTER; a_fn: POINTER): POINTER
  		-- LLVMRecompileAndRelinkFunction
 		external "plug_in"
 		alias "{
@@ -259,7 +259,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmremove_module (an_ee: POINTER; a_m: POINTER; an_out_mod: POINTER; an_out_error: POINTER): INTEGER is
+	llvmremove_module (an_ee: POINTER; a_m: POINTER; an_out_mod: POINTER; an_out_error: POINTER): INTEGER
  		-- LLVMRemoveModule
 		external "plug_in"
 		alias "{
@@ -269,7 +269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmremove_module_provider (an_ee: POINTER; a_mp: POINTER; an_out_mod: POINTER; an_out_error: POINTER): INTEGER is
+	llvmremove_module_provider (an_ee: POINTER; a_mp: POINTER; an_out_mod: POINTER; an_out_error: POINTER): INTEGER
  		-- LLVMRemoveModuleProvider
 		external "plug_in"
 		alias "{
@@ -279,7 +279,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmrun_function (an_ee: POINTER; a_f: POINTER; a_num_args: NATURAL; an_args: POINTER): POINTER is
+	llvmrun_function (an_ee: POINTER; a_f: POINTER; a_num_args: NATURAL; an_args: POINTER): POINTER
  		-- LLVMRunFunction
 		external "plug_in"
 		alias "{
@@ -289,7 +289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmrun_function_as_main (an_ee: POINTER; a_f: POINTER; an_arg_c: NATURAL; an_arg_v: POINTER; an_env_p: POINTER): INTEGER is
+	llvmrun_function_as_main (an_ee: POINTER; a_f: POINTER; an_arg_c: NATURAL; an_arg_v: POINTER; an_env_p: POINTER): INTEGER
  		-- LLVMRunFunctionAsMain
 		external "plug_in"
 		alias "{
@@ -299,7 +299,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmrun_static_constructors (an_ee: POINTER) is
+	llvmrun_static_constructors (an_ee: POINTER)
  		-- LLVMRunStaticConstructors
 		external "plug_in"
 		alias "{
@@ -309,7 +309,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmrun_static_destructors (an_ee: POINTER) is
+	llvmrun_static_destructors (an_ee: POINTER)
  		-- LLVMRunStaticDestructors
 		external "plug_in"
 		alias "{

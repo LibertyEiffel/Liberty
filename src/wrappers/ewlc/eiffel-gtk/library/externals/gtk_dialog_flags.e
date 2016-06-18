@@ -27,26 +27,26 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	are_valid_dialog_flags (some_flags :INTEGER): BOOLEAN is
+	are_valid_dialog_flags (some_flags :INTEGER): BOOLEAN
 		do
 			Result:=(some_flags & (gtk_dialog_modal |
 			                       gtk_dialog_destroy_with_parent |
 			                       gtk_dialog_no_separator)).to_boolean
 		end
 
-	gtk_dialog_modal: INTEGER is
+	gtk_dialog_modal: INTEGER
 			-- 	Make the constructed dialog modal
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_DIALOG_MODAL"
 		end
 
-	gtk_dialog_destroy_with_parent: INTEGER is
+	gtk_dialog_destroy_with_parent: INTEGER
 			-- 	Destroy the dialog when its parent is destroyed
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_DIALOG_DESTROY_WITH_PARENT"
 		end
 
-	gtk_dialog_no_separator: INTEGER is
+	gtk_dialog_no_separator: INTEGER
 			-- Don't put a separator between the action area and the
 			-- dialog content.
 		external "C macro use <gtk/gtk.h>"

@@ -27,26 +27,26 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_tree_view_column_sizing (a_sizing :INTEGER): BOOLEAN is
+	is_valid_gtk_tree_view_column_sizing (a_sizing :INTEGER): BOOLEAN
 		do
 			Result:=((a_sizing = gtk_tree_view_column_grow_only) or else
 						(a_sizing = gtk_tree_view_column_autosize) or else
 						(a_sizing = gtk_tree_view_column_fixed))
 		end
 
-	gtk_tree_view_column_grow_only: INTEGER is
+	gtk_tree_view_column_grow_only: INTEGER
 			-- 	Columns only get bigger in reaction to changes in the model
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_VIEW_COLUMN_GROW_ONLY"
 		end
 
-	gtk_tree_view_column_autosize: INTEGER is
+	gtk_tree_view_column_autosize: INTEGER
 			-- 	Columns resize to be the optimal size everytime the model changes.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_VIEW_COLUMN_AUTOSIZE"
 		end
 
-	gtk_tree_view_column_fixed: INTEGER is
+	gtk_tree_view_column_fixed: INTEGER
 			-- 	Columns are a fixed numbers of pixels wide.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_VIEW_COLUMN_FIXED"

@@ -35,36 +35,36 @@ create {ANY}
 
 feature {ANY} -- Access
 
-	numerator: INTEGER is
+	numerator: INTEGER
 		do
 			Result := av_rational_get_numerator (handle)
 		end
 
-	denominator: INTEGER is
+	denominator: INTEGER
 		do
 			Result := av_rational_get_denominator (handle)
 		end
 
-	to_real: REAL is
+	to_real: REAL
 		do
 			Result := numerator / denominator
 		end
 
 feature {ANY} -- Operations
 
-	set_numerator (a_num: INTEGER) is
+	set_numerator (a_num: INTEGER)
 		do
 			av_rational_set_numerator (handle, a_num)
 		end
 
-	set_denominator (a_den: INTEGER) is
+	set_denominator (a_den: INTEGER)
 		do
 			av_rational_set_denominator (handle, a_den)
 		end
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <rational.h>"
 		alias "sizeof(AVRational)"
 		end

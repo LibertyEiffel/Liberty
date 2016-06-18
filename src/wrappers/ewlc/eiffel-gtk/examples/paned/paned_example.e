@@ -11,7 +11,7 @@ insert GTK_MAIN
 create {ANY} make
 
 feature {} -- Creation
-	make is
+	make
 			-- TODO: Eiffelize this example Example 1. Creating a paned widget with minimum sizes.
 		do
 			-- GtkWidget *hpaned = gtk_hpaned_new ();

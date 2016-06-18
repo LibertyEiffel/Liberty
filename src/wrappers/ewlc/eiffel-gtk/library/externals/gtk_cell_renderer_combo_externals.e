@@ -26,7 +26,7 @@ deferred class GTK_CELL_RENDERER_COMBO_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gtk_cell_renderer_combo_new: POINTER is
+	gtk_cell_renderer_combo_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 end

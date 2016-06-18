@@ -24,7 +24,7 @@ deferred class GLIB_CHARACTER_SET_CONVERSION
 
 feature {ANY}
 
-	gconvert (a_string, to_codeset, from_codeset: STRING): STRING is
+	gconvert (a_string, to_codeset, from_codeset: STRING): STRING
 			--    Converts a string from one character set to another.
 			--    Note that you should use iconv() for streaming conversions.
 			--    a_strint :      the string to convert
@@ -43,7 +43,7 @@ feature {ANY}
 			end
 		end
 
-	locale_to_utf8 (a_string: STRING): STRING is
+	locale_to_utf8 (a_string: STRING): STRING
 			--    Converts a string which is in the encoding used for strings by the C runtime
 			--    (usually the same as that used by the operating system) in the current locale
 			--    into a UTF-8 string.
@@ -60,7 +60,7 @@ feature {ANY}
 			end
 		end
 
-	filename_from_utf8 (an_utf8_string: STRING): STRING is
+	filename_from_utf8 (an_utf8_string: STRING): STRING
 			--    Converts a string from UTF-8 to the encoding GLib uses for filenames. Note that
 			--    on Windows GLib uses UTF-8 for filenames.
 			--    an_utf8string :    a UTF-8 encoded string.
@@ -75,7 +75,7 @@ feature {ANY}
 			end
 		end
 
-	locale_from_utf8 (a_string: STRING): STRING is
+	locale_from_utf8 (a_string: STRING): STRING
 			--    Converts a string from UTF-8 to the encoding used for strings by the C runtime
 			--    (usually the same as that used by the operating system) in the current locale.
 			--    a_string :      a UTF-8 encoded string
@@ -92,7 +92,7 @@ feature {ANY}
 		
 feature {} -- External calls
 
-	g_convert (a_str: POINTER; a_len: INTEGER; to_codeset, from_codeset, bytes_read, bytes_written, error: POINTER): POINTER is
+	g_convert (a_str: POINTER; a_len: INTEGER; to_codeset, from_codeset, bytes_read, bytes_written, error: POINTER): POINTER
 			--    Converts a string from one character set to another.
 			--    Note that you should use g_iconv() for streaming conversions^[2].
 			--    str :           the string to convert
@@ -272,7 +272,7 @@ feature {} -- External calls
 
 --    ---------------------------------------------------------------------------------
 
-	g_locale_to_utf8 (opsysstring: POINTER; opsysstring_len: INTEGER; bytes_read, bytes_written, error: POINTER): POINTER is
+	g_locale_to_utf8 (opsysstring: POINTER; opsysstring_len: INTEGER; bytes_read, bytes_written, error: POINTER): POINTER
 			--    Converts a string which is in the encoding used for strings by the C runtime
 			--    (usually the same as that used by the operating system) in the current locale
 			--    into a UTF-8 string.
@@ -326,7 +326,7 @@ feature {} -- External calls
 --    ---------------------------------------------------------------------------------
 
 	g_filename_from_utf8 (an_utf8_string: POINTER; a_len: INTEGER;
-	                      a_bytes_read, a_bytes_written, an_error: POINTER): POINTER is
+	                      a_bytes_read, a_bytes_written, an_error: POINTER): POINTER
 			--    Converts a string from UTF-8 to the encoding GLib uses for filenames. Note that
 			--    on Windows GLib uses UTF-8 for filenames.
 			--    utf8string :    a UTF-8 encoded string.
@@ -491,7 +491,7 @@ feature {} -- External calls
 
 --    ---------------------------------------------------------------------------------
 
-	g_locale_from_utf8 (a_string: POINTER; a_string_length: INTEGER; bytes_read, bytes_written, error: POINTER): POINTER is
+	g_locale_from_utf8 (a_string: POINTER; a_string_length: INTEGER; bytes_read, bytes_written, error: POINTER): POINTER
 			--    Converts a string from UTF-8 to the encoding used for strings by the C runtime
 			--    (usually the same as that used by the operating system) in the current locale.
 			--    utf8string :    a UTF-8 encoded string

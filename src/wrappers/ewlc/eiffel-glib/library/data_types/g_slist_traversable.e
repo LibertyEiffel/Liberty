@@ -52,19 +52,19 @@ feature {ANY}
 	-- which insert elements return the new start of the list, which
 	-- may have changed.
 
-	make, make_empty is
+	make, make_empty
 		do
 			handle := default_pointer
 		end
 
-	first: ITEM is
+	first: ITEM
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_slist_get_data (handle)
 			if p.is_not_null then Result := wrapper(p) end
 		end
 
-	last: like first is
+	last: like first
 		local
          p: POINTER -- Item Pointer
 		do
@@ -74,14 +74,14 @@ feature {ANY}
          end
 		end
 
-	item (i: INTEGER): like first is
+	item (i: INTEGER): like first
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_slist_nth_data (handle, i)
 			if p.is_not_null then Result:=wrapper(p) end
 		end
 
-	put (an_item: like first; i: INTEGER) is
+	put (an_item: like first; i: INTEGER)
 		require
 			valid_item: an_item /= Void 
 			mutable: is_mutable
@@ -89,9 +89,9 @@ feature {ANY}
 			g_slist_set_data (g_slist_nth(handle,i), an_item.handle)
 		end
 	
-	slice (min, max: INTEGER): like Current is do not_yet_implemented end
+	slice (min, max: INTEGER): like Current do not_yet_implemented end
 
-	swap (i,j: INTEGER) is
+	swap (i,j: INTEGER)
 		require
 			is_mutable 
 		local ith,jth,tmp: POINTER
@@ -104,7 +104,7 @@ feature {ANY}
 			g_slist_set_data (jth, tmp)
 		end
 
-	set_all_with (v: like first) is
+	set_all_with (v: like first)
 		require
          is_mutable 
 		local
@@ -120,9 +120,9 @@ feature {ANY}
 			end
 		end
 
-	clear_all is do not_yet_implemented end
+	clear_all do not_yet_implemented end
 
-	add_first (an_item: like first) is
+	add_first (an_item: like first)
 			-- Adds `an_item' on to the start of the list.
 		require 
 			is_mutable
@@ -137,7 +137,7 @@ feature {ANY}
 			-- "last"); list = g_slist_prepend (list, "first");
 		end
 
-	add_last (an_item: like first) is
+	add_last (an_item: like first)
 			-- Adds `an_item' on to the end of the list.  Note: this
 			-- feature has to traverse the entire list to find the end,
 			-- which is inefficient when adding multiple elements. A
@@ -154,7 +154,7 @@ feature {ANY}
 			-- may have changed, so make sure you store the new value.
 		end
 
-	add (element: like first; index: INTEGER) is
+	add (element: like first; index: INTEGER)
 			-- Add `element' at `index`
 		require
 			is_mutable
@@ -163,7 +163,7 @@ feature {ANY}
 			handle := g_slist_insert (handle, element.handle, index-1)
 		end
 	
-	append_collection (other: COLLECTION[ITEM]) is
+	append_collection (other: COLLECTION[ITEM])
 			--
 		require
 			is_mutable
@@ -171,20 +171,20 @@ feature {ANY}
 			not_yet_implemented -- TODO
 		end
 
-	force (element: like first; index: INTEGER) is do not_yet_implemented end
+	force (element: like first; index: INTEGER) do not_yet_implemented end
 
-	remove_first is
+	remove_first
 		do
 			handle := g_slist_delete_link (handle, handle)
 		end
 
-	remove (index: INTEGER) is
+	remove (index: INTEGER)
 		do
 			handle := g_slist_delete_link (handle,
 												  g_slist_nth_data (handle, index-1))
 		end
 
-	remove_head (n: INTEGER) is
+	remove_head (n: INTEGER)
 		local i: INTEGER
 		do
 			from i:=n until i>0 loop
@@ -193,7 +193,7 @@ feature {ANY}
 			end
 		end
 
-	remove_tail (n: INTEGER) is
+	remove_tail (n: INTEGER)
 		local i: INTEGER
 		do
 			reverse
@@ -201,12 +201,12 @@ feature {ANY}
 			reverse
 		end
 
-	remove_last is
+	remove_last
 		do
 			handle:=g_slist_delete_link (handle,g_slist_last (handle))
 		end
 
-	clear_count, clear_count_and_capacity is
+	clear_count, clear_count_and_capacity
 			-- Discard all items (is_empty is True after that call). Frees
 			-- all of the memory used by a GSList. The freed elements are
 			-- added to the GAllocator free list.
@@ -215,7 +215,7 @@ feature {ANY}
 			handle := default_pointer 
 		end
 
-	has (x: like first): BOOLEAN is
+	has (x: like first): BOOLEAN
 			-- Look for x using is_equal for comparison. Note: current
 			-- implementation is just a copy of `fast_has'; try using
 			-- `fast_has' whenever possible since an implementation of
@@ -224,7 +224,7 @@ feature {ANY}
 			Result:=fast_has(x)
 		end
 	
-	fast_has (x: like first): BOOLEAN is
+	fast_has (x: like first): BOOLEAN
 			-- Look for x using basic = for comparison.
 		do
 			if (g_slist_find(handle,x.handle).is_not_null)
@@ -233,7 +233,7 @@ feature {ANY}
 			end
 		end
 	
-	first_index_of (element: like first): INTEGER is
+	first_index_of (element: like first): INTEGER
 			-- Give the index of the first occurrence of element using
 			-- is_equal for comparison. Answer upper + 1 when element is
 			-- not inside.
@@ -241,14 +241,14 @@ feature {ANY}
 			Result:=g_slist_index(handle,element.handle)
 		end
 
-	index_of (element: like first;  start_index: INTEGER ): INTEGER is
+	index_of (element: like first;  start_index: INTEGER ): INTEGER
 		do
 			Result:= g_slist_index(g_slist_nth(handle,start_index),element.handle)
 		end
 
-	reverse_index_of (element: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
+	reverse_index_of (element: like first; start_index: INTEGER): INTEGER do not_yet_implemented end
 
-	fast_first_index_of (element: like first): INTEGER is
+	fast_first_index_of (element: like first): INTEGER
 			-- Give the index of the first occurrence of element using
 			-- basic = for comparison. Answer upper + 1 when element is
 			-- not inside.
@@ -256,9 +256,9 @@ feature {ANY}
 			not_yet_implemented -- TODO
 		end
 
-	fast_index_of (element: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
+	fast_index_of (element: like first; start_index: INTEGER): INTEGER do not_yet_implemented end
 
-	fast_reverse_index_of (element: like first; start_index: INTEGER): INTEGER  is
+	fast_reverse_index_of (element: like first; start_index: INTEGER): INTEGER
 			-- Using basic = comparison, gives the index of the first
 			-- occurrence of element at or before start_index. Search is
 			-- done in reverse direction, which means from the
@@ -269,13 +269,13 @@ feature {ANY}
 		end
 
    
-	is_equal_map (other: like Current): BOOLEAN is
+	is_equal_map (other: like Current): BOOLEAN
 			-- Do both collections have the same lower, upper, and items?
 		do
 			Result := is_equal(other)
 		end
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 			-- Do both collections have the same lower, upper, and items?
       local
          i, j: INTEGER
@@ -296,7 +296,7 @@ feature {ANY}
 
 		end
 
-	all_default: BOOLEAN is
+	all_default: BOOLEAN
 			--	Do all items have their type s default value? Note: for
 			--	non Void items, the test is performed with the is_default
 			--	predicate.
@@ -304,34 +304,34 @@ feature {ANY}
 			not_yet_implemented -- TODO
 		end
 
-	copy (other: like Current) is
+	copy (other: like Current)
 		do
 			not_yet_implemented -- TODO
 		end
 
-	occurrences (element: like first): INTEGER is
+	occurrences (element: like first): INTEGER
 			-- Number of occurrences of element using is_equal for comparison.
 		do
 			not_yet_implemented -- TODO
 		end
 
-	fast_occurrences (element: like first): INTEGER is 
+	fast_occurrences (element: like first): INTEGER
 		do
 			not_yet_implemented -- TODO
 		end
 	
 
-	replace_all (old_value, new_value: like first) is 
+	replace_all (old_value, new_value: like first)
 		do
 			not_yet_implemented -- TODO
 		end
 
-	fast_replace_all (old_value, new_value: like first) is 
+	fast_replace_all (old_value, new_value: like first)
 		do
 			not_yet_implemented -- TODO
 		end
 
-	reverse is
+	reverse
 		local old_handle: POINTER
 		do
 			old_handle := handle
@@ -341,23 +341,23 @@ feature {ANY}
 	
 	lower: INTEGER is 0
 
-	upper: INTEGER is
+	upper: INTEGER
 		do
 			Result:=count-1
 		end
 	
-	count: INTEGER is 
+	count: INTEGER
 		do
 			Result:=g_slist_length(handle)
 			--	ensure positive: Result >= 0 
 		end
 
-	is_empty: BOOLEAN is 
+	is_empty: BOOLEAN
 		do
 			Result:= (handle.is_null)
 		end
 	
-	from_collection (model: COLLECTION[ITEM]) is
+	from_collection (model: COLLECTION[ITEM])
 		local i: ITERATOR[ITEM]
 		do
 			from i:=model.get_new_iterator; i.start
@@ -367,14 +367,14 @@ feature {ANY}
 			reverse
 		end
 	
-	get_new_iterator: ITERATOR[ITEM] is 
+	get_new_iterator: ITERATOR[ITEM]
 		do
 			create {ITERATOR_ON_G_SLIST[ITEM]} Result.make (Current)
 		end
 
 feature {} -- Memory management
 
-	dispose is
+	dispose
 		do
 			-- We override the default dispose routine; list nodes are not
 			-- allocated with malloc() so we should not use free()
@@ -606,13 +606,13 @@ feature {} -- Memory management
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
 
-	manifest_put (index: INTEGER; element: like item) is
+	manifest_put (index: INTEGER; element: like item)
 		do
 			put (element,index)
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GSList)"
 		end

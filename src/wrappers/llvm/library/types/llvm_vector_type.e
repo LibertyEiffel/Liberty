@@ -5,14 +5,14 @@ create {ANY} make
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {ANY} -- Creation
-   make (a_type: LLVM_TYPE; a_count: NATURAL_32) is
+   make (a_type: LLVM_TYPE; a_count: NATURAL_32)
          -- Creates a vector type with `a_count' elements of `a_type'.
       require a_type/=Void
       do
          handle:=llvmvector_type(a_type.handle,a_count)
       end
 feature {ANY}
-   size: NATURAL_32 is
+   size: NATURAL_32
          -- Size of current vector
       do
          Result:=llvmget_vector_size(handle)

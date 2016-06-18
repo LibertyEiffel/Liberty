@@ -26,7 +26,7 @@ inherit CAIRO_GRADIENT_PATTERN
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (cx0,cy0,radius0,cx1,cy1,radius1: REAL) is
+	make (cx0,cy0,radius0,cx1,cy1,radius1: REAL)
 			--   Creates a new radial gradient cairo_pattern_t between
 			--   the two circles defined by (x0, y0, c0) and (x1, y1,
 			--   c0). Before using the gradient pattern, a number of

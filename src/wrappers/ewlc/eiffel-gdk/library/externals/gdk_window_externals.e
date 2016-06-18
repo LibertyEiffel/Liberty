@@ -39,24 +39,24 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gdk_window_new (parent, attributes: POINTER; attributes_mask: INTEGER): POINTER is
+	gdk_window_new (parent, attributes: POINTER; attributes_mask: INTEGER): POINTER
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_window_get_pointer (window, x_ptr, y_ptr, mask_ptr: POINTER): POINTER is
+	gdk_window_get_pointer (window, x_ptr, y_ptr, mask_ptr: POINTER): POINTER
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_window_set_cursor (window, cursor: POINTER) is
+	gdk_window_set_cursor (window, cursor: POINTER)
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_window_get_children (window: POINTER): POINTER is
+	gdk_window_get_children (window: POINTER): POINTER
 			--  GList*      gdk_window_get_children         (GdkWindow *window);
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_window_get_position (a_handle, an_x_ptr, an_y_ptr: POINTER) is
+	gdk_window_get_position (a_handle, an_x_ptr, an_y_ptr: POINTER)
 			--  void gdk_window_get_position (GdkWindow *window, gint *x,
 			--  gint *y);
 		external "C use <gdk/gdk.h>"

@@ -32,12 +32,12 @@ insert WRAPPER
 create {ANY} initialize
 
 feature {ANY}
-	initialize is 
+	initialize
 			-- Empty initialization
 		do
 		end
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkAtom)"
 		end

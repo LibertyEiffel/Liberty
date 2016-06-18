@@ -165,12 +165,12 @@ feature {} -- External calls
 	-- GtsSurfaceInterClass;
 	-- GtsSurfaceInter;
 
-	gts_surface_inter_class: POINTER is
+	gts_surface_inter_class: POINTER
 			-- GtsSurfaceInterClass* gts_surface_inter_class (void);
 		external "C use <gts.h>"
 		end
 	
-	gts_surface_inter_new (a_class, a_surface, another_surface, a_faces_tree, another_faces_tree: POINTER; is_open1_bool, is_open2_bool: INTEGER): POINTER is
+	gts_surface_inter_new (a_class, a_surface, another_surface, a_faces_tree, another_faces_tree: POINTER; is_open1_bool, is_open2_bool: INTEGER): POINTER
 			-- GtsSurfaceInter* gts_surface_inter_new
 			-- (GtsSurfaceInterClass *klass, GtsSurface *s1, GtsSurface
 			-- *s2, GNode *faces_tree1, GNode *faces_tree2, gboolean
@@ -178,7 +178,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
-	gts_surface_inter_check (a_si, closed_bool: POINTER): INTEGER is
+	gts_surface_inter_check (a_si, closed_bool: POINTER): INTEGER
 			-- gboolean gts_surface_inter_check (GtsSurfaceInter *si,
 			-- gboolean *closed);
 		external "C use <gts.h>"
@@ -186,19 +186,19 @@ feature {} -- External calls
 	
 	-- enum GtsBooleanOperation;
 		
-	gts_surface_inter_boolean (a_si, a_surface: POINTER; an_operation: INTEGER) is
+	gts_surface_inter_boolean (a_si, a_surface: POINTER; an_operation: INTEGER)
 			-- void gts_surface_inter_boolean (GtsSurfaceInter *si,
 			-- GtsSurface *surface, GtsBooleanOperation op);
 		external "C use <gts.h>"
 		end
 	
-	gts_surface_is_self_intersecting (a_surface: POINTER): POINTER is
+	gts_surface_is_self_intersecting (a_surface: POINTER): POINTER
 			-- GtsSurface* gts_surface_is_self_intersecting (GtsSurface
 			-- *s);
 		external "C use <gts.h>"
 		end
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsSurfaceInter)"
 		end

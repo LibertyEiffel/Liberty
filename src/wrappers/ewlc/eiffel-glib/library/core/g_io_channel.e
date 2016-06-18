@@ -19,7 +19,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	from_unix_fd (fd: INTEGER) is
+	from_unix_fd (fd: INTEGER)
 			-- Creates from file descriptor `fd'. On UNIX systems this 
 			-- works for plain files, pipes, and sockets.
 		do
@@ -28,7 +28,7 @@ feature {} -- Creation
 			encoding.is_equal (once "UTF-8")
 		end
 
-	from_win32_fd (fd: INTEGER) is
+	from_win32_fd (fd: INTEGER)
 			-- Creates from file descriptor `fd' on Windows. This works for
 			-- file descriptors as returned by the open(), creat(), pipe()
 			-- and fileno() calls in the Microsoft C runtime. In order to
@@ -39,7 +39,7 @@ feature {} -- Creation
 			handle := g_io_channel_win32_new_fd (fd)
 		end
 
-	from_win32_socket (socket: INTEGER) is
+	from_win32_socket (socket: INTEGER)
 			-- Creates from socket handle `socket'
 		do
 			handle := g_io_channel_win32_new_socket (socket)
@@ -105,7 +105,7 @@ feature {} -- Creation
 --                                              GIOCondition condition);
 
 feature {ANY}  -- Memory handling
-	ref is
+	ref
 			-- Increments the reference count of a GIOChannel.
 		local p: POINTER
 		do
@@ -113,12 +113,12 @@ feature {ANY}  -- Memory handling
 			check p=handle end
 		end
 	
-	unref is
+	unref
 		do
 			g_io_channel_unref (handle)
 		end
 
-	dispose is
+	dispose
 		do
 			Precursor
 			watch_list := Void
@@ -126,7 +126,7 @@ feature {ANY}  -- Memory handling
 
 feature {ANY} -- Access
 
-	encoding: STRING is
+	encoding: STRING
 			-- Encoding for the input/output of the channel. The internal
 			-- encoding is always UTF-8. The encoding Void makes the
 			-- channel safe for binary data.
@@ -139,17 +139,17 @@ feature {ANY} -- Access
 			end
 		end
 
-	is_writable: BOOLEAN is
+	is_writable: BOOLEAN
 		do
 			Result := (g_io_channel_get_flags(handle) & g_io_flag_is_writable) /= 0
 		end
 
-	is_blocking: BOOLEAN is
+	is_blocking: BOOLEAN
 		do
 			Result := (g_io_channel_get_flags(handle) & g_io_flag_nonblock) = 0
 		end
 
-	is_buffered: BOOLEAN is
+	is_buffered: BOOLEAN
 			-- Is the current channel buffered?
 		do
 			Result := g_io_channel_get_buffered (handle) /= 0
@@ -161,7 +161,7 @@ feature {ANY} -- Access
 	last_status: INTEGER
 		-- Status code of last operation
 
-	last_failed: BOOLEAN is
+	last_failed: BOOLEAN
 			-- Error status of last operation
 		do
 			Result := last_status /= g_io_status_normal
@@ -172,7 +172,7 @@ feature {ANY} -- Access
 
 feature {ANY} -- Operations
 
-	add_watch (condition: INTEGER; action: FUNCTION [TUPLE [G_IO_CHANNEL, INTEGER], BOOLEAN]) is
+	add_watch (condition: INTEGER; action: FUNCTION [TUPLE [G_IO_CHANNEL, INTEGER], BOOLEAN])
 			-- Adds into the main event loop with the default priority.
 		require
 			is_valid_g_io_condition (condition)
@@ -188,7 +188,7 @@ feature {ANY} -- Operations
 			last_event_source := g_io_add_watch (handle, condition, callback.function, callback.data)
 		end
 
-	set_blocking (block: BOOLEAN) is
+	set_blocking (block: BOOLEAN)
 		do
 			if block then
 				last_status := g_io_channel_set_flags(handle,
@@ -203,7 +203,7 @@ feature {ANY} -- Operations
 			end
 		end
 
-	set_buffered (buffered: BOOLEAN) is
+	set_buffered (buffered: BOOLEAN)
 			-- Enable/disable channel buffering.
 			-- Default state is buffered
 		require
@@ -403,7 +403,7 @@ feature {ANY} -- Operations
 -- g_io_channel_write_chars ()
 
 
-	write_chars (chars: STRING) is
+	write_chars (chars: STRING)
 			-- Replacement for g_io_channel_write() with the new API.
 			-- On seekable channels with encodings other than NULL or
 			-- UTF-8, generic mixing of reading and writing is not
@@ -452,7 +452,7 @@ feature {ANY} -- Operations
 -- error : 	A location to return an error of type GConvertError or GIOChannelError
 -- Returns : 	a GIOStatus
 
-	flush is
+	flush
 			-- Flushes the write buffer for the GIOChannel.
 		do
 			last_status := g_io_channel_flush (handle, default_pointer) --TODO: error handling
@@ -486,7 +486,7 @@ feature {ANY} -- Operations
 -- G_SEEK_SET 	the start of the file.
 -- G_SEEK_END 	the end of the file.
 
-	shutdown (after_flush: BOOLEAN) is
+	shutdown (after_flush: BOOLEAN)
 		-- Close an IO channel. Any pending data to be written will be
 		-- flushed if flush is TRUE. The channel will not be freed until the
 		-- last reference is dropped using g_io_channel_unref().
@@ -494,7 +494,7 @@ feature {ANY} -- Operations
 			last_status := g_io_channel_shutdown(handle, after_flush, default_pointer)
 		end
 
-	set_encoding (new_encoding: STRING) is
+	set_encoding (new_encoding: STRING)
 			-- Sets the encoding for the input/output of the channel.
 			-- The internal encoding is always "UTF-8". The default encoding
 			-- for the external file is "UTF-8". encoding=Void sets binary
@@ -538,7 +538,7 @@ feature {ANY} -- Operations
 
 feature {} -- Internal constants
 
-	g_io_status_normal: INTEGER is
+	g_io_status_normal: INTEGER
 		external "C macro use <glib.h>" alias "G_IO_STATUS_NORMAL"
 		end
 
@@ -732,11 +732,11 @@ feature {} -- Internal constants
 -- Returns : 	the status of the operation.
 -- enum GIOFlags
 
-	g_io_flag_is_writable: INTEGER is
+	g_io_flag_is_writable: INTEGER
 		external "C macro use <glib.h>" alias "G_IO_FLAG_IS_WRITEABLE"
 		end
 
-	g_io_flag_nonblock: INTEGER is
+	g_io_flag_nonblock: INTEGER
 		external "C macro use <glib.h>" alias "G_IO_FLAG_NONBLOCK"
 		end
 
@@ -891,74 +891,74 @@ feature {} -- Internal
 
 feature {} -- Externals
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 			-- sizeof (wrapped_structure), speaking in C. TODO: shall be a NATURAL
 		external "C macro use <glib.h>"
 		alias "(sizeof (GIOChannel))"
 		end
 
-	g_io_channel_unix_new (fd: INTEGER): POINTER is
+	g_io_channel_unix_new (fd: INTEGER): POINTER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_win32_new_fd (fd: INTEGER): POINTER is
+	g_io_channel_win32_new_fd (fd: INTEGER): POINTER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_win32_new_socket (socket: INTEGER): POINTER is
+	g_io_channel_win32_new_socket (socket: INTEGER): POINTER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_ref (a_channel: POINTER): POINTER is
+	g_io_channel_ref (a_channel: POINTER): POINTER
 			-- GIOChannel* g_io_channel_ref (GIOChannel *channel);
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_unref (channel: POINTER) is
+	g_io_channel_unref (channel: POINTER)
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_get_encoding (channel: POINTER): POINTER is
+	g_io_channel_get_encoding (channel: POINTER): POINTER
 		external "C use <glib.h>"
 		end
 
-	g_io_add_watch (channel: POINTER; condition: INTEGER; func, user_data: POINTER): INTEGER is
+	g_io_add_watch (channel: POINTER; condition: INTEGER; func, user_data: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_write_chars (channel: POINTER; buffer: POINTER; count: INTEGER; written: POINTER; error: POINTER): INTEGER is
+	g_io_channel_write_chars (channel: POINTER; buffer: POINTER; count: INTEGER; written: POINTER; error: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_flush (channel, error: POINTER): INTEGER is
+	g_io_channel_flush (channel, error: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_get_buffer_size (channel: POINTER): INTEGER is
+	g_io_channel_get_buffer_size (channel: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_get_flags (channel: POINTER): INTEGER is
+	g_io_channel_get_flags (channel: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_shutdown (channel: POINTER; after_flush: BOOLEAN; error: POINTER): INTEGER is
+	g_io_channel_shutdown (channel: POINTER; after_flush: BOOLEAN; error: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_set_flags (channel: POINTER; flags: INTEGER; error: POINTER): INTEGER is
+	g_io_channel_set_flags (channel: POINTER; flags: INTEGER; error: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_get_buffered (channel: POINTER): INTEGER is
+	g_io_channel_get_buffered (channel: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_set_buffered (channel: POINTER; buffered: INTEGER) is
+	g_io_channel_set_buffered (channel: POINTER; buffered: INTEGER)
 		external "C use <glib.h>"
 		end
 
-	g_io_channel_set_encoding (channel, new_encoding, error: POINTER): INTEGER is
+	g_io_channel_set_encoding (channel, new_encoding, error: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 

@@ -48,7 +48,7 @@ insert
 create {ANY} make, with_pattern, with_mime_type, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkFileFilter with no rules added to
 			-- it. Such a filter doesn't accept any files, so is not
 			-- particularly useful until you add rules with
@@ -61,14 +61,14 @@ feature {} -- Creation
 			from_external_pointer (gtk_file_filter_new)
 		end
 
-	with_pattern  (a_pattern: STRING) is
+	with_pattern  (a_pattern: STRING)
 			-- Creates a new GtkFileFilter with `a_pattern' rule.
 		require pattern_not_void: a_pattern /= Void
 		do
 			make; add_pattern (a_pattern)
 		end
 
-	with_mime_type(a_mime_type: STRING) is
+	with_mime_type(a_mime_type: STRING)
 			-- Creates a new GtkFileFilter with `a_mime_type' rule
 		require valid_mime_type: a_mime_type /= Void
 		do
@@ -76,7 +76,7 @@ feature {} -- Creation
 		end
 	
 feature {ANY} -- Filter name
-	set_name (a_name: STRING) is
+	set_name (a_name: STRING)
 			-- Sets the human-readable name of the filter; this is the
 			-- string that will be displayed in the file selector user
 			-- interface if there is a selectable list of filters.
@@ -85,7 +85,7 @@ feature {ANY} -- Filter name
 			gtk_file_filter_set_name (handle, a_name.to_external)
 		end
 
-	unset_name is
+	unset_name
 			-- Remove any human-readable name of the filter, the string
 			-- that will be displayed in the file selector user interface
 			-- if there is a selectable list of filters.
@@ -93,7 +93,7 @@ feature {ANY} -- Filter name
 			gtk_file_filter_set_name (handle, default_pointer)
 		end
 
-	name: STRING is
+	name: STRING
 			-- The human-readable name for the filter. See `set_name'.
 		local cstr: POINTER
 		do
@@ -108,7 +108,7 @@ feature {ANY} -- Filter name
 			
 
 feature {ANY} -- Mime type filter
-	add_mime_type (a_mime_type: STRING) is
+	add_mime_type (a_mime_type: STRING)
 			-- Adds a rule allowing the given `a_mime_type' to filter.
 		require valid_mime_type: a_mime_type /= Void
 		do
@@ -116,7 +116,7 @@ feature {ANY} -- Mime type filter
 		end
 
 feature {ANY} -- Pattern filter
-	add_pattern (a_pattern: STRING) is
+	add_pattern (a_pattern: STRING)
 			-- Adds a rule allowing a shell style glob to a filter.
 		require pattern_not_void: a_pattern /= Void
 		do
@@ -124,7 +124,7 @@ feature {ANY} -- Pattern filter
 		end
 
 feature {ANY} -- Image filter
-	add_pixbuf_formats is
+	add_pixbuf_formats
 			-- Adds a rule allowing image files in the formats supported by GdkPixbuf.
 		do
 			gtk_file_filter_add_pixbuf_formats (handle)
@@ -175,7 +175,7 @@ feature {ANY} -- Image filter
 -- filter_info : 	a GtkFileFilterInfo structure containing information about a file.
 -- Returns : 	TRUE if the file should be displayed
 feature {ANY}
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileFilter)"
 		end

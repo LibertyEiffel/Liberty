@@ -26,7 +26,7 @@ inherit GTK_WIDGET
 feature {ANY} -- The "cancel" signal
 	cancel_signal_name: STRING is "cancel"	
 
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[CANCEL_SIGNAL_RECEIVER]]) is
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[CANCEL_SIGNAL_RECEIVER]])
 			-- The "::cancel" signal is emitted when the cancel button is
 			-- clicked. The default behavior of the GtkAssistant is to
 			-- switch to the page after the current page, unless the

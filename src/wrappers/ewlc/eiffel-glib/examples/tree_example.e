@@ -13,13 +13,13 @@ feature {ANY}
 	tree: G_TREE[G_DATE, G_STRING]
 	first: G_STRING
 feature {ANY}
-	make is
+	make
 		do
 			setup
 			test
 		end
 
-	setup is
+	setup
 		do
 			create tree.make(agent compare)
 
@@ -31,7 +31,7 @@ feature {ANY}
 									 create {G_STRING}.from_string("Linux birthday"))
 		end
 
-	test is
+	test
 		local
 			a_date: G_DATE;
 			test_dates: FAST_ARRAY[TUPLE[INTEGER_8,INTEGER_8,INTEGER_16]]; i: INTEGER
@@ -57,7 +57,7 @@ feature {ANY}
 			-- ("%N")
 		end
 					 
-	compare(a_date,another_date: COMPARABLE_C_STRUCT): INTEGER is
+	compare(a_date,another_date: COMPARABLE_C_STRUCT): INTEGER
 		require 
 			date_not_void: a_date/=Void
 			another_not_void: another_date/=Void

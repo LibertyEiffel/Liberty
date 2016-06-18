@@ -28,30 +28,30 @@ deferred class CAIRO_FONT_FACE_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	cairo_font_face_reference (a_font_face: POINTER): POINTER is
+	cairo_font_face_reference (a_font_face: POINTER): POINTER
 			-- 	cairo_font_face_t* cairo_font_face_reference (cairo_font_face_t *font_face);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_face_destroy (a_font_face: POINTER) is
+	cairo_font_face_destroy (a_font_face: POINTER)
 			-- void cairo_font_face_destroy (cairo_font_face_t
 			-- *font_face);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_face_status (a_font_face: POINTER): INTEGER is
+	cairo_font_face_status (a_font_face: POINTER): INTEGER
 			-- cairo_status_t cairo_font_face_status (cairo_font_face_t
 			-- *font_face);
 		external "C use <cairo.h>"
 		end
 	
-	cairo_font_face_get_user_data (a_font_face, a_key: POINTER): POINTER is
+	cairo_font_face_get_user_data (a_font_face, a_key: POINTER): POINTER
 			-- void* cairo_font_face_get_user_data (cairo_font_face_t
 			-- *font_face, const cairo_user_data_key_t *key);
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_face_set_user_data (a_font_face, a_key, some_data, a_destroy_func: POINTER): INTEGER is
+	cairo_font_face_set_user_data (a_font_face, a_key, some_data, a_destroy_func: POINTER): INTEGER
 			-- cairo_status_t cairo_font_face_set_user_data
 			-- (cairo_font_face_t *font_face, const cairo_user_data_key_t
 			-- *key, void *user_data, cairo_destroy_func_t destroy);
@@ -60,14 +60,14 @@ feature {} -- External calls
 	
 	-- enum        cairo_font_type_t is
 
-	cairo_font_face_get_type  (a_font_face: POINTER): INTEGER is
+	cairo_font_face_get_type  (a_font_face: POINTER): INTEGER
 			-- cairo_font_type_t cairo_font_face_get_type
 			-- (cairo_font_face_t *font_face);
 		external "C use <cairo.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <cairo.h>"
 		alias "sizeof(cairo_font_face_t)"
 		end

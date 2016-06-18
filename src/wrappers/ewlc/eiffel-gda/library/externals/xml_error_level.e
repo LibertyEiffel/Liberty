@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = xml_err_none) or else 
 				(a_value = xml_err_warning) or else 
@@ -15,66 +15,66 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_none is
+	default_create, set_none
 		do
 			value := xml_err_none
 		end
 
-	set_warning is
+	set_warning
 		do
 			value := xml_err_warning
 		end
 
-	set_error is
+	set_error
 		do
 			value := xml_err_error
 		end
 
-	set_fatal is
+	set_fatal
 		do
 			value := xml_err_fatal
 		end
 
 
 feature {ANY} -- Queries
-	is_none: BOOLEAN is
+	is_none: BOOLEAN
 		do
 			Result := (value=xml_err_none)
 		end
 
-	is_warning: BOOLEAN is
+	is_warning: BOOLEAN
 		do
 			Result := (value=xml_err_warning)
 		end
 
-	is_error: BOOLEAN is
+	is_error: BOOLEAN
 		do
 			Result := (value=xml_err_error)
 		end
 
-	is_fatal: BOOLEAN is
+	is_fatal: BOOLEAN
 		do
 			Result := (value=xml_err_fatal)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_err_none: INTEGER is
+	xml_err_none: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NONE"
 		end
 
-	xml_err_warning: INTEGER is
+	xml_err_warning: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_WARNING"
 		end
 
-	xml_err_error: INTEGER is
+	xml_err_error: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ERROR"
 		end
 
-	xml_err_fatal: INTEGER is
+	xml_err_fatal: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_FATAL"
 		end

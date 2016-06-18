@@ -43,7 +43,7 @@ insert
 create {ANY}  with_comparer, from_external_pointer
 
 feature {} -- Creation
-	make (a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE]) is
+	make (a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE])
 			-- Creates a new G_TREE; comparison is made using KEY's 
 			-- `compare' feature.
 		require
@@ -59,7 +59,7 @@ feature {} -- Creation
 		end
 	
 	with_comparer (a_comparison_function: FUNCTION[ANY,TUPLE[KEY,KEY],INTEGER];
-						a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE]) is
+						a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE])
 			-- Creates a new GTree.
 		require
 			comparison_function_not_void: a_comparison_function /= Void
@@ -90,7 +90,7 @@ feature {} -- Creation
 
 feature {ANY} -- Basic access:
 
-	has (a_key: KEY): BOOLEAN is
+	has (a_key: KEY): BOOLEAN
 			-- Is there a value currently associated with `a_key'?
 
 			-- See also `fast_has', `at'.
@@ -100,7 +100,7 @@ feature {ANY} -- Basic access:
 			end
 		end
 
-	at (a_key: KEY): VALUE is
+	at (a_key: KEY): VALUE
 			-- The value associated to `a_key'.
 
 			-- See also `fast_at', `reference_at', `has'.
@@ -113,7 +113,7 @@ feature {ANY} -- Basic access:
 			Result:=value_factory.wrapper(p)
 		end
 
-	reference_at (a_key: KEY): VALUE is
+	reference_at (a_key: KEY): VALUE
 			-- the value corresponding to `a_key'. Since a GTree is
 			-- automatically balanced as key/value pairs are added, key
 			-- lookup is very fast.
@@ -127,7 +127,7 @@ feature {ANY} -- Basic access:
 			end
 		end
 
-	fast_has (a_key: KEY): BOOLEAN is
+	fast_has (a_key: KEY): BOOLEAN
 			-- Is there a value currently associated with `a_key'?
 			-- Using basic `=' for comparison.
 			--
@@ -137,7 +137,7 @@ feature {ANY} -- Basic access:
 			Result:=has(a_key)
 		end
 
-	fast_at (a_key: KEY): VALUE is
+	fast_at (a_key: KEY): VALUE
 			-- Return the value associated to key `k' using basic `=' for comparison.
 			--
 			-- See also `at', `reference_at', `fast_reference_at'.
@@ -146,7 +146,7 @@ feature {ANY} -- Basic access:
 			Result:=at(a_key)
 		end
 
-	fast_reference_at (a_key: KEY): VALUE is
+	fast_reference_at (a_key: KEY): VALUE
 			-- Same work as `reference_at', but basic `=' is used for comparison.
 			--
 			-- See also `reference_at', `at', `has'.
@@ -156,7 +156,7 @@ feature {ANY} -- Basic access:
 		end
 
 feature {ANY}
-	put (a_value: VALUE; a_key: KEY) is
+	put (a_value: VALUE; a_key: KEY)
 			-- Change some existing entry or `add' the new one. If an entry with `a_key' is not yet in the dictionary,
 			-- enter it with `a_value'. Otherwise overwrite the item associated with `a_key'.
 			-- 
@@ -172,7 +172,7 @@ feature {ANY}
 			g_tree_insert(handle, a_key.handle, a_value.handle)
 		end
 
-	fast_put (a_value: VALUE; a_key: KEY) is
+	fast_put (a_value: VALUE; a_key: KEY)
 			-- Same job as `put', but uses basic `=' for comparison.
 			--
 			-- See also `put', `add'.
@@ -181,7 +181,7 @@ feature {ANY}
 			put(a_value,a_key)
 		end
 
-	add (a_value: VALUE; a_key: KEY) is
+	add (a_value: VALUE; a_key: KEY)
 			-- To add a new entry `k' with its associated value `v'.
 			-- Actually, this is equivalent to call `put', but it may run a little bit faster.
 			--
@@ -192,7 +192,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Removing:
-	remove (a_key: KEY) is
+	remove (a_key: KEY)
 			-- Remove entry `a_key' (which may exist or not before this call).
 			-- As the `remove' procedure actually uses `is_equal', you may consider to use `fast_remove' for expanded
 			-- objects as well while trying to get the very best performances.
@@ -219,7 +219,7 @@ feature {ANY} -- Removing:
 			-- GTree, the function does nothing.
 		end
 
-	fast_remove (a_key: KEY) is
+	fast_remove (a_key: KEY)
 			-- Same job as `remove', but uses basic `=' for comparison.
 			--
 			-- See also `remove', `clear_count'.
@@ -228,7 +228,7 @@ feature {ANY} -- Removing:
 			remove (a_key)
 		end
 
-	clear_count is
+	clear_count
 			-- Discard all items (`is_empty' is True after that call). The internal `capacity' is not changed
 			-- by this call.
 			--
@@ -237,7 +237,7 @@ feature {ANY} -- Removing:
 			not_yet_implemented
 		end
 
-	clear_count_and_capacity is
+	clear_count_and_capacity
 			-- Discard all items (`is_empty' is True after that call). The internal `capacity' may also be
 			-- reduced after this call.
 			--
@@ -248,7 +248,7 @@ feature {ANY} -- Removing:
 										 (comparator.callback_address, comparator.to_pointer))
 		end
 
-	capacity: INTEGER is
+	capacity: INTEGER
 			-- Approximation of the actual internal storage `capacity'. The `capacity' will grow automatically
 			-- when needed (i.e. `capacity' is not a limit for the number of values stored). Also note that
 			-- the `capacity' value may not be always accurate depending of the implementation (anyway, this
@@ -260,34 +260,34 @@ feature {ANY} -- Removing:
 
 
 feature {ANY} -- counting
-	count: INTEGER_32 is
+	count: INTEGER_32
 		do
 			Result:=g_tree_nnodes(handle)
 		end
 
 feature {ANY} -- To provide iterating facilities:
-	item (index: INTEGER): VALUE is
+	item (index: INTEGER): VALUE
 		do
 			not_yet_implemented
 		end
 
-	key (index: INTEGER): KEY is
+	key (index: INTEGER): KEY
 		do
 			not_yet_implemented
 		end
 
-	get_new_iterator_on_items: ITERATOR[VALUE] is
+	get_new_iterator_on_items: ITERATOR[VALUE]
 		do
 			not_yet_implemented
 		end
 
-	get_new_iterator_on_keys: ITERATOR[KEY] is
+	get_new_iterator_on_keys: ITERATOR[KEY]
 		do
 			not_yet_implemented
 		end
 
 feature {ANY} -- Agents based features:
-	do_all (action: ROUTINE[TUPLE[VALUE, KEY]]) is
+	do_all (action: ROUTINE[TUPLE[VALUE, KEY]])
 			-- Apply `action' to every [VALUE, KEY] associations of `Current'.
 			--
 			-- See also `for_all', `exist'.
@@ -295,7 +295,7 @@ feature {ANY} -- Agents based features:
 			not_yet_implemented
 		end
 
-	for_all (test: PREDICATE[TUPLE[VALUE, KEY]]): BOOLEAN is
+	for_all (test: PREDICATE[TUPLE[VALUE, KEY]]): BOOLEAN
 			-- Do all [VALUE, KEY] associations satisfy `test'?
 			--
 			-- See also `do_all', `exist'.
@@ -306,13 +306,13 @@ feature {ANY} -- Agents based features:
 			-- g_tree_foreach (handle, callback.low_level_callback, $callback)
 		end
 
-	exists (test: PREDICATE[TUPLE[VALUE, KEY]]): BOOLEAN is
+	exists (test: PREDICATE[TUPLE[VALUE, KEY]]): BOOLEAN
 		do
 			not_yet_implemented
 		end
 
 feature {ANY} -- Other features:
-	internal_key (a_key: KEY): KEY is
+	internal_key (a_key: KEY): KEY
 			-- Retrieve the internal key object which correspond to the existing
 			-- entry `a_key' (the one memorized into the `Current' dictionary).
 			--
@@ -322,14 +322,14 @@ feature {ANY} -- Other features:
 		end
 
 feature {} -- Implement manifest generic creation:
-	manifest_make (needed_capacity: INTEGER) is
+	manifest_make (needed_capacity: INTEGER)
 			-- Manifest creation of a dictionary.
 		do
 			not_yet_implemented
 		end
 
 feature {ANY}
-	height: INTEGER is
+	height: INTEGER
 			-- The height of a G_TREE.
 		
 			-- If the G_TREE contains no nodes, the height is 0. If the
@@ -354,7 +354,7 @@ feature {ANY}
 	-- user_data : 	the data passed as the second argument to the search_func function.
 	-- Returns : 	the value corresponding to the found key, or NULL if the key was not found.
 
-	dispose is
+	dispose
 			-- Destroys the GTree.
 
 			-- TODO: The following should held only for C; check
@@ -368,7 +368,7 @@ feature {ANY}
 			handle:=default_pointer
 		end
 
-	compare (a_value, another_value: VALUE): INTEGER is
+	compare (a_value, another_value: VALUE): INTEGER
 			-- The comparison function of two values. The function should
 			-- return a negative integer if the first value comes before
 			-- the second, 0 if they are equal, or a positive integer if
@@ -386,23 +386,23 @@ feature {} -- Low level implementation
 
 	value_factory: WRAPPER_FACTORY[VALUE]
 
-	print_no_fast_notice is
+	print_no_fast_notice
 		once
 			print(no_fast_notice)
 		end
 
-	no_fast_notice: STRING is
+	no_fast_notice: STRING
 		"Original C GTree implementation does not offer functions equivalent to `fast_has,' `fast_at', `fast_reference_at', `fast_put' and `fast_remove'. An eventual implementation of those features would require to manipulate directly GTree data-structure, skipping the Glib abstraction. Paolo 2007-07-15%N"
 
-	fast_fallback_notice: STRING is
+	fast_fallback_notice: STRING
 		"Fast_[has|at|reference_at|put] feature not available. Falling back to non-fast features.%N"
 
-	print_add_fallback is
+	print_add_fallback
 		once
 			print (print_add_fallback_notice)
 		end
 	
-	print_add_fallback_notice: STRING is
+	print_add_fallback_notice: STRING
 		"Original C GTree implementation does not offer a function equivalent to `add'. Falling back to `put' feature. Paolo 2007-07-15%N"
 
 feature {} -- Unwrapped code

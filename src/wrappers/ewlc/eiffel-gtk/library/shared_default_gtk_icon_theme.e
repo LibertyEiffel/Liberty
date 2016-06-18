@@ -22,7 +22,7 @@ note
 deferred class SHARED_DEFAULT_GTK_ICON_THEME
 
 feature {ANY}
-	default_gtk_icon_theme: GTK_ICON_THEME is
+	default_gtk_icon_theme: GTK_ICON_THEME
 			-- The (unique) icon theme associated to the default screen.
 			-- A unique GtkIconTheme associated with the default
 			-- screen. This icon theme is associated with the screen and
@@ -33,7 +33,7 @@ feature {ANY}
 		end
 
 feature {} -- External calls
-	gtk_icon_theme_get_default: POINTER is
+	gtk_icon_theme_get_default: POINTER
 			-- GtkIconTheme* gtk_icon_theme_get_default (void);
 		external "C use <gtk/gtk.h>"
 		end

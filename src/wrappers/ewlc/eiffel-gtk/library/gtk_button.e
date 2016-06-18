@@ -46,14 +46,14 @@ create {ANY}
 	
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkButton widget. To add a child widget to
 			-- the button, use `add' (of GTK_CONTAINER)
 		do
 			from_external_pointer (gtk_button_new)
 		end
 
-	with_label (a_label: STRING) is
+	with_label (a_label: STRING)
 			-- Creates a GtkButton widget with a GtkLabel child
 			-- containing the given text (`a_label')
 		require valid_label: a_label/=Void
@@ -61,7 +61,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_button_new_with_label (a_label.to_external))
 		end
 
-	with_mnemonic (a_label: STRING) is
+	with_mnemonic (a_label: STRING)
 			-- Creates a new GtkButton containing a label. If characters
 			-- in label are preceded by an underscore, they are
 			-- underlined. If you need a literal underscore character in
@@ -73,7 +73,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_button_new_with_mnemonic (a_label.to_external))
 		end
 
-	from_stock (a_stock: STRING) is
+	from_stock (a_stock: STRING)
 			-- Creates a new GtkButton containing the image and text from
 			-- a stock item. TODO: implement GTK_STOCK_ITEMS wrapping
 			-- preprocessor macros like GTK_STOCK_OK and GTK_STOCK_APPLY
@@ -88,38 +88,38 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	pressed is
+	pressed
 		-- Emits a GtkButton::pressed signal to Current GtkButton.
 		do
 			gtk_button_pressed (handle)
 		end
 
-	released is
+	released
 			-- Emits a GtkButton::released signal to the Current GtkButton.
 		do
 			gtk_button_released (handle)
 		end
 
-	clicked is
+	clicked
 			-- Emits a GtkButton::clicked signal to the Current GtkButton.
 		do
 			gtk_button_clicked (handle)
 		end
 
-	enter is
+	enter
 			-- Emits a GtkButton::enter signal to the given GtkButton.
 		do
 			gtk_button_enter (handle)
 		end
 
-	leave is
+	leave
 			-- Emits a GtkButton::leave signal to the given GtkButton.
 		do
 			gtk_button_leave (handle)
 		end
 
 feature {ANY} -- Button's relief
-	set_relief (a_relief: INTEGER) is
+	set_relief (a_relief: INTEGER)
 			-- Sets the relief style of the edges of the given GtkButton
 			-- widget. Three styles exist, `gtk_relief_normal',
 			-- `gtk_relief_half', `gtk_relief_none'. The default style is, as
@@ -129,46 +129,46 @@ feature {ANY} -- Button's relief
 			gtk_button_set_relief (handle, a_relief)
 		end
 
-	relief: INTEGER is
+	relief: INTEGER
 			-- the current relief style of the Current GtkButton.
 		do
 			Result := gtk_button_get_relief (handle)
 		ensure valid_relief_style: is_valid_gtk_relief_style (Result)
 		end
 
-	is_relief_normal: BOOLEAN is
+	is_relief_normal: BOOLEAN
 			-- Is the relief style normal?
 		do
 			Result := (relief = gtk_relief_normal)
 		end
 	
-	set_relief_normal is
+	set_relief_normal
 			-- Set relief style to normal
 		do
 			set_relief (gtk_relief_normal)
 		ensure relief_set: is_relief_normal
 		end
 	
-	is_relief_half: BOOLEAN is
+	is_relief_half: BOOLEAN
 			-- Is the relief style half?
 		do
 			Result := (relief = gtk_relief_half)
 		end
 	
-	set_relief_half is
+	set_relief_half
 			-- Set relief style to half
 		do
 			set_relief (gtk_relief_half)
 		ensure relief_set: is_relief_half
 		end
 	
-	is_relief_none: BOOLEAN is
+	is_relief_none: BOOLEAN
 			-- Is the relief style none?
 		do
 			Result := (relief = gtk_relief_none)
 		end
 	
-	set_relief_none is
+	set_relief_none
 			-- Set relief style to none
 		do
 			set_relief (gtk_relief_none)
@@ -177,7 +177,7 @@ feature {ANY} -- Button's relief
 
 feature {ANY} -- Label
 
-	label: STRING is
+	label: STRING
 			-- the text from the label of the button, as set by
 			-- `set_label'. If the label text has not been set the return
 			-- value will be Void. This will be the case if you create an
@@ -191,7 +191,7 @@ feature {ANY} -- Label
 			end
 		end
 
-	set_label (a_label: STRING) is
+	set_label (a_label: STRING)
 			-- Sets the text of the label of the button to
 			-- `a_label'. This text is also used to select the stock item
 			-- if `set_use_stock' is used. This will also clear any
@@ -201,26 +201,26 @@ feature {ANY} -- Label
 			gtk_button_set_label (handle,a_label.to_external)
 		end
 
-	is_stock_item: BOOLEAN is
+	is_stock_item: BOOLEAN
 			-- Is the button label a stock item?
 		do
 			Result:=(gtk_button_get_use_stock(handle)).to_boolean
 		end
 
-	set_stock_item is
+	set_stock_item
 			-- Use the label as a stock id to select the stock item for
 			-- the button.
 		do
 			gtk_button_set_use_stock (handle,1)
 		end
 
-	unset_stock_item is
+	unset_stock_item
 			-- Use the label as a normal string. See `set_stock_item'
 		do
 			gtk_button_set_use_stock (handle,0)
 		end
 
-	is_using_underline: BOOLEAN is
+	is_using_underline: BOOLEAN
 			-- Is there an embedded underline in the button label
 			-- indicating the mnemonic character? See
 			-- `set_use_underline'.
@@ -228,14 +228,14 @@ feature {ANY} -- Label
 			Result:=(gtk_button_get_use_underline(handle)).to_boolean
 		end
 
-	set_use_underline is
+	set_use_underline
 			-- Put an underline in the text of the button label
 			-- indicating the mnemonic accelerator key.
 		do
 			gtk_button_set_use_underline    (handle,1)
 		end
 
-	unset_use_underline is
+	unset_use_underline
 			-- Put an underline in the text of the button label
 			-- indicating the mnemonic accelerator key.
 		do
@@ -243,7 +243,7 @@ feature {ANY} -- Label
 		end
 
 	
-	set_focus_on_click is
+	set_focus_on_click
 			-- the button grab focus when clicked with the mouse.
 		obsolete "Use set_focus_on_click_bool, which will soon take place of current set_focus_on_click"
 		do
@@ -251,7 +251,7 @@ feature {ANY} -- Label
 		ensure is_focused_on_click
 		end
 
-	unset_focus_on_click is
+	unset_focus_on_click
 			-- the button doesn't grab focus when clicked with the
 			-- mouse. Making mouse clicks not grab focus is useful in
 			-- places like toolbars where you don't want the keyboard
@@ -262,13 +262,13 @@ feature {ANY} -- Label
 		ensure not is_focused_on_click
 		end
 
-	is_focused_on_click: BOOLEAN is
+	is_focused_on_click: BOOLEAN
 			-- Does the button grabs focus when it is clicked with the mouse? See unset_focus_on_click.
 		do
 			Result:=(gtk_button_get_focus_on_click(handle)).to_boolean
 		end
 
-	set_alignment (an_x_alignment,an_y_alignment: REAL) is
+	set_alignment (an_x_alignment,an_y_alignment: REAL)
 			-- Sets the alignment of the child. This property has no
 			-- effect unless the child is a GtkMisc or a GtkAligment.
 			-- `an_x_alignment', `an_y_alignment' are the horizontal and
@@ -281,7 +281,7 @@ feature {ANY} -- Label
 			gtk_button_set_alignment (handle, an_x_alignment,an_y_alignment)
 		end
 
-	alignments: TUPLE[REAL,REAL] is
+	alignments: TUPLE[REAL,REAL]
 			-- The x and y alignments.
 		local x_al,y_al: REAL
 		do
@@ -292,7 +292,7 @@ feature {ANY} -- Label
 			valid_y: Result.item_2.in_range (0.0,1.0)
 		end
 
-	set_image (a_widget: GTK_WIDGET) is
+	set_image (a_widget: GTK_WIDGET)
 			-- Set the image of button to the given widget. Note that it
 			-- depends on the gtk-button-images setting whether the image
 			-- will be displayed or not, you don't have to call
@@ -303,7 +303,7 @@ feature {ANY} -- Label
 			gtk_button_set_image (handle, a_widget.handle)
 		end
 
-	image: GTK_WIDGET is
+	image: GTK_WIDGET
 			-- The widget that is currently set as the image of
 			-- button. This may have been explicitly set by `set_image'
 			-- or constructed by `from_stock'.
@@ -333,7 +333,7 @@ feature {ANY} -- Label
 --		end
 
 feature {ANY} -- Properties 
-	focus_on_click: BOOLEAN is
+	focus_on_click: BOOLEAN
 			-- Does the button grab focus when it is clicked with the
 			-- mouse?
 		
@@ -343,7 +343,7 @@ feature {ANY} -- Properties
 		end
 
 feature {ANY} -- Properties setters
-	set_focus_on_click_bool (a_setting: BOOLEAN) is
+	set_focus_on_click_bool (a_setting: BOOLEAN)
 		do
 			set_boolean_property(focus_on_click_property_name, a_setting)
 		ensure set: focus_on_click = a_setting
@@ -438,13 +438,13 @@ feature {ANY} -- Style Properties
 
 feature {ANY} -- The "activate" signal
 	activate_signal_name: STRING is "activate"
-	enable_on_activate is
+	enable_on_activate
 			-- Connects "activate" signal to `on_activate' feature.
 		do
 			connect (Current, activate_signal_name, $on_activate)
 		end
 
-	on_activate is
+	on_activate
 			-- Built-in activate signal handler; empty by design; redefine it.
 
 			-- The "activate" signal on GtkButton is an action signal and
@@ -455,7 +455,7 @@ feature {ANY} -- The "activate" signal
 		do
 		end
 
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]])
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -468,14 +468,14 @@ feature {ANY} -- The "activate" signal
 feature {ANY} -- The "clicked" signal
 	clicked_signal_name: STRING is "clicked"
 
-	on_clicked is
+	on_clicked
 			-- Built-in clicked signal handler; empty by design; redefine it.
 		local a_foo: INTEGER
 		do
 			a_foo := 12 -- Dummy instructions
 		end
 
-	enable_on_clicked is
+	enable_on_clicked
 			-- Connects "clicked" signal to `on_clicked' feature.
 			
 			-- Emitted when the button has been activated (pressed and released).
@@ -488,7 +488,7 @@ feature {ANY} -- The "clicked" signal
 			connect (Current, clicked_signal_name, $on_clicked)
 		end
 
-	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]])
 			-- button : 	the object that received the signal
 		require valid_procedure: a_procedure /= Void
 		local clicked_callback: CLICKED_CALLBACK [like Current]
@@ -497,7 +497,7 @@ feature {ANY} -- The "clicked" signal
 			clicked_callback.connect (Current, a_procedure)
 		end
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkButton)"
 		end

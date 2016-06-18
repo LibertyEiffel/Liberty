@@ -30,111 +30,111 @@ create {ANY}
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <avformat.h>"
 		alias "sizeof(AVFormatParameters)"
 		end
 
 feature {ANY}
 
-	make is
+	make
 		do
 			allocate
 		end
 
 feature {ANY} -- Access
 
-	sample_rate: INTEGER is
+	sample_rate: INTEGER
 		do
 			Result := av_format_parameters_get_sample_rate (handle)
 		end
 
-	channels: INTEGER is
+	channels: INTEGER
 		do
 			Result := av_format_parameters_get_channels (handle)
 		end
 
-	width: INTEGER is
+	width: INTEGER
 		do
 			Result := av_format_parameters_get_width (handle)
 		end
 
-	height: INTEGER is
+	height: INTEGER
 		do
 			Result := av_format_parameters_get_height (handle)
 		end
 
-	initial_pause: BOOLEAN is
+	initial_pause: BOOLEAN
 		do
 			Result := av_format_parameters_get_initial_pause (handle).to_boolean
 		end
 
 feature {ANY} -- Operations
 
-	set_sample_rate (a_sample_rate: INTEGER) is
+	set_sample_rate (a_sample_rate: INTEGER)
 		do
 			av_format_parameters_set_sample_rate (handle, a_sample_rate)
 		end
 
-	set_channels (a_channels: INTEGER) is
+	set_channels (a_channels: INTEGER)
 		do
 			av_format_parameters_set_channels (handle, a_channels)
 		end
 
-	set_width (a_width: INTEGER) is
+	set_width (a_width: INTEGER)
 		do
 			av_format_parameters_set_width (handle, a_width)
 		end
 
-	set_height (a_height: INTEGER) is
+	set_height (a_height: INTEGER)
 		do
 			av_format_parameters_set_height (handle, a_height)
 		end
 
-	set_initial_pause (a_pause: BOOLEAN) is
+	set_initial_pause (a_pause: BOOLEAN)
 		do
 			av_format_parameters_set_initial_pause (handle, a_pause.to_integer)
 		end
 
 feature {} -- Externals
 
-	av_format_parameters_get_sample_rate (a_handle: POINTER): INTEGER is
+	av_format_parameters_get_sample_rate (a_handle: POINTER): INTEGER
 		external "C struct AVFormatParameters get sample_rate use <avformat.h>"
 		end
 
-	av_format_parameters_get_width (a_handle: POINTER): INTEGER is
+	av_format_parameters_get_width (a_handle: POINTER): INTEGER
 		external "C struct AVFormatParameters get width use <avformat.h>"
 		end
 
-	av_format_parameters_get_height (a_handle: POINTER): INTEGER is
+	av_format_parameters_get_height (a_handle: POINTER): INTEGER
 		external "C struct AVFormatParameters get height use <avformat.h>"
 		end
 
-	av_format_parameters_get_channels (a_handle: POINTER): INTEGER is
+	av_format_parameters_get_channels (a_handle: POINTER): INTEGER
 		external "C struct AVFormatParameters get channels use <avformat.h>"
 		end
 
-	av_format_parameters_get_initial_pause (a_handle: POINTER): INTEGER is
+	av_format_parameters_get_initial_pause (a_handle: POINTER): INTEGER
 		external "C struct AVFormatParameters get initial_pause use <avformat.h>"
 		end
 
-	av_format_parameters_set_sample_rate (a_handle: POINTER; a_sample_rate: INTEGER) is
+	av_format_parameters_set_sample_rate (a_handle: POINTER; a_sample_rate: INTEGER)
 		external "C struct AVFormatParameters set sample_rate use <avformat.h>"
 		end
 
-	av_format_parameters_set_channels (a_handle: POINTER; a_channels: INTEGER) is
+	av_format_parameters_set_channels (a_handle: POINTER; a_channels: INTEGER)
 		external "C struct AVFormatParameters set channels use <avformat.h>"
 		end
 
-	av_format_parameters_set_width (a_handle: POINTER; a_width: INTEGER) is
+	av_format_parameters_set_width (a_handle: POINTER; a_width: INTEGER)
 		external "C struct AVFormatParameters set width use <avformat.h>"
 		end
 
-	av_format_parameters_set_height (a_handle: POINTER; a_height: INTEGER) is
+	av_format_parameters_set_height (a_handle: POINTER; a_height: INTEGER)
 		external "C struct AVFormatParameters set height use <avformat.h>"
 		end
 
-	av_format_parameters_set_initial_pause (a_handle: POINTER; a_initial_pause: INTEGER) is
+	av_format_parameters_set_initial_pause (a_handle: POINTER; a_initial_pause: INTEGER)
 		external "C struct AVFormatParameters set intial_pause use <avformat.h>"
 		end
 

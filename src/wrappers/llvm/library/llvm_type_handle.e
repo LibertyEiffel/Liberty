@@ -13,14 +13,14 @@ insert LLVM_TYPE_FACTORY
 create {ANY} from_type, from_external_pointer
 
 feature {ANY} 
-	from_type (a_type: LLVM_TYPE) is
+	from_type (a_type: LLVM_TYPE)
 		-- `a_type' is potentially an abstract type.
 	require a_type/=Void
 	do
 		handle:=llvmcreate_type_handle(a_type.handle)
 	end
 
-	type: LLVM_TYPE is
+	type: LLVM_TYPE
 		-- Current resolved into an effective type. 
 	do
 		Result:=type_wrapper(llvmresolve_type_handle(handle))

@@ -11,26 +11,26 @@ deferred class  GDK_OVERLAP_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_overlap_type (a_type :INTEGER): BOOLEAN is
+	is_valid_overlap_type (a_type :INTEGER): BOOLEAN
 		do	
 			Result:=((a_type = gdk_overlap_rectangle_in) or else
 						(a_type = gdk_overlap_rectangle_out) or else
 						(a_type = gdk_overlap_rectangle_part))
 		end
 	
-	gdk_overlap_rectangle_in: INTEGER is	
+	gdk_overlap_rectangle_in: INTEGER
 			-- if the rectangle is inside the GdkRegion.	
 		external "C macro use <gdk/gdk.h>"	
 		alias "GDK_OVERLAP_RECTANGLE_IN"	
 		end	
 	
-	gdk_overlap_rectangle_out: INTEGER is	
+	gdk_overlap_rectangle_out: INTEGER
 			-- if the rectangle is outside the GdkRegion.	
 		external "C macro use <gdk/gdk.h>"	
 		alias "GDK_OVERLAP_RECTANGLE_OUT"	
 		end	
 
-	gdk_overlap_rectangle_part: INTEGER is	
+	gdk_overlap_rectangle_part: INTEGER
 			-- if the rectangle is partly inside the GdkRegion.	
 		external "C macro use <gdk/gdk.h>"	
 		alias "GDK_OVERLAP_RECTANGLE_PART"	

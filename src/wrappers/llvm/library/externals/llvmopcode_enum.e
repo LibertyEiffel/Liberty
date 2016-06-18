@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = add_low_level)  or else
 				(a_value = alloca_low_level)  or else
@@ -71,589 +71,589 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_add is
+	set_add
 		do
 			value := add_low_level
 		end
 
-	set_alloca is
+	set_alloca
 		do
 			value := alloca_low_level
 		end
 
-	set_and_external is
+	set_and_external
 		do
 			value := and_external_low_level
 		end
 
-	set_ashr is
+	set_ashr
 		do
 			value := ashr_low_level
 		end
 
-	set_atomic_cmp_xchg is
+	set_atomic_cmp_xchg
 		do
 			value := atomic_cmp_xchg_low_level
 		end
 
-	set_atomic_rmw is
+	set_atomic_rmw
 		do
 			value := atomic_rmw_low_level
 		end
 
-	set_bit_cast is
+	set_bit_cast
 		do
 			value := bit_cast_low_level
 		end
 
-	set_br is
+	set_br
 		do
 			value := br_low_level
 		end
 
-	set_call is
+	set_call
 		do
 			value := call_low_level
 		end
 
-	set_extract_element is
+	set_extract_element
 		do
 			value := extract_element_low_level
 		end
 
-	set_extract_value is
+	set_extract_value
 		do
 			value := extract_value_low_level
 		end
 
-	set_fadd is
+	set_fadd
 		do
 			value := fadd_low_level
 		end
 
-	set_fcmp is
+	set_fcmp
 		do
 			value := fcmp_low_level
 		end
 
-	set_fdiv is
+	set_fdiv
 		do
 			value := fdiv_low_level
 		end
 
-	set_fence is
+	set_fence
 		do
 			value := fence_low_level
 		end
 
-	set_fmul is
+	set_fmul
 		do
 			value := fmul_low_level
 		end
 
-	set_fpext is
+	set_fpext
 		do
 			value := fpext_low_level
 		end
 
-	set_fpto_si is
+	set_fpto_si
 		do
 			value := fpto_si_low_level
 		end
 
-	set_fpto_ui is
+	set_fpto_ui
 		do
 			value := fpto_ui_low_level
 		end
 
-	set_fptrunc is
+	set_fptrunc
 		do
 			value := fptrunc_low_level
 		end
 
-	set_frem is
+	set_frem
 		do
 			value := frem_low_level
 		end
 
-	set_fsub is
+	set_fsub
 		do
 			value := fsub_low_level
 		end
 
-	set_get_element_ptr is
+	set_get_element_ptr
 		do
 			value := get_element_ptr_low_level
 		end
 
-	set_icmp is
+	set_icmp
 		do
 			value := icmp_low_level
 		end
 
-	set_indirect_br is
+	set_indirect_br
 		do
 			value := indirect_br_low_level
 		end
 
-	set_insert_element is
+	set_insert_element
 		do
 			value := insert_element_low_level
 		end
 
-	set_insert_value is
+	set_insert_value
 		do
 			value := insert_value_low_level
 		end
 
-	set_int_to_ptr is
+	set_int_to_ptr
 		do
 			value := int_to_ptr_low_level
 		end
 
-	set_invoke is
+	set_invoke
 		do
 			value := invoke_low_level
 		end
 
-	set_landing_pad is
+	set_landing_pad
 		do
 			value := landing_pad_low_level
 		end
 
-	set_load is
+	set_load
 		do
 			value := load_low_level
 		end
 
-	set_lshr is
+	set_lshr
 		do
 			value := lshr_low_level
 		end
 
-	set_mul is
+	set_mul
 		do
 			value := mul_low_level
 		end
 
-	set_or_external is
+	set_or_external
 		do
 			value := or_external_low_level
 		end
 
-	set_phi is
+	set_phi
 		do
 			value := phi_low_level
 		end
 
-	set_ptr_to_int is
+	set_ptr_to_int
 		do
 			value := ptr_to_int_low_level
 		end
 
-	set_resume is
+	set_resume
 		do
 			value := resume_low_level
 		end
 
-	set_ret is
+	set_ret
 		do
 			value := ret_low_level
 		end
 
-	set_sdiv is
+	set_sdiv
 		do
 			value := sdiv_low_level
 		end
 
-	set_select_external is
+	set_select_external
 		do
 			value := select_external_low_level
 		end
 
-	set_sext is
+	set_sext
 		do
 			value := sext_low_level
 		end
 
-	set_shl is
+	set_shl
 		do
 			value := shl_low_level
 		end
 
-	set_shuffle_vector is
+	set_shuffle_vector
 		do
 			value := shuffle_vector_low_level
 		end
 
-	set_sito_fp is
+	set_sito_fp
 		do
 			value := sito_fp_low_level
 		end
 
-	set_srem is
+	set_srem
 		do
 			value := srem_low_level
 		end
 
-	set_store is
+	set_store
 		do
 			value := store_low_level
 		end
 
-	set_sub is
+	set_sub
 		do
 			value := sub_low_level
 		end
 
-	set_switch is
+	set_switch
 		do
 			value := switch_low_level
 		end
 
-	set_trunc is
+	set_trunc
 		do
 			value := trunc_low_level
 		end
 
-	set_udiv is
+	set_udiv
 		do
 			value := udiv_low_level
 		end
 
-	set_uito_fp is
+	set_uito_fp
 		do
 			value := uito_fp_low_level
 		end
 
-	set_unreachable is
+	set_unreachable
 		do
 			value := unreachable_low_level
 		end
 
-	set_urem is
+	set_urem
 		do
 			value := urem_low_level
 		end
 
-	set_user_op1 is
+	set_user_op1
 		do
 			value := user_op1_low_level
 		end
 
-	set_user_op2 is
+	set_user_op2
 		do
 			value := user_op2_low_level
 		end
 
-	set_vaarg is
+	set_vaarg
 		do
 			value := vaarg_low_level
 		end
 
-	set_xor_external is
+	set_xor_external
 		do
 			value := xor_external_low_level
 		end
 
-	set_zext is
+	set_zext
 		do
 			value := zext_low_level
 		end
 
 feature {ANY} -- Queries
-	is_add: BOOLEAN is
+	is_add: BOOLEAN
 		do
 			Result := (value=add_low_level)
 		end
 
-	is_alloca: BOOLEAN is
+	is_alloca: BOOLEAN
 		do
 			Result := (value=alloca_low_level)
 		end
 
-	is_and_external: BOOLEAN is
+	is_and_external: BOOLEAN
 		do
 			Result := (value=and_external_low_level)
 		end
 
-	is_ashr: BOOLEAN is
+	is_ashr: BOOLEAN
 		do
 			Result := (value=ashr_low_level)
 		end
 
-	is_atomic_cmp_xchg: BOOLEAN is
+	is_atomic_cmp_xchg: BOOLEAN
 		do
 			Result := (value=atomic_cmp_xchg_low_level)
 		end
 
-	is_atomic_rmw: BOOLEAN is
+	is_atomic_rmw: BOOLEAN
 		do
 			Result := (value=atomic_rmw_low_level)
 		end
 
-	is_bit_cast: BOOLEAN is
+	is_bit_cast: BOOLEAN
 		do
 			Result := (value=bit_cast_low_level)
 		end
 
-	is_br: BOOLEAN is
+	is_br: BOOLEAN
 		do
 			Result := (value=br_low_level)
 		end
 
-	is_call: BOOLEAN is
+	is_call: BOOLEAN
 		do
 			Result := (value=call_low_level)
 		end
 
-	is_extract_element: BOOLEAN is
+	is_extract_element: BOOLEAN
 		do
 			Result := (value=extract_element_low_level)
 		end
 
-	is_extract_value: BOOLEAN is
+	is_extract_value: BOOLEAN
 		do
 			Result := (value=extract_value_low_level)
 		end
 
-	is_fadd: BOOLEAN is
+	is_fadd: BOOLEAN
 		do
 			Result := (value=fadd_low_level)
 		end
 
-	is_fcmp: BOOLEAN is
+	is_fcmp: BOOLEAN
 		do
 			Result := (value=fcmp_low_level)
 		end
 
-	is_fdiv: BOOLEAN is
+	is_fdiv: BOOLEAN
 		do
 			Result := (value=fdiv_low_level)
 		end
 
-	is_fence: BOOLEAN is
+	is_fence: BOOLEAN
 		do
 			Result := (value=fence_low_level)
 		end
 
-	is_fmul: BOOLEAN is
+	is_fmul: BOOLEAN
 		do
 			Result := (value=fmul_low_level)
 		end
 
-	is_fpext: BOOLEAN is
+	is_fpext: BOOLEAN
 		do
 			Result := (value=fpext_low_level)
 		end
 
-	is_fpto_si: BOOLEAN is
+	is_fpto_si: BOOLEAN
 		do
 			Result := (value=fpto_si_low_level)
 		end
 
-	is_fpto_ui: BOOLEAN is
+	is_fpto_ui: BOOLEAN
 		do
 			Result := (value=fpto_ui_low_level)
 		end
 
-	is_fptrunc: BOOLEAN is
+	is_fptrunc: BOOLEAN
 		do
 			Result := (value=fptrunc_low_level)
 		end
 
-	is_frem: BOOLEAN is
+	is_frem: BOOLEAN
 		do
 			Result := (value=frem_low_level)
 		end
 
-	is_fsub: BOOLEAN is
+	is_fsub: BOOLEAN
 		do
 			Result := (value=fsub_low_level)
 		end
 
-	is_get_element_ptr: BOOLEAN is
+	is_get_element_ptr: BOOLEAN
 		do
 			Result := (value=get_element_ptr_low_level)
 		end
 
-	is_icmp: BOOLEAN is
+	is_icmp: BOOLEAN
 		do
 			Result := (value=icmp_low_level)
 		end
 
-	is_indirect_br: BOOLEAN is
+	is_indirect_br: BOOLEAN
 		do
 			Result := (value=indirect_br_low_level)
 		end
 
-	is_insert_element: BOOLEAN is
+	is_insert_element: BOOLEAN
 		do
 			Result := (value=insert_element_low_level)
 		end
 
-	is_insert_value: BOOLEAN is
+	is_insert_value: BOOLEAN
 		do
 			Result := (value=insert_value_low_level)
 		end
 
-	is_int_to_ptr: BOOLEAN is
+	is_int_to_ptr: BOOLEAN
 		do
 			Result := (value=int_to_ptr_low_level)
 		end
 
-	is_invoke: BOOLEAN is
+	is_invoke: BOOLEAN
 		do
 			Result := (value=invoke_low_level)
 		end
 
-	is_landing_pad: BOOLEAN is
+	is_landing_pad: BOOLEAN
 		do
 			Result := (value=landing_pad_low_level)
 		end
 
-	is_load: BOOLEAN is
+	is_load: BOOLEAN
 		do
 			Result := (value=load_low_level)
 		end
 
-	is_lshr: BOOLEAN is
+	is_lshr: BOOLEAN
 		do
 			Result := (value=lshr_low_level)
 		end
 
-	is_mul: BOOLEAN is
+	is_mul: BOOLEAN
 		do
 			Result := (value=mul_low_level)
 		end
 
-	is_or_external: BOOLEAN is
+	is_or_external: BOOLEAN
 		do
 			Result := (value=or_external_low_level)
 		end
 
-	is_phi: BOOLEAN is
+	is_phi: BOOLEAN
 		do
 			Result := (value=phi_low_level)
 		end
 
-	is_ptr_to_int: BOOLEAN is
+	is_ptr_to_int: BOOLEAN
 		do
 			Result := (value=ptr_to_int_low_level)
 		end
 
-	is_resume: BOOLEAN is
+	is_resume: BOOLEAN
 		do
 			Result := (value=resume_low_level)
 		end
 
-	is_ret: BOOLEAN is
+	is_ret: BOOLEAN
 		do
 			Result := (value=ret_low_level)
 		end
 
-	is_sdiv: BOOLEAN is
+	is_sdiv: BOOLEAN
 		do
 			Result := (value=sdiv_low_level)
 		end
 
-	is_select_external: BOOLEAN is
+	is_select_external: BOOLEAN
 		do
 			Result := (value=select_external_low_level)
 		end
 
-	is_sext: BOOLEAN is
+	is_sext: BOOLEAN
 		do
 			Result := (value=sext_low_level)
 		end
 
-	is_shl: BOOLEAN is
+	is_shl: BOOLEAN
 		do
 			Result := (value=shl_low_level)
 		end
 
-	is_shuffle_vector: BOOLEAN is
+	is_shuffle_vector: BOOLEAN
 		do
 			Result := (value=shuffle_vector_low_level)
 		end
 
-	is_sito_fp: BOOLEAN is
+	is_sito_fp: BOOLEAN
 		do
 			Result := (value=sito_fp_low_level)
 		end
 
-	is_srem: BOOLEAN is
+	is_srem: BOOLEAN
 		do
 			Result := (value=srem_low_level)
 		end
 
-	is_store: BOOLEAN is
+	is_store: BOOLEAN
 		do
 			Result := (value=store_low_level)
 		end
 
-	is_sub: BOOLEAN is
+	is_sub: BOOLEAN
 		do
 			Result := (value=sub_low_level)
 		end
 
-	is_switch: BOOLEAN is
+	is_switch: BOOLEAN
 		do
 			Result := (value=switch_low_level)
 		end
 
-	is_trunc: BOOLEAN is
+	is_trunc: BOOLEAN
 		do
 			Result := (value=trunc_low_level)
 		end
 
-	is_udiv: BOOLEAN is
+	is_udiv: BOOLEAN
 		do
 			Result := (value=udiv_low_level)
 		end
 
-	is_uito_fp: BOOLEAN is
+	is_uito_fp: BOOLEAN
 		do
 			Result := (value=uito_fp_low_level)
 		end
 
-	is_unreachable: BOOLEAN is
+	is_unreachable: BOOLEAN
 		do
 			Result := (value=unreachable_low_level)
 		end
 
-	is_urem: BOOLEAN is
+	is_urem: BOOLEAN
 		do
 			Result := (value=urem_low_level)
 		end
 
-	is_user_op1: BOOLEAN is
+	is_user_op1: BOOLEAN
 		do
 			Result := (value=user_op1_low_level)
 		end
 
-	is_user_op2: BOOLEAN is
+	is_user_op2: BOOLEAN
 		do
 			Result := (value=user_op2_low_level)
 		end
 
-	is_vaarg: BOOLEAN is
+	is_vaarg: BOOLEAN
 		do
 			Result := (value=vaarg_low_level)
 		end
 
-	is_xor_external: BOOLEAN is
+	is_xor_external: BOOLEAN
 		do
 			Result := (value=xor_external_low_level)
 		end
 
-	is_zext: BOOLEAN is
+	is_zext: BOOLEAN
 		do
 			Result := (value=zext_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	add_low_level: INTEGER is
+	add_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -662,7 +662,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	alloca_low_level: INTEGER is
+	alloca_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -671,7 +671,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	and_external_low_level: INTEGER is
+	and_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -680,7 +680,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ashr_low_level: INTEGER is
+	ashr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -689,7 +689,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	atomic_cmp_xchg_low_level: INTEGER is
+	atomic_cmp_xchg_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -698,7 +698,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	atomic_rmw_low_level: INTEGER is
+	atomic_rmw_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -707,7 +707,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	bit_cast_low_level: INTEGER is
+	bit_cast_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -716,7 +716,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	br_low_level: INTEGER is
+	br_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -725,7 +725,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	call_low_level: INTEGER is
+	call_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -734,7 +734,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	extract_element_low_level: INTEGER is
+	extract_element_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -743,7 +743,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	extract_value_low_level: INTEGER is
+	extract_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -752,7 +752,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fadd_low_level: INTEGER is
+	fadd_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -761,7 +761,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_low_level: INTEGER is
+	fcmp_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -770,7 +770,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fdiv_low_level: INTEGER is
+	fdiv_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -779,7 +779,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fence_low_level: INTEGER is
+	fence_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -788,7 +788,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fmul_low_level: INTEGER is
+	fmul_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -797,7 +797,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fpext_low_level: INTEGER is
+	fpext_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -806,7 +806,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fpto_si_low_level: INTEGER is
+	fpto_si_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -815,7 +815,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fpto_ui_low_level: INTEGER is
+	fpto_ui_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -824,7 +824,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fptrunc_low_level: INTEGER is
+	fptrunc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -833,7 +833,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	frem_low_level: INTEGER is
+	frem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -842,7 +842,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fsub_low_level: INTEGER is
+	fsub_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -851,7 +851,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	get_element_ptr_low_level: INTEGER is
+	get_element_ptr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -860,7 +860,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_low_level: INTEGER is
+	icmp_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -869,7 +869,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	indirect_br_low_level: INTEGER is
+	indirect_br_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -878,7 +878,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	insert_element_low_level: INTEGER is
+	insert_element_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -887,7 +887,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	insert_value_low_level: INTEGER is
+	insert_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -896,7 +896,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int_to_ptr_low_level: INTEGER is
+	int_to_ptr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -905,7 +905,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invoke_low_level: INTEGER is
+	invoke_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -914,7 +914,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	landing_pad_low_level: INTEGER is
+	landing_pad_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -923,7 +923,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	load_low_level: INTEGER is
+	load_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -932,7 +932,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	lshr_low_level: INTEGER is
+	lshr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -941,7 +941,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mul_low_level: INTEGER is
+	mul_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -950,7 +950,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	or_external_low_level: INTEGER is
+	or_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -959,7 +959,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	phi_low_level: INTEGER is
+	phi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -968,7 +968,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ptr_to_int_low_level: INTEGER is
+	ptr_to_int_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -977,7 +977,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	resume_low_level: INTEGER is
+	resume_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -986,7 +986,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ret_low_level: INTEGER is
+	ret_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -995,7 +995,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sdiv_low_level: INTEGER is
+	sdiv_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1004,7 +1004,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	select_external_low_level: INTEGER is
+	select_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1013,7 +1013,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sext_low_level: INTEGER is
+	sext_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1022,7 +1022,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	shl_low_level: INTEGER is
+	shl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1031,7 +1031,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	shuffle_vector_low_level: INTEGER is
+	shuffle_vector_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1040,7 +1040,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sito_fp_low_level: INTEGER is
+	sito_fp_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1049,7 +1049,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	srem_low_level: INTEGER is
+	srem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1058,7 +1058,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	store_low_level: INTEGER is
+	store_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1067,7 +1067,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sub_low_level: INTEGER is
+	sub_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1076,7 +1076,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	switch_low_level: INTEGER is
+	switch_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1085,7 +1085,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	trunc_low_level: INTEGER is
+	trunc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1094,7 +1094,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	udiv_low_level: INTEGER is
+	udiv_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1103,7 +1103,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uito_fp_low_level: INTEGER is
+	uito_fp_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1112,7 +1112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unreachable_low_level: INTEGER is
+	unreachable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1121,7 +1121,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	urem_low_level: INTEGER is
+	urem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1130,7 +1130,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	user_op1_low_level: INTEGER is
+	user_op1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1139,7 +1139,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	user_op2_low_level: INTEGER is
+	user_op2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1148,7 +1148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	vaarg_low_level: INTEGER is
+	vaarg_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1157,7 +1157,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xor_external_low_level: INTEGER is
+	xor_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1166,7 +1166,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	zext_low_level: INTEGER is
+	zext_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

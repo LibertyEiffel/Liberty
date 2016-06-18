@@ -37,7 +37,7 @@ inherit
 
 feature {} -- enum
 
-	is_valid_tbool (a_tbool: INTEGER): BOOLEAN is
+	is_valid_tbool (a_tbool: INTEGER): BOOLEAN
 		-- is `a_tbool' a valid tbool enum?
 		do
 			Result := ((a_tbool = tbool_bottom) or else
@@ -46,22 +46,22 @@ feature {} -- enum
 			           (a_tbool = tbool_top))
 		end
 
-	tbool_bottom: INTEGER is
+	tbool_bottom: INTEGER
 		external "C macro use <polka/polka.h>"
 		alias "tbool_bottom"
 		end
 
-	tbool_true: INTEGER is
+	tbool_true: INTEGER
 		external "C macro use <polka/polka.h>"
 		alias "tbool_true"
 		end
 
-	tbool_false: INTEGER is
+	tbool_false: INTEGER
 		external "C macro use <polka/polka.h>"
 		alias "tbool_false"
 		end
 
-	tbool_top: INTEGER is
+	tbool_top: INTEGER
 		external "C macro use <polka/polka.h>"
 		alias "tbool_top"
 		end

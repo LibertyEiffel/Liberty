@@ -26,7 +26,7 @@ deferred class GTK_PROGRESS_BAR_ORIENTATION
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_progress_bar_orientation (an_orientation :INTEGER): BOOLEAN is
+	is_valid_gtk_progress_bar_orientation (an_orientation :INTEGER): BOOLEAN
 		do	
 			Result:=((an_orientation =  gtk_progress_left_to_right) or else
 						(an_orientation =  gtk_progress_right_to_left) or else
@@ -34,25 +34,25 @@ feature {ANY}  -- enum
 						(an_orientation =  gtk_progress_top_to_bottom))
 		end
 	
-	gtk_progress_left_to_right: INTEGER is
+	gtk_progress_left_to_right: INTEGER
 			-- A horizontal progress bar growing from left to right.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PROGRESS_LEFT_TO_RIGHT"
 		end
 
-	gtk_progress_right_to_left: INTEGER is
+	gtk_progress_right_to_left: INTEGER
 			-- A horizontal progress bar growing from right to left.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PROGRESS_RIGHT_TO_LEFT"
 		end
 
-	gtk_progress_bottom_to_top: INTEGER is
+	gtk_progress_bottom_to_top: INTEGER
 			-- A vertical progress bar growing from bottom to top.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PROGRESS_BOTTOM_TO_TOP"
 		end
 
-	gtk_progress_top_to_bottom: INTEGER is
+	gtk_progress_top_to_bottom: INTEGER
 			-- A vertical progress bar growing from top to bottom.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PROGRESS_TOP_TO_BOTTOM"

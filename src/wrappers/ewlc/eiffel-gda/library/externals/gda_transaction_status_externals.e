@@ -8,11 +8,11 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_transaction_status_new (a_name: POINTER): POINTER is
+	gda_transaction_status_new (a_name: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_transaction_status_get_type: INTEGER_32 is
+	gda_transaction_status_get_type: INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 

@@ -69,105 +69,105 @@ insert
 	CORE_EXTERNALS
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature {ANY} 
-	type: LLVM_TYPE is
+	type: LLVM_TYPE
 		do
 			Result:=type_wrapper(llvmtype_of(handle))
 		end
 	
-	name: FIXED_STRING is
+	name: FIXED_STRING
 		-- The name of the value.
 	do
 		create Result.from_external(llvmget_value_name(handle))
 	end
 
-	set_name (a_name: ABSTRACT_STRING) is
+	set_name (a_name: ABSTRACT_STRING)
 		require a_name /= Void
 		do
 			llvmset_value_name(handle,a_name.to_external)
 		end
 		
-	dump is
+	dump
 		do
 			llvmdump_value(handle)
 		end
 
 feature {ANY} -- Type-related queries
-	--is_alloca_inst: BOOLEAN is do Result:=llvmis_aalloca_inst(handle).is_not_null end
-	--is_allocation_inst: BOOLEAN is do Result:=llvmis_aallocation_inst(handle).is_not_null end
-	--is_argument: BOOLEAN is do Result:=llvmis_aargument(handle).is_not_null end
-	is_basic_block: BOOLEAN is do Result:=llvmvalue_is_basic_block(handle).to_boolean end
-	--is_binary_operator: BOOLEAN is do Result:=llvmis_abinary_operator(handle).is_not_null end
-	--is_bit_cast_inst: BOOLEAN is do Result:=llvmis_abit_cast_inst(handle).is_not_null end
-	--is_branch_inst: BOOLEAN is do Result:=llvmis_abranch_inst(handle).is_not_null end
-	--is_call_inst: BOOLEAN is do Result:=llvmis_acall_inst(handle).is_not_null end
-	--is_cast_inst: BOOLEAN is do Result:=llvmis_acast_inst(handle).is_not_null end
-	--is_cmp_inst: BOOLEAN is do Result:=llvmis_acmp_inst(handle).is_not_null end
-	--is_constant_value: BOOLEAN is do Result:=llvmis_aconstant(handle).is_not_null end
-	--is_constant_aggregate_zero: BOOLEAN is do Result:=llvmis_aconstant_aggregate_zero(handle).is_not_null end
-	--is_constant_array: BOOLEAN is do Result:=llvmis_aconstant_array(handle).is_not_null end
-	--is_constant_expr: BOOLEAN is do Result:=llvmis_aconstant_expr(handle).is_not_null end
-	is_constant_fp: BOOLEAN is do Result:=llvmis_aconstant_fp(handle).is_not_null end
-	is_constant_int: BOOLEAN is do Result:=llvmis_aconstant_int(handle).is_not_null end
-	is_constant_pointer_null: BOOLEAN is do Result:=llvmis_aconstant_pointer_null(handle).is_not_null end
-	is_constant_struct: BOOLEAN is do Result:=llvmis_aconstant_struct(handle).is_not_null end
-	is_constant_vector: BOOLEAN is do Result:=llvmis_aconstant_vector(handle).is_not_null end
-	--is_dbg_declare_inst: BOOLEAN is do Result:=llvmis_adbg_declare_inst(handle).is_not_null end
-	-- is_dbg_func_start_inst: BOOLEAN is do Result:=llvmis_adbg_func_start_inst(handle).is_not_null end
-	--is_dbg_info_intrinsic: BOOLEAN is do Result:=llvmis_adbg_info_intrinsic(handle).is_not_null end
-	--is_dbg_region_end_inst: BOOLEAN is do Result:=llvmis_adbg_region_end_inst(handle).is_not_null end
-	--is_dbg_region_start_inst: BOOLEAN is do Result:=llvmis_adbg_region_start_inst(handle).is_not_null end
-	--is_dbg_stop_point_inst: BOOLEAN is do Result:=llvmis_adbg_stop_point_inst(handle).is_not_null end
-	--is_ehselector_inst: BOOLEAN is do Result:=llvmis_aehselector_inst(handle).is_not_null end
-	--is_extract_element_inst: BOOLEAN is do Result:=llvmis_aextract_element_inst(handle).is_not_null end
-	--is_extract_value_inst: BOOLEAN is do Result:=llvmis_aextract_value_inst(handle).is_not_null end
-	--is_fcmp_inst: BOOLEAN is do Result:=llvmis_afcmp_inst(handle).is_not_null end
-	--is_fpext_inst: BOOLEAN is do Result:=llvmis_afpext_inst(handle).is_not_null end
-	--is_fpto_siinst: BOOLEAN is do Result:=llvmis_afpto_siinst(handle).is_not_null end
-	--is_fpto_uiinst: BOOLEAN is do Result:=llvmis_afpto_uiinst(handle).is_not_null end
-	--is_fptrunc_inst: BOOLEAN is do Result:=llvmis_afptrunc_inst(handle).is_not_null end
-	--is_free_inst: BOOLEAN is do Result:=llvmis_afree_inst(handle).is_not_null end
-	is_function: BOOLEAN is do Result:=llvmis_afunction(handle).is_not_null end
-	--is_get_element_ptr_inst: BOOLEAN is do Result:=llvmis_aget_element_ptr_inst(handle).is_not_null end
-	is_global_alias: BOOLEAN is do Result:=llvmis_aglobal_alias(handle).is_not_null end
-	is_global_value: BOOLEAN is do Result:=llvmis_aglobal_value(handle).is_not_null end
-	is_global_variable: BOOLEAN is do Result:=llvmis_aglobal_variable(handle).is_not_null end
-	--is_icmp_inst: BOOLEAN is do Result:=llvmis_aicmp_inst(handle).is_not_null end
-	--is_inline_asm: BOOLEAN is do Result:=llvmis_ainline_asm(handle).is_not_null end
-	--is_insert_element_inst: BOOLEAN is do Result:=llvmis_ainsert_element_inst(handle).is_not_null end
-	--is_insert_value_inst: BOOLEAN is do Result:=llvmis_ainsert_value_inst(handle).is_not_null end
-	--is_instruction: BOOLEAN is do Result:=llvmis_ainstruction(handle).is_not_null end
-	--is_int_to_ptr_inst: BOOLEAN is do Result:=llvmis_aint_to_ptr_inst(handle).is_not_null end
-	--is_intrinsic_inst: BOOLEAN is do Result:=llvmis_aintrinsic_inst(handle).is_not_null end
-	--is_invoke_inst: BOOLEAN is do Result:=llvmis_ainvoke_inst(handle).is_not_null end
-	--is_load_inst: BOOLEAN is do Result:=llvmis_aload_inst(handle).is_not_null end
-	----is_malloc_inst: BOOLEAN is do Result:=llvmis_amalloc_inst(handle).is_not_null end
-	--is_mem_cpy_inst: BOOLEAN is do Result:=llvmis_amem_cpy_inst(handle).is_not_null end
-	--is_mem_intrinsic: BOOLEAN is do Result:=llvmis_amem_intrinsic(handle).is_not_null end
-	--is_mem_move_inst: BOOLEAN is do Result:=llvmis_amem_move_inst(handle).is_not_null end
-	--is_mem_set_inst: BOOLEAN is do Result:=llvmis_amem_set_inst(handle).is_not_null end
-	--is_phinode: BOOLEAN is do Result:=llvmis_aphinode(handle).is_not_null end
-	--is_ptr_to_int_inst: BOOLEAN is do Result:=llvmis_aptr_to_int_inst(handle).is_not_null end
-	--is_return_inst: BOOLEAN is do Result:=llvmis_areturn_inst(handle).is_not_null end
-	--is_select_inst: BOOLEAN is do Result:=llvmis_aselect_inst(handle).is_not_null end
-	--is_sext_inst: BOOLEAN is do Result:=llvmis_asext_inst(handle).is_not_null end
-	--is_shuffle_vector_inst: BOOLEAN is do Result:=llvmis_ashuffle_vector_inst(handle).is_not_null end
-	--is_sito_fpinst: BOOLEAN is do Result:=llvmis_asito_fpinst(handle).is_not_null end
-	--is_store_inst: BOOLEAN is do Result:=llvmis_astore_inst(handle).is_not_null end
-	--is_switch_inst: BOOLEAN is do Result:=llvmis_aswitch_inst(handle).is_not_null end
-	--is_terminator_inst: BOOLEAN is do Result:=llvmis_aterminator_inst(handle).is_not_null end
-	--is_trunc_inst: BOOLEAN is do Result:=llvmis_atrunc_inst(handle).is_not_null end
-	--is_uito_fpinst: BOOLEAN is do Result:=llvmis_auito_fpinst(handle).is_not_null end
-	--is_unary_instruction: BOOLEAN is do Result:=llvmis_aunary_instruction(handle).is_not_null end
-	--is_undef_value: BOOLEAN is do Result:=llvmis_aundef_value(handle).is_not_null end
-	--is_unreachable_inst: BOOLEAN is do Result:=llvmis_aunreachable_inst(handle).is_not_null end
-	--is_unwind_inst: BOOLEAN is do Result:=llvmis_aunwind_inst(handle).is_not_null end
-	--is_user: BOOLEAN is do Result:=llvmis_auser(handle).is_not_null end
-	--is_vaarg_inst: BOOLEAN is do Result:=llvmis_avaarg_inst(handle).is_not_null end
-	--is_zext_inst: BOOLEAN is do Result:=llvmis_azext_inst(handle).is_not_null end
+	--is_alloca_inst: BOOLEAN do Result:=llvmis_aalloca_inst(handle).is_not_null end
+	--is_allocation_inst: BOOLEAN do Result:=llvmis_aallocation_inst(handle).is_not_null end
+	--is_argument: BOOLEAN do Result:=llvmis_aargument(handle).is_not_null end
+	is_basic_block: BOOLEAN do Result:=llvmvalue_is_basic_block(handle).to_boolean end
+	--is_binary_operator: BOOLEAN do Result:=llvmis_abinary_operator(handle).is_not_null end
+	--is_bit_cast_inst: BOOLEAN do Result:=llvmis_abit_cast_inst(handle).is_not_null end
+	--is_branch_inst: BOOLEAN do Result:=llvmis_abranch_inst(handle).is_not_null end
+	--is_call_inst: BOOLEAN do Result:=llvmis_acall_inst(handle).is_not_null end
+	--is_cast_inst: BOOLEAN do Result:=llvmis_acast_inst(handle).is_not_null end
+	--is_cmp_inst: BOOLEAN do Result:=llvmis_acmp_inst(handle).is_not_null end
+	--is_constant_value: BOOLEAN do Result:=llvmis_aconstant(handle).is_not_null end
+	--is_constant_aggregate_zero: BOOLEAN do Result:=llvmis_aconstant_aggregate_zero(handle).is_not_null end
+	--is_constant_array: BOOLEAN do Result:=llvmis_aconstant_array(handle).is_not_null end
+	--is_constant_expr: BOOLEAN do Result:=llvmis_aconstant_expr(handle).is_not_null end
+	is_constant_fp: BOOLEAN do Result:=llvmis_aconstant_fp(handle).is_not_null end
+	is_constant_int: BOOLEAN do Result:=llvmis_aconstant_int(handle).is_not_null end
+	is_constant_pointer_null: BOOLEAN do Result:=llvmis_aconstant_pointer_null(handle).is_not_null end
+	is_constant_struct: BOOLEAN do Result:=llvmis_aconstant_struct(handle).is_not_null end
+	is_constant_vector: BOOLEAN do Result:=llvmis_aconstant_vector(handle).is_not_null end
+	--is_dbg_declare_inst: BOOLEAN do Result:=llvmis_adbg_declare_inst(handle).is_not_null end
+	-- is_dbg_func_start_inst: BOOLEAN do Result:=llvmis_adbg_func_start_inst(handle).is_not_null end
+	--is_dbg_info_intrinsic: BOOLEAN do Result:=llvmis_adbg_info_intrinsic(handle).is_not_null end
+	--is_dbg_region_end_inst: BOOLEAN do Result:=llvmis_adbg_region_end_inst(handle).is_not_null end
+	--is_dbg_region_start_inst: BOOLEAN do Result:=llvmis_adbg_region_start_inst(handle).is_not_null end
+	--is_dbg_stop_point_inst: BOOLEAN do Result:=llvmis_adbg_stop_point_inst(handle).is_not_null end
+	--is_ehselector_inst: BOOLEAN do Result:=llvmis_aehselector_inst(handle).is_not_null end
+	--is_extract_element_inst: BOOLEAN do Result:=llvmis_aextract_element_inst(handle).is_not_null end
+	--is_extract_value_inst: BOOLEAN do Result:=llvmis_aextract_value_inst(handle).is_not_null end
+	--is_fcmp_inst: BOOLEAN do Result:=llvmis_afcmp_inst(handle).is_not_null end
+	--is_fpext_inst: BOOLEAN do Result:=llvmis_afpext_inst(handle).is_not_null end
+	--is_fpto_siinst: BOOLEAN do Result:=llvmis_afpto_siinst(handle).is_not_null end
+	--is_fpto_uiinst: BOOLEAN do Result:=llvmis_afpto_uiinst(handle).is_not_null end
+	--is_fptrunc_inst: BOOLEAN do Result:=llvmis_afptrunc_inst(handle).is_not_null end
+	--is_free_inst: BOOLEAN do Result:=llvmis_afree_inst(handle).is_not_null end
+	is_function: BOOLEAN do Result:=llvmis_afunction(handle).is_not_null end
+	--is_get_element_ptr_inst: BOOLEAN do Result:=llvmis_aget_element_ptr_inst(handle).is_not_null end
+	is_global_alias: BOOLEAN do Result:=llvmis_aglobal_alias(handle).is_not_null end
+	is_global_value: BOOLEAN do Result:=llvmis_aglobal_value(handle).is_not_null end
+	is_global_variable: BOOLEAN do Result:=llvmis_aglobal_variable(handle).is_not_null end
+	--is_icmp_inst: BOOLEAN do Result:=llvmis_aicmp_inst(handle).is_not_null end
+	--is_inline_asm: BOOLEAN do Result:=llvmis_ainline_asm(handle).is_not_null end
+	--is_insert_element_inst: BOOLEAN do Result:=llvmis_ainsert_element_inst(handle).is_not_null end
+	--is_insert_value_inst: BOOLEAN do Result:=llvmis_ainsert_value_inst(handle).is_not_null end
+	--is_instruction: BOOLEAN do Result:=llvmis_ainstruction(handle).is_not_null end
+	--is_int_to_ptr_inst: BOOLEAN do Result:=llvmis_aint_to_ptr_inst(handle).is_not_null end
+	--is_intrinsic_inst: BOOLEAN do Result:=llvmis_aintrinsic_inst(handle).is_not_null end
+	--is_invoke_inst: BOOLEAN do Result:=llvmis_ainvoke_inst(handle).is_not_null end
+	--is_load_inst: BOOLEAN do Result:=llvmis_aload_inst(handle).is_not_null end
+	----is_malloc_inst: BOOLEAN do Result:=llvmis_amalloc_inst(handle).is_not_null end
+	--is_mem_cpy_inst: BOOLEAN do Result:=llvmis_amem_cpy_inst(handle).is_not_null end
+	--is_mem_intrinsic: BOOLEAN do Result:=llvmis_amem_intrinsic(handle).is_not_null end
+	--is_mem_move_inst: BOOLEAN do Result:=llvmis_amem_move_inst(handle).is_not_null end
+	--is_mem_set_inst: BOOLEAN do Result:=llvmis_amem_set_inst(handle).is_not_null end
+	--is_phinode: BOOLEAN do Result:=llvmis_aphinode(handle).is_not_null end
+	--is_ptr_to_int_inst: BOOLEAN do Result:=llvmis_aptr_to_int_inst(handle).is_not_null end
+	--is_return_inst: BOOLEAN do Result:=llvmis_areturn_inst(handle).is_not_null end
+	--is_select_inst: BOOLEAN do Result:=llvmis_aselect_inst(handle).is_not_null end
+	--is_sext_inst: BOOLEAN do Result:=llvmis_asext_inst(handle).is_not_null end
+	--is_shuffle_vector_inst: BOOLEAN do Result:=llvmis_ashuffle_vector_inst(handle).is_not_null end
+	--is_sito_fpinst: BOOLEAN do Result:=llvmis_asito_fpinst(handle).is_not_null end
+	--is_store_inst: BOOLEAN do Result:=llvmis_astore_inst(handle).is_not_null end
+	--is_switch_inst: BOOLEAN do Result:=llvmis_aswitch_inst(handle).is_not_null end
+	--is_terminator_inst: BOOLEAN do Result:=llvmis_aterminator_inst(handle).is_not_null end
+	--is_trunc_inst: BOOLEAN do Result:=llvmis_atrunc_inst(handle).is_not_null end
+	--is_uito_fpinst: BOOLEAN do Result:=llvmis_auito_fpinst(handle).is_not_null end
+	--is_unary_instruction: BOOLEAN do Result:=llvmis_aunary_instruction(handle).is_not_null end
+	--is_undef_value: BOOLEAN do Result:=llvmis_aundef_value(handle).is_not_null end
+	--is_unreachable_inst: BOOLEAN do Result:=llvmis_aunreachable_inst(handle).is_not_null end
+	--is_unwind_inst: BOOLEAN do Result:=llvmis_aunwind_inst(handle).is_not_null end
+	--is_user: BOOLEAN do Result:=llvmis_auser(handle).is_not_null end
+	--is_vaarg_inst: BOOLEAN do Result:=llvmis_avaarg_inst(handle).is_not_null end
+	--is_zext_inst: BOOLEAN do Result:=llvmis_azext_inst(handle).is_not_null end
 
 feature {ANY} -- Convertions into specific values.
 
-	as_basic_block: LLVM_BASIC_BLOCK is
+	as_basic_block: LLVM_BASIC_BLOCK
 	require is_basic_block
 	do
 		create Result.from_external_pointer(llvmis_abasic_block(handle))
@@ -176,7 +176,7 @@ feature {ANY} -- Convertions into specific values.
 		ensure Result/=Void
 	end
 
-	as_global_alias: LLVM_GLOBAL_ALIAS is
+	as_global_alias: LLVM_GLOBAL_ALIAS
 	require is_global_alias
 	do
 		create Result.from_external_pointer(llvmis_aglobal_alias(handle))
@@ -456,7 +456,7 @@ feature {ANY} -- Convertions into specific values.
 --		ensure Result/=Void
 --	end
 --
-	as_constant_vector: LLVM_CONSTANT_VECTOR is
+	as_constant_vector: LLVM_CONSTANT_VECTOR
 	require is_constant_vector
 	do
 		create Result.from_external_pointer(llvmis_aconstant_vector(handle))
@@ -554,7 +554,7 @@ feature {ANY} -- Convertions into specific values.
 --		ensure Result/=Void
 --	end
 --
-	as_function: LLVM_FUNCTION is
+	as_function: LLVM_FUNCTION
 	require is_function
 	do
 		create Result.from_external_pointer(llvmis_afunction(handle))
@@ -699,7 +699,7 @@ feature {ANY} -- TODO: Important Public Members of the Value class
 -- 
 
 feature {WRAPPER, WRAPPER_HANDLER}
-	struct_size: like size_t is
+	struct_size: like size_t
 		-- LLVM_VALUE wraps a polymorphic C++ class; temporarly this query
 		-- always fails; it should not hamper proper usage, since it is used
 		-- only to allocate memory during object copying with the standard

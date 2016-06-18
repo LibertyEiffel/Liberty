@@ -301,7 +301,7 @@ feature {ANY} -- Columns
 	columns_n: INTEGER is 3
 
 feature {ANY}
-	developers: FAST_ARRAY[TUPLE[STRING,STRING]] is
+	developers: FAST_ARRAY[TUPLE[STRING,STRING]]
 		once
 			Result:= {FAST_ARRAY[TUPLE[STRING,STRING]]
 			<< ["Pierre-Nicolas", "eif_pini"],
@@ -317,7 +317,7 @@ feature {ANY}
 		end
 
 feature {ANY} 
-	model: GTK_TREE_STORE is
+	model: GTK_TREE_STORE
 			-- tree model with some data set
 		local
 			top_level, child: GTK_TREE_ITER
@@ -372,7 +372,7 @@ feature {ANY}
 
 	name_column, nick_column, nationality_column: GTK_TREE_VIEW_COLUMN
 
-	view: GTK_TREE_VIEW is
+	view: GTK_TREE_VIEW
 		once
 			create {GTK_CELL_RENDERER_TEXT} text_renderer.make
 			create {GTK_CELL_RENDERER_PIXBUF} flag_renderer.make
@@ -416,7 +416,7 @@ feature {ANY}
 	
 feature {}  -- Creation
 	
-	make is
+	make
 			-- Run the demo
 		local selection: GTK_TREE_SELECTION
 		do
@@ -457,7 +457,7 @@ feature {}  -- Creation
 		end
 
 feature {ANY}
-	traverse_model is
+	traverse_model
 		require valid_model: model /= Void
 		local iter:  GTK_TREE_ITER
 		do
@@ -475,7 +475,7 @@ feature {ANY}
 			end
 		end
 	
-	paths_demo is
+	paths_demo
 		local path: GTK_TREE_PATH
 		do
 			print ("Tree paths demo:%N")
@@ -486,22 +486,22 @@ feature {ANY}
 		end
 
 feature {ANY} -- Agents
-	add_clicked (a_button: GTK_BUTTON) is
+	add_clicked (a_button: GTK_BUTTON)
 		do
 
 		end
 
-	remove_clicked (a_button: GTK_BUTTON) is
+	remove_clicked (a_button: GTK_BUTTON)
 		do
 			
 		end
 
-	quit_clicked (a_button: GTK_BUTTON) is
+	quit_clicked (a_button: GTK_BUTTON)
 		do
 			window.destroy
 		end
 
-	on_destroy (a_gtk_object: GTK_OBJECT) is
+	on_destroy (a_gtk_object: GTK_OBJECT)
 		do
 			print ("Tree demo is quitting.%N")
 			paths_demo
@@ -513,7 +513,7 @@ feature {ANY} -- Agents
 			gtk.quit
 		end
 
-	print_person (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER): BOOLEAN is
+	print_person (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER): BOOLEAN
 		do
 			check	right_model: a_model = model end
 			print ("Person (code: ")
@@ -525,7 +525,7 @@ feature {ANY} -- Agents
 			Result := False -- i.e. go on
 		end
 			
-	on_select (a_selection: GTK_TREE_SELECTION; a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; path_selected: BOOLEAN): BOOLEAN is
+	on_select (a_selection: GTK_TREE_SELECTION; a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; path_selected: BOOLEAN): BOOLEAN
 		do
 			if a_selection.is_node_selected then
 				print ("A selected row is being de-selected. Disabling buttons.%N")				

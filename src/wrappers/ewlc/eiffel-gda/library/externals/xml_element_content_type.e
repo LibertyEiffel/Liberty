@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = xml_element_content_pcdata) or else 
 				(a_value = xml_element_content_element) or else 
@@ -15,66 +15,66 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_pcdata is
+	default_create, set_pcdata
 		do
 			value := xml_element_content_pcdata
 		end
 
-	set_element is
+	set_element
 		do
 			value := xml_element_content_element
 		end
 
-	set_seq is
+	set_seq
 		do
 			value := xml_element_content_seq
 		end
 
-	set_or is
+	set_or
 		do
 			value := xml_element_content_or
 		end
 
 
 feature {ANY} -- Queries
-	is_pcdata: BOOLEAN is
+	is_pcdata: BOOLEAN
 		do
 			Result := (value=xml_element_content_pcdata)
 		end
 
-	is_element: BOOLEAN is
+	is_element: BOOLEAN
 		do
 			Result := (value=xml_element_content_element)
 		end
 
-	is_seq: BOOLEAN is
+	is_seq: BOOLEAN
 		do
 			Result := (value=xml_element_content_seq)
 		end
 
-	is_or: BOOLEAN is
+	is_or: BOOLEAN
 		do
 			Result := (value=xml_element_content_or)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_element_content_pcdata: INTEGER is
+	xml_element_content_pcdata: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_CONTENT_PCDATA"
 		end
 
-	xml_element_content_element: INTEGER is
+	xml_element_content_element: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_CONTENT_ELEMENT"
 		end
 
-	xml_element_content_seq: INTEGER is
+	xml_element_content_seq: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_CONTENT_SEQ"
 		end
 
-	xml_element_content_or: INTEGER is
+	xml_element_content_or: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_CONTENT_OR"
 		end

@@ -24,24 +24,24 @@ deferred class GTS_INTERSECT_ENUM
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_intersection (an_intersect: INTEGER): BOOLEAN is
+	is_valid_intersection (an_intersect: INTEGER): BOOLEAN
 		do	
 			Result:=((an_intersect = gts_out) or else
 						(an_intersect = gts_on) or else 
 						(an_intersect = gts_in))
 		end
 
-	gts_out: INTEGER is
+	gts_out: INTEGER
 		external "C macro use <gts.h>"
 		alias "GTS_OUT"
 		end
 	
-	gts_on: INTEGER is
+	gts_on: INTEGER
 		external "C macro use <gts.h>"
 		alias "GTS_ON"
 		end
 	
-	gts_in: INTEGER is
+	gts_in: INTEGER
 		external "C macro use <gts.h>"
 		alias "GTS_IN"
 		end

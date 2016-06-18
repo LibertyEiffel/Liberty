@@ -46,14 +46,14 @@ inherit
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			--   Creates a new GtkCellRendererSpin.
 		do
 			from_external_pointer(gtk_cell_renderer_spin_new)
 		end
 	
 feature {ANY} -- Properties getters
-	adjustment: GTK_ADJUSTMENT is
+	adjustment: GTK_ADJUSTMENT
 			-- The adjustment that holds the value of the spin
 			-- button. This must be non-NULL for the cell renderer to be
 			-- editable.
@@ -64,14 +64,14 @@ feature {ANY} -- Properties getters
 			Result:=factory.wrapper_or_void(property(adjustment_property_name).pointer)
 		end
 
-	climb_rate: REAL is
+	climb_rate: REAL
 			-- The acceleration rate when you hold down a button.
 		do
 			Result:=property(climb_rate_property_name).real
 		ensure valid: Result >= 0
 		end
 
-	digits: INTEGER is
+	digits: INTEGER
 			--   The number of decimal places to display.
 		do
 			Result:=property(climb_rate_property_name).integer
@@ -79,27 +79,27 @@ feature {ANY} -- Properties getters
 		end
 
 feature {ANY} -- Properties setters
-	set_adjustment (an_adjustment: GTK_ADJUSTMENT) is
+	set_adjustment (an_adjustment: GTK_ADJUSTMENT)
 		require adjustment_not_void: an_adjustment /= Void
 		do
 			set_property(adjustment_property_name, create {G_VALUE}.from_pointer(an_adjustment.handle))
 		end
 
 	
-	set_climb_rate (a_climb_rate: REAL) is
+	set_climb_rate (a_climb_rate: REAL)
 		require a_climb_rate >= 0 
 		do
 			set_property(climb_rate_property_name, create {G_VALUE}.from_real(a_climb_rate))
 		end
 
-	set_digits (some_digits: INTEGER) is
+	set_digits (some_digits: INTEGER)
 		require valid_digits: some_digits.in_range(0,20)
 		do
 			set_property(digits_property_name, create {G_VALUE}.from_natural(some_digits))
 		end	
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererSpin)"
 		end
@@ -109,7 +109,7 @@ feature {} --
 	climb_rate_property_name: STRING is "climb-rate"
 	digits_property_name: STRING is "digits"
 
-	gtk_cell_renderer_spin_new: POINTER is
+	gtk_cell_renderer_spin_new: POINTER
 			-- GtkCellRenderer* gtk_cell_renderer_spin_new (void);
 		external "C use <gtk/gtk.h>"
 		end

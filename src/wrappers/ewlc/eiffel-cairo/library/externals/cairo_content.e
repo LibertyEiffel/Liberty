@@ -38,26 +38,26 @@ inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
 
-	is_valid_content (a_content: INTEGER): BOOLEAN is
+	is_valid_content (a_content: INTEGER): BOOLEAN
 		do
 			Result := ((a_content = cairo_content_color) or else
 						(a_content = cairo_content_alpha) or else
 						(a_content = cairo_content_color_alpha))
 		end
 
-	cairo_content_color: INTEGER is
+	cairo_content_color: INTEGER
 			-- The surface will hold color content only.
 		external "C macro use <cairo.h>"
 		alias "CAIRO_CONTENT_COLOR"
 		end
 
-	cairo_content_alpha: INTEGER is
+	cairo_content_alpha: INTEGER
 			-- The surface will hold alpha content only.
 		external "C macro use <cairo.h>"
 		alias "CAIRO_CONTENT_ALPHA"
 		end
 
-	cairo_content_color_alpha: INTEGER is
+	cairo_content_color_alpha: INTEGER
 			-- The surface will hold color and alpha content.
 		external "C macro use <cairo.h>"
 		alias "CAIRO_CONTENT_COLOR_ALPHA"

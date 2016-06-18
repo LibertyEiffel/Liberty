@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = full_stop_tag_low_level)  or else
 				(a_value = one_digit_tag_low_level)  or else
@@ -17,49 +17,49 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_full_stop_tag is
+	set_full_stop_tag
 		do
 			value := full_stop_tag_low_level
 		end
 
-	set_one_digit_tag is
+	set_one_digit_tag
 		do
 			value := one_digit_tag_low_level
 		end
 
-	set_stop_tag is
+	set_stop_tag
 		do
 			value := stop_tag_low_level
 		end
 
-	set_zero_digit_tag is
+	set_zero_digit_tag
 		do
 			value := zero_digit_tag_low_level
 		end
 
 feature {ANY} -- Queries
-	is_full_stop_tag: BOOLEAN is
+	is_full_stop_tag: BOOLEAN
 		do
 			Result := (value=full_stop_tag_low_level)
 		end
 
-	is_one_digit_tag: BOOLEAN is
+	is_one_digit_tag: BOOLEAN
 		do
 			Result := (value=one_digit_tag_low_level)
 		end
 
-	is_stop_tag: BOOLEAN is
+	is_stop_tag: BOOLEAN
 		do
 			Result := (value=stop_tag_low_level)
 		end
 
-	is_zero_digit_tag: BOOLEAN is
+	is_zero_digit_tag: BOOLEAN
 		do
 			Result := (value=zero_digit_tag_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	full_stop_tag_low_level: INTEGER is
+	full_stop_tag_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	one_digit_tag_low_level: INTEGER is
+	one_digit_tag_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	stop_tag_low_level: INTEGER is
+	stop_tag_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	zero_digit_tag_low_level: INTEGER is
+	zero_digit_tag_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -41,7 +41,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			-- an item is not shared the underlying C structure will be
 			-- freed once the Eiffel object is disposed.
 
-	set_shared_items (a_setting: BOOLEAN) is
+	set_shared_items (a_setting: BOOLEAN)
 		do
 			are_items_shared:=a_setting
 		ensure set: are_items_shared = a_setting

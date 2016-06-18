@@ -37,14 +37,14 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererText)"
 		end
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkCellRendererText. Adjust how text is
 			-- drawn using object properties. Object properties can be
 			-- set globally (with `G_OBJECT.set'). Also, with
@@ -58,7 +58,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	set_fixed_height_from_font (number_of_rows: INTEGER) is
+	set_fixed_height_from_font (number_of_rows: INTEGER)
 			-- Sets the height of a renderer to explicitly be determined
 			-- by the "font" and "y_pad" property set on it. Further
 			-- changes in these properties do not affect the height, so
@@ -290,14 +290,14 @@ feature {ANY} -- Property Details
 feature {ANY} -- The "style" property
 	--   "style"                PangoStyle            : Read / Write
 
-	style: INTEGER is
+	style: INTEGER
 			-- Font style. Default value: PANGO_STYLE_NORMAL
 		do
 			Result:= property(style_property_name).integer
 		ensure is_valid_pango_style (Result)
 		end
 
-	set_style (a_style: INTEGER) is
+	set_style (a_style: INTEGER)
 		require valid_style: is_valid_pango_style (a_style)
 		do
 			set_enum_property (style_property_name, a_style)
@@ -306,20 +306,20 @@ feature {ANY} -- The "style" property
 feature {ANY} -- The "style-set" property
 	--   "style-set"            gboolean              : Read / Write
 
-	is_style_set: BOOLEAN is
+	is_style_set: BOOLEAN
 			-- Does this tag affect the font style? Default value: False
 		do
 			Result:= boolean_property (style_set_property_name)
 		end
 
-	enable_style is
+	enable_style
 			-- Makes current tag affects the font style
 		do
 			set_boolean_property (style_set_property_name, True)
 		ensure enabled: is_style_set
 		end
 
-	disable_style is
+	disable_style
 			-- Makes current tag not to affect the font style
 		do
 			set_boolean_property (style_set_property_name,False)
@@ -330,14 +330,14 @@ feature {ANY} -- The "text" property
 	--   "text"                 gchararray            : Read / Write
 	-- Default value: NULL
 
-	text: STRING is
+	text: STRING
 			-- Text to render.
 		do
 			--create Result.from_external (property (text_property_name).string)
 			Result := property (text_property_name).string
 		end
 
-	set_text (a_text: STRING) is
+	set_text (a_text: STRING)
 		require text_not_void: a_text /= Void
 		do
 			set_property (text_property_name, create {G_VALUE}.from_string (a_text))
@@ -430,17 +430,17 @@ feature {ANY} -- "edited"
 		--                                             gchar *arg2,
 		--                                             gpointer user_data);
 
-	enable_on_edited is
+	enable_on_edited
 			-- Connects "edited" signal to `on_edited' feature.
 		do
 			connect (Current, edited_signal_name, $on_edited)
 		end
 
-	on_edited: INTEGER is
+	on_edited: INTEGER
 		do
 		end
 
-	connect_agent_to_edited_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, STRING, GTK_CELL_RENDERER_TEXT]]) is
+	connect_agent_to_edited_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, STRING, GTK_CELL_RENDERER_TEXT]])
 			-- cellrenderertext : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void

@@ -27,7 +27,7 @@ inherit WRAPPER_FACTORY[ITEM_]
 create {ANY} default_create
 	
 feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
-	wrapper (a_pointer: POINTER): ITEM_ is
+	wrapper (a_pointer: POINTER): ITEM_
 			-- A wrapper for the structure at address `a_pointer'. The 
 			-- default implementation in WRAPPER_FACTORY "creates" a new 
 			-- wrapper every time, while their heirs are allowed to 
@@ -38,6 +38,6 @@ feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
 		end
 
 feature {} --
-	do_not_use_me: STRING is
+	do_not_use_me: STRING
 		"DUMMY_FACTORY.wrapper invoked. This is clearly a bug; please inform the developers of the application, since another implementation of WRAPPER_FACTORY should be used."
 end

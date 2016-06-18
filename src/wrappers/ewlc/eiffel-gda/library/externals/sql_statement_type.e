@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = sql_select) or else 
 				(a_value = sql_insert) or else 
@@ -15,66 +15,66 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_select_external is
+	default_create, set_select_external
 		do
 			value := sql_select
 		end
 
-	set_insert_external is
+	set_insert_external
 		do
 			value := sql_insert
 		end
 
-	set_delete is
+	set_delete
 		do
 			value := sql_delete
 		end
 
-	set_update is
+	set_update
 		do
 			value := sql_update
 		end
 
 
 feature {ANY} -- Queries
-	is_select_external: BOOLEAN is
+	is_select_external: BOOLEAN
 		do
 			Result := (value=sql_select)
 		end
 
-	is_insert_external: BOOLEAN is
+	is_insert_external: BOOLEAN
 		do
 			Result := (value=sql_insert)
 		end
 
-	is_delete: BOOLEAN is
+	is_delete: BOOLEAN
 		do
 			Result := (value=sql_delete)
 		end
 
-	is_update: BOOLEAN is
+	is_update: BOOLEAN
 		do
 			Result := (value=sql_update)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	sql_select: INTEGER is
+	sql_select: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_select"
 		end
 
-	sql_insert: INTEGER is
+	sql_insert: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_insert"
 		end
 
-	sql_delete: INTEGER is
+	sql_delete: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_delete"
 		end
 
-	sql_update: INTEGER is
+	sql_update: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_update"
 		end

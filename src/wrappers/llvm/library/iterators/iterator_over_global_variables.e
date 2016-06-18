@@ -12,7 +12,7 @@ insert CORE_EXTERNALS
 create {LLVM_MODULE} from_module
 
 feature {LLVM_VALUE}
-   from_module (a_module: like module) is
+   from_module (a_module: like module)
       require a_module/=Void
       do
          module:=a_module
@@ -21,27 +21,27 @@ feature {LLVM_VALUE}
 feature {ANY}
    module: LLVM_MODULE
 
-   start is
+   start
       do
          item := wrapper_or_void(llvmget_first_global(module.handle))
       end
 
-   finish is
+   finish
       do
          item := wrapper_or_void(llvmget_last_global(module.handle))
       end
 
-   next is
+   next
       do
          item := wrapper_or_void(llvmget_next_global(item.handle))
       end
 
-   previous is
+   previous
       do
          item := wrapper_or_void(llvmget_previous_global(item.handle))
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result:=(item=Void)
       end
@@ -50,7 +50,7 @@ feature {ANY}
 
    generation, iterable_generation: INTEGER is 0
 feature {ANY}
-   wrapper (p: POINTER): LLVM_GLOBAL_VARIABLE is
+   wrapper (p: POINTER): LLVM_GLOBAL_VARIABLE
       do
          create Result.from_external_pointer(p)
       end

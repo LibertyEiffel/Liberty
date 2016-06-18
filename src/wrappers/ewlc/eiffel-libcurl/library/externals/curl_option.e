@@ -609,7 +609,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Validator
 
-	is_valid_curl_option (a_option: INTEGER) : BOOLEAN is
+	is_valid_curl_option (a_option: INTEGER) : BOOLEAN
 		do
 			Result := a_option.in_range (-9, 40000) -- FIXME!!!
 		end
@@ -621,7 +621,7 @@ feature {} -- Validator
 
 feature {} -- BEHAVIOR OPTIONS
 
-	curl_option_verbose: INTEGER is
+	curl_option_verbose: INTEGER
 			-- Set the parameter to non-zero to get the library to display a lot of
 			-- verbose information about its operations. Very useful for libcurl and/or
 			-- protocol debugging and understanding. The verbose information will be
@@ -634,7 +634,7 @@ feature {} -- BEHAVIOR OPTIONS
 		alias "CURLOPT_VERBOSE"
 		end
 
-	curl_option_header: INTEGER is
+	curl_option_header: INTEGER
 			-- A non-zero parameter tells the library to include the header in the body
 			-- output. This is only relevant for protocols that actually have headers
 			-- preceding the data (like HTTP).
@@ -642,7 +642,7 @@ feature {} -- BEHAVIOR OPTIONS
 		alias "CURLOPT_HEADER"
 		end
 
-	curl_option_no_progress: INTEGER is
+	curl_option_no_progress: INTEGER
 			-- A non-zero parameter tells the library to shut off the built-in progress
 			-- meter completely.
 			-- Future versions of libcurl is likely to not have any built-in progress
@@ -651,7 +651,7 @@ feature {} -- BEHAVIOR OPTIONS
 		alias "CURLOPT_NOPROGRESS"
 		end
 
-	curl_option_no_signal: INTEGER is
+	curl_option_no_signal: INTEGER
 			-- Pass a long. If it is non-zero, libcurl will not use any functions that
 			-- install signal handlers or any functions that cause signals to be sent
 			-- to the process. This option is mainly here to allow multi-threaded unix
@@ -666,7 +666,7 @@ feature {} -- BEHAVIOR OPTIONS
 
 feature {} -- CALLBACK OPTIONS
 
-	curl_option_write_function: INTEGER is
+	curl_option_write_function: INTEGER
 			-- Function pointer that should match the following prototype:
 			-- `size_t function(void *ptr, size_t size, size_t nmemb, void *stream);'
 			-- This function gets called by libcurl as soon as there is data received
@@ -694,7 +694,7 @@ feature {} -- CALLBACK OPTIONS
 		alias "CURLOPT_WRITEFUNCTION"
 		end
 
-	curl_option_write_data: INTEGER is
+	curl_option_write_data: INTEGER
 			-- Data pointer to pass to the file write function. If you use the
 			-- CURLOPT_WRITEFUNCTION option, this is the pointer you'll get as input.
 			-- If you don't use a callback, you must pass a 'FILE *' as libcurl will
@@ -713,7 +713,7 @@ feature {} -- CALLBACK OPTIONS
 		alias "CURLOPT_WRITEDATA"
 		end
 
-	curl_option_read_function: INTEGER is
+	curl_option_read_function: INTEGER
 			-- Function pointer that should match the following prototype:
 			-- `size_t function(void *ptr, size_t size, size_t nmemb, void *stream);'
 			-- This function gets called by libcurl as soon as it needs to read data in
@@ -739,7 +739,7 @@ feature {} -- CALLBACK OPTIONS
 		alias "CURLOPT_READFUNCTION"
 		end
 
-	curl_option_read_data: INTEGER is
+	curl_option_read_data: INTEGER
 			-- Data pointer to pass to the file read function. If you use the
 			-- CURLOPT_READFUNCTION option, this is the pointer you'll get as input.
 			-- If you don't specify a read callback but instead rely on the default
@@ -792,7 +792,7 @@ feature {} -- CALLBACK OPTIONS
 			-- (Option added in 7.15.6.)
 			-- 
 
-	curl_option_progress_function: INTEGER is
+	curl_option_progress_function: INTEGER
 			-- Function pointer that should match the following protype:
 			-- `int curl_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);'
 			-- This function gets called by libcurl instead of its internal
@@ -815,7 +815,7 @@ feature {} -- CALLBACK OPTIONS
 		alias "CURLOPT_PROGRESSFUNCTION"
 		end
 
-	curl_option_progress_data: INTEGER is
+	curl_option_progress_data: INTEGER
 			-- Pass a pointer that will be untouched by libcurl and passed as the first
 			-- argument in the progress callback set with CURLOPT_PROGRESSFUNCTION.
 		external "C macro use <curl/curl.h>"
@@ -997,7 +997,7 @@ feature {} -- ERROR OPTIONS
 
 feature {} -- NETWORK OPTIONS
 
-	curl_option_url: INTEGER is
+	curl_option_url: INTEGER
 			-- The actual URL to deal with. The parameter should be a char * to a zero
 			-- terminated string. The string must remain present until curl no longer
 			-- needs it, as it doesn't copy the string.
@@ -1300,7 +1300,7 @@ feature {} -- HTTP OPTIONS
 			-- encoding done by the server is ignored. See the special file
 			-- lib/README.encoding for details.
 			-- 
-	curl_option_follow_location: INTEGER is
+	curl_option_follow_location: INTEGER
 			-- A non-zero parameter tells the library to follow any Location: header
 			-- that the server sends as part of an HTTP header.
 			-- 
@@ -1320,7 +1320,7 @@ feature {} -- HTTP OPTIONS
 			-- CURLOPT_FOLLOWLOCATION.
 			-- 
 
-	curl_option_max_redirs: INTEGER is
+	curl_option_max_redirs: INTEGER
 			-- Pass a long. The set number will be the redirection limit. If that many
 			-- redirections have been followed, the next redirect will cause an error
 			-- (CURLE_TOO_MANY_REDIRECTS). This option only makes sense if the
@@ -1340,7 +1340,7 @@ feature {} -- HTTP OPTIONS
 			-- This option is deprecated and starting with version 7.12.1 you should
 			-- instead use CURLOPT_UPLOAD.
 
-	curl_option_post: INTEGER is
+	curl_option_post: INTEGER
 			-- A non-zero parameter tells the library to do a regular HTTP post. This
 			-- will also make the library use the a "Content-Type:
 			-- application/x-www-form-urlencoded" header. (This is by far the most
@@ -1377,7 +1377,7 @@ feature {} -- HTTP OPTIONS
 		alias "CURLOPT_POST"
 		end
 
-	curl_option_post_fields: INTEGER is
+	curl_option_post_fields: INTEGER
 			-- Pass a char * as parameter, which should be the full data to post in an
 			-- HTTP POST operation. You must make sure that the data is formatted the
 			-- way you want the server to receive it. libcurl will not convert or
@@ -1398,7 +1398,7 @@ feature {} -- HTTP OPTIONS
 		alias "CURLOPT_POSTFIELDS"
 		end
 
-	curl_option_post_field_size: INTEGER is
+	curl_option_post_field_size: INTEGER
 			-- If you want to post data to the server without letting libcurl do a
 			-- strlen() to measure the data size, this option must be used. When this
 			-- option is used you can post fully binary data, which otherwise is likely
@@ -1415,7 +1415,7 @@ feature {} -- HTTP OPTIONS
 			-- data to figure out the size. This is the large file version of the
 			-- CURLOPT_POSTFIELDSIZE option. (Added in 7.11.1)
 
-	curl_option_http_post: INTEGER is
+	curl_option_http_post: INTEGER
 			-- CURLOPT_HTTPPOST
 			-- 
 			-- Tells libcurl you want a multipart/formdata HTTP POST to be made and you
@@ -1434,7 +1434,7 @@ feature {} -- HTTP OPTIONS
 		alias "CURLOPT_HTTPPOST"
 		end
 
-	curl_option_referer: INTEGER is
+	curl_option_referer: INTEGER
 			-- Pass a pointer to a zero terminated string as parameter. It will be used
 			-- to set the Referer: header in the http request sent to the remote
 			-- server. This can be used to fool servers or scripts. You can also set
@@ -1443,7 +1443,7 @@ feature {} -- HTTP OPTIONS
 		alias "CURLOPT_REFERER"
 		end
 
-	curl_option_user_agent: INTEGER is
+	curl_option_user_agent: INTEGER
 			-- Pass a pointer to a zero terminated string as parameter. It will be used
 			-- to set the User-Agent: header in the http request sent to the remote
 			-- server. This can be used to fool servers or scripts. You can also set
@@ -1452,7 +1452,7 @@ feature {} -- HTTP OPTIONS
 		alias "CURLOPT_USERAGENT"
 		end
 
-	curl_option_http_header: INTEGER is
+	curl_option_http_header: INTEGER
 			-- Pass a pointer to a linked list of HTTP headers to pass to the server in
 			-- your HTTP request. The linked list should be a fully valid list of
 			-- struct curl_slist structs properly filled in. Use curl_slist_append(3)
@@ -1499,7 +1499,7 @@ feature {} -- HTTP OPTIONS
 			-- HTTP version 9.9. Instead Libcurl will use the value set by option
 			-- CURLOPT_HTTP_VERSION.
 
-	curl_option_cookie: INTEGER is
+	curl_option_cookie: INTEGER
 			-- Pass a pointer to a zero terminated string as parameter. It will be used
 			-- to set a cookie in the http request. The format of the string should be
 			-- NAME=CONTENTS, where NAME is the cookie name and CONTENTS is what the
@@ -1574,7 +1574,7 @@ feature {} -- HTTP OPTIONS
 			-- When setting CURLOPT_HTTPGET to a non-zero value, it will automatically
 			-- set CURLOPT_NOBODY to 0 (since 7.14.1).
 
-	curl_option_http_version: INTEGER is
+	curl_option_http_version: INTEGER
 			-- Pass a long, set to one of the values described below. They force
 			-- libcurl to use the specific HTTP versions. This is not sensible to do
 			-- unless you have a good reason.
@@ -2068,7 +2068,7 @@ feature {} -- CONNECTION OPTIONS
 
 feature {} -- SSL and SECURITY OPTIONS
 
-	curl_option_ssl_cert: INTEGER is
+	curl_option_ssl_cert: INTEGER
 			-- Pass a pointer to a zero terminated string as parameter. The string
 			-- should be the file name of your certificate. The default format is "PEM"
 			-- and can be changed with CURLOPT_SSLCERTTYPE.
@@ -2156,7 +2156,7 @@ feature {} -- SSL and SECURITY OPTIONS
 			-- 
 			-- Force SSLv3
 			-- 
-	curl_option_ssl_verify_peer: INTEGER is
+	curl_option_ssl_verify_peer: INTEGER
 			-- Pass a long as parameter.
 			-- 
 			-- This option determines whether curl verifies the authenticity of the
@@ -2184,7 +2184,7 @@ feature {} -- SSL and SECURITY OPTIONS
 		alias "CURLOPT_SSL_VERIFYPEER"
 		end
 
-	curl_option_ca_info: INTEGER is
+	curl_option_ca_info: INTEGER
 			-- Pass a char * to a zero terminated string naming a file holding one or
 			-- more certificates to verify the peer with. This makes sense only when
 			-- used in combination with the CURLOPT_SSL_VERIFYPEER option. If

@@ -378,7 +378,7 @@ feature {} -- Unwrapped code
 	--    function has been called.
 
 feature {} -- size and memory handling
-	free (a_pointer: POINTER) is 
+	free (a_pointer: POINTER)
 			-- Calls the destroy method of object, freeing all memory
 			-- allocated for it.
 		do
@@ -386,7 +386,7 @@ feature {} -- size and memory handling
 			gts_object_destroy (a_pointer)
 		end
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsObject)"
 		end
@@ -437,7 +437,7 @@ feature {} -- External calls
 	--  gpointer    gts_object_is_from_class        (gpointer object,
 	--                                               gpointer klass);
 	--  void        gts_object_reset_reserved       (GtsObject *object);
-	gts_object_destroy (object: POINTER) is 
+	gts_object_destroy (object: POINTER)
 		external "C use <gts.h>"
 		end
 

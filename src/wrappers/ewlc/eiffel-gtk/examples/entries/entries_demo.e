@@ -2,7 +2,7 @@ class ENTRIES_DEMO
 insert GTK
 create {ANY} make
 feature {ANY}
-	make is
+	make
 		do
 			gtk.initialize
 			create window.make

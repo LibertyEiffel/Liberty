@@ -5,12 +5,12 @@ deferred class SQL_FIELD_ITEM_STRUCT
 inherit ANY undefine is_equal, copy end
 
 feature {} -- Low-level setters
-	low_level_set_type (a_structure: POINTER; a_value: INTEGER_32) is
+	low_level_set_type (a_structure: POINTER; a_value: INTEGER_32)
 		external "C struct sql_field_item set type use <libgda/libgda.h>"
 		end
 
 feature {} -- Low-level queries
-	get_type (a_structure: POINTER): INTEGER_32 is
+	get_type (a_structure: POINTER): INTEGER_32
 		external "C struct sql_field_item get type use <libgda/libgda.h>"
 		end
 

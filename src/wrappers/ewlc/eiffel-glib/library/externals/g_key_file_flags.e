@@ -25,20 +25,20 @@ deferred class G_KEY_FILE_FLAGS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	are_valid_flags (some_flags: INTEGER): BOOLEAN is
+	are_valid_flags (some_flags: INTEGER): BOOLEAN
 		do	
 			Result:=(some_flags & (g_key_file_none |
 										  g_key_file_keep_comments  |
 										  g_key_file_keep_translations)).to_boolean
 		end
 
-   g_key_file_none: INTEGER is
+   g_key_file_none: INTEGER
 			-- No flags, default behaviour
 		external "C macro use <glib.h>"
 		alias "G_KEY_FILE_NONE"
 		end
 
-   g_key_file_keep_comments: INTEGER is
+   g_key_file_keep_comments: INTEGER
 			-- Use this flag if you plan to write the (possibly modified)
 			-- contents of the key file back to a file; otherwise all
 			-- comments will be lost when the key file is written back.
@@ -46,7 +46,7 @@ feature {} -- enum
 		alias "G_KEY_FILE_KEEP_COMMENTS"
 		end
 
-   g_key_file_keep_translations: INTEGER is
+   g_key_file_keep_translations: INTEGER
 			-- Use this flag if you plan to write the (possibly modified)
 			-- contents of the key file back to a file; otherwise only
 			-- the translations for the current language will be written

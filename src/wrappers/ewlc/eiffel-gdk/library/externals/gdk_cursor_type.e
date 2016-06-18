@@ -116,7 +116,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gdk_cursor_type (a_cursor_type: INTEGER) : BOOLEAN is
+	is_valid_gdk_cursor_type (a_cursor_type: INTEGER) : BOOLEAN
 		do
 			Result:=((a_cursor_type=gdk_cursor_arrow) or else
 			         (a_cursor_type=gdk_cursor_clock) or else
@@ -143,103 +143,103 @@ feature {} -- enum
 --		alias "GDK_CURSOR_"
 --		end
 
-	gdk_cursor_arrow: INTEGER is
+	gdk_cursor_arrow: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_ARROW"
 		end
 
-	gdk_cursor_clock: INTEGER is
+	gdk_cursor_clock: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_CLOCK"
 		end
 
-	gdk_cursor_watch: INTEGER is
+	gdk_cursor_watch: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_WATCH"
 		end
 
-	gdk_cursor_last_cursor: INTEGER is
+	gdk_cursor_last_cursor: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_LAST_CURSOR"
 		end
 
-	gdk_cursor_ll_angle: INTEGER is
+	gdk_cursor_ll_angle: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_LL_ANGLE"
 		end
 
-	gdk_cursor_lr_angle: INTEGER is
+	gdk_cursor_lr_angle: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_LR_ANGLE"
 		end
 
-	gdk_cursor_ul_angle: INTEGER is
+	gdk_cursor_ul_angle: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_UL_ANGLE"
 		end
 
-	gdk_cursor_ur_angle: INTEGER is
+	gdk_cursor_ur_angle: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_UR_ANGLE"
 		end
 
-	gdk_cursor_top_left_corner: INTEGER is
+	gdk_cursor_top_left_corner: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_TOP_LEFT_CORNER"
 		end
 
-	gdk_cursor_top_right_corner: INTEGER is
+	gdk_cursor_top_right_corner: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_TOP_RIGHT_CORNER"
 		end
 
-	gdk_cursor_bottom_left_corner: INTEGER is
+	gdk_cursor_bottom_left_corner: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BOTTOM_LEFT_CORNER"
 		end
 
-	gdk_cursor_bottom_right_corner: INTEGER is
+	gdk_cursor_bottom_right_corner: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BOTTOM_RIGHT_CORNER"
 		end
 
-	gdk_cursor_top_side: INTEGER is
+	gdk_cursor_top_side: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_TOP_SIDE"
 		end
 
-	gdk_cursor_bottom_side: INTEGER is
+	gdk_cursor_bottom_side: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BOTTOM_SIDE"
 		end
 
-	gdk_cursor_left_side: INTEGER is
+	gdk_cursor_left_side: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_LEFT_SIDE"
 		end
 
-	gdk_cursor_right_side: INTEGER is
+	gdk_cursor_right_side: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_RIGHT_SIDE"
 		end
 
-	gdk_cursor_fleur: INTEGER is
+	gdk_cursor_fleur: INTEGER
 			-- 
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_FLEUR"

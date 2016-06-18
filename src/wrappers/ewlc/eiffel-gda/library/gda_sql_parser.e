@@ -90,14 +90,14 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 		--   Creates a new GdaSqlParser object
 		do
 			from_external_pointer(gda_sql_parser_new)
 		end
 
 feature {ANY} 
-	statement_from_string (some_sql: STRING): GDA_STATEMENT is
+	statement_from_string (some_sql: STRING): GDA_STATEMENT
 		-- a newly created GDA_STATEMENT parsed from the first SQL statement
 		-- contained in `some_sql'; if it contains more than one statement,
 		-- then the remaining part of the string is not parsed at all (TODO:
@@ -114,7 +114,7 @@ feature {ANY}
 		end
 	end
 	
-	batch_from_string (some_sql: STRING): GDA_BATCH is
+	batch_from_string (some_sql: STRING): GDA_BATCH
 		-- A newly create GDA_BATCH that contains all the GdaStatement objects
 		-- created while parsing (one object per SQL statement).  Empty
 		-- statements (composed of spaces only) do not appear in the resulting
@@ -212,7 +212,7 @@ feature {} -- Unwrapped
 	--                               statement of type GDA_SQL_STATEMENT_UNKNOW.
 	
 feature {ANY}
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <sql-parser/gda-sql-parser.h>"
 		alias "sizeof(GdaSet)"
 		end

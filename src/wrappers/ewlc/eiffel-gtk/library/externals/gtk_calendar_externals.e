@@ -33,53 +33,53 @@ feature {} -- Externals
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_calendar_select_month (a_calendar: POINTER; a_month,an_year: INTEGER) is
+	gtk_calendar_select_month (a_calendar: POINTER; a_month,an_year: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_calendar_get_date (a_calendar, a_year, a_month, a_day: POINTER) is
+	gtk_calendar_get_date (a_calendar, a_year, a_month, a_day: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
 
-	gtk_calendar_select_day (a_calendar: POINTER; a_day: INTEGER) is
+	gtk_calendar_select_day (a_calendar: POINTER; a_day: INTEGER)
 			-- void gtk_calendar_select_day (GtkCalendar *calendar, guint
 			-- day);
 		require natural_day: a_day>=0 -- TODO: some_day should be NATURAL
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_calendar_mark_day (a_calendar: POINTER; a_day: INTEGER): INTEGER is
+	gtk_calendar_mark_day (a_calendar: POINTER; a_day: INTEGER): INTEGER
 			-- gboolean gtk_calendar_mark_day (GtkCalendar *calendar,
 			-- guint day);
 		require natural_day: a_day>=0 -- TODO: some_day should be NATURAL
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_calendar_unmark_day (a_calendar: POINTER; a_day: INTEGER): INTEGER is
+	gtk_calendar_unmark_day (a_calendar: POINTER; a_day: INTEGER): INTEGER
 			-- gboolean gtk_calendar_unmark_day (GtkCalendar *calendar, guint day);
 		require natural_day: a_day>=0 -- TODO: some_day should be NATURAL
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_calendar_clear_marks (a_calendar: POINTER) is
+	gtk_calendar_clear_marks (a_calendar: POINTER)
 			-- void gtk_calendar_clear_marks (GtkCalendar *calendar);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_calendar_get_display_options (a_calendar: POINTER): INTEGER is
+	gtk_calendar_get_display_options (a_calendar: POINTER): INTEGER
 			-- GtkCalendarDisplayOptions gtk_calendar_get_display_options
 			-- (GtkCalendar *calendar);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_calendar_set_display_options (a_calendar: POINTER; some_flags: INTEGER) is
+	gtk_calendar_set_display_options (a_calendar: POINTER; some_flags: INTEGER)
 			-- 	void gtk_calendar_set_display_options (GtkCalendar
 			-- 	*calendar, GtkCalendarDisplayOptions flags);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_calendar_thaw (a_calendar: POINTER) is
+	gtk_calendar_thaw (a_calendar: POINTER)
 			-- void gtk_calendar_thaw (GtkCalendar *calendar);
 		external "C use <gtk/gtk.h>"
 		end

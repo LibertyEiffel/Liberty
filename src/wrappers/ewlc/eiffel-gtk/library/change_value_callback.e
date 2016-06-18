@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_RANGE
 
 feature {ANY}
-	callback (value: REAL; scroll: INTEGER; instance: POINTER): INTEGER is
+	callback (value: REAL; scroll: INTEGER; instance: POINTER): INTEGER
 		require
 			instance_not_null: instance.is_not_null
 		do
@@ -47,14 +47,14 @@ feature {ANY}
 			Result := function.item ([value, scroll, object]).to_integer
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_RANGE; a_function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]) is
+	connect (an_object: GTK_RANGE; a_function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN])
 		do
 			debug
 				print ("CHANGE_VALUE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

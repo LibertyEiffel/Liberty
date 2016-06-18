@@ -5,7 +5,7 @@ inherit MESSAGE redefine port end
 feature {ANY}
 	port: MEMORY_MAPPED_MESSAGE_PORT
 
-	contained_in_message_port: BOOLEAN is
+	contained_in_message_port: BOOLEAN
 		local internal: TYPED_INTERNAL[like Current]; i: INTEGER
 		do
 			-- Get an internal for Current

@@ -26,7 +26,7 @@ deferred class GTK_PRINT_OPERATION_ACTIONS
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_print_operatio_action (an_action: INTEGER): BOOLEAN is
+	is_valid_gtk_print_operatio_action (an_action: INTEGER): BOOLEAN
 		do	
 			Result:=((an_action = gtk_print_operation_action_print_dialog) or else
 						(an_action = gtk_print_operation_action_print) or else
@@ -34,26 +34,26 @@ feature {ANY}  -- enum
 						(an_action = gtk_print_operation_action_export))
 		end
 	
-	gtk_print_operation_action_print_dialog: INTEGER is
+	gtk_print_operation_action_print_dialog: INTEGER
 				-- Show the print dialog.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG"
 		end
 
-	gtk_print_operation_action_print: INTEGER is
+	gtk_print_operation_action_print: INTEGER
 			-- Start to print without showing the print dialog, based
 			-- on the current print settings.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_OPERATION_ACTION_PRINT"
 		end
 
-	gtk_print_operation_action_preview: INTEGER is
+	gtk_print_operation_action_preview: INTEGER
 				-- Show the print preview.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_OPERATION_ACTION_PREVIEW"
 		end
 
-	gtk_print_operation_action_export: INTEGER is
+	gtk_print_operation_action_export: INTEGER
 				-- Export to a file. This requires the export-filename
 				-- property to be set.
 		external "C macro use <gtk/gtk.h>"

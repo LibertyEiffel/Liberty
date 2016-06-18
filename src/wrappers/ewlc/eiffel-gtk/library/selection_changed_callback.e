@@ -35,7 +35,7 @@ feature {ANY}
 	object: GTK_FILE_CHOOSER
 
 feature {ANY}
-	callback (instance: POINTER) is
+	callback (instance: POINTER)
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -47,14 +47,14 @@ feature {ANY}
 			procedure.call ([object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_FILE_CHOOSER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_FILE_CHOOSER]]) is
+	connect (an_object: GTK_FILE_CHOOSER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_FILE_CHOOSER]])
 		do
 			debug
 				print ("SELECTION_CHANGED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

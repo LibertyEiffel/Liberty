@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = gda_server_operation_node_paramlist) or else 
 				(a_value = gda_server_operation_node_data_model) or else 
@@ -18,111 +18,111 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_paramlist is
+	default_create, set_paramlist
 		do
 			value := gda_server_operation_node_paramlist
 		end
 
-	set_data_model is
+	set_data_model
 		do
 			value := gda_server_operation_node_data_model
 		end
 
-	set_param is
+	set_param
 		do
 			value := gda_server_operation_node_param
 		end
 
-	set_sequence is
+	set_sequence
 		do
 			value := gda_server_operation_node_sequence
 		end
 
-	set_sequence_item is
+	set_sequence_item
 		do
 			value := gda_server_operation_node_sequence_item
 		end
 
-	set_data_model_column is
+	set_data_model_column
 		do
 			value := gda_server_operation_node_data_model_column
 		end
 
-	set_unknown is
+	set_unknown
 		do
 			value := gda_server_operation_node_unknown
 		end
 
 
 feature {ANY} -- Queries
-	is_paramlist: BOOLEAN is
+	is_paramlist: BOOLEAN
 		do
 			Result := (value=gda_server_operation_node_paramlist)
 		end
 
-	is_data_model: BOOLEAN is
+	is_data_model: BOOLEAN
 		do
 			Result := (value=gda_server_operation_node_data_model)
 		end
 
-	is_param: BOOLEAN is
+	is_param: BOOLEAN
 		do
 			Result := (value=gda_server_operation_node_param)
 		end
 
-	is_sequence: BOOLEAN is
+	is_sequence: BOOLEAN
 		do
 			Result := (value=gda_server_operation_node_sequence)
 		end
 
-	is_sequence_item: BOOLEAN is
+	is_sequence_item: BOOLEAN
 		do
 			Result := (value=gda_server_operation_node_sequence_item)
 		end
 
-	is_data_model_column: BOOLEAN is
+	is_data_model_column: BOOLEAN
 		do
 			Result := (value=gda_server_operation_node_data_model_column)
 		end
 
-	is_unknown: BOOLEAN is
+	is_unknown: BOOLEAN
 		do
 			Result := (value=gda_server_operation_node_unknown)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gda_server_operation_node_paramlist: INTEGER is
+	gda_server_operation_node_paramlist: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_PARAMLIST"
 		end
 
-	gda_server_operation_node_data_model: INTEGER is
+	gda_server_operation_node_data_model: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_DATA_MODEL"
 		end
 
-	gda_server_operation_node_param: INTEGER is
+	gda_server_operation_node_param: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_PARAM"
 		end
 
-	gda_server_operation_node_sequence: INTEGER is
+	gda_server_operation_node_sequence: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_SEQUENCE"
 		end
 
-	gda_server_operation_node_sequence_item: INTEGER is
+	gda_server_operation_node_sequence_item: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_SEQUENCE_ITEM"
 		end
 
-	gda_server_operation_node_data_model_column: INTEGER is
+	gda_server_operation_node_data_model_column: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_DATA_MODEL_COLUMN"
 		end
 
-	gda_server_operation_node_unknown: INTEGER is
+	gda_server_operation_node_unknown: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_UNKNOWN"
 		end

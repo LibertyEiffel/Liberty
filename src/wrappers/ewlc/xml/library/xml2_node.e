@@ -34,13 +34,13 @@ insert
 create {ANY} from_external_pointer
 
 feature {ANY} -- Name and attributes
-	name: STRING is
+	name: STRING
 		-- Name of the node.
 		do
 			create Result.from_external_copy(xml_node_get_name(handle))
 		end
 	
-	attribute_at (a_name: STRING): STRING is
+	attribute_at (a_name: STRING): STRING
 		-- The content of the attribute named `a_name' encoded in UTF8. 
 		-- Void if the attribute does not exist.
 
@@ -62,43 +62,43 @@ feature {ANY} -- Name and attributes
 	-- end
 
 feature {ANY} -- Nodes relationships
-	parent: XML2_NODE is
+	parent: XML2_NODE
 		-- Curren't parent, if any.
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_parent(handle))
 	end
 
-	first: XML2_NODE is
+	first: XML2_NODE
 		-- First child of Current node. Can be Void
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_children(handle))
 	end
 
-	next: XML2_NODE is
+	next: XML2_NODE
 		-- Next "brother" node. Can be Void
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_next(handle))
 	end
 
-	prev: XML2_NODE is 
+	prev: XML2_NODE
 		-- Previous "brother" node. Can be Void
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_prev(handle))
 	end
 
-	last: XML2_NODE is 
+	last: XML2_NODE
 		-- Last child node. Can be Void
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_last(handle))
 	end
 
 feature {} -- Implementation
-	free (p: POINTER) is
+	free (p: POINTER)
 		do
 			xml_free (p)
 		end
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C use <libxml/tree.h>"
 		alias "size_of (xmlNode)"
 		end

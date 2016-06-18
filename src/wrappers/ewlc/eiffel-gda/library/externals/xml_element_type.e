@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = xml_element_node) or else 
 				(a_value = xml_attribute_node) or else 
@@ -32,321 +32,321 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_element_node is
+	default_create, set_element_node
 		do
 			value := xml_element_node
 		end
 
-	set_attribute_node is
+	set_attribute_node
 		do
 			value := xml_attribute_node
 		end
 
-	set_text_node is
+	set_text_node
 		do
 			value := xml_text_node
 		end
 
-	set_cdata_section_node is
+	set_cdata_section_node
 		do
 			value := xml_cdata_section_node
 		end
 
-	set_entity_ref_node is
+	set_entity_ref_node
 		do
 			value := xml_entity_ref_node
 		end
 
-	set_entity_node is
+	set_entity_node
 		do
 			value := xml_entity_node
 		end
 
-	set_pi_node is
+	set_pi_node
 		do
 			value := xml_pi_node
 		end
 
-	set_comment_node is
+	set_comment_node
 		do
 			value := xml_comment_node
 		end
 
-	set_document_node is
+	set_document_node
 		do
 			value := xml_document_node
 		end
 
-	set_document_type_node is
+	set_document_type_node
 		do
 			value := xml_document_type_node
 		end
 
-	set_document_frag_node is
+	set_document_frag_node
 		do
 			value := xml_document_frag_node
 		end
 
-	set_notation_node is
+	set_notation_node
 		do
 			value := xml_notation_node
 		end
 
-	set_html_document_node is
+	set_html_document_node
 		do
 			value := xml_html_document_node
 		end
 
-	set_dtd_node is
+	set_dtd_node
 		do
 			value := xml_dtd_node
 		end
 
-	set_element_decl is
+	set_element_decl
 		do
 			value := xml_element_decl
 		end
 
-	set_attribute_decl is
+	set_attribute_decl
 		do
 			value := xml_attribute_decl
 		end
 
-	set_entity_decl is
+	set_entity_decl
 		do
 			value := xml_entity_decl
 		end
 
-	set_namespace_decl is
+	set_namespace_decl
 		do
 			value := xml_namespace_decl
 		end
 
-	set_xinclude_start is
+	set_xinclude_start
 		do
 			value := xml_xinclude_start
 		end
 
-	set_xinclude_end is
+	set_xinclude_end
 		do
 			value := xml_xinclude_end
 		end
 
-	set_docb_document_node is
+	set_docb_document_node
 		do
 			value := xml_docb_document_node
 		end
 
 
 feature {ANY} -- Queries
-	is_element_node: BOOLEAN is
+	is_element_node: BOOLEAN
 		do
 			Result := (value=xml_element_node)
 		end
 
-	is_attribute_node: BOOLEAN is
+	is_attribute_node: BOOLEAN
 		do
 			Result := (value=xml_attribute_node)
 		end
 
-	is_text_node: BOOLEAN is
+	is_text_node: BOOLEAN
 		do
 			Result := (value=xml_text_node)
 		end
 
-	is_cdata_section_node: BOOLEAN is
+	is_cdata_section_node: BOOLEAN
 		do
 			Result := (value=xml_cdata_section_node)
 		end
 
-	is_entity_ref_node: BOOLEAN is
+	is_entity_ref_node: BOOLEAN
 		do
 			Result := (value=xml_entity_ref_node)
 		end
 
-	is_entity_node: BOOLEAN is
+	is_entity_node: BOOLEAN
 		do
 			Result := (value=xml_entity_node)
 		end
 
-	is_pi_node: BOOLEAN is
+	is_pi_node: BOOLEAN
 		do
 			Result := (value=xml_pi_node)
 		end
 
-	is_comment_node: BOOLEAN is
+	is_comment_node: BOOLEAN
 		do
 			Result := (value=xml_comment_node)
 		end
 
-	is_document_node: BOOLEAN is
+	is_document_node: BOOLEAN
 		do
 			Result := (value=xml_document_node)
 		end
 
-	is_document_type_node: BOOLEAN is
+	is_document_type_node: BOOLEAN
 		do
 			Result := (value=xml_document_type_node)
 		end
 
-	is_document_frag_node: BOOLEAN is
+	is_document_frag_node: BOOLEAN
 		do
 			Result := (value=xml_document_frag_node)
 		end
 
-	is_notation_node: BOOLEAN is
+	is_notation_node: BOOLEAN
 		do
 			Result := (value=xml_notation_node)
 		end
 
-	is_html_document_node: BOOLEAN is
+	is_html_document_node: BOOLEAN
 		do
 			Result := (value=xml_html_document_node)
 		end
 
-	is_dtd_node: BOOLEAN is
+	is_dtd_node: BOOLEAN
 		do
 			Result := (value=xml_dtd_node)
 		end
 
-	is_element_decl: BOOLEAN is
+	is_element_decl: BOOLEAN
 		do
 			Result := (value=xml_element_decl)
 		end
 
-	is_attribute_decl: BOOLEAN is
+	is_attribute_decl: BOOLEAN
 		do
 			Result := (value=xml_attribute_decl)
 		end
 
-	is_entity_decl: BOOLEAN is
+	is_entity_decl: BOOLEAN
 		do
 			Result := (value=xml_entity_decl)
 		end
 
-	is_namespace_decl: BOOLEAN is
+	is_namespace_decl: BOOLEAN
 		do
 			Result := (value=xml_namespace_decl)
 		end
 
-	is_xinclude_start: BOOLEAN is
+	is_xinclude_start: BOOLEAN
 		do
 			Result := (value=xml_xinclude_start)
 		end
 
-	is_xinclude_end: BOOLEAN is
+	is_xinclude_end: BOOLEAN
 		do
 			Result := (value=xml_xinclude_end)
 		end
 
-	is_docb_document_node: BOOLEAN is
+	is_docb_document_node: BOOLEAN
 		do
 			Result := (value=xml_docb_document_node)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_element_node: INTEGER is
+	xml_element_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_NODE"
 		end
 
-	xml_attribute_node: INTEGER is
+	xml_attribute_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_NODE"
 		end
 
-	xml_text_node: INTEGER is
+	xml_text_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_TEXT_NODE"
 		end
 
-	xml_cdata_section_node: INTEGER is
+	xml_cdata_section_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CDATA_SECTION_NODE"
 		end
 
-	xml_entity_ref_node: INTEGER is
+	xml_entity_ref_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ENTITY_REF_NODE"
 		end
 
-	xml_entity_node: INTEGER is
+	xml_entity_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ENTITY_NODE"
 		end
 
-	xml_pi_node: INTEGER is
+	xml_pi_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PI_NODE"
 		end
 
-	xml_comment_node: INTEGER is
+	xml_comment_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_COMMENT_NODE"
 		end
 
-	xml_document_node: INTEGER is
+	xml_document_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DOCUMENT_NODE"
 		end
 
-	xml_document_type_node: INTEGER is
+	xml_document_type_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DOCUMENT_TYPE_NODE"
 		end
 
-	xml_document_frag_node: INTEGER is
+	xml_document_frag_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DOCUMENT_FRAG_NODE"
 		end
 
-	xml_notation_node: INTEGER is
+	xml_notation_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_NOTATION_NODE"
 		end
 
-	xml_html_document_node: INTEGER is
+	xml_html_document_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_HTML_DOCUMENT_NODE"
 		end
 
-	xml_dtd_node: INTEGER is
+	xml_dtd_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NODE"
 		end
 
-	xml_element_decl: INTEGER is
+	xml_element_decl: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_DECL"
 		end
 
-	xml_attribute_decl: INTEGER is
+	xml_attribute_decl: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_DECL"
 		end
 
-	xml_entity_decl: INTEGER is
+	xml_entity_decl: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ENTITY_DECL"
 		end
 
-	xml_namespace_decl: INTEGER is
+	xml_namespace_decl: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_NAMESPACE_DECL"
 		end
 
-	xml_xinclude_start: INTEGER is
+	xml_xinclude_start: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_START"
 		end
 
-	xml_xinclude_end: INTEGER is
+	xml_xinclude_end: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_END"
 		end
 
-	xml_docb_document_node: INTEGER is
+	xml_docb_document_node: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DOCB_DOCUMENT_NODE"
 		end

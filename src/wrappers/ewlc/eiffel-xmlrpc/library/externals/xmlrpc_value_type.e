@@ -45,7 +45,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_xmlrpc_value_type (a_value: INTEGER) : BOOLEAN is
+	is_valid_xmlrpc_value_type (a_value: INTEGER) : BOOLEAN
 		do
 			Result := ((a_value = xmlrpc_value_int) or else
 			           (a_value = xmlrpc_value_bool) or else
@@ -60,57 +60,57 @@ feature {} -- enum
 			           (a_value = xmlrpc_value_dead))
 		end
 
-	xmlrpc_value_int: INTEGER is
+	xmlrpc_value_int: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_INT"
 		end
 
-	xmlrpc_value_bool: INTEGER is
+	xmlrpc_value_bool: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_BOOL"
 		end
 
-	xmlrpc_value_double: INTEGER is
+	xmlrpc_value_double: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_DOUBLE"
 		end
 
-	xmlrpc_value_datetime: INTEGER is
+	xmlrpc_value_datetime: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_DATETIME"
 		end
 
-	xmlrpc_value_string: INTEGER is
+	xmlrpc_value_string: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_STRING"
 		end
 
-	xmlrpc_value_base64: INTEGER is
+	xmlrpc_value_base64: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_BASE64"
 		end
 
-	xmlrpc_value_array: INTEGER is
+	xmlrpc_value_array: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_ARRAY"
 		end
 
-	xmlrpc_value_struct: INTEGER is
+	xmlrpc_value_struct: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_STRUCT"
 		end
 
-	xmlrpc_value_c_ptr: INTEGER is
+	xmlrpc_value_c_ptr: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_C_PTR"
 		end
 
-	xmlrpc_value_nil: INTEGER is
+	xmlrpc_value_nil: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_NIL"
 		end
 
-	xmlrpc_value_dead: INTEGER is
+	xmlrpc_value_dead: INTEGER
 		external "C macro use <xmlrpc-c/base.h>"
 		alias "XMLRPC_TYPE_DEAD"
 		end

@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_CELL_RENDERER
 
 feature {ANY}
-	callback (editable_ptr, path_ptr, instance: POINTER) is
+	callback (editable_ptr, path_ptr, instance: POINTER)
 		local
 			cell_editable_factory: G_OBJECT_FACTORY[GTK_CELL_EDITABLE]
 			an_editable: GTK_CELL_EDITABLE
@@ -52,7 +52,7 @@ feature {ANY}
 			procedure.call ([an_editable, a_path, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
@@ -60,7 +60,7 @@ feature {ANY}
 		end
 
 	connect (an_object: GTK_CELL_RENDERER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_EDITABLE,
-																									  STRING, GTK_CELL_RENDERER]]) is
+																									  STRING, GTK_CELL_RENDERER]])
 		do
 			debug
 				print ("EDITING_STARTED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

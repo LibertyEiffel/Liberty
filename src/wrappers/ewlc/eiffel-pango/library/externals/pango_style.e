@@ -30,26 +30,26 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_pango_style (a_style :INTEGER): BOOLEAN is
+	is_valid_pango_style (a_style :INTEGER): BOOLEAN
 		do
 			Result:=((a_style = pango_style_normal) or else
 						(a_style = pango_style_oblique) or else
 						(a_style = pango_style_italic))
 		end
 
-	pango_style_normal: INTEGER is
+	pango_style_normal: INTEGER
 			-- the font is upright.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STYLE_NORMAL"
 		end
 
-	pango_style_oblique: INTEGER is
+	pango_style_oblique: INTEGER
 			-- the font is slanted, but in a roman style.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STYLE_OBLIQUE"
 		end
 
-	pango_style_italic: INTEGER is
+	pango_style_italic: INTEGER
 			-- the font is slanted in an italic style.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_STYLE_ITALIC"

@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_pack_direction (a_direction :INTEGER): BOOLEAN is
+	is_valid_gtk_pack_direction (a_direction :INTEGER): BOOLEAN
 		do
 			Result := ((a_direction = gtk_pack_direction_ltr) or else
 						  (a_direction = gtk_pack_direction_rtl) or else
@@ -33,22 +33,22 @@ feature {} -- enum
 						  (a_direction = gtk_pack_direction_btt))
 		end
 
-	gtk_pack_direction_ltr: INTEGER is
+	gtk_pack_direction_ltr: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PACK_DIRECTION_LTR"
 		end
 
-	gtk_pack_direction_rtl: INTEGER is
+	gtk_pack_direction_rtl: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PACK_DIRECTION_RTL"
 		end
 
-	gtk_pack_direction_ttb: INTEGER is
+	gtk_pack_direction_ttb: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PACK_DIRECTION_TTB"
 		end
 
-	gtk_pack_direction_btt: INTEGER is
+	gtk_pack_direction_btt: INTEGER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PACK_DIRECTION_BTT"
 		end

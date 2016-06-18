@@ -46,7 +46,7 @@ feature {} -- Creation
 	make (a00, a01, a02, a03,
 			a10, a11, a12, a13,
 			a20, a21, a22, a23,
-			a30, a31, a32, a33: REAL) is
+			a30, a31, a32, a33: REAL)
 			-- Allocates memory and initializes a new GtsMatrix. 
 		do
 			from_external_pointer(gts_matrix_new(a00, a01, a02, a03,
@@ -55,19 +55,19 @@ feature {} -- Creation
 															 a30, a31, a32, a33))
 		end
 
-	zero is
+	zero
 			-- Create a zero matrix (i.e.: all elements are 0)
 		do
 			from_external_pointer(gts_matrix_zero(default_pointer))
 		end
 
-	identity is
+	identity
 			-- Create an identity matrix.
 		do
 			from_external_pointer(gts_matrix_identity(default_pointer))
 		end
 	
-	projection_of (a_triangle: GTS_TRIANGLE) is
+	projection_of (a_triangle: GTS_TRIANGLE)
 			-- Creates a new GtsMatrix representing the projection onto a plane of
 			-- normal given by `a_triangle'.
 		require triangle_not_void: a_triangle/=Void
@@ -75,7 +75,7 @@ feature {} -- Creation
 			from_external_pointer(gts_matrix_projection(a_triangle.handle))
 		end
 	
-	scaling_for (a_vector: GTS_VECTOR) is
+	scaling_for (a_vector: GTS_VECTOR)
 			-- Create a matrix to be a scaling matrix for `a_vector'.
 		local ptr: POINTER
 		do
@@ -86,7 +86,7 @@ feature {ANY}
 	assign (a00, a01, a02, a03,
 			  a10, a11, a12, a13,
 			  a20, a21, a22, a23,
-			  a30, a31, a32, a33: REAL) is
+			  a30, a31, a32, a33: REAL)
 			-- 	Set values of matrix elements.
 		do
 			gts_matrix_assign (handle,
@@ -96,7 +96,7 @@ feature {ANY}
 									 a30, a31, a32, a33)
 		end
 
-	set_zero is
+	set_zero
 			-- Initializes matrix to zeros.
 		local ptr: POINTER
 		do
@@ -104,14 +104,14 @@ feature {ANY}
 		end
 
 
-	set_identity is
+	set_identity
 			-- Initializes Current matrix to an identity matrix. 
 		do
 			from_external_pointer(gts_matrix_identity(handle))
 		end
 	
 
-	scale (a_vector: GTS_VECTOR) is
+	scale (a_vector: GTS_VECTOR)
 			-- Initializes Current to be a scaling matrix for `a_vector'. Allocates a matrix if m is
 			-- NULL. -- 	m :        a GtsMatrix or NULL.
 			-- 	s :        the scaling vector.
@@ -148,20 +148,20 @@ feature {ANY}
 
 -- 	-----------------------------------------------------------------------------------------------------------
 
-	transpose: GTS_MATRIX is
+	transpose: GTS_MATRIX
 			-- the transposed of Current.
 		do
 			create Result.from_external_pointer(gts_matrix_transpose(handle))
 		end
 
-	determinant: REAL is
+	determinant: REAL
 			-- the determinant of Current matrix.
 		do
 			Result := gts_matrix_determinant(handle)
 		end
 
 
-	inverse: GTS_MATRIX is
+	inverse: GTS_MATRIX
 			-- the inverse of Current. Void if Current is not invertible
 		local ptr: POINTER
 		do
@@ -179,7 +179,7 @@ feature {ANY}
 	-- 	Returns : a pointer to a newly created 3x3 GtsMatrix inverse of m or
 	-- 	NULL if m is not invertible.
 
-	infix "*" (another: GTS_MATRIX): GTS_MATRIX is
+	infix "*" (another: GTS_MATRIX): GTS_MATRIX
 			-- the product of Current and `another'.
 		do
 			create Result.from_external_pointer
@@ -224,21 +224,21 @@ feature {ANY}
 	-- 	Returns :  the new number of constraints defined by A and b.
 
 feature {ANY}
-	print_on (a_file: OUTPUT_STREAM) is
+	print_on (a_file: OUTPUT_STREAM)
 			-- Print Current to `a_file'.
 		do
 			gts_matrix_print(handle, a_file.stream_pointer)
 		end
 
 feature {} -- Disposing
-	dispose is
+	dispose
 			-- 	Free all the memory allocated for m.
 		do
 			gts_matrix_destroy(handle)
 		end
 
 feature {} -- External calls
- gts_matrix_new (a00, a01, a02, a03, a10, a11, a12, a13, a20, a21, a22, a23, a30, a31, a32, a33: REAL): POINTER is
+ gts_matrix_new (a00, a01, a02, a03, a10, a11, a12, a13, a20, a21, a22, a23, a30, a31, a32, a33: REAL): POINTER
 			--  GtsMatrix* gts_matrix_new (gdouble a00, gdouble a01, gdouble a02, gdouble a03, gdouble a10, gdouble a11, gdouble a12, gdouble a13, gdouble a20, gdouble a21, gdouble a22, gdouble a23, gdouble a30, gdouble a31, gdouble a32, gdouble a33);
 		external "C use <gts.h>"
 		end
@@ -247,7 +247,7 @@ feature {} -- External calls
 							 a00, a01, a02, a03,
 							 a10, a11, a12, a13,
 							 a20, a21, a22, a23,
-							 a30, a31, a32, a33: REAL) is
+							 a30, a31, a32, a33: REAL)
 			--  void gts_matrix_assign (GtsMatrix *m, gdouble a00, gdouble a01,
 			--  gdouble a02, gdouble a03, gdouble a10, gdouble a11, gdouble a12,
 			--  gdouble a13, gdouble a20, gdouble a21, gdouble a22, gdouble a23,
@@ -255,66 +255,66 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
- gts_matrix_zero (a_matrix: POINTER): POINTER is
+ gts_matrix_zero (a_matrix: POINTER): POINTER
 			--  GtsMatrix* gts_matrix_zero (GtsMatrix *m);
 		external "C use <gts.h>"
 		end
 
-	gts_matrix_identity (a_matrix: POINTER): POINTER is
+	gts_matrix_identity (a_matrix: POINTER): POINTER
 			--  GtsMatrix* gts_matrix_identity (GtsMatrix *m);
 		external "C use <gts.h>"
 		end
 
-	gts_matrix_projection (a_triangle: POINTER): POINTER is
+	gts_matrix_projection (a_triangle: POINTER): POINTER
 			--  GtsMatrix* gts_matrix_projection (GtsTriangle *t);
 		external "C use <gts.h>"
 		end
 
- gts_matrix_scale (a_matrix, a_vector: POINTER): POINTER is
+ gts_matrix_scale (a_matrix, a_vector: POINTER): POINTER
 			--  GtsMatrix* gts_matrix_scale (GtsMatrix *m, GtsVector s);
 		external "C use <gts.h>"
 		alias "gts_matrix_scale($a_matrix,*($a_vector))"
 		end
 
-	gts_matrix_translate (a_matrix, a_vector: POINTER): POINTER is
+	gts_matrix_translate (a_matrix, a_vector: POINTER): POINTER
 			--  GtsMatrix* gts_matrix_translate (GtsMatrix *m, GtsVector t);
 		external "C use <gts.h>"
 		alias "gts_matrix_translate($a_matrix,*($a_vector))"
 		end
 
- gts_matrix_rotate (a_matrix, a_vector: POINTER; an_angle: REAL): POINTER is
+ gts_matrix_rotate (a_matrix, a_vector: POINTER; an_angle: REAL): POINTER
 			--  GtsMatrix* gts_matrix_rotate (GtsMatrix *m, GtsVector r, gdouble
 			--  angle);
 		external "C use <gts.h>"
 		alias "gts_matrix_scale($a_matrix,*($a_vector),an_angle)"
 		end
 	
-	gts_matrix_transpose (a_matrix: POINTER): POINTER is
+	gts_matrix_transpose (a_matrix: POINTER): POINTER
 			--  GtsMatrix* gts_matrix_transpose (GtsMatrix *m);
 		external "C use <gts.h>"
 		end
 	
-	gts_matrix_determinant (a_matrix: POINTER): REAL is
+	gts_matrix_determinant (a_matrix: POINTER): REAL
 			--  gdouble gts_matrix_determinant (GtsMatrix *m);
 		external "C use <gts.h>"
 		end
 
-	gts_matrix_inverse (a_matrix: POINTER): POINTER is
+	gts_matrix_inverse (a_matrix: POINTER): POINTER
 			--  GtsMatrix* gts_matrix_inverse (GtsMatrix *m);
 		external "C use <gts.h>"
 		end
 	
-	gts_matrix3_inverse (a_matrix: POINTER): POINTER is
+	gts_matrix3_inverse (a_matrix: POINTER): POINTER
 			--  GtsMatrix* gts_matrix3_inverse (GtsMatrix *m);
 		external "C use <gts.h>"
 		end
 	
-	gts_matrix_product (a_matrix, another: POINTER): POINTER is
+	gts_matrix_product (a_matrix, another: POINTER): POINTER
 			--  GtsMatrix* gts_matrix_product (GtsMatrix *m1, GtsMatrix *m2);
 		external "C use <gts.h>"
 		end
 
-	gts_matrix_compatible_row (an_a, a_b: POINTER; an_n: INTEGER; an_a1: POINTER; a_b1: REAL): INTEGER is
+	gts_matrix_compatible_row (an_a, a_b: POINTER; an_n: INTEGER; an_a1: POINTER; a_b1: REAL): INTEGER
 			-- guint gts_matrix_compatible_row (GtsMatrix *A, GtsVector b, guint n,
 			-- GtsVector A1, gdouble b1);
 
@@ -323,7 +323,7 @@ feature {} -- External calls
 		alias "gts_matrix_compatible_row ($an_a, *($a_b), $an_n, *(an_a1),$a_b1)"
 		end
 
-	gts_matrix_quadratic_optimization (an_a, a_b: POINTER; an_n: INTEGER; an_h, a_c: POINTER): INTEGER is
+	gts_matrix_quadratic_optimization (an_a, a_b: POINTER; an_n: INTEGER; an_h, a_c: POINTER): INTEGER
 			-- guint gts_matrix_quadratic_optimization (GtsMatrix *A, GtsVector b,
 			-- guint n, GtsMatrix *H, GtsVector c);
 
@@ -332,18 +332,18 @@ feature {} -- External calls
 		alias "gts_matrix_quadratic_optimization ($an_a, *($a_b), $an_n, $an_h, *($a_c))"
 		end
 
-	gts_matrix_print (a_matrix, a_fptr: POINTER) is
+	gts_matrix_print (a_matrix, a_fptr: POINTER)
 			--  void gts_matrix_print (GtsMatrix *m, FILE *fptr);
 		external "C use <gts.h>"
 		end
 
-	gts_matrix_destroy (a_matrix: POINTER) is
+	gts_matrix_destroy (a_matrix: POINTER)
 			--  void gts_matrix_destroy (GtsMatrix *m);
 		external "C use <gts.h>"
 		end
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsMatrix)"
 		end

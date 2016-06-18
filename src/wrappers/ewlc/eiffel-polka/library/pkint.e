@@ -67,21 +67,21 @@ create {ANY} make, copy, from_natural, from_integer, from_string, from_external_
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 
-	from_external_pointer (a_ptr: POINTER) is
+	from_external_pointer (a_ptr: POINTER)
 		do
 			Precursor (a_ptr)
 		end
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Initialize integer and set its value to 0.
 		do
 			allocate
 			pkint_init (handle)
 		end
 
-	from_natural (a_natural: INTEGER) is
+	from_natural (a_natural: INTEGER)
 			-- Create an instance and set its value from `a_natural'.
 		require
 			a_natural >= 0
@@ -90,14 +90,14 @@ feature {} -- Creation
 			pkint_init_set_ui (handle, a_natural)
 		end
 
-	from_integer (an_integer: INTEGER) is
+	from_integer (an_integer: INTEGER)
 			-- Create an instance and set its value from `an_integer'.
 		do
 			allocate
 			pkint_init_set_si (handle, an_integer)
 		end
 
-	from_string (a_string: STRING) is
+	from_string (a_string: STRING)
 			-- Create an instance and set its value from `a_string'.
 		require
 			a_string /= Void
@@ -109,7 +109,7 @@ feature {} -- Creation
 
 feature {ANY} -- Creation
 
-	copy (other: like Current) is
+	copy (other: like Current)
 		do
 			dispose
 			if other.handle.is_not_null then
@@ -120,7 +120,7 @@ feature {ANY} -- Creation
 
 feature {ANY} -- Operations
 
-	set_from_pkint (other: like Current) is
+	set_from_pkint (other: like Current)
 			-- Set the value of Current from `other'.
 		do
 			if other.handle.is_not_null then
@@ -128,7 +128,7 @@ feature {ANY} -- Operations
 			end
 		end
 
-	set_from_natural (a_natural: INTEGER) is
+	set_from_natural (a_natural: INTEGER)
 			-- Set the value of Current from `a_natural'.
 		require
 			a_natural >= 0
@@ -136,13 +136,13 @@ feature {ANY} -- Operations
 			pkint_set_ui (handle, a_natural)
 		end
 
-	set_from_integer (an_integer: INTEGER) is
+	set_from_integer (an_integer: INTEGER)
 			-- Set the value of Current from `an_integer'.
 		do
 			pkint_set_si (handle, an_integer)
 		end
 
-	set_from_string (a_string: STRING) is
+	set_from_string (a_string: STRING)
 			-- Put in integer the string representation in base 10 str
 			-- of an integer.
 		require
@@ -154,7 +154,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Access
 
-	to_natural: INTEGER_64 is
+	to_natural: INTEGER_64
 			-- Return the least significant part from integer.
 		do
 			Result := pkint_get_ui (handle)
@@ -162,7 +162,7 @@ feature {ANY} -- Access
 			Result >= 0
 		end
 
-	to_integer: INTEGER is
+	to_integer: INTEGER
 			-- If integer fits into a signed long int return the value
 			-- of integer. Otherwise return the least significant part of
 			-- integer, with the same sign as integer.
@@ -174,7 +174,7 @@ feature {ANY} -- Access
 			Result := pkint_get_si (handle)
 		end
 
-	to_string: STRING is
+	to_string: STRING
 			-- Convert integer to a string of digits in base 10.
 			
 			-- If str is NULL, the result string is allocated using
@@ -192,7 +192,7 @@ feature {ANY} -- Access
 			create Result.from_external (pkint_get_str10 (default_pointer, handle))
 		end
 
-	digits: INTEGER is
+	digits: INTEGER
 			-- Return the size of integer measured in number of digits
 			-- in base 10. The sign of integer is ignored. The result may
 			-- be too big than the exact value.
@@ -207,32 +207,32 @@ feature {ANY} -- Access
 
 feature {ANY} -- from HASHABLE
 
-	hash_code: INTEGER is
+	hash_code: INTEGER
 		do
 			Result := to_integer
 		end
 
 feature {ANY} -- from NUMERIC
 
-	infix "+" (other: like Current): like Current is
+	infix "+" (other: like Current): like Current
 		do
 			create Result.make
 			pkint_add (Result.handle, handle, other.handle)
 		end
 
-	infix "-" (other: like Current): like Current is
+	infix "-" (other: like Current): like Current
 		do
 			create Result.make
 			pkint_sub (Result.handle, handle, other.handle)
 		end
 
-	infix "*" (other: like Current): like Current is
+	infix "*" (other: like Current): like Current
 		do
 			create Result.make
 			pkint_mul (Result.handle, handle, other.handle)
 		end
 
-	infix "/" (other: like Current): NUMERIC is
+	infix "/" (other: like Current): NUMERIC
 		local
 			tmp: PKINT
 		do
@@ -241,18 +241,18 @@ feature {ANY} -- from NUMERIC
 			Result := tmp
 		end
 
-	prefix "+": like Current is
+	prefix "+": like Current
 		do
 			Result := Current
 		end
 
-	prefix "-": like Current is
+	prefix "-": like Current
 		do
 			create Result.make
 			pkint_neg (Result.handle, handle)
 		end
 
-	divisible (other: like Current): BOOLEAN is
+	divisible (other: like Current): BOOLEAN
 		local
 			tmp: like Current
 		do
@@ -261,17 +261,17 @@ feature {ANY} -- from NUMERIC
 			Result := tmp.is_equal (zero)
 		end
 
-	one: like Current is
+	one: like Current
 		do
 			create Result.from_integer (1)
 		end
 
-	zero: like Current is
+	zero: like Current
 		do
 			create Result.from_integer (0)
 		end
 
-	sign: INTEGER_8 is
+	sign: INTEGER_8
 		do
 			Result := pkint_sgn (handle).to_integer_8
 		end
@@ -305,24 +305,24 @@ feature {ANY} -- from NUMERIC
 
 feature {ANY} -- from COMPARABLE
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 		do
 			Result := pkint_cmp (handle, other.handle) = 0
 		end
 
-	infix "<" (other: like Current): BOOLEAN is
+	infix "<" (other: like Current): BOOLEAN
 		do
 			Result := pkint_cmp (handle, other.handle) < 0
 		end
 
-	infix ">" (other: like Current): BOOLEAN is
+	infix ">" (other: like Current): BOOLEAN
 			-- Compare op1 and op2. Return a positive value if op1 >
 			-- op2, zero if op1 = op2, and a negative value if op1 < op2.
 		do
 			Result := pkint_cmp (handle, other.handle) > 0
 		end
 
-	compare_to_natural (a_natural: INTEGER): INTEGER is
+	compare_to_natural (a_natural: INTEGER): INTEGER
 			-- Compare op1 and op2. Return a positive value if op1 >
 			-- op2, zero if op1 = op2, and a negative value if op1 < op2.
 		require
@@ -331,7 +331,7 @@ feature {ANY} -- from COMPARABLE
 			Result := pkint_cmp_ui (handle, a_natural)
 		end
 
-	compare_to_integer (an_integer: INTEGER): INTEGER is
+	compare_to_integer (an_integer: INTEGER): INTEGER
 			-- Compare op1 and op2. Return a positive value if op1 >
 			-- op2, zero if op1 = op2, and a negative value if op1 < op2.
 		do
@@ -340,14 +340,14 @@ feature {ANY} -- from COMPARABLE
 
 feature {ANY} -- Other
 
-	print_to_stdout is
+	print_to_stdout
 			-- Prints integer on the standard output.
 		do
 			pkint_print (handle)
 		end
 
 feature {WRAPPER_HANDLER} -- Destruction
-	free_handle is
+	free_handle
 			-- release the external memory
 		do
          pkint_clear (handle)
@@ -355,7 +355,7 @@ feature {WRAPPER_HANDLER} -- Destruction
 
 feature {} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <polka/pkint.h>"
 		alias "sizeof (pkint_t)"
 		end

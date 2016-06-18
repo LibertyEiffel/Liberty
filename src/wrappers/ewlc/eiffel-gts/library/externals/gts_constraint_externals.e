@@ -15,51 +15,51 @@ feature {} -- External calls
 	--  #define GTS_IS_CONSTRAINT (obj)
 	--  GtsConstraintClass;
 
-	gts_constraint_class: POINTER is
+	gts_constraint_class: POINTER
 			--  GtsConstraintClass* gts_constraint_class (void);
 		external "C use <gts.h>"
 		end
 	
-	gts_point_locate (a_point, a_surface, a_guess_face: POINTER): POINTER is
+	gts_point_locate (a_point, a_surface, a_guess_face: POINTER): POINTER
 			-- GtsFace* gts_point_locate (GtsPoint *p, GtsSurface
 			-- *surface, GtsFace *guess);
 		external "C use <gts.h>"
 		end
 
-	gts_delaunay_add_vertex (a_surface, a_vertex, a_guess_face: POINTER): POINTER is
+	gts_delaunay_add_vertex (a_surface, a_vertex, a_guess_face: POINTER): POINTER
 			-- GtsVertex* gts_delaunay_add_vertex (GtsSurface *surface, GtsVertex
 			-- *v, GtsFace *guess);
 		external "C use <gts.h>"
 		end
 	
-	gts_delaunay_add_vertex_to_face (surface, v, f: POINTER): POINTER is
+	gts_delaunay_add_vertex_to_face (surface, v, f: POINTER): POINTER
 			-- GtsVertex* gts_delaunay_add_vertex_to_face (GtsSurface *surface,
 			-- GtsVertex *v, GtsFace *f);
 		external "C use <gts.h>"
 		end
 	
-	gts_delaunay_remove_vertex (surface, v: POINTER) is
+	gts_delaunay_remove_vertex (surface, v: POINTER)
 			--  void gts_delaunay_remove_vertex (GtsSurface *surface, GtsVertex *v);
 		external "C use <gts.h>"
 		end
 
-  gts_delaunay_add_constraint (surface, c: POINTER): POINTER is
+  gts_delaunay_add_constraint (surface, c: POINTER): POINTER
 			-- GSList* gts_delaunay_add_constraint (GtsSurface *surface,
 			-- GtsConstraint *c);
 		external "C use <gts.h>"
 		end
 
-	gts_delaunay_check (surface: POINTER): POINTER is
+	gts_delaunay_check (surface: POINTER): POINTER
 			-- GtsFace* gts_delaunay_check (GtsSurface *surface);
 		external "C use <gts.h>"
 		end
 
-	gts_delaunay_remove_hull (surface: POINTER) is
+	gts_delaunay_remove_hull (surface: POINTER)
 			--  void gts_delaunay_remove_hull (GtsSurface *surface);
 		external "C use <gts.h>"
 		end
 
-	gts_delaunay_conform (surface: POINTER; a_steiner_max: INTEGER; a_gtsencroachfunc, some_data: POINTER): INTEGER is
+	gts_delaunay_conform (surface: POINTER; a_steiner_max: INTEGER; a_gtsencroachfunc, some_data: POINTER): INTEGER
 			-- guint gts_delaunay_conform (GtsSurface *surface, gint steiner_max,
 			-- GtsEncroachFunc encroaches, gpointer data);
 
@@ -67,7 +67,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
-	gts_delaunay_refine (surface: POINTER; a_steiner_max: INTEGER; a_gtsencroachfunc, some_encroach_data, a_gtskeyfunc, some_cost_data: POINTER): INTEGER is
+	gts_delaunay_refine (surface: POINTER; a_steiner_max: INTEGER; a_gtsencroachfunc, some_encroach_data, a_gtskeyfunc, some_cost_data: POINTER): INTEGER
 			-- guint gts_delaunay_refine (GtsSurface *surface, gint steiner_max,
 			-- GtsEncroachFunc encroaches, gpointer encroach_data, GtsKeyFunc cost,
 			-- gpointer cost_data);
@@ -77,7 +77,7 @@ feature {} -- External calls
 		end
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsConstraint)"
 		end

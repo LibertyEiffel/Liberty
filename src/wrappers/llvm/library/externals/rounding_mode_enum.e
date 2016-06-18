@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = nearest_ties_to_away_low_level)  or else
 				(a_value = nearest_ties_to_even_low_level)  or else
@@ -18,59 +18,59 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_nearest_ties_to_away is
+	set_nearest_ties_to_away
 		do
 			value := nearest_ties_to_away_low_level
 		end
 
-	set_nearest_ties_to_even is
+	set_nearest_ties_to_even
 		do
 			value := nearest_ties_to_even_low_level
 		end
 
-	set_toward_negative is
+	set_toward_negative
 		do
 			value := toward_negative_low_level
 		end
 
-	set_toward_positive is
+	set_toward_positive
 		do
 			value := toward_positive_low_level
 		end
 
-	set_toward_zero is
+	set_toward_zero
 		do
 			value := toward_zero_low_level
 		end
 
 feature {ANY} -- Queries
-	is_nearest_ties_to_away: BOOLEAN is
+	is_nearest_ties_to_away: BOOLEAN
 		do
 			Result := (value=nearest_ties_to_away_low_level)
 		end
 
-	is_nearest_ties_to_even: BOOLEAN is
+	is_nearest_ties_to_even: BOOLEAN
 		do
 			Result := (value=nearest_ties_to_even_low_level)
 		end
 
-	is_toward_negative: BOOLEAN is
+	is_toward_negative: BOOLEAN
 		do
 			Result := (value=toward_negative_low_level)
 		end
 
-	is_toward_positive: BOOLEAN is
+	is_toward_positive: BOOLEAN
 		do
 			Result := (value=toward_positive_low_level)
 		end
 
-	is_toward_zero: BOOLEAN is
+	is_toward_zero: BOOLEAN
 		do
 			Result := (value=toward_zero_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	nearest_ties_to_away_low_level: INTEGER is
+	nearest_ties_to_away_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,7 +79,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nearest_ties_to_even_low_level: INTEGER is
+	nearest_ties_to_even_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	toward_negative_low_level: INTEGER is
+	toward_negative_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -97,7 +97,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	toward_positive_low_level: INTEGER is
+	toward_positive_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -106,7 +106,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	toward_zero_low_level: INTEGER is
+	toward_zero_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

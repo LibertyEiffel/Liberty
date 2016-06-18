@@ -30,17 +30,17 @@ inherit
 create {ANY} make, from_external_pointer
 
 feature {ANY}
-		first: CONST_STRING is 
+		first: CONST_STRING
 		do
 			create Result.from_external (g_slist_get_data (handle))
 		end
 
-	last: like first is 
+	last: like first
 		do
 			create Result.from_external (g_slist_get_data (g_slist_last (handle)))
 		end
 
-	item (i: INTEGER): like first is
+	item (i: INTEGER): like first
 		local cstr: POINTER
 		do
 			cstr := g_slist_nth_data (handle, i)

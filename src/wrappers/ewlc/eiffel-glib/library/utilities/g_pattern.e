@@ -48,7 +48,7 @@ create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {} -- Creation
 
-	make (a_pattern: STRING) is
+	make (a_pattern: STRING)
 			-- Compiles `a_pattern' into a G_PATTERN.
 
 			-- TODO: `a_pattern' should be a zero-terminated UTF-8
@@ -59,7 +59,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} 
-	is_equal (another: like Current): BOOLEAN is
+	is_equal (another: like Current): BOOLEAN
 			-- Compares Current and `another' patterns. Will they match
 			-- the same set of strings?
 		do
@@ -67,7 +67,7 @@ feature {ANY}
 													another.handle)).to_boolean
 		end
 
-	match (a_string: STRING): BOOLEAN is
+	match (a_string: STRING): BOOLEAN
 			-- Matches a string against a compiled pattern.
 
 			-- TODO: a_string should be an UTF8 string.
@@ -108,7 +108,7 @@ feature {ANY}
 											 default_pointer)).to_boolean
 		end
 
-	match_string (a_string: STRING): BOOLEAN is
+	match_string (a_string: STRING): BOOLEAN
 			-- Matches `a_string' against Current compiled pattern. If
 			-- the string is to be matched against more than one pattern,
 			-- consider using `match' instead while supplying the
@@ -121,7 +121,7 @@ feature {ANY}
 			Result:=g_pattern_match_string(handle,a_string.to_external).to_boolean
 		end
 	
-	match_simple (a_pattern, a_string: STRING): BOOLEAN is
+	match_simple (a_pattern, a_string: STRING): BOOLEAN
 			--  Matches `a_string' against `a_pattern' given as a
 			--  string. If this function is to be called in a loop, it's
 			--  more efficient to compile the pattern once with `make'
@@ -139,44 +139,44 @@ feature {ANY}
 
 feature {} -- External calls
 
-	g_pattern_spec_new (a_pattern: POINTER): POINTER is
+	g_pattern_spec_new (a_pattern: POINTER): POINTER
 			--  GPatternSpec* g_pattern_spec_new (const gchar *pattern);
 		external "C use <glib.h>"
 		end
 
-	free (a_pattern: POINTER) is
+	free (a_pattern: POINTER)
 			--  void g_pattern_spec_free (GPatternSpec *pspec);
 		external "C use <glib.h>"
 		alias "g_pattern_spec_free"
 		end
 
-	g_pattern_spec_equal (a_pspec1,a_pspec2: POINTER): INTEGER is
+	g_pattern_spec_equal (a_pspec1,a_pspec2: POINTER): INTEGER
 			--  gboolean g_pattern_spec_equal (GPatternSpec *pspec1,
 			--  GPatternSpec *pspec2);
 		external "C use <glib.h>"
 		end
 
-	g_pattern_match (a_pspec: POINTER; a_string_length: INTEGER; a_string, a_string_reversed: POINTER): INTEGER is
+	g_pattern_match (a_pspec: POINTER; a_string_length: INTEGER; a_string, a_string_reversed: POINTER): INTEGER
 			-- gboolean g_pattern_match (GPatternSpec *pspec, guint
 			-- string_length, const gchar *string, const gchar
 			-- *string_reversed);
 		external "C use <glib.h>"
 		end
 
-	g_pattern_match_string (a_pspec, a_string: POINTER): INTEGER is
+	g_pattern_match_string (a_pspec, a_string: POINTER): INTEGER
 			--  gboolean g_pattern_match_string (GPatternSpec *pspec,
 			--  const gchar *string);
 		external "C use <glib.h>"
 		end
 
-	g_pattern_match_simple (a_pattern,a_string: POINTER): INTEGER is
+	g_pattern_match_simple (a_pattern,a_string: POINTER): INTEGER
 			--  gboolean g_pattern_match_simple (const gchar *pattern,
 			--  const gchar *string);
 		external "C use <glib.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GPatternSpec)"
 		end

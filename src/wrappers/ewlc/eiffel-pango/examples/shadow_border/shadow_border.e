@@ -9,7 +9,7 @@ create {ANY}
 
 feature {ANY}
 
-	draw_normal_text (text: STRING; x, y: INTEGER) is
+	draw_normal_text (text: STRING; x, y: INTEGER)
 		local
 			layout: PANGO_CAIRO_LAYOUT
 			description: PANGO_FONT_DESCRIPTION
@@ -26,7 +26,7 @@ feature {ANY}
 			cairo.restore
 		end
 
-	draw_text_with_shadow (text: STRING; x, y: INTEGER) is
+	draw_text_with_shadow (text: STRING; x, y: INTEGER)
 		local
 			layout: PANGO_CAIRO_LAYOUT
 			description: PANGO_FONT_DESCRIPTION
@@ -49,7 +49,7 @@ feature {ANY}
 			cairo.restore
 		end
 
-	draw_text_with_border (text: STRING; x, y: INTEGER) is
+	draw_text_with_border (text: STRING; x, y: INTEGER)
 		local
 			layout: PANGO_CAIRO_LAYOUT
 			description: PANGO_FONT_DESCRIPTION
@@ -73,7 +73,7 @@ feature {ANY}
 			cairo.restore
 		end
 
-	make is
+	make
 		local
 			surface: CAIRO_IMAGE_SURFACE
 			res: INTEGER

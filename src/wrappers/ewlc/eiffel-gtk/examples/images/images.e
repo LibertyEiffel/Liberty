@@ -12,7 +12,7 @@ feature {ANY}
 
 	window : GTK_WINDOW
 	
-	make is
+	make
 			-- Make
 		do
 			initialize_gtk							

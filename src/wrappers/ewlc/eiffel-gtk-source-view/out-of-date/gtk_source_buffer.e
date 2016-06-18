@@ -43,7 +43,7 @@ insert GLIB_UNICODE_MANIPULATION_EXTERNALS
 create {ANY} dummy, make, with_language, from_external_pointer
 
 feature {} -- Creation
-	make (a_source_tag_table: GTK_SOURCE_TAG_TABLE) is
+	make (a_source_tag_table: GTK_SOURCE_TAG_TABLE)
 			-- Creates a new source buffer with `a_source_tag_table'. If 
 			-- Void a new one is created.
 		do
@@ -51,7 +51,7 @@ feature {} -- Creation
 										 (null_or(a_source_tag_table)))
 		end
 
-	with_language (a_language: GTK_SOURCE_LANGUAGE) is
+	with_language (a_language: GTK_SOURCE_LANGUAGE)
 			-- Creates a new source buffer using the highlighting
 			-- patterns in `a_language'.  This is equivalent to creating
 			-- a new source buffer with the default tag table and then
@@ -62,13 +62,13 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Brackets checking
-	are_brackets_checked: BOOLEAN is
+	are_brackets_checked: BOOLEAN
 			-- Is bracket match highlighting activated for the source? 
 		do 
 			Result:=gtk_source_buffer_get_check_brackets(handle).to_boolean
 		end
 	
-	set_check_brackets (a_setting: BOOLEAN) is
+	set_check_brackets (a_setting: BOOLEAN)
 			-- Controls the bracket match highlighting function in the
 			-- buffer. If activated (`a_setting'=True), when you position
 			-- your cursor over a bracket character (a parenthesis, a
@@ -80,7 +80,7 @@ feature {ANY} -- Brackets checking
 			ensure set: a_setting=are_brackets_checked
 		end
 
-	set_bracket_match_style (a_style: INTEGER) is
+	set_bracket_match_style (a_style: INTEGER)
 			-- Sets the style used for highlighting matching brackets.
 		require valid_style: is_valid_gtk_source_tag_style(a_style)
 		do
@@ -88,13 +88,13 @@ feature {ANY} -- Brackets checking
 		end	
 
 feature {ANY} -- Text highlighting
-	is_highlighted: BOOLEAN is
+	is_highlighted: BOOLEAN
 			-- Is text highlighting activated in the source buffer?
 		do
 			Result:=gtk_source_buffer_get_highlight(handle).to_boolean
 		end
 	
-	set_highlight (a_setting: BOOLEAN) is
+	set_highlight (a_setting: BOOLEAN)
 			-- Controls whether text is highlighted in the buffer. If
 			-- `a_setting' is True, the text will be highlighted
 			-- according to the patterns installed in the buffer (either
@@ -122,7 +122,7 @@ feature {ANY} -- Text highlighting
 		end
 
 feature {ANY} -- Language
-	language: GTK_SOURCE_LANGUAGE is
+	language: GTK_SOURCE_LANGUAGE
 			-- the language used for the source buffer. See `set_language'. Can be
 			-- Void
 		do
@@ -131,7 +131,7 @@ feature {ANY} -- Language
 			-- object should not be unreferenced by the user.
 		end
 
-	set_language (a_language: GTK_SOURCE_LANGUAGE) is
+	set_language (a_language: GTK_SOURCE_LANGUAGE)
 			-- Sets the GTK_SOURCE_LANGUAGE the source buffer will use, adding
 			-- GtkSourceTag tags with the language's patterns and setting the
 			-- escape character with `set_escape_char'. Note that this will remove
@@ -143,14 +143,14 @@ feature {ANY} -- Language
 			gtk_source_buffer_set_language(handle,null_or(a_language))
 		end
 
-	escape_char: like gunichar is
+	escape_char: like gunichar
 			-- The UTF-8 escaping character used by the source buffer highlighting
 			-- engine.
 		do
 			Result:=gtk_source_buffer_get_escape_char(handle)
 		end
 
-	set_escape_char (an_escape_char: like gunichar) is
+	set_escape_char (an_escape_char: like gunichar)
 			-- Sets the escape character to be used by the highlighting engine.
 
 			-- When performing the initial analysis, the engine will discard a
@@ -165,14 +165,14 @@ feature {ANY} -- Language
 		end
 
 feature {ANY} -- Undo-Redo
-	max_undo_levels: INTEGER is
+	max_undo_levels: INTEGER
 			-- the number of undo levels the buffer will track for buffer
 			-- edits.
 		do
 			Result:=gtk_source_buffer_get_max_undo_levels(handle)
 		end
 
-	set_max_undo_levels (some_max_undo_levels: INTEGER) is
+	set_max_undo_levels (some_max_undo_levels: INTEGER)
 			-- Sets the number of undo levels for user actions the buffer
 			-- will track. If the number of user actions exceeds the
 			-- limit set by this function, older actions will be
@@ -192,20 +192,20 @@ feature {ANY} -- Undo-Redo
 		ensure set: some_max_undo_levels = max_undo_levels
 		end
 
-	can_undo: BOOLEAN is
+	can_undo: BOOLEAN
 			-- Is it possible to undo the last action in the source buffer?
 		do
 			Result:=gtk_source_buffer_can_undo(handle).to_boolean
 		end
 
-	can_redo: BOOLEAN is
+	can_redo: BOOLEAN
 			-- Is a redo possible? Can the source buffer redo the last action
 			-- (i.e. if the last operation was an undo)?
 		do
 			Result:=gtk_source_buffer_can_redo(handle).to_boolean
 		end
 
-	undo is
+	undo
 			-- Undoes the last user action which modified the buffer. Use
 			-- `can_undo' to check whether a call to this function will have any
 			-- effect.
@@ -219,14 +219,14 @@ feature {ANY} -- Undo-Redo
 			gtk_source_buffer_undo(handle)
 		end
 
-	redo is
+	redo
 			-- Redoes the last undo operation. Use `can_redo' to check whether a
 			-- call to this function will have any effect.
 		do
 			gtk_source_buffer_redo(handle)
 		end
 
-	begin_not_undoable_action is
+	begin_not_undoable_action
 			-- Marks the beginning of a not undoable action on the buffer,
 			-- disabling the undo manager. Typically you would call this function
 			-- before initially setting the contents of the buffer (e.g. when
@@ -240,7 +240,7 @@ feature {ANY} -- Undo-Redo
 			gtk_source_buffer_begin_not_undoable_action(handle)
 		end
 	
-	end_not_undoable_action is
+	end_not_undoable_action
 			-- Marks the end of a not undoable action on the buffer. When the last
 			-- not undoable block is closed through the call to this function, the
 			-- list of undo actions is cleared and the undo manager is re-enabled.
@@ -249,7 +249,7 @@ feature {ANY} -- Undo-Redo
 		end
 	
 feature {ANY} -- Markers
-	create_marker (a_name, a_type: STRING; a_place: GTK_TEXT_ITER): GTK_SOURCE_MARKER is
+	create_marker (a_name, a_type: STRING; a_place: GTK_TEXT_ITER): GTK_SOURCE_MARKER
 			-- Creates a marker in the buffer of type type. A marker is
 			-- semantically very similar to a GTK_TEXT_MARK, except it has a type
 			-- which is used by the GTK_SOURCE_VIEW displaying the buffer to show a
@@ -297,7 +297,7 @@ feature {ANY} -- Markers
 														 a_place.handle))
 		end
 
-	move_marker (a_marker: GTK_SOURCE_MARKER; a_place: GTK_TEXT_ITER) is
+	move_marker (a_marker: GTK_SOURCE_MARKER; a_place: GTK_TEXT_ITER)
 			--   Moves `a_marker' to `a_place'.
 		require
 			marker_not_void: a_marker/=Void
@@ -306,7 +306,7 @@ feature {ANY} -- Markers
 			gtk_source_buffer_move_marker(handle, a_marker.handle, a_place.handle)
 		end
 
-	delete_marker (a_marker: GTK_SOURCE_MARKER) is
+	delete_marker (a_marker: GTK_SOURCE_MARKER)
 			-- Deletes marker from the source buffer. The same conditions as for
 			-- GtkTextMark apply here. The marker is no longer accessible from the
 			-- buffer, but if you held a reference to it, it will not be destroyed.
@@ -315,7 +315,7 @@ feature {ANY} -- Markers
 			gtk_source_buffer_delete_marker(handle,a_marker.handle)
 		end
 
-	marker (a_name: STRING): GTK_SOURCE_MARKER is
+	marker (a_name: STRING): GTK_SOURCE_MARKER
 			-- the GTK_SOURCE_MARKER named `a_name' in buffer: Void if it doesn't
 			-- exists.
 		local ptr: POINTER
@@ -326,7 +326,7 @@ feature {ANY} -- Markers
 			end
 		end
 
-	markers_in_region (a_start, an_end: GTK_TEXT_ITER): G_SLIST[GTK_SOURCE_MARKER] is
+	markers_in_region (a_start, an_end: GTK_TEXT_ITER): G_SLIST[GTK_SOURCE_MARKER]
 			-- An ordered (by position) list of marker objects inside the region
 			-- delimited by `a_start' and `an_end'. The iters may be in any order.
 		do
@@ -335,7 +335,7 @@ feature {ANY} -- Markers
 			(handle, a_start.handle, an_end.handle))
 		end
 
-	first_marker: GTK_SOURCE_MARKER is
+	first_marker: GTK_SOURCE_MARKER
 			-- the first (nearest to the top of the buffer) marker in buffer. Void
 			-- if there are no markers in the buffer.
 		local ptr: POINTER
@@ -346,7 +346,7 @@ feature {ANY} -- Markers
 			end
 		end
 
-	last_marker: GTK_SOURCE_MARKER is
+	last_marker: GTK_SOURCE_MARKER
 			-- the last (nearest to the bottom of the buffer) marker in buffer.
 			-- Void if there are no markers in the buffer.
 		local ptr: POINTER
@@ -357,7 +357,7 @@ feature {ANY} -- Markers
 			end
 		end
 
-	iter_at_marker(a_marker: GTK_SOURCE_MARKER): GTK_TEXT_ITER is
+	iter_at_marker(a_marker: GTK_SOURCE_MARKER): GTK_TEXT_ITER
 			-- the location of marker.
 		require marker_not_void: a_marker /= Void
 		do
@@ -365,7 +365,7 @@ feature {ANY} -- Markers
 			gtk_source_buffer_get_iter_at_marker(handle, Result.handle, a_marker.handle)
 		end
 	
-	next_marker (an_iter: GTK_TEXT_ITER): GTK_SOURCE_MARKER is
+	next_marker (an_iter: GTK_TEXT_ITER): GTK_SOURCE_MARKER
 			-- the nearest marker to the right of `an_iter'. If there are multiple
 			-- markers at the same position, this function will always return the
 			-- first one (from the internal linked list), even if starting the
@@ -380,7 +380,7 @@ feature {ANY} -- Markers
 			if ptr.is_not_null then create Result.from_external_pointer(ptr) end
 		end
 	
-	prev_marker (an_iter: GTK_TEXT_ITER): GTK_SOURCE_MARKER is
+	prev_marker (an_iter: GTK_TEXT_ITER): GTK_SOURCE_MARKER
 			-- the nearest marker to the left of `an_iter'. If there are multiple
 			-- markers at the same position, this function will always return the
 			-- last one (from the internal linked list), even if starting the
@@ -479,153 +479,153 @@ feature {} -- TODO: Signals
 	--   view widget.
 
 feature {} -- External calls
-	gtk_source_buffer_new (a_table: POINTER): POINTER is
+	gtk_source_buffer_new (a_table: POINTER): POINTER
 			-- GtkSourceBuffer* gtk_source_buffer_new (GtkSourceTagTable *table);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_new_with_language (a_language: POINTER): POINTER is
+	gtk_source_buffer_new_with_language (a_language: POINTER): POINTER
 			-- GtkSourceBuffer* gtk_source_buffer_new_with_language (GtkSourceLanguage *language);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_check_brackets (a_buffer: POINTER): INTEGER is
+	gtk_source_buffer_get_check_brackets (a_buffer: POINTER): INTEGER
 			-- gboolean gtk_source_buffer_get_check_brackets (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_set_check_brackets (a_buffer: POINTER; a_check_brackets: INTEGER) is
+	gtk_source_buffer_set_check_brackets (a_buffer: POINTER; a_check_brackets: INTEGER)
 			--	void gtk_source_buffer_set_check_brackets (GtkSourceBuffer *buffer, gboolean check_brackets);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_set_bracket_match_style (a_source_buffer, a_style: POINTER) is
+	gtk_source_buffer_set_bracket_match_style (a_source_buffer, a_style: POINTER)
 			-- void gtk_source_buffer_set_bracket_match_style (GtkSourceBuffer *source_buffer, const GtkSourceTagStyle *style);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_highlight (a_buffer: POINTER): INTEGER is
+	gtk_source_buffer_get_highlight (a_buffer: POINTER): INTEGER
 			-- 	gboolean gtk_source_buffer_get_highlight (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_set_highlight (a_buffer: POINTER; an_highlight_bool: INTEGER) is
+	gtk_source_buffer_set_highlight (a_buffer: POINTER; an_highlight_bool: INTEGER)
 			-- 	void gtk_source_buffer_set_highlight (GtkSourceBuffer *buffer, gboolean highlight);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
- gtk_source_buffer_get_max_undo_levels (a_buffer: POINTER): INTEGER is
+ gtk_source_buffer_get_max_undo_levels (a_buffer: POINTER): INTEGER
 			-- 	gint gtk_source_buffer_get_max_undo_levels (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_set_max_undo_levels (a_buffer: POINTER; a_max_undo_levels: INTEGER) is
+	gtk_source_buffer_set_max_undo_levels (a_buffer: POINTER; a_max_undo_levels: INTEGER)
 			-- 	void gtk_source_buffer_set_max_undo_levels (GtkSourceBuffer *buffer, gint max_undo_levels);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_language (a_buffer: POINTER): POINTER is
+	gtk_source_buffer_get_language (a_buffer: POINTER): POINTER
 			--	GtkSourceLanguage* gtk_source_buffer_get_language (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_set_language (a_buffer, a_language: POINTER) is
+	gtk_source_buffer_set_language (a_buffer, a_language: POINTER)
 			-- 	void gtk_source_buffer_set_language (GtkSourceBuffer *buffer, GtkSourceLanguage *language);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gunichar gtk_source_buffer_get_escape_char (a_buffer: POINTER) is
+	gunichar gtk_source_buffer_get_escape_char (a_buffer: POINTER)
 			-- 	gunichar gtk_source_buffer_get_escape_char (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_set_escape_char (a_buffer: POINTER; , gunichar escape_char) is
+	gtk_source_buffer_set_escape_char (a_buffer: POINTER; , gunichar escape_char)
 			-- 	void gtk_source_buffer_set_escape_char (GtkSourceBuffer *buffer, gunichar escape_char);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_can_undo (a_buffer: POINTER): INTEGER is
+	gtk_source_buffer_can_undo (a_buffer: POINTER): INTEGER
 			-- 	gboolean gtk_source_buffer_can_undo (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_can_redo (a_buffer: POINTER): INTEGER is
+	gtk_source_buffer_can_redo (a_buffer: POINTER): INTEGER
 			-- 	gboolean gtk_source_buffer_can_redo (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_undo (a_buffer: POINTER) is
+	gtk_source_buffer_undo (a_buffer: POINTER)
 			-- 	void gtk_source_buffer_undo (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_redo (a_buffer: POINTER) is
+	gtk_source_buffer_redo (a_buffer: POINTER)
 			-- 	void gtk_source_buffer_redo (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_begin_not_undoable_action (a_buffer: POINTER) is
+	gtk_source_buffer_begin_not_undoable_action (a_buffer: POINTER)
 			-- 	void gtk_source_buffer_begin_not_undoable_action (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_end_not_undoable_action (a_buffer: POINTER) is
+	gtk_source_buffer_end_not_undoable_action (a_buffer: POINTER)
 			-- 	void gtk_source_buffer_end_not_undoable_action (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_create_marker (a_buffer: POINTER; , const gchar *name, const gchar *type, const GtkTextIter *where): POINTER is
+	gtk_source_buffer_create_marker (a_buffer: POINTER; , const gchar *name, const gchar *type, const GtkTextIter *where): POINTER
 			-- 	GtkSourceMarker* gtk_source_buffer_create_marker (GtkSourceBuffer *buffer, const gchar *name, const gchar *type, const GtkTextIter *where);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_move_marker (a_buffer: POINTER; , GtkSourceMarker *marker, const GtkTextIter *where) is
+	gtk_source_buffer_move_marker (a_buffer: POINTER; , GtkSourceMarker *marker, const GtkTextIter *where)
 			-- 	void gtk_source_buffer_move_marker (GtkSourceBuffer *buffer, GtkSourceMarker *marker, const GtkTextIter *where);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_delete_marker (a_buffer: POINTER; , GtkSourceMarker *marker) is
+	gtk_source_buffer_delete_marker (a_buffer: POINTER; , GtkSourceMarker *marker)
 			-- 	void gtk_source_buffer_delete_marker (GtkSourceBuffer *buffer, GtkSourceMarker *marker);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_marker (a_buffer: POINTER; , const gchar *name): POINTER is
+	gtk_source_buffer_get_marker (a_buffer: POINTER; , const gchar *name): POINTER
 			-- 	GtkSourceMarker* gtk_source_buffer_get_marker (GtkSourceBuffer *buffer, const gchar *name);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_markers_in_region (a_buffer: POINTER; , const GtkTextIter *begin, const GtkTextIter *end): POINTER is
+	gtk_source_buffer_get_markers_in_region (a_buffer: POINTER; , const GtkTextIter *begin, const GtkTextIter *end): POINTER
 			-- 	GSList* gtk_source_buffer_get_markers_in_region (GtkSourceBuffer *buffer, const GtkTextIter *begin, const GtkTextIter *end);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_first_marker (a_buffer: POINTER): POINTER is
+	gtk_source_buffer_get_first_marker (a_buffer: POINTER): POINTER
 			-- 	GtkSourceMarker* gtk_source_buffer_get_first_marker (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_last_marker (a_buffer: POINTER): POINTER is
+	gtk_source_buffer_get_last_marker (a_buffer: POINTER): POINTER
 			-- 	GtkSourceMarker* gtk_source_buffer_get_last_marker (GtkSourceBuffer *buffer);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_iter_at_marker (a_buffer: POINTER; , GtkTextIter *iter, GtkSourceMarker *marker) is
+	gtk_source_buffer_get_iter_at_marker (a_buffer: POINTER; , GtkTextIter *iter, GtkSourceMarker *marker)
 			-- 	void gtk_source_buffer_get_iter_at_marker (GtkSourceBuffer *buffer, GtkTextIter *iter, GtkSourceMarker *marker);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_next_marker (a_buffer: POINTER; , GtkTextIter *iter): POINTER is
+	gtk_source_buffer_get_next_marker (a_buffer: POINTER; , GtkTextIter *iter): POINTER
 			-- 	GtkSourceMarker* gtk_source_buffer_get_next_marker (GtkSourceBuffer *buffer, GtkTextIter *iter);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
-	gtk_source_buffer_get_prev_marker (a_buffer: POINTER; , GtkTextIter *iter): POINTER is
+	gtk_source_buffer_get_prev_marker (a_buffer: POINTER; , GtkTextIter *iter): POINTER
 			-- 	GtkSourceMarker* gtk_source_buffer_get_prev_marker (GtkSourceBuffer *buffer, GtkTextIter *iter);
 		external "C use <gtksourceview/gtksourcebuffer.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtksourceview/gtksourcebuffer.h>"
 		alias "sizeof(GtkSourceBuffer)"
 		end

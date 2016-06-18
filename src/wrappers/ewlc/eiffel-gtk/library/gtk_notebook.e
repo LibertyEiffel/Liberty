@@ -44,13 +44,13 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkNotebook)"
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkNotebook widget with no pages.
 		require gtk_initialized: gtk.is_initialized
 		do
@@ -61,7 +61,7 @@ feature {ANY} -- page handling
 	last_appended_page_index: INTEGER
 			-- Index of the last appended/inserted page
 
-	append_page (a_child, a_tab_label: GTK_WIDGET) is
+	append_page (a_child, a_tab_label: GTK_WIDGET)
 			-- Appends a page to notebook. `a_child' the GtkWidget to use
 			-- as the contents of the page. `a_tab_label' : the GtkWidget
 			-- to be used as the label for the page, or Void to use the
@@ -77,7 +77,7 @@ feature {ANY} -- page handling
 																					label_ptr)
 		end
 
-	append_page_menu (a_child, a_tab_label, a_menu_label: GTK_WIDGET) is
+	append_page_menu (a_child, a_tab_label, a_menu_label: GTK_WIDGET)
 			-- Appends a page to notebook, specifying the widget to use
 			-- as the label in the popup menu. 
 
@@ -192,7 +192,7 @@ feature {ANY} -- page handling
 	--    Returns :    the index (starting from 0) of the inserted page in the notebook, or -1 if function
 	--                 fails
 
-	remove_page (page_num: INTEGER) is
+	remove_page (page_num: INTEGER)
 			-- Removes a page from the notebook given its index.
 		require
 			page_num >= 0
@@ -214,13 +214,13 @@ feature {ANY} -- page handling
 
 	--    ---------------------------------------------------------------------------------------------------
 
-	next_page is
+	next_page
 			-- Switches to the next page. Nothing happens if the current page is the last page.
 		do
 			gtk_notebook_next_page (handle)
 		end
 
-	prev_page, previous_page is
+	prev_page, previous_page
 			-- Switches to the previous page. Nothing happens if the current page is the first page.
 		do
 			gtk_notebook_prev_page (handle)
@@ -254,28 +254,28 @@ feature {ANY} -- page handling
 
 	--    ---------------------------------------------------------------------------------------------------
 
-	show_tabs is
+	show_tabs
 			--  Show the tabs for the notebook.
 		do
 			gtk_notebook_set_show_tabs (handle, 1)
 		ensure shown: are_tabs_shown=True
 		end
 
-	hide_tabs is
+	hide_tabs
 			-- Hide the tabs for the notebook.
 		do
 			gtk_notebook_set_show_tabs (handle, 0)
 		ensure hidden: are_tabs_shown=False
 		end
 
-	show_border is
+	show_border
 			-- Show a bevel will be drawn around the notebook pages. This
 			-- only has a visual effect when the tabs are not shown. 
 		do
 			gtk_notebook_set_show_border (handle,1)
 		end
 
-	hide_border is
+	hide_border
 			-- Hide the bevel that is drawn around the notebook
 			-- pages. This bevel is visible only when the tabs are not
 			-- shown.
@@ -283,20 +283,20 @@ feature {ANY} -- page handling
 			gtk_notebook_set_show_border (handle,0)
 		end
 
-	set_scrollable is
+	set_scrollable
 			-- Sets the tab label area to show arrows for scrolling if
 			-- there are too many tabs to fit in the area.
 		do
 			gtk_notebook_set_scrollable (handle,1)
 		end
 
-	unset_scrollable is
+	unset_scrollable
 			-- Unset scrollable. See 'set_scrollable'
 		do
 			gtk_notebook_set_scrollable (handle,1)
 		end
 
-	enable_popup is
+	enable_popup
 			-- Enables the popup menu: if the user clicks with the right
 			-- mouse button on the bookmarks, a menu with all the pages
 			-- will be popped up.
@@ -304,20 +304,20 @@ feature {ANY} -- page handling
 			gtk_notebook_popup_enable (handle)
 		end
 
-	disable_popup is
+	disable_popup
 			--    Disables the popup menu.q
 		do
 			gtk_notebook_popup_disable (handle)
 		end
 
-	current_page_index: INTEGER is
+	current_page_index: INTEGER
 			-- The page number of the current page, starting from 0. If
 			-- the notebook has no pages, then -1 will be returned.
 		do
 			Result:= gtk_notebook_get_current_page (handle)
 		end
 
-	menu_label (a_child: GTK_WIDGET): GTK_WIDGET is
+	menu_label (a_child: GTK_WIDGET): GTK_WIDGET
 			-- The menu label widget of the page containing `a_child'.
 			-- Void if the notebook page does not have a menu label other
 			-- than the default (the tab label).
@@ -326,7 +326,7 @@ feature {ANY} -- page handling
 			Result := wrapper_or_void (gtk_notebook_get_menu_label (handle, a_child.handle))
 		end
 
-	nth_page (a_page_num: INTEGER): GTK_WIDGET is
+	nth_page (a_page_num: INTEGER): GTK_WIDGET
 			-- The child widget contained in page number
 			-- `a_page_num'. Set `a_page__num' to -1 to get the last
 			-- page.  Void if `a_page_num' is out of bounds.
@@ -334,13 +334,13 @@ feature {ANY} -- page handling
 			Result := wrapper_or_void (gtk_notebook_get_nth_page (handle, a_page_num))
 		end
 
-	n_pages: INTEGER is
+	n_pages: INTEGER
 			-- the number of pages in the notebook.
 		do
 			Result := gtk_notebook_get_n_pages (handle)
 		end
 
-	tab_label (a_child: GTK_WIDGET): GTK_WIDGET is
+	tab_label (a_child: GTK_WIDGET): GTK_WIDGET
 			-- The tab label widget for the page child. Void if child is
 			-- not in notebook or if no tab label has specifically been
 			-- set for child.
@@ -350,7 +350,7 @@ feature {ANY} -- page handling
 			Result := wrapper_or_void (gtk_notebook_get_tab_label (handle, a_child.handle))
 		end
 
-	tab_label_packing  (a_child: GTK_WIDGET): TUPLE[BOOLEAN,BOOLEAN,INTEGER] is
+	tab_label_packing  (a_child: GTK_WIDGET): TUPLE[BOOLEAN,BOOLEAN,INTEGER]
 		require valid_child: a_child /= Void
 		local an_expand, a_fill, a_pack_type: INTEGER
 		do
@@ -366,7 +366,7 @@ feature {ANY} -- page handling
 										 a_fill.to_boolean, a_pack_type)
 		end
 	
-	set_menu_label (a_child, a_menu_label: GTK_WIDGET) is
+	set_menu_label (a_child, a_menu_label: GTK_WIDGET)
 			-- Changes the menu label for the page containing child.
 		require
 			valid_child: a_child /= Void
@@ -376,14 +376,14 @@ feature {ANY} -- page handling
 												  a_menu_label.handle)
 		end
 
-	set_default_menu_label (a_child: GTK_WIDGET) is
+	set_default_menu_label (a_child: GTK_WIDGET)
 			-- Set the menu label for the page containing child to the default.
 		require valid_child: a_child /= Void
 		do
 			gtk_notebook_set_menu_label (handle, a_child.handle, default_pointer)
 		end
 
-	set_menu_label_text (a_child: GTK_WIDGET; a_text: STRING) is
+	set_menu_label_text (a_child: GTK_WIDGET; a_text: STRING)
 			--    Creates a new label and sets it as the menu label of child.
 		require
 			valid_child: a_child /= Void
@@ -392,7 +392,7 @@ feature {ANY} -- page handling
 			gtk_notebook_set_menu_label_text  (handle, a_child.handle, a_text.to_external)
 		end
 
-	set_tab_label (a_child, a_tab_label: GTK_WIDGET) is
+	set_tab_label (a_child, a_tab_label: GTK_WIDGET)
 			-- Changes the tab label for child. If NULL is specified for
 			-- tab_label, then the page will have the label 'page N'.
 		require
@@ -403,7 +403,7 @@ feature {ANY} -- page handling
 												 a_tab_label.handle)
 		end
 
-	set_default_tab_label (a_child: GTK_WIDGET) is
+	set_default_tab_label (a_child: GTK_WIDGET)
 			-- Changes the tab label for child to the default label 'page N'.
 		require
 			valid_child: a_child /= Void
@@ -412,7 +412,7 @@ feature {ANY} -- page handling
 		end
 
 	set_tab_label_packing (a_child: GTK_WIDGET; expand,fill: BOOLEAN;
-								  a_pack_type: INTEGER) is
+								  a_pack_type: INTEGER)
 			-- Sets the packing parameters for the tab label of the page
 			-- containing child. See GTK_BOX.pack_start for the exact
 			-- meaning of the parameters. `expand': whether to expand the
@@ -430,7 +430,7 @@ feature {ANY} -- page handling
 												a_pack_type)
 		end
 
-	set_tab_label_text (a_child: GTK_WIDGET; a_tab_text: STRING) is
+	set_tab_label_text (a_child: GTK_WIDGET; a_tab_text: STRING)
 			-- Creates a new label and sets it as the tab label for the
 			-- page containing child.
 		require
@@ -446,7 +446,7 @@ feature {ANY} -- page handling
 			label_wrapper_exists: tab_label (a_child) /= Void
 		end
 
-	menu_label_text (a_child: GTK_WIDGET): STRING is
+	menu_label_text (a_child: GTK_WIDGET): STRING
 			-- The text of the menu label for the page containing
 			-- child. Void if the widget does not have a menu label other
 			-- than the default menu label, or the menu label widget is
@@ -461,13 +461,13 @@ feature {ANY} -- page handling
 			if ptr.is_not_null then create Result.from_external_copy (ptr) end
 		end
 
-	is_scrollable: BOOLEAN is
+	is_scrollable: BOOLEAN
 			-- Does the tab label area has arrows for scrolling?. See set_scrollable.
 		do
 			Result:=(gtk_notebook_get_scrollable(handle).to_boolean)
 		end
 
-	is_border_shown: BOOLEAN is
+	is_border_shown: BOOLEAN
 			--    Returns whether a bevel will be drawn around the notebook pages. See
 			--    gtk_notebook_set_show_border().
 		do
@@ -479,13 +479,13 @@ feature {ANY} -- page handling
 
 	--    ---------------------------------------------------------------------------------------------------
 
-	are_tabs_shown: BOOLEAN is
+	are_tabs_shown: BOOLEAN
 			-- Are the tabs shown? See `show_tabs'.
 		do
 			Result := (gtk_notebook_get_show_tabs(handle).to_boolean)
 		end
 
-	tab_label_text (a_child: GTK_WIDGET): STRING is
+	tab_label_text (a_child: GTK_WIDGET): STRING
 			-- The text of the tab label for the page containing 
 			-- `a_child'. Void if the tab label is not a GtkLabel
 		require valid_child: a_child/=Void
@@ -499,7 +499,7 @@ feature {ANY} -- page handling
 			if ptr.is_not_null then create Result.from_external_copy (ptr) end
 		end
 
-	tab_position: INTEGER is
+	tab_position: INTEGER
 			-- The edge at which the tabs for switching pages in the
 			-- notebook are drawn.
 		do
@@ -507,7 +507,7 @@ feature {ANY} -- page handling
 		ensure valid_position: is_valid_gtk_position_type (Result)
 		end
 
-	set_current_page (a_page_num: INTEGER) is
+	set_current_page (a_page_num: INTEGER)
 			-- Switches to the page number `a_page_num', the index of the
 			-- page to switch to, starting from 0. If negative, the last
 			-- page will be used. If greater than the number of pages in
@@ -785,17 +785,17 @@ feature {ANY} --   The "change-current-page" signal
 		--                                              gint         arg1,
 		--                                              gpointer     user_data)      : Run last / Action
 
-	on_change_current_page (a_page_number: INTEGER) is
+	on_change_current_page (a_page_number: INTEGER)
 		do
 		end
 
-	enable_on_change_current_page is
+	enable_on_change_current_page
 			-- Connects "change-current-page" signal to `on_change_current_page' feature.
 		do
 			connect (Current, change_current_page_signal_name, $on_change_current_page)
 		end
 
-	connect_agent_to_change_current_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]]) is
+	connect_agent_to_change_current_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]])
 			--  void        user_function                  (GtkNotebook *notebook,
 			--                                              gint         arg1,
 			--                                              gpointer     user_data)      : Run last / Action
@@ -817,18 +817,18 @@ feature {ANY} --   The "switch-page" signal
 		--                                              guint            page_num,
 		--                                              gpointer         user_data)      : Run last
 
-	on_switch_page (a_page_number: INTEGER) is
+	on_switch_page (a_page_number: INTEGER)
 		do
 		end
 
-	enable_on_switch_page is
+	enable_on_switch_page
 			-- Connects "switch-page" signal to `on_switch_page' feature.
 			--    Emitted when the user or a function changes the current page.
 		do
 			connect (Current, switch_page_signal_name, $on_switch_page)
 		end
 
-	connect_agent_to_switch_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]]) is
+	connect_agent_to_switch_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]])
 			--  void        user_function                  (GtkNotebook     *notebook,
 			--                                              GtkNotebookPage *page,
 			--                                              guint            page_num,

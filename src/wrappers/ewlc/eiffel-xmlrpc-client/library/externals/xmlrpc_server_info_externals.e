@@ -6,7 +6,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Externals
 
-	xmlrpc_server_info_new (an_env_ptr, an_url: POINTER): POINTER is
+	xmlrpc_server_info_new (an_env_ptr, an_url: POINTER): POINTER
 			-- xmlrpc_server_info *
 			-- xmlrpc_server_info_new(xmlrpc_env * const envP,
 			--                        const char * const serverUrl);
@@ -15,13 +15,13 @@ feature {} -- Externals
 		external "C use <xmlrpc-c/client.h>"
 		end
 
-	xmlrpc_server_info_free (info: POINTER) is
+	xmlrpc_server_info_free (info: POINTER)
 			-- void
 			-- xmlrpc_server_info_free(xmlrpc_server_info * const serverInfoP);
 		external "C use <xmlrpc-c/client.h>"
 		end
 
-	xmlrpc_server_info_copy (an_env_ptr, info: POINTER): POINTER is
+	xmlrpc_server_info_copy (an_env_ptr, info: POINTER): POINTER
 			-- xmlrpc_server_info *
 			-- xmlrpc_server_info_copy(xmlrpc_env *         const envP,
 			--                         xmlrpc_server_info * const aserverInfoP);
@@ -30,7 +30,7 @@ feature {} -- Externals
 		external "C use <xmlrpc-c/client.h>"
 		end
 
-	xmlrpc_server_info_set_basic_auth (an_env_ptr, info, username, password: POINTER) is
+	xmlrpc_server_info_set_basic_auth (an_env_ptr, info, username, password: POINTER)
 			-- void
 			-- xmlrpc_server_info_set_basic_auth(xmlrpc_env *         const envP,
 			--                                   xmlrpc_server_info * const serverP,

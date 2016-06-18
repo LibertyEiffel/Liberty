@@ -32,26 +32,26 @@ inherit ANY undefine is_equal, copy end
 
 feature {ANY} -- enum
 
-	is_valid_pango_alignment (an_alignment: INTEGER) : BOOLEAN is
+	is_valid_pango_alignment (an_alignment: INTEGER) : BOOLEAN
 		do
 			Result:=((an_alignment = pango_align_left) or else
 			         (an_alignment = pango_align_center) or else
 			         (an_alignment = pango_align_right))
 		end
 
-	pango_align_left: INTEGER is
+	pango_align_left: INTEGER
 			-- Put all available space on the right
 		external "C macro use <pango/pango-layout.h>"
 		alias "PANGO_ALIGN_LEFT"
 		end
 
-	pango_align_center: INTEGER is
+	pango_align_center: INTEGER
 			-- Center the line within the available space
 		external "C macro use <pango/pango-layout.h>"
 		alias "PANGO_ALIGN_CENTER"
 		end
 
-	pango_align_right: INTEGER is
+	pango_align_right: INTEGER
 			-- Put all available space on the left
 		external "C macro use <pango/pango-layout.h>"
 		alias "PANGO_ALIGN_RIGHT"

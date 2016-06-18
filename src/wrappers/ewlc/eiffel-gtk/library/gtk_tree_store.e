@@ -41,7 +41,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make (some_columns: ARRAY[INTEGER]) is
+	make (some_columns: ARRAY[INTEGER])
 			-- Creates a new tree store. `some_columns' is an array of integers; each
 			-- integer is the G_TYPE of an actual column. Note that only types
 			-- derived from standard GObject fundamental types are supported.
@@ -51,7 +51,7 @@ feature {} -- Creation
 		end
 	
 feature {ANY} -- Generic setter
-	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
+	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE)
 			-- Sets the data in the cell specified by `an_iterator' and
 			-- `a_column'. The type of `a_value' must be convertible to the type of
 			-- the column.
@@ -70,7 +70,7 @@ feature {ANY} -- Generic setter
 	is_last_iterator_valid: BOOLEAN
 			-- Is the last iterator passed as an argument still valid?
 
-	remove (an_iterator: GTK_TREE_ITER) is
+	remove (an_iterator: GTK_TREE_ITER)
 			-- Removes the given row from the list store. After being removed,
 			-- `an_iterator' is set to be the next valid row, or invalidated if it
 			-- pointed to the last row in the list store; in this case
@@ -81,7 +81,7 @@ feature {ANY} -- Generic setter
 			is_last_iterator_valid := gtk_tree_store_remove (handle,an_iterator.handle).to_boolean
 		end
 
-	put (an_iterator, a_parent: GTK_TREE_ITER; a_position: INTEGER) is
+	put (an_iterator, a_parent: GTK_TREE_ITER; a_position: INTEGER)
 			-- Creates a new row at position. If `a_parent' is non-NULL, 
 			-- then the row will be made a child of parent. Otherwise,
 			-- the row will be created at the toplevel. If `a_position' is
@@ -99,7 +99,7 @@ feature {ANY} -- Generic setter
 			gtk_tree_store_insert (handle, an_iterator.handle, a_parent.handle, a_position)
 		end
 
-	put_before, insert_before  (an_iterator, a_parent, a_sibling: GTK_TREE_ITER) is
+	put_before, insert_before  (an_iterator, a_parent, a_sibling: GTK_TREE_ITER)
 			-- Inserts a new row before `a_sibling'. If `a_sibling' is Void,
 			-- then the row will be appended to `a_parent''s children. If
 			-- `a_parent' and `a_sibling' are Void, then the row will be
@@ -121,7 +121,7 @@ feature {ANY} -- Generic setter
 										 parent_pointer, sibling_pointer)
 		end
 
-	put_after, insert_after (an_iterator, a_parent, a_sibling: GTK_TREE_ITER) is
+	put_after, insert_after (an_iterator, a_parent, a_sibling: GTK_TREE_ITER)
 			-- Inserts a new row after `a_sibling'. If `a_sibling' is Void,
 			-- then the row will be prepended to `a_parent''s children.
 			-- If `a_parent' and `a_sibling' are Void, then the row will
@@ -146,7 +146,7 @@ feature {ANY} -- Generic setter
 	insert_with_values (an_iterator, a_parent: GTK_TREE_ITER;
 							  a_position: INTEGER;
 							  some_columns: ARRAY[INTEGER];
-							  some_values: ARRAY[G_VALUE]) is
+							  some_values: ARRAY[G_VALUE])
 			-- Creates a new row at `a_position'. `an_iterator' will be
 			-- changed to point to this new row. If `a_position' is larger
 			-- than the number of rows on the list, then the new row will
@@ -186,7 +186,7 @@ feature {ANY} -- Generic setter
 														  )
 		end
 
-	add_first, prepend (an_iterator, a_parent: GTK_TREE_ITER) is
+	add_first, prepend (an_iterator, a_parent: GTK_TREE_ITER)
 			-- Prepends a new row to tree store. If `a_parent' is non-Void,
 			-- then it will prepend the new row before the first child of
 			-- `a_parent', otherwise it will prepend a row to the top
@@ -201,7 +201,7 @@ feature {ANY} -- Generic setter
 			gtk_tree_store_prepend (handle, an_iterator.handle, parent_pointer)
 		end
 
-	add_last, append (an_iterator, a_parent: GTK_TREE_ITER) is
+	add_last, append (an_iterator, a_parent: GTK_TREE_ITER)
 			-- Appends a new row to tree store. If `a_parent' is non-Void,
 			-- then it will append the new row after the last child of
 			-- `a_parent', otherwise it will append a row to the top level.
@@ -216,7 +216,7 @@ feature {ANY} -- Generic setter
 			gtk_tree_store_append  (handle, an_iterator.handle, parent_pointer)
 		end
 
-	is_ancestor(an_iterator, a_descendant: GTK_TREE_ITER): BOOLEAN is
+	is_ancestor(an_iterator, a_descendant: GTK_TREE_ITER): BOOLEAN
 			-- Returns True if `an_iterator' is an ancestor of `a_descendant'.
 			-- That is, `an_iterator' is the parent (or grandparent or
 			-- great-grandparent or ...) of `a_descendant).
@@ -227,7 +227,7 @@ feature {ANY} -- Generic setter
 								 a_descendant.handle).to_boolean
 		end
 
-	iter_depth(an_iterator: GTK_TREE_ITER): INTEGER is
+	iter_depth(an_iterator: GTK_TREE_ITER): INTEGER
 			-- Returns the depth of `an_iterator'. This will be 0 for
 			-- anything on the root level, 1 for anything down a level, etc.
 		require
@@ -236,13 +236,13 @@ feature {ANY} -- Generic setter
 			Result := gtk_tree_store_iter_depth(handle, an_iterator.handle)
 		end
 
-	clear is
+	clear
 			-- Removes all rows from the tree store.
 		do
 			gtk_tree_store_clear (handle)
 		end
 
-	is_iterator_valid (an_iterator: GTK_TREE_ITER): BOOLEAN is
+	is_iterator_valid (an_iterator: GTK_TREE_ITER): BOOLEAN
 			-- Is `an_iterator' valid for Current GtkTreeStore?
 			--
 			-- Warning: this query is slow. Only use it for debugging
@@ -253,7 +253,7 @@ feature {ANY} -- Generic setter
 			Result:=(gtk_tree_store_iter_is_valid(handle,an_iterator.handle)).to_boolean
 		end
 
-	reorder (a_parent: GTK_TREE_ITER; a_new_order: ARRAY[INTEGER]) is
+	reorder (a_parent: GTK_TREE_ITER; a_new_order: ARRAY[INTEGER])
 			-- Reorders the children of `a_parent' to follow the order
 			-- indicated by `a_new_order'. Note that this function only
 			-- works with unsorted stores.
@@ -268,7 +268,7 @@ feature {ANY} -- Generic setter
 			gtk_tree_store_reorder (handle, a_parent.handle, a_new_order.to_external)
 		end
 
-	swap (a, b: GTK_TREE_ITER) is
+	swap (a, b: GTK_TREE_ITER)
 			-- Swaps `a' and `b' in the same level of tree store.
 			-- Note that this function only works with unsorted stores.
 		require
@@ -278,7 +278,7 @@ feature {ANY} -- Generic setter
 			gtk_tree_store_swap (handle, a.handle, b.handle)
 		end
 
-	move_before (an_iterator, a_position: GTK_TREE_ITER) is
+	move_before (an_iterator, a_position: GTK_TREE_ITER)
 			-- Moves `an_iterator' in tree store to the position before
 			-- `a_position'. `an_iterator' and `a_position' should be in
 			-- the same level. Note that this function only works with
@@ -291,7 +291,7 @@ feature {ANY} -- Generic setter
 			gtk_tree_store_move_before (handle,an_iterator.handle, a_position.handle)
 		end
 
-	move_last  (an_iterator: GTK_TREE_ITER) is
+	move_last  (an_iterator: GTK_TREE_ITER)
 			-- Moves `an_iterator' in store to the end of the level. Note that this
 			-- function only works with unsorted stores.
 		require
@@ -301,7 +301,7 @@ feature {ANY} -- Generic setter
 			gtk_tree_store_move_before (handle, an_iterator.handle, default_pointer)
 		end
 
-	move_after  (an_iterator, a_position: GTK_TREE_ITER) is
+	move_after  (an_iterator, a_position: GTK_TREE_ITER)
 			-- Moves `an_iterator' in store to the position after
 			-- `a_position'. Note that this function only works with unsorted stores. 
 		require
@@ -312,7 +312,7 @@ feature {ANY} -- Generic setter
 			gtk_tree_store_move_after (handle, an_iterator.handle, a_position.handle)
 		end
 
-	move_first  (an_iterator: GTK_TREE_ITER) is
+	move_first  (an_iterator: GTK_TREE_ITER)
 			-- Moves item pointed to by `an_iterator' to the start of the
 			-- level. Note that this function only works with unsorted stores.
 		require
@@ -322,7 +322,7 @@ feature {ANY} -- Generic setter
 			gtk_tree_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeStore)"
 		end

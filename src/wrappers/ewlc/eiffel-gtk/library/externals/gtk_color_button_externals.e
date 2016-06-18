@@ -24,24 +24,24 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_color_button_new: POINTER  is
+	gtk_color_button_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_new_with_color (a_color: POINTER): POINTER is
+	gtk_color_button_new_with_color (a_color: POINTER): POINTER
 			-- GtkWidget* gtk_color_button_new_with_color (const GdkColor *color);
 		external "C use <gtk/gtk.h>"
 		end
 		
-	gtk_color_button_set_color (a_color_button, a_color: POINTER) is
+	gtk_color_button_set_color (a_color_button, a_color: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_get_color (a_color_button, a_color: POINTER) is
+	gtk_color_button_get_color (a_color_button, a_color: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_set_alpha (a_color_button: POINTER; an_alpha: INTEGER) is
+	gtk_color_button_set_alpha (a_color_button: POINTER; an_alpha: INTEGER)
 			-- void gtk_color_button_set_alpha (GtkColorButton *calor_button, guint16 
 			-- alpha);
 
@@ -49,7 +49,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_get_alpha (a_color_button: POINTER): INTEGER is
+	gtk_color_button_get_alpha (a_color_button: POINTER): INTEGER
 			-- guint16 gtk_color_button_get_alpha (GtkColorButton
 			-- *color_button);
 
@@ -57,24 +57,24 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_set_use_alpha (a_color_button: POINTER; use_alpha_bool: INTEGER) is
+	gtk_color_button_set_use_alpha (a_color_button: POINTER; use_alpha_bool: INTEGER)
 			-- void gtk_color_button_set_use_alpha (GtkColorButton
 			-- *color_button, gboolean use_alpha);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_get_use_alpha (a_color_button: POINTER): INTEGER is
+	gtk_color_button_get_use_alpha (a_color_button: POINTER): INTEGER
 			-- 	gboolean      gtk_color_button_get_use_alpha   (GtkColorButton *color_button);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_set_title (a_color_button, a_title: POINTER) is
+	gtk_color_button_set_title (a_color_button, a_title: POINTER)
 			-- 	void gtk_color_button_set_title (GtkColorButton
 			-- 	*color_button, const gchar *title);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_get_title (a_color_button: POINTER): POINTER is
+	gtk_color_button_get_title (a_color_button: POINTER): POINTER
 			-- 	const gchar* gtk_color_button_get_title (GtkColorButton
 			-- 	*color_button);
 		external "C use <gtk/gtk.h>"
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkColorButton)"
 		end

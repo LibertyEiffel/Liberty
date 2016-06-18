@@ -8,27 +8,27 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_query_field_agg_get_arg (an_agg: POINTER): POINTER is
+	gda_query_field_agg_get_arg (an_agg: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_agg_set_arg (an_agg: POINTER; an_arg: POINTER): INTEGER_32 is
+	gda_query_field_agg_set_arg (an_agg: POINTER; an_arg: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_agg_get_ref_agg (an_agg: POINTER): POINTER is
+	gda_query_field_agg_get_ref_agg (an_agg: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_agg_new (a_query: POINTER; an_agg_name: POINTER): POINTER is
+	gda_query_field_agg_new (a_query: POINTER; an_agg_name: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_agg_get_type: INTEGER_32 is
+	gda_query_field_agg_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_query_field_agg_error_quark: INTEGER_32 is
+	gda_query_field_agg_error_quark: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

@@ -5,28 +5,28 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_thread_error_again))
 		end
 
 
 feature {ANY} -- Setters
-	default_create, set_g_thread_error_again is
+	default_create, set_g_thread_error_again
 		do
 			value := g_thread_error_again
 		end
 
 
 feature {ANY} -- Queries
-	is_g_thread_error_again: BOOLEAN is
+	is_g_thread_error_again: BOOLEAN
 		do
 			Result := (value=g_thread_error_again)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_thread_error_again: INTEGER is
+	g_thread_error_again: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_THREAD_ERROR_AGAIN"
 		end

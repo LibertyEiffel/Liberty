@@ -28,36 +28,36 @@ inherit
 
 feature {} -- External calls
 
-	av_stream_get_index (a_stream: POINTER): INTEGER is
+	av_stream_get_index (a_stream: POINTER): INTEGER
 		external "C struct AVStream get index use <avformat.h>"
 		end
 
-	av_stream_get_id (a_stream: POINTER): INTEGER is
+	av_stream_get_id (a_stream: POINTER): INTEGER
 		external "C struct AVStream get id use <avformat.h>"
 		end
 
-	av_stream_get_codec (a_stream: POINTER): POINTER is
+	av_stream_get_codec (a_stream: POINTER): POINTER
 		external "C struct AVStream get codec use <avformat.h>"
 		end
 
-	av_stream_get_quality (a_stream: POINTER): REAL is
+	av_stream_get_quality (a_stream: POINTER): REAL
 		external "C struct AVStream get quality use <avformat.h>"
 		end
 
-	av_stream_get_start_time (a_stream: POINTER): INTEGER_64 is
+	av_stream_get_start_time (a_stream: POINTER): INTEGER_64
 		external "C struct AVStream get start_time use <avformat.h>"
 		end
 
-	av_stream_get_duration (a_stream: POINTER): INTEGER_64 is
+	av_stream_get_duration (a_stream: POINTER): INTEGER_64
 		external "C struct AVStream get duration use <avformat.h>"
 		end
 
-	av_stream_get_time_base (a_stream: POINTER): POINTER is
+	av_stream_get_time_base (a_stream: POINTER): POINTER
 		external "C inline use <avformat.h>"
 		alias "&(((AVStream*)$a_stream)->time_base)"
 		end
 
-	av_stream_get_language (a_stream: POINTER): POINTER is
+	av_stream_get_language (a_stream: POINTER): POINTER
 		external "C inline use <avformat.h>"
 		alias "&(((AVStream*)$a_stream)->language)"
 		end

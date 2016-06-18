@@ -35,7 +35,7 @@ feature {ANY}
 			-- SHARED_C_STRUCT, i.e. G_OBJECT could provide alternative
 			-- implementation that will not rely on this dictionary.
 
-	put (a_wrapper: ITEM_) is
+	put (a_wrapper: ITEM_)
 		require 
 			wrapper_not_void: a_wrapper /= Void
 			non_dummy_wrapper: a_wrapper.is_not_null

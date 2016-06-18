@@ -37,19 +37,19 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			from_external_pointer (gtk_toggle_tool_button_new)
 		end
 	
-	from_stock (a_stock_id: STRING) is
+	from_stock (a_stock_id: STRING)
 		do
 			from_external_pointer(gtk_toggle_tool_button_new_from_stock (a_stock_id.to_external))
 		end
 
 feature {ANY} -- Operations
 
-	set_active (is_active: BOOLEAN) is
+	set_active (is_active: BOOLEAN)
 			-- Sets the status of the toggle tool button.
 			-- Set to TRUE if you want the GtkToggleButton to be
 			-- 'pressed in', and FALSE to raise it.
@@ -58,7 +58,7 @@ feature {ANY} -- Operations
 			gtk_toggle_tool_button_set_active (handle, is_active.to_integer)
 		end
 
-	active: BOOLEAN is
+	active: BOOLEAN
 			-- Queries a GtkToggleToolButton and returns its current state.
 			-- Returns TRUE if the toggle button is pressed in
 			-- and FALSE if it is raised.
@@ -72,12 +72,12 @@ feature {ANY} -- The "toggled" signal
 		--void                user_function           (GtkToggleToolButton *toggle_tool_button,
 		--                                             gpointer user_data);
 
-	on_toggled is
+	on_toggled
 			-- Built-in toggled signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_toggled is
+	enable_on_toggled
 			-- Connects "toggled" signal to `on_toggled' feature.
 
 			-- Emitted whenever the toggle tool button changes state..
@@ -85,7 +85,7 @@ feature {ANY} -- The "toggled" signal
 			connect (Current, toggled_signal_name, $on_toggled)
 		end
 
-	connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_TOOL_BUTTON]]) is
+	connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_TOOL_BUTTON]])
 			-- togglebutton : 	the object which received the signal.
 		require valid_procedure: a_procedure /= Void
 		local toggled_callback: TOGGLED_CALLBACK [like Current]

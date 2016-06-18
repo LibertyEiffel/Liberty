@@ -27,7 +27,7 @@ inherit
 
 feature {} -- Constants
 
-	is_valid_av_error_code (a_error_code: INTEGER): BOOLEAN is
+	is_valid_av_error_code (a_error_code: INTEGER): BOOLEAN
 		do
 			Result := ((a_error_code = av_error_noerror) or else
 					   (a_error_code = av_error_io) or else
@@ -41,43 +41,43 @@ feature {} -- Constants
 	av_error_noerror: INTEGER is 0
 			-- No error here.  Move along.
 
-	av_error_unknown: INTEGER is
+	av_error_unknown: INTEGER
 			-- Unknown error
 		external "C macro use <avformat.h>"
 		alias "AVERROR_UNKNOWN"
 		end
 
-	av_error_io: INTEGER is
+	av_error_io: INTEGER
 			-- I/O error
 		external "C macro use <avformat.h>"
 		alias "AVERROR_IO"
 		end
 
-	av_error_numexpected: INTEGER is
+	av_error_numexpected: INTEGER
 			-- Number syntax expected in filename
 		external "C macro use <avformat.h>"
 		alias "AVERROR_NUMEXPECTED"
 		end
 
-	av_error_invaliddata: INTEGER is
+	av_error_invaliddata: INTEGER
 			-- Invalid data found
 		external "C macro use <avformat.h>"
 		alias "AVERROR_INVALIDDATA"
 		end
 
-	av_error_nomem: INTEGER is
+	av_error_nomem: INTEGER
 			-- Not enough memory
 		external "C macro use <avformat.h>"
 		alias "AVERROR_NOMEM"
 		end
 
-	av_error_nofmt: INTEGER is
+	av_error_nofmt: INTEGER
 			-- Unknown format
 		external "C macro use <avformat.h>"
 		alias "AVERROR_NOFMT"
 		end
 
-	av_error_notsupp: INTEGER is
+	av_error_notsupp: INTEGER
 			-- Operation not supported
 		external "C macro use <avformat.h>"
 		alias "AVERROR_NOTSUPP"

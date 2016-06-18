@@ -40,7 +40,7 @@ feature {ANY} -- Widgets
 feature {ANY}
 	iterations_number: INTEGER_32
 	
-	make is
+	make
 		do
 			if (argument_count > 0 and then 
 				 argument(1).is_integer) then 
@@ -69,7 +69,7 @@ feature {ANY}
 	weight_p, size_p, style_p: G_PARAM_SPEC
 	bold_value, size_value, style_value, weight_value: G_VALUE
 	
-	smart_setter_benchmark is
+	smart_setter_benchmark
 		require
 			bold_value/=Void
 			size_value/=Void
@@ -97,7 +97,7 @@ feature {ANY}
 			print (timer.elapsed.out) print (" seconds.%N")
 		end
 
-	normal_setter_benchmark is
+	normal_setter_benchmark
 		require
 			bold_value/=Void
 			size_value/=Void
@@ -124,24 +124,24 @@ feature {ANY}
 		end 
 
 feature {ANY} -- tags	
-	heading: GTK_TEXT_TAG is
+	heading: GTK_TEXT_TAG
 		once
 			create Result.with_name("heading")
 		end
 
-	italic: GTK_TEXT_TAG is
+	italic: GTK_TEXT_TAG
 		once
 			create Result.with_name("italic")
 			-- Result.set_style (pango_style_italic)
 		end
 
-	bold: GTK_TEXT_TAG is
+	bold: GTK_TEXT_TAG
 		once
 			create Result.with_name("bold")
 			-- Result.set_weight ( pango_weight_bold )
 		end
 	
-	tags: GTK_TEXT_TAG_TABLE is
+	tags: GTK_TEXT_TAG_TABLE
 		once
 			create Result.make
 			Result.add (heading)

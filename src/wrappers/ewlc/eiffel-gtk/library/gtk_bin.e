@@ -22,7 +22,7 @@ insert
 	GTK_BIN_EXTERNALS
 
 feature {ANY}
-	child: GTK_WIDGET is
+	child: GTK_WIDGET
 			-- the child of the GTK_BIN, or Void if the bin contains no
 			-- child widget. 
 		do

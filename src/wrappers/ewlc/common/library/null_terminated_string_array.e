@@ -35,7 +35,7 @@ feature {} -- Creation
 	-- store the ending NULL pointer
 
 
-	from_external (an_array: POINTER) is
+	from_external (an_array: POINTER)
 			-- Initialize the NULL_TERMINATED_C_ARRAY from `an_array'
 			-- pointer. The array is inspected from the beginning to
 			-- discover the first NULL pointer that marks its end.
@@ -49,12 +49,12 @@ feature {} -- Creation
 			fill_strings
 		end
 	
-	-- with_capacity (a_capacity: INTEGER) is do
+	-- with_capacity (a_capacity: INTEGER) do
 	-- storage:=storage.calloc(a_capacity+1) create
 	-- strings.make(a_capacity+1) end
 
 feature {ANY}
-	is_null_terminated: BOOLEAN is
+	is_null_terminated: BOOLEAN
 		do
 			-- 0 1 2 3 4
 			-- a b c d NULL

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	llvmverify_function (a_fn: POINTER; an_action: INTEGER): INTEGER is
+	llvmverify_function (a_fn: POINTER; an_action: INTEGER): INTEGER
  		-- LLVMVerifyFunction
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmverify_module (a_m: POINTER; an_action: INTEGER; an_out_message: POINTER): INTEGER is
+	llvmverify_module (a_m: POINTER; an_action: INTEGER; an_out_message: POINTER): INTEGER
  		-- LLVMVerifyModule
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmview_function_cfg (a_fn: POINTER) is
+	llvmview_function_cfg (a_fn: POINTER)
  		-- LLVMViewFunctionCFG
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmview_function_cfgonly (a_fn: POINTER) is
+	llvmview_function_cfgonly (a_fn: POINTER)
  		-- LLVMViewFunctionCFGOnly
 		external "plug_in"
 		alias "{

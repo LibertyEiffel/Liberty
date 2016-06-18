@@ -27,7 +27,7 @@ deferred class CAIRO_SUBPIXEL_ORDER
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_subpixel_order (an_order: INTEGER): BOOLEAN is
+	is_valid_subpixel_order (an_order: INTEGER): BOOLEAN
 		do	
 			Result:=((an_order = cairo_subpixel_order_default) or else
 						(an_order = cairo_subpixel_order_rgb) or else
@@ -36,34 +36,34 @@ feature {ANY}  -- enum
 						(an_order = cairo_subpixel_order_vbgr))
 		end
 		
-	cairo_subpixel_order_default: INTEGER is
+	cairo_subpixel_order_default: INTEGER
 			-- Use the default subpixel order for for the target device
 		external "C macro use <cairo.h>"
 		alias "CAIRO_SUBPIXEL_ORDER_DEFAULT"
 		end
 
-	cairo_subpixel_order_rgb: INTEGER is
+	cairo_subpixel_order_rgb: INTEGER
 			-- Subpixel elements are arranged horizontally with red at
 			-- the left
 		external "C macro use <cairo.h>"
 		alias "CAIRO_SUBPIXEL_ORDER_RGB"
 		end
 	
-	cairo_subpixel_order_bgr: INTEGER is
+	cairo_subpixel_order_bgr: INTEGER
 			-- Subpixel elements are arranged horizontally with blue at
 			-- the left
 		external "C macro use <cairo.h>"
 		alias "CAIRO_SUBPIXEL_ORDER_BGR"
 		end
 
-	cairo_subpixel_order_vrgb: INTEGER is
+	cairo_subpixel_order_vrgb: INTEGER
 			-- Subpixel elements are arranged vertically with red at the
 			-- top
 		external "C macro use <cairo.h>"
 		alias "CAIRO_SUBPIXEL_ORDER_VRGB"
 		end
 
-	cairo_subpixel_order_vbgr: INTEGER is
+	cairo_subpixel_order_vbgr: INTEGER
 			-- Subpixel elements are arranged vertically with blue at the
 			-- top
 		external "C macro use <cairo.h>"

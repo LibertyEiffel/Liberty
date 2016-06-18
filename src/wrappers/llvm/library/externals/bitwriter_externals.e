@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	llvmwrite_bitcode_to_fd (a_m: POINTER; a_fd: INTEGER; a_should_close: INTEGER; an_unbuffered: INTEGER): INTEGER is
+	llvmwrite_bitcode_to_fd (a_m: POINTER; a_fd: INTEGER; a_should_close: INTEGER; an_unbuffered: INTEGER): INTEGER
  		-- LLVMWriteBitcodeToFD
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmwrite_bitcode_to_file (a_m: POINTER; a_path: POINTER): INTEGER is
+	llvmwrite_bitcode_to_file (a_m: POINTER; a_path: POINTER): INTEGER
  		-- LLVMWriteBitcodeToFile
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	llvmwrite_bitcode_to_file_handle (a_m: POINTER; a_handle: INTEGER): INTEGER is
+	llvmwrite_bitcode_to_file_handle (a_m: POINTER; a_handle: INTEGER): INTEGER
  		-- LLVMWriteBitcodeToFileHandle
 		external "plug_in"
 		alias "{

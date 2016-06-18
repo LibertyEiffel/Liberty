@@ -25,42 +25,42 @@ inherit ANY undefine is_equal, copy end
 
 feature {}
 
-	is_valid_g_io_condition (condition: INTEGER): BOOLEAN is
+	is_valid_g_io_condition (condition: INTEGER): BOOLEAN
 		do
 			Result := g_io_in <= condition and condition <= g_io_nval
 		end
 
-	g_io_in: INTEGER is
+	g_io_in: INTEGER
 			-- There is data to be read
 		external "C macro use <glib.h>"
 		alias "G_IO_IN"
 		end
 
-	g_io_out: INTEGER is
+	g_io_out: INTEGER
 			-- Data can be written (without blocking)
 		external "C macro use <glib.h>"
 		alias "G_IO_OUT"
 		end
 
-	g_io_pri: INTEGER is
+	g_io_pri: INTEGER
 			-- There is urgent data to read
 		external "C macro use <glib.h>"
 		alias "G_IO_PRI"
 		end
 
-	g_io_err: INTEGER is
+	g_io_err: INTEGER
 			-- Error condition
 		external "C macro use <glib.h>"
 		alias "G_IO_ERR"
 		end
 
-	g_io_hup: INTEGER is
+	g_io_hup: INTEGER
 			-- Hung up (the connection has been broken, usually for pipes and sockets).
 		external "C macro use <glib.h>"
 		alias "G_IO_HUP"
 		end
 
-	g_io_nval: INTEGER is
+	g_io_nval: INTEGER
 			-- Invalid request. The file descriptor is not open.
 		external "C macro use <glib.h>"
 		alias "G_IO_NVAL"

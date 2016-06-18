@@ -7,26 +7,26 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = uninitialized_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_uninitialized is
+	set_uninitialized
 		do
 			value := uninitialized_low_level
 		end
 
 feature {ANY} -- Queries
-	is_uninitialized: BOOLEAN is
+	is_uninitialized: BOOLEAN
 		do
 			Result := (value=uninitialized_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	uninitialized_low_level: INTEGER is
+	uninitialized_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_shadow_type (a_shadow: INTEGER): BOOLEAN is
+	is_valid_gtk_shadow_type (a_shadow: INTEGER): BOOLEAN
 		do
 			Result:=((a_shadow = gtk_shadow_none) or else
 						(a_shadow = gtk_shadow_in) or else
@@ -34,31 +34,31 @@ feature {} -- enum
 						(a_shadow = gtk_shadow_etched_out))
 		end
 
-	gtk_shadow_none: INTEGER is
+	gtk_shadow_none: INTEGER
 			-- No outline.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_NONE"
 		end
 
-	gtk_shadow_in: INTEGER is
+	gtk_shadow_in: INTEGER
 			-- 	The outline is bevelled inwards..
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_IN"
 		end
 
-	gtk_shadow_out: INTEGER is
+	gtk_shadow_out: INTEGER
 			-- 	The outline is bevelled outwards like a button..
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_OUT"
 		end
 
-	gtk_shadow_etched_in: INTEGER is
+	gtk_shadow_etched_in: INTEGER
 			-- 	The outline itself is an inward bevel, but the frame does.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_ETCHED_IN"
 		end
 
-	gtk_shadow_etched_out: INTEGER is
+	gtk_shadow_etched_out: INTEGER
 			-- TODO
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_ETCHED_OUT"

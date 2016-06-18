@@ -40,7 +40,7 @@ insert
 		end
 
 feature {} -- Utility features 
-	null_or (a_wrapper: WRAPPER): POINTER is
+	null_or (a_wrapper: WRAPPER): POINTER
 			-- The handle of `a_wrapper', or the default_pointer if 
 			-- `a_wrapper' is Void
 		do
@@ -50,7 +50,7 @@ feature {} -- Utility features
 							(a_wrapper/=Void and then Result = a_wrapper.handle)
 		end
 
-	null_or_string(a_string: STRING): POINTER is
+	null_or_string(a_string: STRING): POINTER
 			-- 
 		do
 			if a_string/=Void 
@@ -64,16 +64,16 @@ feature {} -- Utility features
 		end
 
 feature {} -- Wrapper related exceptions
-	pointer_to_unwrapped_deferred_object: STRING is
+	pointer_to_unwrapped_deferred_object: STRING
 		"A C function returned a pointer to an unwrapped object which is wrapped by a deferred class. It is not possible to create a correct wrapper."
-	retrieved_object_mismatch: STRING is
+	retrieved_object_mismatch: STRING
 		"Retrieved_object_mismatch: the Eiffel wrapper associated with a pointer is not an actual wrapper for the object referred by that pointer "
-	copying_an_uncopyable: STRING is
+	copying_an_uncopyable: STRING
 		"Trying to copy an uncopyable wrapper: such objects are usually shortly lived" 
 
 feature {} -- External calls
 
-	calloc (a_number, a_size: INTEGER): POINTER is
+	calloc (a_number, a_size: INTEGER): POINTER
 			-- void *calloc(size_t nmemb, size_t size);
 			--
 			-- calloc() allocates memory for an array of nmemb elements
@@ -84,7 +84,7 @@ feature {} -- External calls
 		ensure Result.is_not_null
 		end
 
-	free (a_ptr: POINTER) is
+	free (a_ptr: POINTER)
 			-- void free(void *ptr);
 			--
 			-- free() frees the memory space pointed to by ptr, which
@@ -95,7 +95,7 @@ feature {} -- External calls
 		external "C use <stdlib.h>"
 		end
 
-	memcpy (a_dest, a_src: POINTER; a_size: INTEGER): POINTER is
+	memcpy (a_dest, a_src: POINTER; a_size: INTEGER): POINTER
 			-- void *memcpy(void *dest, const void *src, size_t n);
 			-- 
 			-- The memcpy() function copies n bytes from memory area src
@@ -104,7 +104,7 @@ feature {} -- External calls
 		external "C use <stdlib.h>"
 		end
 
-	memcmp(a, b: POINTER; len: INTEGER): INTEGER is
+	memcmp(a, b: POINTER; len: INTEGER): INTEGER
 			-- int memcmp(const void *s1, const void *s2, size_t n);
 			-- 
 			-- The memcmp() function compares the first n bytes of

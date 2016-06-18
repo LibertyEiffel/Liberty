@@ -11,7 +11,7 @@ inherit
 		end
 	
 create {ANY} with_label
-feature {ANY} with_label (a_label: STRING) is
+feature {ANY} with_label (a_label: STRING)
 		require a_label/=Void
 		do
 			make
@@ -28,37 +28,37 @@ feature {ANY} with_label (a_label: STRING) is
 		end
 
 feature {ANY} -- Callbacks
-	on_changed is
+	on_changed
 		do
 			print ("Entry has changed; now it contains `") print(text) print ("'%N")
 		end
 
-	on_delete (a_start,an_end: INTEGER) is
+	on_delete (a_start,an_end: INTEGER)
 		do
 			print ("Deleting text in entry from ") print(a_start.out) print (" to ") print (an_end.out) print("%N")
 		end
 
-	on_activate	is
+	on_activate
 		do
 			print ("on activate%N")
 		end
 
-	on_backspace	is
+	on_backspace
 		do
 			print ("on backspace%N")
 		end
 
-	on_copy_clipboard	is
+	on_copy_clipboard
 		do
 			print ("Text copied to clipboard %N")
 		end
 
-	on_cut_clipboard	is
+	on_cut_clipboard
 		do
 			print ("Cut to clipboard%N")
 		end
 
-	on_paste_clipboard is
+	on_paste_clipboard
 		do
 			print ("Text pasted from clipboard%N")
 		end

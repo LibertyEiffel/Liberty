@@ -34,7 +34,7 @@ inherit
 create {ANY} make, from_external_pointer
 
 feature {ANY}  -- Creation
-	make  (a_name, a_label, a_tooltip, a_stock_id: STRING; a_value: INTEGER) is
+	make  (a_name, a_label, a_tooltip, a_stock_id: STRING; a_value: INTEGER)
 			-- Creates a new GtkRadioAction object. To add the action to
 			-- a GtkActionGroup and set the accelerator for the action,
 			-- call `GTK_ACTION_GROUP.add_action_with_accel'.
@@ -44,7 +44,7 @@ feature {ANY}  -- Creation
 																		a_tooltip.to_external, a_stock_id.to_external, a_value))
 		end
 feature {ANY}
-	group: G_SLIST [GTK_RADIO_ACTION] is
+	group: G_SLIST [GTK_RADIO_ACTION]
 			-- the list representing the radio group for this
 			-- object. Note that the returned list is only valid until
 			-- the next change to the group.
@@ -64,13 +64,13 @@ feature {ANY}
 			create {G_OBJECT_SLIST[GTK_RADIO_ACTION]} Result.from_external_pointer (gtk_radio_action_get_group(handle))
 		end
 
-	set_group (a_group: G_SLIST [GTK_RADIO_ACTION]) is
+	set_group (a_group: G_SLIST [GTK_RADIO_ACTION])
 			-- Sets the radio group for the radio action object.
 		do
 			gtk_radio_action_set_group (handle,a_group.handle)
 		end	
 
-	current_value: INTEGER is
+	current_value: INTEGER
 			-- the value of the currently active member of the group to which action belongs.
 		do
 			Result := gtk_radio_action_get_current_value(handle)
@@ -120,7 +120,7 @@ feature {ANY} -- Properties
 -- Since 2.4
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRadioAction)"
 		end
@@ -134,11 +134,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_radio_action_set_group      (an_action, gslist_group: POINTER) is
+	gtk_radio_action_set_group      (an_action, gslist_group: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_radio_action_get_current_value (an_action: POINTER): INTEGER is
+	gtk_radio_action_get_current_value (an_action: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 end -- class GTK_RADIO_ACTION

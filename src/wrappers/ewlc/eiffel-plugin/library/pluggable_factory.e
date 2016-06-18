@@ -24,7 +24,7 @@ deferred class PLUGGABLE_FACTORY [ITEM->PLUGGABLE]
 inherit FACTORY[ITEM] 
 
 feature {ANY} -- Creation
-	get_new_pluggable (a_plugin_name: STRING): ITEM is
+	get_new_pluggable (a_plugin_name: STRING): ITEM
 		require a_plugin_name/=Void
 		local ptr: POINTER
 		do
@@ -36,7 +36,7 @@ feature {ANY} -- Creation
 		end
 
 feature {} -- External features
-	dlopen(a_filename: POINTER; some_flag: INTEGER): POINTER is
+	dlopen(a_filename: POINTER; some_flag: INTEGER): POINTER
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -45,7 +45,7 @@ feature {} -- External features
 			}"
 		end
 
-	dlerror: POINTER is
+	dlerror: POINTER
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -54,7 +54,7 @@ feature {} -- External features
 			}"
 		end
 
-	dlsym(an_handle, a_symbol: POINTRE): POINTER is
+	dlsym(an_handle, a_symbol: POINTRE): POINTER
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -63,7 +63,7 @@ feature {} -- External features
 			}"
 		end
 
-	dlclose(an_handle: POINTER): INTEGER is
+	dlclose(an_handle: POINTER): INTEGER
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -73,7 +73,7 @@ feature {} -- External features
 		end
 
 
-	rtld_now: INTEGER is
+	rtld_now: INTEGER
 	external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"
@@ -83,7 +83,7 @@ feature {} -- External features
 		end
 
       
-	rtld_global: INTEGER is
+	rtld_global: INTEGER
     	external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}/plugins"

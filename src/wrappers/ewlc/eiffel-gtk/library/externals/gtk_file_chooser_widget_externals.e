@@ -28,11 +28,11 @@ insert
 
 feature {} -- External calls
 
-	gtk_file_chooser_widget_new (an_action: INTEGER): POINTER is
+	gtk_file_chooser_widget_new (an_action: INTEGER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_file_chooser_widget_new_with_backend (an_action: INTEGER; backend: POINTER): POINTER is
+	gtk_file_chooser_widget_new_with_backend (an_action: INTEGER; backend: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 

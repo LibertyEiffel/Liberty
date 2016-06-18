@@ -73,14 +73,14 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Validator
 
-	is_valid_curl_info (an_info: INTEGER) : BOOLEAN is
+	is_valid_curl_info (an_info: INTEGER) : BOOLEAN
 		do
 			Result := True -- FIXME!!!
 		end
 
 feature {} -- AVAILABLE INFORMATION
 
-	curl_info_effective_url: INTEGER is
+	curl_info_effective_url: INTEGER
 			-- Pass a pointer to a 'char *' to receive the last used effective URL.
 		external "C macro use <curl/curl.h>"
 		alias "CURLINFO_EFFECTIVE_URL"

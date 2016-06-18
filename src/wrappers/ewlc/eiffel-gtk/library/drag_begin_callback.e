@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_WIDGET
 
 feature {ANY}
-	callback (drag_context_ptr, instance: POINTER) is
+	callback (drag_context_ptr, instance: POINTER)
 		local
 			factory: G_OBJECT_FACTORY [GDK_DRAG_CONTEXT]
 			drag_context: GDK_DRAG_CONTEXT
@@ -45,14 +45,14 @@ feature {ANY}
 			procedure.call ([drag_context, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, GTK_WIDGET]])
 		do
 			debug
 				print ("DRAG_BEGIN_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

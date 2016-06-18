@@ -12,14 +12,14 @@ create {ANY}
 
 feature {ANY}
 
-	on_delete_event (a_gtk_object: GTK_OBJECT) is
+	on_delete_event (a_gtk_object: GTK_OBJECT)
 		do
 			gtk.quit
 		end
 
 
 
-	make is
+	make
 		local
 			style: GTK_STYLE
 			pixbuf: GDK_PIXBUF

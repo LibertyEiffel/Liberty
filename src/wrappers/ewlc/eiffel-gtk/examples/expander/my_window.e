@@ -8,7 +8,7 @@ inherit
 create {ANY} make
 
 feature {ANY}
-	make is
+	make
 		do
 			Precursor
 			set_title (once "Expander demo")
@@ -27,7 +27,7 @@ feature {ANY}
 			show_all
 		end
 
-	on_destroy is
+	on_destroy
 		do
 			print ("Quitting%N")
 			gtk.quit

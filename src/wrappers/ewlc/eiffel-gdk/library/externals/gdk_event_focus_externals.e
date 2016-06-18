@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gdk_event_focus_get_in (ptr: POINTER): INTEGER is
+	gdk_event_focus_get_in (ptr: POINTER): INTEGER
 		external "C struct GdkEventFocus get in use <gdk/gdk.h>"
 		end
 

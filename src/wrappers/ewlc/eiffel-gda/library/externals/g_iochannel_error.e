@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_io_channel_error_fbig) or else 
 				(a_value = g_io_channel_error_inval) or else 
@@ -20,141 +20,141 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_fbig is
+	default_create, set_fbig
 		do
 			value := g_io_channel_error_fbig
 		end
 
-	set_inval is
+	set_inval
 		do
 			value := g_io_channel_error_inval
 		end
 
-	set_io is
+	set_io
 		do
 			value := g_io_channel_error_io
 		end
 
-	set_isdir is
+	set_isdir
 		do
 			value := g_io_channel_error_isdir
 		end
 
-	set_nospc is
+	set_nospc
 		do
 			value := g_io_channel_error_nospc
 		end
 
-	set_nxio is
+	set_nxio
 		do
 			value := g_io_channel_error_nxio
 		end
 
-	set_overflow is
+	set_overflow
 		do
 			value := g_io_channel_error_overflow
 		end
 
-	set_pipe is
+	set_pipe
 		do
 			value := g_io_channel_error_pipe
 		end
 
-	set_failed is
+	set_failed
 		do
 			value := g_io_channel_error_failed
 		end
 
 
 feature {ANY} -- Queries
-	is_fbig: BOOLEAN is
+	is_fbig: BOOLEAN
 		do
 			Result := (value=g_io_channel_error_fbig)
 		end
 
-	is_inval: BOOLEAN is
+	is_inval: BOOLEAN
 		do
 			Result := (value=g_io_channel_error_inval)
 		end
 
-	is_io: BOOLEAN is
+	is_io: BOOLEAN
 		do
 			Result := (value=g_io_channel_error_io)
 		end
 
-	is_isdir: BOOLEAN is
+	is_isdir: BOOLEAN
 		do
 			Result := (value=g_io_channel_error_isdir)
 		end
 
-	is_nospc: BOOLEAN is
+	is_nospc: BOOLEAN
 		do
 			Result := (value=g_io_channel_error_nospc)
 		end
 
-	is_nxio: BOOLEAN is
+	is_nxio: BOOLEAN
 		do
 			Result := (value=g_io_channel_error_nxio)
 		end
 
-	is_overflow: BOOLEAN is
+	is_overflow: BOOLEAN
 		do
 			Result := (value=g_io_channel_error_overflow)
 		end
 
-	is_pipe: BOOLEAN is
+	is_pipe: BOOLEAN
 		do
 			Result := (value=g_io_channel_error_pipe)
 		end
 
-	is_failed: BOOLEAN is
+	is_failed: BOOLEAN
 		do
 			Result := (value=g_io_channel_error_failed)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_io_channel_error_fbig: INTEGER is
+	g_io_channel_error_fbig: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_FBIG"
 		end
 
-	g_io_channel_error_inval: INTEGER is
+	g_io_channel_error_inval: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_INVAL"
 		end
 
-	g_io_channel_error_io: INTEGER is
+	g_io_channel_error_io: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_IO"
 		end
 
-	g_io_channel_error_isdir: INTEGER is
+	g_io_channel_error_isdir: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_ISDIR"
 		end
 
-	g_io_channel_error_nospc: INTEGER is
+	g_io_channel_error_nospc: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_NOSPC"
 		end
 
-	g_io_channel_error_nxio: INTEGER is
+	g_io_channel_error_nxio: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_NXIO"
 		end
 
-	g_io_channel_error_overflow: INTEGER is
+	g_io_channel_error_overflow: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_OVERFLOW"
 		end
 
-	g_io_channel_error_pipe: INTEGER is
+	g_io_channel_error_pipe: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_PIPE"
 		end
 
-	g_io_channel_error_failed: INTEGER is
+	g_io_channel_error_failed: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_FAILED"
 		end

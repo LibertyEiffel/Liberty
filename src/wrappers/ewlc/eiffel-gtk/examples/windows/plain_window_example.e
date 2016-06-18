@@ -13,7 +13,7 @@ create {ANY}
 	make
 	
 feature {} -- creation
-	make is
+	make
 		do
 			initialize_gtk
 			create window.make

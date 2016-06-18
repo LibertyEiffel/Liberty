@@ -62,7 +62,7 @@ create {ANY} make, make_with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 
-	make (a_label: STRING) is
+	make (a_label: STRING)
 			-- Creates a new expander using 'a_label' as the text of the
 			-- label.
 		
@@ -73,7 +73,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_expander_new(a_label.to_external))
 		end
 
-	make_with_mnemonic (a_label: STRING) is
+	make_with_mnemonic (a_label: STRING)
 			-- Creates a new expander using label as the text of the
 			-- label. If characters in label are preceded by an
 			-- underscore, they are underlined.  If you need a literal
@@ -91,41 +91,41 @@ feature {} -- Creation
 		end
 
 feature {ANY} 
-	set_expanded is
+	set_expanded
 			-- Reveales the child widget to be revealed
 		do
 			gtk_expander_set_expanded (handle, 1)
 			ensure is_expanded: is_expanded
 		end
 
-	unset_expanded is
+	unset_expanded
 			-- Hides the child widget.
 		do
 			gtk_expander_set_expanded (handle, 0)
 		ensure unexpanded: not is_expanded
 		end
 
-	is_expanded: BOOLEAN is
+	is_expanded: BOOLEAN
 			-- IS the child widget shown to the user?
 		do
 			Result:=gtk_expander_get_expanded(handle).to_boolean
 		end
 
-	set_spacing (a_spacing: INTEGER) is 
+	set_spacing (a_spacing: INTEGER)
 			-- Sets the spacing field of expander, wbhich is the number of
 			-- pixels to place between expander and the child.
 		do 
 			gtk_expander_set_spacing (handle, a_spacing)
 		end
 
-	spacing: INTEGER is
+	spacing: INTEGER
 			-- the spacing field of expander, wbhich is the number of
 			-- pixels to place between expander and the child.
 		do
 			Result:=gtk_expander_get_spacing(handle)
 		end
 
-	set_label (a_label: STRING) is
+	set_label (a_label: STRING)
 			-- Sets the text of the label of the expander to `a_label'.
 			-- This will also clear any previously set labels.
 		require valid_label: a_label /= Void
@@ -133,7 +133,7 @@ feature {ANY}
 			gtk_expander_set_label (handle, a_label.to_external)
 		end
 
-	label: STRING is
+	label: STRING
 			-- The text from the label of the expander, as set by --
 			-- `set_label'. If the label text has not been set the return
 			-- value will be Void. This will be the case if you create an
@@ -148,7 +148,7 @@ feature {ANY}
 			end
 		end
 
-	set_use_underline is
+	set_use_underline
 			-- Put an underline in the text of the expander label
 			-- indicating the character used for the mnemonic accelerator
 			-- key.
@@ -157,14 +157,14 @@ feature {ANY}
 		ensure set: is_underline_used
 		end
 
-	unset_use_underline is
+	unset_use_underline
 			-- Remove the underline under the mnemonic accelerator key
 		do
 			gtk_expander_set_use_underline (handle, 0)
 		ensure unset: not is_underline_used
 		end
 
-	is_underline_used: BOOLEAN is
+	is_underline_used: BOOLEAN
 			-- Does an embedded underline in the expander label indicates
 			-- a mnemonic? See `set_use_underline'.
 		do
@@ -172,7 +172,7 @@ feature {ANY}
 		end
 
 
-	set_use_markup is
+	set_use_markup
 			-- Sets whether the text of the label contains markup in
 			-- Pango's text markup language. See `set_markup'.
 		do
@@ -180,21 +180,21 @@ feature {ANY}
 		ensure set: is_markup_used
 		end
 
-	unset_use_markup is
+	unset_use_markup
 			-- Do not use Pango markups in the label
 		do
 			gtk_expander_set_use_markup (handle, 0)
 		ensure unset: not is_markup_used
 		end
 
-	is_markup_used: BOOLEAN is
+	is_markup_used: BOOLEAN
 			-- Is the label's text interpreted as marked up with the
 			-- Pango text markup language? See `set_use_markup'.
 		do
 			Result:=(gtk_expander_get_use_markup(handle).to_boolean)
 		end
 
-	set_label_widget (a_widget: GTK_WIDGET) is
+	set_label_widget (a_widget: GTK_WIDGET)
 			-- Set the label widget for the expander. This is the widget
 			-- that will appear emCbedded alongside the expander arrow.
 		require valid_widget: a_widget /= Void
@@ -202,7 +202,7 @@ feature {ANY}
 			gtk_expander_set_label_widget (handle, a_widget.handle)
 		end
 
-	label_widget: GTK_WIDGET is
+	label_widget: GTK_WIDGET
 			-- The label widget for the frame. 'set_label_widget'. Can 
 			-- be Void
 		do
@@ -290,18 +290,18 @@ feature {ANY} -- Properties
 feature {ANY}  --   The "activate" signal
 	activate_signal_name: STRING is "activate"
 
-	on_activate is
+	on_activate
 		do
 			-- Empty by default
 		end
 
-	enable_on_activate is
+	enable_on_activate
 		do
 			connect (Current, activate_signal_name, $on_activate)
 		end
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkExpander)"
 		end
@@ -315,23 +315,23 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_expander_set_expanded (an_expander: POINTER; an_expanded: INTEGER) is
+	gtk_expander_set_expanded (an_expander: POINTER; an_expanded: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_expander_get_expanded (an_expander: POINTER): INTEGER is
+	gtk_expander_get_expanded (an_expander: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_expander_set_spacing (an_expander: POINTER; a_spacing: INTEGER) is
+	gtk_expander_set_spacing (an_expander: POINTER; a_spacing: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_expander_get_spacing (an_expander: POINTER): INTEGER is
+	gtk_expander_get_spacing (an_expander: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_expander_set_label (an_expander, a_label: POINTER) is
+	gtk_expander_set_label (an_expander, a_label: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -339,23 +339,23 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_expander_set_use_underline (an_expander: POINTER; a_use_underline: INTEGER) is
+	gtk_expander_set_use_underline (an_expander: POINTER; a_use_underline: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_expander_get_use_underline (an_expander: POINTER): INTEGER is
+	gtk_expander_get_use_underline (an_expander: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_expander_set_use_markup (an_expander: POINTER; a_use_markup: INTEGER) is
+	gtk_expander_set_use_markup (an_expander: POINTER; a_use_markup: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_expander_get_use_markup (an_expander: POINTER): INTEGER is
+	gtk_expander_get_use_markup (an_expander: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_expander_set_label_widget (an_expander, a_label_widget: POINTER) is
+	gtk_expander_set_label_widget (an_expander, a_label_widget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	

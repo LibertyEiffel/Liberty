@@ -43,7 +43,7 @@ insert
 create {ANY} from_dsn, from_string, from_external_pointer
 
 feature {} -- Creation
-	from_dsn (a_dsn, an_auth_string: STRING; some_options: GDA_CONNECTION_OPTIONS) is
+	from_dsn (a_dsn, an_auth_string: STRING; some_options: GDA_CONNECTION_OPTIONS)
 		-- Opening database connections with libgda, using a pre-defined data
 		-- source (`a_dsn;), see gda_config_define_dsn() for more information
 		-- about how to define a DSN. If you don't want to define a DSN, it is
@@ -83,7 +83,7 @@ feature {} -- Creation
 		end
 	end
 
-	from_string (a_provider_name, a_connection_string: STRING; some_options: GDA_CONNECTIO_OPTIONS) is
+	from_string (a_provider_name, a_connection_string: STRING; some_options: GDA_CONNECTIO_OPTIONS)
 		-- Opens a connection given a provider ID and a connection string. This
 		-- allows applications to open connections without having to create a
 		-- data source (DSN) in the configuration. The format of cnc_string is
@@ -143,7 +143,7 @@ feature {} -- Creation
 	end
 	
 feature {ANY}
-	open is
+	open
 		-- Tries to open the connection. `is_successful' will be True if the
 		-- connection is opened, and False otherwise and `error' is updated.
 	require is_not_null
@@ -152,7 +152,7 @@ feature {ANY}
 	ensure is_successful and then is_opened
 	end
 	
-	close is
+	close
 		-- Closes the connection to the underlying data source, but first emits
 		-- the "conn_to_close" signal.
 	require is_not_null
@@ -160,7 +160,7 @@ feature {ANY}
 		gda_connection_close(handle)	--
 	end
 
-	close_no_warning is
+	close_no_warning
 		-- Closes the connection to the underlying data source, without emiting
 		-- any warning signal.
 	require is_not_null
@@ -168,13 +168,13 @@ feature {ANY}
 		gda_connection_close_no_warning(handle)		--
 	end
 	
-	is_opened: BOOLEAN is
+	is_opened: BOOLEAN
 		-- Is connection opened?
 	do
 		Result := gda_connection_is_opened(handle).to_boolean
 	end
 
-	create_parser, get_new_parser: GDA_SQL_PARSER is
+	create_parser, get_new_parser: GDA_SQL_PARSER
 		-- Creates a new parser object able to parse the SQL dialect understood
 		-- by Current connection. Result is Void if the GDA_SERVER_PROVIDER
 		-- object used internally does not have its own parser; a general SQL
@@ -187,7 +187,7 @@ feature {ANY}
 		end
 	end
 	
-	statement_to_sql (a_statement: GDA_STATEMENT; some_parameters: GDA_SET; some_flags: GDA_STATEMENT_SQL_FLAG): STRING is
+	statement_to_sql (a_statement: GDA_STATEMENT; some_parameters: GDA_SET; some_flags: GDA_STATEMENT_SQL_FLAG): STRING
 		-- `a_statement' rendered as an SQL statement, adapted to the SQL
 		-- dialect used by Current connection and `some_flags';
 		-- `some_parameters' can be Void. `used_parameters' will contain the
@@ -211,7 +211,7 @@ feature {ANY}
 	used_parameters: G_OBJECT_SLIST[GDA_HOLDER] 
 		-- Parameters used in the last invocation of `statement_to_sql'.
 
-	prepare (a_statement: GDA_STATEMENT) is
+	prepare (a_statement: GDA_STATEMENT)
 		-- Ask the database accessed through Current connection to prepare the
 		-- usage of `a_statement'. This is only usefull if `a_statement' will
 		-- be used more than once (however some database providers may always
@@ -232,7 +232,7 @@ feature {ANY}
 		(handle, a_statement.handle, error.reference).to_boolean
 	end
 	
-	execute (a_statement: GDA_STATEMENT; some_parameters: GDA_SET; a_model_usage: GDA_STATEMENT_MODEL_USAGE): G_OBJECT is
+	execute (a_statement: GDA_STATEMENT; some_parameters: GDA_SET; a_model_usage: GDA_STATEMENT_MODEL_USAGE): G_OBJECT
 		-- Executes `a_statement'.
 
 		-- As `a_statement' can, by design (and if not abused), contain only

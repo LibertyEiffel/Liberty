@@ -30,13 +30,13 @@ insert
 create {ANY} from_label, from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFrame)"
 		end
 
 feature {} -- Creation
-	from_label (a_label: STRING) is
+	from_label (a_label: STRING)
 			-- Creates a new GtkFrame, with optional `a_label' (if Void,
 			-- the label is omitted).
 		require gtk_initialized: gtk.is_initialized
@@ -45,7 +45,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- label
-	label: STRING is
+	label: STRING
 			-- the text to use as the label of the frame
 		local ptr: POINTER
 		do
@@ -55,12 +55,12 @@ feature {ANY} -- label
 			end
 		end
 
-	remove_label is
+	remove_label
 		do
 			gtk_frame_set_label (handle, default_pointer)
 		end
 	
-	set_label (a_label: STRING) is
+	set_label (a_label: STRING)
 			-- Sets the text of the label.
 		do
 			gtk_frame_set_label (handle,a_label.to_external)
@@ -70,7 +70,7 @@ feature {ANY} -- label
 feature {ANY} -- label widget
 	-- TODO label_widget: GTK_WIDGET is -- The label widget for the frame.
 	
-	set_label_widget (a_widget: GTK_WIDGET) is
+	set_label_widget (a_widget: GTK_WIDGET)
 			-- Sets the label widget for the frame. This is the widget
 			-- that will appear embedded in the top edge of the frame as
 			-- a title.
@@ -80,7 +80,7 @@ feature {ANY} -- label widget
 		end
 
 
-	set_label_align (an_xalign, an_yalign: REAL) is
+	set_label_align (an_xalign, an_yalign: REAL)
 			-- Sets the alignment of the frame widget's label. The
 			-- default values for a newly created frame are 0.0 and 0.5.
 			-- `an_xalign' : The position of the label along the top edge
@@ -93,13 +93,13 @@ feature {ANY} -- label widget
 		end
 
 feature {ANY} -- shadow
-	shadow_type: INTEGER is
+	shadow_type: INTEGER
 		do
 			Result := gtk_frame_get_shadow_type (handle)
 		ensure valid: is_valid_gtk_shadow_type (Result)
 		end
 
-	set_shadow_type (a_shadow_type: INTEGER) is
+	set_shadow_type (a_shadow_type: INTEGER)
 			-- Sets the shadow type for frame.
 		require is_valid_gtk_shadow_type (a_shadow_type)
 		do
@@ -107,7 +107,7 @@ feature {ANY} -- shadow
 		end
 
 feature {ANY} -- Alignments
-	alignments: TUPLE[REAL,REAL] is
+	alignments: TUPLE[REAL,REAL]
 			-- the X and Y alignment of the frame's label.
 		local xal,yal: REAL_32
 		do
@@ -117,14 +117,14 @@ feature {ANY} -- Alignments
 			-- TODO postconditions
 		end
 
-	x_alignment: REAL is
+	x_alignment: REAL
 			-- the X alignement
 		do
 			gtk_frame_get_label_align (handle, $Result, default_pointer)
 			-- TODO postcondition
 		end
 	
-	y_alignment: REAL is
+	y_alignment: REAL
 			-- the Y alignement
 		do
 			gtk_frame_get_label_align (handle, $Result, default_pointer)

@@ -52,7 +52,7 @@ insert
 create {ANY}  make, copy, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 		do
 			from_external_pointer (gts_surface_new (gts_surface_class,
 																 gts_face_class,
@@ -61,28 +61,28 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	copy (another: GTS_SURFACE) is
+	copy (another: GTS_SURFACE)
 			-- Add a copy of all the faces, edges and vertices of s2 to s1.
 		do
 			allocate
 			gts_surface_copy(handle,another.handle)
 		end
 
-	add (a_face: GTS_FACE) is
+	add (a_face: GTS_FACE)
 			--  Adds `a_face' to Current surface.
 		require face_not_void: a_face /= Void
 		do
 			gts_surface_add_face(handle, a_face.handle)
 		end
 
-	remove (a_face: GTS_FACE) is
+	remove (a_face: GTS_FACE)
 			-- Removes `a_face' from Current surface.
 		require face_not_void: a_face /= Void
 		do
 			gts_surface_remove_face(handle, a_face.handle)
 		end
 
-	merge (another: GTS_SURFACE) is
+	merge (another: GTS_SURFACE)
 			-- Adds to Current all the faces of `another' which do not
 			-- already belong to Current.
 		require another_not_void: another /= Void
@@ -91,7 +91,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Input
-	read (a_file: GTS_FILE) is
+	read (a_file: GTS_FILE)
 			-- Add to surface the data read from `a_file'. The format of the file
 			-- pointed to by `a_file' is as described in `write'.
 
@@ -287,14 +287,14 @@ feature {ANY} -- Input
 	-- 		end
 
 feature {ANY} -- Output
-	print_stats_on (a_file: OUTPUT_STREAM) is
+	print_stats_on (a_file: OUTPUT_STREAM)
 			-- Writes the statistics for surface to `a_file'
 		require file_not_void: a_file /= Void
 		do
 			gts_surface_print_stats(handle, a_file.stream_pointer)
 		end
 
-	write (a_file: OUTPUT_STREAM) is
+	write (a_file: OUTPUT_STREAM)
 			-- Writes in `a_file' an ASCII representation of surface. The file
 			-- format is as follows.
 		
@@ -321,14 +321,14 @@ feature {ANY} -- Output
 			gts_surface_write(handle, a_file.stream_pointer)
 		end
 
-	write_oogl (a_file: OUTPUT_STREAM) is
+	write_oogl (a_file: OUTPUT_STREAM)
 			-- Writes in the file fptr an OOGL (Geomview) representation of s.
 		require file_not_void: a_file /= Void
 		do
 			gts_surface_write_oogl(handle,a_file.stream_pointer)
 		end
 	
-	write_oogl_boundary (a_file: OUTPUT_STREAM) is
+	write_oogl_boundary (a_file: OUTPUT_STREAM)
 			-- Writes in the file fptr an OOGL (Geomview) representation of the
 			-- boundary of surface.
 		require file_not_void: a_file /= Void
@@ -336,7 +336,7 @@ feature {ANY} -- Output
 			gts_surface_write_oogl_boundary (handle,a_file.stream_pointer)
 		end
 
-  write_vtk (a_file: OUTPUT_STREAM) is
+  write_vtk (a_file: OUTPUT_STREAM)
 			--    Writes in the file fptr a VTK representation of s.
 		require file_not_void: a_file /= Void
 		do
@@ -344,13 +344,13 @@ feature {ANY} -- Output
 		end
 
 feature {ANY} -- Boolean queries
-	is_manifold: BOOLEAN is
+	is_manifold: BOOLEAN
 			-- Is the surface a manifold?
 		do
 			Result:=(gts_surface_is_manifold(handle)).to_boolean
 		end
 
-	is_orientable: BOOLEAN is
+	is_orientable: BOOLEAN
 			-- Do all the faces of Current surface have compatible orientation as
 			-- checked by gts_faces_are_compatible()?
 
@@ -359,7 +359,7 @@ feature {ANY} -- Boolean queries
 			Result:=(gts_surface_is_orientable(handle)).to_boolean
 		end
 			
-	is_closed: BOOLEAN is
+	is_closed: BOOLEAN
 			-- Is Current a closed surface?  Note that a closed surface is also a
 			-- manifold.
 		do
@@ -367,7 +367,7 @@ feature {ANY} -- Boolean queries
 		end
 
 feature {ANY} -- Element number queries
-	vertices_count: INTEGER is
+	vertices_count: INTEGER
 			-- the number of vertices in the surface.
 		
 			-- TODO: should be NATURAL
@@ -375,14 +375,14 @@ feature {ANY} -- Element number queries
 			Result:=gts_surface_vertex_number(handle)
 		end
 
-	edges_count: INTEGER is 
+	edges_count: INTEGER
 			-- The number of edges in the surface.
 		do
 			Result:=gts_surface_edge_number(handle)
 		ensure natural: Result>=0
 		end
 
-	faces_count: INTEGER is
+	faces_count: INTEGER
 			-- the number of faces in the surface.
 		do
 			Result:=gts_surface_face_number(handle)
@@ -390,7 +390,7 @@ feature {ANY} -- Element number queries
 		end
 
 feature {ANY}
-	faces: DICTIONARY[GTS_FACE,GTS_FACE] is
+	faces: DICTIONARY[GTS_FACE,GTS_FACE]
 		do
 			if cached_faces = Void then
 				-- Note: the following if tense will be eliminated by the 
@@ -405,7 +405,7 @@ feature {ANY}
 			Result:=cached_faces
 		end
 feature {ANY}
-	boundary: G_SLIST[GTS_EDGE] is
+	boundary: G_SLIST[GTS_EDGE]
 			-- the boundary edges of surface.
 		local p: POINTER
 		do
@@ -415,21 +415,21 @@ feature {ANY}
 		ensure not_void: Result /= Void
 		end
 	
-	area: REAL is
+	area: REAL
 			-- the area of surface obtained as the sum of the signed areas of its
 			-- faces.
 		do
 			Result:=gts_surface_area(handle)
 		end
 
-	volume: REAL is
+	volume: REAL
 			-- The signed volume of the domain bounded by the surface s. It makes
 			-- sense only if s is a closed and orientable manifold.
 		do
 			Result:=gts_surface_volume(handle)
 		end
 
-	center_of_mass: GTS_VECTOR is
+	center_of_mass: GTS_VECTOR
 			-- The center of mass of surface (a new vector is created).
 		local returned: REAL
 		do
@@ -439,7 +439,7 @@ feature {ANY}
 			-- bounded by the surface.
 		end
 
-	volume_and_center_of_mass: TUPLE[REAL,GTS_VECTOR] is
+	volume_and_center_of_mass: TUPLE[REAL,GTS_VECTOR]
 			-- The signed volume of the domain bounded by the surface and
 			-- the center of mass of surface (as a newly created vector).
 		local a_vol: REAL; a_vector: GTS_VECTOR
@@ -449,7 +449,7 @@ feature {ANY}
 			create Result.make_2(a_vol,a_vector)
 		end
 
-	center_of_area: GTS_VECTOR is
+	center_of_area: GTS_VECTOR
 			-- the center of area of surface (a new vector is created).
 		local returned: REAL
 		do
@@ -458,7 +458,7 @@ feature {ANY}
 			-- gts_surface_center_of_area returns : the area of surface s.
 		end
 
-	statistics: GTS_SURFACE_STATS is
+	statistics: GTS_SURFACE_STATS
 			-- the statistics relevant to surface.
 		do
 			if cached_statistics=Void then create Result.make end
@@ -466,7 +466,7 @@ feature {ANY}
 			Result:=cached_statistics
 		end
 
-	quality_statistics: GTS_SURFACE_QUALITY_STATS is
+	quality_statistics: GTS_SURFACE_QUALITY_STATS
 			-- Quality statistics relevant to Current surface. Note: 
 			-- GTS_SURFACE_QUALITY_STATS is almost empty and unusable.
 		do
@@ -475,7 +475,7 @@ feature {ANY}
 		end
 
 
-	foreach_vertex (a_function: PREDICATE[TUPLE[GTS_VERTEX]]) is
+	foreach_vertex (a_function: PREDICATE[TUPLE[GTS_VERTEX]])
 			-- Calls `a_function' once for each vertex of surface. When `a_function'
 			-- returns False the calling sequence continues, otherwise it stops.
 		obsolete "Unimplemented!"
@@ -485,7 +485,7 @@ feature {ANY}
 			--gts_surface_foreach_vertex(handle,callback.callback_pointer,to_pointer)
 		end
 	
-	foreach_edge (a_function: PREDICATE[TUPLE[GTS_EDGE]]) is
+	foreach_edge (a_function: PREDICATE[TUPLE[GTS_EDGE]])
 			-- Calls `a_function' once for each edge of surface. When `a_function'
 			-- returns False the calling sequence continues, otherwise it stops.
 			--		local callback: GTS_FUNCTION
@@ -538,7 +538,7 @@ feature {ANY}
 --     Returns :  TRUE if func was called at least once, FALSE otherwise.
 
 
-	distance (another: GTS_SURFACE; a_delta: REAL): TUPLE[GTS_RANGE,GTS_RANGE] is
+	distance (another: GTS_SURFACE; a_delta: REAL): TUPLE[GTS_RANGE,GTS_RANGE]
 			-- Using the gts_bb_tree_surface_distance() and
 			-- gts_bb_tree_surface_boundary_distance() functions returns a face
 			-- range and a boundary range with the min, max and average Euclidean
@@ -557,7 +557,7 @@ feature {ANY}
 										a_boundary_range.handle)
 		end
 
-	triangles_strip: G_SLIST[GTS_TRIANGLE] is
+	triangles_strip: G_SLIST[GTS_TRIANGLE]
 			-- a list of triangle strips containing all the triangles of surface. A
 			-- triangle strip is itself a list of successive triangles having one
 			-- edge in common.
@@ -584,7 +584,7 @@ feature {ANY}
 	--     refine_data :  user data to be passed to refine_func.
 
 
-	add_sphere (a_geodesation_order: INTEGER) is
+	add_sphere (a_geodesation_order: INTEGER)
 			-- Add a triangulated unit sphere generated by recursive subdivision to
 			-- surface. First approximation is an isocahedron; each level of
 			-- refinement (geodesation_order) increases the number of triangles by
@@ -596,7 +596,7 @@ feature {ANY}
 			ptr:=gts_surface_generate_sphere(handle, a_geodesation_order);
 		end
 
-	split: G_SLIST[GTS_SURFACE] is
+	split: G_SLIST[GTS_SURFACE]
 			-- surface splitted into connected and manifold components.
 		do
 			create Result.from_external_pointer(gts_surface_split(handle))
@@ -661,7 +661,7 @@ feature {} -- Unwrapped code
 
 feature {ANY} -- Boolean operations 
 
-	intersection (another: GTS_SURFACE) is
+	intersection (another: GTS_SURFACE)
 		do
 			--  GSList* gts_surface_intersection (GtsSurface *s1, GtsSurface *s2,
 			--  GNode *faces_tree1, GNode *faces_tree2);
@@ -695,7 +695,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 	-- Delaunay conforming constrained triangulations and to refine
 	-- them.
 
-	is_triangulated: BOOLEAN is
+	is_triangulated: BOOLEAN
 		do
 			Result := ((faces_count = 0) and
 						  (vertices_count >= 3) and
@@ -709,7 +709,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 			-- A vertex with the same coordinates of the vertex used as 
 			-- argument of the last call to `add_vertex'
 	
-	add_vertex (a_vertex: GTS_VERTEX; a_guess: GTS_FACE) is
+	add_vertex (a_vertex: GTS_VERTEX; a_guess: GTS_FACE)
 			-- Adds `a_vertex' to the Delaunay triangulation defined by
 			-- Current surface. If `a_vertex' is not contained in the
 			-- convex hull bounding surface, it is not added to the
@@ -747,7 +747,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 			end
 		end
 	
-	add_vertex_to_face (a_vertex: GTS_VERTEX; a_face: GTS_FACE) is
+	add_vertex_to_face (a_vertex: GTS_VERTEX; a_face: GTS_FACE)
 			-- Adds `a_vertex' to `a_face' of the Delaunay triangulation
 			-- defined by Current surface.
 		require
@@ -764,7 +764,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 			-- as v.
 		end
 	
-	remove_vertex (a_vertex: GTS_VERTEX) is
+	remove_vertex (a_vertex: GTS_VERTEX)
 			-- Removes a_vertex from the Delaunay triangulation defined
 			-- by surface and restores the Delaunay property.
 
@@ -780,7 +780,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 		end
 
 	
-	add_constraint (a_constraint: GTS_CONSTRAINT) is
+	add_constraint (a_constraint: GTS_CONSTRAINT)
 			--  Add `a_constraint' to the constrained Delaunay
 			--  triangulation defined by surface.
 		
@@ -807,7 +807,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 			-- A face that violates the Delaunay property. This feature
 			-- is updated by the `is_delaunay' query.
 	
-	is_delaunay: BOOLEAN is
+	is_delaunay: BOOLEAN
 			-- Is the planar projection of surface an (unconstrained)
 			-- Delaunay triangulation?
 		
@@ -827,7 +827,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 		ensure Result=False implies violating_face/=Void
 		end
 
-	remove_hull is
+	remove_hull
 			-- Removes all the edges of the boundary of surface which are
 			-- not constraints.
 		do
@@ -838,7 +838,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 			-- the number of remaining encroached edges left by the last 
 			-- call to `conform'.
 
-	conform (a_steiner_max: INTEGER) is
+	conform (a_steiner_max: INTEGER)
 			-- Recursively split constraints of surface which are
 			-- encroached by vertices of surface (see Shewchuk 96 for
 			-- details). The split constraints are destroyed and replaced
@@ -895,7 +895,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 			-- invoking `delaunay_refine'. It should be zero if
 			-- `a_steiner_max' is set to a negative value.
 
-	delaunay_refine (a_steiner_max: INTEGER) is
+	delaunay_refine (a_steiner_max: INTEGER)
 			-- An implementation of the refinement algorithm described in Ruppert
 			-- (1995) and Shewchuk (1996).
 
@@ -1035,7 +1035,7 @@ feature {ANY} -- Delaunay and constrained Delaunay triangulations
 	--   }
 	-- }
 
-	triangulate is
+	triangulate
 		require
 			not_triangulated: not is_triangulated
 		local big: GTS_TRIANGLE
@@ -1208,7 +1208,7 @@ feature {ANY} -- Simplification and refinement: reducing or increasing the numbe
 	-- small (`gts_coarsen_stop_number').
 
 
-	refine is
+	refine
 			-- require stop_function_set: is_stop_function_set
 		do
 			gts_surface_refine
@@ -1412,7 +1412,7 @@ feature {} -- Implementation
 	cached_faces: DICTIONARY[GTS_FACE,GTS_FACE]
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsSurface)"
 		end

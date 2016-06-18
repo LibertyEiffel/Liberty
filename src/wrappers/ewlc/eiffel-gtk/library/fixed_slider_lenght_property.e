@@ -24,7 +24,7 @@ deferred class FIXED_SLIDER_LENGHT_PROPERTY
 inherit GTK_OBJECT -- WRAPPER
 feature {ANY} -- TODO: The "fixed-slider-length" style property
 
-	is_slider_length_fixed: BOOLEAN is
+	is_slider_length_fixed: BOOLEAN
 			-- Don't change slider size, just lock it to the minimum
 			-- length.  Default value: False
 		do
@@ -34,7 +34,7 @@ feature {ANY} -- TODO: The "fixed-slider-length" style property
 feature {} -- Implementation
 	fixed_slider_lenght_property_property_name: STRING is "fixed-slider-length"
 
-	fixed_slider_lenght_pspec: G_PARAM_SPEC is
+	fixed_slider_lenght_pspec: G_PARAM_SPEC
 		require has_property (fixed_slider_lenght_property_property_name)
 		once
 			create Result.from_external_pointer

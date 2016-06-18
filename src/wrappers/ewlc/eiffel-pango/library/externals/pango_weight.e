@@ -29,48 +29,48 @@ deferred class PANGO_WEIGHT
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_pango_weight (a_weight: INTEGER): BOOLEAN is
+	is_valid_pango_weight (a_weight: INTEGER): BOOLEAN
 		do
 			Result:= a_weight.in_range(100,900)
 		end
 
-	pango_weight_ultralight: INTEGER is
+	pango_weight_ultralight: INTEGER
 			-- the ultralight weight (= 200)
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_WEIGHT_HEAVY"
 		end
 
-	pango_weight_light: INTEGER is
+	pango_weight_light: INTEGER
 			-- the light weight (=300)
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_WEIGHT_HEAVY"
 		end
 
-	pango_weight_normal: INTEGER is
+	pango_weight_normal: INTEGER
 			-- the default weight (= 400)
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_WEIGHT_HEAVY"
 		end
 
-	pango_weight_semibold: INTEGER is
+	pango_weight_semibold: INTEGER
 			-- a weight intermediate between normal and bold (=600)
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_WEIGHT_HEAVY"
 		end
 
-	pango_weight_bold: INTEGER is
+	pango_weight_bold: INTEGER
 			-- the bold weight (= 700)
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_WEIGHT_HEAVY"
 		end
 
-	pango_weight_ultrabold: INTEGER is
+	pango_weight_ultrabold: INTEGER
 			-- the ultrabold weight (= 800)
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_WEIGHT_HEAVY"
 		end
 
-	pango_weight_heavy: INTEGER is
+	pango_weight_heavy: INTEGER
 			-- the heavy weight (= 900)
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_WEIGHT_HEAVY"

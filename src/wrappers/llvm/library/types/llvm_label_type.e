@@ -6,12 +6,12 @@ create {ANY} make, in_context
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {ANY} -- Creation
-   make is
+   make
       do
          handle:=llvmlabel_type
       end
 
-   in_context (a_context: LLVM_CONTEXT) is
+   in_context (a_context: LLVM_CONTEXT)
       require a_context/=Void
       do
          handle:=llvmlabel_type_in_context(a_context.handle)

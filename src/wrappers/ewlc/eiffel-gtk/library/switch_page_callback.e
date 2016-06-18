@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_NOTEBOOK
 
 feature {ANY}
-	callback (notebook_page: POINTER; arg1: INTEGER; instance: POINTER) is
+	callback (notebook_page: POINTER; arg1: INTEGER; instance: POINTER)
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -47,14 +47,14 @@ feature {ANY}
 			procedure.call ([Void, arg1, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_NOTEBOOK; a_procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]]) is
+	connect (an_object: GTK_NOTEBOOK; a_procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]])
 		do
 			debug
 				print ("SWITCH_PAGE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

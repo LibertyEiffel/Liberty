@@ -25,15 +25,15 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gdk_event_any_get_window (ptr: POINTER): POINTER is
+	gdk_event_any_get_window (ptr: POINTER): POINTER
 		external "C struct GdkEventAny get window use <gdk/gdk.h>"
 		end
 
-	gdk_event_free (ptr: POINTER) is
+	gdk_event_free (ptr: POINTER)
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_event_any_get_send_event (ptr: POINTER): INTEGER_8 is
+	gdk_event_any_get_send_event (ptr: POINTER): INTEGER_8
 		external "C struct GdkEventAny get type use <gdk/gdk.h>"
 		end
 

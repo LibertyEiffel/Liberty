@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = gda_data_model_io_data_array_xml) or else 
 				(a_value = gda_data_model_io_text_separated))
@@ -13,36 +13,36 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_gda_data_model_io_data_array_xml is
+	default_create, set_gda_data_model_io_data_array_xml
 		do
 			value := gda_data_model_io_data_array_xml
 		end
 
-	set_gda_data_model_io_text_separated is
+	set_gda_data_model_io_text_separated
 		do
 			value := gda_data_model_io_text_separated
 		end
 
 
 feature {ANY} -- Queries
-	is_gda_data_model_io_data_array_xml: BOOLEAN is
+	is_gda_data_model_io_data_array_xml: BOOLEAN
 		do
 			Result := (value=gda_data_model_io_data_array_xml)
 		end
 
-	is_gda_data_model_io_text_separated: BOOLEAN is
+	is_gda_data_model_io_text_separated: BOOLEAN
 		do
 			Result := (value=gda_data_model_io_text_separated)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gda_data_model_io_data_array_xml: INTEGER is
+	gda_data_model_io_data_array_xml: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_IO_DATA_ARRAY_XML"
 		end
 
-	gda_data_model_io_text_separated: INTEGER is
+	gda_data_model_io_text_separated: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_IO_TEXT_SEPARATED"
 		end

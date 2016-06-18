@@ -12,7 +12,7 @@ insert CORE_EXTERNALS
 create {LLVM_FUNCTION} from_function
 
 feature {LLVM_VALUE}
-   from_function (a_function: LLVM_VALUE) is
+   from_function (a_function: LLVM_VALUE)
       require a_function/=Void
       do
          function:=a_function
@@ -21,27 +21,27 @@ feature {LLVM_VALUE}
 feature {ANY}
    function: LLVM_VALUE
 
-   start is
+   start
       do
          item := wrapper_or_void(llvmget_first_basic_block(function.handle))
       end
 
-   finish is
+   finish
       do
          item := wrapper_or_void(llvmget_last_basic_block(function.handle))
       end
 
-   next is
+   next
       do
          item := wrapper_or_void(llvmget_next_basic_block(item.handle))
       end
 
-   previous is
+   previous
       do
          item := wrapper_or_void(llvmget_previous_basic_block(item.handle))
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result:=(item=Void)
       end
@@ -51,7 +51,7 @@ feature {ANY}
    generation, iterable_generation: INTEGER is 0
 
 feature {ANY}
-   wrapper (p: POINTER): LLVM_BASIC_BLOCK is
+   wrapper (p: POINTER): LLVM_BASIC_BLOCK
       do
          create Result.from_external_pointer(p)
       end

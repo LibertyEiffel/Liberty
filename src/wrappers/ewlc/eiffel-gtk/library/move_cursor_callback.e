@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_TEXT_VIEW
 
 feature {ANY}
-	callback (step, count, extend_selection: INTEGER; instance: POINTER) is
+	callback (step, count, extend_selection: INTEGER; instance: POINTER)
 		do
 			-- The following is written with the implicit requirement 
 			-- that the object is actually created by the Eiffel 
@@ -43,14 +43,14 @@ feature {ANY}
 			procedure.call ([step, count, extend_selection.to_boolean, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TEXT_VIEW; a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]) is
+	connect (an_object: GTK_TEXT_VIEW; a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]])
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 																 signal_name.to_external,

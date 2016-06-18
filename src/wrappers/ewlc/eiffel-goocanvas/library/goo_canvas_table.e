@@ -31,18 +31,18 @@ create {ANY}
 	make, from_external_pointer
 	
 feature {} -- creation
-	make (parent : GOO_CANVAS_ITEM) is
+	make (parent : GOO_CANVAS_ITEM)
 		do
 			from_external_pointer (goo_canvas_table_new (parent.handle))
 		end
 	
 	
-	goo_canvas_table_new (parent : POINTER) : POINTER is
+	goo_canvas_table_new (parent : POINTER) : POINTER
 		external "C use <goocanvas-1.0/goocanvastable.h>"
 		end
 
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <goocanvas-1.0/goocanvastable.h>"
 		alias "sizeof(GooCanvasTable)"
 		end

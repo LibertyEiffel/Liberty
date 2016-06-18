@@ -34,12 +34,12 @@ inherit
       end
 
 feature {} -- 
-	allocate is
+	allocate
 		do
 			handle := alloca(struct_size)
 		end
 
-	alloca (a_size: INTEGER): POINTER is
+	alloca (a_size: INTEGER): POINTER
 			-- The alloca() function allocates size bytes of space in the
 			-- stack frame of the caller.  This temporary space is
 			-- automatically freed when the function that called alloca()

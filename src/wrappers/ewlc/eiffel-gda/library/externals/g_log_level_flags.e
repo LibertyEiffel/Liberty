@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_log_flag_recursion) or else 
 				(a_value = g_log_flag_fatal) or else 
@@ -20,141 +20,141 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_flag_recursion is
+	default_create, set_flag_recursion
 		do
 			value := g_log_flag_recursion
 		end
 
-	set_flag_fatal is
+	set_flag_fatal
 		do
 			value := g_log_flag_fatal
 		end
 
-	set_level_error is
+	set_level_error
 		do
 			value := g_log_level_error
 		end
 
-	set_level_critical is
+	set_level_critical
 		do
 			value := g_log_level_critical
 		end
 
-	set_level_warning is
+	set_level_warning
 		do
 			value := g_log_level_warning
 		end
 
-	set_level_message is
+	set_level_message
 		do
 			value := g_log_level_message
 		end
 
-	set_level_info is
+	set_level_info
 		do
 			value := g_log_level_info
 		end
 
-	set_level_debug is
+	set_level_debug
 		do
 			value := g_log_level_debug
 		end
 
-	set_level_mask is
+	set_level_mask
 		do
 			value := g_log_level_mask
 		end
 
 
 feature {ANY} -- Queries
-	is_flag_recursion: BOOLEAN is
+	is_flag_recursion: BOOLEAN
 		do
 			Result := (value=g_log_flag_recursion)
 		end
 
-	is_flag_fatal: BOOLEAN is
+	is_flag_fatal: BOOLEAN
 		do
 			Result := (value=g_log_flag_fatal)
 		end
 
-	is_level_error: BOOLEAN is
+	is_level_error: BOOLEAN
 		do
 			Result := (value=g_log_level_error)
 		end
 
-	is_level_critical: BOOLEAN is
+	is_level_critical: BOOLEAN
 		do
 			Result := (value=g_log_level_critical)
 		end
 
-	is_level_warning: BOOLEAN is
+	is_level_warning: BOOLEAN
 		do
 			Result := (value=g_log_level_warning)
 		end
 
-	is_level_message: BOOLEAN is
+	is_level_message: BOOLEAN
 		do
 			Result := (value=g_log_level_message)
 		end
 
-	is_level_info: BOOLEAN is
+	is_level_info: BOOLEAN
 		do
 			Result := (value=g_log_level_info)
 		end
 
-	is_level_debug: BOOLEAN is
+	is_level_debug: BOOLEAN
 		do
 			Result := (value=g_log_level_debug)
 		end
 
-	is_level_mask: BOOLEAN is
+	is_level_mask: BOOLEAN
 		do
 			Result := (value=g_log_level_mask)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_log_flag_recursion: INTEGER is
+	g_log_flag_recursion: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_FLAG_RECURSION"
 		end
 
-	g_log_flag_fatal: INTEGER is
+	g_log_flag_fatal: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_FLAG_FATAL"
 		end
 
-	g_log_level_error: INTEGER is
+	g_log_level_error: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_ERROR"
 		end
 
-	g_log_level_critical: INTEGER is
+	g_log_level_critical: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_CRITICAL"
 		end
 
-	g_log_level_warning: INTEGER is
+	g_log_level_warning: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_WARNING"
 		end
 
-	g_log_level_message: INTEGER is
+	g_log_level_message: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_MESSAGE"
 		end
 
-	g_log_level_info: INTEGER is
+	g_log_level_info: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_INFO"
 		end
 
-	g_log_level_debug: INTEGER is
+	g_log_level_debug: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_DEBUG"
 		end
 
-	g_log_level_mask: INTEGER is
+	g_log_level_mask: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_MASK"
 		end

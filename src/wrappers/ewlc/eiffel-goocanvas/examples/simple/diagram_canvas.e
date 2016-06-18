@@ -8,14 +8,14 @@ create {ANY}
 	make
 	
 feature {} -- creation
-	make is
+	make
 		do
 			Precursor
 			enable_on_button_press_event
 		end
 	
 feature {ANY}
-	on_button_press_event (event: GDK_EVENT_BUTTON; a_widget: GTK_WIDGET): BOOLEAN is
+	on_button_press_event (event: GDK_EVENT_BUTTON; a_widget: GTK_WIDGET): BOOLEAN
 		do
 			print ("pressed %N")
 		end

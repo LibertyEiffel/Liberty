@@ -31,7 +31,7 @@ insert
 
 feature {} -- External calls
 
-	gdk_event_type (h: POINTER) : INTEGER is
+	gdk_event_type (h: POINTER) : INTEGER
 		external "C struct GdkEvent get type use <gdk/gdk.h>"
 		ensure
 			is_valid_gdk_event_type (Result)

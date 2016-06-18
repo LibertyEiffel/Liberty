@@ -32,7 +32,7 @@ create {ANY} make, from_value
 
 feature {} -- Creation
 
-	make (an_int: INTEGER) is
+	make (an_int: INTEGER)
 		local
 			res_ptr: POINTER
 		do
@@ -46,7 +46,7 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	read: INTEGER is
+	read: INTEGER
 		do
 			xmlrpc_read_int (env.handle, handle, $Result)
 		end

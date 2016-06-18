@@ -36,20 +36,20 @@ create {ANY}
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <curl/curl.h>"
 		alias "sizeof (struct curl_httppost)"
 		end
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			allocate
 			null
 		end
 
-	null is
+	null
 		do
 			create last_item.make
 			error_code := 0
@@ -67,7 +67,7 @@ feature {} -- Representation
 
 feature {ANY} -- Representation
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 		do
 			Result:= error_code = 0
 		end
@@ -76,7 +76,7 @@ feature {ANY} -- Representation
 
 feature {ANY}
 
-	set_name_and_content (name, content: STRING) is
+	set_name_and_content (name, content: STRING)
 		require
 			name /= Void
 			content /= Void
@@ -89,7 +89,7 @@ feature {ANY}
 												 curl_form_end)
 		end
 
-	set_name_and_file (name, file: STRING) is
+	set_name_and_file (name, file: STRING)
 		require
 			name /= Void
 			file /= Void

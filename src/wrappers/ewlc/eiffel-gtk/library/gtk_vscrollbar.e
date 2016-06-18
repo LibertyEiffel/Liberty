@@ -31,7 +31,7 @@ inherit GTK_SCROLLBAR
 create {ANY} make, with_adjustment, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new vertical scrollbar; a new adjustment is also created.
 		require
 			gtk_initialized: gtk.is_initialized
@@ -39,7 +39,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_vscrollbar_new (default_pointer))
 		end
 	
-	with_adjustment (an_adjustment: GTK_ADJUSTMENT) is
+	with_adjustment (an_adjustment: GTK_ADJUSTMENT)
 			-- Creates a new vertical scrollbar using `an_adjustment'.
 		require
 			gtk_initialized: gtk.is_initialized
@@ -50,7 +50,7 @@ feature {} -- Creation
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVSCrollbar)"
 		end

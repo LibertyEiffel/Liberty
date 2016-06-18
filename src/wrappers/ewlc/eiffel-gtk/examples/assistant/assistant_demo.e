@@ -9,7 +9,7 @@ insert
 
 create {ANY} make
 feature {ANY}
-	make is
+	make
 		do
 			gtk.initialize
 			create assistant.make

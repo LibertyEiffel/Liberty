@@ -51,7 +51,7 @@ feature {ANY}
 		fill_in_results
 	end
 
-	execute_callback (some_parameters: TRAVERSABLE[SQLITE_VALUE]; callback: ROUTINE[TUPLE[RESULT_ROW]]) is
+	execute_callback (some_parameters: TRAVERSABLE[SQLITE_VALUE]; callback: ROUTINE[TUPLE[RESULT_ROW]])
         -- Execute the current query with `some_parameters'
         -- call callback for every result_row
     require
@@ -160,7 +160,7 @@ feature {} -- Implementation
     -- sqlite3_step(). The use of the "v2" interface is recommended.
 
 
-    fill_in_results is
+    fill_in_results
         require 
             correct_sqlite_status: res_code = sqlite_ok
         do
@@ -182,7 +182,7 @@ feature {} -- Implementation
         end
 end
 
-    fetch_one_row: SQLITE_RESULT_ROW is
+    fetch_one_row: SQLITE_RESULT_ROW
         local 
             a_column: INTEGER
             a_type_number: INTEGER

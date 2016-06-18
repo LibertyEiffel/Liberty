@@ -27,7 +27,7 @@ inherit
 	SHARED_CREATION_DICTIONARY 
 	ANY -- because in the previose classes we undefined copy and is_equal.
 feature {ANY}
-	register_creation_agents is
+	register_creation_agents
 		-- Store creation agents for GooCanvas classes after having done it for all its preconditions.
 	do
 		print(once "See GOO_LIBRARY!%N")
@@ -56,54 +56,54 @@ feature {ANY}
 --		creation_agents.put(agent {GOO_CANVAS_TABLE}.from_external_pointer, "GooCanvasTable")
 	end
 
-	create_goo_canvas_rect (p:POINTER): GOO_CANVAS_RECT is 
+	create_goo_canvas_rect (p:POINTER): GOO_CANVAS_RECT
 		do
 			create Result.from_external_pointer(p)
 		end
 	
-	create_goo_canvas_widget (p:POINTER): GOO_CANVAS_WIDGET is 
+	create_goo_canvas_widget (p:POINTER): GOO_CANVAS_WIDGET
 		do
 			create Result.from_external_pointer(p)
 		end
 		
-	create_goo_canvas_group (p:POINTER): GOO_CANVAS_GROUP is 
+	create_goo_canvas_group (p:POINTER): GOO_CANVAS_GROUP
 		do
 --			std_error.put_string ("%NHello from goo_canvas_group!%N%N")
 			create Result.from_external_pointer(p)
 --			std_error.put_string ("%NCiao from goo_canvas_group!%N%N")
 		end
 		
-	create_goo_canvas_path (p:POINTER): GOO_CANVAS_PATH is 
+	create_goo_canvas_path (p:POINTER): GOO_CANVAS_PATH
 		do
 			create Result.from_external_pointer(p)
 		end
 		
-	create_goo_canvas_ellipse (p:POINTER): GOO_CANVAS_ELLIPSE is 
+	create_goo_canvas_ellipse (p:POINTER): GOO_CANVAS_ELLIPSE
 		do
 			create Result.from_external_pointer(p)
 		end
 		
-	create_goo_canvas_text (p:POINTER): GOO_CANVAS_TEXT is 
+	create_goo_canvas_text (p:POINTER): GOO_CANVAS_TEXT
 		do
 			create Result.from_external_pointer(p)
 		end
 		
-	create_goo_canvas_polyline (p:POINTER): GOO_CANVAS_POLYLINE is 
+	create_goo_canvas_polyline (p:POINTER): GOO_CANVAS_POLYLINE
 		do
 			create Result.from_external_pointer(p)
 		end
 		
-	create_goo_canvas_image (p:POINTER): GOO_CANVAS_IMAGE is 
+	create_goo_canvas_image (p:POINTER): GOO_CANVAS_IMAGE
 		do
 			create Result.from_external_pointer(p)
 		end
 		
-	create_goo_canvas_grid (p:POINTER): GOO_CANVAS_GRID is 
+	create_goo_canvas_grid (p:POINTER): GOO_CANVAS_GRID
 		do
 			create Result.from_external_pointer(p)
 		end
 		
-	create_goo_canvas_table (p:POINTER): GOO_CANVAS_TABLE is 
+	create_goo_canvas_table (p:POINTER): GOO_CANVAS_TABLE
 		do
 			create Result.from_external_pointer(p)
 		end

@@ -51,7 +51,7 @@ feature {ANY}
 
 	is_action_successful: BOOLEAN
 
-	delete_data (a_path: GTK_TREE_PATH) is
+	delete_data (a_path: GTK_TREE_PATH)
 			-- Try to delete the row at `a_path', because it was moved
 			-- somewhere else via drag-and-drop.
 			-- `is_action_successful' will be False if the deletion
@@ -63,7 +63,7 @@ feature {ANY}
 			is_action_successful := (gtk_tree_drag_source_drag_data_delete (handle, a_path.handle)).to_boolean
 		end
 
-	data (a_path: GTK_TREE_PATH): GTK_SELECTION_DATA is
+	data (a_path: GTK_TREE_PATH): GTK_SELECTION_DATA
 			-- Try to fill in `a_selection_data' with a representation of
 			-- the row at path. `is_action_successful' will be True
 			-- if data of the required type was provided.
@@ -80,7 +80,7 @@ feature {ANY}
 			is_action_successful := (gtk_tree_drag_source_drag_data_get (handle, a_path.handle, Result.handle)).to_boolean
 		end
 
-	is_row_draggable (a_path: GTK_TREE_PATH): BOOLEAN is
+	is_row_draggable (a_path: GTK_TREE_PATH): BOOLEAN
 			-- Can `a_path' (i.e.: a particular row) be used as the
 			-- source of a DND operation? If the source doesn't implement
 			-- this interface, the row is assumed draggable. Note: This

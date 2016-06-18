@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = xlink_type_none) or else 
 				(a_value = xlink_type_simple) or else 
@@ -15,66 +15,66 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_none is
+	default_create, set_none
 		do
 			value := xlink_type_none
 		end
 
-	set_simple is
+	set_simple
 		do
 			value := xlink_type_simple
 		end
 
-	set_extended is
+	set_extended
 		do
 			value := xlink_type_extended
 		end
 
-	set_extended_set is
+	set_extended_set
 		do
 			value := xlink_type_extended_set
 		end
 
 
 feature {ANY} -- Queries
-	is_none: BOOLEAN is
+	is_none: BOOLEAN
 		do
 			Result := (value=xlink_type_none)
 		end
 
-	is_simple: BOOLEAN is
+	is_simple: BOOLEAN
 		do
 			Result := (value=xlink_type_simple)
 		end
 
-	is_extended: BOOLEAN is
+	is_extended: BOOLEAN
 		do
 			Result := (value=xlink_type_extended)
 		end
 
-	is_extended_set: BOOLEAN is
+	is_extended_set: BOOLEAN
 		do
 			Result := (value=xlink_type_extended_set)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xlink_type_none: INTEGER is
+	xlink_type_none: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XLINK_TYPE_NONE"
 		end
 
-	xlink_type_simple: INTEGER is
+	xlink_type_simple: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XLINK_TYPE_SIMPLE"
 		end
 
-	xlink_type_extended: INTEGER is
+	xlink_type_extended: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XLINK_TYPE_EXTENDED"
 		end
 
-	xlink_type_extended_set: INTEGER is
+	xlink_type_extended_set: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XLINK_TYPE_EXTENDED_SET"
 		end

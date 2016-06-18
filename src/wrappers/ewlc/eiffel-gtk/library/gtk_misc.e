@@ -46,21 +46,21 @@ insert GTK_MISC_EXTERNALS
 -- <gtk/gtk.h>" alias "sizeof(GtkMisc)" end
 
 feature {ANY} --
-	xalign: REAL is
+	xalign: REAL
 			--	the horizontal alignment, from 0 (left) to 1 (right).
 		do
 			Result:=get_xalign(handle)
 		ensure valid: Result.in_range (0.0,1.0)
 		end
 
-	yalign: REAL is
+	yalign: REAL
 			-- the vertical alignment, from 0 (top) to 1 (bottom).
 		do
 			Result:=get_yalign(handle)
 		ensure valid: Result.in_range (0.0,1.0)
 		end
 
-	xpad: INTEGER is
+	xpad: INTEGER
 			-- the amount of space to add on the left and right of the
 			-- widget, in pixels. TODO: shall be NATURAL_16
 		do
@@ -68,14 +68,14 @@ feature {ANY} --
 		ensure valid: Result>0
 		end
 
-	ypad: INTEGER is
+	ypad: INTEGER
 			-- the amount of space to add on the top and bottom of the widget, in pixels. TODO shall be NATURAL_16
 		do
 			Result:=get_ypad(handle)
 		ensure valid: Result>0
 		end
 
-	set_alignment (an_xalign, an_yalign: REAL) is
+	set_alignment (an_xalign, an_yalign: REAL)
 			-- Sets the alignment of the widget. `an_xalign0' is the
 			-- horizontal alignment, from 0 (left) to 1 (right),
 			-- `an_yalign' is the vertical alignment, from 0 (top) to 1
@@ -87,7 +87,7 @@ feature {ANY} --
 			gtk_misc_set_alignment (handle, an_xalign, an_yalign);
 		end
 
-	set_padding (an_xpad, an_ypad: INTEGER) is
+	set_padding (an_xpad, an_ypad: INTEGER)
 			-- Sets the amount of space to add around the widget.
 			-- `an_xpad' is the amount of space to add on the left and
 			-- right of the widget, in pixels. `an_ypad' is the amount of

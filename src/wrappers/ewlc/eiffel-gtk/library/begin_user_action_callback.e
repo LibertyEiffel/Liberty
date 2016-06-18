@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_TEXT_BUFFER
 
 feature {ANY}
-	callback (instance: POINTER) is
+	callback (instance: POINTER)
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -47,14 +47,14 @@ feature {ANY}
 			procedure.call ([object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TEXT_BUFFER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_BUFFER]]) is
+	connect (an_object: GTK_TEXT_BUFFER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TEXT_BUFFER]])
 		do
 			debug
 				print ("BEGIN_USER_ACTION_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

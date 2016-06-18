@@ -5,7 +5,7 @@ inherit EIFFELTEST_TOOLS
 create {ANY} make 
 
 feature {ANY} 
-	make is
+	make
 		local
 			other_dates: G_LIST[G_DATE]
 		do

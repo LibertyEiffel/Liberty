@@ -27,7 +27,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GtkWindowGroup object. Grabs added with
 			-- gtk_grab_add() only affect windows within the same
 			-- GtkWindowGroup.
@@ -35,14 +35,14 @@ feature {} -- Creation
 			from_external_pointer (gtk_window_group_new)
 		end
 
-	add (a_window: GTK_WINDOW) is
+	add (a_window: GTK_WINDOW)
 			-- Adds `a_window' to a GtkWindowGroup.
 		require window_not_void: a_window/=Void
 		do
 			gtk_window_group_add_window(handle,a_window.handle)
 		end
 
-	remove (a_window: GTK_WINDOW) is
+	remove (a_window: GTK_WINDOW)
 			-- Removes `a_window' from a GtkWindowGroup.
 		require window_not_void: a_window/=Void
 		do
@@ -50,21 +50,21 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkWindowGroup)"
 		end
 
 feature {} -- External calls
-	gtk_window_group_new: POINTER is
+	gtk_window_group_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_window_group_add_window (window_group, window: POINTER) is
+	gtk_window_group_add_window (window_group, window: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_window_group_remove_window  (window_group, window: POINTER) is
+	gtk_window_group_remove_window  (window_group, window: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 

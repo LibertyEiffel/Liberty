@@ -35,20 +35,20 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (scroll_type, a_bool: INTEGER; instance: POINTER): INTEGER is
+	callback (scroll_type, a_bool: INTEGER; instance: POINTER): INTEGER
 		do
 			object := wrapper(instance)
 			Result := function.item ([scroll_type, a_bool.to_boolean, object]).to_integer
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW], BOOLEAN]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW], BOOLEAN])
 		do
 			debug
 				print ("SCROLL_CHILD_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

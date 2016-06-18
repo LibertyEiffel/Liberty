@@ -8,43 +8,43 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_command_set_options (a_cmd: POINTER; an_options: INTEGER_32) is
+	gda_command_set_options (a_cmd: POINTER; an_options: INTEGER_32)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_get_options (a_cmd: POINTER): INTEGER_32 is
+	gda_command_get_options (a_cmd: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_set_command_type (a_cmd: POINTER; a_type: INTEGER_32) is
+	gda_command_set_command_type (a_cmd: POINTER; a_type: INTEGER_32)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_get_command_type (a_cmd: POINTER): INTEGER_32 is
+	gda_command_get_command_type (a_cmd: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_set_text (a_cmd: POINTER; a_text: POINTER) is
+	gda_command_set_text (a_cmd: POINTER; a_text: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_get_text (a_cmd: POINTER): POINTER is
+	gda_command_get_text (a_cmd: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_copy (a_cmd: POINTER): POINTER is
+	gda_command_copy (a_cmd: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_free (a_cmd: POINTER) is
+	gda_command_free (a_cmd: POINTER)
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_new (a_text: POINTER; a_type: INTEGER_32; an_options: INTEGER_32): POINTER is
+	gda_command_new (a_text: POINTER; a_type: INTEGER_32; an_options: INTEGER_32): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_get_type: INTEGER_32 is
+	gda_command_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

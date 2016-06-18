@@ -26,10 +26,10 @@ deferred class GTK_VSCALE_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gtk_vscale_new (an_adjustment: POINTER): POINTER is
+	gtk_vscale_new (an_adjustment: POINTER): POINTER
 		external "C use  <gtk/gtk.h>"
 		end
-	gtk_vscale_new_with_range (a_min, a_max, a_step: REAL): POINTER is
+	gtk_vscale_new_with_range (a_min, a_max, a_step: REAL): POINTER
 		external "C use  <gtk/gtk.h>"
 		end
 end

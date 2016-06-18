@@ -33,7 +33,7 @@ feature {ANY} -- Commands
 
 	default_buffer_size: INTEGER is 1024
 
-	make is
+	make
 		do
 			io.put_line("Starting")
 			debug 
@@ -70,7 +70,7 @@ feature {ANY} -- Commands
 			gda.quit
 		end
 
-	list_providers is
+	list_providers
 		local info_iterator: ITERATOR [GDA_PROVIDER_INFO]
 		do
 			print ("Providers:%N")
@@ -85,7 +85,7 @@ feature {ANY} -- Commands
 			end
 		end
 
-	list_data_sources is
+	list_data_sources
 		local
 			info_iterator: ITERATOR [GDA_DATA_SOURCE_INFO]
 			source: GDA_DATA_SOURCE_INFO
@@ -103,7 +103,7 @@ feature {ANY} -- Commands
 			end
 		end
 
-	execute_some_queries is
+	execute_some_queries
 		do
 			
 			-- execute_some_queries (GdaConnection * connection)
@@ -143,7 +143,7 @@ feature {ANY} -- Commands
 
 		end
 	
-	process_accounts is
+	process_accounts
 		do
 			not_yet_implemented
 			-- void
@@ -204,7 +204,7 @@ feature {ANY} -- Commands
 			-- }
 		end
 
-	play_with_parameters	is
+	play_with_parameters
 		do
 			not_yet_implemented
 			-- void
@@ -231,7 +231,7 @@ feature {ANY} -- Commands
 			--         g_object_unref (list);
 			-- }
 		end
-	execute_sql (an_sql: STRING) is
+	execute_sql (an_sql: STRING)
 		do
        -- void
         -- execute_sql (GdaConnection * connection, const gchar * 
@@ -252,12 +252,12 @@ feature {ANY} -- Commands
 		end  
 
 feature {ANY} -- Queries
-	client: GDA_CLIENT is
+	client: GDA_CLIENT
 		once 
 			create Result.make
 		end
 
-	connection: GDA_CONNECTION is
+	connection: GDA_CONNECTION
 			-- Connection to an example SQLite database. Void if couldn't find the database
 		once
 			if not gda.has_data_source(database_name) then 
@@ -278,12 +278,12 @@ feature {ANY} -- Queries
 			-- similars.
 		end
 
-	has_connection: BOOLEAN is
+	has_connection: BOOLEAN
 		do
 			Result := (connection/=Void)
 		end
 	
-	print_events is 
+	print_events
 		local 
 			events: G_SLIST[GDA_CONNECTION_EVENT]
 			event_iterator: ITERATOR[GDA_CONNECTION_EVENT]

@@ -31,13 +31,13 @@ create {ANY} from_external_pointer
 
 feature {ANY} -- access
 
-	time: INTEGER is
+	time: INTEGER
 			-- the time of the event in milliseconds.
 		do
 			Result := gdk_event_key_get_time (handle)
 		end
 
-	state: INTEGER is
+	state: INTEGER
 			-- a bit-mask representing the state of the modifier keys
 			-- (e.g. Control, Shift and Alt) and the pointer buttons.
 			-- See GDK_MODIFIER_TYPE.
@@ -47,7 +47,7 @@ feature {ANY} -- access
 			is_valid_gdk_modifier_type (Result)
 		end
 
-	key_value: INTEGER is
+	key_value: INTEGER
 			-- the key that was pressed or released. See the 
 			-- <gdk/gdkkeysyms.h> header file for a complete list of GDK
 			-- key codes.

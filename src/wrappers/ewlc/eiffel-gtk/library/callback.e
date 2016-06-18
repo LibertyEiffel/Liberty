@@ -31,7 +31,7 @@ inherit
 insert G_SIGNAL_EXTERNALS
 
 feature {ANY}
-	make is
+	make
 		do
 			-- Using the _swap version is the key here. When the callback
 			-- is invoked the first parameter of the C function will be
@@ -66,7 +66,7 @@ feature {ANY}
 
 	-- routine: FUNCTION [ANY, TUPLE , BOOLEAN]
 
-	signal_name: STRING is
+	signal_name: STRING
 			-- The name of the signal that Current callback will connect to.
 		deferred
 		end
@@ -76,7 +76,7 @@ feature {ANY}
 
 feature {} -- Auxiliar
 
-	get_callback_pointer (pointer: POINTER): POINTER is
+	get_callback_pointer (pointer: POINTER): POINTER
 			-- Identity on pointers. Workaround for SE's stupidity
 			-- accepting $feature only as argument
 		do

@@ -5,7 +5,7 @@ inherit GTK_WINDOW redefine make, on_destroy end
 create {ANY} make
 
 feature {ANY} 
-	make is
+	make
 		do
 			Precursor
 			enable_on_destroy
@@ -14,7 +14,7 @@ feature {ANY}
 
 feature {ANY} -- callback
 	--	destroy_callback: DESTROY_CALLBACK
-	on_destroy is
+	on_destroy
 		local
 			windows: G_LIST[GTK_WINDOW]; wi: ITERATOR[GTK_WINDOW]
 			w: GTK_WINDOW; t: STRING

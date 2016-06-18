@@ -7,7 +7,7 @@ create {ANY}
 	make
 	
 feature {NONE} -- creation
-	make is
+	make
 		local
 			x: GLADE_XML
 		do
@@ -26,7 +26,7 @@ feature {ANY} -- Widgets
 
 feature {ANY} -- Signal handlers
 
-	quit (w: GTK_WIDGET; e: GDK_EVENT): BOOLEAN is
+	quit (w: GTK_WIDGET; e: GDK_EVENT): BOOLEAN
 		do
 			gtk.quit
 		end

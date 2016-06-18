@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = sql_simple) or else 
 				(a_value = sql_nestedselect) or else 
@@ -14,51 +14,51 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_sql_simple is
+	default_create, set_sql_simple
 		do
 			value := sql_simple
 		end
 
-	set_sql_nestedselect is
+	set_sql_nestedselect
 		do
 			value := sql_nestedselect
 		end
 
-	set_sql_tablefunction is
+	set_sql_tablefunction
 		do
 			value := sql_tablefunction
 		end
 
 
 feature {ANY} -- Queries
-	is_sql_simple: BOOLEAN is
+	is_sql_simple: BOOLEAN
 		do
 			Result := (value=sql_simple)
 		end
 
-	is_sql_nestedselect: BOOLEAN is
+	is_sql_nestedselect: BOOLEAN
 		do
 			Result := (value=sql_nestedselect)
 		end
 
-	is_sql_tablefunction: BOOLEAN is
+	is_sql_tablefunction: BOOLEAN
 		do
 			Result := (value=sql_tablefunction)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	sql_simple: INTEGER is
+	sql_simple: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_simple"
 		end
 
-	sql_nestedselect: INTEGER is
+	sql_nestedselect: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_nestedselect"
 		end
 
-	sql_tablefunction: INTEGER is
+	sql_tablefunction: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "SQL_tablefunction"
 		end

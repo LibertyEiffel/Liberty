@@ -30,7 +30,7 @@ feature {ANY} -- dialogs
 	
 feature {ANY} -- Initialisation
 	
-	make is
+	make
 		do
 			gtk.initialize								
 			run_some_dialogs
@@ -38,7 +38,7 @@ feature {ANY} -- Initialisation
 			run_files_dialog
 		end
 
-	run_some_dialogs is
+	run_some_dialogs
 		do
 			create dialog.make
 			-- Add a label
@@ -86,7 +86,7 @@ feature {ANY} -- Initialisation
 			message.destroy
 		end
 
-	show_file_dialogs is
+	show_file_dialogs
 		local filename: STRING
 		do
 			create file_chooser.make_open ("Choose the Eiffelest file you have",Void,
@@ -101,7 +101,7 @@ feature {ANY} -- Initialisation
 			end
 		end
 
-	run_files_dialog is
+	run_files_dialog
 		local filenames: G_SLIST_STRING; i: ITERATOR[STRING]
 		do
 			create file_chooser.make_open ("Choose some files",Void,Void)
@@ -127,7 +127,7 @@ feature {ANY} -- Initialisation
 			end
 		end
 
-	my_rescue is
+	my_rescue
 		local failing_message: GTK_MESSAGE_DIALOG; an_answer: INTEGER
 		do
 			print_run_time_stack

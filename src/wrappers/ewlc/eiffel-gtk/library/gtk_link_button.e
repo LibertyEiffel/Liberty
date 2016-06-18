@@ -44,7 +44,7 @@ inherit
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (an_uri: STRING) is
+	make (an_uri: STRING)
 			-- Creates a new GtkLinkButton with the `an_uri' as its text.
 		require
 			uri_not_void: an_uri /= Void
@@ -53,7 +53,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_link_button_new(gtk_link_button_new(an_uri.to_external)))
 		end
 	
-	make_with_label (an_uri, a_label: STRING) is
+	make_with_label (an_uri, a_label: STRING)
 			-- Creates a new GtkLinkButton containing `a_label' as the text of the 
 			-- button pointing to `an_uri'.
 		require
@@ -65,7 +65,7 @@ feature {} -- Creation
 		end
 	
 feature {ANY}
-	uri: STRING is
+	uri: STRING
 			-- the URI of the link button.
 		do
 			-- The returned string is owned by the link button and should
@@ -75,7 +75,7 @@ feature {ANY}
 		ensure Result /= Void
 		end
 
-	set_uri (an_uri: STRING) is
+	set_uri (an_uri: STRING)
 			-- Sets uri as the URI where the GtkLinkButton points.
 		require
 			uri_not_void: an_uri /= Void
@@ -121,25 +121,25 @@ feature {ANY}
 
 
 feature {} -- External calls
-	gtk_link_button_new  (an_uri: POINTER): POINTER is
+	gtk_link_button_new  (an_uri: POINTER): POINTER
 			-- GtkWidget* gtk_link_button_new (const gchar *uri);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gtk_link_button_new_with_label (an_uri, a_label: POINTER): POINTER is
+	 gtk_link_button_new_with_label (an_uri, a_label: POINTER): POINTER
 			-- GtkWidget* gtk_link_button_new_with_label (const gchar
 			-- *uri, const gchar *label);
 		external "C use <gtk/gtk.h>"
 		end
 
 	
-	gtk_link_button_get_uri (a_link_button: POINTER): POINTER is
+	gtk_link_button_get_uri (a_link_button: POINTER): POINTER
 			-- const gchar* gtk_link_button_get_uri (GtkLinkButton
 			-- *link_button);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_link_button_set_uri (a_link_button, an_uri: POINTER) is
+	gtk_link_button_set_uri (a_link_button, an_uri: POINTER)
 			-- void gtk_link_button_set_uri (GtkLinkButton *link_button,
 			-- const gchar *uri);
 		external "C use <gtk/gtk.h>"
@@ -148,7 +148,7 @@ feature {} -- External calls
 	-- void (*GtkLinkButtonUriFunc) (GtkLinkButton *button, const gchar
 	-- *link, gpointer user_data);
 	
-	gtk_link_button_set_uri_hook (a_func, some_data, a_destroy: POINTER): POINTER is
+	gtk_link_button_set_uri_hook (a_func, some_data, a_destroy: POINTER): POINTER
 			-- GtkLinkButtonUriFunc gtk_link_button_set_uri_hook
 			-- (GtkLinkButtonUriFunc func, gpointer data, GDestroyNotify
 			-- destroy);

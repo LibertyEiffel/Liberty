@@ -9,7 +9,7 @@ create {ANY}
 
 feature {ANY}
 
-	draw_text is
+	draw_text
 		local
 			layout: PANGO_CAIRO_LAYOUT
 			description: PANGO_FONT_DESCRIPTION
@@ -45,7 +45,7 @@ feature {ANY}
 			end
 		end
 
-	make is
+	make
 		local
 			surface: CAIRO_IMAGE_SURFACE
 			res: INTEGER

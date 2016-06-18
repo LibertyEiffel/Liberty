@@ -29,43 +29,43 @@ inherit G_STRUCT
 create {ANY} from_external_pointer
 
 feature {ANY}
-	x1: INTEGER is
+	x1: INTEGER
 			-- the x coordinate of the start point.
 		do
 			Result := get_x1 (handle)
 		end
-	y1: INTEGER is
+	y1: INTEGER
 			-- the y coordinate of the start point.
 		do
 			Result := get_y1 (handle)
 		end
-	x2: INTEGER is
+	x2: INTEGER
 			-- the x coordinate of the end point.
 		do
 			Result := get_x2 (handle)
 		end
-	y2: INTEGER is
+	y2: INTEGER
 			-- the y coordinate of the end point.
 		do
 			Result := get_y2 (handle)
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkSegment)"
 		end
 feature {} -- External calls
-	get_x1 (segment: POINTER): INTEGER is
+	get_x1 (segment: POINTER): INTEGER
 		external "C struct GdkSegment get x1 use <gdk/gdk.h>"
 		end
-	get_y1 (segment: POINTER): INTEGER is
+	get_y1 (segment: POINTER): INTEGER
 		external "C struct GdkSegment get y1 use <gdk/gdk.h>"
 		end
-	get_x2 (segment: POINTER): INTEGER is
+	get_x2 (segment: POINTER): INTEGER
 		external "C struct GdkSegment get x2 use <gdk/gdk.h>"
 		end
-	get_y2 (segment: POINTER): INTEGER is
+	get_y2 (segment: POINTER): INTEGER
 		external "C struct GdkSegment get y2 use <gdk/gdk.h>"
 		end
 end

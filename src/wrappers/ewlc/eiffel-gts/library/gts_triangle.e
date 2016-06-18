@@ -38,7 +38,7 @@ insert GTS_POINT_EXTERNALS
 create {ANY}  from_edges, enclosing, from_external_pointer
 
 feature {} -- Creation
-	from_edges (first,second,third: GTS_EDGE) is
+	from_edges (first,second,third: GTS_EDGE)
 			-- a new GtsTriangle having `first', `second' and `third' as
 			-- edges.
 		require 
@@ -53,7 +53,7 @@ feature {} -- Creation
 										 (gts_triangle_class, first.handle, second.handle, third.handle))
 		end
 
-	enclosing (some_points: G_SLIST[GTS_POINT]; a_scale: REAL) is
+	enclosing (some_points: G_SLIST[GTS_POINT]; a_scale: REAL)
 			-- Builds a new triangle (including new vertices and edges)
 			-- enclosing the plane projection of `some_points'. This
 			-- triangle is equilateral and encloses a rectangle defined
@@ -69,7 +69,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} 
-	set_edges (first,second,third: GTS_EDGE) is
+	set_edges (first,second,third: GTS_EDGE)
 			-- Sets the edge of triangle to `first', `second' and `third'
 			--  while checking that they define a valid triangle.
 		require 
@@ -83,21 +83,21 @@ feature {ANY}
 			gts_triangle_set (handle, first.handle, second.handle, third.handle)
 		end
 	
-	area: REAL is
+	area: REAL
 			-- the area of the triangle
 		do 
 			Result := gts_triangle_area (handle)
 		ensure positive: Result >= 0
 		end
 
-	perimeter: REAL is
+	perimeter: REAL
 			-- the perimeter of the triangle
 		do
 			Result := gts_triangle_perimeter (handle)
 		ensure positive: Result >= 0
 		end
 
-	quality: REAL is
+	quality: REAL
 			-- The quality of the triangle, defined as the ratio of its
 			-- surface to its perimeter relative to this same ratio for
 			-- an equilateral triangle with the same area. The quality is
@@ -125,14 +125,14 @@ feature {ANY}
 	--     z :  the z coordinate of the normal.
 	
 
-	revert is
+	revert
 			-- Changes the orientation of triangle t, turning it inside
 			-- out.
 		do
 			gts_triangle_revert (handle)
 		end
 
-	orientation: REAL is
+	orientation: REAL
 			-- Checks for the orientation of the plane (x,y) projection
 			-- of a triangle. See gts_point_orientation() for
 			-- details. This function is geometrically robust.
@@ -140,7 +140,7 @@ feature {ANY}
 			Result := gts_triangle_orientation (handle)
 		end
 
-	duplicate: GTS_TRIANGLE is
+	duplicate: GTS_TRIANGLE
 			-- a GtsTriangle different from Current but sharing all its
 			-- edges with Current or Void if there is none.
 		local p: POINTER
@@ -154,14 +154,14 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	angle (another: GTS_TRIANGLE): REAL is
+	angle (another: GTS_TRIANGLE): REAL
 			-- the angle (in radians) between Current and `another'.
 		do
 			Result := gts_triangles_angle (handle, another.handle)
 		ensure positive: Result >= 0
 		end
 
-	are_compatible (another: GTS_TRIANGLE; an_edge: GTS_EDGE): BOOLEAN is
+	are_compatible (another: GTS_TRIANGLE; an_edge: GTS_EDGE): BOOLEAN
 			-- Do Current and `another' have compatible orientations?
 			-- i.e. Can Current and `another' be part of the same surface
 			-- without -- conflict in the surface normal orientation?
@@ -174,7 +174,7 @@ feature {ANY}
 			Result:= (gts_triangles_are_compatible (handle, another.handle, an_edge.handle)).to_boolean
 		end
 
-	common_edge (another: GTS_TRIANGLE): GTS_EDGE is
+	common_edge (another: GTS_TRIANGLE): GTS_EDGE
 			-- a GtsEdge common to both Current and `another' or Void if
 			-- they do not share any edge.
 		local ptr: POINTER
@@ -184,14 +184,14 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	neighbor_number: INTEGER is
+	neighbor_number: INTEGER
 			-- the number of triangles neighbors of t.
 			-- TODO: Should be NATURAL since it is a guint
 		do
 			Result := gts_triangle_neighbor_number (handle)
 		end
 
-	neighbors: G_SLIST [GTS_TRIANGLE] is
+	neighbors: G_SLIST [GTS_TRIANGLE]
 			-- list of GtsTriangle neighbors of Current.
 		do
 			create Result.from_external_pointer (gts_triangle_neighbors (handle))
@@ -201,7 +201,7 @@ feature {} -- Implementation
 	stored_vertices: TUPLE [GTS_VERTEX, GTS_VERTEX, GTS_VERTEX]
 	stored_edges: TUPLE [GTS_EDGE, GTS_EDGE, GTS_EDGE]
 
-	retrieve_vertices_and_edges is
+	retrieve_vertices_and_edges
 			-- Retrieve the vertices and edges and store them in
 			-- `stored_vertices' and `stored_edges'.
 		local v1,v2,v3, e1,e2,e3: POINTER
@@ -221,7 +221,7 @@ feature {} -- Implementation
 		end
 
 feature {ANY} 
-	vertices: TUPLE [GTS_VERTEX, GTS_VERTEX, GTS_VERTEX] is
+	vertices: TUPLE [GTS_VERTEX, GTS_VERTEX, GTS_VERTEX]
 		local v1,v2,v3: POINTER
 		do
 			not_yet_implemented
@@ -232,7 +232,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	edge_1: GTS_EDGE is
+	edge_1: GTS_EDGE
 			-- First edge
 		local ptr: POINTER
 		do
@@ -245,7 +245,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	edge_2: GTS_EDGE is
+	edge_2: GTS_EDGE
 			-- Second edge
 		local ptr: POINTER
 		do
@@ -258,7 +258,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	edge_3: GTS_EDGE is
+	edge_3: GTS_EDGE
 			-- Third edge
 		local ptr: POINTER
 		do
@@ -271,7 +271,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	edges: TUPLE [GTS_EDGE, GTS_EDGE, GTS_EDGE] is
+	edges: TUPLE [GTS_EDGE, GTS_EDGE, GTS_EDGE]
 			-- TODO: Investigate if using e1,e2,e3 is better
 		do
 			if stored_edges = Void then retrieve_vertices_and_edges end
@@ -279,7 +279,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	vertex_opposite (an_edge: GTS_EDGE): GTS_VERTEX is
+	vertex_opposite (an_edge: GTS_EDGE): GTS_VERTEX
 			-- the vertex of Current triangle which does not belong to
 			-- `an_edge'.
 		require 
@@ -292,7 +292,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 	
-	edge_opposite (a_vertex: GTS_VERTEX): GTS_EDGE is
+	edge_opposite (a_vertex: GTS_VERTEX): GTS_EDGE
 		local ptr: POINTER
 		do
 			ptr := gts_triangle_edge_opposite (handle, a_vertex.handle)
@@ -302,7 +302,7 @@ feature {ANY}
 		ensure not_void: Result/=Void
 		end
 
-	vertex: GTS_VERTEX is
+	vertex: GTS_VERTEX
 			-- the GtsVertex not used by `e1'.
 		local ptr: POINTER
 		do
@@ -319,7 +319,7 @@ feature {ANY}
 		end
 
 
-	is_ok: BOOLEAN is
+	is_ok: BOOLEAN
 			-- Is Current a non-degenerate, non-duplicate triangle?
 		do
 			Result := (gts_triangle_is_ok (handle)).to_boolean
@@ -334,7 +334,7 @@ feature {ANY}
 	-- GtsTriangle having e1, e2 and e3 as edges or NULL if e1, e2 and
 	-- e3 are not part of any -- triangle.
 
-	circumcircle_center: GTS_POINT is
+	circumcircle_center: GTS_POINT
 			-- a new GtsPoint, center of the circumscribing circle of t
 			-- or Void if the circumscribing circle is not defined.
 		local ptr: POINTER
@@ -377,20 +377,20 @@ feature {ANY}
 --     p :  a GtsPoint.
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsTriangle)"
 		end
 
 feature {} -- GtsTriangle struct access
-	get_e1 (a_triangle: POINTER): POINTER is
+	get_e1 (a_triangle: POINTER): POINTER
 		external "C struct GtsTriangle get e1 use <gts.h>"
 		end
 
-	get_e2 (a_triangle: POINTER): POINTER is
+	get_e2 (a_triangle: POINTER): POINTER
 		external "C struct GtsTriangle get e2 use <gts.h>"
 		end
-	get_e3 (a_triangle: POINTER): POINTER is
+	get_e3 (a_triangle: POINTER): POINTER
 		external "C struct GtsTriangle get e3 use <gts.h>"
 		end
 
@@ -421,7 +421,7 @@ feature {} -- External calls
 --              GtsTriangleClass;
 --              GtsTriangle;
 			
-	gts_triangle_class: POINTER is 
+	gts_triangle_class: POINTER
 		external "C use <gts.h>"
 		end
 
@@ -429,7 +429,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
-	gts_triangle_set (a_triangle, e1, e2, e3: POINTER) is
+	gts_triangle_set (a_triangle, e1, e2, e3: POINTER)
 		external "C use <gts.h>"
 		end
 	
@@ -449,7 +449,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
-	gts_triangle_revert (a_triangle: POINTER) is
+	gts_triangle_revert (a_triangle: POINTER)
 		external "C use <gts.h>"
 		end
 	
@@ -486,7 +486,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_triangle_vertices_edges (a_triangle, an_edge, v1_ref, v2_ref, v3_ref, e1_ref, e2_ref, e3_ref: POINTER) is
+	gts_triangle_vertices_edges (a_triangle, an_edge, v1_ref, v2_ref, v3_ref, e1_ref, e2_ref, e3_ref: POINTER)
 		external "C use <gts.h>"
 		end
 
@@ -502,7 +502,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
-	gts_triangle_vertex (a_triangle: POINTER): POINTER is 
+	gts_triangle_vertex (a_triangle: POINTER): POINTER
 			-- #define gts_triangle_vertex (t)
 		external "C macro use <gts.h>"
 		end

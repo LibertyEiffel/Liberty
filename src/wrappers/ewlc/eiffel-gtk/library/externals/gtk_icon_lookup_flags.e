@@ -24,14 +24,14 @@ deferred class GTK_ICON_LOOKUP_FLAGS
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	are_valid_lookup_flags (some_flags: INTEGER): BOOLEAN is
+	are_valid_lookup_flags (some_flags: INTEGER): BOOLEAN
 		do	
 			Result:=(some_flags & (gtk_icon_lookup_no_svg |
 										  gtk_icon_lookup_force_svg |
 										  gtk_icon_lookup_use_builtin)).to_boolean
 		end
 
-	gtk_icon_lookup_no_svg: INTEGER is
+	gtk_icon_lookup_no_svg: INTEGER
 			-- Never return SVG icons, even if gdk-pixbuf supports
 			-- them. Cannot be used together with
 			-- GTK_ICON_LOOKUP_FORCE_SVG.
@@ -39,14 +39,14 @@ feature {ANY}  -- enum
 		alias "GTK_ICON_LOOKUP_NO_SVG"
 		end
 	
-	gtk_icon_lookup_force_svg: INTEGER is
+	gtk_icon_lookup_force_svg: INTEGER
 			-- Return SVG icons, even if gdk-pixbuf doesn't support
 			-- them. Cannot be used together with GTK_ICON_LOOKUP_NO_SVG.
 		external "C macro <gtk/gtk.h>"
 		alias "GTK_ICON_LOOKUP_FORCE_SVG"
 		end
 	
-	gtk_icon_lookup_use_builtin: INTEGER is
+	gtk_icon_lookup_use_builtin: INTEGER
 			-- When passed to gtk_icon_theme_lookup_icon() includes
 			-- builtin icons as well as files. For a builtin icon,
 			-- gtk_icon_info_get_filename() returns NULL and you need to

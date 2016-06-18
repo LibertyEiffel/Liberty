@@ -48,7 +48,7 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (a_child_model: GTK_TREE_MODEL; a_root: GTK_TREE_PATH) is
+	make (a_child_model: GTK_TREE_MODEL; a_root: GTK_TREE_PATH)
 			-- Creates a new GtkTreeModel with `a_child_model' and - if
 			-- it is not Void - `a_root' as the virtual root.
 		do
@@ -96,7 +96,7 @@ feature {ANY}
 
 	-- Since 2.4
 
-	set_visible_column (a_column: INTEGER) is
+	set_visible_column (a_column: INTEGER)
 			-- Sets `a_column' of the child_model to be the column where
 			-- filter should look for visibility information. A True
 			-- column value means that a row is visible, and False is
@@ -107,14 +107,14 @@ feature {ANY}
 			gtk_tree_model_filter_set_visible_column(handle,a_column)
 		end
 
-	model: GTK_TREE_MODEL is
+	model: GTK_TREE_MODEL
 			-- the child model of filter.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_MODEL]
 		do
 			Result := factory.wrapper(gtk_tree_model_filter_get_model(handle))
 		end
 	
-	iter_from_child_iter (a_child_iter: GTK_TREE_ITER): GTK_TREE_ITER is
+	iter_from_child_iter (a_child_iter: GTK_TREE_ITER): GTK_TREE_ITER
 			-- An_iterator pointing to the row in filter that corresponds
 			-- to the row pointed at by `a_child_iter'.
 		require iter_not_void: a_child_iter /= Void
@@ -123,7 +123,7 @@ feature {ANY}
 			gtk_tree_model_filter_convert_child_iter_to_iter (handle, Result.handle, a_child_iter.handle)
 		end
 
-	to_child_iter (a_filter_iter: GTK_TEXT_ITER): GTK_TREE_ITER is
+	to_child_iter (a_filter_iter: GTK_TEXT_ITER): GTK_TREE_ITER
 			-- An iterator pointing to the row pointed to by
 			-- `a_filter_iter', a valid GtkTreeIter pointing to a row on
 			-- filter.
@@ -135,7 +135,7 @@ feature {ANY}
 			gtk_tree_model_filter_convert_iter_to_child_iter (handle, Result.handle, a_filter_iter.handle)
 		end
 
-	child_path_to_path (a_child_path: GTK_TREE_PATH): GTK_TREE_PATH is
+	child_path_to_path (a_child_path: GTK_TREE_PATH): GTK_TREE_PATH
 			-- cnverts `a_child_path' to a path relative to filter. That
 			-- is, `a_child_path' points to a path in the child
 			-- model. The Result path will point to the same row in the
@@ -148,7 +148,7 @@ feature {ANY}
 			if path_ptr.is_not_null then create Result.from_external_pointer(path_ptr) end
 		end
 
-	path_to_child_path (a_filter_path: GTK_TREE_PATH): GTK_TREE_PATH is	
+	path_to_child_path (a_filter_path: GTK_TREE_PATH): GTK_TREE_PATH
 			-- Converts `a_filter_path' to a path on the child model of
 			-- filter. That is, `a_filter_path' points to a location in
 			-- filter. The Result path will point to the same location in
@@ -161,7 +161,7 @@ feature {ANY}
 			if path_ptr.is_not_null then create Result.from_external_pointer(path_ptr) end
 		end
 
-	refilter is
+	refilter
 			-- Emits ::row_changed for each row in the child model, which
 			-- causes the filter to re-evaluate whether a row is visible
 			-- or not.
@@ -169,7 +169,7 @@ feature {ANY}
 			gtk_tree_model_filter_refilter  (handle)
 		end
 
-	clear_cache is
+	clear_cache
 			-- This function should almost never be called. It clears the
 			-- filter of any cached iterators that haven't been reffed
 			-- with `ref_node'. This might be useful if the child model
@@ -230,7 +230,7 @@ feature {} -- Unwrapped features
 	-- data : 	user data given to gtk_tree_model_filter_set_modify_func()
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeModelFilter)"
 		end
@@ -243,20 +243,20 @@ feature {} -- External calls
 	-- (GtkTreeModel *model, GtkTreeIter *iter, GValue *value, gint
 	-- column, gpointer data);
 
-	gtk_tree_model_filter_new (a_child_model, a_root: POINTER): POINTER is
+	gtk_tree_model_filter_new (a_child_model, a_root: POINTER): POINTER
 			-- GtkTreeModel* gtk_tree_model_filter_new (GtkTreeModel
 			-- *child_model, GtkTreePath *root);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_filter_set_visible_func (a_filter, a_gtktreemodelfiltervisiblefunc, some_data, a_gtkdestroynotify: POINTER) is
+	gtk_tree_model_filter_set_visible_func (a_filter, a_gtktreemodelfiltervisiblefunc, some_data, a_gtkdestroynotify: POINTER)
 			-- void gtk_tree_model_filter_set_visible_func
 			-- (GtkTreeModelFilter *filter, GtkTreeModelFilterVisibleFunc
 			-- func, gpointer data, GtkDestroyNotify destroy);
 	external "C use <gtk/gtk.h>"
 	end
 
-	gtk_tree_model_filter_set_modify_func (a_filter: POINTER; an_n_columns: INTEGER; some_gtypes, a_gtktreemodelfiltermodifyfunc, some_data, a_gtkdestroynotify: POINTER) is
+	gtk_tree_model_filter_set_modify_func (a_filter: POINTER; an_n_columns: INTEGER; some_gtypes, a_gtktreemodelfiltermodifyfunc, some_data, a_gtkdestroynotify: POINTER)
 			-- void gtk_tree_model_filter_set_modify_func
 			-- (GtkTreeModelFilter *filter, gint n_columns, GType *types,
 			-- GtkTreeModelFilterModifyFunc func, gpointer data,
@@ -264,51 +264,51 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_model_filter_set_visible_column (a_filter: POINTER; a_column: INTEGER) is
+	gtk_tree_model_filter_set_visible_column (a_filter: POINTER; a_column: INTEGER)
 			-- void gtk_tree_model_filter_set_visible_column
 			-- (GtkTreeModelFilter *filter, gint column);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_filter_get_model (a_filter: POINTER): POINTER is
+	gtk_tree_model_filter_get_model (a_filter: POINTER): POINTER
 			-- GtkTreeModel* gtk_tree_model_filter_get_model (GtkTreeModelFilter *filter);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_filter_convert_child_iter_to_iter (a_filter, a_filter_iter, a_child_iter: POINTER) is
+	gtk_tree_model_filter_convert_child_iter_to_iter (a_filter, a_filter_iter, a_child_iter: POINTER)
 			-- void gtk_tree_model_filter_convert_child_iter_to_iter
 			-- (GtkTreeModelFilter *filter, GtkTreeIter *filter_iter,
 			-- GtkTreeIter *child_iter);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_filter_convert_iter_to_child_iter (a_filter, a_child_iter, a_filter_iter: POINTER) is
+	gtk_tree_model_filter_convert_iter_to_child_iter (a_filter, a_child_iter, a_filter_iter: POINTER)
 			-- void gtk_tree_model_filter_convert_iter_to_child_iter
 			-- (GtkTreeModelFilter *filter, GtkTreeIter *child_iter,
 			-- GtkTreeIter *filter_iter);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_model_filter_convert_child_path_to_path (a_filter, a_child_path: POINTER): POINTER is
+	gtk_tree_model_filter_convert_child_path_to_path (a_filter, a_child_path: POINTER): POINTER
 			-- GtkTreePath*
 			-- gtk_tree_model_filter_convert_child_path_to_path
 			-- (GtkTreeModelFilter *filter, GtkTreePath *child_path);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_model_filter_convert_path_to_child_path (a_filter, a_filter_path: POINTER): POINTER is
+	gtk_tree_model_filter_convert_path_to_child_path (a_filter, a_filter_path: POINTER): POINTER
 			-- GtkTreePath*
 			-- gtk_tree_model_filter_convert_path_to_child_path
 			-- (GtkTreeModelFilter *filter, GtkTreePath *filter_path);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_model_filter_refilter (a_filter: POINTER) is
+	gtk_tree_model_filter_refilter (a_filter: POINTER)
 			-- void gtk_tree_model_filter_refilter (GtkTreeModelFilter *filter);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_model_filter_clear_cache (a_filter: POINTER) is
+	gtk_tree_model_filter_clear_cache (a_filter: POINTER)
 			-- void gtk_tree_model_filter_clear_cache (GtkTreeModelFilter *filter);
 		external "C use <gtk/gtk.h>"
 		end

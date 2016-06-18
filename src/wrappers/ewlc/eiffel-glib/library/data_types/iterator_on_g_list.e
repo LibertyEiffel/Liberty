@@ -17,7 +17,7 @@ insert
 create {ANY} make
 	
 feature {} -- Creation
-	make (a_list: G_LIST_TRAVERSABLE[ITEM]) is
+	make (a_list: G_LIST_TRAVERSABLE[ITEM])
 		require
          valid_list: a_list /= Void
 		do
@@ -29,17 +29,17 @@ feature {} -- Implementation
 	current_element: POINTER
 
 feature {ANY} -- Iterator's features
-	start is
+	start
 		do
 			current_element := list.handle
 		end
 	
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result := (current_element.is_null)
 		end
 	
-	item: ITEM is
+	item: ITEM
 		local
          ptr: POINTER
          l: WRAPPER
@@ -52,24 +52,24 @@ feature {ANY} -- Iterator's features
 			end
 		end
 	
-	next is
+	next
 		do
 			current_element := g_list_get_next (current_element)
 		end
 
 feature {ANY} -- Bi-directional iterator features.
-	is_at_first: BOOLEAN is
+	is_at_first: BOOLEAN
 			-- Is Current iterator at the beginning of the G_LIST?
 		do
 			Result := (current_element = list.handle)
 		end
 	
-	prev is
+	prev
 		require past_start: not is_at_first
 		do
 			current_element := g_list_get_prev (current_element)
 		end
 
-	--feature dispose is do -- Note: disposing an interator is a
+	--feature dispose do -- Note: disposing an interator is a
 	--no-operation.  end
 end

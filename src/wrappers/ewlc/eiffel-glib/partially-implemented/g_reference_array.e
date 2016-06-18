@@ -80,14 +80,14 @@ insert
 create {ANY} empty, with_capacity, from_external_pointer
 
 feature {ANY} 
-	empty is
+	empty
 			-- Creates a new empty array.		
 		do
 			from_external_pointer(g_ptr_array_new)
 		ensure is_empty
 		end
 
-	with_capacity (a_size: INTEGER) is
+	with_capacity (a_size: INTEGER)
 			-- Creates a new GPtrArray with a_size preallocated. This
 			-- avoids frequent reallocation, if you are going to add many
 			-- pointers to the array. Note however that the size of the
@@ -104,28 +104,28 @@ feature {ANY} -- Indexing:
 	lower: INTEGER_32 is 0 
 		-- Minimum index.  See also `upper', `valid_index', `item'.
 
-	upper: INTEGER_32 is 
+	upper: INTEGER_32
 		-- Maximum index.  See also `lower', `valid_index', `item'.
 		do
 			Result:=count-1
 		end
 
 feature {ANY} -- Counting:
-	count: INTEGER_32 is
+	count: INTEGER_32
 			-- Number of available indices See also `is_empty',
 			-- `lower', `upper'. 
 		do
 			Result:=get_len(handle)
 		end
 
-	is_empty: BOOLEAN is
+	is_empty: BOOLEAN
 			-- Is collection empty ?  See also `count'.
 		do
 			Result := (count = 0)
 		end
 
 feature {ANY} -- Accessing:
-	item (index: INTEGER_32): ITEM is
+	item (index: INTEGER_32): ITEM
 			-- Item at the corresponding `index'.  See also `lower',
 			-- `upper', `valid_index'.
 		local 
@@ -141,13 +141,13 @@ feature {ANY} -- Accessing:
 			end
 		end
 
-	first: ITEM is
+	first: ITEM
 			-- The very `first' item.
 		do		
 			Result:=item(lower)
 		end
 
-	last: ITEM is
+	last: ITEM
 			-- The `last' item.
 			-- See also `first', `item'.
 		do
@@ -155,13 +155,13 @@ feature {ANY} -- Accessing:
 		end
 
 feature {ANY}   -- Other features:
-	get_new_iterator: ITERATOR[ITEM] is
+	get_new_iterator: ITERATOR[ITEM]
 		obsolete "Currently unimplemented!"
 		do
 			-- create {G_ARRAY_ITERATOR[ITEM]} Result.from_array(Current)
 		end
 feature {ANY}    -- Writing:
-	put (element: ITEM; an_index: INTEGER_32) is
+	put (element: ITEM; an_index: INTEGER_32)
 			-- Make `element' the item at `an_index'.  See also `lower',
 			-- `upper', `valid_index', `item', `swap', `force'.
 		local npa: NATIVE_ARRAY[POINTER]
@@ -170,7 +170,7 @@ feature {ANY}    -- Writing:
 			npa.put(null_or(element),i)
 		end
 	
-	swap (i1, i2: INTEGER_32) is
+	swap (i1, i2: INTEGER_32)
 			-- Swap item at index `i1' with item at index `i2'.  See also
 			-- `item', `put'.
 		local npa: NATIVE_ARRAY[POINTER]; tmp: POINTER
@@ -182,7 +182,7 @@ feature {ANY}    -- Writing:
 			npa.put( tmp, i2)
 		end
 
-	set_all_with (v: ITEM) is
+	set_all_with (v: ITEM)
 			-- Set all items with value `v'.  See also `set_slice_with'.
 		local i:INTEGER
 		do
@@ -201,7 +201,7 @@ feature {ANY}    -- Writing:
 	-- end
 	-- end
 
-	clear_all is
+	clear_all
 			-- Set every item to its default value. The `count' is not
 			-- affected.  See also `clear', `all_default'.
 		local i:INTEGER
@@ -212,7 +212,7 @@ feature {ANY}    -- Writing:
 		end
 
 feature {ANY} -- Adding:
-	add_first (element: ITEM) is
+	add_first (element: ITEM)
 			-- Add a new item in first position : `count' is increased by
 			-- one and all other items are shifted right.  See also
 			-- `add_last', `first', `last', `add'.
@@ -228,14 +228,14 @@ feature {ANY} -- Adding:
 			put(element,lower)
 		end
 
-	add_last (element: ITEM) is
+	add_last (element: ITEM)
 			-- Add a new item at the end; `count' is increased by one.
 			-- See also `add_first', `last', `first', `add'.
 		do
 			g_ptr_array_add (handle, null_or(element))
 		end
 
-	add (element: ITEM; index: INTEGER_32) is
+	add (element: ITEM; index: INTEGER_32)
 			-- Add a new `element' at rank `index' : `count' is increased
 			-- by one and range [`index' .. `upper'] is shifted right by
 			-- one position.
@@ -249,7 +249,7 @@ feature {ANY} -- Adding:
 			end
 		end
 
-	append_collection (other: COLLECTION[ITEM]) is
+	append_collection (other: COLLECTION[ITEM])
 			-- Append `other' to Current.  See also `add_last',
 			-- `add_first', `add'.
 		
@@ -263,7 +263,7 @@ feature {ANY} -- Adding:
 		end
 
 feature {ANY} -- Modification:
-	force (element: E_; index: INTEGER_32) is
+	force (element: E_; index: INTEGER_32)
 			-- Make `element' the item at `index', enlarging the
 			-- collection if necessary (new bounds except `index' are
 			-- initialized with default values).
@@ -273,7 +273,7 @@ feature {ANY} -- Modification:
 		do
 		end
 
-	copy (other: like Current) is
+	copy (other: like Current)
 			-- Reinitialize by copying all the items of `other'.
 		local i: INTEGER
 		do
@@ -285,7 +285,7 @@ feature {ANY} -- Modification:
 			end
 		end
 
-	from_collection (model: TRAVERSABLE[ITEM]) is
+	from_collection (model: TRAVERSABLE[ITEM])
 			-- Initialize the current object with the contents of `model'.
 		local i: ITERATOR[ITEM]
 		do
@@ -298,14 +298,14 @@ feature {ANY} -- Modification:
 		end
 
 feature {ANY} -- Removing:
-	remove_first is
+	remove_first
 			-- Remove the `first' element of the collection.
 		local removed: POINTER
 		do
 			removed := g_ptr_array_remove_index (handle, lower)
 		end
 	
-	remove_head (n: INTEGER_32) is
+	remove_head (n: INTEGER_32)
 			-- Remove the `n' elements of the collection.
 
 			-- See also `remove_tail', `remove', `remove_first'.
@@ -313,7 +313,7 @@ feature {ANY} -- Removing:
 			g_ptr_array_remove_range(handle, lower,n)
 		end
 	
-	remove (index: INTEGER_32) is
+	remove (index: INTEGER_32)
 			-- Remove the item at position `index'. Followings items are
 			-- shifted left by one position.
 		
@@ -324,7 +324,7 @@ feature {ANY} -- Removing:
 			removed := g_ptr_array_remove_index (handle, index)
 		end
 
-	remove_last is
+	remove_last
 			-- Remove the `last' item.
 		
 			-- See also `remove_first', `remove', `remove_tail'.
@@ -334,12 +334,12 @@ feature {ANY} -- Removing:
 		end
 
 
-	remove_tail (n: INTEGER_32) is
+	remove_tail (n: INTEGER_32)
 		do
 			g_ptr_array_remove_range(handle, upper-n, n)
 		end
 
-	clear_count is
+	clear_count
 			-- Discard all items (`is_empty' is True after that call). If
 			-- possible, the actual implementation is supposed to keep
 			-- its internal storage area in order to refill `Current' in
@@ -350,7 +350,7 @@ feature {ANY} -- Removing:
 			set_size(0)
 		end
 	
-	clear_count_and_capacity is
+	clear_count_and_capacity
 			-- Discard all items (`is_empty' is True after that call). If
 			-- possible, the actual implementation is supposed to release
 			-- its internal storage area for this memory to be used by
@@ -364,7 +364,7 @@ feature {ANY} -- Removing:
 		end
 	
 feature {ANY} -- Looking and Searching:
-	has (x: ITEM): BOOLEAN is
+	has (x: ITEM): BOOLEAN
 			-- Look for `x' using `is_equal' for comparison.
 
 			-- See also `fast_has', `index_of', `fast_index_of'.
@@ -377,7 +377,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 	
-	fast_has (x: ITEM): BOOLEAN is
+	fast_has (x: ITEM): BOOLEAN
 			-- Look for `x' using basic `=' for comparison.
 
 			-- See also `has', `fast_index_of', `index_of'.
@@ -466,7 +466,7 @@ feature {ANY} -- Looking and Searching:
 -- 			end
 -- 		end
 
-	fast_first_index_of (element: ITEM): INTEGER_32 is
+	fast_first_index_of (element: ITEM): INTEGER_32
 			-- Give the index of the first occurrence of `element' using
 			-- basic `=' for comparison.  Answer `upper + 1' when
 			-- `element' is not inside.
@@ -483,7 +483,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 		
-	fast_index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32 is
+	fast_index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32
 			-- Using basic `=' for comparison, gives the index of the
 			-- first occurrence of `element' at or after
 			-- `start_index'. Answer `upper + 1' when `element' when the
@@ -502,7 +502,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 
-	fast_reverse_index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32 is
+	fast_reverse_index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32
 			-- Using basic `=' comparison, gives the index of the first
 			-- occurrence of `element' at or before `start_index'. Search
 			-- is done in reverse direction, which means from the
@@ -521,7 +521,7 @@ feature {ANY} -- Looking and Searching:
 			end
 		end
 
-	fast_last_index_of (element: ITEM): INTEGER_32 is
+	fast_last_index_of (element: ITEM): INTEGER_32
 			-- Using basic `=' for comparison, gives the index of the
 			-- last occurrence of `element' at or before `upper'. Search
 			-- is done in reverse direction, which means from the `upper'
@@ -539,7 +539,7 @@ feature {ANY} -- Looking and Searching:
 		end
 
 feature {ANY} -- Looking and comparison:
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 			-- Do both collections have the same `lower', `upper', and items?
 			-- The basic `=' is used for comparison of items.
 
@@ -559,7 +559,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 
-	is_equal_map (other: like Current): BOOLEAN is
+	is_equal_map (other: like Current): BOOLEAN
 			-- Do both collections have the same `lower', `upper', and
 			-- items?  Feature `is_equal' is used for comparison of
 			-- items.
@@ -578,7 +578,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 
-	all_default: BOOLEAN is
+	all_default: BOOLEAN
 			-- Are all items Void?
 		local i: INTEGER_32
 		do
@@ -589,7 +589,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 
-	same_items (other: COLLECTION[ITEM]): BOOLEAN is
+	same_items (other: COLLECTION[ITEM]): BOOLEAN
 			-- Do both collections have the same items? The basic `=' is used
 			-- for comparison of items and indices are not considered (for
 			-- example this routine may yeld True with `Current' indexed in
@@ -611,7 +611,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 		
-	occurrences (element: ITEM): INTEGER_32 is
+	occurrences (element: ITEM): INTEGER_32
 			-- Number of occurrences of `element' using `is_equal' for comparison.
 		
 			-- See also `fast_occurrences', `index_of'.
@@ -624,7 +624,7 @@ feature {ANY} -- Looking and comparison:
 			end
 		end
 	
-	fast_occurrences (element: ITEM): INTEGER_32 is
+	fast_occurrences (element: ITEM): INTEGER_32
 			-- Number of occurrences of `element' using basic `=' for comparison.
 		
 			-- See also `occurrences', `index_of'.
@@ -706,7 +706,7 @@ feature {ANY} -- Agents based features:
 	--       ensure
 	--          count = old count
 
-	set_count (a_length: INTEGER) is
+	set_count (a_length: INTEGER)
 			-- Sets the size of the array, expanding it if necessary. New
 			-- elements are set to Void.
 			require natural: a_length >= 0

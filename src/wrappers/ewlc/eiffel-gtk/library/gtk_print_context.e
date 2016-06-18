@@ -94,14 +94,14 @@ create {ANY} from_external_pointer
 
 feature {} -- Creation
 
-	context: CAIRO_CONTEXT is
+	context: CAIRO_CONTEXT
 			-- the cairo context that is associated with the
 			-- GTK_PRINT_CONTEXT.
 		do
 			create Result.from_external_pointer(gtk_print_context_get_cairo_context(handle))
 		end
 			
-	set_context (a_context: CAIRO_CONTEXT; an_x_dpi, an_y_dpi: REAL) is
+	set_context (a_context: CAIRO_CONTEXT; an_x_dpi, an_y_dpi: REAL)
 			--  Sets a new cairo context on a print context.
 
 			-- This function is intended to be used when implementing an
@@ -120,39 +120,39 @@ feature {} -- Creation
 															an_x_dpi, an_y_dpi)
 		end	
 	
-	page_setup: GTK_PAGE_SETUP is
+	page_setup: GTK_PAGE_SETUP
 			-- the GtkPageSetup that determines the page dimensions of
 			-- the GtkPrintContext.
 		do
 			create Result.from_external_pointer(gtk_print_context_get_page_setup(handle))
 		end
 
-	width: REAL is
+	width: REAL
 			-- the width of context, in pixels.
 		do
 			Result:=gtk_print_context_get_width(handle)
 		end
 
-	height: REAL is
+	height: REAL
 			-- the height of context, in pixels.
 		do
 			Result:=gtk_print_context_get_height(handle)
 		end
 
-	dpi_x: REAL is
+	dpi_x: REAL
 			-- the horizontal resolution of the GtkPrintContext, in dots per inch.
 		do
 			Result:=gtk_print_context_get_dpi_x(handle)
 		end	
 
-	dpi_y: REAL is
+	dpi_y: REAL
 			-- the vertical resolution of the GtkPrintContext, in dots per inch.
 		do
 			Result:=gtk_print_context_get_dpi_y(handle)
 		end
 	
 	
-	pango_font_map: PANGO_FONT_MAP is
+	pango_font_map: PANGO_FONT_MAP
 			-- a PangoFontMap that is suitable for use with the 
 			-- GtkPrintContext.
 		local factory: G_OBJECT_EXPANDED_FACTORY[PANGO_FONT_MAP]
@@ -160,14 +160,14 @@ feature {} -- Creation
 			Result := factory.wrapper(gtk_print_context_get_pango_fontmap(handle))
 		end
 
-	pango_context: PANGO_CONTEXT is
+	pango_context: PANGO_CONTEXT
 			-- a new PangoContext that can be used with the
 			-- GtkPrintContext.
 		do
 			create Result.from_external_pointer(gtk_print_context_create_pango_context(handle))
 		end
 	
-	pango_layout: PANGO_LAYOUT is
+	pango_layout: PANGO_LAYOUT
 			-- a PangoLayout that is suitable for use with the GtkPrintContext.
 		do
 			create Result.from_external_pointer
@@ -175,63 +175,63 @@ feature {} -- Creation
 		end
 	
 feature {} -- External calls
-	gtk_print_context_get_cairo_context (a_context: POINTER): POINTER is
+	gtk_print_context_get_cairo_context (a_context: POINTER): POINTER
 			-- cairo_t* gtk_print_context_get_cairo_context (GtkPrintContext
 			-- *context);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	gtk_print_context_set_cairo_context (a_context, a_cairo: POINTER; a_dpi_x, a_dpi_y: REAL) is
+	gtk_print_context_set_cairo_context (a_context, a_cairo: POINTER; a_dpi_x, a_dpi_y: REAL)
 			-- void gtk_print_context_set_cairo_context (GtkPrintContext *context,
 			-- cairo_t *cr, double dpi_x, double dpi_y);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	gtk_print_context_get_page_setup (a_context: POINTER): POINTER is
+	gtk_print_context_get_page_setup (a_context: POINTER): POINTER
 			-- 	GtkPageSetup* gtk_print_context_get_page_setup (GtkPrintContext *context);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	gtk_print_context_get_width (a_context: POINTER): REAL is
+	gtk_print_context_get_width (a_context: POINTER): REAL
 			-- gdouble gtk_print_context_get_width (GtkPrintContext *context);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	gtk_print_context_get_height (a_context: POINTER): REAL is
+	gtk_print_context_get_height (a_context: POINTER): REAL
 			-- gdouble gtk_print_context_get_height (GtkPrintContext *context);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	gtk_print_context_get_dpi_x (a_context: POINTER): REAL is
+	gtk_print_context_get_dpi_x (a_context: POINTER): REAL
 			-- gdouble gtk_print_context_get_dpi_x (GtkPrintContext *context);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	gtk_print_context_get_dpi_y (a_context: POINTER): REAL is
+	gtk_print_context_get_dpi_y (a_context: POINTER): REAL
 			-- gdouble gtk_print_context_get_dpi_y (GtkPrintContext *context);
 		external "C inline use <gtk/gtk.h>"
 		end
 
-	gtk_print_context_get_pango_fontmap (a_context: POINTER): POINTER is
+	gtk_print_context_get_pango_fontmap (a_context: POINTER): POINTER
 			-- PangoFontMap* gtk_print_context_get_pango_fontmap (GtkPrintContext
 			-- *context);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	gtk_print_context_create_pango_context (a_context: POINTER): POINTER is
+	gtk_print_context_create_pango_context (a_context: POINTER): POINTER
 			-- PangoContext* gtk_print_context_create_pango_context
 			-- (GtkPrintContext --*context);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	gtk_print_context_create_pango_layout (a_context: POINTER): POINTER is
+	gtk_print_context_create_pango_layout (a_context: POINTER): POINTER
 			-- PangoLayout* gtk_print_context_create_pango_layout (GtkPrintContext
 			-- *context);
 		external "C inline use <gtk/gtk.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintContext)"
 		end

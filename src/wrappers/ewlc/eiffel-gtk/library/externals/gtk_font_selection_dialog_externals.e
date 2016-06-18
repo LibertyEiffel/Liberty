@@ -31,19 +31,19 @@ feature {} -- Externals
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_font_selection_dialog_get_font_name (fsd: POINTER): POINTER is
+	gtk_font_selection_dialog_get_font_name (fsd: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_font_selection_dialog_set_preview_text (fsd: POINTER; text: POINTER) is
+	gtk_font_selection_dialog_set_preview_text (fsd: POINTER; text: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_font_selection_dialog_set_font_name (fsd: POINTER; text: POINTER): INTEGER is
+	gtk_font_selection_dialog_set_font_name (fsd: POINTER; text: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_font_selection_dialog_get_preview_text (fsd: POINTER): POINTER is
+	gtk_font_selection_dialog_get_preview_text (fsd: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 

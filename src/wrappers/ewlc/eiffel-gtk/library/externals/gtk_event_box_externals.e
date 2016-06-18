@@ -27,23 +27,23 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_event_box_new: POINTER is
+	gtk_event_box_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_event_box_set_above_child(a_event_box: POINTER; above: INTEGER) is
+	gtk_event_box_set_above_child(a_event_box: POINTER; above: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_event_box_get_above_child(a_event_box: POINTER): INTEGER is
+	gtk_event_box_get_above_child(a_event_box: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_event_box_set_visible_window(a_event_box: POINTER; visible_window: INTEGER) is
+	gtk_event_box_set_visible_window(a_event_box: POINTER; visible_window: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_event_box_get_visible_window(a_event_box: POINTER): INTEGER is
+	gtk_event_box_get_visible_window(a_event_box: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 

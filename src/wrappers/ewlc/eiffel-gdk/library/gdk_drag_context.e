@@ -51,14 +51,14 @@ create {ANY} from_external_pointer, secondary_wrapper_from
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkDragContext)"
 		end
 
 feature {ANY} -- Operations
 
-	finish (success, delete: BOOLEAN; time: INTEGER) is
+	finish (success, delete: BOOLEAN; time: INTEGER)
 			-- Informs the drag source that the drop is finished, and
 			-- that the data of the drag will no longer be required.
 			-- `success': a flag indicating whether the drop was successful
@@ -70,7 +70,7 @@ feature {ANY} -- Operations
 			gtk_drag_finish (handle, success.to_integer, delete.to_integer, time)
 		end
 
-	status (an_action: INTEGER; time: INTEGER) is
+	status (an_action: INTEGER; time: INTEGER)
 			-- Selects one of the actions offered by the drag source.
 			
 			-- This function is called by the drag destination in
@@ -87,7 +87,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Representation
 
-	parent_instance: G_OBJECT is
+	parent_instance: G_OBJECT
 			-- the parent instance
 		local factory: G_OBJECT_EXPANDED_FACTORY[G_OBJECT]
 		do
@@ -99,13 +99,13 @@ feature {ANY} -- Representation
 		do
 		end
 
-	is_source: BOOLEAN is
+	is_source: BOOLEAN
 			-- true if the context is used on the source side
 		do
 			Result := gdk_drag_context_is_source (handle).to_boolean
 		end
 
-	source_window: GDK_WINDOW is
+	source_window: GDK_WINDOW
 			-- the source of this drag
 		local window: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDK_WINDOW]
 		do
@@ -116,7 +116,7 @@ feature {ANY} -- Representation
 			end
 		end
 
-	dest_window: GDK_WINDOW is
+	dest_window: GDK_WINDOW
 			-- the destination window of this drag
 		local
 			window: POINTER
@@ -156,7 +156,7 @@ feature {ANY} -- Representation
 			is_valid_gdk_drag_action (Result)
 		end
 
-	start_time: INTEGER_64 is
+	start_time: INTEGER_64
 			-- a timestamp recording the start time of this drag
 		do
 			Result := gdk_drag_context_start_time (handle)

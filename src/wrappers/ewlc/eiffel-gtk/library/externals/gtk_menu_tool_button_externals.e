@@ -10,31 +10,31 @@ deferred class GTK_MENU_TOOL_BUTTON_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gtk_menu_tool_button_new (a_icon_widget,a_label: POINTER): POINTER is
+	gtk_menu_tool_button_new (a_icon_widget,a_label: POINTER): POINTER
 			-- GtkToolItem* gtk_menu_tool_button_new (GtkWidget
 			-- *icon_widget, const gchar *label);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_tool_button_new_from_stock (a_stock_id: POINTER): POINTER  is
+	gtk_menu_tool_button_new_from_stock (a_stock_id: POINTER): POINTER
 			-- GtkToolItem* gtk_menu_tool_button_new_from_stock (const
 			-- gchar *stock_id);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_tool_button_set_menu (a_button, a_menu: POINTER) is
+	gtk_menu_tool_button_set_menu (a_button, a_menu: POINTER)
 			-- void gtk_menu_tool_button_set_menu (GtkMenuToolButton
 			-- *button, GtkWidget *menu);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_tool_button_get_menu (a_button: POINTER): POINTER is
+	gtk_menu_tool_button_get_menu (a_button: POINTER): POINTER
 			-- GtkWidget* gtk_menu_tool_button_get_menu
 			-- (GtkMenuToolButton *button);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_tool_button_set_arrow_tooltip (a_button, a_tooltips,a_tip_text, a_tip_private: POINTER) is
+	gtk_menu_tool_button_set_arrow_tooltip (a_button, a_tooltips,a_tip_text, a_tip_private: POINTER)
 			-- void gtk_menu_tool_button_set_arrow_tooltip
 			-- (GtkMenuToolButton *button, GtkTooltips *tooltips, const
 			-- gchar *tip_text, const gchar *tip_private);

@@ -35,7 +35,7 @@ create {ANY}
 	of_segment, of_triangle, of_surface, of_points, of_bounding_boxes
 
 feature {} -- Creation
-	make (a_bounded_object: GTS_OBJECT; an_x1, an_y1, a_z1, an_x2, an_y2, a_z2: REAL) is
+	make (a_bounded_object: GTS_OBJECT; an_x1, an_y1, a_z1, an_x2, an_y2, a_z2: REAL)
 			-- Create a new bounding box for `a_bounded' object.
 
 			-- `an_x1' : x-coordinate of the lower left corner.
@@ -56,35 +56,35 @@ feature {} -- Creation
 								an_x1, an_y1, a_z1, an_x2, an_y2, a_z2))
 		end
 	
-	of_segment (a_segment: GTS_SEGMENT) is
+	of_segment (a_segment: GTS_SEGMENT)
 			-- Create a new GtsBBox bounding box of `a_segment'.
 		require segment_not_void: a_segment /= Void
 		do
 			from_external_pointer(gts_bbox_segment(gts_bbox_class,a_segment.handle))
 		end
 
-	of_triangle (a_triangle: GTS_TRIANGLE) is
+	of_triangle (a_triangle: GTS_TRIANGLE)
 			-- Create a new bounding box for triangle
 		require triangle_not_void: a_triangle /= Void
 		do
 			from_external_pointer(gts_bbox_triangle(gts_bbox_class,a_triangle.handle))
 		end
 
-	of_surface (a_surface: GTS_SURFACE) is
+	of_surface (a_surface: GTS_SURFACE)
 			-- Create a new bounding box for surface
 		require surface_not_void: a_surface /= Void
 		do
 			from_external_pointer(gts_bbox_surface(gts_bbox_class,a_surface.handle))
 		end
 
-	of_points (some_points: G_SLIST[GTS_POINT]) is
+	of_points (some_points: G_SLIST[GTS_POINT])
 			-- Create a new bounding box for points
 		require points_not_void: some_points /= Void
 		do
 			from_external_pointer(gts_bbox_points(gts_bbox_class,some_points.handle))
 		end
 
-	of_bounding_boxes (some_bounding_boxes: G_SLIST[GTS_BOUNDING_BOX]) is
+	of_bounding_boxes (some_bounding_boxes: G_SLIST[GTS_BOUNDING_BOX])
 			-- Create a new bounding box for bboxes
 		require bboxes_not_void: some_bounding_boxes /= Void
 		do
@@ -92,7 +92,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} 
-	set (a_bounded: GTS_OBJECT; an_x1, an_y1, a_z1, an_x2, an_y2, a_z2: REAL) is
+	set (a_bounded: GTS_OBJECT; an_x1, an_y1, a_z1, an_x2, an_y2, a_z2: REAL)
 			-- Sets the fields of the bounding box.
 
 			-- `an_x1' : x-coordinate of the lower left corner.
@@ -122,27 +122,27 @@ feature {ANY}
 	--     bb :    a GtsBBox.
 	--     fptr :  a file pointer.
 
-	is_inside (a_point: GTS_POINT): BOOLEAN is
+	is_inside (a_point: GTS_POINT): BOOLEAN
 			-- Is `a_point' inside (or on the boundary) of bounding box?
 		require point_not_void: a_point /= Void
 		do
 			Result:=gts_bbox_point_is_inside(handle,a_point.handle).to_boolean
 		end
 
-	overlaps (another: GTS_BOUNDING_BOX): BOOLEAN is
+	overlaps (another: GTS_BOUNDING_BOX): BOOLEAN
 			-- Are the bounding boxes Current and `another' are overlapping
 			-- (including just touching)?
 		do
 			Result:=gts_bboxes_are_overlapping(handle,another.handle).to_boolean
 		end	
 
-	diagonal2: REAL is
+	diagonal2: REAL
 			-- the squared length of the diagonal of bounding box.
 		do
 			Result:=gts_bbox_diagonal2(handle)
 		end
 
-	distance2 (a_point: GTS_POINT): TUPLE[REAL,REAL] is
+	distance2 (a_point: GTS_POINT): TUPLE[REAL,REAL]
 			-- The lower and upper bounds for the square of the Euclidean distance
 			-- between the object contained in bounding box and `a_point'. For
 			-- these bounds to make any sense the bounding box must be "tight"
@@ -155,7 +155,7 @@ feature {ANY}
 			create Result.make_2 (a_min, a_max)
 		end
 
-	is_stabbed (a_point: GTS_POINT): BOOLEAN is
+	is_stabbed (a_point: GTS_POINT): BOOLEAN
 			-- Does the ray starting at `a_point' and ending at (+infty, p->y,
 			-- p->z) intersects with bounding box?
 		require point_not_void: a_point /= Void
@@ -163,7 +163,7 @@ feature {ANY}
 			Result:=gts_bbox_is_stabbed(handle, a_point.handle).to_boolean
 		end
 
-	overlaps_triangle (a_triangle: GTS_TRIANGLE): BOOLEAN is
+	overlaps_triangle (a_triangle: GTS_TRIANGLE): BOOLEAN
 			-- Does bounding box overlap with `a_triangle'.  This is a wrapper
 			-- around the fast overlap test of Tomas Akenine-Moller
 			-- (http://www.cs.lth.se/home/Tomas_Akenine_Moller/).

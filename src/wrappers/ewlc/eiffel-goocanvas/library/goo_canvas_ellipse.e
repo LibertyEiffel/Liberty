@@ -31,18 +31,18 @@ create {ANY}
 	make, from_external_pointer
 	
 feature {} -- creation
-	make (parent : GOO_CANVAS_ITEM; center_x, center_y, radius_x, radius_y : REAL_64) is
+	make (parent : GOO_CANVAS_ITEM; center_x, center_y, radius_x, radius_y : REAL_64)
 		do
 			from_external_pointer (goo_canvas_ellipse_new (parent.handle, center_x, center_y, radius_x, radius_y))
 		end
 	
 	
-	goo_canvas_ellipse_new (parent : POINTER; center_x, center_y, radius_x, radius_y : REAL_64) : POINTER is
+	goo_canvas_ellipse_new (parent : POINTER; center_x, center_y, radius_x, radius_y : REAL_64) : POINTER
 		external "C use <goocanvas-1.0/goocanvasellipse.h>"
 		end
 
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <goocanvas-1.0/goocanvasellipse.h>"
 		alias "sizeof(GooCanvasEllipse)"
 		end

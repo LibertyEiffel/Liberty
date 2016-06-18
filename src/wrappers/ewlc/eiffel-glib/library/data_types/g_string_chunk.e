@@ -35,7 +35,7 @@ insert GLIB_STRING_CHUNK_EXTERNALS
 create {ANY} make, from_external_pointer
 	
 feature {ANY}
-	make (a_size: INTEGER) is
+	make (a_size: INTEGER)
 			-- Creates a new G_STRING_CHUNK, with `a_size' the default
 			-- size of the blocks of memory which are allocated to store
 			-- the strings. If a particular string is larger than this

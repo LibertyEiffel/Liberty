@@ -24,7 +24,7 @@ deferred class HAS_BACKWARD_STEPPER_PROPERTY
 inherit GTK_OBJECT 
 feature {ANY} -- TODO: The  "has-backward-stepper" style property
 
-	has_backward_stepper: BOOLEAN is
+	has_backward_stepper: BOOLEAN
 			-- Is the standard backward arrow button displayed?  Default
 			-- value: True
 		do
@@ -34,7 +34,7 @@ feature {ANY} -- TODO: The  "has-backward-stepper" style property
 feature {} -- Implementation
 	has_backward_stepper_property_property_name: STRING is "has-backward-stepper"
 
-	has_backward_stepper_pspec: G_PARAM_SPEC is
+	has_backward_stepper_pspec: G_PARAM_SPEC
 		require has_property (has_backward_stepper_property_property_name)
 		once
 			create Result.from_external_pointer

@@ -23,7 +23,7 @@ feature {ANY} -- Columns
 
 feature {ANY}
 
-	model: GTK_LIST_STORE is
+	model: GTK_LIST_STORE
 			-- icon model with some data set
 		once
 			create Result.make (<<g_type_int, -- this is column 0
@@ -38,7 +38,7 @@ feature {ANY}
 			Result /= Void
 		end
 
-	view: GTK_ICON_VIEW is
+	view: GTK_ICON_VIEW
 			-- icon view, this has to have two columns
 		once
 			create Result.with_model (model)
@@ -51,7 +51,7 @@ feature {ANY}
 
 feature {}  -- Creation
 
-	make is
+	make
 			-- Run the demo
 		local
 			window: GTK_WINDOW
@@ -92,7 +92,7 @@ feature {}  -- Creation
 
 feature {ANY} -- Agents
 
-	on_destroy (a_gtk_object: GTK_OBJECT) is
+	on_destroy (a_gtk_object: GTK_OBJECT)
 		do
 			gtk.quit
 		end
@@ -101,7 +101,7 @@ feature {ANY} -- Helper -- we need this 'cause we can wrap this directly (it use
 
 	set_pixbuf_and_string (a_list_store: GTK_LIST_STORE; an_iter: GTK_TREE_ITER;
 	                       pixbuf_column: INTEGER; a_pixbuf: GDK_PIXBUF;
-	                       text_column: INTEGER; a_string: STRING) is
+	                       text_column: INTEGER; a_string: STRING)
 		do
 			gtk_list_store_set_pixbuf_and_string (a_list_store.handle, an_iter.handle,
 			                                      pixbuf_column, a_pixbuf.handle,
@@ -112,7 +112,7 @@ feature {} -- Low level
 
 	gtk_list_store_set_pixbuf_and_string (a_gtk_list_store, a_gtk_tree_iter: POINTER;
 	                                      pixbuf_column: INTEGER; a_gdk_pixbuf: POINTER;
-	                                      text_column: INTEGER; a_string: POINTER; a_minus_one: INTEGER) is
+	                                      text_column: INTEGER; a_string: POINTER; a_minus_one: INTEGER)
 		external "C use <gtk/gtk.h>"
 		alias "gtk_list_store_set"
 		end

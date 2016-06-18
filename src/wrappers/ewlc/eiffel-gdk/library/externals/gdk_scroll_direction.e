@@ -33,7 +33,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} --  enum
 
-	is_valid_gdk_scroll_direction (a_direction: INTEGER) : BOOLEAN is
+	is_valid_gdk_scroll_direction (a_direction: INTEGER) : BOOLEAN
 		do
 			Result:=((a_direction=gdk_scroll_up) or else
 			         (a_direction=gdk_scroll_down) or else
@@ -41,25 +41,25 @@ feature {} --  enum
 			         (a_direction=gdk_scroll_right))
 		end
 
-	gdk_scroll_up: INTEGER is
+	gdk_scroll_up: INTEGER
 			-- The window is scrolled up
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SCROLL_UP"
 		end
 
-	gdk_scroll_down: INTEGER is
+	gdk_scroll_down: INTEGER
 			-- The window is scrolled down
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SCROLL_DOWN"
 		end
 
-	gdk_scroll_left: INTEGER is
+	gdk_scroll_left: INTEGER
 			-- The window is scrolled to the left
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SCROLL_LEFT"
 		end
 
-	gdk_scroll_right: INTEGER is
+	gdk_scroll_right: INTEGER
 			-- The window is scrolled to the right
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_SCROLL_RIGHT"

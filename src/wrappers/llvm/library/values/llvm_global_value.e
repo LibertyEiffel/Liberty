@@ -34,18 +34,18 @@ deferred class LLVM_GLOBAL_VALUE
 
 inherit LLVM_CONSTANT
 feature {ANY} -- Queries
-   parent: LLVM_MODULE is
+   parent: LLVM_MODULE
       do
 create Result.from_external_pointer(llvmget_global_parent(handle))
       ensure Result/=Void
       end
 
-   is_declaration: BOOLEAN is
+   is_declaration: BOOLEAN
       do
          Result:=llvmis_declaration(handle).to_boolean
       end
 
-   section: FIXED_STRING is
+   section: FIXED_STRING
          -- TODO: should be created with from_external
       do
 create Result.from_external_copy(llvmget_section(handle))
@@ -53,25 +53,25 @@ create Result.from_external_copy(llvmget_section(handle))
       end
 
 
-   visibility: LLVMVISIBILITY_ENUM is
+   visibility: LLVMVISIBILITY_ENUM
       do
          Result.change_value(llvmget_visibility(handle))
       end
 
 
-   alignment: NATURAL_32 is
+   alignment: NATURAL_32
       do
          Result:=llvmget_alignment(handle)
       end
 
-   linkage: LLVMLINKAGE_ENUM is
+   linkage: LLVMLINKAGE_ENUM
       do
          Result.change_value
          (llvmget_linkage(handle))
       end
 
 feature {ANY} -- Commands
-   set_section (a_section: ABSTRACT_STRING) is
+   set_section (a_section: ABSTRACT_STRING)
          --
       require
          non_void: a_section/=Void
@@ -81,104 +81,104 @@ feature {ANY} -- Commands
       ensure set: a_section.is_equal(section)
       end
 
-   set_visibility (a_visibility: LLVMVISIBILITY_ENUM) is
+   set_visibility (a_visibility: LLVMVISIBILITY_ENUM)
       do
          llvmset_visibility(handle,a_visibility.value)
       ensure set: visibility=a_visibility
       end
 
-   set_alignment (a_number_of_bytes: NATURAL_32) is
+   set_alignment (a_number_of_bytes: NATURAL_32)
       do
          llvmset_alignment(handle, a_number_of_bytes)
       end
 
 feature {ANY} -- Linkage commands
-   set_linkage (a_value: LLVMLINKAGE_ENUM) is
+   set_linkage (a_value: LLVMLINKAGE_ENUM)
          --
       do
          llvmset_linkage(handle,a_value.value)
       ensure set: linkage=a_value
       end
 
-   set_external_linkage is
+   set_external_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.external_linkage_low_level)
       end
 
-   set_link_once_any_linkage is
+   set_link_once_any_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.link_once_any_linkage_low_level)
       end
 
-   set_link_once_odrlinkage is
+   set_link_once_odrlinkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.link_once_odrlinkage_low_level)
       end
 
-   set_weak_any_linkage is
+   set_weak_any_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.weak_any_linkage_low_level)
       end
 
-   set_weak_odrlinkage is
+   set_weak_odrlinkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.weak_odrlinkage_low_level)
       end
 
-   set_appending_linkage is
+   set_appending_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.appending_linkage_low_level)
       end
 
-   set_internal_linkage is
+   set_internal_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.internal_linkage_low_level)
       end
 
-   set_private_linkage is
+   set_private_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.private_linkage_low_level)
       end
 
-   set_dllimport_linkage is
+   set_dllimport_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.dllimport_linkage_low_level)
       end
 
-   set_dllexport_linkage is
+   set_dllexport_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.dllexport_linkage_low_level)
       end
 
-   set_external_weak_linkage is
+   set_external_weak_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.external_weak_linkage_low_level)
       end
 
-   set_ghost_linkage is
+   set_ghost_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.ghost_linkage_low_level)
       end
 
-   set_common_linkage is
+   set_common_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.common_linkage_low_level)
       end
 
-   set_linker_private_linkage is
+   set_linker_private_linkage
       local l: like linkage
       do
          llvmset_linkage(handle,l.linker_private_linkage_low_level)

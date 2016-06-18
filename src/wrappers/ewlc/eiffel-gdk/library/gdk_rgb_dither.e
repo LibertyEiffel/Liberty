@@ -32,26 +32,26 @@ inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
 
-	is_valid_rgb_dither (a_dither :INTEGER): BOOLEAN is
+	is_valid_rgb_dither (a_dither :INTEGER): BOOLEAN
 		do
 			Result:=((a_dither = gdk_rgb_dither_none) or else
 						(a_dither = gdk_rgb_dither_normal) or else
 						(a_dither = gdk_rgb_dither_max))
 		end
 
-	gdk_rgb_dither_none: INTEGER is
+	gdk_rgb_dither_none: INTEGER
 			--  Never use dithering.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_RGB_DITHER_NONE"
 		end
 	
-	gdk_rgb_dither_normal: INTEGER is
+	gdk_rgb_dither_normal: INTEGER
 			--  Use dithering in 8 bits per pixel (and below) only.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_RGB_DITHER_NORMAL"
 		end
 	
-	gdk_rgb_dither_max: INTEGER is
+	gdk_rgb_dither_max: INTEGER
 			--  Use dithering in 16 bits per pixel and below.
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_RGB_DITHER_MAX"

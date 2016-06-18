@@ -39,7 +39,7 @@ create {ANY} make
 feature {ANY} -- Widgets
 	buffer: GTK_TEXT_BUFFER
 feature {ANY} 
-	make is 
+	make
 		do 
 			gtk.initialize_gtk
 			create buffer.make
@@ -53,67 +53,67 @@ feature {ANY} -- constants
 			-- static char gray50_bits[] = {0x02, 0x01}; ???
 
 feature {ANY} -- tags	
-	heading: GTK_TEXT_TAG is
+	heading: GTK_TEXT_TAG
 		once
 			create Result.with_name("heading")
 			Result.set_weight (pango_weight_bold)
 			Result.set_size (15 * pango_scale)
 		end
 
-	italic: GTK_TEXT_TAG is
+	italic: GTK_TEXT_TAG
 		once
 			create Result.with_name("italic")
 			Result.set_style (pango_style_italic)
 		end
 
-	bold: GTK_TEXT_TAG is
+	bold: GTK_TEXT_TAG
 		once
 			create Result.with_name("bold")
 			Result.set_weight ( pango_weight_bold )
 		end
 
-	big: GTK_TEXT_TAG is
+	big: GTK_TEXT_TAG
 		once
 			create Result.with_name("big")
 			Result.set_size (20* 1024 -- i.e.: pango_scale ... TODO:
 								  )
 		end
 
-	xx_small: GTK_TEXT_TAG is
+	xx_small: GTK_TEXT_TAG
 		once
 			create Result.with_name("xx_small")
 			Result.set_scale ( pango_scale_xx_small )
 		end
 
-	x_large: GTK_TEXT_TAG is
+	x_large: GTK_TEXT_TAG
 		once
 			create Result.with_name("x_large")
 			-- "Extra-large", buffer.create_tag ("x-large", -- << [ "scale",
 																					-- PANGO_SCALE_X_LARGE ] >> ); 
 		end
 
-	monospace: GTK_TEXT_TAG is
+	monospace: GTK_TEXT_TAG
 		once
 			create Result.with_name("monospace")
 			--   gtk_text_buffer_create_tag (buffer, "monospace",
 			-- 			      "family", "monospace", NULL);
 		end
 
-	blue_foreground: GTK_TEXT_TAG is
+	blue_foreground: GTK_TEXT_TAG
 		once
 			create Result.with_name("blue_foreground")
 			--   gtk_text_buffer_create_tag (buffer, "blue_foreground",
 			-- 			      "foreground", "blue", NULL);  
 		end
 
-	red_background: GTK_TEXT_TAG is
+	red_background: GTK_TEXT_TAG
 		once
 			create Result.with_name("red_background")
 			--   gtk_text_buffer_create_tag (buffer, "red_background",
 			-- 			      "background", "red", NULL);
 		end
 
-	background_stipple: GTK_TEXT_TAG is
+	background_stipple: GTK_TEXT_TAG
 		once
 			create Result.with_name("background_stipple")
 			--   stipple = gdk_bitmap_create_from_data (NULL,
@@ -124,7 +124,7 @@ feature {ANY} -- tags
 			-- 			      "background_stipple", stipple, NULL);
 		end
 	
-	foreground_stipple: GTK_TEXT_TAG is
+	foreground_stipple: GTK_TEXT_TAG
 		once
 			create Result.with_name("foreground_stipple")
 			--   gtk_text_buffer_create_tag (buffer, "foreground_stipple",
@@ -135,14 +135,14 @@ feature {ANY} -- tags
 			--   gtk_text_buffer_create_tag (buffer, "big_gap_before_line",
 		end
 
-	big_gap_before_line: GTK_TEXT_TAG is
+	big_gap_before_line: GTK_TEXT_TAG
 		once
 			create Result.with_name("big_gap_before_line")
 			--   gtk_text_buffer_create_tag (buffer, "big_gap_before_line",
 			-- 			      "pixels_above_lines", 30, NULL);
 		end
 
-	big_gap_after_line: GTK_TEXT_TAG is
+	big_gap_after_line: GTK_TEXT_TAG
 		once
 			create Result.with_name("big_gap_after_line")
 			--   gtk_text_buffer_create_tag (buffer, "big_gap_after_line",
@@ -150,56 +150,56 @@ feature {ANY} -- tags
 
 		end
 
-	double_spaced_line: GTK_TEXT_TAG is
+	double_spaced_line: GTK_TEXT_TAG
 		once
 			create Result.with_name("double_spaced_line")
 			--   gtk_text_buffer_create_tag (buffer, "double_spaced_line",
 			-- 			      "pixels_inside_wrap", 10, NULL);
 		end
 
-	not_editable: GTK_TEXT_TAG is
+	not_editable: GTK_TEXT_TAG
 		once
 			create Result.with_name("not_editable")
 			--   gtk_text_buffer_create_tag (buffer, "not_editable",
 			-- 			      "editable", FALSE, NULL);
 		end
 
-	word_wrap: GTK_TEXT_TAG is
+	word_wrap: GTK_TEXT_TAG
 		once
 			create Result.with_name("word_wrap")
 			--   gtk_text_buffer_create_tag (buffer, "word_wrap",
 			-- 			      "wrap_mode", GTK_WRAP_WORD, NULL);
 		end
 
-	char_wrap: GTK_TEXT_TAG is
+	char_wrap: GTK_TEXT_TAG
 		once
 			create Result.with_name("char_wrap")
 			--   gtk_text_buffer_create_tag (buffer, "char_wrap",
 			-- 			      "wrap_mode", GTK_WRAP_CHAR, NULL);
 		end
 
-	no_wrap: GTK_TEXT_TAG is
+	no_wrap: GTK_TEXT_TAG
 		once
 			create Result.with_name("no_wrap")
 			--   gtk_text_buffer_create_tag (buffer, "no_wrap",
 			-- 			      "wrap_mode", GTK_WRAP_NONE, NULL);
 		end
 
-	center: GTK_TEXT_TAG is
+	center: GTK_TEXT_TAG
 		once
 			create Result.with_name("center")
 			--   gtk_text_buffer_create_tag (buffer, "center",
 			-- 			      "justification", GTK_JUSTIFY_CENTER, NULL);
 		end
 
-	right_justify: GTK_TEXT_TAG is
+	right_justify: GTK_TEXT_TAG
 		once
 			create Result.with_name("right_justify")
 			--   gtk_text_buffer_create_tag (buffer, "right_justify",
 			-- 			      "justification", GTK_JUSTIFY_RIGHT, NULL);
 		end
 
-	wide_margins: GTK_TEXT_TAG is
+	wide_margins: GTK_TEXT_TAG
 		once
 			create Result.with_name("wide_margins")
 			--   gtk_text_buffer_create_tag (buffer, "wide_margins",
@@ -208,14 +208,14 @@ feature {ANY} -- tags
   
 		end
 
-	strikethrough: GTK_TEXT_TAG is
+	strikethrough: GTK_TEXT_TAG
 		once
 			create Result.with_name("strikethrough")
 			--   gtk_text_buffer_create_tag (buffer, "strikethrough",
 			-- 			      "strikethrough", TRUE, NULL);
 		end
 
-	underline: GTK_TEXT_TAG is
+	underline: GTK_TEXT_TAG
 		once
 			create Result.with_name("underline")
 			--   gtk_text_buffer_create_tag (buffer, "underline",
@@ -223,14 +223,14 @@ feature {ANY} -- tags
 
 		end
 
-	double_underline: GTK_TEXT_TAG is
+	double_underline: GTK_TEXT_TAG
 		once
 			create Result.with_name("double_underline")
 			--   gtk_text_buffer_create_tag (buffer, "double_underline",
 			-- 			      "underline", PANGO_UNDERLINE_DOUBLE, NULL);		end
 		end
 			
-	superscript: GTK_TEXT_TAG is
+	superscript: GTK_TEXT_TAG
 		once
 			create Result.with_name("superscript")
 			
@@ -240,7 +240,7 @@ feature {ANY} -- tags
 			-- 			      NULL);
   		end
 
-	subscript: GTK_TEXT_TAG is
+	subscript: GTK_TEXT_TAG
 		once
 			create Result.with_name("subscript")
 			--   gtk_text_buffer_create_tag (buffer, "subscript",
@@ -249,7 +249,7 @@ feature {ANY} -- tags
 			-- 			      NULL);
 		end
 	
-	rtl_quote: GTK_TEXT_TAG is
+	rtl_quote: GTK_TEXT_TAG
 		once
 			create Result.with_name("rtl_quote")
 			--   gtk_text_buffer_create_tag (buffer, "rtl_quote",
@@ -263,7 +263,7 @@ feature {ANY} -- tags
 			-- }
 		end
 
-	tags: GTK_TEXT_TAG_TABLE is
+	tags: GTK_TEXT_TAG_TABLE
 			-- A bunch of tags. Note that it's also possible to create
 			-- tags with `GTK_TEXT_TAG.make' then add them to the tag
 			-- table for the buffer, `GTK_TEXT_BUFFER.create_tag' is just
@@ -314,7 +314,7 @@ feature {ANY} -- tags
 		end
 	
 
-	pixbuf: GDK_PIXBUF is
+	pixbuf: GDK_PIXBUF
 		local		
 			filename: STRING
 		do
@@ -343,7 +343,7 @@ feature {ANY} -- tags
 			end
 		end
 	
-	insert_text is
+	insert_text
 		local
 			iter, start, end_iter: GTK_TEXT_ITER;
 			anchor: GTK_TEXT_CHILD_ANCHOR;

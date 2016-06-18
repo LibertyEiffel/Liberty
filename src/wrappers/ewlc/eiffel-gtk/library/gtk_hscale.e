@@ -40,7 +40,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	from_adjustment (an_adjustment: GTK_ADJUSTMENT) is
+	from_adjustment (an_adjustment: GTK_ADJUSTMENT)
 			-- Creates a new GtkHScale. `an_adjustment' is the
 			-- GtkAdjustment which sets the range of the scale.
 		require valid_adjustment: an_adjustment /= Void
@@ -49,7 +49,7 @@ feature {} -- Creation
 			store_eiffel_wrapper
 		end
 
-	with_range (a_min, a_max, a_step: REAL) is
+	with_range (a_min, a_max, a_step: REAL)
 			-- Creates a new horizontal scale widget that lets the user
 			-- input a number between `a_min' and `a_max' (including
 			-- `a_min' and `a_max') with the increment step. step must be
@@ -75,7 +75,7 @@ feature {} -- Creation
 		end
 	
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHScale)"
 		end

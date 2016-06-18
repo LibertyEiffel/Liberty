@@ -38,17 +38,17 @@ create {ANY}
 
 feature {ANY} -- Access
 
-	index: INTEGER is
+	index: INTEGER
 		do
 			Result := av_stream_get_index (handle)
 		end
 
-	id: INTEGER is
+	id: INTEGER
 		do
 			Result := av_stream_get_id (handle)
 		end
 
-	codec: AV_CODEC_CONTEXT is
+	codec: AV_CODEC_CONTEXT
 		do
 			if wrapped_codec = Void then
 				create wrapped_codec.from_external_pointer (av_stream_get_codec (handle))
@@ -56,34 +56,34 @@ feature {ANY} -- Access
 			Result := wrapped_codec
 		end
 
-	quality: REAL is
+	quality: REAL
 		do
 			Result := av_stream_get_quality (handle)
 		end
 
-	start_time: INTEGER_64 is
+	start_time: INTEGER_64
 		do
 			Result := av_stream_get_start_time (handle)
 		end
 
-	duration: INTEGER_64 is
+	duration: INTEGER_64
 		do
 			Result := av_stream_get_duration (handle)
 		end
 
-	language: STRING is
+	language: STRING
 		do
 			create Result.from_external_copy (av_stream_get_language (handle))
 		end
 
-	time_base: AV_RATIONAL is
+	time_base: AV_RATIONAL
 		do
 			create Result.from_external_pointer (av_stream_get_time_base (handle))
 		end
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <avformat.h>"
 		alias "sizeof(AVStream)"
 		end

@@ -10,27 +10,27 @@ deferred class G_FLAGS_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	g_type_is_flags (type: POINTER) is
+	g_type_is_flags (type: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_IS_FLAGS"
 		end
 
-	g_flags_class (a_class: POINTER) is
+	g_flags_class (a_class: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_FLAGS_CLASS"
 		end
 
-	g_is_flags_class (a_class: POINTER) is
+	g_is_flags_class (a_class: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_IS_FLAGS_CLASS"
 		end
 
-	g_flags_class_type (a_class: POINTER) is
+	g_flags_class_type (a_class: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_FLAGS_CLASS_TYPE"
 		end
 
-	g_flags_class_type_name (a_class: POINTER) is
+	g_flags_class_type_name (a_class: POINTER)
 		external "C macro use <glib-object.h>"
 		alias "G_FLAGS_CLASS_TYPE_NAME"
 		end

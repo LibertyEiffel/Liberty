@@ -36,7 +36,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (scroll_event_ptr: POINTER; instance: POINTER): INTEGER is
+	callback (scroll_event_ptr: POINTER; instance: POINTER): INTEGER
 		local
 			scroll_event: GDK_EVENT_SCROLL
 		do
@@ -49,14 +49,14 @@ feature {ANY}
 			scroll_event.dispose
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_SCROLL, GTK_WIDGET], BOOLEAN]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_SCROLL, GTK_WIDGET], BOOLEAN])
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
 																 signal_name.to_external,

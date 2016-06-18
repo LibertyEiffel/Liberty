@@ -10,7 +10,7 @@ deferred class G_SIGNAL_MATCH_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {} --  enum
-	is_valid_signal_match_type (a_match_type: INTEGER): BOOLEAN is
+	is_valid_signal_match_type (a_match_type: INTEGER): BOOLEAN
 		do
 			Result:=(a_match_type & (g_signal_match_id |
 											 g_signal_match_detail |
@@ -20,37 +20,37 @@ feature {} --  enum
 											 g_signal_match_unblocked)).to_boolean
 		end
 
-	g_signal_match_id: INTEGER is
+	g_signal_match_id: INTEGER
 			-- The signal id must be equal.
 		external "C macro use <glib-object.h>"
 		alias "G_SIGNAL_MATCH_ID"
 		end
 
-	g_signal_match_detail: INTEGER is
+	g_signal_match_detail: INTEGER
 			-- The signal detail be equal.
 		external "C macro use <glib-object.h>"
 		alias "G_SIGNAL_MATCH_DETAIL"
 		end
 
-	g_signal_match_closure: INTEGER is
+	g_signal_match_closure: INTEGER
 			-- The closure must be the same.
 		external "C macro use <glib-object.h>"
 		alias "G_SIGNAL_MATCH_CLOSURE"
 		end
 
-	g_signal_match_func: INTEGER is
+	g_signal_match_func: INTEGER
 			-- The C closure callback must be the same.
 		external "C macro use <glib-object.h>"
 		alias "G_SIGNAL_MATCH_FUNC"
 		end
 
-	g_signal_match_data: INTEGER is
+	g_signal_match_data: INTEGER
 			-- The closure data must be the same.
 		external "C macro use <glib-object.h>"
 		alias "G_SIGNAL_MATCH_DATA"
 		end
 
-	g_signal_match_unblocked: INTEGER is
+	g_signal_match_unblocked: INTEGER
 			-- Only unblocked signals may matched.
 		external "C macro use <glib-object.h>"
 		alias "G_SIGNAL_MATCH_UNBLOCKED"

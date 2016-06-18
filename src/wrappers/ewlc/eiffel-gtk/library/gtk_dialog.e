@@ -125,7 +125,7 @@ create {ANY} new, make, from_external_pointer
 
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new dialog box. Widgets should not be packed
 			-- into this GtkWindow directly, but into the vbox and
 			-- action_area.
@@ -133,7 +133,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_dialog_new)
 		end
 
-	new is
+	new
 		obsolete "use `make' instead."
 		do
 			make
@@ -182,7 +182,7 @@ feature {} -- Creation
 	-- Returns : 	a new GtkDialog
 
 feature {ANY} -- Running dialog
-	run: INTEGER is
+	run: INTEGER
 			-- run the dialog until it emits the response signal, or is
 			-- destroyed. If the dialog is destroyed during the call to
 			-- run, it returns gtk_response_none. Otherwise, it returns
@@ -250,7 +250,7 @@ feature {ANY} -- Running dialog
 			-- Returns : 	response ID
 		end
 
-	emit_response (a_response_id: INTEGER) is
+	emit_response (a_response_id: INTEGER)
 			-- Emits the "response" signal with the given response
 			-- ID. Used to indicate that the user has responded to the
 			-- dialog in some way; typically either you or `run' be
@@ -260,7 +260,7 @@ feature {ANY} -- Running dialog
 			gtk_dialog_response (handle, a_response_id)
 		end
 
-	add_button (a_button_text: STRING; a_response_id: INTEGER) is
+	add_button (a_button_text: STRING; a_response_id: INTEGER)
 			-- Adds a button with the given text (or a stock button, if
 			-- `a_button_text' is a stock ID) and sets things up so that
 			-- clicking the button will emit the "response" signal with
@@ -278,7 +278,7 @@ feature {ANY} -- Running dialog
 			unused_button_ptr := gtk_dialog_add_button (handle, a_button_text.to_external, a_response_id)
 		end
 
-	add_buttons (some_buttons: COLLECTION[TUPLE[STRING, INTEGER]]) is
+	add_buttons (some_buttons: COLLECTION[TUPLE[STRING, INTEGER]])
 			-- Adds more buttons,  calling add_button repeatedly on each tupla of `some_buttons'.
 		require
 			buttons_not_void: some_buttons /= Void
@@ -298,7 +298,7 @@ feature {ANY} -- Running dialog
 			end
 		end
 
-	add_action_widget (a_widget: GTK_WIDGET; a_response_id: INTEGER) is
+	add_action_widget (a_widget: GTK_WIDGET; a_response_id: INTEGER)
 			-- Adds an activatable widget to the action area of a
 			-- GtkDialog, connecting a signal handler that will emit the
 			-- "response" signal on the dialog when the widget is
@@ -316,20 +316,20 @@ feature {ANY} -- Running dialog
 		end
 
 feature {ANY} -- Separator
-	has_separator: BOOLEAN is
+	has_separator: BOOLEAN
 			-- Has the dialog a separator?
 		do
 			Result := gtk_dialog_get_has_separator (handle).to_boolean
 		end
 
-	set_has_separator is
+	set_has_separator
 			-- Gives the dialog a separator above the buttons.
 		do
 			gtk_dialog_set_has_separator (handle, 1)
 		ensure has_separator_set: has_separator = True
 		end
 
-	unset_has_separator is
+	unset_has_separator
 			-- Remove the separator above the buttons.
 		do
 			gtk_dialog_set_has_separator (handle, 0)
@@ -338,7 +338,7 @@ feature {ANY} -- Separator
 
 feature {ANY} -- default response
 	
-	set_default_response (a_response_id: INTEGER) is
+	set_default_response (a_response_id: INTEGER)
 			-- Sets the last widget in the dialog's action area with the
 			-- given `a_response_id' as the default widget for the
 			-- dialog. Pressing "Enter" normally activates the default
@@ -516,7 +516,7 @@ feature {ANY} -- default response
 feature {ANY} -- From ewg implementation
 	feature -- Adding stock buttons
 
-	add_reject_button (a_label: STRING) is
+	add_reject_button (a_label: STRING)
 			-- Add a "reject" button with a_label. Stock response is used
 		require label_not_void: a_label /= Void
 		local a_widget: POINTER
@@ -524,7 +524,7 @@ feature {ANY} -- From ewg implementation
 			a_widget := gtk_dialog_add_button (handle, a_label.to_external, gtk_response_reject)
 		end
 
-	add_accept_button (a_label: STRING) is
+	add_accept_button (a_label: STRING)
 			-- Add a "Accept" button. Stock item and response are used
 		require label_not_void: a_label /= Void
 		local a_widget: POINTER
@@ -532,63 +532,63 @@ feature {ANY} -- From ewg implementation
 			a_widget := gtk_dialog_add_button (handle, a_label.to_external, gtk_response_accept)
 		end
 
-	add_ok_cancel_buttons is
+	add_ok_cancel_buttons
 			-- Add both 'Ok' and 'Cancel' buttons
 		do
 			add_ok_button
 			add_cancel_button
 		end
 
-	add_ok_button is
+	add_ok_button
 			-- Add a "Ok" button. Stock item and response are used
 		local a_widget: POINTER
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_ok.to_external, gtk_response_ok)
 		end
 
-	add_cancel_button is
+	add_cancel_button
 			-- Add a "Cancel" button. Stock item and response are used
 		local a_widget: POINTER
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_cancel.to_external, gtk_response_cancel)
 		end
 
-	add_close_button is
+	add_close_button
 			-- Add a "Close" button. Stock item and response are used
 		local a_widget: POINTER
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_close.to_external, gtk_response_close)
 		end
 
-	add_yes_no_buttons is
+	add_yes_no_buttons
 			-- Add both 'Yes' and 'No' buttons
 		do
 			add_yes_button
 			add_no_button
 		end
 
-	add_yes_button is
+	add_yes_button
 			-- Add a "Yes" button. Stock item and response are used
 		local a_widget: POINTER
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_yes.to_external, gtk_response_yes)
 		end
 
-	add_no_button is
+	add_no_button
 			-- Add a "No" button. Stock item and response are used
 		local a_widget: POINTER
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_no.to_external, gtk_response_no)
 		end
 
-	add_apply_button is
+	add_apply_button
 			-- Add a "Apply" button. Stock item and response are used
 		local a_widget: POINTER
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_apply.to_external, gtk_response_apply)
 		end
 
-	add_help_button is
+	add_help_button
 			-- Add a "Help" button. Stock item and response are used
 		local a_widget: POINTER
 		do
@@ -601,7 +601,7 @@ feature {ANY} -- From ewg implementation
 
 feature {ANY} -- properties
 	
-	action_area_border: INTEGER is
+	action_area_border: INTEGER
 			-- Width of border around the button area at the bottom of
 			-- the dialog.
 		local value: G_VALUE
@@ -612,7 +612,7 @@ feature {ANY} -- properties
 		ensure positive_result: Result >= 0
 		end
 
-	button_spacing: INTEGER is
+	button_spacing: INTEGER
 			-- Spacing between buttons.
 		local value: G_VALUE
 		do
@@ -622,7 +622,7 @@ feature {ANY} -- properties
 		ensure positive_result: Result >= 0
 		end
 
-	content_area_border: INTEGER is
+	content_area_border: INTEGER
 			-- Width of border around the main dialog area.
 		local value: G_VALUE
 		do
@@ -634,7 +634,7 @@ feature {ANY} -- properties
 
 feature {ANY} -- Dialog's parts
 
-	vbox: GTK_VBOX is
+	vbox: GTK_VBOX
 			-- main part of the dialog box
 		local
 			retriever: G_OBJECT_FACTORY [GTK_VBOX]
@@ -645,7 +645,7 @@ feature {ANY} -- Dialog's parts
 			result_not_void: Result /= Void
 		end
 
-	action_area: GTK_HBOX is
+	action_area: GTK_HBOX
 			--  bottom area of the dialog. Generally used for packing
 			--  buttons into the dialog which may perform functions such
 			--  as cancel, ok, or apply
@@ -728,7 +728,7 @@ feature {} -- property names strings
 	button_spacing_property_name: STRING is "button-spacing"
 	content_area_border_property_name: STRING is "content-area-border"
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkDialog)"
 		end

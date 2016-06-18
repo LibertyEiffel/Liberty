@@ -29,43 +29,43 @@ insert GTK_FILE_FILTER_FLAGS
 
 feature {} -- External calls
 
-	gtk_file_filter_new: POINTER is
+	gtk_file_filter_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_file_filter_set_name (a_gtkfilefilter, a_name: POINTER) is
+	gtk_file_filter_set_name (a_gtkfilefilter, a_name: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_file_filter_get_name (a_gtkfilefilter: POINTER): POINTER is
+	gtk_file_filter_get_name (a_gtkfilefilter: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_file_filter_add_mime_type (a_gtkfilefilter, a_mime_type: POINTER) is
+	gtk_file_filter_add_mime_type (a_gtkfilefilter, a_mime_type: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_file_filter_add_pattern (a_gtkfilefilter, a_pattern: POINTER) is
+	gtk_file_filter_add_pattern (a_gtkfilefilter, a_pattern: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_file_filter_add_pixbuf_formats (a_gtkfilefilter: POINTER) is
+	gtk_file_filter_add_pixbuf_formats (a_gtkfilefilter: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_file_filter_add_custom (a_gtkfilefilter: POINTER;
 										 some_flags: INTEGER;
-										 a_function, some_data, a_gdestroynotify_function: POINTER) is
+										 a_function, some_data, a_gdestroynotify_function: POINTER)
 		require are_valid_file_filter_flags (some_flags)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_file_filter_get_needed (a_gtkfilefilter: POINTER): INTEGER is
+	gtk_file_filter_get_needed (a_gtkfilefilter: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 			ensure are_valid_file_filter_flags (Result)
 		end
 
-	gtk_file_filter_filter (a_gtkfilefilter, a_gtkfilefilterinfo: POINTER): INTEGER is
+	gtk_file_filter_filter (a_gtkfilefilter, a_gtkfilefilterinfo: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 

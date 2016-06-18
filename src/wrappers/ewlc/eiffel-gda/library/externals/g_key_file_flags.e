@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = g_key_file_none) or else 
 				(a_value = g_key_file_keep_comments) or else 
@@ -14,51 +14,51 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create, set_g_key_file_none is
+	default_create, set_g_key_file_none
 		do
 			value := g_key_file_none
 		end
 
-	set_g_key_file_keep_comments is
+	set_g_key_file_keep_comments
 		do
 			value := g_key_file_keep_comments
 		end
 
-	set_g_key_file_keep_translations is
+	set_g_key_file_keep_translations
 		do
 			value := g_key_file_keep_translations
 		end
 
 
 feature {ANY} -- Queries
-	is_g_key_file_none: BOOLEAN is
+	is_g_key_file_none: BOOLEAN
 		do
 			Result := (value=g_key_file_none)
 		end
 
-	is_g_key_file_keep_comments: BOOLEAN is
+	is_g_key_file_keep_comments: BOOLEAN
 		do
 			Result := (value=g_key_file_keep_comments)
 		end
 
-	is_g_key_file_keep_translations: BOOLEAN is
+	is_g_key_file_keep_translations: BOOLEAN
 		do
 			Result := (value=g_key_file_keep_translations)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_key_file_none: INTEGER is
+	g_key_file_none: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_KEY_FILE_NONE"
 		end
 
-	g_key_file_keep_comments: INTEGER is
+	g_key_file_keep_comments: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_KEY_FILE_KEEP_COMMENTS"
 		end
 
-	g_key_file_keep_translations: INTEGER is
+	g_key_file_keep_translations: INTEGER
 		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_KEY_FILE_KEEP_TRANSLATIONS"
 		end

@@ -10,7 +10,7 @@ insert
 create {ANY} dummy, make
 
 feature {ANY}
-	make is
+	make
 		do
 			bootstrap
 			
@@ -25,7 +25,7 @@ feature {ANY}
 	buffer: GTK_SOURCE_BUFFER
 
 feature {}
-	analyse_cluster (cluster: CLUSTER) is
+	analyse_cluster (cluster: CLUSTER)
 		local
 			i: INTEGER
 		do
@@ -45,12 +45,12 @@ feature {}
 			io.put_new_line
 		end
 
-	parse_arguments is
+	parse_arguments
 		do
 			print(once "SMART_EIFFEL_DEVELOP.parse_arguments%N")
 		end
 
-	is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+	is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
 		do
 			-- This is called by smart_eiffel.ace from a loop similar to the one in
 			-- parse_arguments
@@ -62,7 +62,7 @@ feature {}
 
 	use_short_mode: BOOLEAN is True
 
-	load_clusters is
+	load_clusters
 		local
 			i: INTEGER; c: CLUSTER
 		do
@@ -78,7 +78,7 @@ feature {}
 		end
 
 feature {CLUSTER}
-	visit_cluster (visited: CLUSTER) is
+	visit_cluster (visited: CLUSTER)
 		do
 			check
 				False

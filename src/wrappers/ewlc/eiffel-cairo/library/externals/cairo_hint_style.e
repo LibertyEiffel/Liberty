@@ -32,7 +32,7 @@ deferred class CAIRO_HINT_STYLE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_hint_style (a_style: INTEGER): BOOLEAN is
+	is_valid_hint_style (a_style: INTEGER): BOOLEAN
 		do	
 			Result:=((a_style = cairo_hint_style_default) or else
 						(a_style = cairo_hint_style_none) or else
@@ -41,34 +41,34 @@ feature {ANY}  -- enum
 						(a_style = cairo_hint_style_full))
 		end
 
-	  cairo_hint_style_default: INTEGER is
+	  cairo_hint_style_default: INTEGER
 			-- Use the default hint style for for font backend and target
 			-- device
 		external "C macro use <cairo.h>"
 		alias "CAIRO_HINT_STYLE_DEFAULT"
 		end
 
-	  cairo_hint_style_none: INTEGER is
+	  cairo_hint_style_none: INTEGER
 			-- Do not hint outlines
 		external "C macro use <cairo.h>"
 		alias "CAIRO_HINT_STYLE_NONE"
 		end
 
-	  cairo_hint_style_slight: INTEGER is
+	  cairo_hint_style_slight: INTEGER
 			-- Hint outlines slightly to improve contrast while retaining
 			-- good fidelity to the original shapes.
 		external "C macro use <cairo.h>"
 		alias "CAIRO_HINT_STYLE_SLIGHT"
 		end
 
-	  cairo_hint_style_medium: INTEGER is
+	  cairo_hint_style_medium: INTEGER
 			-- Hint outlines with medium strength giving a compromise
 			-- between fidelity to the original shapes and contrast
 		external "C macro use <cairo.h>"
 		alias "CAIRO_HINT_STYLE_MEDIUM"
 		end
 
-	  cairo_hint_style_full: INTEGER is
+	  cairo_hint_style_full: INTEGER
 			-- Hint outlines to maximize contrast
 		external "C macro use <cairo.h>"
 		alias "CAIRO_HINT_STYLE_FULL"

@@ -29,19 +29,19 @@ insert GTK_TEXT_WINDOW_TYPE
 
 feature {}
 
-	gtk_text_view_new: POINTER is
+	gtk_text_view_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_new_with_buffer(buff: POINTER): POINTER is
+	gtk_text_view_new_with_buffer(buff: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_buffer (handle, buff: POINTER) is
+	gtk_text_view_set_buffer (handle, buff: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_get_buffer (handle: POINTER): POINTER is
+	gtk_text_view_get_buffer (handle: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		ensure
 			Result.is_not_null
@@ -50,7 +50,7 @@ feature {}
 	gtk_text_view_scroll_to_mark (a_text_view, a_mark: POINTER;
 		                          within_margin: REAL;
 		                          use_align_bool: INTEGER;
-		                          xalign: REAL; yalign: REAL) is
+		                          xalign: REAL; yalign: REAL)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -61,7 +61,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_scroll_mark_onscreen (a_text_view: POINTER; a_mark: POINTER) is
+	gtk_text_view_scroll_mark_onscreen (a_text_view: POINTER; a_mark: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -73,31 +73,31 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_get_visible_rect (a_text_view: POINTER; a_visible_rect: POINTER) is
+	gtk_text_view_get_visible_rect (a_text_view: POINTER; a_visible_rect: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_get_iter_location (a_text_view: POINTER; a_const_iter: POINTER; a_gdkrectangle_location: POINTER) is
+	gtk_text_view_get_iter_location (a_text_view: POINTER; a_const_iter: POINTER; a_gdkrectangle_location: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_get_line_at_y (a_text_view: POINTER; target_iter: POINTER; a_y: INTEGER; line_top: POINTER) is
+	gtk_text_view_get_line_at_y (a_text_view: POINTER; target_iter: POINTER; a_y: INTEGER; line_top: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_view_get_line_yrange (a_text_view, an_iter: POINTER;
-		                           an_y_integer, a_height_integer: POINTER) is
+		                           an_y_integer, a_height_integer: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_view_get_iter_at_location (a_text_view, an_iter: POINTER;
-		                                an_x: INTEGER; an_y: INTEGER) is
+		                                an_x: INTEGER; an_y: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_view_get_iter_at_position (a_text_view, an_iter: POINTER;
 		                                a_trailing_integer: POINTER;
-		                                an_x, an_y: INTEGER) is
+		                                an_x, an_y: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -105,7 +105,7 @@ feature {}
 														a_gtk_text_window_type: INTEGER;
 														a_buffer_x, a_buffer_y: INTEGER;
 														a_window_x_integer: POINTER;
-														a_window_y_integer: POINTER) is
+														a_window_y_integer: POINTER)
 		require
 			valid_window_type: is_valid_gtk_text_window_type (a_gtk_text_window_type)
 		external "C use <gtk/gtk.h>"
@@ -115,7 +115,7 @@ feature {}
 														a_gtk_text_window_type: INTEGER;
 														a_window_x, a_window_y: INTEGER;
 														a_buffer_x_integer: POINTER;
-														a_buffer_y_integer: POINTER) is
+														a_buffer_y_integer: POINTER)
 		require
 			valid_window_type: is_valid_gtk_text_window_type (a_gtk_text_window_type)
 		external "C use <gtk/gtk.h>"
@@ -132,7 +132,7 @@ feature {}
 			valid_window_type: is_valid_gtk_text_window_type (Result)
 		end
 
-	gtk_text_view_set_border_window_size (a_text_view: POINTER; a_window_type: INTEGER; a_size: INTEGER) is
+	gtk_text_view_set_border_window_size (a_text_view: POINTER; a_window_type: INTEGER; a_size: INTEGER)
 		require
 			valid_window_type: is_valid_gtk_text_window_type (a_window_type)
 		external "C use <gtk/gtk.h>"
@@ -168,7 +168,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_add_child_at_anchor (a_text_view: POINTER; child: POINTER; anchor: POINTER) is
+	gtk_text_view_add_child_at_anchor (a_text_view: POINTER; child: POINTER; anchor: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -185,15 +185,15 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_add_child_in_window (a_text_view: POINTER; child: POINTER; which_window, an_xpos: INTEGER; an_ypos: INTEGER) is
+	gtk_text_view_add_child_in_window (a_text_view: POINTER; child: POINTER; which_window, an_xpos: INTEGER; an_ypos: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_move_child (a_text_view: POINTER; child: POINTER; an_xpos: INTEGER; an_ypos: INTEGER) is
+	gtk_text_view_move_child (a_text_view: POINTER; child: POINTER; an_xpos: INTEGER; an_ypos: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_wrap_mode (a_text_view: POINTER; wrap_mode: INTEGER) is
+	gtk_text_view_set_wrap_mode (a_text_view: POINTER; wrap_mode: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -201,7 +201,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_editable (a_text_view: POINTER; setting_bool: INTEGER) is
+	gtk_text_view_set_editable (a_text_view: POINTER; setting_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -209,7 +209,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_cursor_visible (a_text_view: POINTER; setting_bool: INTEGER) is
+	gtk_text_view_set_cursor_visible (a_text_view: POINTER; setting_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -217,7 +217,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_overwrite (a_text_view: POINTER; overwrite_bool: INTEGER) is
+	gtk_text_view_set_overwrite (a_text_view: POINTER; overwrite_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -225,7 +225,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_pixels_above_lines (a_text_view: POINTER; a_pixels_above_lines: INTEGER) is
+	gtk_text_view_set_pixels_above_lines (a_text_view: POINTER; a_pixels_above_lines: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -233,7 +233,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_pixels_below_lines (a_text_view: POINTER; a_pixels_below_lines: INTEGER) is
+	gtk_text_view_set_pixels_below_lines (a_text_view: POINTER; a_pixels_below_lines: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -241,7 +241,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_pixels_inside_wrap (a_text_view: POINTER; a_pixels_inside_wrap: INTEGER) is
+	gtk_text_view_set_pixels_inside_wrap (a_text_view: POINTER; a_pixels_inside_wrap: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -249,15 +249,15 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_justification (a_text_view: POINTER; justification: INTEGER) is
+	gtk_text_view_set_justification (a_text_view: POINTER; justification: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_get_justification (a_text_view: POINTER): INTEGER is
+	gtk_text_view_get_justification (a_text_view: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_left_margin (a_text_view: POINTER; a_left_margin: INTEGER) is
+	gtk_text_view_set_left_margin (a_text_view: POINTER; a_left_margin: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -265,7 +265,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_right_margin (a_text_view: POINTER; a_right_margin: INTEGER) is
+	gtk_text_view_set_right_margin (a_text_view: POINTER; a_right_margin: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -273,7 +273,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_indent (a_text_view: POINTER; a_indent: INTEGER) is
+	gtk_text_view_set_indent (a_text_view: POINTER; a_indent: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -281,7 +281,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_tabs (a_text_view: POINTER; tabs: POINTER) is
+	gtk_text_view_set_tabs (a_text_view: POINTER; tabs: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -289,7 +289,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_view_set_accepts_tab (a_text_view: POINTER; accepts_tab_bool: INTEGER) is
+	gtk_text_view_set_accepts_tab (a_text_view: POINTER; accepts_tab_bool: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 

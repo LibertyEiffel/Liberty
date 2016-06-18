@@ -8,19 +8,19 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_renderer_is_valid (an_iface: POINTER; a_context: POINTER; an_error: POINTER): INTEGER_32 is
+	gda_renderer_is_valid (an_iface: POINTER; a_context: POINTER; an_error: POINTER): INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_renderer_render_as_str (an_iface: POINTER; a_context: POINTER): POINTER is
+	gda_renderer_render_as_str (an_iface: POINTER; a_context: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_renderer_render_as_sql (an_iface: POINTER; a_context: POINTER; an_out_params_used: POINTER; an_options: INTEGER_32; an_error: POINTER): POINTER is
+	gda_renderer_render_as_sql (an_iface: POINTER; a_context: POINTER; an_out_params_used: POINTER; an_options: INTEGER_32; an_error: POINTER): POINTER
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_renderer_get_type: INTEGER_32 is
+	gda_renderer_get_type: INTEGER_32
 		external "C use <libgda/libgda.h>"
 		end
 

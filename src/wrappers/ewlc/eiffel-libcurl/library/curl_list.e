@@ -36,21 +36,21 @@ create {ANY}
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <curl/curl.h>"
 		alias "sizeof (struct curl_slist)"
 		end
 
 feature {} -- Creation
 
-	null is
+	null
 		do
 			is_valid := True
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER}
 
-	from_external_pointer (a_ptr: POINTER) is
+	from_external_pointer (a_ptr: POINTER)
 		do
 			if a_ptr.is_not_null then
 				handle := a_ptr
@@ -73,7 +73,7 @@ feature {ANY}  -- Representation
 
 feature {ANY}  -- Operations
 
-	append (str: STRING) is
+	append (str: STRING)
 			-- `append' appends a specified string to a linked list of
 			-- strings. The specified string has been appended when
 			-- this function returns. `str' is copied.

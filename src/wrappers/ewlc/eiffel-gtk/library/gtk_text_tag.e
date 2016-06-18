@@ -47,14 +47,14 @@ insert
 create {ANY} make, with_name, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Create a nameless GtkTextTag
 		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_text_tag_new (default_pointer))
 		end
 
-	with_name (a_name: STRING) is
+	with_name (a_name: STRING)
 			-- Creates a GtkTextTag. Configure the tag using object
 			-- arguments, i.e. using G_OBJECT.set().
 		require
@@ -67,13 +67,13 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	priority: INTEGER is
+	priority: INTEGER
 			-- the tag priority.
 		do
 			Result := gtk_text_tag_get_priority (handle)
 		end
 
-	set_priority (a_priority: INTEGER) is
+	set_priority (a_priority: INTEGER)
 			-- Sets the priority of a GtkTextTag. Valid priorities are
 			-- start at 0 and go to one less than
 			-- gtk_text_tag_table_get_size(). Each tag in a table has a
@@ -294,14 +294,14 @@ feature {ANY} -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/s
 
 feature {ANY} --   The "font" property
 
-	set_font (a_font: STRING) is
+	set_font (a_font: STRING)
 		require
 			a_font /= Void
 		do
 			set_string_property (font_property_name, a_font)
 		end
 
-	font: STRING is
+	font: STRING
 			-- Font description as string, e.g. "Sans Italic 12".
 			-- Note that the initial value of this property depends on the
 			-- internals of PangoFontDescription.
@@ -327,7 +327,7 @@ feature {ANY} --   The "font" property
 
 feature {ANY} --   The "foreground" property          gchararray : Write
 
-	set_foreground (a_foreground: STRING) is
+	set_foreground (a_foreground: STRING)
 			-- Foreground color as a string.
 			-- Default value: NULL
 		require
@@ -488,7 +488,7 @@ feature {ANY} --   The "foreground" property          gchararray : Write
 
 feature {ANY} -- The "name" property
 
-	name: STRING is
+	name: STRING
 			-- Name used to refer to the text tag. Void for anonymous tags.
 			-- Default value: Void
 		local
@@ -625,14 +625,14 @@ feature {ANY} -- The "name" property
 feature {ANY} -- The "rise" property
 	--    "rise"                 gint                  : Read / Write
 
-	rise: INTEGER is
+	rise: INTEGER
 			-- Offset of text above the baseline (below the baseline
 			-- if rise is negative) in Pango units. Default value: 0
 		do
 			Result := integer_property (rise_property_name)
 		end
 
-	set_rise (a_rise: INTEGER) is
+	set_rise (a_rise: INTEGER)
 			-- The "rise" property
 		do
 			set_integer_property (rise_property_name, a_rise)
@@ -653,7 +653,7 @@ feature {ANY} -- The "rise" property
 feature {ANY} --   The "scale" property
 	--    "scale"                gdouble               : Read / Write
 
-	scale: REAL is 
+	scale: REAL
 			-- Font size as a scale factor relative to the default font
 			-- size. This properly adapts to theme changes etc. so is
 			-- recommended. Pango predefines some scales such as
@@ -663,7 +663,7 @@ feature {ANY} --   The "scale" property
 		ensure valid: Result >= 0
 		end
 
-	set_scale (a_scale: REAL) is
+	set_scale (a_scale: REAL)
 		require valid_scale: a_scale >= 0
 		do
 		end
@@ -684,14 +684,14 @@ feature {ANY} --   The "scale" property
 feature {ANY} --   The "size" property
 	--    "size"                 gint                  : Read / Write
 
-	set_size (a_size: INTEGER) is
+	set_size (a_size: INTEGER)
 			-- Set "size" property
 		require valid_size: a_size >= 0
 		do
 			set_integer_property (size_property_name, a_size)
 		end
 
-	size: INTEGER is
+	size: INTEGER
 			--    Font size in Pango units.
 		do
 			g_object_get_one_property (handle, size_property_name.to_external, $Result, default_pointer)
@@ -761,14 +761,14 @@ feature {ANY} --   The "size" property
 
 feature {ANY} --   The "style" property
 
-	set_style (a_style: INTEGER) is
+	set_style (a_style: INTEGER)
 		require
 			valid: is_valid_pango_style (a_style)
 		do
 			set_enum_property (style_property_name, a_style)
 		end
 
-	style: INTEGER is
+	style: INTEGER
 			-- Font style as a PANGO_STYLE, see predefined values in
 			-- PANGO_WEIGHT; for example, pango_style_normal.
 			-- Default value: PANGO_STYLE_NORMAL
@@ -808,14 +808,14 @@ feature {ANY} --   The "style" property
 
 --    -------------------------------------------------------------------------------------
 
-	set_underline (an_underline: INTEGER) is
+	set_underline (an_underline: INTEGER)
 		require
 			valid: is_valid_pango_underline (an_underline)
 		do
 			set_enum_property (underline_property_name, an_underline)
 		end
 
-	underline: INTEGER is
+	underline: INTEGER
 			--    Style of underline for this text.
 			--    Default value: pango_underline_none
 		do
@@ -856,14 +856,14 @@ feature {ANY} --   The "style" property
 
 --    -------------------------------------------------------------------------------------
 
-	set_weight (a_weight: INTEGER) is
+	set_weight (a_weight: INTEGER)
 		require
 			valid: is_valid_pango_weight (a_weight)
 		do
 			set_integer_property (weight_property_name, a_weight)
 		end
 
-	weight: INTEGER is
+	weight: INTEGER
 			-- Font weight as an integer, see predefined values in
 			-- PANGO_WEIGHT; for example, pango_weight_bold.
 			-- Default value: 400
@@ -878,7 +878,7 @@ feature {ANY} --   The "style" property
 feature {ANY} --   The "wrap-mode" property
 	-- "wrap-mode" GtkWrapMode : Read / Write
 
-	wrap_mode: INTEGER is
+	wrap_mode: INTEGER
 			-- Whether to wrap lines never, at word boundaries, or at
 			-- character boundaries. Default value: `gtk_wrap_none'
 		obsolete "integer_property should be enum"
@@ -887,7 +887,7 @@ feature {ANY} --   The "wrap-mode" property
 		ensure valid: is_valid_gtk_wrap_mode (Result)
 		end
 	
-	set_wrap_mode (a_mode: INTEGER) is
+	set_wrap_mode (a_mode: INTEGER)
 			-- Set `wrap-mode' property.
 		require valid_mode: is_valid_gtk_wrap_mode (a_mode)
 		do
@@ -1061,7 +1061,7 @@ feature {} -- Properties names
 			-- gboolean : Read / Write
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextTag)"
 		end
@@ -1070,11 +1070,11 @@ feature {} -- External calls
 	gtk_text_tag_new (a_const_name: POINTER): POINTER is -- GtkTextTag*
 		external "C use <gtk/gtk.h>"
 		end
-	gtk_text_tag_get_priority (a_gtktexttag: POINTER): INTEGER is
+	gtk_text_tag_get_priority (a_gtktexttag: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_tag_set_priority (a_gtktexttag: POINTER; a_priority: INTEGER) is
+	gtk_text_tag_set_priority (a_gtktexttag: POINTER; a_priority: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 

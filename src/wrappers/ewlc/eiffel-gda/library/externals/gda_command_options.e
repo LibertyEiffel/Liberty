@@ -5,7 +5,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (some_flags: INTEGER): BOOLEAN is
+	is_valid_value (some_flags: INTEGER): BOOLEAN
 		do
 			Result := (some_flags & (gda_command_option_ignore_errors | 
 				gda_command_option_stop_on_errors | 
@@ -14,71 +14,71 @@ feature {ANY} -- Validity
 
 
 feature {ANY} -- Setters
-	default_create is
+	default_create
 		-- Default creation feature; it leaves all the bits cleared.
 	do
 	end
 
-	set_gda_command_option_ignore_errors is
+	set_gda_command_option_ignore_errors
 		do
 			value := value.bit_or(gda_command_option_ignore_errors)
 		end
 
-	unset_gda_command_option_ignore_errors is
+	unset_gda_command_option_ignore_errors
 		do
 			value := value.bit_xor(gda_command_option_ignore_errors)
 		end
 
-	set_gda_command_option_stop_on_errors is
+	set_gda_command_option_stop_on_errors
 		do
 			value := value.bit_or(gda_command_option_stop_on_errors)
 		end
 
-	unset_gda_command_option_stop_on_errors is
+	unset_gda_command_option_stop_on_errors
 		do
 			value := value.bit_xor(gda_command_option_stop_on_errors)
 		end
 
-	set_gda_command_option_bad_option is
+	set_gda_command_option_bad_option
 		do
 			value := value.bit_or(gda_command_option_bad_option)
 		end
 
-	unset_gda_command_option_bad_option is
+	unset_gda_command_option_bad_option
 		do
 			value := value.bit_xor(gda_command_option_bad_option)
 		end
 
 
 feature {ANY} -- Queries
-	is_gda_command_option_ignore_errors: BOOLEAN is
+	is_gda_command_option_ignore_errors: BOOLEAN
 		do
 			Result := (value &gda_command_option_ignore_errors).to_boolean
 		end
 
-	is_gda_command_option_stop_on_errors: BOOLEAN is
+	is_gda_command_option_stop_on_errors: BOOLEAN
 		do
 			Result := (value &gda_command_option_stop_on_errors).to_boolean
 		end
 
-	is_gda_command_option_bad_option: BOOLEAN is
+	is_gda_command_option_bad_option: BOOLEAN
 		do
 			Result := (value &gda_command_option_bad_option).to_boolean
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	gda_command_option_ignore_errors: INTEGER is
+	gda_command_option_ignore_errors: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_COMMAND_OPTION_IGNORE_ERRORS"
 		end
 
-	gda_command_option_stop_on_errors: INTEGER is
+	gda_command_option_stop_on_errors: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_COMMAND_OPTION_STOP_ON_ERRORS"
 		end
 
-	gda_command_option_bad_option: INTEGER is
+	gda_command_option_bad_option: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_COMMAND_OPTION_BAD_OPTION"
 		end

@@ -46,13 +46,13 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererCombo)"
 		end
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkCellRendererCombo. Adjust how text is
 			-- drawn using object properties. Object properties can be
 			-- set globally (with g_object_set()). Also, with

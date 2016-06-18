@@ -35,7 +35,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (request: POINTER; instance: POINTER) is
+	callback (request: POINTER; instance: POINTER)
 		local
 			request_obj: GTK_REQUISITION
 		do
@@ -49,14 +49,14 @@ feature {ANY}
 			procedure.call ([request_obj, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GTK_REQUISITION, GTK_WIDGET]]) is
+	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GTK_REQUISITION, GTK_WIDGET]])
 		do
 			debug
 				print ("SIZE_REQUEST_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

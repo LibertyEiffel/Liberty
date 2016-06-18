@@ -8,26 +8,26 @@ inherit
 create from_byte_array
 
 feature {ANY}
-	from_byte_array (an_array: ARRAY[NATURAL_8]) is
+	from_byte_array (an_array: ARRAY[NATURAL_8])
 		do
          not_yet_implemented
 			content := an_array.twin
 		end
 
 feature {SQLITE_PREPARED_STATEMENT} 
-	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) is
+	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER)
 			-- Bind Current value as parameter to `an_index' placeholder in `a_statement'.
 		do
          not_yet_implemented
 		end
 		 
 feature {ANY}
-	type: INTEGER is
+	type: INTEGER
 		do
 			Result := sqlite_blob
 		end
 
-   as_string: STRING is
+   as_string: STRING
       local
          i: INTEGER
 		do

@@ -16,7 +16,7 @@ feature {ANY}
 	
 	window: GTK_WINDOW
 	
-	make is
+	make
 			-- Make
 		local i: ITERATOR[G_PARAM_SPEC]
 		do
@@ -51,7 +51,7 @@ feature {ANY}
 			gtk.run_main_loop
 		end
 
-	clicked (a_button: GTK_BUTTON) is
+	clicked (a_button: GTK_BUTTON)
 		do
 			bar.pulse
 		end

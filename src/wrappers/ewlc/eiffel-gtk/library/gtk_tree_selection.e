@@ -55,7 +55,7 @@ insert
 create {ANY} from_external_pointer
 
 feature {ANY} -- selection mode
-	set_single_mode is
+	set_single_mode
 			-- Set selection mode to single. Zero or one element may be
 			-- selected.If the previous type was GTK_SELECTION_MULTIPLE,
 			-- then the anchor is kept selected, if it was previously
@@ -64,13 +64,13 @@ feature {ANY} -- selection mode
 			gtk_tree_selection_set_mode (handle, gtk_selection_single)
 		end
 	
-	is_mode_single: BOOLEAN is
+	is_mode_single: BOOLEAN
 			-- Is selection mode single?
 		do
 			Result := (gtk_tree_selection_get_mode (handle) = gtk_selection_single )
 		end
 
-	set_browse_mode is
+	set_browse_mode
 			-- Set selection mode to browse. Exactly one element is
 			-- selected. In some circumstances, such as initially or
 			-- during a search operation, it's possible for no element to
@@ -83,13 +83,13 @@ feature {ANY} -- selection mode
 			gtk_tree_selection_set_mode (handle, gtk_selection_browse)
 		end
 	
-	is_mode_browse: BOOLEAN is
+	is_mode_browse: BOOLEAN
 			-- Is selection mode browse?
 		do
 			Result := (gtk_tree_selection_get_mode (handle) = gtk_selection_browse )
 		end
 	
-	set_multiple_mode is
+	set_multiple_mode
 			-- Set selection mode to multiple. Any number of elements may
 			-- be selected. Clicks toggle the state of an item. Any
 			-- number of elements may be selected. The Ctrl key may be
@@ -103,14 +103,14 @@ feature {ANY} -- selection mode
 			gtk_tree_selection_set_mode (handle, gtk_selection_multiple)
 		end
 	
-	is_mode_multiple: BOOLEAN is
+	is_mode_multiple: BOOLEAN
 			-- Is selection mode multiple?
 		do
 			Result := (gtk_tree_selection_get_mode (handle) = gtk_selection_multiple)
 		end
 
 		
-	set_select_function (a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
+	set_select_function (a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN])
 			-- Sets the selection function. If set, this function is
 			-- called before any node is selected or unselected, giving
 			-- some control over which nodes are selected. The select
@@ -130,7 +130,7 @@ feature {ANY} -- selection mode
 	-- data.
 
 feature {ANY} -- View	
-	tree_view: GTK_TREE_VIEW is
+	tree_view: GTK_TREE_VIEW
 			-- the tree view associated with selection.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_VIEW]
 		do
@@ -138,7 +138,7 @@ feature {ANY} -- View
 		ensure result_not_void: Result/=Void
 		end
 
-	is_node_selected: BOOLEAN is
+	is_node_selected: BOOLEAN
 			-- Is there a selected node?
 		require not_multiple: not is_mode_multiple
 		do
@@ -146,7 +146,7 @@ feature {ANY} -- View
 		end
 	
 feature {ANY} -- selections
-	selected: GTK_TREE_ITER is
+	selected: GTK_TREE_ITER
 			-- the currently selected node if selection is set to
 			-- `gtk_selection_single' or `gtk_selection_browse'.
 		require not_multiple: not is_mode_multiple
@@ -169,7 +169,7 @@ feature {ANY} -- selections
 	-- func : 	The function to call for each selected node.
 	-- data : 	user data to pass to the function.
 
-	selected_rows: G_LIST [GTK_TREE_PATH] is
+	selected_rows: G_LIST [GTK_TREE_PATH]
 			-- A (newly allocated) list of paths of all selected
 			-- rows. TODO: Eiffellize this Additionally, if you are
 			-- planning on modifying the model after calling this
@@ -189,13 +189,13 @@ feature {ANY} -- selections
 			-- Returns : 	A GList containing a GtkTreePath for each selected row.
 		end
 
-	selected_rows_count: INTEGER is
+	selected_rows_count: INTEGER
 			-- the number of rows that have been selected in tree.
 		do
 			Result := gtk_tree_selection_count_selected_rows (handle)
 		end
 
-	select_path (a_path: GTK_TREE_PATH) is
+	select_path (a_path: GTK_TREE_PATH)
 			-- Select the row at `a_path'.
 		require path_not_void: a_path/=Void
 		do
@@ -203,7 +203,7 @@ feature {ANY} -- selections
 		ensure selected: is_path_selected (a_path)
 		end
 
-	unselect_path (a_path: GTK_TREE_PATH) is
+	unselect_path (a_path: GTK_TREE_PATH)
 			-- Unselect the row at `a_path'.
 		require path_not_void: a_path/=Void
 		do
@@ -211,14 +211,14 @@ feature {ANY} -- selections
 		ensure unselected: not is_path_selected (a_path)
 		end
 
-	is_path_selected (a_path: GTK_TREE_PATH): BOOLEAN is
+	is_path_selected (a_path: GTK_TREE_PATH): BOOLEAN
 			-- Is the row pointed to by `a_path' currently selected?
 			-- False if `a_path' does not point to a valid location.
 		do
 			Result:=(gtk_tree_selection_path_is_selected(handle,a_path.handle)).to_boolean
 		end
 
-	select_iter (an_iter: GTK_TREE_ITER) is
+	select_iter (an_iter: GTK_TREE_ITER)
 			-- Selects the specified iterator (`an_iter').
 		require iterator_not_void: an_iter/=Void
 		do
@@ -226,7 +226,7 @@ feature {ANY} -- selections
 		ensure selected: is_iter_selected(an_iter)
 		end
 	
-	unselect_iter (an_iter: GTK_TREE_ITER) is
+	unselect_iter (an_iter: GTK_TREE_ITER)
 			-- Unselects the specified iterator (`an_iter').
 		require iterator_not_void: an_iter/=Void
 		do
@@ -234,27 +234,27 @@ feature {ANY} -- selections
 		ensure unselected: not is_iter_selected(an_iter)
 		end
 
-	is_iter_selected (an_iter: GTK_TREE_ITER): BOOLEAN is
+	is_iter_selected (an_iter: GTK_TREE_ITER): BOOLEAN
 			-- Is the row at `an_iter' currently selected?
 		require iterator_not_void: an_iter/=Void
 		do
 			Result:=(gtk_tree_selection_iter_is_selected(handle,an_iter.handle)).to_boolean
 		end
 
-	select_all is
+	select_all
 			-- Selects all the nodes. selection must be set to GTK_SELECTION_MULTIPLE mode.
 		require multiple_mode: is_mode_multiple
 		do
 			gtk_tree_selection_select_all (handle)
 		end
 
-	unselect_all is
+	unselect_all
 			-- Unselects all the nodes.
 		do
 			gtk_tree_selection_unselect_all (handle)
 		end 
 
-	select_range (a_start,an_end: GTK_TREE_PATH) is
+	select_range (a_start,an_end: GTK_TREE_PATH)
 			-- Selects a range of nodes, determined by `a_start' and
 			-- `an_end' paths inclusive. Selection must be set to
 			-- GTK_SELECTION_MULTIPLE mode.
@@ -269,7 +269,7 @@ feature {ANY} -- selections
 			gtk_tree_selection_select_range (handle, a_start.handle, an_end.handle)
 		end
 
-	unselect_range (a_start,an_end: GTK_TREE_PATH) is
+	unselect_range (a_start,an_end: GTK_TREE_PATH)
 			-- Unselects a range of nodes, determined by `a_start' and
 			-- `an_end' paths inclusive. Selection must be set to
 			-- GTK_SELECTION_MULTIPLE mode.
@@ -288,18 +288,18 @@ feature {ANY} -- selections
 feature {ANY}  -- The "changed" signal
 	changed_signal_name: STRING is "changed"
 
-	on_changed is
+	on_changed
 			-- Built-in changed signal handler; empty by design; redefine it.
 		do
 		end
 
-	enable_on_changed is
+	enable_on_changed
 			-- Connects "changed" signal to `on_changed' feature.
 		do
 			connect (Current, changed_signal_name, $on_changed)
 		end
 
-	connect_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_SELECTION]]) is
+	connect_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_SELECTION]])
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -351,7 +351,7 @@ feature {ANY}  -- The "changed" signal
 	-- iter : 	A GtkTreeIter pointing to a selected row
 	-- data : 	user data
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeSelection)"
 		end

@@ -33,7 +33,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make is
+	make
 		do
 			allocate
 			av_init_packet (handle)
@@ -41,41 +41,41 @@ feature {} -- Creation
 
 feature {ANY} -- Access
 
-	pts: INTEGER_64 is
+	pts: INTEGER_64
 			-- presentation time stamp in time_base units
 		do
 			Result := av_packet_get_pts (handle)
 		end
 
-	dts: INTEGER_64 is
+	dts: INTEGER_64
 			-- decompression time stamp in time_base units
 		do
 			Result := av_packet_get_dts (handle)
 		end
 
-	duration: INTEGER is
+	duration: INTEGER
 			-- presentation duration in time_base units (0 if not available)
 		do
 			Result := av_packet_get_duration (handle)
 		end
 
-	pos: INTEGER_64 is
+	pos: INTEGER_64
 			-- byte position in stream, -1 if unknown
 		do
 			Result := av_packet_get_pos (handle)
 		end
 
-	size: INTEGER is
+	size: INTEGER
 		do
 			Result := av_packet_get_size (handle)
 		end
 
-	stream_index: INTEGER is
+	stream_index: INTEGER
 		do
 			Result := av_packet_get_stream_index (handle)
 		end
 
-	data: POINTER is
+	data: POINTER
 			-- The actual packet's payload
 		do
 			Result := av_packet_get_data (handle)
@@ -85,14 +85,14 @@ feature {ANY} -- Access
 
 feature {ANY} -- Operations
 
-	duplicate is
+	duplicate
 			-- Duplicate this packet's payload so it won't become invalid with
 			-- the next call to AV_FORMAT_CONTEXT.read_frame or .close
 		do
 			av_dup_packet (handle)
 		end
 
-	new, allocate_payload (a_payload_size: INTEGER) is
+	new, allocate_payload (a_payload_size: INTEGER)
 			-- Allocate the payload of a packet and intialized its fields
 			-- to default values.
 			-- Sets error_code to av_error_xxx on error.
@@ -102,7 +102,7 @@ feature {ANY} -- Operations
 			is_valid_av_error_code (error_code)
 		end
 
-	free_payload is
+	free_payload
 			-- Dispose of the memory that's being used up by the demuxed packet.
 			-- Call this after reading each frame, and before the next read.
 		do
@@ -111,7 +111,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Destroying
 
-	dispose  is
+	dispose
 		do
 			free_payload
 			free (handle)
@@ -120,7 +120,7 @@ feature {ANY} -- Destroying
 
 feature {ANY} -- Size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <avformat.h>"
 		alias "sizeof(AVPacket)"
 		end

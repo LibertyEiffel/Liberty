@@ -26,7 +26,7 @@ deferred class GTK_PRINT_STATUS
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_print_status (a_status: INTEGER): BOOLEAN is
+	is_valid_gtk_print_status (a_status: INTEGER): BOOLEAN
 		do	
 			Result:=((a_status = gtk_print_status_initial) or else
 						(a_status = gtk_print_status_preparing) or else
@@ -39,33 +39,33 @@ feature {ANY}  -- enum
 						(a_status = gtk_print_status_finished_aborted))
 		end
 	
-	gtk_print_status_initial: INTEGER is
+	gtk_print_status_initial: INTEGER
 			-- The printing has not started yet; this status is set
 			-- initially, and while the print dialog is shown.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_STATUS_INITIAL"
 		end
 	
-	gtk_print_status_preparing: INTEGER is
+	gtk_print_status_preparing: INTEGER
 				-- This status is set while the begin-print signal is
 				-- emitted and during pagination.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_STATUS_PREPARING"
 		end
 
-	gtk_print_status_generating_data: INTEGER is
+	gtk_print_status_generating_data: INTEGER
 				-- This status is set while the pages are being rendered.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_STATUS_GENERATING_DATA"
 		end
 
-	gtk_print_status_sending_data: INTEGER is
+	gtk_print_status_sending_data: INTEGER
 				-- The print job is being sent off to the printer.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_STATUS_SENDING_DATA"
 		end
 
-	gtk_print_status_pending: INTEGER is
+	gtk_print_status_pending: INTEGER
 				-- The print job has been sent to the printer, but is not
 				-- printed for some reason, e.g. the printer may be
 				-- stopped.
@@ -73,26 +73,26 @@ feature {ANY}  -- enum
 		alias "GTK_PRINT_STATUS_PENDING"
 		end
 
-	gtk_print_status_pending_issue: INTEGER is
+	gtk_print_status_pending_issue: INTEGER
 				-- Some problem has occurred during printing, e.g. a paper
 				-- jam.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_STATUS_PENDING_ISSUE"
 		end
 
-	gtk_print_status_printing: INTEGER is
+	gtk_print_status_printing: INTEGER
 				-- The printer is processing the print job.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_STATUS_PRINTING"
 		end
 
-	gtk_print_status_finished: INTEGER is
+	gtk_print_status_finished: INTEGER
 				-- The printing has been completed successfully.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_STATUS_FINISHED"
 		end
 
-	gtk_print_status_finished_aborted: INTEGER is
+	gtk_print_status_finished_aborted: INTEGER
 				-- The printing has been aborted.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PRINT_STATUS_FINISHED_ABORTED"

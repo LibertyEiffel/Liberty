@@ -49,14 +49,14 @@ insert GTK_FONT_SELECTION_EXTERNALS
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			--   Creates a new GtkFontSelection.
 		do
 			from_external_pointer(gtk_font_selection_new)
 		end
 
 feature {ANY}
-	font_name: STRING is
+	font_name: STRING
 			-- The currently-selected font name. Note that this can be a
 			-- different string than what you set with `set_font_name',
 			-- as the font selection widget may normalize font names and
@@ -81,7 +81,7 @@ feature {ANY}
 	successfully_set: BOOLEAN
 			-- Has the last call to `set_font_name' been successful?
 
-	set_font_name (a_font_name: STRING) is
+	set_font_name (a_font_name: STRING)
 			-- Sets the currently-selected font. Note that the font
 			-- selection widget needs to know the screen in which it will
 			-- appear for this to work; this can be guaranteed by simply
@@ -100,13 +100,13 @@ feature {ANY}
 									 (handle, a_font_name.to_external).to_boolean)
 		end
 
-	preview_text: CONST_STRING is
+	preview_text: CONST_STRING
 			-- the text displayed in the preview area.
 		do
 			create Result.from_external(gtk_font_selection_get_preview_text(handle))
 		end
 
-	set_preview_text (a_text: STRING) is
+	set_preview_text (a_text: STRING)
 			-- Sets the text displayed in the preview area.
 		require text_not_void: a_text /= Void
 		do

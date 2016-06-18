@@ -27,43 +27,43 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_toggle_button_new: POINTER is
+	gtk_toggle_button_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_button_new_with_label (a_label: POINTER): POINTER is
+	gtk_toggle_button_new_with_label (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_button_new_with_mnemonic (a_label: POINTER): POINTER is
+	gtk_toggle_button_new_with_mnemonic (a_label: POINTER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_button_set_mode (a_toggle_button: POINTER; a_draw_indicator: INTEGER) is
+	gtk_toggle_button_set_mode (a_toggle_button: POINTER; a_draw_indicator: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_button_get_mode (a_toggle_button: POINTER): INTEGER is
+	gtk_toggle_button_get_mode (a_toggle_button: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_button_toggled (a_toggle_button: POINTER) is
+	gtk_toggle_button_toggled (a_toggle_button: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_button_get_active    (a_toggle_button: POINTER): INTEGER is
+	gtk_toggle_button_get_active    (a_toggle_button: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_button_set_active    (a_toggle_button: POINTER; active: INTEGER) is
+	gtk_toggle_button_set_active    (a_toggle_button: POINTER; active: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_button_get_inconsistent (a_toggle_button: POINTER): INTEGER is
+	gtk_toggle_button_get_inconsistent (a_toggle_button: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_toggle_button_set_inconsistent (a_toggle_button: POINTER; a_setting: INTEGER) is
+	gtk_toggle_button_set_inconsistent (a_toggle_button: POINTER; a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 end

@@ -17,7 +17,7 @@ insert
 create {ANY} make
 
 feature {} -- Creation
-	make is
+	make
 
 		do
 			create module.with_name("llvm-example")				
@@ -35,7 +35,7 @@ feature {} -- Creation
 			-- pass_manager.run(module)
 		end
 	
-	make_muladd is
+	make_muladd
 		local x,y,z, tmp,tmp2,ret: LLVM_VALUE; param_iter: ITERATOR[LLVM_VALUE]
 		do
 			create muladd_type.make(int_32, <<int_32,int_32,int_32>>,False)
@@ -74,7 +74,7 @@ feature {} -- Creation
 			ret := builder.return(tmp2)
 	end
 
-	make_puts is
+	make_puts
 		-- The external function "int puts(const char *s);"
 	do
 		create puts_type.make(int_32,<<string>>,False)
@@ -83,13 +83,13 @@ feature {} -- Creation
 	ensure puts/=Void
 	end
 		
-	make_struct is
+	make_struct
 		do
 			-- struct will contain an int, a bool and a 8bit integer.
 			create struct_type.make(<<int_32,bool,int_8>>,False)      
 		end
 
-	make_main is
+	make_main
 		-- Emit the usual entry point function of a C program: "int main (int argc, char *argv[]);"
 		local msg,puts_arg, tmp: LLVM_VALUE; argv_type: LLVM_POINTER_TYPE; 
 		do
@@ -110,20 +110,20 @@ feature {} -- Creation
 			tmp := builder.return (create {LLVM_CONSTANT_INT}.integer_32(1))
 		end
 
-	use_plugin is
+	use_plugin
 		-- dummy feature to trigger plugin usage
 	local p: POINTER
 	do
 		p:=llvmint32type
 	end
 feature {} -- tests agents
-	name_not_void (a_value: LLVM_VALUE): BOOLEAN is
+	name_not_void (a_value: LLVM_VALUE): BOOLEAN
 		require a_value/=Void
 		do
 			Result := a_value.name/=Void
 		end
 
-	name_is (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING): BOOLEAN is
+	name_is (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING): BOOLEAN
 		require
 			a_value/=Void
 			a_name/=Void

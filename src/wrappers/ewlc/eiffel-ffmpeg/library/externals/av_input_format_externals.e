@@ -28,11 +28,11 @@ inherit
 
 feature {} -- External Calls
 
-	av_input_format_get_name (a_format: POINTER): POINTER is
+	av_input_format_get_name (a_format: POINTER): POINTER
 		external "C struct AVInputFormat get name use <avformat.h>"
 		end
 
-	av_input_format_get_long_name (a_format: POINTER): POINTER is
+	av_input_format_get_long_name (a_format: POINTER): POINTER
 		external "C struct AVInputFormat get long_name use <avformat.h>"
 		end
 

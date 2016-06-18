@@ -4,7 +4,7 @@ deferred class SHARED_CREATION_DICTIONARY
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}
-	creation_agents_by_type: HASHED_DICTIONARY[FUNCTION[TUPLE[POINTER],G_OBJECT],INTEGER_32] is
+	creation_agents_by_type: HASHED_DICTIONARY[FUNCTION[TUPLE[POINTER],G_OBJECT],INTEGER_32]
 		-- A dictionary of agent funtions that return a G_OBJECT.
 		-- Key shall be the GType of the G_OBJECT returned by the
 		-- value agent. Each value agent receive a pointer and
@@ -13,7 +13,7 @@ feature {ANY}
 			create Result.make
 		end
 
-	creation_agents: HASHED_DICTIONARY[FUNCTION[TUPLE[POINTER],G_OBJECT],STRING] is
+	creation_agents: HASHED_DICTIONARY[FUNCTION[TUPLE[POINTER],G_OBJECT],STRING]
 			-- A dictionary of agent funtions that return a G_OBJECT.
 			-- Key shall be the type name of the G_OBJECT returned by the
 			-- value agent. Each value agent receive a pointer and
@@ -30,13 +30,13 @@ feature {ANY}
 	-- later on.
 
 feature {} -- Auxialiary features
-	update_creation_agents_by_type_with (a_pointer: POINTER) is
+	update_creation_agents_by_type_with (a_pointer: POINTER)
 		local type: INTEGER; typename: STRING
 		do
 			not_yet_implemented
 		end
 
-	print_functions is
+	print_functions
 			-- Print all functions in
 		local key_iter: ITERATOR[STRING]; key: STRING; function: FUNCTION[TUPLE[POINTER],G_OBJECT];
 		do
@@ -51,7 +51,7 @@ feature {} -- Auxialiary features
 				key_iter.next
 			end
 		end
-	print_function (a_stream: OUTPUT_STREAM; f: FUNCTION[TUPLE[POINTER],G_OBJECT]; c: STRING) is
+	print_function (a_stream: OUTPUT_STREAM; f: FUNCTION[TUPLE[POINTER],G_OBJECT]; c: STRING)
 		require 
 			a_stream/=Void; f/=Void; c/=Void
 		do

@@ -99,7 +99,7 @@ insert
 	GTK_OBJECT_EXTERNALS
 
 feature {ANY}
-	sink  is
+	sink
 			-- Removes the floating reference from a GtkObject, if it exists;
 			-- otherwise does nothing. See the GtkObject overview documentation at
 			-- the top of the page.
@@ -107,7 +107,7 @@ feature {ANY}
 			gtk_object_sink (handle)
 		end
 
-	destroy is
+	destroy
 			-- Emits the "destroy" signal notifying all reference holders that they
 			-- should release the GtkObject. See the overview documentation at the
 			-- top of the page for more details.  The memory for the object itself
@@ -118,7 +118,7 @@ feature {ANY}
 			gtk_object_destroy (handle)
 		end
 
-	store_eiffel_wrapper is
+	store_eiffel_wrapper
 		do
 			Precursor
 			ref -- This takes care of sinking the object and/or adding a reference
@@ -137,7 +137,7 @@ feature {ANY} -- Signals
 	-- user_data : 	user data set when the signal handler was connected.
 
 	connect_to_destroy_signal,
-	connect_agent_to_destroy_signal (a_procedure: PROCEDURE[TUPLE[GTK_OBJECT]]) is
+	connect_agent_to_destroy_signal (a_procedure: PROCEDURE[TUPLE[GTK_OBJECT]])
 			-- Connect `a_procedure' but invokes the fixed
 			-- `destroy_callback' special feature."
 		local destroy_callback: DESTROY_CALLBACK
@@ -151,13 +151,13 @@ feature {ANY} -- Signals
 	
 	-- TODO: implement a enable_on_destroy and on_destroy
 
-	enable_on_destroy is
+	enable_on_destroy
 			-- Connects "destroy" signal to `on_destroy' feature.
 		do
 			connect (Current, destroy_signal_name, $on_destroy)
 		end
 
-	on_destroy is
+	on_destroy
 			-- Called on destroy signals. Redefine it in your heir classes
 		do
 		end

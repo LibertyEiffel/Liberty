@@ -142,7 +142,7 @@ feature {ANY} -- Unwrapped C
 feature {} -- Creation
 	
 	make (a_gobject: G_OBJECT; some_flags: INTEGER;
-			a_return_type: INTEGER; parameters_types: ARRAY[INTEGER]) is
+			a_return_type: INTEGER; parameters_types: ARRAY[INTEGER])
 			-- Creates a new signal. This is usually done in the
 			-- GObject's class initializer at C level.
 

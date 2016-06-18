@@ -256,7 +256,7 @@ feature {} -- External calls
 --                                             (GtkTreeModelSort *tree_model_sort,
 --                                              GtkTreeIter *iter);
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeModel)"
 		end

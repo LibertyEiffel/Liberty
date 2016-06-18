@@ -31,19 +31,19 @@ create {ANY} from_external_pointer
 
 feature {ANY} -- access
 
-	area: GDK_RECTANGLE is
+	area: GDK_RECTANGLE
 			-- bounding box of region. 
 		do
 			create Result.from_external_copy (gdk_event_expose_get_area (handle))
 		end
 
-	region: GDK_REGION is
+	region: GDK_REGION
 			-- bounding box of region. 
 		do
 			create Result.from_external_copy (gdk_event_expose_get_region (handle))
 		end
 
-	count: INTEGER is
+	count: INTEGER
 			-- the number of contiguous GDK_EXPOSE events following this one.
 			-- The only use for this is "exposure compression", i.e. handling
 			-- all contiguous GDK_EXPOSE events in one go, though GDK performs

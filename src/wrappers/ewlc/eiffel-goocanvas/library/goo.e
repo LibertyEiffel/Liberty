@@ -25,7 +25,7 @@ deferred class
 	GOO
 	-- Access to GOO_LIBRARY singleton
 feature {ANY} 
-	goo: GOO_LIBRARY is
+	goo: GOO_LIBRARY
 		once
 			create Result
 		end

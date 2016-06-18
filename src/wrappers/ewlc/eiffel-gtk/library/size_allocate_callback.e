@@ -35,7 +35,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (allocation: POINTER; instance: POINTER) is
+	callback (allocation: POINTER; instance: POINTER)
 		local
 			allocation_obj: GTK_ALLOCATION
 		do
@@ -49,14 +49,14 @@ feature {ANY}
 			procedure.call ([allocation_obj, object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GTK_ALLOCATION, GTK_WIDGET]]) is
+	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GTK_ALLOCATION, GTK_WIDGET]])
 		do
 			debug
 				print ("SIZE_ALLOCATE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

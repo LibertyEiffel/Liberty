@@ -27,19 +27,19 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_sort_type (a_sort_type: INTEGER): BOOLEAN is
+	is_valid_gtk_sort_type (a_sort_type: INTEGER): BOOLEAN
 		do
 			Result:=((a_sort_type=gtk_sort_ascending) or else
 						(a_sort_type=gtk_sort_descending))
 		end
 
-	gtk_sort_ascending: INTEGER is
+	gtk_sort_ascending: INTEGER
 			-- 	Sorting is in ascending order.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SORT_ASCENDING"
 		end
 
-	gtk_sort_descending: INTEGER is
+	gtk_sort_descending: INTEGER
 			-- 	Sorting is in descending order.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SORT_DESCENDING"

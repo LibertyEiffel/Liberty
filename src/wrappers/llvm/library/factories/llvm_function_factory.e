@@ -12,7 +12,7 @@ insert
 	EXCEPTIONS undefine copy, is_equal end 
 
 feature {WRAPPER, WRAPPER_HANDLER}
-	function_wrapper (a_pointer: POINTER): LLVM_FUNCTION is
+	function_wrapper (a_pointer: POINTER): LLVM_FUNCTION
 		-- The LLVM_FUNCTION for `a_pointer' of the fittest type.
 	do
 		create Result.from_external_pointer(a_pointer)

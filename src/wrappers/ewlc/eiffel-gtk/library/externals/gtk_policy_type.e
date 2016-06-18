@@ -25,27 +25,27 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_gtk_policy (a_policy_type :INTEGER): BOOLEAN is
+	is_valid_gtk_policy (a_policy_type :INTEGER): BOOLEAN
 		do	
 			Result:=((a_policy_type = gtk_policy_always) or else
 						(a_policy_type = gtk_policy_automatic) or else
 						(a_policy_type = gtk_policy_never))
 		end
 
-	gtk_policy_always: INTEGER is
+	gtk_policy_always: INTEGER
 			-- The scrollbar is always visible.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_POLICY_ALWAYS"
 		end
 	
-	gtk_policy_automatic: INTEGER is
+	gtk_policy_automatic: INTEGER
 			-- The scrollbar will appear and disappear as necessary. For
 			-- example, when all of a GtkCList can not be seen.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_POLICY_AUTOMATIC"
 		end
 	
-	gtk_policy_never: INTEGER is
+	gtk_policy_never: INTEGER
 			-- The scrollbar will never appear.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_POLICY_NEVER"

@@ -25,7 +25,7 @@ deferred class GTK_CALENDAR_DISPLAY_OPTIONS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	are_valid_gtk_calendar_display_options (some_options: INTEGER): BOOLEAN is
+	are_valid_gtk_calendar_display_options (some_options: INTEGER): BOOLEAN
 		do	
 			Result:=(some_options & (gtk_calendar_show_heading |
 											 gtk_calendar_show_day_names |
@@ -33,26 +33,26 @@ feature {} -- enum
 											 gtk_calendar_show_week_numbers)).to_boolean
 		end
 
-	gtk_calendar_show_heading: INTEGER is
+	gtk_calendar_show_heading: INTEGER
 			-- Specifies that the month and year should be displayed.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CALENDAR_SHOW_HEADING"
 		end
 
-	gtk_calendar_show_day_names: INTEGER is
+	gtk_calendar_show_day_names: INTEGER
 			-- Specifies that three letter day descriptions should be
 			-- present.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CALENDAR_SHOW_DAY_NAMES"
 		end
 
-	gtk_calendar_no_month_change: INTEGER is
+	gtk_calendar_no_month_change: INTEGER
 			-- Prevents the user from switching months with the calendar.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_CALENDAR_NO_MONTH_CHANGE"
 		end
 
-	gtk_calendar_show_week_numbers: INTEGER is
+	gtk_calendar_show_week_numbers: INTEGER
 			-- Displays each week numbers of the current year, down the
 			-- left side of the calendar.
 		external "C macro use <gtk/gtk.h>"

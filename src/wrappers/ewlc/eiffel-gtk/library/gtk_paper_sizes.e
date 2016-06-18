@@ -83,7 +83,7 @@ feature {ANY} -- Paper sizes
 
 	--
 
-	default_paper_size_name: CONST_STRING is
+	default_paper_size_name: CONST_STRING
 			-- the name of the default paper size, which depends on the current
 			-- locale.
 		do
@@ -91,50 +91,50 @@ feature {ANY} -- Paper sizes
 		end
 
 feature {} -- External calls
-	gtk_paper_name_a3_ptr: INTEGER is
+	gtk_paper_name_a3_ptr: INTEGER
 			-- #define GTK_PAPER_NAME_A3
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_A3"
 		end
 
-	gtk_paper_name_a4_ptr: INTEGER is
+	gtk_paper_name_a4_ptr: INTEGER
 			-- #define GTK_PAPER_NAME_A4
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_A4"
 		end
 
-	gtk_paper_name_a5_ptr: INTEGER is
+	gtk_paper_name_a5_ptr: INTEGER
 			-- #define GTK_PAPER_NAME_A5
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_A5"
 		end
 
-	gtk_paper_name_b5_ptr: INTEGER is
+	gtk_paper_name_b5_ptr: INTEGER
 			-- #define GTK_PAPER_NAME_B5
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_B5"
 		end
 
-	gtk_paper_name_letter_ptr: INTEGER is
+	gtk_paper_name_letter_ptr: INTEGER
 			-- #define GTK_PAPER_NAME_LETTER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_LETTER"
 		end
 
-	gtk_paper_name_executive_ptr: INTEGER is
+	gtk_paper_name_executive_ptr: INTEGER
 			-- #define GTK_PAPER_NAME_EXECUTIVE
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_EXECUTIVE"
 		end
 
-	gtk_paper_name_legal_ptr: INTEGER is
+	gtk_paper_name_legal_ptr: INTEGER
 			-- #define GTK_PAPER_NAME_LEGAL
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_LEGAL"
 		end
 
 
-	gtk_paper_size_get_default: POINTER is
+	gtk_paper_size_get_default: POINTER
 			-- const gchar* gtk_paper_size_get_default     (void);
 		external "C use <gtk/gtk.h>"
 		end	

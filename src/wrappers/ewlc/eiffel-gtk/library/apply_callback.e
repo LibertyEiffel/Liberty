@@ -34,7 +34,7 @@ feature {ANY}
 	object: GTK_ASSISTANT
 
 feature {ANY}
-	callback (instance: POINTER) is
+	callback (instance: POINTER)
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -45,14 +45,14 @@ feature {ANY}
 			procedure.call ([object])
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_ASSISTANT; a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
+	connect (an_object: GTK_ASSISTANT; a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]])
 		do
 			debug
 				print ("APPLY_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

@@ -30,7 +30,7 @@ insert
 	GTK_RESPONSE_TYPE
 
 feature {} -- Externals
-	gtk_dialog_new: POINTER is
+	gtk_dialog_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -38,42 +38,42 @@ feature {} -- Externals
 	-- (const gchar *title, GtkWindow *parent, GtkDialogFlags flags,
 	-- const gchar *first_button_text,
 	
-	gtk_dialog_run (a_dialog: POINTER): INTEGER is
+	gtk_dialog_run (a_dialog: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_dialog_response (a_dialog: POINTER; response_id: INTEGER) is
+	gtk_dialog_response (a_dialog: POINTER; response_id: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_dialog_add_button (a_dialog, a_button_text: POINTER; response_id: INTEGER): POINTER is
+	gtk_dialog_add_button (a_dialog, a_button_text: POINTER; response_id: INTEGER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 	
 	-- TODO wrap variadic void gtk_dialog_add_buttons (a_dialog: POINTER,
 	-- const gchar *first_button_text, ...
 	
-	gtk_dialog_add_action_widget    (a_dialog, a_child: POINTER; response_idis: INTEGER) is
+	gtk_dialog_add_action_widget    (a_dialog, a_child: POINTER; response_idis: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_dialog_get_has_separator    (a_dialog: POINTER): INTEGER is
+	gtk_dialog_get_has_separator    (a_dialog: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_dialog_set_default_response (a_dialog: POINTER; response_idis:INTEGER) is
+	gtk_dialog_set_default_response (a_dialog: POINTER; response_idis:INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_dialog_set_has_separator (a_dialog: POINTER; a_setting:INTEGER) is
+	gtk_dialog_set_has_separator (a_dialog: POINTER; a_setting:INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_dialog_set_response_sensitive (a_dialog: POINTER; response_id, a_setting: INTEGER) is
+	gtk_dialog_set_response_sensitive (a_dialog: POINTER; response_id, a_setting: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_dialog_get_response_for_widget (a_dialog, a_widget: POINTER): INTEGER is
+	gtk_dialog_get_response_for_widget (a_dialog, a_widget: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -92,19 +92,19 @@ feature {} -- Externals
 
 feature {} -- GtkDialog struct
 
-	gtkwidget_vbox (a_dialog: POINTER): POINTER is
+	gtkwidget_vbox (a_dialog: POINTER): POINTER
 		external "C struct get vbox use <gtk/gtk.h>"
 		end
 
-	set_gtkwidget_vbox (a_dialog: POINTER; a_vbox: POINTER): POINTER is
+	set_gtkwidget_vbox (a_dialog: POINTER; a_vbox: POINTER): POINTER
 		external "C struct set vbox use <gtk/gtk.h>"
 		end
 
-	gtkwidget_action_area (a_dialog: POINTER): POINTER is
+	gtkwidget_action_area (a_dialog: POINTER): POINTER
 		external "C struct get action_area use <gtk/gtk.h>"
 		end
 
-	set_gtkwidget_action_area (a_dialog: POINTER; an_action_area: POINTER): POINTER is
+	set_gtkwidget_action_area (a_dialog: POINTER; an_action_area: POINTER): POINTER
 		external "C struct set action_area use <gtk/gtk.h>"
 		end
 

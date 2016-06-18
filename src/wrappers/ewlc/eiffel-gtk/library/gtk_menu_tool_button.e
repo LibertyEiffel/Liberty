@@ -49,7 +49,7 @@ insert
 create {ANY} from_label, from_stock, from_external_pointer
 
 feature {} -- Creation
-	from_label (an_icon_widget: GTK_WIDGET; a_label: STRING) is
+	from_label (an_icon_widget: GTK_WIDGET; a_label: STRING)
 			-- Creates a new GtkMenuToolButton using `an_icon_widget' as icon
 			-- and `a_label' as label. Both can be Void.
 		do
@@ -58,7 +58,7 @@ feature {} -- Creation
 										  null_or_string(a_label)))
 		end
 
-	from_stock (a_stock_id: STRING) is
+	from_stock (a_stock_id: STRING)
 			-- Creates a new GtkMenuToolButton. The new GtkMenuToolButton
 			-- will contain an icon and label from the stock item
 			-- indicated by `a_stock_id'.
@@ -68,7 +68,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	set_menu (a_menu: GTK_MENU) is
+	set_menu (a_menu: GTK_MENU)
 			-- Sets the GtkMenu that is popped up when the user clicks on
 			-- the arrow. If `a_menu' is Void, the arrow button becomes
 			-- insensitive.
@@ -81,14 +81,14 @@ feature {ANY}
 		ensure set: a_menu = menu
 		end
 
-	menu: GTK_MENU is
+	menu: GTK_MENU
 			-- the GTK_MENU associated with GTK_MENU_TOOL_BUTTON.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_MENU]
 		do
 			Result := factory.wrapper (gtk_menu_tool_button_get_menu(handle))
 		end
 
-	set_arrow_tooltip (some_tooltips: GTK_TOOLTIPS; a_tip_text, a_tip_private: STRING) is
+	set_arrow_tooltip (some_tooltips: GTK_TOOLTIPS; a_tip_text, a_tip_private: STRING)
 			-- Sets the GtkTooltips object to be used for arrow button
 			-- which pops up the menu. See GTK_TOOL_ITEM's `set_tooltip'
 			-- for setting a tooltip on the whole GtkMenuToolButton.
@@ -125,7 +125,7 @@ feature {ANY} --TODO: --Signals
 	--
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuToolButton)"
 		end

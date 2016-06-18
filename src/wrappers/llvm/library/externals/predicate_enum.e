@@ -7,7 +7,7 @@ insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = bad_fcmp_predicate_low_level)  or else
 				(a_value = bad_icmp_predicate_low_level)  or else
@@ -45,329 +45,329 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_bad_fcmp_predicate is
+	set_bad_fcmp_predicate
 		do
 			value := bad_fcmp_predicate_low_level
 		end
 
-	set_bad_icmp_predicate is
+	set_bad_icmp_predicate
 		do
 			value := bad_icmp_predicate_low_level
 		end
 
-	set_fcmp_false is
+	set_fcmp_false
 		do
 			value := fcmp_false_low_level
 		end
 
-	set_fcmp_oeq is
+	set_fcmp_oeq
 		do
 			value := fcmp_oeq_low_level
 		end
 
-	set_fcmp_oge is
+	set_fcmp_oge
 		do
 			value := fcmp_oge_low_level
 		end
 
-	set_fcmp_ogt is
+	set_fcmp_ogt
 		do
 			value := fcmp_ogt_low_level
 		end
 
-	set_fcmp_ole is
+	set_fcmp_ole
 		do
 			value := fcmp_ole_low_level
 		end
 
-	set_fcmp_olt is
+	set_fcmp_olt
 		do
 			value := fcmp_olt_low_level
 		end
 
-	set_fcmp_one is
+	set_fcmp_one
 		do
 			value := fcmp_one_low_level
 		end
 
-	set_fcmp_ord is
+	set_fcmp_ord
 		do
 			value := fcmp_ord_low_level
 		end
 
-	set_fcmp_true is
+	set_fcmp_true
 		do
 			value := fcmp_true_low_level
 		end
 
-	set_fcmp_ueq is
+	set_fcmp_ueq
 		do
 			value := fcmp_ueq_low_level
 		end
 
-	set_fcmp_uge is
+	set_fcmp_uge
 		do
 			value := fcmp_uge_low_level
 		end
 
-	set_fcmp_ugt is
+	set_fcmp_ugt
 		do
 			value := fcmp_ugt_low_level
 		end
 
-	set_fcmp_ule is
+	set_fcmp_ule
 		do
 			value := fcmp_ule_low_level
 		end
 
-	set_fcmp_ult is
+	set_fcmp_ult
 		do
 			value := fcmp_ult_low_level
 		end
 
-	set_fcmp_une is
+	set_fcmp_une
 		do
 			value := fcmp_une_low_level
 		end
 
-	set_fcmp_uno is
+	set_fcmp_uno
 		do
 			value := fcmp_uno_low_level
 		end
 
-	set_first_fcmp_predicate is
+	set_first_fcmp_predicate
 		do
 			value := first_fcmp_predicate_low_level
 		end
 
-	set_first_icmp_predicate is
+	set_first_icmp_predicate
 		do
 			value := first_icmp_predicate_low_level
 		end
 
-	set_icmp_eq is
+	set_icmp_eq
 		do
 			value := icmp_eq_low_level
 		end
 
-	set_icmp_ne is
+	set_icmp_ne
 		do
 			value := icmp_ne_low_level
 		end
 
-	set_icmp_sge is
+	set_icmp_sge
 		do
 			value := icmp_sge_low_level
 		end
 
-	set_icmp_sgt is
+	set_icmp_sgt
 		do
 			value := icmp_sgt_low_level
 		end
 
-	set_icmp_sle is
+	set_icmp_sle
 		do
 			value := icmp_sle_low_level
 		end
 
-	set_icmp_slt is
+	set_icmp_slt
 		do
 			value := icmp_slt_low_level
 		end
 
-	set_icmp_uge is
+	set_icmp_uge
 		do
 			value := icmp_uge_low_level
 		end
 
-	set_icmp_ugt is
+	set_icmp_ugt
 		do
 			value := icmp_ugt_low_level
 		end
 
-	set_icmp_ule is
+	set_icmp_ule
 		do
 			value := icmp_ule_low_level
 		end
 
-	set_icmp_ult is
+	set_icmp_ult
 		do
 			value := icmp_ult_low_level
 		end
 
-	set_last_fcmp_predicate is
+	set_last_fcmp_predicate
 		do
 			value := last_fcmp_predicate_low_level
 		end
 
-	set_last_icmp_predicate is
+	set_last_icmp_predicate
 		do
 			value := last_icmp_predicate_low_level
 		end
 
 feature {ANY} -- Queries
-	is_bad_fcmp_predicate: BOOLEAN is
+	is_bad_fcmp_predicate: BOOLEAN
 		do
 			Result := (value=bad_fcmp_predicate_low_level)
 		end
 
-	is_bad_icmp_predicate: BOOLEAN is
+	is_bad_icmp_predicate: BOOLEAN
 		do
 			Result := (value=bad_icmp_predicate_low_level)
 		end
 
-	is_fcmp_false: BOOLEAN is
+	is_fcmp_false: BOOLEAN
 		do
 			Result := (value=fcmp_false_low_level)
 		end
 
-	is_fcmp_oeq: BOOLEAN is
+	is_fcmp_oeq: BOOLEAN
 		do
 			Result := (value=fcmp_oeq_low_level)
 		end
 
-	is_fcmp_oge: BOOLEAN is
+	is_fcmp_oge: BOOLEAN
 		do
 			Result := (value=fcmp_oge_low_level)
 		end
 
-	is_fcmp_ogt: BOOLEAN is
+	is_fcmp_ogt: BOOLEAN
 		do
 			Result := (value=fcmp_ogt_low_level)
 		end
 
-	is_fcmp_ole: BOOLEAN is
+	is_fcmp_ole: BOOLEAN
 		do
 			Result := (value=fcmp_ole_low_level)
 		end
 
-	is_fcmp_olt: BOOLEAN is
+	is_fcmp_olt: BOOLEAN
 		do
 			Result := (value=fcmp_olt_low_level)
 		end
 
-	is_fcmp_one: BOOLEAN is
+	is_fcmp_one: BOOLEAN
 		do
 			Result := (value=fcmp_one_low_level)
 		end
 
-	is_fcmp_ord: BOOLEAN is
+	is_fcmp_ord: BOOLEAN
 		do
 			Result := (value=fcmp_ord_low_level)
 		end
 
-	is_fcmp_true: BOOLEAN is
+	is_fcmp_true: BOOLEAN
 		do
 			Result := (value=fcmp_true_low_level)
 		end
 
-	is_fcmp_ueq: BOOLEAN is
+	is_fcmp_ueq: BOOLEAN
 		do
 			Result := (value=fcmp_ueq_low_level)
 		end
 
-	is_fcmp_uge: BOOLEAN is
+	is_fcmp_uge: BOOLEAN
 		do
 			Result := (value=fcmp_uge_low_level)
 		end
 
-	is_fcmp_ugt: BOOLEAN is
+	is_fcmp_ugt: BOOLEAN
 		do
 			Result := (value=fcmp_ugt_low_level)
 		end
 
-	is_fcmp_ule: BOOLEAN is
+	is_fcmp_ule: BOOLEAN
 		do
 			Result := (value=fcmp_ule_low_level)
 		end
 
-	is_fcmp_ult: BOOLEAN is
+	is_fcmp_ult: BOOLEAN
 		do
 			Result := (value=fcmp_ult_low_level)
 		end
 
-	is_fcmp_une: BOOLEAN is
+	is_fcmp_une: BOOLEAN
 		do
 			Result := (value=fcmp_une_low_level)
 		end
 
-	is_fcmp_uno: BOOLEAN is
+	is_fcmp_uno: BOOLEAN
 		do
 			Result := (value=fcmp_uno_low_level)
 		end
 
-	is_first_fcmp_predicate: BOOLEAN is
+	is_first_fcmp_predicate: BOOLEAN
 		do
 			Result := (value=first_fcmp_predicate_low_level)
 		end
 
-	is_first_icmp_predicate: BOOLEAN is
+	is_first_icmp_predicate: BOOLEAN
 		do
 			Result := (value=first_icmp_predicate_low_level)
 		end
 
-	is_icmp_eq: BOOLEAN is
+	is_icmp_eq: BOOLEAN
 		do
 			Result := (value=icmp_eq_low_level)
 		end
 
-	is_icmp_ne: BOOLEAN is
+	is_icmp_ne: BOOLEAN
 		do
 			Result := (value=icmp_ne_low_level)
 		end
 
-	is_icmp_sge: BOOLEAN is
+	is_icmp_sge: BOOLEAN
 		do
 			Result := (value=icmp_sge_low_level)
 		end
 
-	is_icmp_sgt: BOOLEAN is
+	is_icmp_sgt: BOOLEAN
 		do
 			Result := (value=icmp_sgt_low_level)
 		end
 
-	is_icmp_sle: BOOLEAN is
+	is_icmp_sle: BOOLEAN
 		do
 			Result := (value=icmp_sle_low_level)
 		end
 
-	is_icmp_slt: BOOLEAN is
+	is_icmp_slt: BOOLEAN
 		do
 			Result := (value=icmp_slt_low_level)
 		end
 
-	is_icmp_uge: BOOLEAN is
+	is_icmp_uge: BOOLEAN
 		do
 			Result := (value=icmp_uge_low_level)
 		end
 
-	is_icmp_ugt: BOOLEAN is
+	is_icmp_ugt: BOOLEAN
 		do
 			Result := (value=icmp_ugt_low_level)
 		end
 
-	is_icmp_ule: BOOLEAN is
+	is_icmp_ule: BOOLEAN
 		do
 			Result := (value=icmp_ule_low_level)
 		end
 
-	is_icmp_ult: BOOLEAN is
+	is_icmp_ult: BOOLEAN
 		do
 			Result := (value=icmp_ult_low_level)
 		end
 
-	is_last_fcmp_predicate: BOOLEAN is
+	is_last_fcmp_predicate: BOOLEAN
 		do
 			Result := (value=last_fcmp_predicate_low_level)
 		end
 
-	is_last_icmp_predicate: BOOLEAN is
+	is_last_icmp_predicate: BOOLEAN
 		do
 			Result := (value=last_icmp_predicate_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad_fcmp_predicate_low_level: INTEGER is
+	bad_fcmp_predicate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -376,7 +376,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	bad_icmp_predicate_low_level: INTEGER is
+	bad_icmp_predicate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -385,7 +385,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_false_low_level: INTEGER is
+	fcmp_false_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -394,7 +394,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_oeq_low_level: INTEGER is
+	fcmp_oeq_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -403,7 +403,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_oge_low_level: INTEGER is
+	fcmp_oge_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -412,7 +412,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_ogt_low_level: INTEGER is
+	fcmp_ogt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -421,7 +421,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_ole_low_level: INTEGER is
+	fcmp_ole_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -430,7 +430,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_olt_low_level: INTEGER is
+	fcmp_olt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -439,7 +439,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_one_low_level: INTEGER is
+	fcmp_one_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -448,7 +448,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_ord_low_level: INTEGER is
+	fcmp_ord_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -457,7 +457,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_true_low_level: INTEGER is
+	fcmp_true_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -466,7 +466,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_ueq_low_level: INTEGER is
+	fcmp_ueq_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -475,7 +475,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_uge_low_level: INTEGER is
+	fcmp_uge_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -484,7 +484,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_ugt_low_level: INTEGER is
+	fcmp_ugt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -493,7 +493,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_ule_low_level: INTEGER is
+	fcmp_ule_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -502,7 +502,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_ult_low_level: INTEGER is
+	fcmp_ult_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -511,7 +511,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_une_low_level: INTEGER is
+	fcmp_une_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -520,7 +520,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fcmp_uno_low_level: INTEGER is
+	fcmp_uno_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -529,7 +529,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	first_fcmp_predicate_low_level: INTEGER is
+	first_fcmp_predicate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -538,7 +538,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	first_icmp_predicate_low_level: INTEGER is
+	first_icmp_predicate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -547,7 +547,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_eq_low_level: INTEGER is
+	icmp_eq_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -556,7 +556,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_ne_low_level: INTEGER is
+	icmp_ne_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -565,7 +565,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_sge_low_level: INTEGER is
+	icmp_sge_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -574,7 +574,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_sgt_low_level: INTEGER is
+	icmp_sgt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -583,7 +583,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_sle_low_level: INTEGER is
+	icmp_sle_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -592,7 +592,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_slt_low_level: INTEGER is
+	icmp_slt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -601,7 +601,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_uge_low_level: INTEGER is
+	icmp_uge_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -610,7 +610,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_ugt_low_level: INTEGER is
+	icmp_ugt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -619,7 +619,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_ule_low_level: INTEGER is
+	icmp_ule_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -628,7 +628,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	icmp_ult_low_level: INTEGER is
+	icmp_ult_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -637,7 +637,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	last_fcmp_predicate_low_level: INTEGER is
+	last_fcmp_predicate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -646,7 +646,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	last_icmp_predicate_low_level: INTEGER is
+	last_icmp_predicate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

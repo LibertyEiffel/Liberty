@@ -30,7 +30,7 @@ inherit
 create {ANY} make
 
 feature {ANY}
-	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
+	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING)
 		do
 			Precursor (a_long_name,a_short_name, a_description)
 			set_arg(handle, g_option_arg_int)
@@ -56,12 +56,12 @@ feature {ANY} -- Queries
 
 	item: INTEGER
 
-	set_item (a_value: INTEGER) is
+	set_item (a_value: INTEGER)
 		do
 			item:=a_value
 		end
 
-	fill_tagged_out_memory is
+	fill_tagged_out_memory
 		do
 			Precursor
 			item.append_in(tagged_out_memory)

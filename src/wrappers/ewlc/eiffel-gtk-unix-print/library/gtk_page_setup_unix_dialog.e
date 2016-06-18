@@ -44,7 +44,7 @@ inherit
 create {ANY} dummy, make, from_external_pointer
 
 feature {} -- Creation
-	make (a_title: STRING; a_parent: GTK_WINDOW) is
+	make (a_title: STRING; a_parent: GTK_WINDOW)
 			-- Creates a new page setup dialog.
 			
 			-- `a_title': the title of the dialog, or Void.
@@ -56,7 +56,7 @@ feature {} -- Creation
 										  null_or(a_parent)))
 		end
 
-	set_page_setup (a_page_setup: GTK_PAGE_SETUP) is
+	set_page_setup (a_page_setup: GTK_PAGE_SETUP)
 			-- Sets the GtkPageSetup from which the page setup dialog
 			-- takes its values.
 		require setup_not_void: a_page_setup/=Void
@@ -64,14 +64,14 @@ feature {} -- Creation
 			gtk_page_setup_unix_dialog_set_page_setup(handle,a_page_setup.handle)
 		end
 
-	page_setup: GTK_PAGE_SETUP is
+	page_setup: GTK_PAGE_SETUP
 			--  the current page setup
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PAGE_SETUP]
 		do
 			Result := factory.wrapper_or_void(gtk_page_setup_unix_dialog_get_page_setup(handle))
 		end
 
-	set_print_settings (some_settings: GTK_PRINT_SETTINGS) is
+	set_print_settings (some_settings: GTK_PRINT_SETTINGS)
 			--Sets the GtkPrintSettings from which the page setup dialog takes its
 		require settings_not_void: some_settings/= Void
 		do
@@ -80,7 +80,7 @@ feature {} -- Creation
 		ensure set: print_settings = some_settings
 		end
 
-	print_settings: GTK_PRINT_SETTINGS is
+	print_settings: GTK_PRINT_SETTINGS
 			-- The current print settings
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PRINT_SETTINGS]
 		do
@@ -90,33 +90,33 @@ feature {} -- Creation
 feature {} -- External calls
 	-- #include <gtk/gtkpagesetupunixdialog.h>
 	
-	gtk_page_setup_unix_dialog_new  (a_title, a_parent: POINTER): POINTER is
+	gtk_page_setup_unix_dialog_new  (a_title, a_parent: POINTER): POINTER
 			-- GtkWidget* gtk_page_setup_unix_dialog_new (const gchar
 			-- *title, GtkWindow *parent);
 		external "C use <gtk/gtkpagesetupunixdialog.h>"
 		end
 
-	gtk_page_setup_unix_dialog_set_page_setup (a_dialog, a_page_setup: POINTER) is
+	gtk_page_setup_unix_dialog_set_page_setup (a_dialog, a_page_setup: POINTER)
 			--	void gtk_page_setup_unix_dialog_set_page_setup
 			--	(GtkPageSetupUnixDialog *dialog, GtkPageSetup
 			--	*page_setup);
 		external "C use <gtk/gtkpagesetupunixdialog.h>"
 		end
 
-	gtk_page_setup_unix_dialog_get_page_setup (a_dialog: POINTER): POINTER is
+	gtk_page_setup_unix_dialog_get_page_setup (a_dialog: POINTER): POINTER
 			--	GtkPageSetup* gtk_page_setup_unix_dialog_get_page_setup
 			--	(GtkPageSetupUnixDialog *dialog);
 		external "C use <gtk/gtkpagesetupunixdialog.h>"
 		end
 
-	gtk_page_setup_unix_dialog_set_print_settings (a_dialog, a_print_settings: POINTER) is
+	gtk_page_setup_unix_dialog_set_print_settings (a_dialog, a_print_settings: POINTER)
 			-- void gtk_page_setup_unix_dialog_set_print_settings
 			-- (GtkPageSetupUnixDialog *dialog, GtkPrintSettings
 			-- *print_settings);
 		external "C use <gtk/gtkpagesetupunixdialog.h>"
 		end
 
-	gtk_page_setup_unix_dialog_get_print_settings (a_dialog: POINTER): POINTER is
+	gtk_page_setup_unix_dialog_get_print_settings (a_dialog: POINTER): POINTER
 			-- GtkPrintSettings*
 			-- gtk_page_setup_unix_dialog_get_print_settings
 			-- (GtkPageSetupUnixDialog *dialog);
@@ -124,12 +124,12 @@ feature {} -- External calls
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtkpagesetupunixdialog.h>"
 		alias "sizeof(GtkPageSetupUnixDialog)"
 		end
 
-	dummy_gobject: POINTER is
+	dummy_gobject: POINTER
 		do
 			Result:=(gtk_page_setup_unix_dialog_new
 						(default_pointer, default_pointer))

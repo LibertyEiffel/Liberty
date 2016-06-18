@@ -29,19 +29,19 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_pango_variant (a_variant :INTEGER): BOOLEAN is
+	is_valid_pango_variant (a_variant :INTEGER): BOOLEAN
 		do
 			Result := ((a_variant = pango_variant_normal) or else
 						(a_variant = pango_variant_small_caps))
 		end
 
-	pango_variant_normal: INTEGER is
+	pango_variant_normal: INTEGER
 			-- A normal font.
 		external "C macro use <pango/pango.h>"
 		alias "PANGO_VARIANT_NORMAL"
 		end
 
-	pango_variant_small_caps: INTEGER is
+	pango_variant_small_caps: INTEGER
 			-- A font with the lower case characters replaced by smaller
 			-- variants of the capital characters.
 		external "C macro use <pango/pango.h>"

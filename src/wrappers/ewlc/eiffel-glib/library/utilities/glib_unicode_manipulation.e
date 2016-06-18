@@ -1248,7 +1248,7 @@ feature {} -- Utility functions, inherit them if you need them
 
 --    ---------------------------------------------------------------------------------
 
-	unichar_to_utf8 (a_gunichar: INTEGER): STRING is
+	unichar_to_utf8 (a_gunichar: INTEGER): STRING
 			-- Converts a single Unicode character to UTF-8.
 			-- a_gunichar :       a Unicode character code
 			-- Returns : the UTF-8 representation of a_unichar
@@ -1262,7 +1262,7 @@ feature {} -- Utility functions, inherit them if you need them
 
 feature {} -- External calls
 
-	g_unichar_to_utf8 (a_gunichar: INTEGER; an_outbuf: POINTER): INTEGER is
+	g_unichar_to_utf8 (a_gunichar: INTEGER; an_outbuf: POINTER): INTEGER
 		external "C use <glib.h>"
 		end
 

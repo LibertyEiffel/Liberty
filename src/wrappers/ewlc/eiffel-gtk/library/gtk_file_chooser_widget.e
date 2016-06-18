@@ -46,7 +46,7 @@ create {ANY}
 
 feature {} -- Creation
 
-	make (an_action: INTEGER) is
+	make (an_action: INTEGER)
 			-- Creates a new GtkFileChooserWidget. This is a file chooser widget
 			-- that can be embedded in custom windows, and it is the same widget
 			-- that is used by GtkFileChooserDialog.
@@ -57,7 +57,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_file_chooser_widget_new (an_action))
 		end
 
-	with_backend (an_action: INTEGER; backend: STRING) is
+	with_backend (an_action: INTEGER; backend: STRING)
 			-- Creates a new GtkFileChooserWidget with a specified backend.
 			-- This is especially useful if you use gtk_file_chooser_set_local_only()
 			-- to allow non-local files. This is a file chooser widget that can be
@@ -72,7 +72,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileChooserWidget)"
 		end

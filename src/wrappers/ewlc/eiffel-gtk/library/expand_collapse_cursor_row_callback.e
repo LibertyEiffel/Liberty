@@ -35,7 +35,7 @@ feature {ANY}
 
 feature {ANY}
 
-	callback (arg1, arg2, arg3: INTEGER; instance: POINTER): INTEGER is
+	callback (arg1, arg2, arg3: INTEGER; instance: POINTER): INTEGER
 		require
 			instance_not_null: instance.is_not_null
 		do
@@ -48,7 +48,7 @@ feature {ANY}
 			Result := function.item ([arg1.to_boolean, arg2.to_boolean, arg3.to_boolean, object]).to_integer
 		end
 
-	callback_pointer: POINTER is
+	callback_pointer: POINTER
 		do
 			Result := get_callback_pointer ($callback)
 		ensure
@@ -56,7 +56,7 @@ feature {ANY}
 		end
 
 	connect (an_object: GTK_TREE_VIEW; a_function: FUNCTION[ANY, TUPLE [BOOLEAN, BOOLEAN,
-																							  BOOLEAN, GTK_TREE_VIEW], BOOLEAN]) is
+																							  BOOLEAN, GTK_TREE_VIEW], BOOLEAN])
 		do
 			debug
 				print ("EXPAND_COLLAPSE_CURSOR_ROW_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

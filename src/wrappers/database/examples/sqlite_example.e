@@ -3,7 +3,7 @@ class SQLITE_EXAMPLE
 create {ANY}  make
 
 feature {ANY} 
-	make is
+	make
 		do
 			create database.connect ("test.sqlite")
 				-- TODO: create table if it does not exist
@@ -13,7 +13,7 @@ feature {ANY}
 			delete_inserted_data
 		end
 
-	use_exec_and_create_if_inexistant is
+	use_exec_and_create_if_inexistant
 		do
 			database.execute ("SELECT * FROM programmers;")
 			if not database.last_action_success then

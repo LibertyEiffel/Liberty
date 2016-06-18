@@ -33,7 +33,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_point_is_in_rectangle (p, p1, p2: POINTER): INTEGER is
+	gts_point_is_in_rectangle (p, p1, p2: POINTER): INTEGER
 		external "C macro use <gts.h>"
 		end
 
@@ -90,7 +90,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_point_segment_closest (a_point, a_segment, closest_point: POINTER) is 
+	gts_point_segment_closest (a_point, a_segment, closest_point: POINTER)
 		external "C use <gts.h>"
 		end
 
@@ -98,7 +98,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_point_triangle_closest (a_point, a_triangle, closest_point: POINTER) is
+	gts_point_triangle_closest (a_point, a_triangle, closest_point: POINTER)
 		external "C use <gts.h>"
 		end
 
@@ -110,7 +110,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_point_locate (a_point, a_surface, a_guess_face: POINTER): POINTER is
+	gts_point_locate (a_point, a_surface, a_guess_face: POINTER): POINTER
 			-- GtsFace* gts_point_locate (GtsPoint *p, GtsSurface
 			-- *surface, GtsFace *guess);
 		external "C use <gts.h>"

@@ -34,13 +34,13 @@ insert
 create {ANY} make, copy, from_external_pointer
 
 feature {} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeRowReference)"
 		end
 
 feature {} -- Creation
-	make (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH) is
+	make (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH)
 			-- Creates a row reference based on `a_path'. This reference
 			-- will keep pointing to the node pointed to by `a_path', so
 			-- long as it exists. It listens to all signals emitted by
@@ -55,7 +55,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	copy (another: like Current) is
+	copy (another: like Current)
 			-- Create Current fron `another' GtkTreeRowReference.
 		do
 			from_external_pointer (gtk_tree_row_reference_copy (another.handle))
@@ -89,7 +89,7 @@ feature {ANY}
 	-- ()
 	
 feature {ANY} -- Queries
-	model: GTK_TREE_MODEL is
+	model: GTK_TREE_MODEL
 			-- the model which reference is monitoring in order to
 			-- appropriately the path. Can be Void
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_MODEL]
@@ -97,7 +97,7 @@ feature {ANY} -- Queries
 			Result:= factory.wrapper_or_void (gtk_tree_row_reference_get_model (handle))
 		end
 
-	path: GTK_TREE_PATH is
+	path: GTK_TREE_PATH
 			-- The path that the row reference currently points to, or
 			-- Void if the path pointed to is no longer valid.
 		local ptr: POINTER
@@ -109,14 +109,14 @@ feature {ANY} -- Queries
 		ensure is_valid implies Result /= Void
 		end
 
-	is_valid: BOOLEAN is
+	is_valid: BOOLEAN
 			-- Does Current reference points to a valid path?
 		do
 			Result := (gtk_tree_row_reference_valid(handle)).to_boolean
 		end
 
 feature {ANY} -- Disposing
-	dispose is
+	dispose
 		do
 			-- Free's reference. reference may be NULL.
 			gtk_tree_row_reference_free (handle)
@@ -156,7 +156,7 @@ feature {} -- Unimplemented
 -- iter : 	The iter pointing to the parent of the reordered
 -- new_order : 	The new order of rows
 feature {} -- Notices
-	no_wrapper_for_model_notice: STRING is 
+	no_wrapper_for_model_notice: STRING
 		"[
 		 Warning! GTK_TREE_REFERENCE.model receved from GTK library 
 		 a unwrapped pointer to a GtkTreeModel. Please report this

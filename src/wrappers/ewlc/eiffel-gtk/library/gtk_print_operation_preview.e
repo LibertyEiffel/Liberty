@@ -26,21 +26,21 @@ inherit G_OBJECT
 insert GTK_PRINT_OPERATION_PREVIEW_EXTERNALS
 
 feature {ANY} -- Creation
-	end_preview is
+	end_preview
 			-- Ends a preview. This function must be called to finish a custom
 			-- print preview.
 		do
 			gtk_print_operation_preview_end_preview(handle)
 		end
 
-	is_selected (a_page_number: INTEGER): BOOLEAN is
+	is_selected (a_page_number: INTEGER): BOOLEAN
 			-- Has the given page is included in the set of pages that have been
 			-- selected for printing?
 		do
 			Result:=gtk_print_operation_preview_is_selected(handle,a_page_number).to_boolean
 		end
 
-	render_page (a_page_number: INTEGER) is
+	render_page (a_page_number: INTEGER)
 			-- Renders a page to the preview, using the print context that was
 			-- passed to the GtkPrintOperation::preview handler together with
 			-- preview.
@@ -52,7 +52,7 @@ feature {ANY} -- Creation
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintOperationPreview)"
 		end

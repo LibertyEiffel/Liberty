@@ -31,7 +31,7 @@ deferred class CAIRO_FORMAT
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_cairo_format (a_format: INTEGER): BOOLEAN is
+	is_valid_cairo_format (a_format: INTEGER): BOOLEAN
 		do
 			Result := ((a_format = cairo_format_argb32) or else
 						(a_format = cairo_format_rgb24) or else
@@ -39,7 +39,7 @@ feature {ANY}  -- enum
 						(a_format = cairo_format_a1))
 		end
 
-	cairo_format_argb32: INTEGER is
+	cairo_format_argb32: INTEGER
 			-- Each pixel is a 32-bit quantity, with alpha in the upper 8 bits,
 			-- then red, then green, then blue. The 32-bit quantities are stored
 			-- native-endian. Pre-multiplied alpha is used. (That is, 50%
@@ -48,7 +48,7 @@ feature {ANY}  -- enum
 		alias "CAIRO_FORMAT_ARGB32"
 		end
 
-	cairo_format_rgb24: INTEGER is
+	cairo_format_rgb24: INTEGER
 			-- Each pixel is a 32-bit quantity, with the upper 8 bits unused.
 			-- Red, Green, and Blue are stored in the remaining 24 bits in that
 			-- order.
@@ -56,13 +56,13 @@ feature {ANY}  -- enum
 		alias "CAIRO_FORMAT_RGB24"
 		end
 
-	cairo_format_a8: INTEGER is
+	cairo_format_a8: INTEGER
 			-- Each pixel is a 8-bit quantity holding an alpha value.
 		external "C macro use <cairo.h>"
 		alias "CAIRO_FORMAT_A8"
 		end
 
-	cairo_format_a1: INTEGER is
+	cairo_format_a1: INTEGER
 			-- Each pixel is a 1-bit quantity holding an alpha value. Pixels are
 			-- packed together into 32-bit quantities. The ordering of the bits
 			-- matches the endianess of the platform. On a big-endian machine,

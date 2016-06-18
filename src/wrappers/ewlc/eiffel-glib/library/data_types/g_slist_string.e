@@ -30,39 +30,39 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {ANY}
-	make is
+	make
 		do
 			handle := default_pointer
 		end
 
-	from_external_pointer (a_ptr: POINTER) is
+	from_external_pointer (a_ptr: POINTER)
 		do
 			Precursor(a_ptr)
 		end
 	
-	first: STRING is 
+	first: STRING
 		do
 			create Result.from_external_copy (g_slist_get_data (handle))
 		end
 
-	last: like first is 
+	last: like first
 		do
 			create Result.from_external_copy (g_slist_get_data (g_slist_last (handle)))
 		end
 
-	item (i: INTEGER): like first is
+	item (i: INTEGER): like first
 		do
 			create Result.from_external_copy (g_slist_nth_data (handle, i))
 		end
 
-	put (a_string: like first; i: INTEGER) is
+	put (a_string: like first; i: INTEGER)
 		require else
 			valid_item: a_string/=Void
 		do
 			g_slist_set_data (g_slist_nth(handle,i), a_string.to_external)
 		end
 
-	swap (i,j: INTEGER) is
+	swap (i,j: INTEGER)
 		local ith,jth,tmp: POINTER
 		do
 			ith := g_slist_nth_data (handle,i)
@@ -73,7 +73,7 @@ feature {ANY}
 			g_slist_set_data (jth, tmp)
 		end
 
-	set_all_with (v: like first) is
+	set_all_with (v: like first)
 		local ith:POINTER
 		do
 			from ith:=handle
@@ -84,14 +84,14 @@ feature {ANY}
 			end
 		end
 
-	clear_all is do not_yet_implemented end
+	clear_all do not_yet_implemented end
 
-	add_first (a_string: like first) is
+	add_first (a_string: like first)
 		do
 			handle := g_slist_prepend (handle, a_string.to_external)
 		end
 
-	add_last (a_string: like first) is
+	add_last (a_string: like first)
 			-- Note that add_last has to traverse the entire list to find
 			-- the end, which is inefficient when adding multiple
 			-- elements. A common idiom to avoid the inefficiency is to
@@ -101,49 +101,49 @@ feature {ANY}
 			handle := g_slist_append (handle, a_string.to_external)	
 		end
 
-	add (a_string: like first; index: INTEGER) is
+	add (a_string: like first; index: INTEGER)
 		do
 			handle := g_slist_insert (handle, a_string.to_external, index-1)
 		end
 
 	
-	append_collection (other: COLLECTION[STRING]) is
+	append_collection (other: COLLECTION[STRING])
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
 
 		end
 
-	force (a_string: like first; index: INTEGER) is do not_yet_implemented end
+	force (a_string: like first; index: INTEGER) do not_yet_implemented end
 
-	lower: INTEGER is 0
+	lower: INTEGER 0
 
-	remove_head (n: INTEGER) is do not_yet_implemented end
-	remove_tail (n: INTEGER) is do not_yet_implemented end
+	remove_head (n: INTEGER) do not_yet_implemented end
+	remove_tail (n: INTEGER) do not_yet_implemented end
 
-	manifest_put (index: INTEGER; element: like item) is
+	manifest_put (index: INTEGER; element: like item)
 		do
 			put(element,index)
 		end
 			
 
-	remove_first is
+	remove_first
 		do
 			handle:=g_slist_delete_link (handle, handle)
 		end
 
-	remove (index: INTEGER) is
+	remove (index: INTEGER)
 		do
 			handle:=g_slist_delete_link (handle,
 												  g_slist_nth_data (handle, index-1))
 		end
 
-	remove_last is
+	remove_last
 		do
 			handle:=g_slist_delete_link (handle,g_slist_last (handle))
 		end
 
-	clear_count, clear_count_and_capacity is
+	clear_count, clear_count_and_capacity
 			-- Discard all items (is_empty is True after that call). Frees
 			-- all of the memory used by a GSList. The freed elements are
 			-- added to the GAllocator free list.
@@ -152,7 +152,7 @@ feature {ANY}
 			handle := default_pointer
 		end
 
-	has (x: like first): BOOLEAN is
+	has (x: like first): BOOLEAN
 			-- Look for x using is_equal for comparison. Note: current
 			-- implementation is just a copy of `fast_has'; try using
 			-- `fast_has' whenever possible since an implementation of
@@ -161,7 +161,7 @@ feature {ANY}
 			Result:=fast_has(x)
 		end
 	
-	fast_has (a_string: like first): BOOLEAN is
+	fast_has (a_string: like first): BOOLEAN
 			-- Look for x using basic = for comparison.
 		do
 			if (g_slist_find(handle,a_string.to_external).is_not_null)
@@ -170,7 +170,7 @@ feature {ANY}
 			end
 		end
 	
-	first_index_of (a_string: like first): INTEGER is
+	first_index_of (a_string: like first): INTEGER
 			-- Give the index of the first occurrence of element using
 			-- is_equal for comparison. Answer upper + 1 when element is
 			-- not inside.
@@ -178,14 +178,14 @@ feature {ANY}
 			Result:=g_slist_index(handle,a_string.to_external)
 		end
 
-	index_of (a_string: like first; start_index: INTEGER): INTEGER is
+	index_of (a_string: like first; start_index: INTEGER): INTEGER
 		do
 			Result:=first_index_of(a_string)
 		end
 
-	reverse_index_of (a_string: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
+	reverse_index_of (a_string: like first; start_index: INTEGER): INTEGER do not_yet_implemented end
 
-	fast_first_index_of (a_string: like first): INTEGER is
+	fast_first_index_of (a_string: like first): INTEGER
 			-- Give the index of the first occurrence of element using
 			-- basic = for comparison. Answer upper + 1 when element is
 			-- not inside.
@@ -195,9 +195,9 @@ feature {ANY}
 
 		end
 
-	fast_index_of (a_string: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
+	fast_index_of (a_string: like first; start_index: INTEGER): INTEGER do not_yet_implemented end
 
-	fast_reverse_index_of (a_string: like first; start_index: INTEGER): INTEGER  is
+	fast_reverse_index_of (a_string: like first; start_index: INTEGER): INTEGER
 			-- Using basic = comparison, gives the index of the first
 			-- occurrence of element at or before start_index. Search is
 			-- done in reverse direction, which means from the
@@ -209,7 +209,7 @@ feature {ANY}
 
 		end
 
-	is_equal_map (other: like Current): BOOLEAN is
+	is_equal_map (other: like Current): BOOLEAN
 			-- Do both collections have the same lower, upper, and items?
 			-- Feature is_equal is used for comparison of items.
 		do
@@ -218,7 +218,7 @@ feature {ANY}
 
 		end
 
-	all_default: BOOLEAN is
+	all_default: BOOLEAN
 			--	Do all items have their type s default value? Note: for
 			--	non Void items, the test is performed with the is_default
 			--	predicate.
@@ -228,14 +228,14 @@ feature {ANY}
 
 		end
 
-	copy (other: G_SLIST_STRING) is
+	copy (other: G_SLIST_STRING)
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
 
 		end
 
-	occurrences (a_string: like first): INTEGER is
+	occurrences (a_string: like first): INTEGER
 			-- Number of occurrences of element using is_equal for comparison.
 		do
 			check implemented: False end
@@ -243,7 +243,7 @@ feature {ANY}
 
 		end
 
-	fast_occurrences (a_string: like first): INTEGER is 
+	fast_occurrences (a_string: like first): INTEGER
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -251,28 +251,28 @@ feature {ANY}
 		end
 	
 
-	replace_all (old_value, new_value: like first) is 
+	replace_all (old_value, new_value: like first)
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
 
 		end
 
-	fast_replace_all (old_value, new_value: like first) is 
+	fast_replace_all (old_value, new_value: like first)
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
 
 		end
 
-	slice (min, max: INTEGER): G_SLIST_STRING is 
+	slice (min, max: INTEGER): G_SLIST_STRING
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
 
 		end
 
-	reverse is
+	reverse
 		local old_handle: POINTER
 		do
 			old_handle := handle
@@ -280,27 +280,27 @@ feature {ANY}
 			g_slist_free (handle) -- TODO is this call correct?
 		end
 
-	upper,count: INTEGER is 
+	upper,count: INTEGER
 		do
 			Result:=g_slist_length(handle)
 			-- ensure then	positive: Result >= 0 
 		end
 
-	is_empty: BOOLEAN is 
+	is_empty: BOOLEAN
 		do
 			Result:= (handle.is_null)
 		end
 	
-	from_collection (model: COLLECTION[STRING]) is do not_yet_implemented end
+	from_collection (model: COLLECTION[STRING]) do not_yet_implemented end
 	
-	get_new_iterator: ITERATOR[STRING] is 
+	get_new_iterator: ITERATOR[STRING]
 		do
 			create {ITERATOR_ON_G_SLIST_STRING} Result.make (Current) 
 		end
 
 feature {ANY} -- Memory management
 
-	dispose is
+	dispose
 		do
 			-- list nodes are not allocated with malloc so we should not
 			-- use free.
@@ -325,7 +325,7 @@ feature {ANY} -- Memory management
 -- Allocates space for one GSList element. It is called by the g_slist_append(), g_slist_prepend(), g_slist_insert() and g_slist_insert_sorted() functions and so is rarely used on its own.
 -- Returns : 	a pointer to the newly-allocated GSList element.
 
-	append (a_string: like first) is
+	append (a_string: like first)
 			-- Adds `a_string' on to the end of the list.
 		do
 			handle:=g_slist_append (handle, a_string.to_external)
@@ -351,7 +351,7 @@ feature {ANY} -- Memory management
 		end
 
 			
-	prepend  (a_string: like first) is
+	prepend  (a_string: like first)
 			-- Adds a new element on to the start of the list.
 		require valid_item: a_string/=Void
 		do
@@ -572,20 +572,20 @@ feature {ANY} -- Memory management
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
 
 feature {} -- Implementation
-	wrapper (a_ptr: POINTER): STRING is
+	wrapper (a_ptr: POINTER): STRING
 		do
 			create Result.from_external(a_ptr)
 			debug print_notice end
 		end
 
-	print_notice is
+	print_notice
 		once
 			print("[
 					 G_SLIST_STRING.wrapper does not copy the C string; the Eiffel STRING will use
 					 the same memory buffer.					 
 					 ]")
 		end
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GSList)"
 		end

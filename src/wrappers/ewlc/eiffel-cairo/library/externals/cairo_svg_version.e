@@ -26,19 +26,19 @@ deferred class CAIRO_SVG_VERSION
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_svg_version (a_version: INTEGER): BOOLEAN is
+	is_valid_svg_version (a_version: INTEGER): BOOLEAN
 		do	
 			Result:=((a_version = cairo_svg_version_1_1) or else
 						(a_version = cairo_svg_version_1_2))
 		end
 	
-	cairo_svg_version_1_1: INTEGER is
+	cairo_svg_version_1_1: INTEGER
 			-- The version 1.1 of the SVG specification.
 		external "C macro <cairo.h>"
 		alias "CAIRO_SVG_VERSION_1_1"
 		end
 		
-	cairo_svg_version_1_2: INTEGER is
+	cairo_svg_version_1_2: INTEGER
 			-- The version 1.2 of the SVG specification.
 		external "C macro <cairo.h>"
 		alias "CAIRO_SVG_VERSION_1_2"

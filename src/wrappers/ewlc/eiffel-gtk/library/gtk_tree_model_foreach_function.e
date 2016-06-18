@@ -34,14 +34,14 @@ insert
 create {ANY} make
 	
 feature {ANY}
-	make (a_function: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]) is
+	make (a_function: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN])
 		require gtk_initialized: gtk.is_initialized
 		do
 			function := a_function
 		end
 	
 feature {} -- 
-	low_level_callback (model,path,iter,data: POINTER): INTEGER is
+	low_level_callback (model,path,iter,data: POINTER): INTEGER
 			-- Low level callback will be called by GTK; it will call
 			-- `callback'.
 		external "C use <callbacks.h>"
@@ -49,7 +49,7 @@ feature {} --
 		end 
 
 feature {ANY}
-	callback (model_ptr, path_ptr, iter_ptr, data: POINTER): INTEGER is 
+	callback (model_ptr, path_ptr, iter_ptr, data: POINTER): INTEGER
 		local 
 			a_model: GTK_TREE_MODEL; 
 			a_path: GTK_TREE_PATH; 

@@ -12,7 +12,7 @@ insert CORE_EXTERNALS
 create {ANY} from_block
 
 feature {LLVM_BASIC_BLOCK}
-   from_block (a_block: LLVM_BASIC_BLOCK) is
+   from_block (a_block: LLVM_BASIC_BLOCK)
       require
          a_block/=Void
          not a_block.is_deleted
@@ -23,27 +23,27 @@ feature {LLVM_BASIC_BLOCK}
 feature {ANY}
    block: LLVM_BASIC_BLOCK
 
-   start is
+   start
       do
          item := wrapper_or_void(llvmget_first_instruction(block.handle))
       end
 
-   finish is
+   finish
       do
          item := wrapper_or_void(llvmget_last_instruction(block.handle))
       end
 
-   next is
+   next
       do
          item := wrapper_or_void(llvmget_next_instruction(item.handle))
       end
 
-   previous is
+   previous
       do
          item := wrapper_or_void(llvmget_previous_instruction(item.handle))
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result:=(item=Void)
       end

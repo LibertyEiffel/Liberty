@@ -3,7 +3,7 @@ class MY_SEPARATE
 inherit SEPARATE
 
 feature {ANY} 
-	main is
+	main
 		local rem: INTEGER
 		do
 			-- 	

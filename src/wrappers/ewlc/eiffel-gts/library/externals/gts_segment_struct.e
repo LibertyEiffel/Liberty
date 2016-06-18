@@ -23,19 +23,19 @@ feature {} -- Structure getter/setter calls
 
 	-- GtsVertex *v2; Second endpoint of the segment.
 	
-	get_v1 (a_struct: POINTER): POINTER is
+	get_v1 (a_struct: POINTER): POINTER
 		external "C struct GtsSegment get v1 use <gts.h>"
 		end
 
-	set_v1 (a_struct: POINTER; a_v1: POINTER) is
+	set_v1 (a_struct: POINTER; a_v1: POINTER)
 		external "C struct GtsSegment set v1 use <gts.h>"
 		end
 
-	get_v2 (a_struct: POINTER): POINTER is
+	get_v2 (a_struct: POINTER): POINTER
 		external "C struct GtsSegment get v2 use <gts.h>"
 		end
 
-	set_v2 (a_struct: POINTER; a_v2: POINTER) is
+	set_v2 (a_struct: POINTER; a_v2: POINTER)
 		external "C struct GtsSegment set v2 use <gts.h>"
 		end
 

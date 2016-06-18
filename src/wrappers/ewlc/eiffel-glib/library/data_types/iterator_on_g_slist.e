@@ -31,7 +31,7 @@ insert
 create {ANY} make
 	
 feature {} -- Creation
-	make (a_list: G_SLIST_TRAVERSABLE[ITEM]) is
+	make (a_list: G_SLIST_TRAVERSABLE[ITEM])
 		require
          valid_list: a_list /= Void
 		do
@@ -43,17 +43,17 @@ feature {} -- Implementation
 	current_element: POINTER
 
 feature {ANY} -- Iterator's features
-	start is
+	start
 		do
 			current_element := list.handle
 		end
 	
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result:=(current_element.is_null)
 		end
 	
-	item: ITEM is
+	item: ITEM
 		local
          ptr: POINTER
          l: WRAPPER
@@ -68,7 +68,7 @@ feature {ANY} -- Iterator's features
 			end
 		end
 	
-	next is
+	next
 		do
 			current_element := g_slist_get_next (current_element)
 		end

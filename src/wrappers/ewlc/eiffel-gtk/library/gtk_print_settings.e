@@ -49,14 +49,14 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make
 			-- Creates a new GtkPrintSettings object.
 		do
 			from_external_pointer(gtk_print_settings_new)
 		end
 	
 feature {ANY} -- Copying
-	copy (another: GTK_PRINT_SETTINGS) is
+	copy (another: GTK_PRINT_SETTINGS)
 			--   Copies a GtkPrintSettings object.
 		do
 			from_external_pointer(gtk_print_settings_copy(another.handle))
@@ -65,13 +65,13 @@ feature {ANY} -- Copying
 feature {ANY} -- Dictionary like behaviour
 	-- TODO: make it a real DICTIONARY
 	
-	has (a_key: STRING): BOOLEAN is
+	has (a_key: STRING): BOOLEAN
 			-- Does `a_key' have a value?
 		do
 			Result:=gtk_print_settings_has_key(handle,a_key.to_external).to_boolean
 		end
 
-	at (a_key: STRING): CONST_STRING is
+	at (a_key: STRING): CONST_STRING
 			--   Looks up the string value associated with key.
 		do
 			create Result.from_external
@@ -79,7 +79,7 @@ feature {ANY} -- Dictionary like behaviour
 											a_key.to_external))
 		end
 
-	put (a_key, a_value: STRING) is
+	put (a_key, a_value: STRING)
 			-- Associates `a_value' with `a_key'.
 		require
 			key_not_void: a_key /= Void
@@ -88,7 +88,7 @@ feature {ANY} -- Dictionary like behaviour
 			gtk_print_settings_set(handle,a_key.to_external,a_value.to_external)
 		end
 
-	unset (a_key: STRING) is
+	unset (a_key: STRING)
 			-- Removes any value associated with `a_key'.
 		require
 			key_not_void: a_key /= Void
@@ -112,7 +112,7 @@ feature {ANY} -- Dictionary like behaviour
 feature {ANY}
 	unit: INTEGER -- The unit used in queries
 	
-	set_unit (a_unit: INTEGER) is
+	set_unit (a_unit: INTEGER)
 			-- Set the unit used in queries
 		require valid_unit: is_valid_gtk_unit(a_unit)
 		do
@@ -120,28 +120,28 @@ feature {ANY}
 		ensure set: unit = a_unit
 		end
 
-	get_bool (a_key: STRING): BOOLEAN is
+	get_bool (a_key: STRING): BOOLEAN
 			-- The boolean represented by the value that is associated with `a_key'.
 		require key_not_void: a_key /= Void
 		do
 			Result:=gtk_print_settings_get_bool(handle, a_key.to_external).to_boolean
 		end
 
-	set_bool (a_key: STRING; a_value: BOOLEAN) is
+	set_bool (a_key: STRING; a_value: BOOLEAN)
 			--   Sets `a_key' to `a_value'.
 		require key_not_void: a_key /= Void
 		do
 			gtk_print_settings_set_bool(handle,a_key.to_external,a_value.to_integer)
 		end
 
-	get_double (a_key: STRING): REAL is
+	get_double (a_key: STRING): REAL
 			-- the double value associated with `a_key,' or 0.
 		require key_not_void: a_key /= Void
 		do
 			Result:=gtk_print_settings_get_double(handle,a_key.to_external)
 		end
 
-	get_double_with_default (a_key: STRING; a_default: REAL): REAL is
+	get_double_with_default (a_key: STRING; a_default: REAL): REAL
 			-- The floating point number represented by the value that is
 			-- associated with `a_key', or `a_default' if the value does not
 			-- represent a floating point number.
@@ -154,14 +154,14 @@ feature {ANY}
 						(handle, a_key.to_external, a_default))
 		end
 
-	set_double (a_key: STRING; a_value: REAL) is
+	set_double (a_key: STRING; a_value: REAL)
 			-- Sets `a_key' to double `a_value'.
 		require key_not_void: a_key /= Void
 		do
 			gtk_print_settings_set_double(handle,a_key.to_external,a_value)
 		end
 
-	get_length (a_key: STRING): REAL is
+	get_length (a_key: STRING): REAL
 			-- The value associated with `a_key,' interpreted as a length,
 			-- expressed in `unit'.
 		require key_not_void: a_key /= Void
@@ -169,7 +169,7 @@ feature {ANY}
 			Result:=gtk_print_settings_get_length(handle, a_key.to_external,unit)
 		end
 
-	set_length (a_key: STRING; a_length: REAL) is
+	set_length (a_key: STRING; a_length: REAL)
 			--   Associates `a_length' in `unit' with `a_key'.
 		require key_not_void: a_key /= Void
 		do
@@ -177,7 +177,7 @@ feature {ANY}
 		end
 
 
-	get_integer (a_key: STRING): INTEGER is
+	get_integer (a_key: STRING): INTEGER
 			-- The integer value of `a_key,' or 0.
 		require
 			key_not_void: a_key /= Void
@@ -185,7 +185,7 @@ feature {ANY}
 			Result:=gtk_print_settings_get_int(handle, a_key.to_external)
 		end
 
-	get_integer_with_default (a_key: STRING; a_default: INTEGER): INTEGER is
+	get_integer_with_default (a_key: STRING; a_default: INTEGER): INTEGER
 			-- The integer value of `a_key,' or `a_default' value.
 		require
 			key_not_void: a_key /= Void
@@ -193,7 +193,7 @@ feature {ANY}
 			Result:=gtk_print_settings_get_int_with_default(handle,a_key.to_external,a_default)
 		end
 
-	set_integer (a_key: STRING; a_value: INTEGER) is
+	set_integer (a_key: STRING; a_value: INTEGER)
 			-- Sets `a_key' to an integer `a_value'.
 		require
 			key_not_void: a_key /= Void
@@ -205,13 +205,13 @@ feature {ANY}
 
 	-- #define GTK_PRINT_SETTINGS_PRINTER "printer" 
 
-	printer: CONST_STRING is
+	printer: CONST_STRING
 			-- the printer name.
 		do
 			create Result.from_external(gtk_print_settings_get_printer(handle))
 		end
 
-	set_printer (a_printer: STRING) is
+	set_printer (a_printer: STRING)
 		do
 			gtk_print_settings_set_printer(handle,a_printer.to_external)
 		end
@@ -220,14 +220,14 @@ feature {ANY}
 
 	-- #define GTK_PRINT_SETTINGS_ORIENTATION "orientation"
 
-	orientation: INTEGER is
+	orientation: INTEGER
 			-- the page orientation.
 		do
 			Result:=gtk_print_settings_get_orientation(handle)
 		ensure valid: is_valid_gtk_page_orientation(Result)
 		end
 
-	set_orientation (an_orientation: INTEGER) is
+	set_orientation (an_orientation: INTEGER)
 			--   Sets the value of page orientation.
 		require valid: is_valid_gtk_page_orientation(an_orientation)
 		do
@@ -238,14 +238,14 @@ feature {ANY}
 	
 	-- #define GTK_PRINT_SETTINGS_PAPER_FORMAT   "paper-format"
 
-	paper_size: GTK_PAPER_SIZE is
+	paper_size: GTK_PAPER_SIZE
 			-- the paper format.
 		do
 			create Result.from_external_pointer
 			(gtk_print_settings_get_paper_size(handle))
 		end
 
-	set_paper_size (a_paper_size: GTK_PAPER_SIZE) is
+	set_paper_size (a_paper_size: GTK_PAPER_SIZE)
 			-- Sets the value of paper size.
 		require size_not_void: a_paper_size/=Void
 		do
@@ -256,13 +256,13 @@ feature {ANY}
 	
 	-- #define GTK_PRINT_SETTINGS_PAPER_WIDTH "paper-width"
 	
-	paper_width: REAL is
+	paper_width: REAL
 			-- the paper width, in units of unit
 		do
 			Result:= gtk_print_settings_get_paper_width(handle,unit)
 		end
 
-	set_paper_width (a_width: REAL) is
+	set_paper_width (a_width: REAL)
 			--   Sets the value of the paper to `a_width', expressed in `unit'
 		do
 			gtk_print_settings_set_paper_width(handle,a_width, unit)
@@ -272,14 +272,14 @@ feature {ANY}
 	
 	-- #define GTK_PRINT_SETTINGS_PAPER_HEIGHT   "paper-height"
 
-	paper_height: REAL is
+	paper_height: REAL
 			-- The paper height, expressed in unit.
 		do
 			Result:=gtk_print_settings_get_paper_height(handle, unit)
 		end
 
 	
-	set_paper_height (an_height: REAL) is
+	set_paper_height (an_height: REAL)
 			-- Sets the value of paper height.
 		do
 			gtk_print_settings_set_paper_height(handle, an_height, unit)
@@ -289,13 +289,13 @@ feature {ANY}
 	--
 	-- #define GTK_PRINT_SETTINGS_USE_COLOR      "use-color"
 
-	use_color: BOOLEAN is
+	use_color: BOOLEAN
 			-- whether to use color
 		do
 			Result:=gtk_print_settings_get_use_color(handle).to_boolean
 		end
 
-	set_use_color (a_setting: BOOLEAN) is
+	set_use_color (a_setting: BOOLEAN)
 			--   Sets the value of `use_color'.
 		do
 			gtk_print_settings_set_use_color(handle,a_setting.to_integer)
@@ -305,13 +305,13 @@ feature {ANY}
 	--
 	-- #define GTK_PRINT_SETTINGS_COLLATE        "collate"
 
-	collate: BOOLEAN is
+	collate: BOOLEAN
 			-- Are the printed pages collated?
 		do
 			Result:=gtk_print_settings_get_collate(handle).to_boolean
 		end
 
-	set_collate (a_setting: BOOLEAN) is
+	set_collate (a_setting: BOOLEAN)
 			-- Sets whether to collate the output.
 		do
 			gtk_print_settings_set_collate  (handle, a_setting.to_integer)
@@ -321,13 +321,13 @@ feature {ANY}
 	--
 	-- #define GTK_PRINT_SETTINGS_REVERSE        "reverse"
 
-	is_reversed: BOOLEAN is
+	is_reversed: BOOLEAN
 			-- Are pages printed in reverse order?
 		do
 			Result:=gtk_print_settings_get_reverse(handle).to_boolean
 		end
 
-	set_reverse (a_setting: BOOLEAN) is
+	set_reverse (a_setting: BOOLEAN)
 			-- Sets whether to reverse the output.
 		do
 			gtk_print_settings_set_reverse  (handle, a_setting.to_integer)

@@ -37,7 +37,7 @@ create {ANY}
 	
 feature {} -- Creation
 
-	make is
+	make
 			-- Creates a new GooCanvas widget.
 		do
 			from_external_pointer (goo_canvas_new)
@@ -48,13 +48,13 @@ feature {} -- Creation
 
 feature {ANY}
 
-	set_bounds (left, top, right, bottom : REAL_64) is
+	set_bounds (left, top, right, bottom : REAL_64)
 			-- 
 		do
 			goo_canvas_set_bounds (handle, left, top, right, bottom)
 		end
 		
-	root_item : GOO_CANVAS_ITEM is
+	root_item : GOO_CANVAS_ITEM
 			--
 		local
 			factory: G_OBJECT_EXPANDED_FACTORY [GOO_CANVAS_ITEM]
@@ -81,7 +81,7 @@ feature {ANY}
 --		end
 
 feature {ANY} -- struct size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <goocanvas-1.0/goocanvas.h>"
 		alias "sizeof(GooCanvas)"
 		end

@@ -29,7 +29,7 @@ deferred class CAIRO_FILTER
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_filter (a_filter: INTEGER): BOOLEAN is
+	is_valid_filter (a_filter: INTEGER): BOOLEAN
 		do
 			Result := ((a_filter = cairo_filter_fast) or else
 						(a_filter = cairo_filter_good) or else
@@ -39,37 +39,37 @@ feature {ANY}  -- enum
 						(a_filter = cairo_filter_gaussian))
 		end
 
-	cairo_filter_fast: INTEGER is
+	cairo_filter_fast: INTEGER
 			-- CAIRO_FILTER_FAST
 		external "C macro use <pango.h>"
 		alias "CAIRO_FILTER_FAST"
 		end
 
-	cairo_filter_good: INTEGER is
+	cairo_filter_good: INTEGER
 			-- CAIRO_FILTER_GOOD
 		external "C macro use <pango.h>"
 		alias "CAIRO_FILTER_GOOD"
 		end
 
-	cairo_filter_best: INTEGER is
+	cairo_filter_best: INTEGER
 			-- CAIRO_FILTER_BEST
 		external "C macro use <pango.h>"
 		alias "CAIRO_FILTER_BEST"
 		end
 
-	cairo_filter_nearest: INTEGER is
+	cairo_filter_nearest: INTEGER
 			-- CAIRO_FILTER_NEAREST
 		external "C macro use <pango.h>"
 		alias "CAIRO_FILTER_NEAREST"
 		end
 
-	cairo_filter_bilinear: INTEGER is
+	cairo_filter_bilinear: INTEGER
 			-- CAIRO_FILTER_BILINEAR
 		external "C macro use <pango.h>"
 		alias "CAIRO_FILTER_BILINEAR"
 		end
 
-	cairo_filter_gaussian: INTEGER is
+	cairo_filter_gaussian: INTEGER
 			-- CAIRO_FILTER_GAUSSIAN
 		external "C macro use <pango.h>"
 		alias "CAIRO_FILTER_GAUSSIAN"

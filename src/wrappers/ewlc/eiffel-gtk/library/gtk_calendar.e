@@ -49,13 +49,13 @@ insert
 create {ANY} make, from_external_pointer
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCalendar)"
 		end
 
 feature {} -- Creation
-	make is 
+	make
 			-- Creates a new calendar, with the current date being
 			-- selected.
 		do
@@ -63,13 +63,13 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	marked_dates_count: INTEGER is
+	marked_dates_count: INTEGER
 			-- the number of days that have a mark over them.
 		do
 			Result:=get_num_marked_dates(handle)
 		end
 
-	marked_date (an_n: INTEGER): INTEGER is
+	marked_date (an_n: INTEGER): INTEGER
 			-- the `an_n'-th marked date
 		require valid_n: an_n.in_range(0,marked_dates_count-1)
 		local array: NATIVE_ARRAY[INTEGER]
@@ -78,7 +78,7 @@ feature {ANY}
 			Result:=array.item(an_n)
 		end
 			
-	selected_day,day: INTEGER is
+	selected_day,day: INTEGER
 			-- the currently visible selected day.
 
 			-- Note: GTK allows to access this feature either as
@@ -89,20 +89,20 @@ feature {ANY}
 		ensure valid: Result.in_range(1,31)
 		end
 	
-	month: INTEGER is
+	month: INTEGER
 			-- the currently visible month.
 		do
 			Result:=get_month(handle)
 		ensure valid: Result.in_range(0,11)
 		end
 
-	year: INTEGER is
+	year: INTEGER
 			-- the currently visible year.
 		do
 			Result:=get_year(handle)
 		end
 
-	date: G_DATE is
+	date: G_DATE
 			-- Obtains the selected date from a GTK_CALENDAR
 		local
 			a_day, a_month, a_year: INTEGER
@@ -117,7 +117,7 @@ feature {ANY}
 			Result.is_valid
 		end
 	
-	select_month (a_month, an_year: INTEGER) is
+	select_month (a_month, an_year: INTEGER)
 			-- Shifts the calendar to a different month.
 			-- month : a month number between 0 and 11.
 			-- year : the year the month is in.
@@ -128,20 +128,20 @@ feature {ANY}
 			gtk_calendar_select_month (handle, a_month, an_year)
 		end
 
-	select_day (a_day: INTEGER) is
+	select_day (a_day: INTEGER)
 			--    Selects a day from the current month.
 		require valid_date: a_day.in_range(1,31)
 		do
 			gtk_calendar_select_day(handle, a_day)
 		end
 
-	unselect_day is
+	unselect_day
 			-- unselect the currently selected day.
 		do
 			gtk_calendar_select_day(handle, 0)
 		end
 
-	mark_day (a_day: INTEGER) is
+	mark_day (a_day: INTEGER)
 			-- Places a visual marker on a particular day.
 		require valid_date: a_day.in_range(1,31)
 		local always_true: INTEGER
@@ -149,27 +149,27 @@ feature {ANY}
 			always_true:=gtk_calendar_mark_day(handle,a_day)
 		end
 
-	unmark_day (a_day: INTEGER) is
+	unmark_day (a_day: INTEGER)
 		require valid_date: a_day.in_range(1,31)
 		local always_true: INTEGER
 		do
 			always_true:=gtk_calendar_unmark_day(handle,a_day)
 		end
 
-	clear_marks is
+	clear_marks
 			-- Remove all visual markers.
 		do
 			gtk_calendar_clear_marks(handle)
 		end
 
-	display_options: INTEGER is
+	display_options: INTEGER
 			-- the current display options of calendar.
 		do
 			Result:=gtk_calendar_get_display_options(handle)
 		ensure valid: are_valid_gtk_calendar_display_options(Result)
 		end
 
-	set_display_options (some_flags: INTEGER) is
+	set_display_options (some_flags: INTEGER)
 			-- Sets display options (whether to display the heading and
 			-- the month headings).
 		require valid: are_valid_gtk_calendar_display_options(some_flags)
@@ -350,23 +350,23 @@ feature {} -- typedef struct _GtkCalendar GtkCalendar;
 	-- everything in this struct should only be modified using the
 	-- functions provided below.
 
-	get_num_marked_dates (a_struct: POINTER): INTEGER is
+	get_num_marked_dates (a_struct: POINTER): INTEGER
 		external "C struct GtkCalendar get num_marked_dates use <gtk/gtk.h>"
 		end
 
-	get_marked_date (a_struct: POINTER): POINTER is
+	get_marked_date (a_struct: POINTER): POINTER
 		external "C struct GtkCalendar get marked_date use <gtk/gtk.h>"
 		end
 
-	get_selected_day (a_struct: POINTER): INTEGER is
+	get_selected_day (a_struct: POINTER): INTEGER
 		external "C struct GtkCalendar get selected_day use <gtk/gtk.h>"
 		end
 
-	get_month (a_struct: POINTER): INTEGER is
+	get_month (a_struct: POINTER): INTEGER
 		external "C struct GtkCalendar get month use <gtk/gtk.h>"
 		end
 
-	get_year (a_struct: POINTER): INTEGER is
+	get_year (a_struct: POINTER): INTEGER
 		external "C struct GtkCalendar get year use <gtk/gtk.h>"
 		end
 

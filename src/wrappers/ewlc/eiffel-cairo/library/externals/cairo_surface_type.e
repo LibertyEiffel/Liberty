@@ -52,7 +52,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
 
-	is_valid_surface_type (a_type: INTEGER): BOOLEAN is
+	is_valid_surface_type (a_type: INTEGER): BOOLEAN
 		do
 			Result := ((a_type = cairo_surface_type_image) or else
 						(a_type = cairo_surface_type_pdf) or else
@@ -67,67 +67,67 @@ feature {ANY}  -- enum
 						(a_type = cairo_surface_type_svg))
 		end
 
-	cairo_surface_type_image: INTEGER is
+	cairo_surface_type_image: INTEGER
 			-- The surface is of type image
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_IMAGE"
 		end
 
-	cairo_surface_type_pdf: INTEGER is
+	cairo_surface_type_pdf: INTEGER
 			-- The surface is of type pdf
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_PDF"
 		end
 
-	cairo_surface_type_ps: INTEGER is
+	cairo_surface_type_ps: INTEGER
 			-- The surface is of type ps
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_PS"
 		end
 
-	cairo_surface_type_xlib: INTEGER is
+	cairo_surface_type_xlib: INTEGER
 			-- The surface is of type xlib
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_XLIB"
 		end
 
-	cairo_surface_type_xcb: INTEGER is
+	cairo_surface_type_xcb: INTEGER
 			-- The surface is of type xcb
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_XCB"
 		end
 
-	cairo_surface_type_glitz: INTEGER is
+	cairo_surface_type_glitz: INTEGER
 			-- The surface is of type glitz
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_GLITZ"
 		end
 
-	cairo_surface_type_quartz: INTEGER is
+	cairo_surface_type_quartz: INTEGER
 			-- The surface is of type quartz
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_QUARTZ"
 		end
 
-	cairo_surface_type_win32: INTEGER is
+	cairo_surface_type_win32: INTEGER
 			-- The surface is of type win32
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_WIN32"
 		end
 
-	cairo_surface_type_beos: INTEGER is
+	cairo_surface_type_beos: INTEGER
 			-- The surface is of type beos
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_BEOS"
 		end
 
-	cairo_surface_type_directfb: INTEGER is
+	cairo_surface_type_directfb: INTEGER
 			-- The surface is of type directfb
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_DIRECTFB"
 		end
 
-	cairo_surface_type_svg: INTEGER is
+	cairo_surface_type_svg: INTEGER
 			-- The surface is of type svg
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_SVG"

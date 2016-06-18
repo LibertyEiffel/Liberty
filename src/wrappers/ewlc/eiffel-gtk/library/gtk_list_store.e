@@ -105,7 +105,7 @@ create {ANY} make, from_external_pointer
 
 feature {} -- Creation
 
-	make (some_columns: ARRAY[INTEGER]) is
+	make (some_columns: ARRAY[INTEGER])
 			-- Creates a new list store. `some_columns' is a list of integers; each
 			-- integer is the G_TYPE of an actual column. Note that only types
 			-- derived from standard GObject fundamental types are supported.
@@ -168,7 +168,7 @@ feature {} -- Unwrapped code
 
 feature {ANY} -- Generic setter
 
-	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
+	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE)
 			-- Sets the data in the cell specified by `an_iterator' and
 			-- `a_column'. The type of `a_value' must be convertible to the type of
 			-- the column.
@@ -187,7 +187,7 @@ feature {ANY} -- Generic setter
 	is_last_iterator_valid: BOOLEAN
 			-- Is the last iterator passed as an argument still valid?
 
-	remove (an_iterator: GTK_TREE_ITER) is
+	remove (an_iterator: GTK_TREE_ITER)
 			-- Removes the given row from the list store. After being removed,
 			-- `an_iterator' is set to be the next valid row, or invalidated if it
 			-- pointed to the last row in the list store; in this case
@@ -198,7 +198,7 @@ feature {ANY} -- Generic setter
 			is_last_iterator_valid := gtk_list_store_remove (handle,an_iterator.handle).to_boolean
 		end
 
-	put (an_iterator: GTK_TREE_ITER; a_position: INTEGER) is
+	put (an_iterator: GTK_TREE_ITER; a_position: INTEGER)
 			-- Creates a new row at position. iter will be changed to
 			-- point to this new row. If position is larger than the
 			-- number of rows on the list, then the new row will be
@@ -211,7 +211,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_insert (handle, an_iterator.handle, a_position)
 		end
 
-	put_before, insert_before  (an_iterator, a_sibling: GTK_TREE_ITER) is
+	put_before, insert_before  (an_iterator, a_sibling: GTK_TREE_ITER)
 			-- Inserts a new row before `a_sibling'. `an_iterator' iter will
 			-- be changed to point to this new row. The row will be empty
 			-- after this function is called. To fill in values, you need
@@ -224,7 +224,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_insert_before (handle, an_iterator.handle, a_sibling.handle)
 		end
 
-	add_last (an_iterator: GTK_TREE_ITER) is
+	add_last (an_iterator: GTK_TREE_ITER)
 			-- Append the row referred by `an_iterator' to the end of the
 			-- list. `an_iterator' will be changed to point to this new
 			-- row. The row will be empty after this function is
@@ -236,7 +236,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_insert_before (handle, an_iterator.handle, default_pointer)
 		end
 
-	put_after, insert_after (an_iterator, a_sibling: GTK_TREE_ITER) is
+	put_after, insert_after (an_iterator, a_sibling: GTK_TREE_ITER)
 			-- Inserts a new row after `a_sibling'. `an_iterator' iter
 			-- will be changed to point to this new row. The row will be
 			-- empty after this function is called. To fill in values,
@@ -248,7 +248,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_insert_after (handle, an_iterator.handle, a_sibling.handle)
 		end
 
-	add_first (an_iterator: GTK_TREE_ITER) is
+	add_first (an_iterator: GTK_TREE_ITER)
 			-- Prepend the row to the beginning of the list. `an_iterator' iter will
 			-- be changed to point to this new row. The row will be empty
 			-- after this function is called. To fill in values, you need
@@ -294,7 +294,7 @@ feature {ANY} -- Generic setter
 	insert_with_values (an_iterator: GTK_TREE_ITER;
 							  a_position: INTEGER;
 							  some_columns: ARRAY[INTEGER];
-							  some_values: ARRAY[G_VALUE]) is
+							  some_values: ARRAY[G_VALUE])
 			-- Creates a new row at `a_position'. `an_iterator' will be changed to
 			-- point to this new row. If position is larger than the number of rows
 			-- on the list, then the new row will be appended to the list. The row
@@ -335,7 +335,7 @@ feature {ANY} -- Generic setter
 												)
 		end
 
-	prepend (an_iterator: GTK_TREE_ITER) is
+	prepend (an_iterator: GTK_TREE_ITER)
 			-- Prepends a new row. `an_iterator' will be changed to
 			-- point to this new row. The row will be empty after this
 			-- function is called. To fill in values, you need to call
@@ -347,7 +347,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_prepend (handle, an_iterator.handle)
 		end
 
-	append  (an_iterator: GTK_TREE_ITER) is
+	append  (an_iterator: GTK_TREE_ITER)
 			-- Append a new row. `an_iterator' will be changed to point to this new
 			-- row. The row will be empty after this function is called. To fill in
 			-- values, you need to call `set_values'
@@ -359,13 +359,13 @@ feature {ANY} -- Generic setter
 			gtk_list_store_append  (handle, an_iterator.handle)
 		end
 
-	clear is
+	clear
 			-- Removes all rows from the list store.
 		do
 			gtk_list_store_clear (handle)
 		end
 
-	is_iterator_valid (an_iterator: GTK_TREE_ITER): BOOLEAN is
+	is_iterator_valid (an_iterator: GTK_TREE_ITER): BOOLEAN
 			-- Is `an_iterator' valid for Current GtkListStore?
 			
 			-- Warning: this query is slow. Only use it for debugging
@@ -375,7 +375,7 @@ feature {ANY} -- Generic setter
 			Result:=(gtk_list_store_iter_is_valid(handle,an_iterator.handle)).to_boolean
 		end
 
-	reorder (a_new_order: ARRAY[INTEGER]) is
+	reorder (a_new_order: ARRAY[INTEGER])
 			-- Reorders store to follow the order indicated by
 			-- `a_new_order'. Note that this function only works with
 			-- unsorted stores. `a_new_order' is the array of integers
@@ -389,7 +389,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_reorder (handle, a_new_order.to_external)
 		end
 
-	swap (an_iterator, another: GTK_TREE_ITER) is
+	swap (an_iterator, another: GTK_TREE_ITER)
 			-- Swaps `an_iterator' and `another' in store. Note that this
 			-- function only works with unsorted stores.
 		require
@@ -400,7 +400,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_swap (handle, an_iterator.handle, another.handle)
 		end
 
-	move_before (an_iterator, a_position: GTK_TREE_ITER) is
+	move_before (an_iterator, a_position: GTK_TREE_ITER)
 			-- Moves iter in store to the position before position. Note
 			-- that this function only works with unsorted stores.
 		require
@@ -411,7 +411,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_move_before (handle,an_iterator.handle, a_position.handle)
 		end
 
-	move_last  (an_iterator: GTK_TREE_ITER) is
+	move_last  (an_iterator: GTK_TREE_ITER)
 			-- Moves iter in store to the end of the list. Note that this
 			-- function only works with unsorted stores.
 		require
@@ -421,7 +421,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_move_before (handle,an_iterator.handle, default_pointer)
 		end
 
-	move_after  (an_iterator, a_position: GTK_TREE_ITER) is
+	move_after  (an_iterator, a_position: GTK_TREE_ITER)
 			-- Moves iter in store to the position after position. Note
 			-- that this function only works with unsorted stores. 
 		require
@@ -432,7 +432,7 @@ feature {ANY} -- Generic setter
 			gtk_list_store_move_after  (handle,an_iterator.handle, a_position.handle)
 		end
 
-	move_first  (an_iterator: GTK_TREE_ITER) is
+	move_first  (an_iterator: GTK_TREE_ITER)
 			-- Moves item pointed to by `an_iterator' to the start of the list.
 			-- Note that this function only works with unsorted stores.
 		require

@@ -31,26 +31,26 @@ inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
 
-	is_valid_line_join (a_join :INTEGER): BOOLEAN is
+	is_valid_line_join (a_join :INTEGER): BOOLEAN
 		do
 			Result := ((a_join = cairo_line_join_miter) or else
 						(a_join = cairo_line_join_round) or else
 						(a_join = cairo_line_join_bevel))
 		end
 
-	cairo_line_join_miter: INTEGER is
+	cairo_line_join_miter: INTEGER
 			-- Use a sharp (angled) corner, see 'set_miter_limit'
 		external "C macro use <cairo.h>"
 		alias "CAIRO_LINE_JOIN_MITER"
 		end
 
-	cairo_line_join_round: INTEGER is
+	cairo_line_join_round: INTEGER
 			-- Use a rounded join, the center of the circle is the joint point
 		external "C macro use <cairo.h>"
 		alias "CAIRO_LINE_JOIN_ROUND"
 		end
 
-	cairo_line_join_bevel: INTEGER is
+	cairo_line_join_bevel: INTEGER
 			-- Use a cut-off join, the join is cut off at half the line width
 			-- from the joint point 
 		external "C macro use <cairo.h>"

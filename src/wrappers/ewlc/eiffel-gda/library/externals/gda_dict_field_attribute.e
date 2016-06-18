@@ -5,38 +5,38 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (some_flags: INTEGER): BOOLEAN is
+	is_valid_value (some_flags: INTEGER): BOOLEAN
 		do
 			Result := (some_flags & (field_auto_increment)).to_boolean
 		end
 
 
 feature {ANY} -- Setters
-	default_create is
+	default_create
 		-- Default creation feature; it leaves all the bits cleared.
 	do
 	end
 
-	set_field_auto_increment is
+	set_field_auto_increment
 		do
 			value := value.bit_or(field_auto_increment)
 		end
 
-	unset_field_auto_increment is
+	unset_field_auto_increment
 		do
 			value := value.bit_xor(field_auto_increment)
 		end
 
 
 feature {ANY} -- Queries
-	is_field_auto_increment: BOOLEAN is
+	is_field_auto_increment: BOOLEAN
 		do
 			Result := (value &field_auto_increment).to_boolean
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	field_auto_increment: INTEGER is
+	field_auto_increment: INTEGER
 		external "C macro use <libgda/libgda.h>"
 		alias "FIELD_AUTO_INCREMENT"
 		end

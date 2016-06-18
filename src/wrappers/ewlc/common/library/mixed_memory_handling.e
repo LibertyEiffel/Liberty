@@ -35,7 +35,7 @@ insert
       end
    
 feature {ANY} 
-	dispose is
+	dispose
 			-- Action to be executed just before garbage collection
 			-- reclaims an object; if not shared frees the memory pointed
 			-- by `handle'
@@ -66,12 +66,12 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			-- destroyed when the the Eiffel object will be collected 
 			-- (via destroy object). If True the C-object will not be destroyed.
 
-	set_shared is
+	set_shared
 		do
 			is_shared := True
 		end
 
-	unset_shared, set_unshared is
+	unset_shared, set_unshared
 		do
 			is_shared := False
 		end

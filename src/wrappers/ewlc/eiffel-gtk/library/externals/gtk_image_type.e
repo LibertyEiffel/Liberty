@@ -34,7 +34,7 @@ deferred class GTK_IMAGE_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {ANY}  -- enum
-	is_valid_gtk_image_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_image_type (a_type :INTEGER): BOOLEAN
 		do
 			Result := ((a_type = gtk_image_empty) or else
 						(a_type = gtk_image_pixmap) or else
@@ -46,49 +46,49 @@ feature {ANY}  -- enum
 						(a_type = gtk_image_icon_name))
 		end
 
-	gtk_image_empty: INTEGER is
+	gtk_image_empty: INTEGER
 			-- 	there is no image displayed by the widget
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_IMAGE_EMPTY"
 		end
 
-	gtk_image_pixmap: INTEGER is
+	gtk_image_pixmap: INTEGER
 			-- 	the widget contains a GdkPixmap
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_IMAGE_PIXMAP"
 		end
 
-	gtk_image_image: INTEGER is
+	gtk_image_image: INTEGER
 			-- 	the widget contains a GdkImage
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_IMAGE_IMAGE"
 		end
 
-	gtk_image_pixbuf: INTEGER is
+	gtk_image_pixbuf: INTEGER
 			-- 	the widget contains a GdkPixbuf
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_IMAGE_PIXBUF"
 		end
 
-	gtk_image_stock: INTEGER is
+	gtk_image_stock: INTEGER
 			-- 	the widget contains a stock icon name (see Stock Items(3))
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_IMAGE_STOCK"
 		end
 
-	gtk_image_icon_set: INTEGER is
+	gtk_image_icon_set: INTEGER
 			-- 	the widget contains a GtkIconSet
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_IMAGE_ICON_SET"
 		end
 
-	gtk_image_animation: INTEGER is
+	gtk_image_animation: INTEGER
 			-- 	the widget contains a GdkPixbufAnimation
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_IMAGE_ANIMATION"
 		end
 
-	gtk_image_icon_name: INTEGER is
+	gtk_image_icon_name: INTEGER
 			-- 	the widget contains a named icon. This image type was added in GTK+ 2.6 
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_IMAGE_ICON_NAME"

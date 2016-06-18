@@ -7,7 +7,7 @@ deferred class LIBXML2_EXTERNALS
 inherit ANY undefine copy, is_equal end 
 
 feature {} -- Externals
-	xml_node_list_get_string(a_doc,a_cur: POINTER; an_int: INTEGER_32): POINTER is
+	xml_node_list_get_string(a_doc,a_cur: POINTER; an_int: INTEGER_32): POINTER
 		-- xmlNodeListGetString
 	external "plug_in"
 	alias "{
@@ -17,7 +17,7 @@ feature {} -- Externals
 		}"
 	end
 
-	xml_free (a_ptr: POINTER) is
+	xml_free (a_ptr: POINTER)
 		-- xmlFree
 	external "plug_in"
 	alias "{
@@ -27,7 +27,7 @@ feature {} -- Externals
 		}"
 	end
 
-	xml_parse_file (a_name: POINTER): POINTER is
+	xml_parse_file (a_name: POINTER): POINTER
 		-- doc = xmlParseFile(docname);
 	external "plug_in"
 	alias "{
@@ -37,7 +37,7 @@ feature {} -- Externals
 		}"
 	end
 
-	xml_doc_get_root_element (a_doc: POINTER): POINTER is
+	xml_doc_get_root_element (a_doc: POINTER): POINTER
 		-- cur = xmlDocGetRootElement(doc);
 	external "plug_in"
 	alias "{
@@ -47,7 +47,7 @@ feature {} -- Externals
 		}"
 	end
 
-	xml_free_doc (a_doc: POINTER) is
+	xml_free_doc (a_doc: POINTER)
 		-- xmlFreeDoc(doc);
 		external "plug_in"
 	alias "{
@@ -57,7 +57,7 @@ feature {} -- Externals
 		}"
 	end
 
-	xml_str_cmp (a_str, another: POINTER): INTEGER_32 is
+	xml_str_cmp (a_str, another: POINTER): INTEGER_32
 		-- xmlStrcmp(cur->name, (const xmlChar *) "story"))
 	external "plug_in"
 	alias "{
@@ -67,7 +67,7 @@ feature {} -- Externals
 		}"
 	end
 
-	xml_get_prop (a_node, a_name: POINTER): POINTER is
+	xml_get_prop (a_node, a_name: POINTER): POINTER
 		-- uri = xmlGetProp(cur, "uri");
 	external "plug_in"
 	alias "{
@@ -80,7 +80,7 @@ feature {} -- Externals
 feature {} -- xmlNode structure accessing
 	-- TODO: Accessing xmlNode structure fields
 	-- xmlNodePtr fields: name, xmlChildrenNode, next
-	xml_node_get_name (a_node: POINTER): POINTER is
+	xml_node_get_name (a_node: POINTER): POINTER
 		-- xmlNode->name
 	external "plug_in"
 	alias "{
@@ -90,7 +90,7 @@ feature {} -- xmlNode structure accessing
 		}"
 	end
 
-	xml_node_get_children (a_node: POINTER): POINTER is
+	xml_node_get_children (a_node: POINTER): POINTER
 		-- xmlNode->children
 	external "plug_in"
 	alias "{
@@ -100,7 +100,7 @@ feature {} -- xmlNode structure accessing
 		}"
 	end
 
-	xml_node_get_last (a_node: POINTER): POINTER is
+	xml_node_get_last (a_node: POINTER): POINTER
 		-- xmlNode->last
 	external "plug_in"
 	alias "{
@@ -110,7 +110,7 @@ feature {} -- xmlNode structure accessing
 		}"
 	end
 
-	xml_node_get_parent (a_node: POINTER): POINTER is
+	xml_node_get_parent (a_node: POINTER): POINTER
 		-- xmlNode->parent
 	external "plug_in"
 	alias "{
@@ -120,7 +120,7 @@ feature {} -- xmlNode structure accessing
 		}"
 	end
 
-	xml_node_get_next (a_node: POINTER): POINTER is
+	xml_node_get_next (a_node: POINTER): POINTER
 		-- xmlNode->next
 	external "plug_in"
 	alias "{
@@ -130,7 +130,7 @@ feature {} -- xmlNode structure accessing
 		}"
 	end
 
-	xml_node_get_prev (a_node: POINTER): POINTER is
+	xml_node_get_prev (a_node: POINTER): POINTER
 		-- xmlNode->prev
 	external "plug_in"
 	alias "{

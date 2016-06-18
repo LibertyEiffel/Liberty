@@ -33,26 +33,26 @@ insert
 create {ANY} make 
 
 feature {} -- Creation
-	make (an_array: G_REFERENCE_ARRAY [ITEM]) is
+	make (an_array: G_REFERENCE_ARRAY [ITEM])
 		require array_not_void: an_array/=Void
 		do
 			array:=an_array
 		end
 	
 feature {ANY}
-	start is
+	start
 		do
 			i:=array.lower
 		end
 
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 			-- Returns True when there are no more objects in the
 			-- sequence.
 		do
 			Result := i>upper
 		end
 
-	item: ITEM is
+	item: ITEM
 		local p: POINTER; npa: NATIVE_ARRAY[POINTER]
 		do
 			npa := npa.from_pointer(get_pdata(handle))
@@ -64,7 +64,7 @@ feature {ANY}
 			end
 		end
 
-	next is
+	next
 		do
 			i:=i+1
 		end

@@ -42,7 +42,7 @@ feature {ANY} -- objects and
 feature {ANY}
 	iterations_number: INTEGER_32
 	
-	make is
+	make
 		local i: INTEGER
 		do
 			if (argument_count>0 and then argument(1).is_integer)
@@ -72,7 +72,7 @@ feature {ANY}
 		ensure iterations_number /= 0
 		end
 
-	wrapper_benchmark is
+	wrapper_benchmark
 		local counter: INTEGER; l: GTK_LABEL
 		do	
 			from counter := iterations_number; timer.start
@@ -89,7 +89,7 @@ feature {ANY}
 			print (timer.elapsed.out) print ("%T")
 		end
 
-	retriever_benchmark is
+	retriever_benchmark
 		local counter: INTEGER; l: GTK_LABEL; r: G_RETRIEVER[GTK_LABEL]
 		do	
 			from counter := iterations_number; timer.start

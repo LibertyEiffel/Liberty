@@ -27,42 +27,42 @@ inherit
 
 feature {}
 
-	is_valid_av_discard (a_discard: INTEGER): BOOLEAN is
+	is_valid_av_discard (a_discard: INTEGER): BOOLEAN
 		do
 			Result := a_discard.in_range (av_discard_none, av_discard_all)
 		end
 
-	av_discard_none: INTEGER is
+	av_discard_none: INTEGER
 			-- discard nothing
 		external "C macro use <avcodec.h>"
 		alias "AVDISCARD_"
 		end
 
-	av_discard_default: INTEGER is
+	av_discard_default: INTEGER
 			-- discard useless packets like 0 size packets in avi
 		external "C macro use <avcodec.h>"
 		alias "AVDISCARD_DEFAULT"
 		end
 
-	av_discard_nonref: INTEGER is
+	av_discard_nonref: INTEGER
 			-- discard all non reference
 		external "C macro use <avcodec.h>"
 		alias "AVDISCARD_NONREF"
 		end
 
-	av_discard_bidir: INTEGER is
+	av_discard_bidir: INTEGER
 			-- discard all bidirectional frames
 		external "C macro use <avcodec.h>"
 		alias "AVDISCARD_BIDIR"
 		end
 
-	av_discard_nonkey: INTEGER is
+	av_discard_nonkey: INTEGER
 			-- discard all frames except keyframes
 		external "C macro use <avcodec.h>"
 		alias "AVDISCARD_NONKEY"
 		end
 
-	av_discard_all: INTEGER is
+	av_discard_all: INTEGER
 			-- discard all
 		external "C macro use <avcodec.h>"
 		alias "AVDISCARD_ALL"

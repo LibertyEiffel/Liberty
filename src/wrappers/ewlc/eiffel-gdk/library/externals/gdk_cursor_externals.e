@@ -31,23 +31,23 @@ insert
 
 feature {} -- enum
 
-	gdk_cursor_type (h: POINTER) : INTEGER is
+	gdk_cursor_type (h: POINTER) : INTEGER
 		external "C struct GdkCursor get type use <gdk/gdk.h>"
 		ensure
 			is_valid_gdk_cursor_type (Result)
 		end
 
-	gdk_cursor_new (a_cursor_type: INTEGER): POINTER is
+	gdk_cursor_new (a_cursor_type: INTEGER): POINTER
 		require
 			is_valid_gdk_cursor_type (a_cursor_type)
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_cursor_ref (handle: POINTER): POINTER is
+	gdk_cursor_ref (handle: POINTER): POINTER
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_cursor_unref (handle: POINTER) is
+	gdk_cursor_unref (handle: POINTER)
 		external "C use <gdk/gdk.h>"
 		end
 

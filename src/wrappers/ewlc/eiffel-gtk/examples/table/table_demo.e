@@ -2,7 +2,7 @@ class TABLE_DEMO
 inherit GTK_MAIN
 create {ANY} make
 feature {ANY}
-	make is
+	make
 		do
 			initialize_gtk								
 			create window.make

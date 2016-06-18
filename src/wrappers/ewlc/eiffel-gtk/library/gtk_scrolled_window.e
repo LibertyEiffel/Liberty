@@ -68,7 +68,7 @@ insert
 create {ANY} make, make_default, from_external_pointer
 
 feature {} -- Creation
-	make_default is
+	make_default
 			-- Creates a new scrolled window. The adjustments will be 
 			-- created with it.
 		require gtk_initialized: gtk.is_initialized
@@ -76,7 +76,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_scrolled_window_new (default_pointer,default_pointer))
 		end
 	
-	make (an_horizontal_adjustment, a_vertical_adjustment: GTK_ADJUSTMENT) is
+	make (an_horizontal_adjustment, a_vertical_adjustment: GTK_ADJUSTMENT)
 			-- Creates a new scrolled window. The two arguments are the
 			-- scrolled window's adjustments; these will be shared with
 			-- the scrollbars and the child widget to keep the bars in
@@ -91,7 +91,7 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Adjustments
-	horizontal_adjustment: GTK_ADJUSTMENT is
+	horizontal_adjustment: GTK_ADJUSTMENT
 			-- the horizontal scrollbar's adjustment, used to connect the
 			-- horizontal scrollbar to the child widget's horizontal
 			-- scroll functionality.
@@ -100,7 +100,7 @@ feature {ANY} -- Adjustments
 			Result := factory.wrapper_or_void (gtk_scrolled_window_get_hadjustment (handle))
 		end
 	
-	vertical_adjustment: GTK_ADJUSTMENT is
+	vertical_adjustment: GTK_ADJUSTMENT
 			-- the vertical scrollbar's adjustment, used to connect the
 			-- vertical scrollbar to the child widget's vertical
 			-- scroll functionality.
@@ -110,7 +110,7 @@ feature {ANY} -- Adjustments
 		end
 
 	
-	set_horizontal_adjustment (an_adjustment: GTK_ADJUSTMENT) is
+	set_horizontal_adjustment (an_adjustment: GTK_ADJUSTMENT)
 			-- Sets the GtkAdjustment for the horizontal scrollbar.
 		require
 			adjustment_not_void: an_adjustment /= Void
@@ -119,7 +119,7 @@ feature {ANY} -- Adjustments
 		ensure adjustment_set: an_adjustment = horizontal_adjustment
 		end
 
-	set_vertical_adjustment (an_adjustment: GTK_ADJUSTMENT) is
+	set_vertical_adjustment (an_adjustment: GTK_ADJUSTMENT)
 			-- Sets the GtkAdjustment for the vertical scrollbar.
 		require
 			adjustment_not_void: an_adjustment /= Void
@@ -152,7 +152,7 @@ feature {ANY} -- TODO: Scrollbars
 -- Returns : 	the vertical scrollbar of the scrolled window, or NULL if it does not have one.
 
 -- Since 2.8
-	set_policy (an_horizontal_policy, a_vertical_policy: INTEGER) is
+	set_policy (an_horizontal_policy, a_vertical_policy: INTEGER)
 			-- Sets the scrollbar policy for the horizontal and vertical
 			-- scrollbars. The policy determines when the scrollbar
 			-- should appear; it is a value from the GtkPolicyType
@@ -171,7 +171,7 @@ feature {ANY} -- TODO: Scrollbars
 		end
 
 feature {ANY} 
-	add_with_viewport (a_child: GTK_WIDGET) is
+	add_with_viewport (a_child: GTK_WIDGET)
 			-- Adds children without native scrolling capabilities. This
 			-- is simply a convenience function; it is equivalent to
 			-- adding the unscrollable child to a viewport, then adding
@@ -199,7 +199,7 @@ feature {ANY}
 			gtk_scrolled_window_add_with_viewport (handle, a_child.handle)
 		end
 
-	set_placement (a_window_placement: INTEGER) is
+	set_placement (a_window_placement: INTEGER)
 			-- Determines the location of the child widget with respect
 			-- to the scrollbars. The default is `gtk_corner_top_left',
 			-- meaning the child is in the top left, with the scrollbars
@@ -213,7 +213,7 @@ feature {ANY}
 			ensure placement_set: a_window_placement = placement
 		end
 
-	set_shadow_type (a_type: INTEGER) is
+	set_shadow_type (a_type: INTEGER)
 			-- Changes the type of shadow drawn around the contents of
 			-- scrolled_window.
 		require
@@ -223,7 +223,7 @@ feature {ANY}
 		ensure value_set: shadow_type = a_type
 		end
 
-	placement: INTEGER is
+	placement: INTEGER
 			-- The placement of the scrollbars for the scrolled
 			-- window. See `set_placement'.
 		do
@@ -231,7 +231,7 @@ feature {ANY}
 		ensure valid: is_valid_gtk_corner_type (Result)
 		end
 
-	horizontal_policy: INTEGER is
+	horizontal_policy: INTEGER
 			-- The current policy values for the horizontal
 			-- scrollbar. See `set_policy'.
 		do
@@ -239,7 +239,7 @@ feature {ANY}
 		ensure valid: is_valid_gtk_policy (Result)
 		end
 	
-	vertical_policy: INTEGER is
+	vertical_policy: INTEGER
 			-- The current policy values for the vertical scrollbar. See
 			-- `set_policy'.
 		do
@@ -247,7 +247,7 @@ feature {ANY}
 		ensure valid: is_valid_gtk_policy (Result)
 		end
 
-	policies: TUPLE [INTEGER,INTEGER] is
+	policies: TUPLE [INTEGER,INTEGER]
 			-- The current policy values for the horizontal
 			-- scrollbar. See `set_policy'.
 		local hpol, vpol: INTEGER
@@ -259,7 +259,7 @@ feature {ANY}
 			valid_vertical: is_valid_gtk_policy (Result.item_1)
 		end
 	
-	shadow_type: INTEGER is
+	shadow_type: INTEGER
 			-- The shadow type of the scrolled window. See
 			-- `set_shadow_type'.
 		do
@@ -339,13 +339,13 @@ feature {ANY} -- scroll-child signal
 		--                                             gboolean           arg2,
 		--                                             gpointer           user_data)           : Run last / Action
 
-	enable_on_scroll_child is
+	enable_on_scroll_child
 			-- Connects "scroll-child" signal to `on_scroll_child' feature.
 		do
 			connect (Current, scroll_child_signal_name, $on_scroll_child)
 		end
 
-	on_scroll_child: INTEGER is
+	on_scroll_child: INTEGER
 			-- Built-in scroll-child signal handler; empty by design; redefine it.
 			
 			-- The `scroll-child' signal is emitted on the drag source
@@ -356,7 +356,7 @@ feature {ANY} -- scroll-child signal
 		end
 
 	connect_agent_to_scroll_child_signal (a_function: FUNCTION[ANY, TUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW],
-																				  BOOLEAN]) is
+																				  BOOLEAN])
 			-- scrolledwindow : 	the object which received the signal.
 			-- arg1 : 	
 			-- arg2 : 	
@@ -393,7 +393,7 @@ feature {ANY} -- Signals
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkScrolledWindow)"
 		end
@@ -419,48 +419,48 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_scrolled_window_set_policy (a_scrolled_window: POINTER; hscrollbar_policy, vscrollbar_policy: INTEGER) is
+	gtk_scrolled_window_set_policy (a_scrolled_window: POINTER; hscrollbar_policy, vscrollbar_policy: INTEGER)
 		require
 			valid_horizontal_policy: is_valid_gtk_policy (hscrollbar_policy)
 			valid_vorizontal_policy: is_valid_gtk_policy (vscrollbar_policy)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_scrolled_window_add_with_viewport(a_scrolled_window, a_child_gtkwidget: POINTER) is
+	gtk_scrolled_window_add_with_viewport(a_scrolled_window, a_child_gtkwidget: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_scrolled_window_set_placement (a_scrolled_window: POINTER;  window_placement: INTEGER) is
+	gtk_scrolled_window_set_placement (a_scrolled_window: POINTER;  window_placement: INTEGER)
 		require
 			valid_placement: is_valid_gtk_corner_type (window_placement)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_scrolled_window_set_shadow_type (a_scrolled_window: POINTER; a_shadow_type: INTEGER) is
+	gtk_scrolled_window_set_shadow_type (a_scrolled_window: POINTER; a_shadow_type: INTEGER)
 		require
 			valid_shadow_type: is_valid_gtk_shadow_type (a_shadow_type)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_scrolled_window_set_hadjustment (a_scrolled_window, an_hadjustment: POINTER) is
+	gtk_scrolled_window_set_hadjustment (a_scrolled_window, an_hadjustment: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_scrolled_window_set_vadjustment (a_scrolled_window, a_vadjustment: POINTER) is
+	gtk_scrolled_window_set_vadjustment (a_scrolled_window, a_vadjustment: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_scrolled_window_get_placement (a_scrolled_window: POINTER): INTEGER is
+	gtk_scrolled_window_get_placement (a_scrolled_window: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		ensure
 			valid_result: is_valid_gtk_corner_type (Result)
 		end
 
-	gtk_scrolled_window_get_policy (a_scrolled_window, a_hscrollbar_policy_pointer, a_vscrollbar_policy_pointer: POINTER) is
+	gtk_scrolled_window_get_policy (a_scrolled_window, a_hscrollbar_policy_pointer, a_vscrollbar_policy_pointer: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_scrolled_window_get_shadow_type (a_scrolled_window: POINTER): INTEGER is
+	gtk_scrolled_window_get_shadow_type (a_scrolled_window: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		ensure valid_result: is_valid_gtk_shadow_type (Result)
 		end

@@ -19,7 +19,7 @@ feature {ANY}
 			-- the number of columns of each result row
 
 feature {PREPARED_STATEMENT}
-	set_columns_number (a_number: INTEGER) is
+	set_columns_number (a_number: INTEGER)
 			-- set `columns' to `a_number'
 		do
 			columns:= a_number

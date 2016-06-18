@@ -26,20 +26,20 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	gtk_object_flags (obj: POINTER): INTEGER is
+	gtk_object_flags (obj: POINTER): INTEGER
 			-- Gets the GtkObjectFlags for an object without directly accessing its members.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_OBJECT_FLAGS"
 		end
 
-	gtk_object_sink (object: POINTER) is
+	gtk_object_sink (object: POINTER)
 			-- Removes the floating reference from a GtkObject, if it exists;
 			-- otherwise does nothing. See the GtkObject overview documentation at
 			-- the top of the page.  object : the object to sink.  --
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_object_destroy (object: POINTER) is
+	gtk_object_destroy (object: POINTER)
 			-- Emits the "destroy" signal notifying all reference holders that they
 			-- should release the GtkObject. See the overview documentation at the
 			-- top of the page for more details.

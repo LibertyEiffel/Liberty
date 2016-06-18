@@ -27,23 +27,23 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gtk_combo_box_entry_new: POINTER is
+	gtk_combo_box_entry_new: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_entry_new_with_model(a_model: POINTER; a_text_column: INTEGER): POINTER is
+	gtk_combo_box_entry_new_with_model(a_model: POINTER; a_text_column: INTEGER): POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_entry_new_text: POINTER is
+	gtk_combo_box_entry_new_text: POINTER
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_entry_set_text_column (an_entry_box: POINTER; a_text_column: INTEGER) is
+	gtk_combo_box_entry_set_text_column (an_entry_box: POINTER; a_text_column: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_combo_box_entry_get_text_column (an_entry_box: POINTER): INTEGER is
+	gtk_combo_box_entry_get_text_column (an_entry_box: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 

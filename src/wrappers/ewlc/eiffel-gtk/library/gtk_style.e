@@ -36,7 +36,7 @@ create {ANY} from_external_pointer
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkStyle)"
 		end
@@ -49,33 +49,33 @@ feature {ANY} -- Accessq
 	-- As easy as a mistype or much subtler as easy as issuing
 	-- "states.put(2,Void)". Paolo 2008-08-01
 
-	states: FAST_ARRAY [STRING] is
+	states: FAST_ARRAY [STRING]
 		once
 			Result := {FAST_ARRAY[STRING] <<"NORMAL", "ACTIVE", "PRELIGHT", "SELECTED", "INSENSITIVE">>}
 		end
 
-	background_color (a_state: STRING): GDK_COLOR is
+	background_color (a_state: STRING): GDK_COLOR
 		require
 			states.has (a_state)
 		do
 			create Result.from_external_pointer (gtk_style_get_bg (handle, states.first_index_of(a_state)))
 		end
 
-	foreground_color (a_state: STRING): GDK_COLOR is
+	foreground_color (a_state: STRING): GDK_COLOR
 		require
 			states.has (a_state)
 		do
 			create Result.from_external_pointer (gtk_style_get_fg (handle, states.first_index_of(a_state)))
 		end
 
-	text_color (a_state: STRING): GDK_COLOR is
+	text_color (a_state: STRING): GDK_COLOR
 		require
 			states.has (a_state)
 		do
 			create Result.from_external_pointer (gtk_style_get_text (handle, states.first_index_of(a_state)))
 		end
 
-	base_color (a_state: STRING): GDK_COLOR is
+	base_color (a_state: STRING): GDK_COLOR
 		require
 			states.has (a_state)
 		do
@@ -83,7 +83,7 @@ feature {ANY} -- Accessq
 		end
 
 feature {ANY} -- Operations
-	set_background_pixmap (a_pixmap: GDK_PIXMAP; a_state: INTEGER) is
+	set_background_pixmap (a_pixmap: GDK_PIXMAP; a_state: INTEGER)
 		require
 			is_valid_gtk_state_type (a_state)
 		do

@@ -25,7 +25,7 @@ deferred class G_KEY_FILE_ERROR
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_key_file_error (an_error: INTEGER): BOOLEAN is
+	is_valid_key_file_error (an_error: INTEGER): BOOLEAN
 		do	
 			Result:=((an_error =g_key_file_error_unknown_encoding) or else
 						(an_error =g_key_file_error_parse) or else
@@ -35,37 +35,37 @@ feature {} -- enum
 						(an_error =g_key_file_error_invalid_value))
 		end
 	
-   g_key_file_error_unknown_encoding: INTEGER is
+   g_key_file_error_unknown_encoding: INTEGER
 			-- the text being parsed was in an unknown encoding
 		external "C macro use <glib.h>"
 		alias "G_KEY_FILE_ERROR_UNKNOWN_ENCODING"
 		end
 
-   g_key_file_error_parse: INTEGER is
+   g_key_file_error_parse: INTEGER
 			-- document was ill-formed
 		external "C macro use <glib.h>"
 		alias "G_KEY_FILE_ERROR_PARSE"
 		end
 
-   g_key_file_error_not_found: INTEGER is
+   g_key_file_error_not_found: INTEGER
 			-- the file was not found
 		external "C macro use <glib.h>"
 		alias "G_KEY_FILE_ERROR_NOT_FOUND"
 		end
 
-   g_key_file_error_key_not_found: INTEGER is
+   g_key_file_error_key_not_found: INTEGER
 			-- a requested key was not found
 		external "C macro use <glib.h>"
 		alias "G_KEY_FILE_ERROR_KEY_NOT_FOUND"
 		end
 
-   g_key_file_error_group_not_found: INTEGER is
+   g_key_file_error_group_not_found: INTEGER
 			-- a requested group was not found
 		external "C macro use <glib.h>"
 		alias "G_KEY_FILE_ERROR_GROUP_NOT_FOUND"
 		end
 
-   g_key_file_error_invalid_value: INTEGER is
+   g_key_file_error_invalid_value: INTEGER
 			-- a value could not be parsed
 		external "C macro use <glib.h>"
 		alias "G_KEY_FILE_ERROR_INVALID_VALUE"

@@ -101,7 +101,7 @@ insert
 create {ANY} with,make, from_external_pointer
 
 feature {} -- Creation
-	with, make (a_parameter: STRING) is
+	with, make (a_parameter: STRING)
 			-- Creates a new option context.
 
 			-- The parameter_string can serve multiple purposes. It can be used to
@@ -129,7 +129,7 @@ feature {} -- Creation
 		end
 
 feature {ANY}
-	set_summary (a_summary: STRING) is
+	set_summary (a_summary: STRING)
 			-- Adds a string to be displayed in --help output before the list of
 			-- options. This is typically a summary of the program functionality.
 		
@@ -143,7 +143,7 @@ feature {ANY}
 			g_option_context_set_summary(handle,sp)
 		end
 
-	summary: STRING is
+	summary: STRING
 		local sp: POINTER
 		do
 			sp:=g_option_context_get_summary(handle)
@@ -238,7 +238,7 @@ feature {ANY}
 
 	--    Since 2.12
 
-	parse is
+	parse
 			-- Parses the command line arguments, recognizing options
 			-- which have been added to context. This feature also invoke
 			-- `g_set_prgname'.
@@ -287,7 +287,7 @@ feature {ANY}
 		ensure arguments_can_be_decreased: command_arguments.count <= old command_arguments.count
 		end
 
-	set_help_enabled (a_setting: BOOLEAN) is
+	set_help_enabled (a_setting: BOOLEAN)
 			-- Enables or disables automatic generation of --help output. By
 			-- default, `parse' recognizes "--help", "-?", "--help-all" and
 			-- "--help-groupname" and creates suitable output to stdout.
@@ -296,14 +296,14 @@ feature {ANY}
 		ensure set: a_setting = is_help_enabled
 		end
 	
-	is_help_enabled: BOOLEAN is
+	is_help_enabled: BOOLEAN
 			-- Is automatic "--help" generation turned on?
 		do
 			Result:=g_option_context_get_help_enabled(handle).to_boolean
 		end
 
 	
-	set_ignore_unknown_options (a_setting: BOOLEAN) is
+	set_ignore_unknown_options (a_setting: BOOLEAN)
 			-- Sets whether to ignore unknown options or not. If an
 			-- argument is ignored, it is left in the `command_arguments'
 			-- array after parsing. By default, `parse' treats unknown
@@ -320,7 +320,7 @@ feature {ANY}
 			g_option_context_set_ignore_unknown_options(handle, a_setting.to_integer)
 		end
 
-	are_unknown_options_ignored: BOOLEAN is
+	are_unknown_options_ignored: BOOLEAN
 			-- Are unknown options ignored?
 		do 
 			Result:=g_option_context_get_ignore_unknown_options(handle).to_boolean
@@ -328,7 +328,7 @@ feature {ANY}
 
 feature {ANY} -- group options
 	add_main_entries (some_entries: COLLECTION[G_OPTION_ENTRY];
-							a_translaction_domain: STRING) is
+							a_translaction_domain: STRING)
 			-- A convenience feature which creates a main group if it doesn't
 			-- exist, adds the entries to it and sets the translation domain.
 		
@@ -356,7 +356,7 @@ feature {ANY} -- group options
 			-- null_or_string(a_translaction_domain))
 		end
 
-	main_group: G_OPTION_GROUP is
+	main_group: G_OPTION_GROUP
 			-- the main group of context, or Void if context doesn't have a main
 			-- group.
 		local p: POINTER
@@ -366,7 +366,7 @@ feature {ANY} -- group options
 			-- or freed.
 		end
 
-	add_group (a_group: G_OPTION_GROUP) is
+	add_group (a_group: G_OPTION_GROUP)
 			-- Adds a GOptionGroup to the context, so that parsing with context
 			-- will recognize the options in the group.
 		require group_not_void: a_group /= Void
@@ -379,7 +379,7 @@ feature {ANY} -- group options
 			--a_group.set_shared -- avoid freeing the underlying C structure.
 		end
 
-	set_main_group (a_group: G_OPTION_GROUP) is
+	set_main_group (a_group: G_OPTION_GROUP)
 			-- Sets a GOptionGroup as main group of the context. This has the same
 			-- effect as calling `add_group', the only difference is that the
 			-- options in the main group are treated differently when generating
@@ -391,12 +391,12 @@ feature {ANY} -- group options
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib.h>"
 		alias "sizeof(GOptionContext)"
 		end
 feature {}
-	free (a_ptr: POINTER) is
+	free (a_ptr: POINTER)
 		do
 			g_option_context_free(a_ptr)
 		end

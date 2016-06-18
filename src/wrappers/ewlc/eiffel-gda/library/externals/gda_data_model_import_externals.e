@@ -8,27 +8,27 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_data_model_import_clean_errors (a_model: POINTER) is
+	gda_data_model_import_clean_errors (a_model: POINTER)
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_import_get_errors (a_model: POINTER): POINTER is
+	gda_data_model_import_get_errors (a_model: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_import_new_xml_node (a_node: POINTER): POINTER is
+	gda_data_model_import_new_xml_node (a_node: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_import_new_mem (a_data: POINTER; a_random_access: INTEGER_32; an_options: POINTER): POINTER is
+	gda_data_model_import_new_mem (a_data: POINTER; a_random_access: INTEGER_32; an_options: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_import_new_file (a_filename: POINTER; a_random_access: INTEGER_32; an_options: POINTER): POINTER is
+	gda_data_model_import_new_file (a_filename: POINTER; a_random_access: INTEGER_32; an_options: POINTER): POINTER
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_data_model_import_get_type: INTEGER_32 is
+	gda_data_model_import_get_type: INTEGER_32
 		external "C use <library/externals/all-gda-includes.h>"
 		end
 

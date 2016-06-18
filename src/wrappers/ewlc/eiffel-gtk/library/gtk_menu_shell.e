@@ -34,7 +34,7 @@ inherit GTK_CONTAINER
 
 feature {ANY} -- size
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuShell)"
 		end
@@ -43,7 +43,7 @@ feature {ANY}
 	-- TODO: check if all those `a_child' shall be GTK_MENU_ITEM
 	-- instead of GTK_WIDGET
 
-	append (a_child: GTK_WIDGET) is
+	append (a_child: GTK_WIDGET)
 			-- Adds a new GtkMenuItem to the end of the menu shell's item
 			-- list.
 		require widget_not_void: a_child /= Void
@@ -51,7 +51,7 @@ feature {ANY}
 			gtk_menu_shell_append (handle, a_child.handle)
 		end
 
-	prepend (a_child: GTK_WIDGET) is
+	prepend (a_child: GTK_WIDGET)
 			-- Adds a new GtkMenuItem to the beginning of the menu
 			-- shell's item list.
 		require widget_not_void: a_child /= Void
@@ -59,7 +59,7 @@ feature {ANY}
 			gtk_menu_shell_prepend (handle, a_child.handle)
 		end
 	
-	insert_child (a_child: GTK_WIDGET; a_position: INTEGER) is
+	insert_child (a_child: GTK_WIDGET; a_position: INTEGER)
 			-- Adds a new GtkMenuItem to the menu shell's item list at
 			-- `a_position'. Positions are numbered from 0 to n-1.
 		require 
@@ -70,21 +70,21 @@ feature {ANY}
 		end
 
 
-	deactivate is
+	deactivate
 			-- Deactivates the menu shell. Typically this results in the
 			-- menu shell being erased from the screen.
 		do
 			gtk_menu_shell_deactivate (handle)
 		end
 
-	select_item (a_menu_item: GTK_WIDGET) is
+	select_item (a_menu_item: GTK_WIDGET)
 			-- Selects `a_menu_item' (a GtkMenuItem) from the menu shell.
 		require item_not_void: a_menu_item /= Void
 		do
 			gtk_menu_shell_select_item (handle, a_menu_item.handle)
 		end
 
-	select_first (search_sensitive: BOOLEAN) is
+	select_first (search_sensitive: BOOLEAN)
 			-- Select the first visible or selectable child of the menu
 			-- shell; don't select tearoff items unless the only item is
 			-- a tearoff item.
@@ -97,14 +97,14 @@ feature {ANY}
 			gtk_menu_shell_select_first (handle, search_sensitive.to_integer);
 		end
 
-	deselect is
+	deselect
 			-- Deselects the currently selected item from the menu shell,
 			-- if any.
 		do
 			gtk_menu_shell_deselect (handle)
 		end
 
-	activate_item (a_menu_item: GTK_WIDGET; force_deactivate: BOOLEAN) is
+	activate_item (a_menu_item: GTK_WIDGET; force_deactivate: BOOLEAN)
 			-- Activates `a_menu_item' within the menu shell. If
 			-- `force_deactivate' is True, force the deactivation of the
 			-- menu shell after the menu item is activated.
@@ -113,14 +113,14 @@ feature {ANY}
 			gtk_menu_shell_activate_item (handle, a_menu_item.handle, force_deactivate.to_integer)
 		end
 
-	cancel is
+	cancel
 			-- Cancels the selection within the menu shell.
 		do
 			gtk_menu_shell_cancel (handle)
 		end
 
 
-	set_take_focus is
+	set_take_focus
 			-- Makes the menu shell to take the keyboard focus so that it
 			-- will receive all keyboard events which is needed to enable
 			-- keyboard navigation in menus.
@@ -138,7 +138,7 @@ feature {ANY}
 			gtk_menu_shell_set_take_focus (handle,1)
 		end
 	
-	unset_take_focus is
+	unset_take_focus
 			-- This is useful only for special applications like virtual
 			-- keyboard implementations which should not take keyboard
 			-- focus.
@@ -167,7 +167,7 @@ feature {ANY}
 			gtk_menu_shell_set_take_focus (handle,0)
 		end
 	
-	is_focus_taken: BOOLEAN is
+	is_focus_taken: BOOLEAN
 			-- Will the menu shell will take the keyboard focus on popup.
 		do
 			Result:=(gtk_menu_shell_get_take_focus(handle).to_boolean)
@@ -305,51 +305,51 @@ feature {} -- External calls
 	-- GList *children; The list of GtkMenuItem objects contained by
 	-- this GtkMenuShell.
 
-	get_children (a_menu_shell: POINTER): POINTER is
+	get_children (a_menu_shell: POINTER): POINTER
 		external "C struct GtkMenuShell get children use <gtk/gtk.h>"
 		end
 	
-	gtk_menu_shell_append (a_menu_shell: POINTER; a_child: POINTER) is
+	gtk_menu_shell_append (a_menu_shell: POINTER; a_child: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_menu_shell_prepend (a_menu_shell: POINTER; a_child: POINTER) is
+	gtk_menu_shell_prepend (a_menu_shell: POINTER; a_child: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_shell_insert (a_menu_shell: POINTER; a_child: POINTER; a_position: INTEGER) is
+	gtk_menu_shell_insert (a_menu_shell: POINTER; a_child: POINTER; a_position: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_shell_deactivate (a_menu_shell: POINTER) is
+	gtk_menu_shell_deactivate (a_menu_shell: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_shell_select_item (a_menu_shell: POINTER; a_menu_item: POINTER) is
+	gtk_menu_shell_select_item (a_menu_shell: POINTER; a_menu_item: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_shell_select_first (a_menu_shell: POINTER; search_sensitive: INTEGER) is
+	gtk_menu_shell_select_first (a_menu_shell: POINTER; search_sensitive: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_shell_deselect (a_menu_shell: POINTER) is
+	gtk_menu_shell_deselect (a_menu_shell: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_shell_activate_item (a_menu_shell: POINTER; a_menu_item: POINTER; force_deactivate: INTEGER) is
+	gtk_menu_shell_activate_item (a_menu_shell: POINTER; a_menu_item: POINTER; force_deactivate: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_shell_cancel (a_menu_shell: POINTER) is
+	gtk_menu_shell_cancel (a_menu_shell: POINTER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_shell_set_take_focus (a_menu_shell: POINTER; take_focus: INTEGER) is
+	gtk_menu_shell_set_take_focus (a_menu_shell: POINTER; take_focus: INTEGER)
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_shell_get_take_focus (a_menu_shell: POINTER): INTEGER is
+	gtk_menu_shell_get_take_focus (a_menu_shell: POINTER): INTEGER
 		external "C use <gtk/gtk.h>"
 		end
 end

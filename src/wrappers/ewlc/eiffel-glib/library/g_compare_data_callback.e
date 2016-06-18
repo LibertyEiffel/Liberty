@@ -27,7 +27,7 @@ create {ANY} make
 
 feature {} -- Creation
 	make (a_collection: WRAPPER_COLLECTION[COMPARABLE_C_STRUCT];
-			a_function: FUNCTION[ANY,TUPLE[COMPARABLE_C_STRUCT,COMPARABLE_C_STRUCT],INTEGER]) is
+			a_function: FUNCTION[ANY,TUPLE[COMPARABLE_C_STRUCT,COMPARABLE_C_STRUCT],INTEGER])
 		-- `a_factory' is typically the container wrapper that creates
 		-- the callback, i.e.: a G_TREE, asyncronous queues, linked
 		-- lists and all Glib containers that require to compare to
@@ -45,7 +45,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	
 	function: FUNCTION[ANY,TUPLE[COMPARABLE_C_STRUCT,COMPARABLE_C_STRUCT],INTEGER]
 
-	callback (a,b: POINTER): INTEGER is
+	callback (a,b: POINTER): INTEGER
 		local an_a, an_b: COMPARABLE_C_STRUCT
 		do
 			-- export CECIL
@@ -75,7 +75,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			Result:=(function.item([an_a,an_b]))
 		end
 
-	callback_address: POINTER is
+	callback_address: POINTER
 		external "[
 					 C inline use "glib-callbacks.h"
 															  ]"

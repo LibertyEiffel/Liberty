@@ -38,7 +38,7 @@ inherit GTK_CONTAINER
 create {ANY} make, from_external_pointer
 
 feature {} -- Creation
-	make (an_h_adjustment, a_v_adjustment: GTK_ADJUSTMENT) is
+	make (an_h_adjustment, a_v_adjustment: GTK_ADJUSTMENT)
 			--  Creates a new GtkLayout. Unless you have a specific
 			--  adjustment you'd like the layout to use for scrolling,
 			--  pass Void for `an_h_adjustment' (horizontal scroll
@@ -50,7 +50,7 @@ feature {} -- Creation
 
 feature {ANY} -- Operations
 
-	put (a_child: GTK_WIDGET; an_x, an_y: INTEGER) is
+	put (a_child: GTK_WIDGET; an_x, an_y: INTEGER)
 			-- Adds `a_child' to layout, at position (`an_x',`an_y').
 			-- Current becomes the new parent container of `a_child'.
 		require child_not_void: a_child/=Void
@@ -58,14 +58,14 @@ feature {ANY} -- Operations
 			gtk_layout_put(handle, a_child.handle, an_x, an_y)
 		end
 
-	move (a_child: GTK_WIDGET; an_x, an_y: INTEGER) is
+	move (a_child: GTK_WIDGET; an_x, an_y: INTEGER)
 			-- Moves `a_child' of layout to a new position.
 		require child_not_void: a_child/=Void
 		do
 			gtk_layout_move(handle,a_child.handle, an_x, an_y)
 		end
 
-	set_size (a_width, an_height: INTEGER) is
+	set_size (a_width, an_height: INTEGER)
 			-- Sets the size of the scrollable area of the layout.
 		
 			-- `a_width': width of entire scrollable area
@@ -77,7 +77,7 @@ feature {ANY} -- Operations
 
 feature {ANY} -- Access
 
-	width: INTEGER is
+	width: INTEGER
 			-- the width set on layout
 		local a_result: INTEGER
 		do
@@ -85,7 +85,7 @@ feature {ANY} -- Access
 			Result := a_result
 		end
 
-	height: INTEGER is
+	height: INTEGER
 			-- the height set on layout
 		local a_result: INTEGER
 		do
@@ -262,60 +262,60 @@ feature {} -- GtkLayout struct access
 	--  } GtkLayout;
 	
 feature {} -- External calls
-	gtk_layout_new (an_hadjustment, an_vadjustment: POINTER): POINTER is
+	gtk_layout_new (an_hadjustment, an_vadjustment: POINTER): POINTER
 			-- GtkWidget* gtk_layout_new (GtkAdjustment *hadjustment,
 			-- GtkAdjustment *vadjustment);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_layout_put (a_layout, a_child_widget: POINTER; an_x, an_y: INTEGER) is
+	gtk_layout_put (a_layout, a_child_widget: POINTER; an_x, an_y: INTEGER)
 			-- void gtk_layout_put (GtkLayout *layout, GtkWidget
 			-- *child_widget, gint x, gint y);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_layout_move (a_layout, a_child_widget: POINTER; an_x, an_y: INTEGER) is
+	gtk_layout_move (a_layout, a_child_widget: POINTER; an_x, an_y: INTEGER)
 			-- void gtk_layout_move (GtkLayout *layout, GtkWidget
 			-- *child_widget, gint x, gint y);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_layout_set_size (a_layout: POINTER; a_width, a_height: INTEGER) is
+	gtk_layout_set_size (a_layout: POINTER; a_width, a_height: INTEGER)
 			-- void gtk_layout_set_size (GtkLayout *layout, guint width,
 			-- guint height);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_layout_get_size (a_layout, a_width, a_height: POINTER) is
+	gtk_layout_get_size (a_layout, a_width, a_height: POINTER)
 			-- void gtk_layout_get_size (GtkLayout *layout, guint *width,
 			-- guint *height);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_layout_get_hadjustment (a_layout: POINTER): POINTER is
+	gtk_layout_get_hadjustment (a_layout: POINTER): POINTER
 			-- 	GtkAdjustment* gtk_layout_get_hadjustment (GtkLayout *layout);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_layout_get_vadjustment (a_layout: POINTER): POINTER is
+	gtk_layout_get_vadjustment (a_layout: POINTER): POINTER
 			-- 	GtkAdjustment* gtk_layout_get_vadjustment (GtkLayout *layout);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_layout_set_hadjustment (a_layout, an_adjustment: POINTER) is
+	gtk_layout_set_hadjustment (a_layout, an_adjustment: POINTER)
 			-- void gtk_layout_set_hadjustment (GtkLayout *layout,
 			-- GtkAdjustment *adjustment);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_layout_set_vadjustment (a_layout, an_adjustment: POINTER) is
+	gtk_layout_set_vadjustment (a_layout, an_adjustment: POINTER)
 			-- void gtk_layout_set_vadjustment (GtkLayout *layout,
 			-- GtkAdjustment *adjustment);
 		external "C use <gtk/gtk.h>"
 		end
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkLayout)"
 		end

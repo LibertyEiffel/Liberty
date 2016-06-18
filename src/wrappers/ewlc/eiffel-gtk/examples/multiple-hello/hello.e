@@ -13,7 +13,7 @@ insert
 create {ANY}	make
 	
 feature {} -- creation
-	make is
+	make
 		local i: INTEGER; window: MY_WINDOW
 		do
 			gtk.initialize
@@ -31,7 +31,7 @@ feature {} -- creation
 			gtk.run_main_loop
 		end
 
-	print_window_label (a_window: GTK_WINDOW) is
+	print_window_label (a_window: GTK_WINDOW)
 		require a_window/=Void
 		do
 			print(a_window.title)
@@ -42,7 +42,7 @@ feature {ANY}
 	
 	-- windows: COLLECTION[GTK_WINDOW]
 	
-	c_window is
+	c_window
 			-- Create and show a GtkWindow from the C language
 		external "C inline use <gtk/gtk.h>"
 		alias "[

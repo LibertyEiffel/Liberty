@@ -93,7 +93,7 @@ feature {} -- Creation
 	-- typedef struct _GtkPatternTagClass GtkPatternTagClass;
 	--
 feature {ANY}
-	style: GTK_SOURCE_TAG_STYLE is
+	style: GTK_SOURCE_TAG_STYLE
 			-- the style associated with the given tag. Can be Void
 		local p: POINTER
 		do
@@ -101,7 +101,7 @@ feature {ANY}
 			if p.is_not_null then create Result.from_external_pointer(p) end
 		end
 
-	set_style (a_style: GTK_SOURCE_TAG_STYLE) is
+	set_style (a_style: GTK_SOURCE_TAG_STYLE)
 			-- Associates `a_style' with the given tag.
 		require style_not_void: a_style/=Void
 		do
@@ -208,7 +208,7 @@ feature {ANY}
 	--   Returns :         a new string tag, as a GtkTextTag.
 	--
 feature {ANY}
-	id: STRING is
+	id: STRING
 			-- The "id" property: ID used to refer to the source tag. Default value
 			-- Void.
 		local p: POINTER
@@ -216,7 +216,7 @@ feature {ANY}
 			Result:=string_property_from_pspec(id_property_spec)
 		end
 
-	tag_style: GTK_SOURCE_TAG_STYLE is
+	tag_style: GTK_SOURCE_TAG_STYLE
 			-- The "tag-style" property: the style associated with the source
 			-- tag. TODO: provide a setter
 		local p: POINTER
@@ -226,12 +226,12 @@ feature {ANY}
 		end
 
 feature {} -- size and implementation
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtksourceview/gtksourcetag.h>"
 		alias "sizeof(GtkSourceTag)"
 		end
 
-	id_property_spec: G_PARAM_SPEC is
+	id_property_spec: G_PARAM_SPEC
 		once
 			Result:=find_property(id_property_name)
 			check id_property_found: Result/=Void end
@@ -239,7 +239,7 @@ feature {} -- size and implementation
 
 	id_property_name: STRING is "id"
 
-	tag_style_property_spec: G_PARAM_SPEC is
+	tag_style_property_spec: G_PARAM_SPEC
 		once
 			Result:=find_property(tag_style_property_name)
 			check tag_style_property_found: Result/=Void end

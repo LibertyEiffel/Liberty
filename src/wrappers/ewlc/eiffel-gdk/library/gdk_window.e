@@ -35,26 +35,26 @@ insert
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkWindow)"
 		end
 
 feature {ANY}
 
-	set_cursor (a_cursor: GDK_CURSOR) is
+	set_cursor (a_cursor: GDK_CURSOR)
 		require
 			a_cursor /= Void
 		do
 			gdk_window_set_cursor (handle, a_cursor.handle)
 		end
 
-	unset_cursor is
+	unset_cursor
 		do
 			gdk_window_set_cursor (handle, default_pointer)
 		end
 
-	get_pointer: TUPLE [GDK_WINDOW, INTEGER, INTEGER, INTEGER] is
+	get_pointer: TUPLE [GDK_WINDOW, INTEGER, INTEGER, INTEGER]
 			-- GdkWindow*  gdk_window_get_pointer          (GdkWindow *window,
 			--                                              gint *x,
 			--                                              gint *y,
@@ -78,7 +78,7 @@ feature {ANY}
 			Result /= Void implies is_valid_gdk_modifier_type (Result.fourth)
 		end
 	
-	children: G_LIST [GDK_WINDOW] is
+	children: G_LIST [GDK_WINDOW]
 		do
 			create {G_OBJECT_LIST[GDK_WINDOW]} Result.from_external_pointer(gdk_window_get_children(handle))
 		end
@@ -1330,7 +1330,7 @@ feature {ANY}
 
 	-- Since 2.8
 
-	position: TUPLE [INTEGER, INTEGER] is
+	position: TUPLE [INTEGER, INTEGER]
 			-- Obtains the position of the window as reported in the
 			-- most-recently-processed GdkEventConfigure. Contrast with
 			-- `geometry' which queries the X server for the current window

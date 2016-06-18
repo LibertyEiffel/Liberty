@@ -26,7 +26,7 @@ feature {} -- External calls
 	--                                              GParamSpec *pspec);
 	-- void        (*GObjectFinalizeFunc)          (GObject *object);
 
-	g_type_is_object (type: INTEGER): INTEGER is
+	g_type_is_object (type: INTEGER): INTEGER
 			-- Returns a boolean value of FALSE or TRUE indicating whether the
 			-- passed in type id is a G_TYPE_OBJECT or derived from it.  type :
 			-- Type id to check for is a G_TYPE_OBJECT relationship.  Returns :
@@ -35,12 +35,12 @@ feature {} -- External calls
 		alias "G_TYPE_IS_OBJECT"
 		end
 
-	g_object (a_pointer: POINTER): POINTER is
+	g_object (a_pointer: POINTER): POINTER
 		external "C macro use <glib-object.h>"
 		alias "G_OBJECT"
 		end
 
-	g_is_object (object: POINTER): INTEGER is
+	g_is_object (object: POINTER): INTEGER
 		external "C macro use <glib-object.h>"
 		alias "G_IS_OBJECT"
 		end
@@ -48,17 +48,17 @@ feature {} -- External calls
 	-- Note: shall we wrap casting macro such as G_OBJECT_CLASS
 	-- (class)? Paolo 2006-07-27
 
-	g_is_object_class (a_class: POINTER): INTEGER is
+	g_is_object_class (a_class: POINTER): INTEGER
 		external "C macro use  <glib-object.h>"
 		alias "G_IS_OBJECT_CLASS"
 		end
 
-	g_object_get_class (an_object: POINTER): POINTER is
+	g_object_get_class (an_object: POINTER): POINTER
 		external "C macro use  <glib-object.h>"
 		alias "G_OBJECT_GET_CLASS"
 		end
 
-	g_object_type (an_object: POINTER): INTEGER is
+	g_object_type (an_object: POINTER): INTEGER
 			-- Return the type id of an object.
 			-- object : 	Object to return the type id for.
 			-- Returns : 	Type id of object.
@@ -66,7 +66,7 @@ feature {} -- External calls
 		alias "G_OBJECT_TYPE"
 		end
 
-	g_object_type_name (an_object: POINTER): POINTER is
+	g_object_type_name (an_object: POINTER): POINTER
 		external "C macro use <glib-object.h>"
 		alias "G_OBJECT_TYPE_NAME"
 		end
@@ -206,14 +206,14 @@ feature {} -- External calls
 
 	g_object_class_install_property (gobjectclass: POINTER;
 												property_id: INTEGER;
-												gparamspec: POINTER) is
+												gparamspec: POINTER)
 			-- Installs a new property. This is usually done in the class
 			-- initializer.  gobjectoclass: a GObjectClass; property_id: the id for
 			-- the new property; pspec: the GParamSpec for the new property
 		external "C use <glib-object.h>"
 		end
 
-	g_object_class_find_property (oclass, property_name: POINTER): POINTER is
+	g_object_class_find_property (oclass, property_name: POINTER): POINTER
 			-- Looks up the GParamSpec for a property of a class.  oclass: a
 			-- GObjectClass property_name: the name of the property to look up
 			-- Returns : the GParamSpec for the property, or NULL if the class
@@ -221,7 +221,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-	g_object_class_list_properties (oclass,n_properties: POINTER): POINTER is
+	g_object_class_list_properties (oclass,n_properties: POINTER): POINTER
 			-- Returns an array of GParamSpec* for all properties of a class.
 			-- oclass: a GObjectClass n_properties: return location for the length
 			-- of the returned array (i.e. a guint *). Returns: an array of
@@ -230,7 +230,7 @@ feature {} -- External calls
 		end
 
 
-	g_object_class_override_property (oclass: POINTER; guint_property_id: INTEGER; gchar_name: STRING) is
+	g_object_class_override_property (oclass: POINTER; guint_property_id: INTEGER; gchar_name: STRING)
 			-- Registers property_id as referring to a property with the name name
 			-- in a parent class or in an interface implemented by oclass. This
 			-- allows this class to override a property implementation in a parent
@@ -309,7 +309,7 @@ feature {} -- External calls
 		
 	-- g_object_new ()
 	
-	g_object_new (gtype_object_type: INTEGER; gchar_first_property_name:POINTER):POINTER is
+	g_object_new (gtype_object_type: INTEGER; gchar_first_property_name:POINTER):POINTER
 			-- Creates a new instance of a GObject subtype and sets its properties.
 		
 			-- Construction parameters (see G_PARAM_CONSTRUCT, G_PARAM_CONSTRUCT_ONLY) which are not explicitly specified are set to their default values.
@@ -321,13 +321,13 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-	g_object_is_floating (object: POINTER): INTEGER is
+	g_object_is_floating (object: POINTER): INTEGER
 		--	Checks wether object has a floating reference
 		external "C use <glib-object.h>"
 		end
 
 	g_object_newv (gtype_object_type: INTEGER; guint_n_parameters: INTEGER;
-						parameters: POINTER): POINTER is
+						parameters: POINTER): POINTER
 			-- Creates a new instance of a GObject subtype and sets its properties.
 
 			-- Construction parameters (see G_PARAM_CONSTRUCT,
@@ -341,43 +341,43 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 		
-	g_object_ref (object: POINTER): POINTER is
+	g_object_ref (object: POINTER): POINTER
 			-- Increases the reference count of object.
 			-- object : 	a GObject
 			-- Returns : 	object
 		external "C use <glib-object.h>"
 		end
 
-	g_object_unref (object: POINTER) is
+	g_object_unref (object: POINTER)
 			-- Decreases the reference count if object. When its reference count drops to 0, the object is finalized (i.e. its memory is freed).
 			-- object : 	a GObject
 		external "C use <glib-object.h>"
 		end
 	
-	g_object_weak_ref (gobject, gweaknotify, data: POINTER) is
+	g_object_weak_ref (gobject, gweaknotify, data: POINTER)
 		external "C use <glib-object.h>"
 		end
 
-	g_object_weak_unref (gobject, gweaknotify, data: POINTER) is
+	g_object_weak_unref (gobject, gweaknotify, data: POINTER)
 		external "C use <glib-object.h>"
 		end
 
-	g_object_add_weak_pointer (gobject, weak_pointer_location: POINTER) is
+	g_object_add_weak_pointer (gobject, weak_pointer_location: POINTER)
 		external "C use <glib-object.h>"
 		end
 
-	g_object_remove_weak_pointer (gobject, weak_pointer_location: POINTER) is
+	g_object_remove_weak_pointer (gobject, weak_pointer_location: POINTER)
 		external "C use <glib-object.h>"
 		end
 
 	-- void (*GToggleNotify) (gpointer data, GObject *object, gboolean
 	-- is_last_ref);
 
-	g_object_add_toggle_ref (gobject, gtogglenotify, data: POINTER) is
+	g_object_add_toggle_ref (gobject, gtogglenotify, data: POINTER)
 		external "C use <glib-object.h>"
 		end
 
-	g_object_remove_toggle_ref  (gobject, gtogglenotify, data: POINTER) is
+	g_object_remove_toggle_ref  (gobject, gtogglenotify, data: POINTER)
 		external "C use <glib-object.h>"
 		end
 
@@ -408,19 +408,19 @@ feature {} -- Low-level properties getters
 	-- void g_object_get (gpointer object, const gchar
 	-- *first_property_name, ...);
 	
-	g_object_get_one_property (object, a_property_name, its_address, null_pointer: POINTER) is
+	g_object_get_one_property (object, a_property_name, its_address, null_pointer: POINTER)
 		require last_pointer_is_null: null_pointer.is_null
 		external "C use <glib-object.h>"
 		alias "g_object_get"
 		end
 
-	g_object_get_two_properties (object, first_property_name, first_address, second_property_name, second_address, null_pointer: POINTER) is
+	g_object_get_two_properties (object, first_property_name, first_address, second_property_name, second_address, null_pointer: POINTER)
 		require last_pointer_is_null: null_pointer.is_null
 		external "C use <glib-object.h>"
 		alias "g_object_get"
 		end
 
-	g_object_get_three_properties (object, first_property_name, first_address,second_property_name, second_address, third_property_name, third_address, null_pointer: POINTER) is
+	g_object_get_three_properties (object, first_property_name, first_address,second_property_name, second_address, third_property_name, third_address, null_pointer: POINTER)
 		require last_pointer_is_null: null_pointer.is_null
 		external "C use <glib-object.h>"
 		alias "g_object_get"
@@ -456,14 +456,14 @@ feature {} -- Low-level properties getters
 	-- ... : 	return location for the first property, followed optionally by more name/return location pairs, followed by NULL
 	-- g_object_notify ()
 
-	g_object_notify (object,property_name: POINTER) is
+	g_object_notify (object,property_name: POINTER)
 			-- Emits a "notify" signal for the property property_name on object.
 			-- object : 	a GObject
 			-- property_name : 	the name of a property installed on the class of object.
 		external "C use <glib-object.h>"
 		end
 	
-	g_object_freeze_notify (object: POINTER) is
+	g_object_freeze_notify (object: POINTER)
 			-- Stops emission of "notify" signals on object. The signals are queued
 			-- until g_object_thaw_notify() is called on object.
 
@@ -473,13 +473,13 @@ feature {} -- Low-level properties getters
 		external "C use <glib-object.h>"
 		end
 
-	g_object_thaw_notify (object: POINTER) is
+	g_object_thaw_notify (object: POINTER)
 			-- Reverts the effect of a previous call to g_object_freeze_notify(). This causes all queued "notify" signals on object to be emitted.
 			-- object : 	a GObject
 		external "C use <glib-object.h>"
 		end
 	
-	g_object_get_data (object,const_gchar_key: POINTER): POINTER is
+	g_object_get_data (object,const_gchar_key: POINTER): POINTER
 			-- Gets a named field from the objects table of associations (see g_object_set_data()).
 			-- object : 	GObject containing the associations
 			-- key : 	name of the key for that association
@@ -487,7 +487,7 @@ feature {} -- Low-level properties getters
 		external "C use <glib-object.h>"
 		end
 	
-	g_object_set_data (object,const_gchar_key, data: POINTER) is
+	g_object_set_data (object,const_gchar_key, data: POINTER)
 			-- Each object carries around a table of associations from strings to pointers. This function lets you set an association.
 		
 			-- If the object already had an association with that name, the old association will be destroyed.
@@ -513,7 +513,7 @@ feature {} -- Low-level properties getters
 		-- end
 	-- g_object_steal_data ()
 	
-	g_object_steal_data (object, const_gchar_key: POINTER): POINTER is
+	g_object_steal_data (object, const_gchar_key: POINTER): POINTER
 			-- Remove a specified datum from the object's data associations, without invoking the association's destroy handler.
 			-- object : 	GObject containing the associations
 			-- key : 	name of the key
@@ -521,7 +521,7 @@ feature {} -- Low-level properties getters
 		external "C use <glib-object.h>"
 		end
 
-	g_object_get_qdata (a_object: POINTER; a_quark: INTEGER_32): POINTER is
+	g_object_get_qdata (a_object: POINTER; a_quark: INTEGER_32): POINTER
 			-- This function gets back user data pointers stored via g_object_set_qdata().
 			-- object : 	The GObject to get a stored user data pointer from
 			-- quark : 	A GQuark, naming the user data pointer
@@ -529,7 +529,7 @@ feature {} -- Low-level properties getters
 		external "C use <glib-object.h>"
 		end
 
-	g_object_set_qdata (an_object: POINTER; a_quark: INTEGER_32; some_data: POINTER) is
+	g_object_set_qdata (an_object: POINTER; a_quark: INTEGER_32; some_data: POINTER)
 			-- This sets an opaque, named pointer on an object. The name
 			-- is specified through a GQuark (retrived e.g. via
 			-- g_quark_from_static_string()), and the pointer can be
@@ -597,7 +597,7 @@ feature {} -- Low-level properties getters
 		-- end
 
 
-	g_object_set_property (object, property_name,value: POINTER) is
+	g_object_set_property (object, property_name,value: POINTER)
 			-- Sets a property on an object.
 			-- object : 	a GObject
 			-- property_name : 	the name of the property to set
@@ -605,49 +605,49 @@ feature {} -- Low-level properties getters
 		external "C use <glib-object.h>"
 		end
 	
-	g_object_set_int_property (object, property_name: POINTER; value: INTEGER) is
+	g_object_set_int_property (object, property_name: POINTER; value: INTEGER)
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
 			alias "g_object_set_property"
 		end
 
-	g_object_set_int32_property (object, property_name: POINTER; value: INTEGER_32) is
+	g_object_set_int32_property (object, property_name: POINTER; value: INTEGER_32)
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
 			alias "g_object_set_property"
 		end
 
-	g_object_set_int16_property (object, property_name: POINTER; value: INTEGER_16) is
+	g_object_set_int16_property (object, property_name: POINTER; value: INTEGER_16)
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
 			alias "g_object_set_property"
 		end
 
-	g_object_set_int64_property (object, property_name: POINTER; value: INTEGER_64) is
+	g_object_set_int64_property (object, property_name: POINTER; value: INTEGER_64)
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
 			alias "g_object_set_property"
 		end
 
-	g_object_set_double_property (object, property_name: POINTER; value: REAL) is
+	g_object_set_double_property (object, property_name: POINTER; value: REAL)
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
 			alias "g_object_set_property"
 		end
 
-	g_object_set_float_property (object, property_name: POINTER; value: REAL_32) is
+	g_object_set_float_property (object, property_name: POINTER; value: REAL_32)
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
 		alias "g_object_set_property"
 		end
 			
-	g_object_set_real64_property (object, property_name: POINTER; value: REAL_64) is
+	g_object_set_real64_property (object, property_name: POINTER; value: REAL_64)
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
 			alias "g_object_set_property"
 		end
 	
-	g_object_get_property (object,property_name,value: POINTER) is
+	g_object_get_property (object,property_name,value: POINTER)
 			-- Gets a property of an object.
 
 			-- In general, a copy is made of the property contents and the caller
@@ -785,18 +785,18 @@ feature {} -- GObjectClass structure
 	-- void (*notify) (GObject	*object, GParamSpec	*pspec);
 	-- } GObjectClass;
 
-	g_object_class_get_set_property (a_class: POINTER): POINTER is
+	g_object_class_get_set_property (a_class: POINTER): POINTER
 		external "C struct GObjectClass get set_property use <glib-object.h>"
 		end
 
 feature {} -- Invoking virtual calls defined in GObjectClass
 
-	invoke_set_property (g_object_class, handle: POINTER; param_id: INTEGER; a_value, pspec: POINTER) is
+	invoke_set_property (g_object_class, handle: POINTER; param_id: INTEGER; a_value, pspec: POINTER)
 		external "C inline"
 		alias "(/* G_OBJECT.invoke_set_property*/(G_OBJECT_CLASS($g_object_class))->set_property($handle,$param_id, $a_value, $pspec))"
 		end
 
-	invoke_get_property (g_object_class, handle: POINTER; param_id: INTEGER; a_value, pspec: POINTER) is
+	invoke_get_property (g_object_class, handle: POINTER; param_id: INTEGER; a_value, pspec: POINTER)
 		external "C inline"
 		alias "(/* G_OBJECT.invoke_get_property*/(G_OBJECT_CLASS($g_object_class))->get_property($handle,$param_id, $a_value, $pspec))"
 		end
