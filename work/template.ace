@@ -1,7 +1,8 @@
 -- This file is a template for building an ACE file for your own project.
 -- Copy this file into your working directory (the directory used to
--- run the SmartEiffel compiler) and edit it.
+-- run the Liberty Eiffel compiler) and edit it.
 system
+
    "SYSTEM_NAME"
       -- Replace SYSTEM_NAME with the name of the executable file
       -- to be generated for your system. (This is the equivalent of
@@ -23,7 +24,7 @@ default -- section of the system
    assertion_flat_check (no);
       -- In flat mode each assertion will be executed in no_check mode.
       -- This means that while checking assertion, no other assertion will
-      -- be checked. This mode has only sense in assertion modes from
+      -- be checked. This mode only makes sense in assertion modes from
       -- require to debug.
 
    debug (no);
@@ -56,7 +57,7 @@ default -- section of the system
    manifest_string_trace (yes);
        -- The equivalent of the -manifest_string_trace flag.
 
-   high_memory_compiler (no);	
+   high_memory_compiler (no);
        -- The equivalent of the -high_memory_compiler flag.
 
    profile (yes);
@@ -91,7 +92,7 @@ cluster -- section
          -- ...
       end -- of one cluster
 
-   -- Pull in SmartEiffel's standard library. Always put this last so 
+   -- Pull in Liberty Eiffel's standard library. Always put this last so
    -- that you can override options for parts of the library.
 
    standard: "${path_lib}/loadpath.se"
@@ -139,19 +140,19 @@ external -- section for elements written in another language
 
 generate -- section
 
-   no_strip(no);
+   no_strip (no);
      -- Yes would mean that you don't want to run "strip" on the generated
      -- executable. This is the equivalent of the -no_strip flag of the
      -- traditional command line mode. (I.e. to use a C level debugger on your
      -- system, you should choose yes here).
 
-   no_split(no);
+   no_split (no);
      -- Yes would mean that you want one big single C file for the complete
      -- system, pinstead of the many small C files produced by default ("no").
      -- This may be useful for delivery of the most efficient version. (Some
      -- C compilers including gcc can then do better inlining.)
 
-   clean(no);
+   clean (no);
      -- Yes would mean that you want to remove all generated C files, all
      -- generated object files as well as other temporary files generated
      -- during the compilation process. (See also command clean.)
@@ -188,18 +189,6 @@ generate -- section
 --    Inside manifest strings, you are allowed to use system
 --    environment variables using the same notation as in the traditional
 --    "loadpath.se" files. Actually, this notation is inspired by the
---    traditional UNIX bracketed notation as for example: ${FOO} or ${Bar}
---    or ${SmartEiffel}.
---
--- Additional information about the ${SmartEiffelDirectory} variable:
---    If not explicitely set by the user, the ${SmartEiffelDirectory} variable
---    is automatically computed using the value of the ${SmartEiffel} variable.
---    (Keep in mind that the ${SmartEiffel} variable is mandatory for using
---    SmartEiffel.)  The computed value indicates the SmartEiffel main
---    directory. For example, if the value of ${SmartEiffel} is
---    "/usr/local/lib/SmartEiffel/sys/system.se"
---    the computed value is "/usr/local/lib/SmartEiffel/". This automatically
---    defined variable ${SmartEiffelDirectory} is useful for indicating the
---    location of the SmartEiffel standard library.
---
+--    traditional UNIX bracketed notation as for example: ${FOO} or ${Bar}.
+
 end
