@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_AND
    --
-   --   Infix operator : "and".
+   -- Infix operator : "and".
    --
 
 inherit

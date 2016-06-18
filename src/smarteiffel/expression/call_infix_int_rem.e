@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_INT_REM
    --
-   --   Infix operator : "\\".
+   -- Infix operator : "\\".
    --
 
 inherit

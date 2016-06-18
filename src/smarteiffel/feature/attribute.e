@@ -4,7 +4,7 @@
 deferred class ATTRIBUTE
    --
    -- For all sorts of attributes : constants (CST_ATT), unique
-   --   (CST_ATT_UNIQUE) and instance variables (WRITABLE_ATTRIBUTE).
+   -- (CST_ATT_UNIQUE) and instance variables (WRITABLE_ATTRIBUTE).
    --
 
 inherit

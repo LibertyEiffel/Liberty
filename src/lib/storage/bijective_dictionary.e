@@ -5,8 +5,8 @@ deferred class BIJECTIVE_DICTIONARY[V_, K_]
    --
    -- Bijective associative memory. As for ordinary DICTIONARY, Values of type `V_' are stored using Keys
    -- of type `K_', but, in a BIJECTIVE_DICTIONARY, given one value of type `V_', you can retrieve the unique
-   --   corresponding key of type `K_'. In other words, with a BIJECTIVE_DICTIONARY, one key of type `K_' gives
-   --   you access to one value of type `V_' which can be used to retrieve back the same unique original key.
+   -- corresponding key of type `K_'. In other words, with a BIJECTIVE_DICTIONARY, one key of type `K_' gives
+   -- you access to one value of type `V_' which can be used to retrieve back the same unique original key.
    --
    -- At time being, the only one available implementation is the HASHED_BIJECTIVE_DICTIONARY class.
    --

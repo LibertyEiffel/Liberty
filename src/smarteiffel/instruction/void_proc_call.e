@@ -21,7 +21,7 @@ feature {ANY}
          -- Of the Void call.
 
    target_type: TYPE
-         --  Of the Void call (the one to be used with `feature_stamp').
+         -- Of the Void call (the one to be used with `feature_stamp').
 
    use_current (type: TYPE): BOOLEAN
       do

@@ -222,7 +222,7 @@ feature {ANY}
 
 feature {ANY} -- Creating or initializing:
    from_collection3 (model: COLLECTION3[like item])
-         --  Uses `model' to initialize Current.
+         -- Uses `model' to initialize Current.
       require
          model /= Void
       deferred
@@ -428,7 +428,7 @@ feature {ANY} -- Miscellaneous features:
       end
 
    fast_has (x: like item): BOOLEAN
-         --  Search if a element x is in the array using `='.
+         -- Search if a element x is in the array using `='.
       deferred
       end
 

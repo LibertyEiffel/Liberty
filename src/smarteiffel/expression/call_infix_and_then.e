@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_AND_THEN
    --
-   --   Infix operator : "and then".
+   -- Infix operator : "and then".
    --
 
 inherit

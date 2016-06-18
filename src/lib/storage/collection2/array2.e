@@ -99,9 +99,9 @@ feature {ANY} -- Creation / modification:
       end
 
    from_collection (contents: COLLECTION[E_]; line_min, line_max, column_min, column_max: INTEGER)
-         --  Reset all bounds using `line_min', `line_max', `column_min',
-         --  and `column_max' .
-         --  Copy all elements of `contents', line by line into Current.
+         -- Reset all bounds using `line_min', `line_max', `column_min',
+         -- and `column_max' .
+         -- Copy all elements of `contents', line by line into Current.
       require
          line_min <= line_max + 1
          column_min <= column_max + 1
@@ -281,7 +281,7 @@ feature {ANY} -- Implementation of others feature from COLLECTION2:
          Result.upper2 = column_max
       end
 
-feature {ANY} --  Looking and comparison:
+feature {ANY} -- Looking and comparison:
    occurrences (elt: E_): INTEGER
       do
          Result := storage.occurrences(elt, count - 1)
@@ -302,7 +302,7 @@ feature {ANY} --  Looking and comparison:
       end
 
    fast_has (x: like item): BOOLEAN
-         --  Search if a element x is in the array using `='.
+         -- Search if a element x is in the array using `='.
       do
          if count > 0 then
             Result := storage.fast_first_index_of(x, count - 1) <= count - 1

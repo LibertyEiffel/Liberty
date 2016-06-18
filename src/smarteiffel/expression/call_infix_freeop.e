@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_FREEOP
    --
-   --   Infix free operator : "@...", "#...", "|...", "&..."
+   -- Infix free operator : "@...", "#...", "|...", "&..."
    --
 
 inherit

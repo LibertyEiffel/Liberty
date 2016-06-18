@@ -82,8 +82,8 @@ feature {ANY}
       end
 
    from_collection (contents: COLLECTION[E_]; new_count1, new_count2: INTEGER)
-         --  Reset all bounds using `new_count#i'.
-         --  Copy all elements of `contents', line by line into Current.
+         -- Reset all bounds using `new_count#i'.
+         -- Copy all elements of `contents', line by line into Current.
       require
          new_count1 >= 0
          new_count2 >= 0
@@ -199,7 +199,7 @@ feature {ANY} -- Implementation of others feature from COLLECTION2:
 
 feature {ANY} -- Writing:
    set_all_with (x: E_)
-         --  All element are set with the value x.
+         -- All element are set with the value x.
       do
          storage.set_all_with(x, count - 1)
       end

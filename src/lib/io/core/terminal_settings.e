@@ -6,8 +6,7 @@ class TERMINAL_SETTINGS
    -- Terminal settings for serial communication lines.
    -- see termios.h in POSIX
 
-   -- todo:
-   --  make objects recyclable?
+   --| **** TODO: make objects recyclable?
 insert
    DISPOSABLE
 

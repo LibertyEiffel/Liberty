@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_IMPLIES
    --
-   --   Infix operator : "implies".
+   -- Infix operator : "implies".
    --
 
 inherit

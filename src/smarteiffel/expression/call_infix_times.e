@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_TIMES
    --
-   --   Infix operator : "*".
+   -- Infix operator : "*".
    --
 
 inherit

@@ -15,7 +15,7 @@ feature {}
          -- The one to be traversed.
 
    current_link: LINKED_LIST_NODE[E_]
-         --  Memorize the current position.
+         -- Memorize the current position.
 
 feature {ANY}
    make (ll: LINKED_LIST[E_])

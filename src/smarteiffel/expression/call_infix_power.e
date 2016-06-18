@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_POWER
    --
-   --   Infix operator : "^".
+   -- Infix operator : "^".
    --
 
 inherit

@@ -205,10 +205,10 @@ feature {}
       end
 
    put_c_field_name (rf2: RUN_FEATURE_2)
-         --  Emit using `cpp' the corresponding field name with an extra C comment which
-         --  include the offset of the corresponding C field. This extra C comment
-         --  mandatory to force C recompilation, because the field may move from one
-         --  compilation to another.
+         -- Emit using `cpp' the corresponding field name with an extra C comment which
+         -- include the offset of the corresponding C field. This extra C comment
+         -- mandatory to force C recompilation, because the field may move from one
+         -- compilation to another.
       require
          cpp.pending_c_function
       do

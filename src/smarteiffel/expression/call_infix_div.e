@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_DIV
    --
-   --   Infix operator : "/".
+   -- Infix operator : "/".
    --
 
 inherit

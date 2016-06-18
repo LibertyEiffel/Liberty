@@ -239,8 +239,8 @@ feature {ANY} -- Access
       end
 
    exists: BOOLEAN
-         --      local
-         --         i: FILE_INFORMATION
+      --      local
+      --         i: FILE_INFORMATION
       do
          crash
          --         i.update (to_string)
@@ -249,8 +249,8 @@ feature {ANY} -- Access
       end
 
    same_file (other: like Current): BOOLEAN
-         --      local
-         --         i, j: FILE_INFORMATION
+      --      local
+      --         i, j: FILE_INFORMATION
       do
          crash
          --         i.update (to_string)

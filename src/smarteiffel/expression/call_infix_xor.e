@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_XOR
    --
-   --   Infix operator : "xor".
+   -- Infix operator : "xor".
    --
 
 inherit

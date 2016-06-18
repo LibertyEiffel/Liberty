@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_GE
    --
-   --   Infix operator : ">=".
+   -- Infix operator : ">=".
    --
 
 inherit

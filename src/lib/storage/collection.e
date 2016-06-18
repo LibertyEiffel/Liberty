@@ -456,7 +456,7 @@ feature {ANY} -- Other features:
 
    move (lower_index, upper_index, distance: INTEGER)
          -- Move range `lower_index' .. `upper_index' by `distance' positions.
-         --   Negative distance moves towards lower indices.
+         -- Negative distance moves towards lower indices.
          -- Free places get default values.
          --
          -- See also `slice', `replace_all'.

@@ -15,7 +15,7 @@ feature {}
          -- The one to be traversed.
 
    item_link: TWO_WAY_LINKED_LIST_NODE[E_]
-         --  Memorize the current position.
+         -- Memorize the current position.
 
 feature {ANY}
    make (twll: TWO_WAY_LINKED_LIST[E_])

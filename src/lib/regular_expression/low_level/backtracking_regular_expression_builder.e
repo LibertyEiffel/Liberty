@@ -240,7 +240,7 @@ feature {} -- build
 
    emit (item: BACKTRACKING_NODE)
          -- Pushes 'item' on the stack.
-         -- [..] -> [.., item]
+         --  [..] -> [.., item]
       require
          item_not_void: item /= Void
       do
@@ -252,7 +252,7 @@ feature {} -- build
 
    unemit: BACKTRACKING_NODE
          -- Pops the Result from the stack.
-         -- [... Result] -> [...]
+         --  [... Result] -> [...]
       require
          stack_not_empty: stack.count > 0
       do
@@ -307,7 +307,7 @@ feature {} -- build
    emit_group
          -- Push the "end of group" item and update the
          -- group indicators
-         -- [.. X] -> [.., end_group(i)]
+         --  [.. X] -> [.., end_group(i)]
       require
          group_greater_than_zero: last_group_count > 0
          group_stack_not_empty: not group_stack.is_empty
@@ -332,7 +332,7 @@ feature {} -- build
    emit_begin_group
          -- Push the "begin of group" item and update the
          -- group indicators
-         -- [..] -> [.., begin_group(i)]
+         --  [..] -> [.., begin_group(i)]
       obsolete "Use `declare_group'/`emit_group' instead (February 2006)."
       do
          last_group_count := last_group_count + 1
@@ -350,7 +350,7 @@ feature {} -- build
    emit_end_group
          -- Push the "end of group" item and update the
          -- group indicators
-         -- [..] -> [.., end_group(i)]
+         --  [..] -> [.., end_group(i)]
       obsolete "Use `declare_group'/`emit_group' instead (February 2006)."
       require
          group_greater_than_zero: last_group_count > 0
@@ -367,7 +367,7 @@ feature {} -- build
 
    emit_match_previous_group (group: INTEGER)
          -- Push the item that matches the character 'char'
-         -- [..] -> [.., previous_group(group)]
+         --  [..] -> [.., previous_group(group)]
       require
          valid_group: 0 < group and group <= last_group_count
          closed_group: not group_stack.has(group)
@@ -384,7 +384,7 @@ feature {} -- build
 
    emit_match_single (char: CHARACTER)
          -- Push the item that matches the character 'char'
-         -- [..] -> [.., char]
+         --  [..] -> [.., char]
       do
          if is_case_sensitive then
             emit(create {REGULAR_EXPRESSION_ITEM_SINGLE}.make(char))
@@ -398,7 +398,7 @@ feature {} -- build
 
    emit_match_range (lower, upper: CHARACTER)
          -- Push the item that matches the character range 'lower'..'upper'.
-         -- [..] -> [.., lower..upper]
+         --  [..] -> [.., lower..upper]
       require
          valid_range: lower <= upper
       local
@@ -454,7 +454,7 @@ feature {} -- build
 
    emit_match_text (text: STRING)
          -- Push the item that matches the 'text'
-         -- [..] -> [.., text]
+         --  [..] -> [.., text]
       do
          if is_looking_behind then
             text.reverse
@@ -475,7 +475,7 @@ feature {} -- build
          -- 'end_collect_or' or 'end_collect_and' have to be called.
          -- That kind of group is intended to manage the collections
          -- of alternatives or sequences in an optimal way.
-         -- [..] -> [.., Void]
+         --  [..] -> [.., Void]
       do
          stack.add_last(Void)
       ensure
@@ -496,7 +496,7 @@ feature {} -- build
 
    end_collect_true
          -- Replace an empty collection by TRUE
-         -- [.., Void] -> [.., TRUE]
+         --  [.., Void] -> [.., TRUE]
       require
          is_collecting: stack.fast_occurrences(Void) > 0
          collect_empty: is_collect_empty
@@ -510,10 +510,10 @@ feature {} -- build
          -- The collection must not be empty.
          -- The order of evaluation will remain.
          -- The binary or's tree is recursive on right for efficiency.
-         -- [.., Void, X] -> [.., X]
-         -- [.., Void, Y, X] -> [.., Y or X]
-         -- [.., Void, Z, Y, X] -> [.., Z or (Y or X)]
-         -- ...
+         --  [.., Void, X] -> [.., X]
+         --  [.., Void, Y, X] -> [.., Y or X]
+         --  [.., Void, Z, Y, X] -> [.., Z or (Y or X)]
+         --  ...
       require
          is_collecting: stack.fast_occurrences(Void) > 0
          collect_not_empty: not is_collect_empty
@@ -561,10 +561,10 @@ feature {} -- build
          -- The collection must not be empty.
          -- The order of evaluation will remain.
          -- The binary and's tree is recursive on right for efficiency.
-         -- [.., Void, X] -> [.., X]
-         -- [.., Void, Y, X] -> [.., Y and X]
-         -- [.., Void, Z, Y, X] -> [.., Z and (Y and X)]
-         -- ...
+         --  [.., Void, X] -> [.., X]
+         --  [.., Void, Y, X] -> [.., Y and X]
+         --  [.., Void, Z, Y, X] -> [.., Z and (Y and X)]
+         --  ...
       require
          is_collecting: stack.fast_occurrences(Void) > 0
          collect_not_empty: not is_collect_empty
@@ -595,7 +595,7 @@ feature {} -- build
 
    emit_not
          -- Replaces the top of the stack by its negation.
-         -- [.., X] -> [.., not(X)]
+         --  [.., X] -> [.., not(X)]
          -- (where not(X) is like (X and (CUT and FALSE)) or TRUE)
       require
          enough_data: stack.count > 0
@@ -612,7 +612,7 @@ feature {} -- build
 
    emit_not_then_any
          -- Replaces the top of the stack by its negation followed by any.
-         -- [.., X] -> [.., not(X)]
+         --  [.., X] -> [.., not(X)]
          -- (where not(X) is like (X and (CUT and FALSE)) or ANY)
       require
          enough_data: stack.count > 0
@@ -629,7 +629,7 @@ feature {} -- build
 
    emit_true_or
          -- Replaces the top of the stack by true or it
-         -- [.., X] -> [.., true or X]
+         --  [.., X] -> [.., true or X]
       require
          enough_data: stack.count > 0
       local
@@ -645,7 +645,7 @@ feature {} -- build
 
    emit_or_true
          -- Replaces the top of the stack by it or true
-         -- [.., X] -> [.., X or true]
+         --  [.., X] -> [.., X or true]
       require
          enough_data: stack.count > 0
       local
@@ -661,8 +661,8 @@ feature {} -- build
 
    emit_controled_or_true
          -- Replaces the top of the stack by
-         -- if is_greedy then [.., X] -> [.., X or true]
-         --              else [.., X] -> [.., true or X]
+         --  if is_greedy then [.., X] -> [.., X or true]
+         --               else [.., X] -> [.., true or X]
       local
          x: BACKTRACKING_NODE
       do
@@ -673,8 +673,8 @@ feature {} -- build
    controled_or_true_item (x: BACKTRACKING_NODE): BACKTRACKING_NODE
          -- Returns an item for " 'x' or true ". The returned item depend on
          -- the flag 'is_greedy'.
-         -- if is_greedy then Result = (X or true)
-         --              else Result = (true or X)
+         --  if is_greedy then Result = (X or true)
+         --               else Result = (true or X)
       do
          if is_greedy then
             Result := create {BACKTRACKING_NODE_OR_TRUE}.make(x)

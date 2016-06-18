@@ -607,7 +607,7 @@ feature {ANY} -- Other:
 
    deep_twin_from (capacity: INTEGER): like Current
          -- To implement `deep_twin'. Allocate a new array of `capacity' initialized  with `deep_twin'.
-         --   Assume `capacity' is valid both in `Current' and `model'.
+         -- Assume `capacity' is valid both in `Current' and `model'.
       require
          capacity >= 0
       local

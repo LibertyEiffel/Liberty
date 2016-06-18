@@ -15,7 +15,7 @@ feature {}
          -- The one to be traversed.
 
    item_index: INTEGER
-         --  Memorize the current position.
+         -- Memorize the current position.
 
 feature {ANY}
    make (d: like bijective_dictionary)

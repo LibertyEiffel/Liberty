@@ -4,7 +4,7 @@
 class OLD_MANIFEST_ARRAY
    --
    -- The old (now obsolete) manifest array notation:
-   --                                                    << foo, bar >>
+   --    << foo, bar >>
    --
    -- is still accepted when the type of elements can be computed with no ambiguity.
    -- Expression OLD_MANIFEST_ARRAY are internally replaced with  the canonical corresponding

@@ -474,7 +474,7 @@ feature {}
 invariant
    not start_position.is_unknown
 
-end --  FAKE_TUPLE
+end -- FAKE_TUPLE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

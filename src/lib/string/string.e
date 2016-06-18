@@ -97,8 +97,8 @@ feature {ANY} -- Modification:
 
    clear_count, wipe_out
          -- Discard all characters so that `is_empty' is True after that call.
-         --     The internal `capacity' is not changed by this call (i.e. the internal `storage' memory
-         --     neither released nor shrunk).
+         -- The internal `capacity' is not changed by this call (i.e. the internal `storage' memory
+         -- neither released nor shrunk).
          --
          -- See also `clear_count_and_capacity'.
       do

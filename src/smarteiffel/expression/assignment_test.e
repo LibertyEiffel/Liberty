@@ -3,8 +3,10 @@
 --
 class ASSIGNMENT_TEST
    --
-   -- Both for expressions like:   foo  ?:= bar
-   --                  or:   {FOO} ?:= bar
+   -- Both for expressions like:
+   --    foo  ?:= bar
+   -- or:
+   --    {FOO} ?:= bar
    --
 
 inherit

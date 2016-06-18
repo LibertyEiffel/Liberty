@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_OR_ELSE
    --
-   --   Infix operator : "or else".
+   -- Infix operator : "or else".
    --
 
 inherit

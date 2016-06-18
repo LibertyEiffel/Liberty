@@ -3,7 +3,7 @@
 --
 class CALL_PREFIX_NOT
    --
-   --   Prefix operator : "not".
+   -- Prefix operator : "not".
    --
 
 inherit

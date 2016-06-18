@@ -30,8 +30,8 @@ create {ANY}
 
 feature {ANY}
    connect_to (new_path: ABSTRACT_STRING)
-         --  Open text file for reading. The stream is positioned at the
-         --  beginning of the file.
+         -- Open text file for reading. The stream is positioned at the
+         -- beginning of the file.
       local
          p: POINTER
       do

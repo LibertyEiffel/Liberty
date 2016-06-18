@@ -18,7 +18,7 @@ feature {}
          -- Has `right' been iterated onto?
 
    iter: ITERATOR[CHARACTER]
-         --  Current position on `piece'.
+         -- Current position on `piece'.
 
 feature {ANY}
    make (r: like root)

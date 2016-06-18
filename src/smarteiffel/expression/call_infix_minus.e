@@ -3,7 +3,7 @@
 --
 class CALL_INFIX_MINUS
    --
-   --   Infix operator : "-".
+   -- Infix operator : "-".
    --
 
 inherit
