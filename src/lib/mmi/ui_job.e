@@ -19,7 +19,7 @@ feature {}
          if a_on_new_job /= Void then
             on_new_job := a_on_new_job
          else
-            on_new_job := agent (job: JOB) is do log.trace.put_line("job lost!") end
+            on_new_job := agent (job: JOB) do log.trace.put_line("job lost!") end
          end
          dummy := a_application.connect_to(Current)
          restart

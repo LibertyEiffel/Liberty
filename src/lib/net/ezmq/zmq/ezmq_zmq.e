@@ -229,14 +229,14 @@ feature {} -- Context
          Result := context_ref.item
       end
 
-   start_context is
+   start_context
       require
          context.is_null
       do
          context_ref.item := zmq_ctx_new
       end
 
-   term_context is
+   term_context
       require
          context.is_not_null
       do

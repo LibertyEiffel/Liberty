@@ -27,7 +27,7 @@ feature {ANY}
 
    click
       do
-         actions.for_each(agent (action: PROCEDURE[TUPLE[UI_BUTTON]]) is do action.call([Current]) end)
+         actions.for_each(agent (action: PROCEDURE[TUPLE[UI_BUTTON]]) do action.call([Current]) end)
       end
 
 feature {}
