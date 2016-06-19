@@ -8,14 +8,35 @@ case `uname -s` in
 	flavor=generic
 	OS=Cygwin
 	EXE_SUFFIX=".exe"
+	CC_TYPE=${CC_TYPE:-gcc}
+	CC=${CC:-$CC_TYPE}
+	CFLAGS="-fno-gcse -pipe"
+	CXX_TYPE=${CXX_TYPE:-g++}
+	CXX=${CXX:-${CXX_TYPE}}
+	CXXFLAGS="-fno-gcse -pipe"
+	LDFLAGS="-Xlinker --no-as-needed"
 	;;
     Linux)
 	flavor=Linux
 	jobs=$((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
+	CC_TYPE=${CC_TYPE:-gcc}
+	CC=${CC:-$CC_TYPE}
+	CFLAGS="-fno-gcse -pipe"
+	CXX_TYPE=${CXX_TYPE:-g++}
+	CXX=${CXX:-${CXX_TYPE}}
+	CXXFLAGS="-fno-gcse -pipe"
+	LDFLAGS="-Xlinker --no-as-needed"
 	;;
     Darwin)
 	flavor=Darwin
-	jobs=$((1 + $(sysctl -n machdep.cpu.core_count)))
+	jobs=$((1 + $(sysctl -n hw.physicalcpu)))
+	CC_TYPE=${CC_TYPE:-gcc}
+	CC=${CC:-$CC_TYPE}
+	CFLAGS="-pipe"
+	CXX_TYPE=${CXX_TYPE:-g++}
+	CXX=${CXX:-${CXX_TYPE}}
+	CXXFLAGS="-pipe"
+	LDFLAGS=""
 	;;
     *)
 	flavor=uknown
