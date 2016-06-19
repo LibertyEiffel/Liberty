@@ -315,12 +315,14 @@ EOF
 
     if [ ! -d $TARGET/bin/compile_to_c.d ]; then
         test -d $TARGET/bin/compile_to_c.d || mkdir $TARGET/bin/compile_to_c.d
-        grep -v '^#' compile_to_c.make |
-            while read cmd; do
-                progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
-                run $cmd || exit 1
-                test -e a.exe && mv a.exe a.out
-            done
+       for src in compile_to_c{135..1}.c ; do
+           germ_copts="-O2 -c -x c"
+           cmd="${CC} ${CFLAGS} ${germ_copts} ${src}"
+            progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
+            run $cmd || exit 1
+        done
+       ${CC} ${LDFLAGS} *.o
+        test -e a.exe && mv a.exe a.out
         cp -a * $TARGET/bin/compile_to_c.d/
     fi
     cd $TARGET/bin/compile_to_c.d
