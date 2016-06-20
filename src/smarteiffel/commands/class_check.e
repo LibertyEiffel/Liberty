@@ -20,6 +20,7 @@ feature {ANY}
 
    command_line_help_summary: STRING "[
       Usage: class_check [options] <ClassName>
+         or: class_check [options] <ACEfileName>.ace <ClassName>
 
       Check the syntax and semantics of a class file.
 
