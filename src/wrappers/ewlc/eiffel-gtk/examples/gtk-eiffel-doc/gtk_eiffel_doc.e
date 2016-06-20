@@ -286,7 +286,7 @@ feature {ANY} -- External tool
 		do
 			-- This is called by smart_eiffel.ace from a loop similar to the one in parse_arguments
 			Result := is_version_flag(arg)
-				or else is_no_style_warning_flag(arg)
+				or else is_style_warning_flag(arg)
 				or else is_no_warning_flag(arg)
 				or else is_verbose_flag(arg)
 		end

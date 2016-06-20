@@ -28,9 +28,9 @@ default -- section of the system
 		 -- to be included in your system; no is the equivalent of the -no_gc
 		 -- flag in traditional command line mode.
 
-	no_style_warning (no);
-		 -- My humble opinion is that you should always write no here.
-		 -- Yes is the equivalent of the -no_style_warning flag in traditional
+	style_warning (yes);
+		 -- My humble opinion is that you should always write yes here.
+		 -- Yes is the equivalent of the -style_warning flag in traditional
 		 -- command line mode.
 
 	no_warning (yes);

@@ -12,7 +12,7 @@ default -- section of the system
 	debug (no);
 	trace (no);
 	collect (yes);
-	no_style_warning (no);
+	style_warning (yes);
 	no_warning (no);
 	verbose (no);
 	manifest_string_trace (no);
