@@ -11,7 +11,7 @@ deferred class RANDOM_NUMBER_GENERATOR
    
 feature {ANY}
    make
-         -- Create (or reset) the random number generator with an automatic hazardous setting of the 
+         -- Create (or reset) the random number generator with an automatic randomised setting of the 
          -- `seed_value' based on the CPU clock.
          --
          -- See also `with_seed'.
@@ -20,8 +20,7 @@ feature {ANY}
 
    with_seed (seed_value: INTEGER)
          -- Create (or reset) the random number generator with an explicit `seed_value'.
-         -- By using and explicit `seed_value', one can replay more than once the very same hazardous 
-         -- sequence.
+         -- By using an explicit `seed_value', one can replay the very same random sequense more than once
          --
          -- See also `make'.
       deferred
