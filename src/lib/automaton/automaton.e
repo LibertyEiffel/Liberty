@@ -94,7 +94,7 @@ feature {}
          transition.call([e, from_state, no_state])
       end
 
-feature {STATE} --|* TODO: should be STATE[E_] (when Liberty can bootstrap)
+feature {STATE[E_]} --|* TODO: should be STATE[E_] (when Liberty can bootstrap)
    call_before_guards (e: E_; state: STATE[E_])
       do
          before_guards.call([e, state])
