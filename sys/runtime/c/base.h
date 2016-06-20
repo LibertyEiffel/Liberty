@@ -169,6 +169,8 @@ typedef __uint32_t uint32_t;
 typedef __uint64_t uint64_t;
 #  endif
 
+#else
+
 #  include <inttypes.h>
 #  if !defined(INT8_MAX) && defined(INT16_MAX)
 /* int8_t is not mandatory */
