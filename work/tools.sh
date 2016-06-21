@@ -8,14 +8,17 @@ case `uname -s` in
 	flavor=generic
 	OS=Cygwin
 	EXE_SUFFIX=".exe"
+        germ_copts="-O2 -c -x c"
 	;;
     Linux)
 	flavor=Linux
 	jobs=$((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
+        germ_copts="-O2 -c -x c"
 	;;
     Darwin)
 	flavor=Darwin
 	jobs=$((1 + $(sysctl -n machdep.cpu.core_count)))
+        germ_copts="-O2 -c -x c"
 	;;
     *)
 	flavor=uknown
