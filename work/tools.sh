@@ -15,6 +15,8 @@ case `uname -s` in
 	CXX=${CXX:-${CXX_TYPE}}
 	CXXFLAGS="-fno-gcse -pipe"
 	LDFLAGS="-Xlinker --no-as-needed"
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
 	;;
     Linux)
 	flavor=Linux
@@ -26,6 +28,8 @@ case `uname -s` in
 	CXX=${CXX:-${CXX_TYPE}}
 	CXXFLAGS="-fno-gcse -pipe"
 	LDFLAGS="-Xlinker --no-as-needed"
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
 	;;
     Darwin)
 	flavor=Darwin
@@ -37,10 +41,14 @@ case `uname -s` in
 	CXX=${CXX:-${CXX_TYPE}}
 	CXXFLAGS="-pipe"
 	LDFLAGS=""
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
 	;;
     *)
 	flavor=uknown
 	jobs=1
+	germ_cc=${CC:-cc}
+	germ_cflags="-O2 -c"
 	;;
 esac
 

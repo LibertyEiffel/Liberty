@@ -320,8 +320,7 @@ EOF
     if [ ! -d $TARGET/bin/compile_to_c.d ]; then
         test -d $TARGET/bin/compile_to_c.d || mkdir $TARGET/bin/compile_to_c.d
        for src in compile_to_c{135..1}.c ; do
-           germ_copts="-O2 -c -x c"
-           cmd="${CC} ${CFLAGS} ${germ_copts} ${src}"
+           cmd="${germ_cc} ${germ_cflags} ${src}"
             progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
             run $cmd || exit 1
         done
