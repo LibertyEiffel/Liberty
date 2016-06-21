@@ -55,7 +55,7 @@ Pattern:
 
 class ITEM
 feature {ANY}
-   accept (v: VISITOR) is do visitor.call([v, Current]) end
+   accept (v: VISITOR) do visitor.call([v, Current]) end
 feature {}
    visitor: PROCEDURE[TUPLE[VISITOR, ITEM]]
 ...
@@ -63,11 +63,11 @@ end
 
 class FACTORY
 feature {ANY}
-   new_item_1: SOMETHING is
+   new_item_1: SOMETHING
       do
          create Result.make(agent {VISITOR}.visit_1)
       end
-   new_item_2: SOMETHING is
+   new_item_2: SOMETHING
       do
          create Result.make(agent {VISITOR}.visit_2)
       end
@@ -126,7 +126,7 @@ Pattern:
 
 deferred class ITEM
 feature {ANY}
-   accept (v: VISITOR) is deferred end
+   accept (v: VISITOR) deferred end
 end
 
 class TYPED_ITEM[E_]
@@ -134,7 +134,7 @@ inherit
    ITEM
 feature {ANY}
    item: E_
-   accept (v: VISITOR) is do visitor.call([v, Current]) end
+   accept (v: VISITOR) do visitor.call([v, Current]) end
 feature {}
    visitor: PROCEDURE[TUPLE[VISITOR, E_]]
 ...
@@ -142,11 +142,11 @@ end
 
 class FACTORY
 feature {ANY}
-   new_item_a (a: A): ITEM is
+   new_item_a (a: A): ITEM 
       do
          create {TYPED_ITEM[A]} Result.make(a, agent {VISITOR}.visit_a)
       end
-   new_item_b (b: B): ITEM is
+   new_item_b (b: B): ITEM 
       do
          create {TYPED_ITEM[B]} Result.make(b, agent {VISITOR}.visit_b)
       end
@@ -155,8 +155,8 @@ end
 
 deferred class VISITOR
 feature {ANY}
-   visit_a (i: TYPED_ITEM[A]) is deferred end
-   visit_b (i: TYPED_ITEM[B]) is deferred end
+   visit_a (i: TYPED_ITEM[A]) deferred end
+   visit_b (i: TYPED_ITEM[B]) deferred end
 ...
 end
 
@@ -193,7 +193,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          -- The program starts here...
       end
