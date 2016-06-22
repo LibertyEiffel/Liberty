@@ -21,7 +21,7 @@ feature {ANY}
    time: TIME
          -- The normal TIME with second accuracy.
 
-   microsecond: INTEGER_64
+   microsecond: INTEGER
          -- Extra information in number of microseconds in range 0 .. 999999.
          -- Note that the accuracy is system dependant.
 
@@ -40,7 +40,7 @@ feature {ANY}
          time = t
       end
 
-   set_microsecond (microsec: INTEGER_64)
+   set_microsecond (microsec: INTEGER)
          -- To set `microsecond' in range 0 .. 999 999.
       require
          microsec.in_range(0, 999999)
@@ -84,7 +84,7 @@ feature {ANY}
          Current >= old Current
       end
 
-   add_microsecond (microsec: INTEGER_64)
+   add_microsecond (microsec: INTEGER)
          -- Add `microsec' microseconds
       require
          microsec.in_range(0, 999999)
@@ -144,7 +144,7 @@ feature {ANY}
       end
 
 feature {}
-   basic_microsecond_time: INTEGER_64
+   basic_microsecond_time: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
