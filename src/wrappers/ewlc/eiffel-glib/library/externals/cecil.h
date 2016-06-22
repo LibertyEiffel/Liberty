@@ -148,26 +148,6 @@ typedef __uint16_t uint16_t;
 typedef __uint32_t uint32_t;
 typedef __uint64_t uint64_t;
 #  endif
-#elif defined(SASC)
-#    error("Too old SAS/C compiler, sorry.");
-#elif defined(__SASC__)
-#  if (__SASC__ < 750 ) /*  SAS/C before 7.50 */
-typedef signed char int8_t;
-typedef signed short int16_t;
-typedef signed long int int32_t;
-typedef signed long long int int64_t;
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned long int uint32_t;
-typedef unsigned long long int uint64_t;
-#  endif
-#else
-#  include <inttypes.h>
-#  if !defined(INT8_MAX) && defined(INT16_MAX)
-/* int8_t is not mandatory */
-typedef int_least8_t int8_t;
-#  endif
-#endif
 
 #if !defined(PRId16)
 #  define PRId8 "d"
