@@ -21,7 +21,7 @@ feature {ANY}
    time: TIME
          -- The normal TIME with second accuracy.
 
-   microsecond: INTEGER
+   microsecond: INTEGER_64
          -- Extra information in number of microseconds in range 0 .. 999999.
          -- Note that the accuracy is system dependant.
 
@@ -40,7 +40,7 @@ feature {ANY}
          time = t
       end
 
-   set_microsecond (microsec: INTEGER)
+   set_microsecond (microsec: INTEGER_64)
          -- To set `microsecond' in range 0 .. 999 999.
       require
          microsec.in_range(0, 999999)
@@ -84,7 +84,7 @@ feature {ANY}
          Current >= old Current
       end
 
-   add_microsecond (microsec: INTEGER)
+   add_microsecond (microsec: INTEGER_64)
          -- Add `microsec' microseconds
       require
          microsec.in_range(0, 999999)
