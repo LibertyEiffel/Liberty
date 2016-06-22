@@ -26,7 +26,7 @@
 -- ------------------------------------------------------------------------------------------------------------
 */
 
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || __APPLE__
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
 
 /*#  include <sys/types.h> done in base.h */
 #include <sys/socket.h>
