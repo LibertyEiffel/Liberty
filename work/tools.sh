@@ -44,6 +44,20 @@ case `uname -s` in
 	germ_cc=${CC}
 	germ_cflags="-pipe -O2 -c -x c"
 	;;
+    SunOS)
+        export PATH=/usr/gnu/bin:$PATH
+        flavor=Solaris
+        jobs=$((1 + $(/sbin/psrinfo | wc -l)))
+        CC_TYPE=${CC_TYPE:-gcc}
+        CC=${CC:-$CC_TYPE}
+        CFLAGS="-pipe"
+        CXX_TYPE=${CXX_TYPE:-g++}
+        CXX=${CXX:-${CXX_TYPE}}
+        CXXFLAGS="-pipe"
+        LDFLAGS=""
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
+        ;;
     *)
 	flavor=uknown
 	jobs=1
