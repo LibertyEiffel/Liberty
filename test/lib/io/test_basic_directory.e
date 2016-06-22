@@ -27,12 +27,6 @@ feature {}
          bd.reset_notation_using("D:\SmartEiffel\sys\system.se")
          assert(bd.windows_notation)
          windows_test
-         bd.reset_notation_using(":SmartEiffel:sys:system.se")
-         assert(bd.macintosh_notation)
-         macintosh_test
-         bd.reset_notation_using("SOMDISK:SmartEiffel/sys/system.se")
-         assert(bd.amiga_notation)
-         amiga_test
          open_vms_test
       end
 
@@ -125,41 +119,6 @@ feature {}
          add_filena("?", "V", "DISK:[SmartEiffel.sys]", "system.se", "DISK:[SmartEiffel.sys]system.se")
       end
 
-   macintosh_test
-      do
-         set_notation_using_old_implementation_name("M")
-         assert(bd.macintosh_notation)
-         parent_dir("?", "M", ":SmartEiffel:sys:system.se", ":SmartEiffel:sys:")
-         parent_dir("?", "M", ":SmartEiffel:sys:", ":SmartEiffel:")
-         parent_dir("?", "M", ":SmartEiffel:sys", ":SmartEiffel:")
-         parent_dir("?", "M", ":SmartEiffel:", ":")
-         parent_dir("?", "M", ":SmartEiffel", ":")
-         parent_dir("?", "M", ":", "")
-         sub_direct("?", "M", ":", "SmartEiffel", ":SmartEiffel:")
-         sub_direct("?", "M", ":SmartEiffel", "sys", ":SmartEiffel:sys:")
-         sub_direct("?", "M", ":SmartEiffel:", "sys", ":SmartEiffel:sys:")
-         add_filena("?", "M", ":SmartEiffel:sys:", "system.se", ":SmartEiffel:sys:system.se")
-         add_filena("?", "M", ":SmartEiffel:sys", "system.se", ":SmartEiffel:sys:system.se")
-         add_filena("?", "M", ":", "system.se", ":system.se")
-      end
-
-   amiga_test
-      do
-         set_notation_using_old_implementation_name("A")
-         assert(bd.amiga_notation)
-         parent_dir("?", "A", "DEV:SmartEiffel/sys/system.se", "DEV:SmartEiffel/sys/")
-         parent_dir("?", "A", "DEV:SmartEiffel/sys/", "DEV:SmartEiffel/")
-         parent_dir("?", "A", "DEV:SmartEiffel/sys", "DEV:SmartEiffel/")
-         parent_dir("?", "A", "DEV:SmartEiffel/", "DEV:")
-         parent_dir("?", "A", "DEV:", "")
-         sub_direct("?", "A", "DEV:", "SmartEiffel", "DEV:SmartEiffel/")
-         sub_direct("?", "A", "DEV:SmartEiffel", "sys", "DEV:SmartEiffel/sys/")
-         sub_direct("?", "A", "DEV:SmartEiffel/", "sys", "DEV:SmartEiffel/sys/")
-         add_filena("?", "A", "DEV:SmartEiffel/sys/", "system.se", "DEV:SmartEiffel/sys/system.se")
-         add_filena("?", "A", "DEV:SmartEiffel/sys", "system.se", "DEV:SmartEiffel/sys/system.se")
-         add_filena("?", "A", "DEV:", "system.se", "DEV:system.se")
-      end
-
    parent_dir (n1, n2, p1, p2: STRING)
       local
          view: STRING
@@ -227,12 +186,6 @@ feature {}
          when "W" then
             bd.reset_notation_using("C:\WINNT")
             assert(bd.windows_notation)
-         when "M" then
-            bd.system_notation_buffer.set_item(create {MACINTOSH_DIRECTORY_NOTATION})
-            assert(bd.macintosh_notation)
-         when "A" then
-            bd.system_notation_buffer.set_item(create {AMIGA_DIRECTORY_NOTATION})
-            assert(bd.amiga_notation)
          when "V" then
             bd.system_notation_buffer.set_item(create {OPENVMS_DIRECTORY_NOTATION})
             assert(bd.openvms_notation)

@@ -511,20 +511,6 @@ feature {DIRECTORY_NOTATION_HANDLER}
          Result := {CYGWIN_DIRECTORY_NOTATION} ?:= system_notation
       end
 
-   amiga_notation: BOOLEAN
-         -- The Amiga file path notation looks like:
-         --   DEV:LibertyEiffel/sys/system.se
-      do
-         Result := {AMIGA_DIRECTORY_NOTATION} ?:= system_notation
-      end
-
-   macintosh_notation: BOOLEAN
-         -- The Macintosh file path notation looks like:
-         --   :LibertyEiffel:sys:system.se
-      do
-         Result := {MACINTOSH_DIRECTORY_NOTATION} ?:= system_notation
-      end
-
    openvms_notation: BOOLEAN
          -- The VMS file path notation looks like:
          --    DISK:[LibertyEiffel.sys]system.se
@@ -555,8 +541,6 @@ feature {DIRECTORY_NOTATION_HANDLER}
             end
          when '\' then
             system_notation_buffer.set_item(create {WINDOWS_DIRECTORY_NOTATION})
-         when ':' then
-            system_notation_buffer.set_item(create {MACINTOSH_DIRECTORY_NOTATION})
          when '[' then
             system_notation_buffer.set_item(create {OPENVMS_DIRECTORY_NOTATION})
          when 'a' .. 'z', 'A' .. 'Z' then
@@ -568,8 +552,6 @@ feature {DIRECTORY_NOTATION_HANDLER}
                      system_notation_buffer.set_item(create {WINDOWS_DIRECTORY_NOTATION})
                   elseif some_path.has('\') then
                      system_notation_buffer.set_item(create {WINDOWS_DIRECTORY_NOTATION})
-                  elseif some_path.has('?') then
-                     system_notation_buffer.set_item(create {AMIGA_DIRECTORY_NOTATION})
                   elseif some_path.has('/') then
                      system_notation_buffer.set_item(create {CYGWIN_DIRECTORY_NOTATION})
                   end
@@ -577,13 +559,8 @@ feature {DIRECTORY_NOTATION_HANDLER}
                   if some_path.has('[') then
                      system_notation_buffer.set_item(create {OPENVMS_DIRECTORY_NOTATION})
                   elseif some_path.has(':') then
-                     if some_path.has('/') then
-                        system_notation_buffer.set_item(create {AMIGA_DIRECTORY_NOTATION})
-                     elseif some_path.has('[') then
+                     if some_path.has('[') then
                         system_notation_buffer.set_item(create {OPENVMS_DIRECTORY_NOTATION})
-                     else
-                        system_notation_buffer.set_item(create {AMIGA_DIRECTORY_NOTATION})
-                     end
                   elseif some_path.has('/') then
                      system_notation_buffer.set_item(create {UNIX_DIRECTORY_NOTATION})
                   elseif some_path.has('\') then
