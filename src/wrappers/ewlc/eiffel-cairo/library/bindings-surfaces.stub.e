@@ -59,7 +59,6 @@ feature {} -- Creation
 	--     cairo_atsui_surface_t
 	--     cairo_win32_surface_t
 	--     cairo_xlib_surface_t
-	--     cairo_beos_surface_t
 	--
 	--
 	--   Unlike patterns, the constructors and methods on these types are clearly

@@ -62,7 +62,6 @@ feature {ANY}  -- enum
 						(a_type = cairo_surface_type_glitz) or else
 						(a_type = cairo_surface_type_quartz) or else
 						(a_type = cairo_surface_type_win32) or else
-						(a_type = cairo_surface_type_beos) or else
 						(a_type = cairo_surface_type_directfb) or else
 						(a_type = cairo_surface_type_svg))
 		end
@@ -113,12 +112,6 @@ feature {ANY}  -- enum
 			-- The surface is of type win32
 		external "C macro <cairo.h>"
 		alias "CAIRO_SURFACE_TYPE_WIN32"
-		end
-
-	cairo_surface_type_beos: INTEGER
-			-- The surface is of type beos
-		external "C macro <cairo.h>"
-		alias "CAIRO_SURFACE_TYPE_BEOS"
 		end
 
 	cairo_surface_type_directfb: INTEGER
