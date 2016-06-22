@@ -457,7 +457,7 @@ void se_print_bad_target(FILE*stream, int id, T0* o, int l, int c, int f) {
     fprintf(stream,"Line : %d column %d in %s.\n",l,c,p[f]);
   }
   fprintf(stream,"*** Error at Run Time *** :\n");
-  fprintf(stream,"   Target is not valid (not the good type).\n");
+  fprintf(stream,"   Target is not valid (not of the proper type).\n");
   fprintf(stream,"   Expected: ");
   se_print_string(stream,t[id]);
   fprintf(stream,", Actual: ");
