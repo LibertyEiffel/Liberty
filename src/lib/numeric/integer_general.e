@@ -535,6 +535,8 @@ feature {ANY} -- Miscellaneous:
 
    is_a_power_of_2: BOOLEAN
          -- Is `Current' a power of 2?
+	  require
+	     Current_at_least_one: current > zero
       do
          Result := (Current - 1) & Current = 0
       end
