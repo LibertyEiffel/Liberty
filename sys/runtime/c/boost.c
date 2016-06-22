@@ -27,8 +27,8 @@
 */
 void se_print_run_time_stack (void) {
   handle(SE_HANDLE_ENTER_PRINT_STACK, NULL);
-  fprintf(SE_ERR,"Eiffel program crash at run time.\n");
-  fprintf(SE_ERR,"No trace when using option \"-boost\"\n");
+  fprintf(SE_ERR,"Application crash at run time.\n");
+  fprintf(SE_ERR,"No trace when commpiled using option \"-boost\"\n");
   handle(SE_HANDLE_EXIT_PRINT_STACK, NULL);
 }
 
