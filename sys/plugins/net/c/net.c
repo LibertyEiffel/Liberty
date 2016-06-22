@@ -93,7 +93,7 @@ static void set_host_error(char* host) {
 /* ---------------------------------------------------------------------- */
 /* Initialization */
 
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || defined __APPLE__
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
 
 #define init() (1)
 

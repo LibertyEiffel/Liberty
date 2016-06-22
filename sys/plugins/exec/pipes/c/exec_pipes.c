@@ -25,7 +25,7 @@
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || defined  __APPLE__
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
 
 se_pipe_data_t* basic_exec_pipe_create(void) {
   se_pipe_data_t* result = NULL;

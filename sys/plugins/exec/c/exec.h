@@ -36,7 +36,7 @@
  * basic_exec_xxx          *
  ***************************/
 
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || defined  __APPLE__
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
 
 /*#  include <unistd.h> done in base.h */
 /*#  include <sys/types.h> done in base.h */
