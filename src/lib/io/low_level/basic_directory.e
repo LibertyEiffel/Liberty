@@ -561,6 +561,7 @@ feature {DIRECTORY_NOTATION_HANDLER}
                   elseif some_path.has(':') then
                      if some_path.has('[') then
                         system_notation_buffer.set_item(create {OPENVMS_DIRECTORY_NOTATION})
+					 end
                   elseif some_path.has('/') then
                      system_notation_buffer.set_item(create {UNIX_DIRECTORY_NOTATION})
                   elseif some_path.has('\') then
