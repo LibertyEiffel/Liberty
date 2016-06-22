@@ -160,10 +160,6 @@ feature {}
             Result := once "W"
          elseif bd.cygwin_notation then
             Result := once "C"
-         elseif bd.macintosh_notation then
-            Result := once "M"
-         elseif bd.amiga_notation then
-            Result := once "A"
          elseif bd.openvms_notation then
             Result := once "V"
          else

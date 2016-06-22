@@ -183,9 +183,6 @@ feature {ANY} -- Skipping separators:
                   if not end_of_input then
                      if last_character = '%N' then
                         -- DOS format
-                     else
-                        -- MACINTOSH format
-                        unread_character
                      end
                   end
                   stop := True
