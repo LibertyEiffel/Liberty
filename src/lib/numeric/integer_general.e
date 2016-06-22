@@ -524,7 +524,7 @@ feature {ANY} -- Miscellaneous:
    divisible (other: like Current): BOOLEAN
       do
          if other /= 0 then 
-            Result := (Current #\\ other) = 0
+            Result := (Current \\ other) = 0
          end
       end
 
