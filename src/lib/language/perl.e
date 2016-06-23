@@ -2,13 +2,13 @@
 -- See the full copyright at the end.
 --
 class PERL
-   -- This class allows to have an embedded Perl interpreter in you program.
+   -- This class allows to have an embedded Perl interpreter in your program.
    -- With this interpreter, you can "execute" any line as you would
-   -- do in some Perl script, even lines such as "use strict;" or
+   -- do in a Perl script, even lines such as "use strict;" or
    -- "use somepackage", lines with "require" (in perlfunc) and "do"
-   -- (in perlfunc to include external Perl files). See tutorial/perl for use examples.
+   -- (in perlfunc to include external Perl files). See tutorial/perl for examples.
    --
-   -- Compilation process needs perl developpement to be installed
+   -- The compilation process needs perl developpement to be installed
    -- (libperl-dev package on Debian). Compile options for the C
    -- compiler are determined with command 'perl -MExtUtils::Embed -e ccopts'
    -- and linker option with command 'perl -MExtUtils::Embed -e ldopts'
