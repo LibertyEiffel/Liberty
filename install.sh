@@ -31,9 +31,9 @@ cd ${CANONICAL_SOURCE%/*}
 # Environment variables
 #
 
-export CC_TYPE=${CC_TYPE:-gcc}
-export CC=${CC:-$CC_TYPE}
-export CXX=${CXX:-g++}
+# export CC_TYPE=${CC_TYPE:-gcc}
+# export CC=${CC:-$CC_TYPE}
+# export CXX=${CXX:-g++}
 export LIBERTY_HOME=$(pwd)
 export TARGET=${TARGET:-$LIBERTY_HOME/target}
 export TMPDIR=${TMPDIR:-$TARGET/tmp}
@@ -56,9 +56,10 @@ mkdir -p $TMPDIR
 # Checking prerequisites
 #
 
-title "Checking BDW GC"
 
-check_libgc() {
+_check_libgc() {
+    title "Checking BDW GC"
+
     cat > $TMPDIR/check_libgc.c <<EOF
 #include <stdlib.h>
 #include <stdio.h>
@@ -77,7 +78,7 @@ int main() {
    exit(0);
 }
 EOF
-    gcc -lgc $TMPDIR/check_libgc.c -o $TMPDIR/check_libgc >/dev/null 2>&1 || return 1
+    ${CC} -lgc $TMPDIR/check_libgc.c -o $TMPDIR/check_libgc >/dev/null 2>&1 || return 1
     if $TMPDIR/check_libgc; then
         return 0
     else
@@ -85,13 +86,15 @@ EOF
     fi
 }
 
-if check_libgc; then
-    BDW_GC="-bdw_gc"
-else
-    error_message "BDW too old or missing"
-    BDW_GC="-no_gc"
-fi
-export BDW_GC
+check_libgc() {
+    if _check_libgc; then
+       BDW_GC="-bdw_gc"
+    else
+       error_message "BDW too old or missing"
+       BDW_GC="-no_gc"
+    fi
+    export BDW_GC
+}
 
 check_prerequisites() {
     title "Checking required programs."
@@ -123,6 +126,7 @@ bootstrap() {
     cd $TARGET
     test -d log || mkdir log
 
+    check_libgc
     check_prerequisites
 
     if [ ! -d bin ]; then
@@ -193,98 +197,98 @@ x_int: extract_internals
 [boost]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O2
+c_compiler_options: -O2 ${CFLAGS}
 c_linker_path: $CC
-c_linker_options: -Xlinker -${hyphen}no-as-needed
-cpp_compiler_type: g++
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -O2
+cpp_compiler_options: -O2 ${CXXFLAGS}
 cpp_linker_path: $CC
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: ${LDFLAGS}
 
 [no_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1
+c_compiler_options: -O1 ${CFLAGS}
 c_linker_path: $CC
-c_linker_options: -Xlinker -${hyphen}no-as-needed
-cpp_compiler_type: g++
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -O1
+cpp_compiler_options: -O1 ${CXXFLAGS}
 cpp_linker_path: $CC
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: ${LDFLAGS}
 
 [require_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1
+c_compiler_options: -O1 ${CFLAGS}
 c_linker_path: $CC
-c_linker_options: -Xlinker -${hyphen}no-as-needed
-cpp_compiler_type: g++
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe
+cpp_compiler_options: ${CXXFLAGS}
 cpp_linker_path: $CC
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: ${LDFLAGS}
 
 [ensure_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1
+c_compiler_options: -O1 ${CFLAGS}
 c_linker_path: $CC
-c_linker_options: -Xlinker -${hyphen}no-as-needed
-cpp_compiler_type: g++
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe
+cpp_compiler_options: ${CXXFLAGS}
 cpp_linker_path: $CC
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: ${LDFLAGS}
 
 [invariant_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1
+c_compiler_options: -O1 ${CFLAGS}
 c_linker_path: $CC
-c_linker_options: -Xlinker -${hyphen}no-as-needed
-cpp_compiler_type: g++
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe
+cpp_compiler_options: ${CXXFLAGS}
 cpp_linker_path: $CC
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: ${LDFLAGS}
 
 [loop_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1
+c_compiler_options: -O1 ${CFLAGS}
 c_linker_path: $CC
-c_linker_options: -Xlinker -${hyphen}no-as-needed
-cpp_compiler_type: g++
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe
+cpp_compiler_options: ${CXXFLAGS}
 cpp_linker_path: $CC
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: ${LDFLAGS}
 
 [all_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1
+c_compiler_options: -O1 ${CFLAGS}
 c_linker_path: $CC
-c_linker_options: -Xlinker -${hyphen}no-as-needed
-cpp_compiler_type: g++
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe
+cpp_compiler_options: ${CXXFLAGS}
 cpp_linker_path: $CC
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: ${LDFLAGS}
 
 [debug_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -g -O1
+c_compiler_options: -g -O1 ${CFLAGS}
 c_linker_path: $CC
-c_linker_options: -Xlinker -${hyphen}no-as-needed
-cpp_compiler_type: g++
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
 cpp_compiler_path: $CXX
-cpp_compiler_options: -pipe -g
+cpp_compiler_options: -g ${CXXFLAGS}
 cpp_linker_path: $CC
-cpp_linker_options: -Xlinker -${hyphen}no-as-needed
+cpp_linker_options: ${LDFLAGS}
 smarteiffel_options: -no_strip
 
 EOF
@@ -315,12 +319,13 @@ EOF
 
     if [ ! -d $TARGET/bin/compile_to_c.d ]; then
         test -d $TARGET/bin/compile_to_c.d || mkdir $TARGET/bin/compile_to_c.d
-        grep -v '^#' compile_to_c.make |
-            while read cmd; do
-                progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
-                run $cmd || exit 1
-                test -e a.exe && mv a.exe a.out
-            done
+       for src in compile_to_c{135..1}.c ; do
+           cmd="${germ_cc} ${germ_cflags} ${src}"
+            progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
+            run $cmd || exit 1
+        done
+       ${CC} ${LDFLAGS} *.o
+        test -e a.exe && mv a.exe a.out
         cp -a * $TARGET/bin/compile_to_c.d/
     fi
     cd $TARGET/bin/compile_to_c.d
@@ -558,34 +563,34 @@ do_pkg_tools() {
     SYS=$USRDIR/share/liberty-eiffel/sys
     SITE_LISP=$USRDIR/share/emacs/site-lisp/liberty-eiffel
 
-    install -d -m 0755 -o root -g root $PUBLIC $PRIVATE $ETC $SHORT $SYS $SITE_LISP
+    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $PUBLIC $PRIVATE $ETC $SHORT $SYS $SITE_LISP
 
-    install -m 0755 -o root -g root $TARGET/bin/se $PUBLIC/
-    install -m 0644 -o root -g root $LIBERTY_HOME/work/eiffel.el $SITE_LISP/
+    install -m 0755 -o ${LE_USER} -g ${LE_GROUP} $TARGET/bin/se $PUBLIC/
+    install -m 0644 -o ${LE_USER} -g ${LE_GROUP} $LIBERTY_HOME/work/eiffel.el $SITE_LISP/
 
     for tool in compile compile_to_c clean pretty short finder ace_check class_check eiffeldoc eiffeltest extract_internals mock
     do
         bin=$TARGET/bin/${tool}.d/$tool
         if test -e $bin; then
             echo "$bin to $PRIVATE/"
-            install -m 0755 -o root -g root $bin $PRIVATE/
+            install -m 0755 -o ${LE_USER} -g ${LE_GROUP} $bin $PRIVATE/
         fi
     done
 
     cp -a $LIBERTY_HOME/resources/short/* $SHORT
     cp -a $LIBERTY_HOME/sys/* $SYS
 
-    chown -R root:root $SHORT $SYS
+    chown -R ${LE_USER}:${LE_GROUP} $SHORT $SYS
 
     cat >$ETC/liberty.se <<EOF
 [General]
 bin: /usr/lib/liberty-eiffel/bin
 sys: /usr/share/liberty-eiffel/sys
 short: /usr/share/liberty-eiffel/short
-os: UNIX
-flavor: Linux
+os: ${OS}
+flavor: ${flavor}
 tag: 3
-jobs: 2
+jobs: ${jobs}
 
 [Environment]
 hyphen: -
@@ -608,73 +613,73 @@ wrap: wrappers_generator
 x_int: extract_internals
 
 [boost]
-c_compiler_type: gcc
-c_compiler_options: -pipe -O2
-c_linker_options: -Xlinker -\${hyphen}no-as-needed
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe -O2
-cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
+c_compiler_type: ${CC_TYPE}
+c_compiler_options: ${CFLAGS} -O2
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
+cpp_compiler_options: ${CXXFLAGS} -O2
+cpp_linker_options: ${LDFLAGS}
 
 [no_check]
-c_compiler_type: gcc
-c_compiler_options: -pipe -O1
-c_linker_options: -Xlinker -\${hyphen}no-as-needed
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe -O1
-cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
+c_compiler_type: ${CC_TYPE}
+c_compiler_options: ${CFLAGS} -O1
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
+cpp_compiler_options: ${CXXFLAGS} -O1
+cpp_linker_options: ${LDFLAGS}
 
 [require_check]
-c_compiler_type: gcc
-c_compiler_options: -pipe
-c_linker_options: -Xlinker -\${hyphen}no-as-needed
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
+c_compiler_type: ${CC_TYPE}
+c_compiler_options: ${CFLAGS}
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
+cpp_compiler_options: ${CXXFLAGS}
+cpp_linker_options: ${LDFLAGS}
 
 [ensure_check]
-c_compiler_type: gcc
-c_compiler_options: -pipe
-c_linker_options: -Xlinker -\${hyphen}no-as-needed
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
+c_compiler_type: ${CC_TYPE}
+c_compiler_options: ${CFLAGS}
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
+cpp_compiler_options: ${CXXFLAGS}
+cpp_linker_options: ${LDFLAGS}
 
 [invariant_check]
-c_compiler_type: gcc
-c_compiler_options: -pipe
-c_linker_options: -Xlinker -\${hyphen}no-as-needed
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
+c_compiler_type: ${CC_TYPE}
+c_compiler_options: ${CFLAGS}
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
+cpp_compiler_options: ${CXXFLAGS}
+cpp_linker_options: ${LDFLAGS}
 
 [loop_check]
-c_compiler_type: gcc
-c_compiler_options: -pipe
-c_linker_options: -Xlinker -\${hyphen}no-as-needed
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
+c_compiler_type: ${CC_TYPE}
+c_compiler_options: ${CFLAGS}
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
+cpp_compiler_options: ${CXXFLAGS}
+cpp_linker_options: ${LDFLAGS}
 
 [all_check]
-c_compiler_type: gcc
-c_compiler_options: -pipe
-c_linker_options: -Xlinker -\${hyphen}no-as-needed
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe
-cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
+c_compiler_type: ${CC_TYPE}
+c_compiler_options: ${CFLAGS}
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
+cpp_compiler_options: ${CXXFLAGS}
+cpp_linker_options: ${LDFLAGS}
 
 [debug_check]
-c_compiler_type: gcc
-c_compiler_options: -pipe -g
-c_linker_options: -Xlinker -\${hyphen}no-as-needed
-cpp_compiler_type: g++
-cpp_compiler_options: -pipe -g
-cpp_linker_options: -Xlinker -\${hyphen}no-as-needed
+c_compiler_type: ${CC_TYPE}
+c_compiler_options: ${CFLAGS} -g
+c_linker_options: ${LDFLAGS}
+cpp_compiler_type: ${CXX_TYPE}
+cpp_compiler_options: ${CXXFLAGS} -g
+cpp_linker_options: ${LDFLAGS}
 smarteiffel_options: -no_strip
 
 EOF
 
-    chown root:root $ETC/liberty.se
+    chown ${LE_USER}:${LE_GROUP} $ETC/liberty.se
 }
 
 _do_pkg_src() {
@@ -685,7 +690,7 @@ _do_pkg_src() {
     SRC=$USRDIR/share/liberty-eiffel/src/$section
     ETC=$ETCDIR/xdg/liberty-eiffel
 
-    install -d -m 0755 -o root -g root $SRC $ETC
+    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $SRC $ETC
 
     for s in "${src[@]}"; do
         if [ -r $SRC/loadpath.se ]; then
@@ -694,7 +699,7 @@ _do_pkg_src() {
             touch $SRC/loadpath.se.old
         fi
 
-        cp -l $s/* $SRC/ || cp -a $s/* $SRC/
+        cp -a $s/* $SRC/
 
         if [ -r $SRC/loadpath.se ]; then
             mv $SRC/loadpath.se $SRC/loadpath.se.new
@@ -707,7 +712,7 @@ _do_pkg_src() {
     done
 
     find $SRC -type f -exec chmod a-x {} +
-    chown -R root:root $SRC
+    chown -R ${LE_USER}:${LE_GROUP} $SRC
 
     cat > $ETC/liberty_${section}.se <<EOF
 [Environment]
@@ -717,7 +722,7 @@ path_${section}: /usr/share/liberty-eiffel/src/${section}/
 ${section}: \${path_${section}}loadpath.se
 EOF
 
-    chown root:root $ETC/liberty_${section}.se
+    chown ${LE_USER}:${LE_GROUP} $ETC/liberty_${section}.se
 }
 
 do_pkg_tools_src() {
@@ -742,40 +747,63 @@ do_pkg_tutorial() {
 
 do_pkg_tools_doc() {
     DOC=$USRDIR/share/doc/liberty-eiffel
-    install -d -m 0755 -o root -g root $DOC/tools
+    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/tools/{liberty,smarteiffel}
     cp -a $TARGET/doc/api/smarteiffel/* $DOC/tools/smarteiffel/
     cp -a $TARGET/doc/api/liberty/* $DOC/tools/liberty/
     find $DOC -type f -exec chmod a-x {} +
-    chown -R root:root $DOC
+    chown -R ${LE_USER}:${LE_GROUP} $DOC
 }
 
 do_pkg_core_doc() {
     DOC=$USRDIR/share/doc/liberty-eiffel
-    install -d -m 0755 -o root -g root $DOC
+    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/core
     cp -a $TARGET/doc/api/libraries/* $DOC/core/
     find $DOC -type f -exec chmod a-x {} +
-    chown -R root:root $DOC
+    chown -R ${LE_USER}:${LE_GROUP} $DOC
 }
 
 do_pkg_extra_doc() {
     DOC=$USRDIR/share/doc/liberty-eiffel
-    install -d -m 0755 -o root -g root $DOC
+    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/extra
     cp -a $TARGET/doc/api/wrappers/* $DOC/extra/
     find $DOC -type f -exec chmod a-x {} +
-    chown -R root:root $DOC
+    chown -R ${LE_USER}:${LE_GROUP} $DOC
 }
 
 do_pkg_staging_doc() {
     DOC=$USRDIR/share/doc/liberty-eiffel
-    install -d -m 0755 -o root -g root $DOC
+    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/staging
     cp -a $TARGET/doc/api/staging/* $DOC/staging/
     find $DOC -type f -exec chmod a-x {} +
-    chown -R root:root $DOC
+    chown -R ${LE_USER}:${LE_GROUP} $DOC
+}
+
+get_user_group_info() {
+    read -p "User to install as [$(id -un)]: " LE_USER
+    read -p "Group to install as [$(id -gn)]: " LE_GROUP
+    export LE_USER=${LE_USER:-$(id -un)}
+    export LE_GROUP=${LE_GROUP:-$(id -gn)}
+}
+
+check_target_dir_permissions() {
+    for d in $*
+    do
+       if test ! -x "${d}"
+       then
+           error_message "${d} does not exist.  You may need to create it."
+       elif test ! -w "${d}"
+       then
+           error_message "You don't have write permission to ${d}." "Specify a writeable directory or run using sudo."
+           exit 1
+       fi
+    done
 }
 
 do_local_install() {
     export USRDIR=${USRDIR:-/usr/local}
     export ETCDIR=${ETCDIR:-/usr/local/etc}
+    check_target_dir_permissions "${USRDIR}" "${ETCDIR}"
+    get_user_group_info
     do_pkg_tools
     do_pkg_tools_src
     do_pkg_tools_doc
