@@ -8,18 +8,61 @@ case `uname -s` in
 	flavor=generic
 	OS=Cygwin
 	EXE_SUFFIX=".exe"
+	CC_TYPE=${CC_TYPE:-gcc}
+	CC=${CC:-$CC_TYPE}
+	CFLAGS="-fno-gcse -pipe"
+	CXX_TYPE=${CXX_TYPE:-g++}
+	CXX=${CXX:-${CXX_TYPE}}
+	CXXFLAGS="-fno-gcse -pipe"
+	LDFLAGS="-Xlinker --no-as-needed"
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
 	;;
     Linux)
 	flavor=Linux
 	jobs=$((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
+	CC_TYPE=${CC_TYPE:-gcc}
+	CC=${CC:-$CC_TYPE}
+	CFLAGS="-fno-gcse -pipe"
+	CXX_TYPE=${CXX_TYPE:-g++}
+	CXX=${CXX:-${CXX_TYPE}}
+	CXXFLAGS="-fno-gcse -pipe"
+	LDFLAGS="-Xlinker --no-as-needed"
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
 	;;
     Darwin)
 	flavor=Darwin
-	jobs=$((1 + $(sysctl -n machdep.cpu.core_count)))
+	jobs=$((1 + $(sysctl -n hw.physicalcpu)))
+	CC_TYPE=${CC_TYPE:-gcc}
+	CC=${CC:-$CC_TYPE}
+	CFLAGS="-pipe"
+	CXX_TYPE=${CXX_TYPE:-g++}
+	CXX=${CXX:-${CXX_TYPE}}
+	CXXFLAGS="-pipe"
+	LDFLAGS=""
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
 	;;
+    SunOS)
+        export PATH=/usr/gnu/bin:$PATH
+        flavor=Solaris
+        jobs=$((1 + $(/sbin/psrinfo | wc -l)))
+        CC_TYPE=${CC_TYPE:-gcc}
+        CC=${CC:-$CC_TYPE}
+        CFLAGS="-pipe"
+        CXX_TYPE=${CXX_TYPE:-g++}
+        CXX=${CXX:-${CXX_TYPE}}
+        CXXFLAGS="-pipe"
+        LDFLAGS=""
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
+        ;;
     *)
 	flavor=uknown
 	jobs=1
+	germ_cc=${CC:-cc}
+	germ_cflags="-O2 -c"
 	;;
 esac
 
