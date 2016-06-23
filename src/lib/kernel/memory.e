@@ -38,9 +38,9 @@ feature {ANY} -- Garbage collector information and tuning:
          Result >= -1
       end
 
-feature {ANY} -- SmartEiffel Garbage collector information and tuning:
+feature {ANY} -- Liberty Eiffel Garbage collector information and tuning:
    frozen smart_eiffel_collector: BOOLEAN
-         -- Is the SmartEiffel garbage collector really used?
+         -- Is the Liberty Eiffel garbage collector really used?
       do
          Result := collector_counter >= 0
       ensure
@@ -127,7 +127,7 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
 
    frozen allow_gc_before_exit
          -- Allow the SmartEiffel GC to run before the process exists. That is the default state when the
-         -- SmartEiffel GC is used and contracts are checked.
+         -- Liberty Eiffel GC is used and contracts are checked.
       require
          smart_eiffel_collector
       do
@@ -137,8 +137,8 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
       end
 
    frozen forbid_gc_before_exit
-         -- Forbid the SmartEiffel GC to run at the end of the process run. That is the default state when
-         -- the SmartEiffel GC is used but the contracts are not checked.
+         -- Forbid the Liberty Eiffel GC to run at the end of the process run. That is the default state when
+         -- the Liberty Eiffel GC is used but the contracts are not checked.
       require
          smart_eiffel_collector
       do
