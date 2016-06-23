@@ -5,8 +5,7 @@ expanded class POINTER
    --
    -- References to objects meant to be exchanged with non-Eiffel software.
    --
-   -- Note : An Eiffel POINTER is mapped as C type "Void *" or as
-   -- Java "java.lang.Object" type.
+   -- Note : An Eiffel POINTER is mapped as C type "Void *" 
    --
 
 insert
@@ -71,7 +70,7 @@ feature {ANY}
       end
 
    to_any: ANY
-         -- Dangerous forced conversion. This function assume that `Current'
+         -- Dangerous forced conversion. This function assumes that `Current'
          -- is really a reference to some Eiffel allocated object.
       obsolete "Use STORABLE instead."
       do
@@ -108,7 +107,7 @@ feature {}
 
 
    pointer_to_any (p: POINTER): ANY
-         -- Dangerous forced conversion. This function assume that `p'
+         -- Dangerous forced conversion. This function assumes that `p'
          -- really a reference to some Eiffel allocated object.
       external "plug_in"
       alias "{
