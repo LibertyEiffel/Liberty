@@ -518,7 +518,7 @@ feature {ANY} -- Modular arithmetic (these wrap around on overflow)
          -- According to the ANSI C99: if `Current' and `other' are both non-negative, the `Result' is the
          -- quotient of the Euclidian division; but this is not the general case, the `Result' value is the
          -- algebraic quotient `Current/other' with any fractional part discarded. (This is often called
-         -- "truncated toward zero"). So, the corresponding remainder value only verify the expression
+         -- "truncated toward zero"). So, the corresponding remainder value only verifies the expression
          -- `remainder.abs < other.abs'.
          --
          -- See also infix "//", infix "#\\".
