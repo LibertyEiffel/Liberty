@@ -3,8 +3,8 @@
 --
 class EVENTS_SET
    --
-   -- A set of events to be waited upon. Expected events are set via the `expect' feature when the EVENTS_SET
-   -- is not `queryable'. After having been waited upon (see `wait'), the EVENTS_SET becomes `queryable' and
+   -- A set of events to be waited for. Expected events are set via the `expect' feature when the EVENTS_SET
+   -- is not `queryable'. After having been waited for (see `wait'), the EVENTS_SET becomes `queryable' and
    -- events may be checked by using the `event_occurred' feature. To reuse the EVENTS_SET (make it not
    -- `queryable' again) one may call `reset'.
    --
@@ -204,7 +204,7 @@ feature {EVENTS_SET_HANDLER} -- low level features
 feature {EVENT_DESCRIPTOR}
    after (timeout_ms: INTEGER)
          -- `timeout_ms' is the max time in milliseconds to wait when
-         -- wait begin.
+         -- wait begins.
       require
          timeout_ms >= 0
          not queryable
@@ -213,7 +213,7 @@ feature {EVENT_DESCRIPTOR}
       end
 
    at (date: MICROSECOND_TIME)
-         -- `date' is the last moment `wait' can wait.
+         -- `date' is the last moment that`wait' can wait.
       require
          not queryable
       do

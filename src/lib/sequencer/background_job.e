@@ -3,7 +3,7 @@
 --
 deferred class BACKGROUND_JOB
    -- Describe job to be executed in the background, when there nothing
-   -- more important to do. Such job is ready to run at any time.
+   -- more important to do. Such a job is ready to run at any time.
 
 inherit
    JOB

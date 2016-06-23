@@ -2,8 +2,8 @@
 -- See the full copyright at the end.
 --
 class SIMPLE_BACKGROUND_JOB
-   -- Describe job to be executed in the background, when there nothing
-   -- more important to do. Such job is ready to run at any time.
+   -- Describe a job to be executed in the background, when there is nothing
+   -- more important to do. Such a job is ready to run at any time.
 
 inherit
    BACKGROUND_JOB

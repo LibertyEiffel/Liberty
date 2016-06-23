@@ -5,7 +5,7 @@ expanded class TIME_EVENTS
 
 feature {ANY}
    timeout (timeout_ms: INTEGER): TIMEOUT_EVENT
-         -- `timeout_ms' is the max time in milliseconds to wait starting from when EVENTS_SET.wait
+         -- `timeout_ms' is the max time in milliseconds to wait, starting from when EVENTS_SET.wait
          -- is called.
       do
          Result ::= item(timeout_events)
@@ -21,7 +21,7 @@ feature {ANY}
       end
 
    in_time (timeout_ms: INTEGER): DATE_EVENT
-         -- `timeout_ms' is the maximum time in milliseconds to wait starting from now.
+         -- `timeout_ms' is the maximum time in milliseconds to wait starting from now on.
       do
          Result ::= item(date_events)
          if Result = Void then

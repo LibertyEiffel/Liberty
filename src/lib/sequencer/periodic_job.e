@@ -3,8 +3,8 @@
 --
 deferred class PERIODIC_JOB
    -- Pseudo periodic job. The timing is not exact : the time between
-   -- two execution may be longer than the given period depending on
-   -- time needed to execute ready tasks. There is no try to recover the
+   -- two executions may be longer than the given period depending on
+   -- time needed to execute the ready tasks. There is no try to recover the
    -- time lost each time.
 
 inherit

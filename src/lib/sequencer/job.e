@@ -2,16 +2,16 @@
 -- See the full copyright at the end.
 --
 deferred class JOB
-   --The job life will looks like :
+   --The job's life will looks like :
    --   do
    --      prepare
    --      if is_ready then
    --         continue
    --   repeat while not done
    --
-   --If the same job as to live again, restart is called.
+   -- If the same job has to live again, restart is called.
    --
-   -- Note: never change priority after job inserted in loop_item.
+   -- Note: never change a job's priority after inserting it in loop_item.
    --       Priority should only be set at creation time.
    --
 
@@ -20,7 +20,7 @@ insert
 
 feature {JOB, LOOP_ITEM}
    priority: INTEGER
-         -- Never change priority after job inserted in loop_item.
+         -- never change a job's priority after inserting it in loop_item.
          -- Priority should only be set at creation time.
 
 feature {LOOP_ITEM}
@@ -56,13 +56,13 @@ feature {LOOP_ITEM}
 
    done: BOOLEAN
          -- `done' returns `True' when the job is finished. Then the
-         -- job may be `restart'(ed) if it need to run again.
+         -- job may be `restart'(ed) if it needs to run again.
       deferred
       end
 
    restart
-         -- Configure the job like the initial state.
-         -- Example: when some window dialog appears second time, all
+         -- Configure the job like in its initial state.
+         -- Example: when some window dialog appears a second time, all
          -- jobs from this window are restarted.
       require
          done

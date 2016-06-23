@@ -15,7 +15,7 @@ create {ANY}
 
 feature {ANY}
    after_from_now (timeout_ms: INTEGER)
-         -- `timeout_ms' is the max time in milliseconds to wait from now.
+         -- `timeout_ms' is the max time in milliseconds to wait from now on.
       require
          timeout_ms >= 0
          not queryable

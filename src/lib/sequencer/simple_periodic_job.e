@@ -3,7 +3,7 @@
 --
 class SIMPLE_PERIODIC_JOB
    -- Pseudo periodic job. The timing is not exact : the time between
-   -- two execution may be longer than the given period depending on
+   -- two executions may be longer than the given period depending on the
    -- time needed to execute ready tasks. There is no try to recover the
    -- time lost each time.
 

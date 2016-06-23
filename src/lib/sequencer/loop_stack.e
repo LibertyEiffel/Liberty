@@ -2,8 +2,8 @@
 -- See the full copyright at the end.
 --
 class LOOP_STACK
-   -- Manage `LOOP_ITEM'. When new loop is pushed, all jobs in current
-   -- running loop suspend until the new loop end (all jobs end or break).
+   -- Manage `LOOP_ITEM'. When a new loop is pushed, all jobs in the currently
+   -- running loop are suspended until the new loop ends (all jobs end or break).
    --
 
 create {ANY}
@@ -72,7 +72,7 @@ feature {ANY}
       end
 
    add_job (j: JOB)
-         -- Add some job to the current loop
+         -- Add a job to the current loop
       require
          j /= Void
       do
