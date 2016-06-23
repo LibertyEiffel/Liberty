@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class SIGNAL_4[E, F, G, H]
+class SIGNAL_4[E_, F_, G_, H_]
    --
    -- See tutorial/signal/signals.txt for usage
    --
@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {}
-   callbacks: FAST_ARRAY[PROCEDURE[TUPLE[E, F, G, H]]]
+   callbacks: FAST_ARRAY[PROCEDURE[TUPLE[E_, F_, G_, H_]]]
 
    index, last: INTEGER
          -- work to do while emit is between index and last.
@@ -24,7 +24,7 @@ feature {}
       end
 
 feature {ANY}
-   connect (p: PROCEDURE[TUPLE[E, F, G, H]])
+   connect (p: PROCEDURE[TUPLE[E_, F_, G_, H_]])
          -- Connect procedure to be called when signal is emitted
          -- See also last_connect_id
       require
@@ -36,7 +36,7 @@ feature {ANY}
          last_connect_id = p
       end
 
-   emit (val1: E; val2: F; val3: G; val4: H)
+   emit (val1: E_; val2: F_; val3: G_; val4: H_)
          -- Emit signal, ie. already registered procedure will be called
          -- in registration order except if removed by another before.
       do
@@ -51,7 +51,7 @@ feature {ANY}
          end
       end
 
-   last_connect_id: PROCEDURE[TUPLE[E, F, G, H]]
+   last_connect_id: PROCEDURE[TUPLE[E_, F_, G_, H_]]
          -- return identifier on the last connect which may be used
          -- for disconnect (unregister procedure)
       require
@@ -62,7 +62,7 @@ feature {ANY}
          Result /= Void
       end
 
-   disconnect (connect_identifier: PROCEDURE[TUPLE[E, F, G, H]])
+   disconnect (connect_identifier: PROCEDURE[TUPLE[E_, F_, G_, H_]])
          -- Unregister procedure for this signal. If the same
          -- procedure was registered many times, only first is removed.
       local

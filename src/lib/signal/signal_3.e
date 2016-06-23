@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class SIGNAL_3[E, F, G]
+class SIGNAL_3[E_, F_, G_]
    --
    -- See tutorial/signal/signals.txt for usage
    --
@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {}
-   callbacks: FAST_ARRAY[PROCEDURE[TUPLE[E, F, G]]]
+   callbacks: FAST_ARRAY[PROCEDURE[TUPLE[E_, F_, G_]]]
 
    index, last: INTEGER
          -- work to do while emit is between index and last.
@@ -24,7 +24,7 @@ feature {}
       end
 
 feature {ANY}
-   connect (p: PROCEDURE[TUPLE[E, F, G]])
+   connect (p: PROCEDURE[TUPLE[E_, F_, G_]])
          -- Connect procedure to be called when signal is emitted
          -- See also last_connect_id
       require
@@ -36,7 +36,7 @@ feature {ANY}
          last_connect_id = p
       end
 
-   emit (val1: E; val2: F; val3: G)
+   emit (val1: E_; val2: F_; val3: G_)
          -- Emit signal, ie. already registered procedure will be called
          -- in registration order except if removed by another before.
       do
@@ -51,7 +51,7 @@ feature {ANY}
          end
       end
 
-   last_connect_id: PROCEDURE[TUPLE[E, F, G]]
+   last_connect_id: PROCEDURE[TUPLE[E_, F_, G_]]
          -- return identifier on the last connect which may be used
          -- for disconnect (unregister procedure)
       require
@@ -62,7 +62,7 @@ feature {ANY}
          Result /= Void
       end
 
-   disconnect (connect_identifier: PROCEDURE[TUPLE[E, F, G]])
+   disconnect (connect_identifier: PROCEDURE[TUPLE[E_, F_, G_]])
          -- Unregister procedure for this signal. If the same
          -- procedure was registered many times, only first is removed.
       local
