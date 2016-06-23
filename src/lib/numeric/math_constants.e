@@ -11,15 +11,31 @@ feature {ANY} -- Maths constants:
    Pi: REAL 3.1415926535897932384626
          -- pi
 
+   Inv_Pi: REAL 0.31830988618379067153
+         -- Inverse pi		 
+
+   Sqr_2Pi: REAL 2.50662827463100050241
+         -- Square root of 2 pi
+         
    Evalue: REAL 2.7182818284590452353602
          -- e
 
+   Inv_Evalue: REAL 0.36787944117144232159
+         -- Inverse e
+         
    Deg: REAL 57.2957795130823208767981
          -- Degrees/Radian
 
    Phi: REAL 1.6180339887498948482045
          -- Golden Ratio
 
+   Cheb: REAL 0.59017029950804811302
+         -- Chebyshev constant
+
+   Zeta_2: REAL 1.64493406684822643647
+         -- Riemann Function
+
+		 
 end -- class MATH_CONSTANTS
 --
 -- Copyright (C) 2009-2016: by all the people cited in the AUTHORS file.
