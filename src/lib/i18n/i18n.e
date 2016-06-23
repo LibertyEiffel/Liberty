@@ -65,6 +65,16 @@ feature {ANY} -- Useful constants
          create Result.make_country("de", "DE")
       end
 
+   dutch: LOCALE
+      once
+         create Result.make_language("nl")
+      end
+
+   netherlands: LOCALE
+      once
+         create Result.make_country("nl", "NL")
+      end
+      
    italian: LOCALE
       once
          create Result.make_language("it")
