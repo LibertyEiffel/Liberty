@@ -144,7 +144,7 @@ feature {ANY}
       end
 
 feature {}
-   basic_microsecond_time: INTEGER
+   basic_microsecond_time: INTEGER_64
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
