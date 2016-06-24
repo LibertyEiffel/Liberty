@@ -326,8 +326,8 @@ feature {ANY} -- To know more about a NUMBER:
       -- is prime?
 	deferred
 	require
-		Current.is_integer_general_number
-		Current.is_positive
+		is_integer_general_number
+		is_positive
 	end
    
    is_equal (other: NUMBER): BOOLEAN
