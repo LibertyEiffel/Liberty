@@ -322,13 +322,6 @@ feature {ANY} -- To know more about a NUMBER:
          Result := (Current @\\ 2).is_zero
       end
 
-   is_prime: BOOLEAN
-      -- is prime?
-	deferred
-	require
-		is_integer_general_number
-		is_positive
-	end
    
    is_equal (other: NUMBER): BOOLEAN
       deferred
