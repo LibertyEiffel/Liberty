@@ -11,16 +11,16 @@ feature {ANY} -- Maths constants:
    Pi: REAL 3.1415926535897932384626
          -- pi
 
-   Inv_Pi: REAL 0.31830988618379067153
+   Inv_pi: REAL 0.31830988618379067153
          -- Inverse pi		 
 
-   Sqr_2Pi: REAL 2.50662827463100050241
+   Sqr_2pi: REAL 2.50662827463100050241
          -- Square root of 2 pi
          
    Evalue: REAL 2.7182818284590452353602
          -- e
 
-   Inv_Evalue: REAL 0.36787944117144232159
+   Inv_evalue: REAL 0.36787944117144232159
          -- Inverse e
          
    Deg: REAL 57.2957795130823208767981
