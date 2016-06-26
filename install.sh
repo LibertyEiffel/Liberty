@@ -122,7 +122,7 @@ check_prerequisites() {
 
 bootstrap() {
     test -d $TARGET && rm -rf $TARGET
-    mkdir $TARGET
+    mkdir -p $TMPDIR
     cd $TARGET
     test -d log || mkdir log
 
