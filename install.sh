@@ -319,7 +319,7 @@ EOF
 
     if [ ! -d $TARGET/bin/compile_to_c.d ]; then
         test -d $TARGET/bin/compile_to_c.d || mkdir $TARGET/bin/compile_to_c.d
-        rm compile_to_c*.o
+        rm -f compile_to_c*.o
         for src in compile_to_c*.c ; do
             cmd="${germ_cc} ${germ_cflags} ${src}"
             progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
