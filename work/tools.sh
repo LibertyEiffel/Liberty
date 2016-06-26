@@ -10,11 +10,11 @@ case `uname -s` in
 	EXE_SUFFIX=".exe"
 	CC_TYPE=${CC_TYPE:-gcc}
 	CC=${CC:-$CC_TYPE}
-	CFLAGS="-fno-gcse -pipe"
+	CFLAGS="-pipe"
 	CXX_TYPE=${CXX_TYPE:-g++}
 	CXX=${CXX:-${CXX_TYPE}}
-	CXXFLAGS="-fno-gcse -pipe"
-	LDFLAGS="-Xlinker --no-as-needed"
+	CXXFLAGS="-pipe"
+	LDFLAGS="-Xlinker -${hyphen}no-as-needed"
 	germ_cc=${CC}
 	germ_cflags="-pipe -O2 -c -x c"
 	;;
@@ -23,11 +23,11 @@ case `uname -s` in
 	jobs=$((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
 	CC_TYPE=${CC_TYPE:-gcc}
 	CC=${CC:-$CC_TYPE}
-	CFLAGS="-fno-gcse -pipe"
+	CFLAGS="-pipe"
 	CXX_TYPE=${CXX_TYPE:-g++}
 	CXX=${CXX:-${CXX_TYPE}}
-	CXXFLAGS="-fno-gcse -pipe"
-	LDFLAGS="-Xlinker --no-as-needed"
+	CXXFLAGS="-pipe"
+	LDFLAGS="-Xlinker -${hyphen}no-as-needed"
 	germ_cc=${CC}
 	germ_cflags="-pipe -O2 -c -x c"
 	;;

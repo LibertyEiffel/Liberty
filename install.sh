@@ -122,7 +122,7 @@ check_prerequisites() {
 
 bootstrap() {
     test -d $TARGET && rm -rf $TARGET
-    mkdir $TARGET
+    mkdir -p $TMPDIR
     cd $TARGET
     test -d log || mkdir log
 
@@ -319,12 +319,13 @@ EOF
 
     if [ ! -d $TARGET/bin/compile_to_c.d ]; then
         test -d $TARGET/bin/compile_to_c.d || mkdir $TARGET/bin/compile_to_c.d
-       for src in compile_to_c{135..1}.c ; do
-           cmd="${germ_cc} ${germ_cflags} ${src}"
+        rm -f compile_to_c*.o
+        for src in compile_to_c*.c ; do
+            cmd="${germ_cc} ${germ_cflags} ${src}"
             progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
             run $cmd || exit 1
         done
-       ${CC} ${LDFLAGS} *.o
+        ${CC} ${LDFLAGS} *.o
         test -e a.exe && mv a.exe a.out
         cp -a * $TARGET/bin/compile_to_c.d/
     fi
