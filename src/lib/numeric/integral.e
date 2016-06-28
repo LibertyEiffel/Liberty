@@ -493,9 +493,7 @@ feature {ANY} -- Miscellaneous:
       require
          Current > zero
       deferred
-      ensure
-         (Current > 1) and (Result = True) implies Current.is_even
-      end
+
 
 feature {ANY} -- Modular arithmetic (these wrap around on overflow)
    infix "#+" (other: like Current): like Current
