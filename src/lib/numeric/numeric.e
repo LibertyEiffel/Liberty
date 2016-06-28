@@ -30,7 +30,7 @@ feature {ANY}
       require
          other /= Void
          other /= zero
-         divisible(other)   -- HZ: is this really appropriate?
+         -- divisible(other)   -- HZ: is this really appropriate? removed it for now....
       deferred
       end
 
