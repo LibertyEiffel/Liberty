@@ -29,7 +29,8 @@ feature {ANY}
          -- Division by `other'.
       require
          other /= Void
-         divisible(other)
+         other /= zero
+         divisible(other)   -- HZ: is this really appropriate?
       deferred
       end
 
