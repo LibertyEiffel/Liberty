@@ -48,6 +48,7 @@ feature {ANY}
          -- May `Current' be divided by `other' ?
       require
          other /= Void
+         other /= zero
       deferred
       end
 
