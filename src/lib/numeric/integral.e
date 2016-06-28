@@ -493,6 +493,8 @@ feature {ANY} -- Miscellaneous:
       require
          Current > zero
       deferred
+      ensure
+         Current > 1 implies Current.is_even
       end
 
 feature {ANY} -- Modular arithmetic (these wrap around on overflow)
