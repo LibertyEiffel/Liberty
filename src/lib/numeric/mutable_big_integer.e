@@ -479,7 +479,7 @@ feature {ANY} -- To divide:
          not other.is_zero
          other /= Current
       do
-         -- `divide_with_remainder_to' already use `register1'.
+         -- `divide_with_remainder_to' already uses `register1'.
          divide_with_remainder_to(other, register2)
       end
 
@@ -1287,7 +1287,7 @@ feature {ANY} -- To multiply:
                res.set_negative(not negative)
                v := -other
             end
-            -- Pessimistique estimation
+            -- Pessimistic estimation
             res_integer_length := integer_length + 1 -- Reallocation ?
             if res.capacity < res_integer_length then
                if capacity < res_integer_length then
