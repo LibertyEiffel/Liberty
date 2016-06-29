@@ -9,11 +9,11 @@ feature {}
          -- often Current, a manifest string or some expanded).
 
    C_create_instruction: INTEGER unique
-         -- Target has been just created with a create instruction and need to be initialized
+         -- Target has just been created with a create instruction and needs to be initialised
          -- with some create procedure call.
 
    C_create_expression: INTEGER unique
-         -- Target has been just created with a create expression and need to be initialized
+         -- Target has just been created with a create expression and needs to be initialized
          -- inside the create function.
 
    C_inside_twin: INTEGER unique
