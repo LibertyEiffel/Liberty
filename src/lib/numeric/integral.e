@@ -493,7 +493,7 @@ feature {ANY} -- Miscellaneous:
       require
          Current > zero
       deferred
-
+      end
 
 feature {ANY} -- Modular arithmetic (these wrap around on overflow)
    infix "#+" (other: like Current): like Current
