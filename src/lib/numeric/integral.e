@@ -481,7 +481,7 @@ feature {ANY} -- Miscellaneous:
       end
 
    divisible (other: like Current): BOOLEAN
-      require
+      require else
          not_by_zero: other /= zero
       deferred
       ensure
