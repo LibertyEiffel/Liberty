@@ -29,8 +29,7 @@ feature {ANY}
          -- TODO: check what ECMA defines: When is the postcondition 
          -- of an atterbute to be executed? Only for the case a 
          -- Compound is given (i. e. it is initialized by the code above??
-      end
-   end    
+      end   
 
 end -- class TEST_ATTRIBUTE03
 --

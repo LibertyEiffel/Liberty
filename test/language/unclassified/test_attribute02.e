@@ -30,7 +30,7 @@ feature {ANY}
 
    b: INTEGER
       
-      end
+
 
 end -- class TEST_ATTRIBUTE02
 --
