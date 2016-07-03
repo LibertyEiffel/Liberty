@@ -524,7 +524,9 @@ feature {ANY} -- Miscellaneous:
    divisible (other: like Current): BOOLEAN
       do
          if other /= 0 then 
-            Result := (Current #\\ other) = 0
+            Result := (Current #\\ other) = 0  // HZ Question:  this checks for 'even divisiblity', i.e. a division
+                                             // without a remainder.  Isn't that too restrictive?   After all,
+                                                                        //  not all integer division are even divisions.
          end
       end
 
