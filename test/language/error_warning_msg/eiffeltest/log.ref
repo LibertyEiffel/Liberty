@@ -4,7 +4,7 @@ The reference file is "log.ref" and this file must be created manually.
 If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new".
 --------------------------------------------------------------------------------
 Found 0 test_* files.
-Found 412 bad_* files.
+Found 413 bad_* files.
 Found 2 subdirectories.
 --------------------------------------------------------------------------------
 se c bad_address_of1.e -o bad_address_of1.exe -style_warning -output_error_warning_on bad_address_of1.new
@@ -215,6 +215,8 @@ se c bad_colon.e -o bad_colon.exe -style_warning -output_error_warning_on bad_co
 Removing "bad_colon.new".
 se c bad_constant1.e -o bad_constant1.exe -style_warning -output_error_warning_on bad_constant1.new
 Removing "bad_constant1.new".
+se c bad_constant10.e -o bad_constant10.exe -style_warning -output_error_warning_on bad_constant10.new
+Removing "bad_constant10.new".
 se c bad_constant2.e -o bad_constant2.exe -style_warning -output_error_warning_on bad_constant2.new
 Removing "bad_constant2.new".
 se c bad_constant3.e -o bad_constant3.exe -style_warning -output_error_warning_on bad_constant3.new

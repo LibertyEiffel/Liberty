@@ -5014,7 +5014,7 @@ feature {}
          --  ++                         "is" routine]
          --  ++
       local
-         is_prefix, is_infix, is_alias, expect_routine: BOOLEAN
+         is_prefix, is_infix, is_alias, is_constant, expect_routine: BOOLEAN
          prefix_sp, infix_sp, alias_sp: POSITION
       do
          from
@@ -5130,6 +5130,12 @@ feature {}
 
             if a_is then
                expect_routine := True
+            elseif cc = '=' then
+               is_constant := True
+               error_handler.add_position(current_position)
+               error_handler.append(once "Deleted optional %"=%".")
+               error_handler.print_as_warning
+               ok := skip1(cc)
             end
 
             if a_keyword(fz_unique) then
@@ -5155,6 +5161,11 @@ feature {}
                ok := skip1(';')
                last_feature_declaration.set_header_comment(get_comment)
             else
+               if is_constant then
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Bad constant-attribute definition. The feature value must be a manifest constant.")
+                  error_handler.print_as_fatal_error
+               end
                last_feature_declaration := a_routine(expect_routine)
             end
 
