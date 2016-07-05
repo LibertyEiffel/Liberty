@@ -135,13 +135,14 @@ feature {ANY}
    is_prime: BOOLEAN
       -- determines primality of Current
       local          
-            index, limit: like Current
+            index: like Current
+            limit: INTEGER_32
       do     
          if Current > 3 then        
             if (Current.is_even) or ((Current #\\ 3) = 0) then
                Result := False
             else
-               limit ::= Current.sqrt.force_to_integer_64
+               limit ::= sqrt.force_to_integer_32
                Result := True
                from
                   index := 5
