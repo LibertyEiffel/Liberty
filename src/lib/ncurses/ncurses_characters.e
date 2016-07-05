@@ -306,7 +306,7 @@ feature {}
       end
 
 end -- class NCURSES_CHARACTERS
-   
+
 --
 -- Copyright (C) 2009-2016: by all the people cited in the AUTHORS file.
 --

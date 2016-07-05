@@ -510,7 +510,6 @@ feature {}
    S_finished_with_no_error_and_true:                  INTEGER 20
    S_finished_with_no_error_and_false:                 INTEGER 21
 
-
    a_manifest_or_type_test (syntax_flag: INTEGER_8): BOOLEAN
          --  ++ manifest_or_type_test_expression -> manifest_or_type_test [ "." after_a_dot ]
          --  ++ manifest_or_type_test -> integer |
@@ -755,7 +754,7 @@ feature {}
                   end
                end
             when S_inside_a_real_just_after_the_dot then
-               if pretty_view.item(first_digit_index) = '0' and then   pretty_view.count - 1 /= first_digit_index then
+               if pretty_view.item(first_digit_index) = '0' and then pretty_view.count - 1 /= first_digit_index then
                   error_handler.add_position(pos(line, column - pretty_view.count + first_digit_index - 1))
                   error_handler.append(once "Removed non-significant digit(s) from integral part of real constant.")
                   error_handler.print_as_style_warning

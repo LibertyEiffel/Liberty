@@ -326,7 +326,7 @@ feature {TYPE}
    set_insert_member (i: INTEGER)
          -- Makes the `i'th member of the `inherit_list' a member of the `insert_list' instead
       require
-         i.in_range(0, inherit_count-1)
+         i.in_range(0, inherit_count - 1)
       local
          a_parent_edge: PARENT_EDGE
       do
@@ -346,7 +346,7 @@ feature {TYPE}
       end
 
 feature {}
-   make (ct: like class_text;   hc1: like inherit_comment; l1: like inherit_list;
+   make (ct: like class_text; hc1: like inherit_comment; l1: like inherit_list;
          hc2: like insert_comment; l2: like insert_list)
       require
          not ct.is_any -- Because class ANY must have no parent to avoid cycles.

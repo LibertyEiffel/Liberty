@@ -232,7 +232,7 @@ feature {}
          smart_eiffel.is_ready
       local
          i: INTEGER; rf: RUN_FEATURE; memory: HASHED_SET[STRING]; once_function: ONCE_FUNCTION;
-         type: TYPE;   unique_result: STRING; non_void_no_dispatch: NON_VOID_NO_DISPATCH; live_type: LIVE_TYPE
+         type: TYPE; unique_result: STRING; non_void_no_dispatch: NON_VOID_NO_DISPATCH; live_type: LIVE_TYPE
       do
          unique_result := once "... unique buffer ..."
          create memory.make
@@ -540,19 +540,19 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                                       t_ := argument_name.resolve_in(type_)
                                       if t_.is_reference then
                                          cpp.pending_c_function_body.append(once "gc_mark(u->CA_")
-                                         (closure_rank+1).append_in(cpp.pending_c_function_body)
+                                         (closure_rank + 1).append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.extend('_')
                                          argument_name.rank.append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.append(once ");%N")
                                       elseif need_mark.for(t_) then
                                          mark_in(t_.canonical_type_mark, cpp.pending_c_function_body, False)
                                          cpp.pending_c_function_body.append(once "(&(u->CA_")
-                                         (closure_rank+1).append_in(cpp.pending_c_function_body)
+                                         (closure_rank + 1).append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.extend('_')
                                          argument_name.rank.append_in(cpp.pending_c_function_body)
                                          cpp.pending_c_function_body.append(once "));%N")
                                       end
-                                   end(?, type, ?)) --| **** TODO: closure on type
+                                   end (?, type, ?)) --| **** TODO: closure on type
 
          for_all_local_names(agent_creation, type,
                              agent (local_name: LOCAL_NAME_DEF; type_: TYPE)
@@ -570,7 +570,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                                       cpp.pending_c_function_body.append(local_name.to_string)
                                       cpp.pending_c_function_body.append(once ");%N")
                                    end
-                                end(?, type)) --| **** TODO: closure on type
+                                end (?, type)) --| **** TODO: closure on type
 
          cpp.pending_c_function_body.append(once "}%N")
          cpp.dump_pending_c_function(True)

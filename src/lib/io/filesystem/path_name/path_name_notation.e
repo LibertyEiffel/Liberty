@@ -13,7 +13,7 @@ inherit
 feature {ANY} -- DIRECTORY_NOTATION interface
    to_parent_directory (some_path: STRING)
       do
-         --*** PATH_NAME and DIRECTORY_NOTATION differ on corner cases, which is why this implementation is 
+         --*** PATH_NAME and DIRECTORY_NOTATION differ on corner cases, which is why this implementation is
          --*** not as straightforward as expected.
          tmp1.make_from_string(some_path)
          if tmp1.is_empty then
@@ -37,7 +37,7 @@ feature {ANY} -- DIRECTORY_NOTATION interface
       local
          ds: STRING
       do
-         --*** PATH_NAME and DIRECTORY_NOTATION differ on corner cases, which is why this implementation is 
+         --*** PATH_NAME and DIRECTORY_NOTATION differ on corner cases, which is why this implementation is
          --*** not as straightforward as expected.
          tmp1.make_from_string(parent_path)
          if tmp1.is_empty then
@@ -58,7 +58,7 @@ feature {ANY} -- DIRECTORY_NOTATION interface
       local
          ds: STRING
       do
-         --*** PATH_NAME and DIRECTORY_NOTATION differ on corner cases, which is why this implementation is 
+         --*** PATH_NAME and DIRECTORY_NOTATION differ on corner cases, which is why this implementation is
          --*** not as straightforward as expected.
          tmp1.make_from_string(parent_path)
          if tmp1.is_empty then
@@ -179,7 +179,7 @@ feature {PATH_JOINER}
 
    join_up
       do
-         -- *** Sometimes, we must actually join ".." or its 
+         -- *** Sometimes, we must actually join ".." or its
          -- equivalent instead
          destination_notation.to_parent_directory(current_path)
       end

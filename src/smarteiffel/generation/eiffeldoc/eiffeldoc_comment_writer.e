@@ -390,7 +390,7 @@ feature {}
          -- + 1 - initial state; waiting for more characters.
          -- + 2 - just after some separator character; a sentence cannot finish here.
          -- + 3 - and end-of-sentence character ('.', '?', '!') has been reached. It does not mean that
-         --       the sentence finishes now, because we can be inside parentheses; we should wait for 
+         --       the sentence finishes now, because we can be inside parentheses; we should wait for
          --       those to close.
          --       Note that "parentheses" are indeed one of round, square, curly, or angle brackets or
          --       double quotes.

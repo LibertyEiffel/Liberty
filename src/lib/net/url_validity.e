@@ -18,11 +18,11 @@ feature {ANY}
          i := a_url.first_index_of(':')
          if a_url.valid_index(i) and then a_url.count > i then
             protocol_name := once ""
-            protocol_name.copy_substring(a_url, 1, i-1)
+            protocol_name.copy_substring(a_url, 1, i - 1)
             if protocols.known_protocol(protocol_name) then
                p := protocols.protocol(protocol_name)
                protocol_uri := once ""
-               protocol_uri.copy_substring(a_url, i+1, a_url.upper)
+               protocol_uri.copy_substring(a_url, i + 1, a_url.upper)
                Result := p.valid_uri(protocol_uri)
                protocols.recycle(p)
             end

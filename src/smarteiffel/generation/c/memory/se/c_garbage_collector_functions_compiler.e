@@ -642,7 +642,7 @@ feature {}
             field_name := once "............ unique local buffer ..................."
             field_name.copy(once "o->_")
             field_name.append(rf2.name.to_string)
-            if  attribute_type.is_native_array and then insert_native_array_collector_flag(lt) then
+            if attribute_type.is_native_array and then insert_native_array_collector_flag(lt) then
                function_body.append(once "{%N")
                ltid_in(attribute_type, function_body, True, False)
                function_body.append(once " na=")

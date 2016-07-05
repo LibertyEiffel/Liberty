@@ -3,7 +3,7 @@
 --
 deferred class BINARY_INPUT_STREAM
    --
-   -- A binary input stream is an input stream that is binary safe (meaning that, except for failure modes, 
+   -- A binary input stream is an input stream that is binary safe (meaning that, except for failure modes,
    -- you can read back the very same sequence of bytes you wrote to that stream)
    --
 

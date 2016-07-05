@@ -687,12 +687,12 @@ feature {ANY} -- Modular arithmetic (these wrap around on overflow)
 
 feature {ANY} -- Size query
    bit_count: INTEGER_8
-	   -- The number of bits used to store the value of Current
+      -- The number of bits used to store the value of Current
       deferred
       end
 
 feature {}
-	string_buffer: STRING
+   string_buffer: STRING
       once
          create Result.make(128)
       end

@@ -111,7 +111,7 @@ feature {ANY} -- Testing:
          i: INTEGER; maxi: INTEGER
       do
          from
-            i :=  lower
+            i := lower
             maxi := count.min(other.count)
          until
             i > maxi or else item(i) /= other.item(i)
@@ -487,7 +487,7 @@ feature {ANY} -- Testing and Conversion:
          -- state 4: last digit of a critically big number
          -- state 5: after the number.
          from
-            i :=  lower
+            i := lower
          variant
             count - i
          until
@@ -1035,7 +1035,7 @@ feature {ANY} -- Concatenation
                           state := always_print_state
                       end
                   end
-                  i := i +1
+                  i := i + 1
               end
 
               check

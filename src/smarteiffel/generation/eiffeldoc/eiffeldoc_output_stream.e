@@ -76,7 +76,7 @@ feature {EIFFELDOC_GLOBALS}
             if ref.valid_index(i) then
                s := once ""
                s.copy(ref)
-               s.shrink(1, i-1)
+               s.shrink(1, i - 1)
                inspect
                   s
                when "http", "https", "ftp", "mailto" then

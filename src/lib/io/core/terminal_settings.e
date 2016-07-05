@@ -15,9 +15,9 @@ create {FILE_STREAM}
 
 feature {FILE_STREAM}
    make(a_fd: POINTER; a_fs: FILE_STREAM)
-		require
-			valid_stream: a_fs /= Void
-			valid_file_descriptor: (not a_fd.is_null) = (a_fs /= Void and then a_fs.is_connected)
+      require
+         valid_stream: a_fs /= Void
+         valid_file_descriptor: (not a_fd.is_null) = (a_fs /= Void and then a_fs.is_connected)
       do
          fd := a_fd
          associated_stream := a_fs
@@ -31,7 +31,7 @@ feature {FILE_STREAM}
       do
          termios_free(termios)
       end
-   
+
 feature {ANY}
    set_speed(a_speed: INTEGER)
          -- set input and output communication speed to `a_speed'
@@ -41,7 +41,7 @@ feature {ANY}
          set_input_speed(a_speed)
          set_output_speed(a_speed)
       end
-   
+
    set_input_speed(a_speed: INTEGER)
          -- set input communication speed to `a_speed' baud
       require
@@ -91,15 +91,15 @@ feature {ANY}
       ensure
          valid_speed: is_valid_speed(Result)
       end
-   
-	drain
-			-- wait until all data in tx buffer is transmitted
+
+   drain
+         -- wait until all data in tx buffer is transmitted
       require
          connected: associated_stream.is_connected
-		do
+      do
          -- call tcdrain(int fd);
-			not_yet_implemented
-		end
+         not_yet_implemented
+      end
 
    associated_stream: FILE_STREAM
          -- the file stream associated with the terminal settings
@@ -120,10 +120,10 @@ feature {ANY}
       end
 
    error_string_storage: STRING
-   
+
    is_valid_speed(a_speed: INTEGER): BOOLEAN
          -- check if a given terminal speed is valid
-         -- some day we might want to consider non-standard baudrates 
+         -- some day we might want to consider non-standard baudrates
          -- with termios2
       do
          inspect a_speed
@@ -135,12 +135,12 @@ feature {ANY}
             Result := False
          end
       end
-   
+
 feature {}
    termios: POINTER
 
    decode_speed(a_speed: INTEGER): INTEGER
-         -- internal helper to convert POSIX speed constants to 
+         -- internal helper to convert POSIX speed constants to
          -- numeric values
       do
          if a_speed = termios_b50 then
@@ -185,9 +185,9 @@ feature {}
       ensure
          valid_speed: is_valid_speed(Result)
       end
-   
+
    encode_speed(a_speed: INTEGER): INTEGER
-         -- internal helper to convert baud rates to POSIX speed 
+         -- internal helper to convert baud rates to POSIX speed
          -- constants
       require
          valid_speed: is_valid_speed(a_speed)
@@ -242,7 +242,7 @@ feature {}
          feature_name: "termios_tcgetattr"
          }"
       end
-   
+
    termios_tcsetattr(a_fd: POINTER; a_termios: POINTER): INTEGER
          -- low level tcsetattr in termios.h
       external "plug_in"
@@ -252,7 +252,7 @@ feature {}
          feature_name: "termios_tcsetattr"
          }"
       end
-   
+
    termios_cfgetispeed (a_termios: POINTER): INTEGER
          -- low level cfgetispeed in termios.h
       external "plug_in"

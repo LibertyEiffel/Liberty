@@ -6,7 +6,7 @@ deferred class ARRAYED_COLLECTION_HANDLER
 
 insert
    ANY
-      undefine 
+      undefine
          copy, is_equal
       end
 end -- class ARRAYED_COLLECTION_HANDLER

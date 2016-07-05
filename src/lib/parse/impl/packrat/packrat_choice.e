@@ -138,7 +138,7 @@ feature {PACKRAT_CHOICE, PACKRAT_VISITOR}
 
 invariant
    useful: alternatives.count > 1
-   correct: alternatives.for_all(agent (alt: PACKRAT_ALTERNATIVE): BOOLEAN do Result := alt /= Void end(?))
+   correct: alternatives.for_all(agent (alt: PACKRAT_ALTERNATIVE): BOOLEAN do Result := alt /= Void end (?))
 
 end -- class PACKRAT_CHOICE
 --

@@ -7,7 +7,7 @@ class PROCESS_NONE
    --
    -- The standard streams of the process are available: `input', `output' and `error'.
    --
-   -- '''Note:''' This class is in a beta stage. POSIX and Windows versions are available but there may be 
+   -- '''Note:''' This class is in a beta stage. POSIX and Windows versions are available but there may be
    -- resource leaks or other bugs left.
    --
 

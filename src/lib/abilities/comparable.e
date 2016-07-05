@@ -128,25 +128,26 @@ feature {ANY}
       ensure
          Result >= Current and then Result >= other
          compare(Result) = 0 or else other.compare(Result) = 0
-	 end
+      end
 
-	bounded_by (a_min, a_max: like Current): like Current
-		-- A value that is equal to Current if it is between the limits set by
-		-- a_min and a_max.
-
-		-- Otherwise it's `a_min' if Current is smaller or `a_max' if Current
-		-- is greater
-
-		-- It's a shortcut for Current.min(a_max).max(a_min) also known as
-		-- "clamp" in the widespread C library Glib 
-	do
-		if Current<a_min then Result:=a_min
-		elseif Current>a_max then Result:=a_max
-		else Result:=Current
-		end
-	ensure 
-		correctness: Result.in_range(a_min,a_max)
-	end
+   bounded_by (a_min, a_max: like Current): like Current
+         -- A value that is equal to Current if it is between the limits set by
+         -- a_min and a_max.
+         -- Otherwise it's `a_min' if Current is smaller or `a_max' if Current
+         -- is greater
+         -- It's a shortcut for Current.min(a_max).max(a_min) also known as
+         -- "clamp" in the widespread C library Glib
+      do
+         if Current < a_min then
+            Result := a_min
+         elseif Current > a_max then
+            Result := a_max
+         else
+            Result := Current
+         end
+      ensure
+         correctness: Result.in_range(a_min, a_max)
+      end
 
 end -- class COMPARABLE
 --

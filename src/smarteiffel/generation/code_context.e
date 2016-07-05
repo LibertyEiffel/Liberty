@@ -11,7 +11,7 @@ feature {}
    type_memory: TYPE -- The context TYPE (where the code is written).
 
    anonymous_feature_memory: ANONYMOUS_FEATURE -- The one to be called if any.
-   
+
    target_memory: EXPRESSION -- To perform the `anonymous_feature_memory' call.
 
    effective_arguments_memory: EFFECTIVE_ARG_LIST -- To perform the `anonymous_feature_memory' call.
@@ -19,7 +19,7 @@ feature {}
    static_type_memory: TYPE -- Extra type used for example to `C_check_id'.
 
    internal_c_local_memory: INTERNAL_C_LOCAL -- Temporary used for example to store newly created uninitialized objects.
-   
+
 feature {CODE_PRINTER}
    valid: BOOLEAN
 

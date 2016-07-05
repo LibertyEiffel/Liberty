@@ -31,7 +31,7 @@ feature {}
                k := a_uri.first_index_of('@')
                if j < k then
                   Result := a_uri.valid_index(k) and then k > j
-                  j := a_uri.index_of(':', j+1)
+                  j := a_uri.index_of(':', j + 1)
                else
                   -- look for user
                   Result := a_uri.valid_index(k)
@@ -42,7 +42,7 @@ feature {}
                Result := True
             end
             if Result then
-               k := a_uri.index_of('/', i+1)
+               k := a_uri.index_of('/', i + 1)
                if a_uri.valid_index(k) then
                   if a_uri.valid_index(j) then
                      -- look for host
@@ -50,7 +50,7 @@ feature {}
                      if Result then
                         -- look for port
                         s.copy(a_uri)
-                        s.shrink(j+1, k-1)
+                        s.shrink(j + 1, k - 1)
                         Result := s.is_integer
                      end
                   else
@@ -58,8 +58,8 @@ feature {}
                      Result := k > i
                   end
                   if Result then
-                     i := a_uri.index_of('?', k+1)
-                     j := a_uri.index_of('#', k+1)
+                     i := a_uri.index_of('?', k + 1)
+                     j := a_uri.index_of('#', k + 1)
                      if a_uri.valid_index(i) then
                         -- look for path
                         Result := i >= k

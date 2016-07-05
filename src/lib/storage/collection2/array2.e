@@ -26,7 +26,7 @@ feature {ARRAY2}
          -- Number of elements in `storage'.
 
    set_limits(line_min, line_max, column_min, column_max: INTEGER)
-      -- set lower1,2 and upper1,2 to the given values and alloc 
+      -- set lower1,2 and upper1,2 to the given values and alloc
       -- storage if necessary
       require
          line_min <= line_max + 1
@@ -48,7 +48,7 @@ feature {ARRAY2}
          upper2_set: upper2 = column_max
          sufficient_storage: capacity >= count
       end
-   
+
 feature {ANY} -- Creation / modification:
    make (line_min, line_max, column_min, column_max: INTEGER)
          -- Reset all bounds `line_minimum' / `line_maximum' / `column_minimum' and
@@ -376,10 +376,10 @@ feature {ANY} -- Only for ARRAY2:
 feature {} -- Garbage collector tuning (very low-level):
    mark_native_arrays
          -- For performance reasons, the unused area of `storage' is always left as it is when
-         -- some elements are removed. No time is lost to clean the released area with a Void 
-         -- or a 0 value. Thus, the unused area of `storage' may contains references of 
-         -- actually unreachable objects. The following `mark_native_arrays' actually replace 
-         -- the default behavior (the call is automatic) in order to mark only reachable 
+         -- some elements are removed. No time is lost to clean the released area with a Void
+         -- or a 0 value. Thus, the unused area of `storage' may contains references of
+         -- actually unreachable objects. The following `mark_native_arrays' actually replace
+         -- the default behavior (the call is automatic) in order to mark only reachable
          -- objects.
       local
          i: INTEGER

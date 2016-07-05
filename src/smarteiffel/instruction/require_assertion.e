@@ -253,7 +253,7 @@ feature {ANY}
 
    specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
-         i: INTEGER;     lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
+         i: INTEGER; lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
          pr: like direct_parents_require
       do
          Result := Current
@@ -294,7 +294,7 @@ feature {ANY}
 
    specialize_and_check (type: TYPE): like Current
       local
-         i: INTEGER;     lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
+         i: INTEGER; lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
          pr: like direct_parents_require
       do
          Result := Current
@@ -354,7 +354,7 @@ feature {ANY}
 
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
-         i: INTEGER;     lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
+         i: INTEGER; lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
          pr: like direct_parents_require; require_assertion: like Current
       do
          require_assertion := Current
@@ -406,7 +406,7 @@ feature {ANY}
 
    adapt_for (type: TYPE): like Current
       local
-         i: INTEGER;     lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
+         i: INTEGER; lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
          pr: like direct_parents_require
       do
          Result := Current

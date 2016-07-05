@@ -105,7 +105,6 @@ feature {}
          }"
       end
 
-
    pointer_to_any (p: POINTER): ANY
          -- Dangerous forced conversion. This function assumes that `p'
          -- really a reference to some Eiffel allocated object.

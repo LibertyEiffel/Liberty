@@ -20,20 +20,20 @@
 -- http://ese.sourceforge.net
 -- -----------------------------------------------------------------------------------------------------------
 deferred class ESE_VISITOR
-	--
-	-- Builds on the standard Visitor pattern to add some type-able facilities (for using with generic
-	-- classes).
-	--
+   --
+   -- Builds on the standard Visitor pattern to add some type-able facilities (for using with generic
+   -- classes).
+   --
 
 inherit
-	VISITOR
+   VISITOR
 
 feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
-	as_typed (item_type_generator: STRING): ESE_VISITOR
-			-- can be force-assigned to a ESE_TYPED_VISITOR of the "good" type
-		deferred
-		ensure
-			Result /= Void
-		end
+   as_typed (item_type_generator: STRING): ESE_VISITOR
+         -- can be force-assigned to a ESE_TYPED_VISITOR of the "good" type
+      deferred
+      ensure
+         Result /= Void
+      end
 
 end -- class ESE_VISITOR

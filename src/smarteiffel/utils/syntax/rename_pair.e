@@ -38,12 +38,12 @@ feature {ANY}
             error_handler.add_position(on.start_position)
             error_handler.append(once "Cannot rename feature `c_inline_c' because this name is used as a keyword %
                                  %to handle the corresponding %"built_in%" feature of ANY.")
-            error_handler.print_as_fatal_error            
+            error_handler.print_as_fatal_error
          elseif old_name_to_string = as_c_inline_h then
             error_handler.add_position(on.start_position)
             error_handler.append(once "Cannot rename feature `c_inline_h' because this name is used as a keyword %
                                  %to handle the corresponding %"built_in%" feature of ANY.")
-            error_handler.print_as_fatal_error            
+            error_handler.print_as_fatal_error
          end
       ensure
          old_name = on

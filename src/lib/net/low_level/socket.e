@@ -26,7 +26,7 @@ feature {SOCKET_HANDLER}
          -- the blocking mode for reading from the socket, True is blocking, False nonblocking
       deferred
       end
-   
+
    is_connected: BOOLEAN
       deferred
       ensure

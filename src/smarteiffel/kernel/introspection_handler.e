@@ -42,7 +42,7 @@ feature {ANY}
 
    is_introspected (tm: TYPE_MARK): BOOLEAN
       local
-         typed_internals: TYPE_MARK; lt: LIVE_TYPE;   unknown_position: POSITION
+         typed_internals: TYPE_MARK; lt: LIVE_TYPE; unknown_position: POSITION
       do
          typed_internals := tm.typed_internals_type_mark(unknown_position)
          lt := typed_internals.type.live_type
@@ -89,7 +89,7 @@ feature {EXTERNAL_FUNCTION}
          if not is_native_array_internals_from_generating_type_used then
             native_array_internals_from_generating_type_position := sp
             create arg.refer_to(sp, args, 2, 0)
-            arg_type :=  args.type_mark(2).declaration_type.type
+            arg_type := args.type_mark(2).declaration_type.type
             arg.set_declaration_type(arg_type)
             create native_array_internals_from_generating_type_args.make_1(start_position, arg)
             smart_eiffel.magic_count_increment

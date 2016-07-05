@@ -278,7 +278,7 @@ feature {ANY}
 
    non_void_no_dispatch_type (type: TYPE): TYPE
       do
-         Result :=  resolve_in(type)
+         Result := resolve_in(type)
       end
 
    accept (visitor: BUILT_IN_EQ_NEQ_VISITOR)
@@ -347,10 +347,10 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          ls: like left_side; rs: like right_side; built_in_eq_neq: like Current
       do
          left_side.inline_dynamic_dispatch_(code_accumulator, type)
-         ls:= code_accumulator.current_context.last.to_expression
+         ls := code_accumulator.current_context.last.to_expression
          code_accumulator.current_context.remove_last
          right_side.inline_dynamic_dispatch_(code_accumulator, type)
-         rs:= code_accumulator.current_context.last.to_expression
+         rs := code_accumulator.current_context.last.to_expression
          code_accumulator.current_context.remove_last
          if ls = left_side and then rs = right_side then
             code_accumulator.current_context.add_last(Current)

@@ -147,7 +147,7 @@ feature {AGENT_CREATION}
                                          function_body.extend('_')
                                          argument_name.rank.append_in(function_body)
                                       end
-                                   end(?,type,?)) --| **** TODO: closure on type
+                                   end (?,type,?)) --| **** TODO: closure on type
          for_all_local_names(visited, type,
                              agent (local_name: LOCAL_NAME_DEF)
                                 do
@@ -155,7 +155,7 @@ feature {AGENT_CREATION}
                                       function_body.extend(',')
                                    end
                                    cpp.print_local(local_name.to_string)
-                                end(?))
+                                end (?))
          function_body.extend(')')
       end
 

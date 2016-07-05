@@ -73,7 +73,7 @@ feature {ANY}
          check
             declaration_type /= Void -- (Should be computed in `specialize_in'.)
          end
-         result_tm :=  feature_accumulator.find_type_for(new_fs)
+         result_tm := feature_accumulator.find_type_for(new_fs)
          new_declaration_type := result_tm.declaration_type
          if declaration_type.written_name /= new_declaration_type.written_name then
             if Result = Current then

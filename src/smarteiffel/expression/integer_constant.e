@@ -227,7 +227,7 @@ feature {}
 
 feature {}
    hexadecimal (sp: like start_position; pv:like pretty_view; digit_count: INTEGER_8;
-                negative: BOOLEAN;  a_value: INTEGER_64; )
+                negative: BOOLEAN; a_value: INTEGER_64;)
       do
          start_position := sp
          pretty_view := pv

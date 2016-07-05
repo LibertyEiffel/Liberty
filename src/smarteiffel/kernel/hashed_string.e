@@ -56,8 +56,8 @@ feature {ANY}
 
    is_simple_feature_name: BOOLEAN
          -- Is it an ordinary feature name (i.e. not a prefix / infix operator).
-         -- Actually, the goal of this feature is just for assertion purpose in order to check 
-         -- that manual lookup done in the compiler (i.e. `has_simple_feature_name' and 
+         -- Actually, the goal of this feature is just for assertion purpose in order to check
+         -- that manual lookup done in the compiler (i.e. `has_simple_feature_name' and
          -- `feature_stamp_of' of class TYPE) are correct calls.
       local
          i: INTEGER
@@ -86,7 +86,7 @@ feature {ANY}
       ensure
          for_assertions_use_only: Result
       end
-   
+
 feature {STRING_ALIASER}
    set (ts: like to_string)
       require

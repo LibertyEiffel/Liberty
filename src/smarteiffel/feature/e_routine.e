@@ -43,10 +43,10 @@ feature {ANY}
       do
          if is_inline_agent then
             level2 := indent_level
-            level3 := indent_level+1
+            level3 := indent_level + 1
          else
-            level2 := indent_level+1
-            level3 := indent_level+2
+            level2 := indent_level + 1
+            level3 := indent_level + 2
 
             pretty_printer.set_indent_level(indent_level)
             pretty_print_names

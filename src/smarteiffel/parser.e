@@ -62,7 +62,6 @@ feature {}
    S_end_of_correct_manifest_string:     INTEGER_8 10
    S_error_in_manifest_string:           INTEGER_8 11
 
-
    a_manifest_string (skip_comments_flag: BOOLEAN): BOOLEAN
       local
          state, l, c: INTEGER; once_flag, unicode_flag, stop, source_view_flag: BOOLEAN

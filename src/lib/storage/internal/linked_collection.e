@@ -53,12 +53,12 @@ feature {ANY}
       do
          Result := index_of(element, lower)
       end
-         
+
    fast_first_index_of (element: like item): INTEGER
       do
          Result := fast_index_of(element, lower)
       end
-         
+
 feature {} -- Implement manifest generic creation:
    manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a list of items of type E_.

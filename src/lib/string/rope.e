@@ -85,7 +85,7 @@ feature {ANY}
                i = other.lower
             end
          until
-            done or else i > upper or else  i > other.upper
+            done or else i > upper or else i > other.upper
          loop
             if item(i) /= other.item(i) then
                Result := item(i) < other.item(i)
@@ -118,7 +118,7 @@ feature {ANY}
             end
             Result := True
          until
-            not Result or else i > upper or else  i > other.upper
+            not Result or else i > upper or else i > other.upper
          loop
             Result := item(i) = other.item(i)
             i := i + 1

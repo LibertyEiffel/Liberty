@@ -20,30 +20,30 @@
 -- http://ese.sourceforge.net
 -- -----------------------------------------------------------------------------------------------------------
 deferred class ESE_TYPED_VISITABLE[T_]
-	--
-	-- An object that can be visited by a ESE_TYPED_VISITOR[T_].
-	--
+   --
+   -- An object that can be visited by a ESE_TYPED_VISITOR[T_].
+   --
 
 inherit
-	VISITABLE
+   VISITABLE
 
 insert
-	INTERNALS_HANDLER
+   INTERNALS_HANDLER
 
 feature {ANY}
-	frozen accept (visitor: ESE_VISITOR)
-		local
-			t: ESE_STATIC_TYPE[T_]; v: ESE_TYPED_VISITOR[T_]
-		do
-			-- This is totally not object-oriented. Erk. How to do better?
-			v ::= visitor.as_typed(t.type_name)
-			typed_accept(v)
-		end
+   frozen accept (visitor: ESE_VISITOR)
+      local
+         t: ESE_STATIC_TYPE[T_]; v: ESE_TYPED_VISITOR[T_]
+      do
+         -- This is totally not object-oriented. Erk. How to do better?
+         v ::= visitor.as_typed(t.type_name)
+         typed_accept(v)
+      end
 
 feature {}
-	typed_accept (visitor: ESE_TYPED_VISITOR[T_])
-			-- Accept to be visited by the `visitor'.
-		deferred
-		end
+   typed_accept (visitor: ESE_TYPED_VISITOR[T_])
+         -- Accept to be visited by the `visitor'.
+      deferred
+      end
 
 end -- class ESE_TYPED_VISITABLE

@@ -50,7 +50,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   iterable_generation:  INTEGER
+   iterable_generation: INTEGER
       do
          Result := linked_list.generation
       end

@@ -3,17 +3,17 @@ class TEST_LM1
 -- https://savannah.gnu.org/bugs/index.php?44278
 
 create {ANY}
-	run
+   run
 -------------------------------------------------------------------------------
-feature {ANY}		-- Public features
+feature {ANY}     -- Public features
 
-	d_thing: AUX_D
-	
-	run is
-		do
-			create d_thing.make
-		end
-	
-	
+   d_thing: AUX_D
+   
+   run is
+      do
+         create d_thing.make
+      end
+   
+   
 -------------------------------------------------------------------------------
-end			-- class TEST_LM1
+end         -- class TEST_LM1

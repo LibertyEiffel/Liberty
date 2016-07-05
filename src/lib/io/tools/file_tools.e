@@ -42,7 +42,7 @@ feature {ANY}
          path1 /= Void
          path2 /= Void
       do
-         Result  := io_same_physical_file(path1.to_external, path2.to_external)
+         Result := io_same_physical_file(path1.to_external, path2.to_external)
       end
 
    file_exists (path: ABSTRACT_STRING): BOOLEAN
@@ -78,7 +78,7 @@ feature {ANY}
    is_empty (path: ABSTRACT_STRING): BOOLEAN
          -- True if `path' file exists, is readable and is an empty file.
       require
-         path/=Void
+         path /= Void
          not path.is_empty
       do
          tfr1.connect_to(path)

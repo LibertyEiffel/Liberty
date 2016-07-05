@@ -13,7 +13,7 @@ inherit
 
 insert
    NATIVE_ARRAY_COLLECTOR[E_]
-   
+
 create {ANY}
    make, copy, from_collection, from_collection2, from_model, manifest_creation
 
@@ -373,10 +373,10 @@ feature {ANY} -- Other features:
 feature {} -- Garbage collector tuning (very low-level):
    mark_native_arrays
          -- For performance reasons, the unused area of `storage' is always left as it is when
-         -- some elements are removed. No time is lost to clean the released area with a Void 
-         -- or a 0 value. Thus, the unused area of `storage' may contains references of 
-         -- actually unreachable objects. The following `mark_native_arrays' actually replace 
-         -- the default behavior (the call is automatic) in order to mark only reachable 
+         -- some elements are removed. No time is lost to clean the released area with a Void
+         -- or a 0 value. Thus, the unused area of `storage' may contains references of
+         -- actually unreachable objects. The following `mark_native_arrays' actually replace
+         -- the default behavior (the call is automatic) in order to mark only reachable
          -- objects.
       local
          i: INTEGER

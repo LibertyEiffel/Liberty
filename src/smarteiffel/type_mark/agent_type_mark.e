@@ -29,7 +29,7 @@ feature {ANY}
       end
 
    result_type: TYPE_MARK
-         -- The type of the `Result' (used only when `pretty_code' = `function_code' ).
+         -- The type of the `Result' (used only when `pretty_code' = `function_code').
       local
          index: INTEGER
       do

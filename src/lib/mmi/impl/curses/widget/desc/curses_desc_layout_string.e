@@ -112,7 +112,7 @@ feature {}
          widgets.for_each(agent (w: CURSES_DESC_WIDGET; val: FUNCTION[TUPLE[CURSES_DESC_WIDGET], INTEGER])
                           do
                              res.set_item(func.item([res.item, val.item([w])]))
-                          end(?, item))
+                          end (?, item))
          Result := res.item
       end
 

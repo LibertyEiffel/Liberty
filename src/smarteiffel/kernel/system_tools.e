@@ -34,8 +34,7 @@ create {ANY}
 feature { SERC_FACTORY}
    system_list: FAST_ARRAY[STRING]
       once
-         Result := {FAST_ARRAY[STRING]         <<unix_system, windows_system, cygwin_system,
-                                         dos_system, open_vms_system>> }
+         Result := {FAST_ARRAY[STRING] << unix_system, windows_system, cygwin_system, dos_system, open_vms_system >> }
       end
 
    compiler_list: FAST_ARRAY[STRING]
@@ -47,7 +46,7 @@ feature { SERC_FACTORY}
          -- Compilers (among `compiler_list') which can handle C++
       once
          Result := {FAST_ARRAY[STRING] << gpp, cc_pp, cl, bcc32, wcl386, distcc, fz_none -- special no-C++ compiler
-         >> }
+                                       >> }
       end
 
    set_system_name (name: STRING)
@@ -146,7 +145,7 @@ feature {}
             set_system_flavor(once "generic")
          end
          io.put_string(once "%NThe type of your operating system was %
-                            %automatically  computed. Please verify.%N")
+                            %automatically computed. Please verify.%N")
       ensure
          system_name /= Void
          system_flavor /= Void

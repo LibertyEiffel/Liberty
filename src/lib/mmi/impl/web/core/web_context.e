@@ -417,8 +417,8 @@ feature {}
             when '+' then
                Result.extend(' ')
             when '%%' then
-               byte := url_encoded_character(a_string.item(i+1)) * 16
-                  + url_encoded_character(a_string.item(i+2))
+               byte := url_encoded_character(a_string.item(i + 1)) * 16
+                  + url_encoded_character(a_string.item(i + 2))
                Result.extend(byte.to_character)
                i := i + 2
             else

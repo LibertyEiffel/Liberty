@@ -697,7 +697,7 @@ feature {CREATE_INSTRUCTION}
          if call /= Void and then call.arguments /= Void then
             call.arguments.accept(Current)
          end
-         if call /= Void and then  precomputable then
+         if call /= Void and then precomputable then
             created_type := visited.created_type(current_dynamic_type)
             e_procedure := visited.creation_procedure(created_type) -- Push:
             type_stack.add_last(created_type)

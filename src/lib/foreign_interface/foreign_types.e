@@ -6,7 +6,7 @@ expanded class FOREIGN_TYPES
 insert
    FFI_EXTERNALS
    ANY
-        redefine 
+        redefine
             copy,
             is_equal
         end

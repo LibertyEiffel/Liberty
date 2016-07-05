@@ -7,7 +7,7 @@ class INTEGER_64_NUMBER
    --
    -- This is an INTEGER_64
    --
-   
+
 inherit
    INTEGER_GENERAL_NUMBER
 

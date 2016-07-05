@@ -764,14 +764,14 @@ feature {}
             else
                const_string := once ""
             end
-               
+
             html.close_div
             set_suffixed_attribute(once "class", css_feature, css_value_suffix, html)
             html.open_div
             html.put_string(const_string)
             need_blank := True
          end
-        
+
          if fn.is_frozen then
             html.close_div
             set_suffixed_attribute(once "class", css_feature, css_frozen_suffix, html)

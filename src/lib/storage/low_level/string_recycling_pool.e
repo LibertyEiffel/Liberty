@@ -59,7 +59,7 @@ feature {ANY}
                   item.set_item(Void)
                   strings.put(item, i)
                   if Result.capacity < capacity then
-                     -- Rmk, 2015-12-20: wouldn't it be good to have 
+                     -- Rmk, 2015-12-20: wouldn't it be good to have
                      -- the GC active already here?
                      Result.ensure_capacity(capacity)
                   end

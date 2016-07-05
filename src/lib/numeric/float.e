@@ -24,7 +24,7 @@ feature {ANY}
       end
 
    infix "/" (another: like Current): like Current
-	  deferred
+     deferred
       end
 
    infix "^" (another: INTEGER): like Current

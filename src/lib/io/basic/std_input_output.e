@@ -97,7 +97,7 @@ feature {}
          end
          -- Nothing to dispose for `io'.
       end
-   
+
 invariant
    not_filtered: not input_is_filtered and not output_is_filtered
 

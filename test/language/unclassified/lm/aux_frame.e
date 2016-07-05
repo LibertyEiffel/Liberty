@@ -1,7 +1,7 @@
 class AUX_FRAME[G]
 
 create
-	make
+   make
 
 feature {ANY}
    make

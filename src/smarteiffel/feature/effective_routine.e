@@ -321,7 +321,7 @@ feature {}
          end
          pretty_print_once_or_do(indent_level)
          if routine_body /= Void then
-            routine_body.pretty(indent_level+1)
+            routine_body.pretty(indent_level + 1)
          end
          if routine_then /= Void then
             if local_vars = Void and then routine_body = Void and then not pretty_printer.parano_mode then
@@ -331,8 +331,8 @@ feature {}
             else
                pretty_printer.set_indent_level(indent_level)
                pretty_printer.keyword(once "then")
-               pretty_printer.set_indent_level(indent_level+1)
-               routine_then.pretty(indent_level+1)
+               pretty_printer.set_indent_level(indent_level + 1)
+               routine_then.pretty(indent_level + 1)
             end
          end
       end
@@ -346,7 +346,7 @@ feature {}
          if rescue_compound /= Void then
             pretty_printer.set_indent_level(indent_level)
             pretty_printer.put_string(once "rescue")
-            rescue_compound.pretty(indent_level+1)
+            rescue_compound.pretty(indent_level + 1)
          end
       end
 

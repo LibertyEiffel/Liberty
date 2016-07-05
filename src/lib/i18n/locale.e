@@ -145,12 +145,12 @@ feature {ANY}
          i := spec.first_index_of('_')
          j := spec.first_index_of('.')
          if spec.valid_index(i) then
-            Result := spec.substring(spec.lower, i-1).is_equal(spec.substring(spec.lower, i-1).as_lower)
+            Result := spec.substring(spec.lower, i - 1).is_equal(spec.substring(spec.lower, i - 1).as_lower)
             if Result then
                if spec.valid_index(j) then
-                  Result := spec.substring(i+1, j-1).is_equal(spec.substring(i+1, j-1).as_upper)
+                  Result := spec.substring(i + 1, j - 1).is_equal(spec.substring(i + 1, j - 1).as_upper)
                else
-                  Result := spec.substring(i+1, spec.upper).is_equal(spec.substring(i+1, spec.upper).as_upper)
+                  Result := spec.substring(i + 1, spec.upper).is_equal(spec.substring(i + 1, spec.upper).as_upper)
                end
             end
          else
@@ -210,12 +210,12 @@ feature {ANY}
          i := spec.first_index_of('_')
          j := spec.first_index_of('.')
          if spec.valid_index(i) then
-            l := spec.substring(spec.lower, i-1)
+            l := spec.substring(spec.lower, i - 1)
             if spec.valid_index(j) then
-               c := spec.substring(i+1, j-1)
-               make_encoding(l, c, spec.substring(j+1, spec.upper))
+               c := spec.substring(i + 1, j - 1)
+               make_encoding(l, c, spec.substring(j + 1, spec.upper))
             else
-               make_country(l, spec.substring(i+1, spec.upper))
+               make_country(l, spec.substring(i + 1, spec.upper))
             end
          else
             make_language(spec)

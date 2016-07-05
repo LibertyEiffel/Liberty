@@ -9,7 +9,7 @@ feature {ANY}
       do
          Result := basic_clock
       end
-   
+
    periods_per_second: INTEGER
          -- The number of clock periods per seconds.
       require
@@ -17,7 +17,7 @@ feature {ANY}
       do
          Result := basic_clock_per_sec
       end
-   
+
 feature {}
    basic_clock: INTEGER
       external "plug_in"
@@ -27,7 +27,7 @@ feature {}
          feature_name: "basic_clock"
          }"
       end
-   
+
    basic_clock_per_sec: INTEGER
       external "plug_in"
       alias "{
@@ -36,7 +36,7 @@ feature {}
          feature_name: "basic_clock_per_sec"
          }"
       end
-   
+
 end -- class CLOCK
 --
 -- Copyright (C) 2009-2016: by all the people cited in the AUTHORS file.

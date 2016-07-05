@@ -145,7 +145,7 @@ feature {}
          Result := alias_data.reference_at(key)
          if Result = Void then
             error_handler.add_position(start_position)
-            error_handler.append(once "Required key %""+key+":%" not found")
+            error_handler.append(once "Required key %"" + key + ":%" not found")
             error_handler.print_as_fatal_error
          end
          alias_data.remove(key)

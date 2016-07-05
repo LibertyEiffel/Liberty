@@ -4,14 +4,14 @@
 deferred class RANDOM_NUMBER_GENERATOR
    --
    -- Common abstract definition of a random number generator.
-   -- The Liberty Eiffel library provides two implementations: MINIMAL_RANDOM_NUMBER_GENERATOR, and 
-   -- PRESS_RANDOM_NUMBER_GENERATOR. Most applications can safely rely on MINIMAL_RANDOM_NUMBER_GENERATOR. 
-   -- If you really need high quality randomizing, consider PRESS_RANDOM_NUMBER_GENERATOR. 
+   -- The Liberty Eiffel library provides two implementations: MINIMAL_RANDOM_NUMBER_GENERATOR, and
+   -- PRESS_RANDOM_NUMBER_GENERATOR. Most applications can safely rely on MINIMAL_RANDOM_NUMBER_GENERATOR.
+   -- If you really need high quality randomizing, consider PRESS_RANDOM_NUMBER_GENERATOR.
    --
-   
+
 feature {ANY}
    make
-         -- Create (or reset) the random number generator with an automatic randomised setting of the 
+         -- Create (or reset) the random number generator with an automatic randomised setting of the
          -- `seed_value' based on the CPU clock.
          --
          -- See also `with_seed'.
@@ -36,7 +36,7 @@ feature {ANY}
 
    last_real: REAL
          -- The last computed number in range 0.0 to 1.0 excluded (see ensure).
-         -- Internal memory is not changed and two calls will give the same `Result'. 
+         -- Internal memory is not changed and two calls will give the same `Result'.
          -- Use `next' to get a new random `last_real' value.
          --
          -- See also `last_integer'.
@@ -47,7 +47,7 @@ feature {ANY}
 
    last_integer (n: INTEGER): INTEGER
          -- The last computed number in range 1 to `n'(see ensure).
-         -- Internal memory is not changed and two calls will give the same `Result'. 
+         -- Internal memory is not changed and two calls will give the same `Result'.
          -- Use `next' to get a new random `last_integer' value.
          --
          -- See also `last_real'.
@@ -60,7 +60,7 @@ feature {ANY}
 
 feature {}
    clock_based_random_seed: INTEGER
-         -- Some positive random value to be used as a seed which may change as much as possible in a random 
+         -- Some positive random value to be used as a seed which may change as much as possible in a random
          -- way.
       local
          clock: CLOCK; microsecond_time: MICROSECOND_TIME
@@ -77,7 +77,7 @@ feature {}
       ensure
          Result > 0
       end
-   
+
 end -- class RANDOM_NUMBER_GENERATOR
 --
 -- Copyright (C) 2009-2016: by all the people cited in the AUTHORS file.

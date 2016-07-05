@@ -41,61 +41,61 @@ feature {TCP_PROTOCOL}
          if a_uri.valid_index(j) then
             if j < k then
                -- look for user
-               s.copy_substring(a_uri, i+1, j-1)
+               s.copy_substring(a_uri, i + 1, j - 1)
                set_username(s)
                -- look for password
-               s.copy_substring(a_uri, j+1, k-1)
+               s.copy_substring(a_uri, j + 1, k - 1)
                set_password(s)
-               j := a_uri.index_of(':', j+1)
+               j := a_uri.index_of(':', j + 1)
             else
                -- look for user
-               s.copy_substring(a_uri, i+1, k-1)
+               s.copy_substring(a_uri, i + 1, k - 1)
                set_username(s)
             end
             i := k
          end
-         k := a_uri.index_of('/', i+1)
+         k := a_uri.index_of('/', i + 1)
          if a_uri.valid_index(k) then
             if a_uri.valid_index(j) then
                -- look for host
-               s.copy_substring(a_uri, i+1, j-1)
+               s.copy_substring(a_uri, i + 1, j - 1)
                set_host(s)
                -- look for port
-               s.copy_substring(a_uri, j+1, k-1)
+               s.copy_substring(a_uri, j + 1, k - 1)
                set_port(s.to_integer)
             else
                -- look for host
-               s.copy_substring(a_uri, i+1, k-1)
+               s.copy_substring(a_uri, i + 1, k - 1)
                set_host(s)
             end
-            i := a_uri.index_of('?', k+1)
-            j := a_uri.index_of('#', k+1)
+            i := a_uri.index_of('?', k + 1)
+            j := a_uri.index_of('#', k + 1)
             if a_uri.valid_index(i) then
                -- look for path
-               s.copy_substring(a_uri, k, i-1)
+               s.copy_substring(a_uri, k, i - 1)
                set_path(s)
                if a_uri.valid_index(j) then
                   -- look for arguments
-                  s.copy_substring(a_uri, i+1, j-1)
+                  s.copy_substring(a_uri, i + 1, j - 1)
                   if arguments /= Void then
                      arguments.copy(s)
                   else
                      arguments := string_pool.new_twin(s)
                   end
                   -- look for anchor
-                  s.copy_substring(a_uri, j+1, a_uri.upper)
+                  s.copy_substring(a_uri, j + 1, a_uri.upper)
                   set_anchor(s)
                else
                   -- look for arguments
-                  s.copy_substring(a_uri, i+1, a_uri.upper)
+                  s.copy_substring(a_uri, i + 1, a_uri.upper)
                   arguments := s
                end
             elseif a_uri.valid_index(j) then
                -- look for path
-               s.copy_substring(a_uri, k, j-1)
+               s.copy_substring(a_uri, k, j - 1)
                set_path(s)
                -- look for anchor
-               s.copy_substring(a_uri, j+1, a_uri.upper)
+               s.copy_substring(a_uri, j + 1, a_uri.upper)
                set_anchor(s)
             else
                -- look for path

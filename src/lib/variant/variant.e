@@ -1,10 +1,10 @@
 deferred class VARIANT
-	-- An object holding values that may be picked from several effective
-	-- types. A variant object could hold an integer, another a string,
-	-- another a date.
+   -- An object holding values that may be picked from several effective
+   -- types. A variant object could hold an integer, another a string,
+   -- another a date.
 
-	-- It ought convert from several basic types such as integers, reals,
-	-- naturals, dates, times, strings.
+   -- It ought convert from several basic types such as integers, reals,
+   -- naturals, dates, times, strings.
 
 end -- class VARIANT
 
@@ -28,4 +28,3 @@ end -- class VARIANT
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 -- THE SOFTWARE.
-	

@@ -20,26 +20,26 @@
 -- http://ese.sourceforge.net
 -- -----------------------------------------------------------------------------------------------------------
 deferred class ESE_TYPED_VISITOR[T_]
-	--
-	-- To visit generic classes
-	--
+   --
+   -- To visit generic classes
+   --
 
 inherit
-	ESE_VISITOR
+   ESE_VISITOR
 
 feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
-	as_typed (item_type_generator: STRING): ESE_VISITOR
-			-- correctly recast by calling the `untyped' visitor
-		do
-			Result := untyped.as_typed(item_type_generator)
-		end
+   as_typed (item_type_generator: STRING): ESE_VISITOR
+         -- correctly recast by calling the `untyped' visitor
+      do
+         Result := untyped.as_typed(item_type_generator)
+      end
 
 feature {}
-	untyped: ESE_VISITOR
-		deferred
-		end
+   untyped: ESE_VISITOR
+      deferred
+      end
 
 invariant
-	untyped /= Void
+   untyped /= Void
 
 end -- class ESE_TYPED_VISITOR

@@ -128,7 +128,7 @@ feature {}
 
 invariant
    anonymous_feature /= Void implies anonymous_feature.is_deferred
-   features.for_all(agent (af: ANONYMOUS_FEATURE): BOOLEAN then af.is_deferred end(?))
+   features.for_all(agent (af: ANONYMOUS_FEATURE): BOOLEAN then af.is_deferred end (?))
 
 end -- class MOCK_FEATURES_COLLECTOR
 --

@@ -436,7 +436,7 @@ feature {}
    forbidden_parent_list: HASHED_SET[STRING]
          -- It is not allowed to inherit a class of this list (except exceptions !).
       once
-         Result := {HASHED_SET[STRING] <<   as_boolean,
+         Result := {HASHED_SET[STRING] << as_boolean,
                                           as_character,
                                           as_integer_8,
                                           as_integer_16,

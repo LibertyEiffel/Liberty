@@ -79,8 +79,8 @@ feature {}
 
                                                             -- Symbols
 
-                                                            "KW ;",             create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, ";", Void),  Void);
-                                                            "KW ,",             create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, ",", Void),  Void);
+                                                            "KW ;",             create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, ";", Void), Void);
+                                                            "KW ,",             create {DESCENDING_TERMINAL}.make(agent parse_symbol(?, ",", Void), Void);
 
                                                             -- Identifiers
 

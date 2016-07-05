@@ -6,15 +6,15 @@ inherit
    EIFFELTEST_TOOLS
    
 create {ANY}
-	make
+   make
 -------------------------------------------------------------------------------
 feature {ANY} -- Public features
 
-	a3sub: AUX_ARRAY3[INTEGER]
-	a3: ARRAY3[INTEGER]
-	make is
-		do
-			create a3sub.makea3(1,2,1,2,1,2)
+   a3sub: AUX_ARRAY3[INTEGER]
+   a3: ARRAY3[INTEGER]
+   make is
+      do
+         create a3sub.makea3(1,2,1,2,1,2)
          a3sub.put(1,1,1,1)
          a3sub.put(2,1,1,2)
          a3sub.put(3,1,2,1)
@@ -37,7 +37,7 @@ feature {ANY} -- Public features
          label_assert("correct content 7", a3.item(2, 2, 1) = 7)
          label_assert("correct content 8", a3.item(2, 2, 2) = 8)
 
-		end
-	
+      end
+   
 -------------------------------------------------------------------------------
 end -- class TEST_ARRAY3_SUBCLASS

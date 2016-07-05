@@ -1,7 +1,7 @@
 class TYPED_VARIANT[E_]
-	-- An object holding values that may be picked from several effective
-	-- types. A variant object could hold an integer, another a string,
-	-- another a date.
+   -- An object holding values that may be picked from several effective
+   -- types. A variant object could hold an integer, another a string,
+   -- another a date.
 
 inherit
     VARIANT redefine out end
@@ -10,7 +10,7 @@ inherit
 create {ANY} set_item
 
 feature {ANY}
-    out: STRING 
+    out: STRING
         do
             Result := item.out
         end
@@ -35,4 +35,4 @@ end -- class TYPED_VARIANT
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 -- THE SOFTWARE.
-	
+

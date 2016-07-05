@@ -51,7 +51,7 @@ feature {ANY}
          -- that some default values like NULL_POINTER, cannot be written in pure Eiffel.
          -- (Thanks to the new ?:= operator, this `is_default_value' frozen definition is pretty fine.)
       local
-         integer_constant: INTEGER_CONSTANT;   character_constant: CHARACTER_CONSTANT
+         integer_constant: INTEGER_CONSTANT; character_constant: CHARACTER_CONSTANT
          real_constant: REAL_CONSTANT
       do
          if {E_FALSE} ?:= Current then

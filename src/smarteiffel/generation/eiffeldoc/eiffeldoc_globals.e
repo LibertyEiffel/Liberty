@@ -194,7 +194,7 @@ feature {}
          path := last_dirname
          if path /= Void then
             bd.compute_file_path_with(path, basename_of(filename))
-            if not  bd.last_entry.is_empty then
+            if not bd.last_entry.is_empty then
                path.copy(bd.last_entry)
             else
                std_error.put_string(once "*** Could not compute the file name ")
@@ -369,10 +369,10 @@ feature {}
          until
             not buffer.valid_index(i) or else last_dirname = Void
          loop
-            if i-1 > j+1 then
+            if i - 1 > j + 1 then
                dirname := once ""
                dirname.copy(buffer)
-               dirname.shrink(j+1, i-1)
+               dirname.shrink(j + 1, i - 1)
                bd.compute_subdirectory_with(last_dirname, dirname)
                if bd.last_entry.is_empty then
                   std_error.put_string(once "*** Could not compute the subdirectory ")
@@ -396,7 +396,7 @@ feature {}
                end
             end
             j := i
-            i := buffer.index_of('/', j+1)
+            i := buffer.index_of('/', j + 1)
          end
       end
 
@@ -410,7 +410,7 @@ feature {}
          if a_filename.valid_index(i) then
             Result := once ""
             Result.copy(a_filename)
-            Result.shrink(i+1, Result.count)
+            Result.shrink(i + 1, Result.count)
          else
             Result := a_filename
          end

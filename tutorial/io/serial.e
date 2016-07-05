@@ -3,7 +3,7 @@ class SERIAL
    -- it reads and modifies baud rates of terminal settings, compare with stty
 
 insert
-	ARGUMENTS
+   ARGUMENTS
 
 create {ANY}
    make

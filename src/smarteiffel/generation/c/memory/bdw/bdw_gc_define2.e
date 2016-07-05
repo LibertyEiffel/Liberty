@@ -233,7 +233,7 @@ feature {}
             cpp.pending_c_function_body.append(once ",NULL,NULL,NULL);%N")
          end
          if cpp.need_struct.for(tm) then
--- TODO: check whether this is really necessary... it seems 
+-- TODO: check whether this is really necessary... it seems
 -- duplicated in TEST_AC01
             cpp.pending_c_function_body.append(once "*R=M")
             live_type.id.append_in(cpp.pending_c_function_body)
@@ -407,15 +407,15 @@ feature {}
                if t.is_native_array and then t.generic_list.first.is_reference then
                   if not has_capacity then
                      if live_type.type.has_simple_feature_name(capacity_name) then
--- Rmk, 2015-01-22: I don't understand this, so let's temporarily 
--- disable it. At least it seems to make eiffeldoc a bit more stable 
+-- Rmk, 2015-01-22: I don't understand this, so let's temporarily
+-- disable it. At least it seems to make eiffeldoc a bit more stable
 -- with BDW GC...
 
--- the "freed" elements in the native array which are not used 
--- currently, but still contain a pointer will not be cleaned up by 
--- the GC currently. (native arrays are ordinary memory, and the 
--- pointers are visible, during mark they are hidden and the relevant 
--- once are revealed. But in the next cycle we hid the hidden ones 
+-- the "freed" elements in the native array which are not used
+-- currently, but still contain a pointer will not be cleaned up by
+-- the GC currently. (native arrays are ordinary memory, and the
+-- pointers are visible, during mark they are hidden and the relevant
+-- once are revealed. But in the next cycle we hid the hidden ones
 -- again which reveals them again?)
 -- maybe it is better to alloc native arrays with GC_MALOC_ATOMIC
 -- and call GC_MARK_AND_PUSH for mark_item

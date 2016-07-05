@@ -263,15 +263,15 @@ feature {}
                                          function_body.extend(' ')
                                       end
                                       function_body.append(once "CA_")
-                                      (closure_rank+1).append_in(function_body)
+                                      (closure_rank + 1).append_in(function_body)
                                       function_body.extend('_')
                                       argument_name.rank.append_in(function_body)
                                       function_body.append(once "=(u->CA_")
-                                      (closure_rank+1).append_in(function_body)
+                                      (closure_rank + 1).append_in(function_body)
                                       function_body.extend('_')
                                       argument_name.rank.append_in(function_body)
                                       function_body.append(once ");%N")
-                                   end(?, type, ?)) --| **** TODO: closure on type
+                                   end (?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
                              agent (local_name: LOCAL_NAME_DEF; type_: TYPE)
                                 local
@@ -284,7 +284,7 @@ feature {}
                                    function_body.append(once "=(u->CL_")
                                    function_body.append(local_name.to_string)
                                    function_body.append(once ");%N")
-                                end(?, type)) --| **** TODO: closure on type
+                                end (?, type)) --| **** TODO: closure on type
          if not boost then
             function_body.append(
                once "static se_frame_descriptor fd={%"Agent launcher%",0,0,%"%",1};%N")
@@ -367,10 +367,10 @@ feature {}
                                          function_signature.extend(' ')
                                       end
                                       function_signature.append(once "CA_")
-                                      (closure_rank+1).append_in(function_signature)
+                                      (closure_rank + 1).append_in(function_signature)
                                       function_signature.extend('_')
                                       argument_name.rank.append_in(function_signature)
-                                   end(?, type, ?)) --| **** TODO: closure on type
+                                   end (?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
                              agent (local_name: LOCAL_NAME_DEF; type_: TYPE)
                                 local
@@ -383,7 +383,7 @@ feature {}
                                    function_signature.append(cpp.result_type.for(local_tm))
                                    function_signature.append(once "*CL_")
                                    function_signature.append(local_name.to_string)
-                                end(?, type)) --| **** TODO: closure on type
+                                end (?, type)) --| **** TODO: closure on type
          if function_signature.last = '(' then
             function_signature.append(once "void")
          end
@@ -424,15 +424,15 @@ feature {}
                                 agent (argument_name: ARGUMENT_NAME_DEF; closure_rank: INTEGER)
                                    do
                                       function_body.append(once "u->CA_")
-                                      (closure_rank+1).append_in(function_body)
+                                      (closure_rank + 1).append_in(function_body)
                                       function_body.extend('_')
                                       argument_name.rank.append_in(function_body)
                                       function_body.append(once "=CA_")
-                                      (closure_rank+1).append_in(function_body)
+                                      (closure_rank + 1).append_in(function_body)
                                       function_body.extend('_')
                                       argument_name.rank.append_in(function_body)
                                       function_body.append(once ";%N")
-                                   end(?, ?))
+                                   end (?, ?))
          for_all_local_names(agent_creation, type,
                              agent (local_name: LOCAL_NAME_DEF)
                                 do
@@ -441,7 +441,7 @@ feature {}
                                    function_body.append(once "=CL_")
                                    function_body.append(local_name.to_string)
                                    function_body.append(once ";%N")
-                                end(?))
+                                end (?))
          function_body.append(once "return((T0*)u);%N")
          cpp.dump_pending_c_function(True)
          cpp.memory.generate_agent_data(agent_creation, type, mold_id, agent closed_operand_name_in(?, function_body))
@@ -591,11 +591,11 @@ feature {}
                                          out_h.extend(' ')
                                       end
                                       out_h.append(once "CA_")
-                                      (closure_rank+1).append_in(out_h)
+                                      (closure_rank + 1).append_in(out_h)
                                       out_h.extend('_')
                                       argument_name.rank.append_in(out_h)
                                       out_h.append(once ";%N")
-                                   end(?, type, ?)) --| **** TODO: closure on type
+                                   end (?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
                              agent (local_name: LOCAL_NAME_DEF; type_: TYPE)
                                 local
@@ -606,7 +606,7 @@ feature {}
                                    out_h.append(once "*CL_")
                                    out_h.append(local_name.to_string)
                                    out_h.append(once ";%N")
-                                end(?, type)) --| **** TODO: closure on type
+                                end (?, type)) --| **** TODO: closure on type
          out_h.append(once "};%N")
          cpp.write_out_h_buffer
          if agent_creation.is_equal_used_in(agent_type) then

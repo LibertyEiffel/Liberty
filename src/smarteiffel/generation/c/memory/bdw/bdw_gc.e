@@ -359,7 +359,7 @@ feature {}
    manifest_string_mark (i, id: INTEGER)
       do
          cpp.pending_c_function_body.append(once "bdw_ms[")
-         (i-1).append_in(cpp.pending_c_function_body)
+         (i - 1).append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "]=")
       end
 

@@ -412,7 +412,7 @@ feature {} -- Column types
          Result.copy(a_raw_type)
          i := Result.first_index_of('(')
          if Result.valid_index(i) then
-            Result.shrink(1, i-1)
+            Result.shrink(1, i - 1)
          end
          Result.to_upper
       end
@@ -426,7 +426,7 @@ feature {} -- Column types
          i := a_raw_type.first_index_of('(')
          if a_raw_type.valid_index(i) and then a_raw_type.last = ')' then
             s := once ""
-            s.copy_substring(a_raw_type, i+1, a_raw_type.count - 1)
+            s.copy_substring(a_raw_type, i + 1, a_raw_type.count - 1)
             if s.is_integer then
                Result := s.to_integer
             end

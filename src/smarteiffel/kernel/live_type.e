@@ -84,7 +84,7 @@ feature {ANY}
       require
          smart_eiffel.generator_used
       do
-         Result := at_run_time or else generating_type_level>0
+         Result := at_run_time or else generating_type_level > 0
       end
 
    can_be_assigned_to (other: like Current): BOOLEAN

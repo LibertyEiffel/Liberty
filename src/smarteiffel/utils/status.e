@@ -112,7 +112,6 @@ feature {}
    -- has got warnings).
    --
 
-
 feature {} -- State change support
    visitable_phase_stack: FAST_ARRAY[INTEGER]
          -- Used by visitors getting the `phase_stack': security trick not to let the visitor modify the stack.

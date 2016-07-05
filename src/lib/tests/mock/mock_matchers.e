@@ -175,7 +175,7 @@ feature {}
    matchers: FAST_ARRAY[MOCK_MATCHER]
 
 invariant
-   matchers.for_all(agent (m: MOCK_MATCHER): BOOLEAN do then m /= Void end(?))
+   matchers.for_all(agent (m: MOCK_MATCHER): BOOLEAN do then m /= Void end (?))
 
 end -- class MOCK_MATCHERS
 --

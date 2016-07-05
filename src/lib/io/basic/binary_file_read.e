@@ -215,7 +215,7 @@ feature {ANY}
          valid: Result /= Void
          associated: Result.associated_stream = Current
       end
-   
+
 
 feature {FILTER}
    filtered_descriptor: INTEGER

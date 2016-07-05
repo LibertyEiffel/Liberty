@@ -26,7 +26,7 @@ feature {ARRAY3}
 
    capacity: INTEGER
          -- Number of elements in `storage'.
-   
+
    set_limits(line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER)
       -- set lower1,2,3 and upper1,2,3 to the given values and alloc storage if necessary
       require
@@ -286,7 +286,7 @@ feature {ANY} -- Implementation of others feature from COLLECTION3:
       do
          Result := standard_twin
          Result.set_limits(line_min, line_max, column_min, column_max, depth_min, depth_max)
-         
+
          from
             i := line_min
             k := 0
@@ -374,10 +374,10 @@ feature {ANY} -- Looking and comparison:
 feature {} -- Garbage collector tuning (very low-level):
    mark_native_arrays
          -- For performance reasons, the unused area of `storage' is always left as it is when
-         -- some elements are removed. No time is lost to clean the released area with a Void 
-         -- or a 0 value. Thus, the unused area of `storage' may contains references of 
-         -- actually unreachable objects. The following `mark_native_arrays' actually replace 
-         -- the default behavior (the call is automatic) in order to mark only reachable 
+         -- some elements are removed. No time is lost to clean the released area with a Void
+         -- or a 0 value. Thus, the unused area of `storage' may contains references of
+         -- actually unreachable objects. The following `mark_native_arrays' actually replace
+         -- the default behavior (the call is automatic) in order to mark only reachable
          -- objects.
       local
          i: INTEGER

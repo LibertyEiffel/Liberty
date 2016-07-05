@@ -3,7 +3,7 @@
 --
 deferred class SINGLETON
    --
-   -- Implementation of the "Singleton" design pattern. The singleton pattern is a property of a type 
+   -- Implementation of the "Singleton" design pattern. The singleton pattern is a property of a type
    -- (yes TYPE, not class) to have at most one single object created at runtime for the corresponding type.
    --
    -- Usage: insert SINGLETON, that's all.
@@ -44,7 +44,7 @@ feature {}
       end
 
    singleton_memory_pool: HASHED_DICTIONARY[POINTER, STRING]
-         -- This pool is unique in the whole system. A memory is kept 
+         -- This pool is unique in the whole system. A memory is kept
          -- for each singleton type (type, not class) in the system.
       once
          create Result.make

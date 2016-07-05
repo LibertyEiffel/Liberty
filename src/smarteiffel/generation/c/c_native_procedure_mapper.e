@@ -125,7 +125,7 @@ feature {NATIVE_BUILT_IN}
             cpp.put_ith_argument(1)
             function_body.append(once ");%N")
          elseif as_weak_reference = bcn then
-            if  as_set_item = name then
+            if as_set_item = name then
                cpp.memory.weak_set_item(type_of_current.live_type)
             else
                not_yet_implemented

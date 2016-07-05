@@ -706,7 +706,7 @@ feature {ANY} -- Other features:
          end
       ensure
          count = n.max(0) + old count
-                 not_changed_when_n_is_not_positive: n<1 implies Current ~ old twin
+                 not_changed_when_n_is_not_positive: n < 1 implies Current ~ old twin
       end
 
    extend_to_count (c: CHARACTER; needed_count: INTEGER)

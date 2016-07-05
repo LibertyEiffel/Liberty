@@ -715,7 +715,7 @@ feature {}
                                     %Below, you get the feature evolution step by step. Note that in the end (type ")
                error_handler.append(context_type.name.to_string)
                error_handler.append(once ") there are two versions of the same initial feature with two different names. %
-                                    %To  fix this, either use an %"insert%" link in place of one of the %"inherit%" %
+                                    %To fix this, either use an %"insert%" link in place of one of the %"inherit%" %
                                     %links or rename the feature to get the same name in ")
                error_handler.append(context_type.name.to_string)
                error_handler.append(once " type.%N%NFirst %"inherit%" path (from parent to child):%N   ")
@@ -775,7 +775,7 @@ feature {}
                                  %Below, you get the feature evolution step by step. Note that in the end (type ")
             error_handler.append(context_type.name.to_string)
             error_handler.append(once ") there are two versions of the same initial feature with two different names. %
-                                 %To  fix this, either use enough %"inherit%" links in place of %"insert%" links %
+                                 %To fix this, either use enough %"inherit%" links in place of %"insert%" links %
                                  %to have one %"inherit%" path or rename the feature to get the same name in ")
             error_handler.append(context_type.name.to_string)
             error_handler.append(once " type.%N%NFirst %"insert%" path (from parent to child):%N   ")

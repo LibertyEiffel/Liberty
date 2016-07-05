@@ -223,7 +223,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- context management
             context_top >= 2
             context.last = context_type_frame
          end
-         goto_position(context.item(context.upper-2))
+         goto_position(context.item(context.upper - 2))
       end
 
    context_restore_and_pop

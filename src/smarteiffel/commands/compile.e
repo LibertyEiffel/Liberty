@@ -432,7 +432,7 @@ feature {}
             ok := argi < argument_count
             if ok then
                num := argument(argi + 1)
-               ok :=num.is_integer
+               ok := num.is_integer
             end
             if ok then
                max_process_count := num.to_integer

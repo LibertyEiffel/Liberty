@@ -182,7 +182,7 @@ feature {ANY} -- Other features:
          end
       end
 
-   
+
 feature {}
    make
       do

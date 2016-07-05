@@ -3,10 +3,10 @@
 --
 class PRESS_RANDOM_NUMBER_GENERATOR
    --
-   -- Press' standard generator, which uses the MINIMAL_RANDOM_NUMBER_GENERATOR 
+   -- Press' standard generator, which uses the MINIMAL_RANDOM_NUMBER_GENERATOR
    -- and then uses shuffling to break up short order correlations.
    --
-   
+
 inherit
    MINIMAL_RANDOM_NUMBER_GENERATOR
       redefine with_seed, last_integer, last_real, next

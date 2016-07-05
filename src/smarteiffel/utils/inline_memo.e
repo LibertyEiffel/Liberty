@@ -3,8 +3,8 @@
 --
 class INLINE_MEMO
    --
-   -- Used to store the result of an inlining attempt. Just because a Void `Result' would be 
-   -- ambiguous: if the caller get an INLINE_MEMO, he knows that the inlining was possible, 
+   -- Used to store the result of an inlining attempt. Just because a Void `Result' would be
+   -- ambiguous: if the caller get an INLINE_MEMO, he knows that the inlining was possible,
    -- even, if the result of the inlining is a Void value!
    --
 
@@ -72,7 +72,7 @@ feature {SMART_EIFFEL}
 
 feature {}
    code: CODE
-   
+
    make
       do
       end

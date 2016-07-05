@@ -91,7 +91,7 @@ feature {SEDB_RUNNER}
 
    set_command (a_command: like command)
       require
-         a_command/= Void
+         a_command /= Void
       do
          command.copy(a_command)
          command.extend('%N')

@@ -153,7 +153,7 @@ feature {ANY}
       ensure
          Result >= zero
          Result = zero implies Current = zero and other = zero
-         Result >= (one+one) implies Current \\ Result = zero and other \\ Result = zero and (Current // Result).gcd(other // Result) = one
+         Result >= (one + one) implies Current \\ Result = zero and other \\ Result = zero and (Current // Result).gcd(other // Result) = one
       end
 
    lcm (other: like Current): like Current

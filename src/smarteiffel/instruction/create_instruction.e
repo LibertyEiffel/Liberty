@@ -18,7 +18,7 @@ insert
 create {EIFFEL_PARSER, INTROSPECTION_HANDLER}
    make
 
-create   {INTROSPECTION_HANDLER}
+create {INTROSPECTION_HANDLER}
    make_specialized, typed_internals
 
 feature {ANY}
@@ -113,7 +113,7 @@ feature {ANY}
          if call /= Void then
             c := call.simplify_arguments(type)
             if explicit_type = Void then
-               -- TODO: check why it is sufficient to do this 
+               -- TODO: check why it is sufficient to do this
                -- "type_to_create"-stuff only if call /= Void
                type_to_create := writable.resolve_in(type)
             else

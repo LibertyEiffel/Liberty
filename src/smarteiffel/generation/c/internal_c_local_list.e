@@ -5,14 +5,14 @@ class INTERNAL_C_LOCAL_LIST
    --
    -- To handle the list of INTERNAL_C_LOCAL actually used by the current pending C function.
    --
-   
+
 insert
    GLOBALS
-   
+
 feature {}
    internal_c_local_pool: FAST_ARRAY[INTERNAL_C_LOCAL]
-         -- All allocated INTERNAL_C_LOCAL objects since the beginning. This array is only growing 
-         -- and its purpose is to avoid creating many new INTERNAL_C_LOCAL objects for each 
+         -- All allocated INTERNAL_C_LOCAL objects since the beginning. This array is only growing
+         -- and its purpose is to avoid creating many new INTERNAL_C_LOCAL objects for each
          -- new `pending_c_function' run.
       once
          create Result.with_capacity(32)
@@ -48,7 +48,7 @@ feature {C_PRETTY_PRINTER}
 
    declaration_dump (out_c: TEXT_FILE_WRITE)
       local
-         i: INTEGER; stop: BOOLEAN; internal_c_local: INTERNAL_C_LOCAL;  buffer: STRING
+         i: INTEGER; stop: BOOLEAN; internal_c_local: INTERNAL_C_LOCAL; buffer: STRING
       do
          buffer := once "........... unique buffer ..............."
          buffer.clear_count
@@ -72,7 +72,7 @@ feature {C_PRETTY_PRINTER}
       end
 
    declared_tmp_counter: INTEGER
-   
+
    echo_information
       do
          echo.put_string("Declared INTERNAL_C_LOCAL: ")
@@ -81,7 +81,7 @@ feature {C_PRETTY_PRINTER}
          echo.put_integer(internal_c_local_pool.upper)
          echo.put_string(".%N")
       end
-   
+
 end -- class INTERNAL_C_LOCAL_LIST
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -20,7 +20,7 @@ default
 
    assertion (no);
 
-   trace(no);
+   trace (no);
 
    debug (no);
 
@@ -28,7 +28,7 @@ cluster
 
    "${path_tutorial}/number"
       default
-         trace(yes)
+         trace (yes)
       end
 
    "${path_liberty_core}/loadpath.se"

@@ -104,7 +104,6 @@ feature {}
    no_remove_flag: BOOLEAN
          -- Memory of the "-no_remove" flag.
 
-
    remove_possible_suffix (name: STRING)
       require
          name /= Void

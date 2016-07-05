@@ -1,17 +1,17 @@
 class EIFFELTEST_DIRECTORY_VIEW
-   
+
 inherit
    GRAPHIC
    LAYOUT
       redefine set_container, container
       end
-   
+
 create {EIFFELTEST}
    make
 
 feature {ANY}
    container: SUB_WINDOW
-   
+
    set_container (c: like container)
       do
          container := c
@@ -75,7 +75,7 @@ feature {CONTAINER}
             elseif log_new_size > log_ref_size then
                log_new_size := log_ref_size
             end
-            
+
             draw(locked_directory, now_running, log_ref_size, log_new_size, has_failures)
          end
       end
@@ -100,11 +100,11 @@ feature {EIFFELTEST}
          end
       end
 
-feature {}   
+feature {}
    eiffeltest: EIFFELTEST
-   
+
    index: INTEGER
-   
+
    make (et: like eiffeltest; i: like index)
       require
          et /= Void
@@ -116,7 +116,7 @@ feature {}
          eiffeltest = et
          index = i
       end
-   
+
    draw_kit_black: DRAW_KIT
       once
          create Result
@@ -164,12 +164,12 @@ feature {}
             unicode_string.clear_count
             if unicode_string.utf8_decode_from(now_running) then
                draw_kit_black.put_string(unicode_string, x, y)
-               y := y + 30            
+               y := y + 30
             end
          end
 
          w_done := ((log_new_size / log_ref_size) * w_max).force_to_integer_32
-         
+
          if w_done > 0 then
             if has_failures then
                draw_kit_red.set_drawable(container)
@@ -183,7 +183,7 @@ feature {}
       end
 
    log_new_size_memory, log_ref_size_memory: INTEGER
-   
+
    unicode_string: UNICODE_STRING
       once
          create Result.make(0)
@@ -202,7 +202,7 @@ feature {}
       once
          create Result.make
       end
-   
+
    size_of (dirpath: STRING; file_name: STRING): INTEGER
       local
          file_path: STRING
@@ -285,5 +285,5 @@ feature {}
       once
          create Result.make
       end
-   
+
 end

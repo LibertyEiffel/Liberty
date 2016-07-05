@@ -189,7 +189,7 @@ feature {}
             Result := Result + 1
          end
       ensure
-         Result.in_range(p+1, path.upper + 1)
+         Result.in_range(p + 1, path.upper + 1)
          path.substring(p, Result - 1).has_suffix(element)
       end
 

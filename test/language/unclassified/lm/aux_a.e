@@ -1,16 +1,16 @@
 deferred class AUX_A [ G ]
 
 inherit
-	ARRAY [ G ]
-		rename
+   ARRAY [ G ]
+      rename
          make as array_make
-		end
+      end
 
 -------------------------------------------------------------------------------
-feature {ANY}		-- Public features
+feature {ANY}     -- Public features
 
-	make is
-		deferred
-		end
+   make is
+      deferred
+      end
 -------------------------------------------------------------------------------
-end			-- class AUX_A
+end         -- class AUX_A

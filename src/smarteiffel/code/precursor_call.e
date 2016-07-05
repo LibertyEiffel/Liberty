@@ -119,9 +119,9 @@ feature {ANY}
             error_handler.append(once "Actual argument list of Precursor call doesn't match the procedures signature.")
             error_handler.print_as_error
          end
-         -- TODO: check whether we have to check the types or the 
+         -- TODO: check whether we have to check the types or the
          -- length of the argument lists here...
-         
+
          if arg /= arguments then
             Result := twin
             Result.set_arguments(arg)

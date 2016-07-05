@@ -15,7 +15,6 @@ deferred class BIJECTIVE_DICTIONARY[V_, K_]
    -- move from one to the other.
    --
 
-
 inherit
    MAP[V_, K_]
       undefine

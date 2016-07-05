@@ -487,7 +487,7 @@ feature {TYPE_MARK}
             if tm1 /= tm2 then
                declaration_type_memory := Void
                generic_list := generic_list.twin
-               generic_list.put(tm2, i-1)
+               generic_list.put(tm2, i - 1)
                from
                until
                   i > generic_list.upper

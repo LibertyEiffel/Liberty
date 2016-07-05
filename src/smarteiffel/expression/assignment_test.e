@@ -106,7 +106,7 @@ feature {ANY}
                   -- They can be all assigned into the left-hand side:
                   smart_eiffel.magic_count_increment
                   create {E_TRUE} Result.make(start_position)
-               elseif  right_run_time_set.count = counter2 then
+               elseif right_run_time_set.count = counter2 then
                   -- Conversely, all possibilities of the right-hand side are all non-assignable into
                   -- the left-hand side. We must still take care of the fact that the right-hand can be
                   -- non Void:

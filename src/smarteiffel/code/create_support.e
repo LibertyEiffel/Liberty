@@ -17,7 +17,7 @@ feature {ANY}
 
    writable: EXPRESSION
          -- The target of the creation call (mandatory for the CREATE_INSTRUCTION and forbidden for the
-         -- CREATE_EXPRESSION ).
+         -- CREATE_EXPRESSION).
 
    call: PROCEDURE_CALL
          -- Optional initialisation call if any. (The target of `call' is the `writable' entity.)

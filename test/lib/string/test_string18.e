@@ -3,27 +3,27 @@ class TEST_STRING18
 insert EIFFELTEST_TOOLS
 
 create {} 
-	make
+   make
 
 feature {ANY} 
    make
-	   local x,y: STRING
-	   do
-		   print("plain strin%N")
-		   x := once "__addr"
-		   y := translate(x)
-		   assert(y ~ "an_addr")
-		   assert(y.count = 7)
-		   print("from external%N")
-		   create x.from_external(addr)
-		   y := translate(x)
-		   assert(y ~ "an_addr")
-		   assert(y.count = 7)
-		   print("From external copy")
-		   create x.from_external_copy(addr)
-		   y := translate(x)
-		   assert(y ~ "an_addr")
-		   assert(y.count = 7)
+      local x,y: STRING
+      do
+         print("plain strin%N")
+         x := once "__addr"
+         y := translate(x)
+         assert(y ~ "an_addr")
+         assert(y.count = 7)
+         print("from external%N")
+         create x.from_external(addr)
+         y := translate(x)
+         assert(y ~ "an_addr")
+         assert(y.count = 7)
+         print("From external copy")
+         create x.from_external_copy(addr)
+         y := translate(x)
+         assert(y ~ "an_addr")
+         assert(y.count = 7)
       end
 
    translate (a_name: STRING): STRING
@@ -83,8 +83,8 @@ feature {ANY}
          end
       end
 
-	addr: POINTER
-		external "C inline"
-		alias "%"__addr%""
-		end
+   addr: POINTER
+      external "C inline"
+      alias "%"__addr%""
+      end
 end

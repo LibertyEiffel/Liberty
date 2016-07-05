@@ -2,11 +2,11 @@
 -- See the full copyright at the end.
 --
 class LAZY_STRING
-	-- A string made with the output of an agent function given at creation time. 
+   -- A string made with the output of an agent function given at creation time.
 
-	-- The agent function will be run only when actually required, for example
-	-- accessing the elements of the string or iterating over it; the result
-	-- of the agent function will be cached for further usage.
+   -- The agent function will be run only when actually required, for example
+   -- accessing the elements of the string or iterating over it; the result
+   -- of the agent function will be cached for further usage.
 inherit
    ABSTRACT_STRING
       redefine

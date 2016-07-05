@@ -20,27 +20,27 @@
 -- http://ese.sourceforge.net
 -- -----------------------------------------------------------------------------------------------------------
 expanded class ESE_STATIC_TYPE[T_]
-	--
-	-- To get the static type of T_
-	--
-	-- Non-OO crap to ensure type selection for visitors.
-	--
+   --
+   -- To get the static type of T_
+   --
+   -- Non-OO crap to ensure type selection for visitors.
+   --
 
 feature {ESE_TYPED_VISITABLE}
-	type_name: STRING
-		local
-			i: INTEGER
-		do
-			Result := once ""
-			Result.copy(generating_type)
-			i := 17
-			check
-				i = Result.first_index_of('[') + 1
-			end
-			Result.shrink(i, Result.upper - 1)
-		ensure
-			Result /= Void
-			generating_type.is_equal("ESE_STATIC_TYPE[" + Result + "]")
-		end
+   type_name: STRING
+      local
+         i: INTEGER
+      do
+         Result := once ""
+         Result.copy(generating_type)
+         i := 17
+         check
+            i = Result.first_index_of('[') + 1
+         end
+         Result.shrink(i, Result.upper - 1)
+      ensure
+         Result /= Void
+         generating_type.is_equal("ESE_STATIC_TYPE[" + Result + "]")
+      end
 
 end -- class ESE_STATIC_TYPE

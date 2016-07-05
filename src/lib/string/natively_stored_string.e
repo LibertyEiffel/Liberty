@@ -259,10 +259,10 @@ feature {} -- storage signature: only in all_check mode
          storage.is_not_null
          storage_signature_count = 4
       do
-         storage.put('%/0/' , capacity  )
-         storage.put('%/3/' , capacity+1)
-         storage.put('%/9/' , capacity+2)
-         storage.put('%/27/', capacity+3)
+         storage.put('%/0/' , capacity    )
+         storage.put('%/3/' , capacity + 1)
+         storage.put('%/9/' , capacity + 2)
+         storage.put('%/27/', capacity + 3)
          has_storage_signature := True
          Result := True
       ensure
@@ -276,10 +276,10 @@ feature {STRING_HANDLER}
       require
          has_storage_signature
       do
-         Result :=   storage.item(capacity  ) = '%/0/'
-            and then storage.item(capacity+1) = '%/3/'
-            and then storage.item(capacity+2) = '%/9/'
-            and then storage.item(capacity+3) = '%/27/'
+         Result :=   storage.item(capacity    ) = '%/0/'
+            and then storage.item(capacity + 1) = '%/3/'
+            and then storage.item(capacity + 2) = '%/9/'
+            and then storage.item(capacity + 3) = '%/27/'
          if not Result then
             sedb_breakpoint
          end

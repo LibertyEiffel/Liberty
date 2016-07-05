@@ -1119,7 +1119,7 @@ feature {}
                i := i + 1
             end
          end
-         if buffer.end_reached  then
+         if buffer.end_reached then
             -- note that the end was reached with a completely correct parsing, just incomplete
             end_reached := True
          else

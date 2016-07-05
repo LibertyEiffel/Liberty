@@ -49,7 +49,6 @@ feature {ANY} -- Explicit conversions:
          Result := Current
       end
 
-
    to_natural_64: NATURAL_64
          -- Explicit conversion to NATURAL_64.
       external "built_in"

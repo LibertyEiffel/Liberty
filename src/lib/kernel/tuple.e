@@ -92,6 +92,7 @@ feature {ANY}
 end -- TUPLE 1
 
 
+
 class TUPLE [A_, B_] -- Two fields TUPLE definition.
 
 inherit
@@ -244,6 +245,7 @@ feature {ANY}
       end
 
 end -- TUPLE 3
+
 
 
 class TUPLE [A_, B_, C_, D_] -- Four fields TUPLE definition.
@@ -442,6 +444,7 @@ feature {ANY}
       end
 
 end -- TUPLE 5
+
 
 
 class TUPLE [A_, B_, C_, D_, E_, F_] -- Six fields TUPLE definition.

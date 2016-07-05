@@ -9,7 +9,7 @@ class PRECURSOR_INSTRUCTION
 inherit
    INSTRUCTION
    PRECURSOR_CALL
-   
+
 create {ANY}
    make
 

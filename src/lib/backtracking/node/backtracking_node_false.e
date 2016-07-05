@@ -23,7 +23,7 @@ feature {ANY}
       end
 
 feature {}
-   do_fill_tagged_out_memory 
+   do_fill_tagged_out_memory
       do
          tagged_out_memory.append(once "<false>")
       end

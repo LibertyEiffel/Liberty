@@ -21,7 +21,7 @@ feature {ANY}
 
 feature {CALL_0}
    inline_expression_0 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-                        target_type: TYPE; target: EXPRESSION;   return_type: TYPE): INLINE_MEMO
+                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO
       local
          assignment: ASSIGNMENT; built_in_eq_neq: BUILT_IN_EQ_NEQ; call_0: CALL_0
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN

@@ -258,7 +258,7 @@ feature {}
          if alias_string /= Void then
             pretty_printer.set_indent_level(indent_level)
             pretty_printer.keyword(once "alias")
-            alias_string.pretty(indent_level+1)
+            alias_string.pretty(indent_level + 1)
          end
       end
 

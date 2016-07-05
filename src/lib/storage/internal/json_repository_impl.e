@@ -137,7 +137,7 @@ feature {JSON_OBJECT}
             jarr.array.enumerate.for_each(agent (value: JSON_VALUE; index: INTEGER)
                                           do
                                              last_name := "item("
-                                             (index+1).append_in(last_name)
+                                             (index + 1).append_in(last_name)
                                              last_name.extend(')')
                                              value.accept(Current)
                                           end)

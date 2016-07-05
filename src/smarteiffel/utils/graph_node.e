@@ -56,13 +56,13 @@ feature {ASSIGNMENT_HANDLER}
             end
          end
       end
-   
+
    reset
          -- To `reset' before each collect cycle.
       do
          destination_graph_nodes.clear_count
       end
-   
+
    collect_way_to (destination_gn: GRAPH_NODE)
       require
          smart_eiffel.status.is_analyzing
@@ -75,11 +75,11 @@ feature {ASSIGNMENT_HANDLER}
       do
          Result := destination_graph_nodes.count
       end
-   
+
 feature {ASSIGNMENT_HANDLER}
    recompute_run_time_set (magic: INTEGER): INTEGER
       local
-         source_lt: LIVE_TYPE; source_rts: RUN_TIME_SET;   destination_gn: like Current; i: INTEGER
+         source_lt: LIVE_TYPE; source_rts: RUN_TIME_SET; destination_gn: like Current; i: INTEGER
       do
          Result := magic
          source_lt := source_type.live_type
