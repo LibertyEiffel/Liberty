@@ -181,8 +181,8 @@ feature {} -- Some other names:
 
    fz_libertyeiffel: STRING "LibertyEiffel"
 
-   fz_seconf: STRING "Liberty"
-         -- the environment name pointing on the config file
+   fz_seconf: STRING "LIBERTY_CONF"
+         -- The environment name pointing to the config file.
 
 feature {} -- The known keys of the INI file:
    fz_conf_general: STRING "General"

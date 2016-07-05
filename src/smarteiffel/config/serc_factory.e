@@ -69,7 +69,7 @@ feature {ANY}
 
 feature {SYSTEM_TOOLS}
    seconf_env: STRING
-         -- The value of the SmartEiffel environment variable, if defined.
+         -- The value of the Liberty Eiffel config file path environment variable, if defined.
       once
          Result := env(fz_seconf)
       end
