@@ -131,7 +131,37 @@ feature {ANY}
       do
          Result := Current & 1 = 0
       end
-
+      
+   is_prime: BOOLEAN
+      -- determines primality of Current
+      local          
+            index, limit: like Current
+      do     
+         if Current > 3 then        
+            if (Current.is_even) or ((Current #\\ 3) = 0) then
+               Result := False
+            else
+               limit ::= Current.sqrt.force_to_integer_64
+               from
+                  index := 5
+               until
+                  index >= limit
+               loop
+                  if (Current #\\ index = 0) or (Current #\\ (index+2) = 0)  then
+                     Result := False
+                     index := limit
+                  end
+                  index := index + 6
+               end
+               Result := True
+            end          
+         elseif  Current < 2 then
+            Result := False
+         else
+            Result := True 
+         end         
+      end
+      
    sqrt: REAL
       deferred
       end
