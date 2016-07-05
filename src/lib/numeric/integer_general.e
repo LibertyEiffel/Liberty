@@ -142,6 +142,7 @@ feature {ANY}
                Result := False
             else
                limit ::= Current.sqrt.force_to_integer_64
+               Result := True
                from
                   index := 5
                until
@@ -152,8 +153,7 @@ feature {ANY}
                      index := limit
                   end
                   index := index + 6
-               end
-               Result := True
+               end             
             end          
          elseif  Current < 2 then
             Result := False
