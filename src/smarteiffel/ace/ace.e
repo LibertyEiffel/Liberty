@@ -896,25 +896,36 @@ feature {SMART_EIFFEL}
 
 feature {ACE_CHECK}
    pretty_in (txt: STRING)
-         -- Performs the `ace_check' and also prepare in `txt' a pretty version of the Ace file as
+         -- Performs the `ace_check' and also prepare in `txt' a pretty version of the ACE file as
          -- it is memorized (can be also used to pretty one's ACE file).
       require
          file_path /= Void
+      local
+         i: INTEGER
       do
-         txt.append("system ")
+         txt.append("system %"")
          txt.append(executable_name_memory)
+         txt.extend('%"')
          txt.append("%Nroot ")
          txt.append(root_class_name.to_string)
          if root_procedure_name /= Void then
-            txt.append(": %"")
+            txt.append(": ")
             txt.append(root_procedure_name)
-            txt.extend('%"')
          end
-         txt.append("%Ndefault%N     assertion (")
+         txt.append("%Ndefault")
+         txt.append("%N   assertion (")
          txt.append(level_name(default_assertion_level))
-         txt.append(")%N   debug (")
-         --|*** txt.append(default_debug_key)
          txt.append(")%N")
+         from
+            i := default_debug_keys.lower
+         until
+            i > default_debug_keys.upper
+         loop
+            txt.append("   debug (")
+            txt.append(default_debug_keys.item(i))
+            txt.append(")%N")
+            i := i + 1
+         end
          if default_trace then
             txt.append("   trace (yes)%N")
          else
