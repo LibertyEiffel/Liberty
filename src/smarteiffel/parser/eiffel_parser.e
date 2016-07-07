@@ -724,13 +724,6 @@ feature {}
                   state := S_first_hexadecimal_digit
                   next_char
                when '_' then
-                  if pretty_view.count - 3 >= first_digit_index then
-                     if pretty_view.item(pretty_view.count - 3) /= '_' then
-                        error_handler.add_position(current_position)
-                        error_handler.append(em9)
-                        error_handler.print_as_fatal_error
-                     end
-                  end
                   pretty_view.extend(cc)
                   next_char
                when 'e', 'E' then
@@ -805,7 +798,7 @@ feature {}
                   state := S_finished_with_no_error_and_true
                when '_' then
                   error_handler.add_position(current_position)
-                  error_handler.append(once "Underscore notation _ not supported inside fractional part.")
+                  error_handler.append(once "Underscore notation not supported inside fractional part.")
                   error_handler.print_as_fatal_error
                else
                   if pretty_view.first /= '{' then
