@@ -10,6 +10,9 @@ expanded class MATH_CONSTANTS
 feature {ANY} -- Maths constants:
    Pi: REAL 3.1415926535897932384626
          -- Pi
+         
+   Tau: REAL 6.2831852707795864769252
+         -- Tau (2Pi)
 
    Pi_2: REAL 1.5707963267948966192313
          -- Pi divided by 2
