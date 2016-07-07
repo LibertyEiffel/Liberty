@@ -685,8 +685,6 @@ feature {}
 
    em8: STRING "Unexpected new line in manifest string."
 
-   em9: STRING "Underscore in number must group exactly 3 digits."
-
    em10: STRING "Right hand side expression of ::= assignment expected here."
 
    em11: STRING "Bad clients list."
