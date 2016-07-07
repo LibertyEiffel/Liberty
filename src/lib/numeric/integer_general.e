@@ -133,7 +133,7 @@ feature {ANY}
       end
       
    is_prime: BOOLEAN
-      -- determines primality of Current
+      -- Is prime?
       local          
          index, limit: like Current
       do     
