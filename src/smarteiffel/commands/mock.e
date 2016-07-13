@@ -142,11 +142,6 @@ feature {}
          root_class_name /= Void
       end
 
-   fatal_bad_usage
-      do
-         system_tools.bad_use_exit(command_name, command_line_help_summary)
-      end
-
 feature {}
    mock (class_text: CLASS_TEXT)
       require

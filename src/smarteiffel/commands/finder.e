@@ -50,7 +50,7 @@ feature {}
       do
          argc := argument_count
          if argc = 0 then
-            system_tools.bad_use_exit(command_line_name, command_line_help_summary)
+            fatal_bad_usage
          end
          search_for_verbose_flag
          ace_mode := ace_file_mode
@@ -62,7 +62,7 @@ feature {}
             arg := argument(argi)
             if ace.file_path /= Void and then arg.is_equal(ace.file_path) then
             elseif search_key /= Void then
-               system_tools.bad_use_exit(command_line_name, command_line_help_summary)
+               fatal_bad_usage
             elseif flag_match(fz_loadpath, arg) then
                if argi < argc then
                   system_tools.add_loadpath_file(argument(argi + 1))
@@ -87,7 +87,7 @@ feature {}
             ace.command_line_parsed(command_line_name)
          end
          if search_key = Void then
-            system_tools.bad_use_exit(command_line_name, command_line_help_summary)
+            fatal_bad_usage
          end
          class_texts := smart_eiffel.find_paths_for(ace.root_class_name)
          if class_texts.is_empty then

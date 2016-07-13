@@ -34,7 +34,7 @@ feature {}
          argi: INTEGER; arg, view: STRING; verbose: BOOLEAN; string_command_line: STRING_COMMAND_LINE
       do
          if argument_count = 0 then
-            system_tools.bad_use_exit(command_line_name, command_line_help_summary)
+            fatal_bad_usage
          end
          string_command_line.set_command_line_name(command_line_name)
          if ace_file_mode then

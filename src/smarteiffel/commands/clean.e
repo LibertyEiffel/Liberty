@@ -52,7 +52,7 @@ feature {}
          i: INTEGER; arg, root: STRING
       do
          if argument_count < 1 then
-            system_tools.bad_use_exit(command_line_name, command_line_help_summary)
+            fatal_bad_usage
          end
          search_for_verbose_flag
 

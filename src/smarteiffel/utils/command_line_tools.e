@@ -249,7 +249,7 @@ feature {}
                   echo.w_put_string(ace.file_path)
                   echo.w_put_string(") is used.%N")
                   echo.w_put_string(valid_argument_for_ace_mode)
-                  system_tools.bad_use_exit(command_line_name, command_line_help_summary)
+                  fatal_bad_usage
                end
                i := i + 1
             end
@@ -541,6 +541,11 @@ feature {}
          echo.w_put_string(": unknown flag %"")
          echo.w_put_string(flag)
          echo.w_put_string("%".%N")
+         fatal_bad_usage
+      end
+
+   fatal_bad_usage
+      do
          system_tools.bad_use_exit(command_line_name, command_line_help_summary)
       end
 

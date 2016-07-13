@@ -99,7 +99,7 @@ feature {}
          argi: INTEGER; arg: STRING
       do
          if argument_count < 1 then
-            system_tools.bad_use_exit(command_line_name, command_line_help_summary)
+            fatal_bad_usage
          end
          if search_for_echo_redirect_flag /= Void then
             -- Because we must not overwrite the output of `compile_to_c':

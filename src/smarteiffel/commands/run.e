@@ -85,7 +85,7 @@ feature {}
          eiffel_parser.set_drop_comments
          string_command_line.set_command_line_name(command_line_name)
          if argument_count < 1 then
-            system_tools.bad_use_exit(command_line_name, command_line_help_summary)
+            fatal_bad_usage
          end
          echo_redirect := search_for_echo_redirect_flag
          if echo_redirect /= Void then

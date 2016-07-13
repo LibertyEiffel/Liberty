@@ -181,11 +181,6 @@ feature {}
          end
       end
 
-   fatal_bad_usage
-      do
-         system_tools.bad_use_exit(command_name, command_line_help_summary)
-      end
-
 invariant
    out /= Void
 
