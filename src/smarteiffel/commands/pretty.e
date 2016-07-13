@@ -5,6 +5,7 @@ class PRETTY
    --
    -- The `pretty' command.
    --
+   --| TODO: support ACE files
 
 inherit
    COMMAND_LINE_TOOLS

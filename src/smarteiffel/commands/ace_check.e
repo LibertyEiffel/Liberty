@@ -25,63 +25,88 @@ feature {ANY}
       Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
+        -verbose            Display detailed information about what the program is
+                             doing
+
+      Configuration:
+        -system             Display the system name
+        -root_class         Display the root class name
+        -root_procedure     Display the root procedure name
 
    ]"
 
 feature {}
    make
       local
-         argi: INTEGER; arg, view: STRING; verbose: BOOLEAN; string_command_line: STRING_COMMAND_LINE
+         argi: INTEGER; arg: STRING
       do
          if argument_count = 0 then
             fatal_bad_usage
          end
-         string_command_line.set_command_line_name(command_line_name)
+         search_for_verbose_flag
          if ace_file_mode then
-         end
-         verbose := echo.is_verbose
-         echo.unset_verbose
-         from
-            argi := 1
-         until
-            argi > argument_count
-         loop
-            arg := argument(argi)
-            if ace.file_path = arg then
-            elseif is_valid_argument_for_ace_mode(arg) then
-            else
-               std_error.put_string("Bad argument: %"")
-               std_error.put_string(arg)
-               std_error.put_string("%".%N")
-               die_with_code(exit_failure_code)
+            from
+               argi := 1
+            until
+               argi > argument_count
+            loop
+               arg := argument(argi)
+               if ace.file_path = arg then
+               elseif is_system_flag(arg) then
+                  std_output.put_line(ace.executable_name)
+               elseif is_root_class_flag(arg) then
+                  std_output.put_line(ace.root_class_name.to_string)
+               elseif is_root_procedure_flag(arg) then
+                  std_output.put_line(ace.root_procedure_name)
+               elseif is_valid_argument_for_ace_mode(arg) then
+               else
+                  fatal_bad_usage
+               end
+               argi := argi + 1
             end
-            argi := argi + 1
-         end
-         if ace.file_path = Void then
-            std_error.put_string("No ACE file name in command line.%N")
+         else
+            std_error.put_line("No ACE file name in command line.")
             die_with_code(exit_failure_code)
          end
-         if verbose then
-            echo.set_verbose
+      end
+
+   is_system_flag (flag: STRING): BOOLEAN
+      do
+         if flag_match(once "system", flag) then
+            Result := True
          end
-         create view.make(2048)
-         ace.pretty_in(view)
-         --*** The view is not a valid ace file, disabling it <FM-11/07/2007>
-         --*** std_output.put_string(view)
+      end
+
+   is_root_class_flag (flag: STRING): BOOLEAN
+      do
+         if flag_match(once "root_class", flag) then
+            Result := True
+         end
+      end
+
+   is_root_procedure_flag (flag: STRING): BOOLEAN
+      do
+         if flag_match(once "root_procedure", flag) then
+            Result := True
+         end
       end
 
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          if is_some_flag(arg) then
-            if is_version_flag(arg) or else is_help_flag(arg) then
-               Result := True
-            end
+            Result := is_version_flag(arg)
+               or else is_help_flag(arg)
+               or else is_verbose_flag(arg)
+               or else is_system_flag(arg)
+               or else is_root_class_flag(arg)
+               or else is_root_procedure_flag(arg)
          else
             Result := True
          end
       end
 
-   valid_argument_for_ace_mode: STRING "Only the -version and -help flags are allowed.%N"
+   valid_argument_for_ace_mode: STRING "Only the -version, -help, -verbose, -system, -root_class, and -root_procedure%N%
+      %flags are allowed.%N"
 
 end -- class ACE_CHECK
 --

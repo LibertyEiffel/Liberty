@@ -65,6 +65,10 @@ _se_compilation_options=(
 
 _se_ace_check() {
   _arguments -A "-*" : \
+    '-system[display the system name]' \
+    '-root_class[display the root class name]' \
+    '-root_procedure[display the root procedure name]' \
+    '-verbose[display detailed information about what the program is doing]' \
     '(- 1)-version[display Liberty Eiffel version information]' \
     '(- 1)-help[display help information]' \
     '(-)1:ACE file:_files -g "*.ace(-.)"'
