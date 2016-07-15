@@ -94,8 +94,8 @@ echo $eopt '
 # 2.2. Changing output of the creation list
 
 # "hook100" - If it exists, this file is printed before the creation
-# list to replace the default string "creation%N".
-echo $eopt '<strong>creation</strong>
+# list to replace the default string "create%N".
+echo $eopt '<strong>create</strong>
 '$eend > hook100
 
 # "hook101" - If it exists, this file is printed after the creation

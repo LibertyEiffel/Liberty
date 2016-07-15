@@ -77,7 +77,7 @@ feature {ANY}
       do
          if client = Void or else clients.gives_permission_to(client, target_type) then
             if not heading_done then
-               short_printer.hook_or("hook100", "creation%N")
+               short_printer.hook_or("hook100", "create%N")
             end
             from
                i := 1
