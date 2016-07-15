@@ -72,7 +72,7 @@ feature {}
                   echo.w_put_string(once ": missing loadpath file path after -loadpath flag.%N")
                   die_with_code(exit_failure_code)
                end
-            elseif flag_match(once "raw", arg) then
+            elseif is_raw_flag(arg) then
                raw := True
             elseif is_some_flag(arg) then
                if is_valid_argument_for_ace_mode(arg) then
@@ -116,19 +116,27 @@ feature {}
          end
       end
 
+   is_raw_flag (flag: STRING): BOOLEAN
+      do
+         if flag_match(once "raw", flag) then
+            Result := True
+         end
+      end
+
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          if is_some_flag(arg) then
-            if is_version_flag(arg) or else is_verbose_flag(arg) or else is_help_flag(arg) then
-               Result := True
-            end
+            Result := is_verbose_flag(arg)
+               or else is_version_flag(arg)
+               or else is_help_flag(arg)
+               or else is_raw_flag(arg)
          else
             Result := True
          end
       end
 
-   valid_argument_for_ace_mode: STRING "Only the -verbose, -version, and -help flags are allowed in ACE %
-      %file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the -verbose, -version, -help, and -raw flags are allowed in ACE file%N%
+      %mode.%N"
 
 end -- class FINDER
 --
