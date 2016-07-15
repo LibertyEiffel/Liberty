@@ -118,9 +118,7 @@ feature {}
 
    is_raw_flag (flag: STRING): BOOLEAN
       do
-         if flag_match(once "raw", flag) then
-            Result := True
-         end
+         Result := flag_match(once "raw", flag)
       end
 
    is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN

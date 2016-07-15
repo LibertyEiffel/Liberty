@@ -162,16 +162,12 @@ feature {}
 
    is_client_flag (flag: STRING): BOOLEAN
       do
-         if flag_match(once "client", flag) then
-            Result := True
-         end
+         Result := flag_match(once "client", flag)
       end
 
    is_all_clients_flag (flag: STRING): BOOLEAN
       do
-         if flag_match(once "all_clients", flag) then
-            Result := True
-         end
+         Result := flag_match(once "all_clients", flag)
       end
 
    client_none_obsolete_check (client_argument: STRING)
