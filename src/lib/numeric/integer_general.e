@@ -161,8 +161,17 @@ feature {ANY}
             Result := True 
          end         
       end
-      
-   sqrt: REAL
+
+      is_fibonacci: BOOLEAN
+      -- Is Fibonacci number?
+      local
+         n: like Current
+      do
+         n := Current * Current
+         Result := ( is_perfect_square((5*n)+4) or is_perfect_square((5*n)-4) )
+      end      
+
+      sqrt: REAL
       deferred
       end
 
@@ -181,6 +190,16 @@ feature {ANY}
          else
             Result := other.gcd(Current \\ other)
          end
+      end
+
+feature {INTEGER_GENERAL}
+   -- class-local helper, hence local access only
+   is_perfect_square(other: like Current): BOOLEAN
+      local
+         s: like Current
+      do
+         s ::= other.sqrt.force_to_integer_64
+         Result := ((s*s) = other) 
       end
 
 feature {ANY} -- Conversions:
