@@ -44,22 +44,10 @@ inherit GI_BASE_INFO
 	undefine out_in_tagged_out_memory 
 	end
 
-feature {ANY}
-	emit_wrapper is
-    local path: POSIX_PATH_NAME
-    do
-       create path.
-			("Class: #(1)%N" # name).print_on(std_output)
-			methods_iter.for_each(agent (x: GI_FUNCTION_INFO) is 
-				do
-					x.emit_wrapper
-				end)
-		end
-
 feature {ANY} -- Methods 
-	methods_lower: INTEGER is 0
-	methods_upper: INTEGER is do Result:=methods_count-1 end
-	methods_count: INTEGER is
+	methods_lower: INTEGER 0
+	methods_upper: INTEGER do Result:=methods_count-1 end
+	methods_count: INTEGER
 		-- the number of methods.
 		deferred 
 		end
