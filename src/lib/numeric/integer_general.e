@@ -167,8 +167,8 @@ feature {ANY}
       local
          n: like Current
       do
-         n := Current * Current
-         Result := ( is_perfect_square((5*n)+4) or is_perfect_square((5*n)-4) )
+         n := Current * Current * 5
+         Result := ( is_perfect_square(n+4) or is_perfect_square(n-4) )
       end      
 
       sqrt: REAL
