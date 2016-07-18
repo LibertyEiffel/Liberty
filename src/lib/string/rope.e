@@ -7,8 +7,7 @@ class ROPE
    --
    -- See also LAZY_STRING, FIXED_STRING, and STRING
    --
-   -- http://en.wikipedia.org/Rope_(computer_science)
-   -- http://pcplus.techradar.com/node/3079/
+   -- https://en.wikipedia.org/wiki/Rope_(data_structure)
 
    --|NOTE: this class works on the assumption that lower = 1 (see ABSTRACT_STRING invariant)
 
