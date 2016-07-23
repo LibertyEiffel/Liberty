@@ -35,25 +35,25 @@
 */
 void copy_swap_16(const uint16_t *src, uint16_t *dest, int count){
   while (count--) {
-	*dest++ = (*src << 8) | (*src >> 8);
-	src++;
+    *dest++ = (*src << 8) | (*src >> 8);
+    src++;
   }
 }
 
 
 void se_check_malloc(const void*result, const char*format, ...) {
   if (result == NULL) {
-	handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
+    handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
 #ifdef SE_EXCEPTIONS
-	internal_exception_handler(No_more_memory);
+    internal_exception_handler(No_more_memory);
 #elif !defined(SE_BOOST)
-	error0("No more memory.", NULL);
+    error0("No more memory.", NULL);
 #else
-	va_list arg;
-	va_start(arg, format);
-	vfprintf(SE_ERR,format, arg);
-	va_end(arg);
-	exit(EXIT_FAILURE);
+    va_list arg;
+    va_start(arg, format);
+    vfprintf(SE_ERR,format, arg);
+    va_end(arg);
+    exit(EXIT_FAILURE);
 #endif
   }
 }
@@ -104,7 +104,7 @@ void se_die (int code) {
 }
 
 /*
-	Runtime hooks
+   Runtime hooks
  */
 
 static se_runtime_handler_t** handlers = NULL;
@@ -120,7 +120,7 @@ void register_handler(se_runtime_handler_t*handler) {
 void _handle(se_handler_action_t action, void*data) {
   int i;
   for (i = 0; i < handlers_count; i++) {
-	handlers[i](action, data);
-	/* *** Check type of this array. Function pointer may have different size from data pointer. (PH 17/07/08) */
+    handlers[i](action, data);
+    /* *** Check type of this array. Function pointer may have different size from data pointer. (PH 17/07/08) */
   }
 }

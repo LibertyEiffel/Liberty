@@ -39,6 +39,6 @@ EIF_INTEGER time_getyday(time_t t, EIF_INTEGER m);
 EIF_INTEGER time_getwday(time_t t, EIF_INTEGER m);
 EIF_BOOLEAN time_is_summer_time_used(time_t t);
 EIF_INTEGER_64 time_mktime(EIF_INTEGER year, EIF_INTEGER mon,
-			   EIF_INTEGER mday, EIF_INTEGER hour,
-			   EIF_INTEGER min,  EIF_INTEGER sec);
+                           EIF_INTEGER mday, EIF_INTEGER hour,
+                           EIF_INTEGER min,  EIF_INTEGER sec);
 void time_add_second(EIF_INTEGER_64 *t, EIF_INTEGER s);

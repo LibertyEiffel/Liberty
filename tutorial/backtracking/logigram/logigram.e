@@ -103,9 +103,9 @@ feature {}
 
    describe_problem_small
          -- A small problem for beginning and debugging
-         -- * The one that have no child is born in 1804 and is not Marie.
-         -- * Julie dont have exactly one child and have less children than Marie.
-         -- * The one that have 2 children is not born in 1805 and is not Eve.
+         -- * The one that had no child was born in 1804 and is not Marie.
+         -- * Julie didn't have exactly one child and had fewer children than Marie.
+         -- * The one that has 2 children was not born in 1805 and is not Eve.
       local
          a, b: ITEM
       do
@@ -129,23 +129,23 @@ feature {}
          -- A problem from jojo.
          --
          -- After coming back to China from France, Wang Fox, a student
-         -- in occidental history, discover that almost all its documents
+         -- in occidental history, discover that almost all his documents
          -- are lost. From its study about 5 ladies of a little french
          -- city in the first middle of the 19th century, he only
-         -- remembers him that:
-         -- * fornames are marie, julie, eve, lucie, zora.
+         -- remembers that:
+         -- * fornames are Marie, Julie, Eve, Lucie, Zora.
          -- * they had from 0 to 4 children (no one the same count)
          -- * they are born between 1804 and 1808 (inclusive, no one the same)
-         -- * they are died between 1844 and 1848 (inclusive, no one the same)
-         -- * The one died in 1847 was born after the one having
+         -- * they died between 1844 and 1848 (inclusive, no one the same)
+         -- * The one who died in 1847 was born after the one having
          --   3 children and two years before Eve.
-         -- * The one not having children has lived less
-         --   longer than Eve and 2 years less than the one
+         -- * The one not having any children has lived less
+         --   long than Eve and 2 years less than the one
          --   born in 1806.
          -- * Marie did not have 4 children, she has lived
-         --   at least 41 years and had more child than
+         --   at least 41 years and had more children than
          --   the one born in 1804.
-         -- * Lucie died before zora and had less
+         -- * Lucie died before Zora and had fewer
          --   children than the one died in 1844.
          --
          -- The same in french.
