@@ -120,7 +120,9 @@ done | while read i section args; do
         if [[ $zip == TRUE ]]; then
             cd $DOC_ROOT/api
             tar cfz ${section}.tgz $section
-            rm -rf $section
+            if [[ $plain != TRUE ]]; then
+                rm -rf $section
+            fi
         fi
     fi
 
