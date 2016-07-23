@@ -3,7 +3,7 @@
 --
 class SYSTEM_TOOLS
    --
-   -- Singleton object to handle system dependant information.
+   -- Singleton object to handle system dependent information.
    -- This singleton is shared via the GLOBALS.`system_tools' once function.
    --
    -- Only this object is supposed to handle contents of the `Liberty'
@@ -611,8 +611,8 @@ feature {C_PLUGIN}
 
 feature {ANY}
    environment_variable_substitution (path, line: STRING)
-         -- The only one accepted notation is:        ${...}. The substitution is performed in `line'.
-         -- When given the `path' information is used to emit an error message when the variable does not exists.
+         -- The only accepted notation is:        ${...}. The substitution is performed in `line'.
+         -- When given the `path'  information is used to emit an error message when the variable does not exists.
          -- If any, substitute in `line' some "system.se" well-known key (i.e. "sys", "bin" or "short").
          -- If case of unknown key, uses echo.getenv instead.
       require
@@ -836,8 +836,8 @@ feature {C_PRETTY_PRINTER}
 
    sys_runtime (name: STRING; suffix: CHARACTER)
          -- Prepare `tmp_file_read' to access the corresponding file of the
-         -- Liberty Eiffel sys/runtime directory. The complete path
-         -- always available in `tmp_path' to the caller in order to emit an
+         -- Liberty Eiffel sys/runtime directory. The complete path is
+         -- always available to the caller in `tmp_path' in order to emit an
          -- error message when the corresponding file is not found. (This
          -- routine does not emit errors message itself just because this
          -- may be normal. See also `mandatory_sys_runtime'.)
@@ -894,7 +894,7 @@ feature {C_PRETTY_PRINTER}
       end
 
    is_linking_mandatory: BOOLEAN
-         -- Is it mandatory to link again this executable even when
+         -- Is it mandatory to link this executable again, even when
          -- nothing has changed in the generated C code ?
       do
          Result := not external_object_files.is_empty
