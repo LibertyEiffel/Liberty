@@ -131,13 +131,13 @@ feature {ANY}
       do
          Result := Current & 1 = 0
       end
-      
+
    is_prime: BOOLEAN
-      -- Is prime?
-      local          
+         -- Is prime?
+      local
          index, limit: like Current
-      do     
-         if Current > 3 then        
+      do
+         if Current > 3 then
             if (is_even) or ((Current #\\ 3) = 0) then
                Result := False
             else
@@ -153,17 +153,17 @@ feature {ANY}
                      index := limit
                   end
                   index := index + 6
-               end             
-            end          
+               end
+            end
          elseif  Current < 2 then
             Result := False
          else
-            Result := True 
-         end         
+            Result := True
+         end
       end
 
-      is_fibonacci: BOOLEAN
-      -- Is Fibonacci number?
+   is_fibonacci: BOOLEAN
+         -- Is Fibonacci number?
       local
          n: like Current
       do
@@ -171,7 +171,7 @@ feature {ANY}
          Result := ( is_perfect_square(n+4) or is_perfect_square(n-4) )
       end      
 
-      sqrt: REAL
+   sqrt: REAL
       deferred
       end
 
@@ -193,13 +193,13 @@ feature {ANY}
       end
 
 feature {INTEGER_GENERAL}
-   -- class-local helper, hence local access only
+      --| class-local helper, hence local access only
    is_perfect_square(other: like Current): BOOLEAN
       local
          s: like Current
       do
          s ::= other.sqrt.force_to_integer_64
-         Result := ((s*s) = other) 
+         Result := ((s*s) = other)
       end
 
 feature {ANY} -- Conversions:
@@ -572,7 +572,7 @@ feature {ANY} -- Miscellaneous:
 
    divisible (other: like Current): BOOLEAN
       do
-         if other /= 0 then 
+         if other /= 0 then
             Result := True
          else
             Result := False

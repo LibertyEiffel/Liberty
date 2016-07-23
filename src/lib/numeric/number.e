@@ -322,7 +322,6 @@ feature {ANY} -- To know more about a NUMBER:
          Result := (Current @\\ 2).is_zero
       end
 
-   
    is_equal (other: NUMBER): BOOLEAN
       deferred
       end

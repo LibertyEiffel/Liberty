@@ -28,21 +28,21 @@
 
 EIF_INTEGER fstat_st_size(EIF_POINTER path) {
 
-	struct stat buf;
-	int test;
+  struct stat buf;
+  int test;
 
-	test = stat(path, &buf);
-	return (test == 0 ? buf.st_size : -1);
+  test = stat(path, &buf);
+  return (test == 0 ? buf.st_size : -1);
 
 }
 
 EIF_INTEGER_64 fstat_st_mtime(EIF_POINTER path) {
 
-	struct stat buf;
-	int test;
+  struct stat buf;
+  int test;
 
-	test = stat(path, &buf);
-	return (test == 0 ? buf.st_mtime : -1);
+  test = stat(path, &buf);
+  return (test == 0 ? buf.st_mtime : -1);
 
 }
 
@@ -54,7 +54,7 @@ EIF_BOOLEAN fstat_st_is_file(EIF_POINTER path) {
 #elif defined WIN32
   EIF_BOOLEAN result;
   HANDLE h=CreateFile((LPCTSTR)path, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE,
-		      NULL, OPEN_EXISTING, 0, NULL);
+                      NULL, OPEN_EXISTING, 0, NULL);
 
   if(INVALID_HANDLE_VALUE == h) {
     return 0;

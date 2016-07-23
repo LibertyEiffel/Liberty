@@ -5,7 +5,7 @@ expanded class POINTER
    --
    -- References to objects meant to be exchanged with non-Eiffel software.
    --
-   -- Note : An Eiffel POINTER is mapped as C type "Void *" 
+   -- Note : An Eiffel POINTER is mapped as C type "Void *"
    --
 
 insert

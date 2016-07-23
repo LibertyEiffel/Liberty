@@ -74,7 +74,7 @@ feature {ANY} -- Useful constants
       once
          create Result.make_country("nl", "NL")
       end
-      
+
    italian: LOCALE
       once
          create Result.make_language("it")
