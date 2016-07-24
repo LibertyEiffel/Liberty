@@ -130,10 +130,10 @@ int next_prime(int n) {
     i = 2;
     while( (i <= n/2) && (isprime) ) {
       if ( (n % i) == 0 ) {
-	isprime = 0;
+        isprime = 0;
       }
       else {
-	i++;
+        i++;
       }
     }
 
@@ -279,9 +279,9 @@ int se_deep_equal_search(void* object,void* deep) {
   if ((object != NULL) && (deep != NULL)) {
     for (i = se_deep_equal_memory_last; i >= 0; i--) {
       if (object == se_deep_equal_memory1[i]) {
-	if (deep == se_deep_equal_memory2[i]) {
-	  return 1;
-	}
+        if (deep == se_deep_equal_memory2[i]) {
+          return 1;
+        }
       }
     }
     se_deep_equal_register(object,deep);

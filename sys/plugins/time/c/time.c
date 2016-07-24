@@ -106,11 +106,11 @@ EIF_BOOLEAN time_is_summer_time_used(time_t t) {
 }
 
 EIF_INTEGER_64 time_mktime(EIF_INTEGER year,
-			   EIF_INTEGER mon,
-			   EIF_INTEGER mday,
-			   EIF_INTEGER hour,
-			   EIF_INTEGER min,
-			   EIF_INTEGER sec) {
+                           EIF_INTEGER mon,
+                           EIF_INTEGER mday,
+                           EIF_INTEGER hour,
+                           EIF_INTEGER min,
+                           EIF_INTEGER sec) {
   struct tm tm_buf;
 
   tm_buf.tm_year  = (year - 1900);

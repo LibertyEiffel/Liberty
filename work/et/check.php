@@ -216,7 +216,7 @@ if (substage("class check ANY")) {
 
 //- se doc
 if (substage("eiffeldoc")) {
-   execute("$LibertyBase/work/build_doc.sh -plain", $ulimit_time = 3600);
+   execute("$LibertyBase/work/build_doc.sh -plain -zip && mkdir -p $LibertyBase/website/doc/files && rm -f $LibertyBase/website/doc/files/*.tgz && mv $LibertyBase/website/doc/api/*.tgz $LibertyBase/website/doc/files/", $ulimit_time = 3600);
    endsubstage();
 }
 

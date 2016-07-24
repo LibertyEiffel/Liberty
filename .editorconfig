@@ -1,0 +1,19 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+tab_width = 8
+
+[*.{c,h}]
+indent_style = space
+indent_size = 2
+
+[*.e]
+indent_style = space
+indent_size = 3
+trim_trailing_whitespace = true
+
+[*.sh]
+indent_style = space
+indent_size = 4

@@ -11,30 +11,30 @@ feature {ANY} -- Maths constants:
    Pi: REAL 3.1415926535897932384626
          -- Pi
 
-         Pi_2: REAL 1.5707963267948966192313
+   Pi_2: REAL 1.5707963267948966192313
          -- Pi divided by 2
 
-	Pi_4: REAL 0.7853981633974483096156
+   Pi_4: REAL 0.7853981633974483096156
          -- Pi divided by 4
 
    Inv_pi: REAL 0.31830988618379067153
-         -- Inverse pi		 
+         -- Inverse pi
 
    Sqr_2pi: REAL 2.50662827463100050241
          -- Square root of 2 pi
-         
+
    Tau: REAL 6.2831852707795864769252
          -- Tau (2Pi)
-         
+
    Sqr_tau: REAL 2.50662827463100050241
          -- Square root of Tau
-         
+
    Evalue: REAL 2.7182818284590452353602
          -- e (Euler's number)
 
    Inv_evalue: REAL 0.36787944117144232159
          -- Inverse e
-         
+
    Deg: REAL 57.2957795130823208767981
          -- Degrees/Radian
 
@@ -47,7 +47,6 @@ feature {ANY} -- Maths constants:
    Zeta_2: REAL 1.64493406684822643647
          -- Riemann Function
 
-		 
 end -- class MATH_CONSTANTS
 --
 -- Copyright (C) 2009-2016: by all the people cited in the AUTHORS file.
