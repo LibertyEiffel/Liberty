@@ -6,7 +6,7 @@ inherit
 create {ANY}
 	make
 	
-feature {NONE} -- creation
+feature {} -- creation
 	make
 		local
 			x: GLADE_XML
