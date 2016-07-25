@@ -192,7 +192,7 @@ feature {ANY}
          end
       end
 
-feature {NONE}
+feature {}
       --| class-local helper, hence local access only
    is_perfect_square(other: like Current): BOOLEAN
       local
