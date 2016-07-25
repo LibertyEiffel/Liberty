@@ -37,14 +37,13 @@ feature {ANY} -- Wrapper
        -- TODO: add prefix support
         create path.make_from_string(eiffel_class_name(name,once ".e").as_lower)
         create output.connect_to(path.to_string)
-        log.info.put_line("Class #(1) of file #(2)" # name # &path)
+        log.info.put_line("Wrapping object #(1) in #(2)" # name # &path)
         if is_deferred then output.put_string(once "deferred class ")
         else output.put_string(once "class ")
         end
         output.put_line(class_name) 
-        output.put_line("%T-- #(1) #" # generator )
-        output.put_line(once "%N%Ncreate {ANY} ")
-        output.put_line(once "-- TODO: proper constructors" +constructors.out)
+        output.put_line("%T-- #(1) %N" # generator )
+        append_create_clause 
         log.info.put_line("Class #(1) starting properties" # name)
         output.put_line(once "%N%Nfeature {ANY} -- Properties")
         -- properties_iter.for_each(agent (x: GI_PROPERTY_INFO) do print(once "foo!%N") end) --append_property(res,?)) 
@@ -116,6 +115,25 @@ feature {} -- Implementation of eiffel wrapper agents
       end
 
 feature {ANY} 
+   append_create_clause 
+      -- Append the creations clause, i.e.e "create {ANY}" plus a list of the constructor feature names, each separated by a comma to output
+   require
+      output /= Void
+      output.is_connected
+   do
+      if not constructors.is_empty then
+         output.put_string(once "%Ncreate {ANY} ")
+         constructors.lower.loop_up_to(constructors.upper-1,
+         agent (i: INTEGER) do
+            output.put_string (constructors.item(i).feature_name)
+            output.put_string (once ", ")
+         end)
+         output.put_line(constructors.last.feature_name)
+      else
+         output.put_line(once "-- No creation features")
+      end
+
+   end
     constructors: COLLECTION[GI_FUNCTION_INFO] 
         -- The constructors of Current GI_OBJECT_INFO
     do
