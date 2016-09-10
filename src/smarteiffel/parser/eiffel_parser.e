@@ -6109,7 +6109,8 @@ feature {}
       end
 
    a_routine (expect_routine: BOOLEAN): FEATURE_TEXT
-         --  ++ routine -> ["obsolete" manifest_string]
+         --  ++ routine -> [indexing]
+         --  ++            ["obsolete" manifest_string]
          --  ++            ["require" ["else"] assertion]
          --  ++            ["local" entity_declaration_list]
          --  ++            routine_body
@@ -6123,6 +6124,7 @@ feature {}
          l := line
          c := column
          expect_body := expect_routine
+         a_indexing(tmp_feature, Void)
          if a_keyword(fz_obsolete) then
             if a_manifest_string(True) then
                last_manifest_string.set_once_flag(True)
@@ -6209,7 +6211,6 @@ feature {}
       do
          l := line
          c := column
-         a_indexing(tmp_feature, Void)
          if a_keyword(fz_deferred) then
             last_class_text.set_is_deferred
             Result := tmp_feature.as_deferred_routine
