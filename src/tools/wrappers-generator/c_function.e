@@ -216,11 +216,18 @@ feature {ANY}
          -- Append the body of function to `buffer'
       local
          description: ABSTRACT_STRING
+         feature_name: ABSTRACT_STRING
       do
          if is_variadic then
             description := c_string_name & variadic_function_note
          else
             description := c_string_name
+         end
+         if has_arguments then 
+            feature_name := c_string_name
+         else
+            -- Handle the case of parameterless C functions like fork or getpid
+            feature_name := c_string_name|"()"
          end
          buffer.append(once "%
                         %               -- #(1)%N%
@@ -231,7 +238,7 @@ feature {ANY}
                         %                       feature_name: %"#(2)%"%N%
                         %               }%"%N%
                         %               end%N%N" #
-						description # c_string_name)
+                        description # feature_name)
          -- For debugging purpose the line where the node occurred were once printed in the comment, like th:
          -- buffer.append(once "%
          -- %            -- #(1) (node at line #(3))%N%
