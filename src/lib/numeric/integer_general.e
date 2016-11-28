@@ -572,11 +572,7 @@ feature {ANY} -- Miscellaneous:
 
    divisible (other: like Current): BOOLEAN
       do
-         if other /= 0 then
-            Result := True
-         else
-            Result := False
-         end
+         Result := other /= zero
       end
 
    is_equal (other: like Current): BOOLEAN

@@ -30,7 +30,7 @@ feature {ANY}
       require
          other /= Void
          other /= zero
-         divisible(other)   -- HZ: is this really appropriate here?
+         divisible(other)
       deferred
       end
 
@@ -48,7 +48,6 @@ feature {ANY}
          -- May `Current' be divided by `other' ?
       require
          other /= Void
-         other /= zero
       deferred
       end
 

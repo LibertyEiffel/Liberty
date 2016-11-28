@@ -101,11 +101,11 @@ feature {ANY}
          Current >= old Current
       end
 
-   elapsed_seconds (other: like Current): REAL
+   elapsed_seconds (other: like Current): REAL_64
          -- Elapsed time in seconds from `Current' to `other' with sub-second precision.
       do
          Result := time.elapsed_seconds(other.time)
-         Result := Result + (other.microsecond - microsecond) / 1000000
+         Result := Result + (other.microsecond - microsecond).to_real_64 / 1000000
       end
 
    is_equal (other: like Current): BOOLEAN
