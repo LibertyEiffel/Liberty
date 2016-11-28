@@ -3,6 +3,9 @@
 --
 class TEST_INTEGER2
 
+insert
+   EIFFELTEST_TOOLS
+
 create {}
    make
 
@@ -10,25 +13,19 @@ feature {ANY}
    make
       local
          d: REAL
+         n: INTEGER_32
       do
          d := 2 / 3
-         assert(0.6665.force_to_real_32 < d)
-         assert(d < 0.6667)
-      end
+         label_assert("big_enough1", 0.6665.force_to_real_32 < d)
+         label_assert("small_enough1", d < 0.6667)
 
-   assert (b: BOOLEAN)
-      do
-         cpt := cpt + 1
-         if not b then
-            std_output.put_string("TEST_INTEGER2: ERROR Test # ")
-            std_output.put_integer(cpt)
-            std_output.put_string("%N")
-         else
-            -- std_output.put_string("Yes%N")
-         end
-      end
+         n := 4
+         d := n / 10000
 
-   cpt: INTEGER
+         label_assert("big_enough2", 0.0003999.force_to_real_32 < d)
+         label_assert("small_enough2", d < 0.0004001)
+         
+      end
 
 end -- class TEST_INTEGER2
 --
