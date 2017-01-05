@@ -120,8 +120,8 @@ feature {ANY}
    generator_used: BOOLEAN
          -- When ANY `generator' is used.
 
-   deep_twin_used: BOOLEAN
-         -- When `deep_twin' support is necessary.
+   deep_features_used: BOOLEAN
+         -- When `deep_twin' or `is_deep_equal' support is necessary.
 
    thread_used: BOOLEAN
          -- When threading support is necessary (i.e. threads are actually started using THREAD_CONTEXT.run).
@@ -397,7 +397,7 @@ feature {}
             end
          end
 
-         if deep_twin_used then
+         if deep_features_used then
             collect_deep_features
          end
 
@@ -1659,9 +1659,9 @@ feature {NATIVE_PLUG_IN}
       end
 
 feature {LIVE_TYPE}
-   set_deep_twin_used
+   set_deep_features_used
       do
-         deep_twin_used := True
+         deep_features_used := True
       end
 
 feature {NATIVE_BUILT_IN}
@@ -2074,7 +2074,7 @@ feature {}
                cecil_pool.collect
             end
             -- in case deep features are used collect them
-            if deep_twin_used then
+            if deep_features_used then
                collect_deep_features
             end
          until
@@ -2111,7 +2111,7 @@ feature {}
 
    collect_deep_features
       require
-         deep_twin_used
+         deep_features_used
       local
          i: INTEGER
       do

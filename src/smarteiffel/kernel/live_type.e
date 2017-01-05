@@ -1184,7 +1184,7 @@ feature {LIVE_TYPE, EXTERNAL_FUNCTION}
       do
          if not collecting_deep_twin then
             collecting_deep_twin := True
-            smart_eiffel.set_deep_twin_used
+            smart_eiffel.set_deep_features_used
             if as_native_array = class_text.name.to_string then
                collect(type.feature_stamp_of(deep_twin_from_name))
                type.generic_list.first.live_type.collect_deep_twin
@@ -1218,7 +1218,7 @@ feature {EXTERNAL_FUNCTION, LIVE_TYPE}
       do
          if collect_is_deep_equal_status = need_not_collect_status then
             collect_is_deep_equal_status := must_collect_status
-            smart_eiffel.set_deep_twin_used
+            smart_eiffel.set_deep_features_used
          end
       end
 

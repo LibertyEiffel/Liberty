@@ -1198,7 +1198,7 @@ feature {}
          exceptions_handler.customize_c_runtime
          memory.customize_c_runtime
          customize_agent_pool_runtime_1
-         if smart_eiffel.deep_twin_used then
+         if smart_eiffel.deep_features_used then
             sys_runtime_h_and_c(as_deep_twin)
          end
          if smart_eiffel.thread_used then
