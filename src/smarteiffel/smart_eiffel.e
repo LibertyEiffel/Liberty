@@ -2073,6 +2073,10 @@ feature {}
             if cecil_pool /= Void then
                cecil_pool.collect
             end
+            -- in case deep features are used collect them
+            if deep_twin_used then
+               collect_deep_features
+            end
          until
             magic = magic_count
          loop
