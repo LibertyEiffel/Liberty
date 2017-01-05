@@ -43,7 +43,7 @@ feature {ANY}
                              small computers.)
 
       Message styles:
-         -flymake_mode      Display messages in a compact format suitable for
+        -flymake_mode       Display messages in a compact format suitable for
                              processing by tools such as Emacs' Flymake mode
 
       Optimization and debugging levels (specify one only; default is -all_check):

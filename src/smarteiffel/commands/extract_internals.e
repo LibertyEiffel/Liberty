@@ -178,7 +178,7 @@ feature {ANY}
         -no_warning         Don't print any warnings
 
       Message styles:
-         -flymake_mode      Display messages in a compact format suitable for
+        -flymake_mode       Display messages in a compact format suitable for
                              processing by tools such as Emacs' Flymake mode
 
    ]"

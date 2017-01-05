@@ -37,7 +37,7 @@ feature {ANY}
         -short              Don't include inherited features
 
       Message styles:
-         -flymake_mode      Display messages in a compact format suitable for
+        -flymake_mode       Display messages in a compact format suitable for
                              processing by tools such as Emacs' Flymake mode
 
       Formatting (specify at most one; default is -plain):
