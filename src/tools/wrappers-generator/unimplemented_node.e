@@ -8,7 +8,7 @@ create {GCCXML_TREE}
    make
 
 end -- class UNIMPLEMENTED_NODE
--- Copyright (C) 2011-2016: Paolo Redaelli
+-- Copyright (C) 2011-2017: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

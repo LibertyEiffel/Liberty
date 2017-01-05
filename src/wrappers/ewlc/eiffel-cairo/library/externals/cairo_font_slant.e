@@ -1,7 +1,7 @@
 note
 	description: "enum cairo_font_slant_t"
 	copyright: "[
-					Copyright (C) 2007 eiffel-libraries team, Pango team
+					Copyright (C) 2007-2017: eiffel-libraries team, Pango team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

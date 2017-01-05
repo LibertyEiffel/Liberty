@@ -14,4 +14,4 @@ to be a thin layer above the C API in order to avoid strange bugs.
 
 Ideally it should be possible to avoid the usage of wrapper objects.
 
-Copyright 2009 Paolo Redaelli
+Copyright (C) 2009-2017: Paolo Redaelli

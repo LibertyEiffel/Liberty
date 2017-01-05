@@ -1,7 +1,7 @@
 note
 	description: "An enumeration specifying capitalization variant of the font."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli,
+					Copyright (C) 2006-2017: Paolo Redaelli,
 					Soluciones Informaticas Libres S.A. (Except),
 					Pango team
 					

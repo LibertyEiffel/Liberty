@@ -41,7 +41,7 @@ feature {} -- Creation
 	end
 end -- class LLVM_CONST_STRING
 
--- Copyright 2009,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
+-- Copyright (C) 2009-2017: ,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

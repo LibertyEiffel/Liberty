@@ -1,7 +1,7 @@
 note
 	description: "Enum GdkEventMask"
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team, Anthony Lenton
+					Copyright (C) 2006-2017: eiffel-libraries team, GTK+ team, Anthony Lenton
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

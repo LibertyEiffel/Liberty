@@ -34,4 +34,4 @@ end -- class TEST_FAST_ARRAY_ADD_LAST
 -- received a copy of the GNU General Public License along with SmartEiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright (C) 2013-2016: Paolo Redaelli
+-- Copyright (C) 2013-2017: Paolo Redaelli

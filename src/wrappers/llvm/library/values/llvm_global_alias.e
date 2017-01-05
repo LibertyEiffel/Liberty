@@ -3,7 +3,7 @@ inherit LLVM_GLOBAL_VALUE
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 end -- class LLVM_GLOBAL_ALIAS
 
--- Copyright 2009 Paolo Redaelli
+-- Copyright (C) 2009-2017: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

@@ -1,7 +1,7 @@
 note
 	description: "GtkVSeparator -- A vertical separator."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, GTK+ team
+					Copyright (C) 2007-2017: Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

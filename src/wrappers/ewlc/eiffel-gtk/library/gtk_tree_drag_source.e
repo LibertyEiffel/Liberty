@@ -1,7 +1,7 @@
 note
 	description: "GtkTreeView drag-and-drop Interface for drag-and-drop support in GtkTreeView."
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2006-2017: eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

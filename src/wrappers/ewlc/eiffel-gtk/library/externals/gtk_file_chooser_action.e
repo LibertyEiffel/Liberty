@@ -1,7 +1,7 @@
 note
 	description: "enum GtkFileChooserAction -- Describes whether a GtkFileChooser is being used to open existing files or to save to a possibly new file."
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2006-2017: eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

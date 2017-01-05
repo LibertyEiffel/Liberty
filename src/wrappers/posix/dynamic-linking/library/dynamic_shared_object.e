@@ -111,7 +111,7 @@ feature {} -- Unwrapped
 	-- TODO: provide access to Glibc dladdr() and dlvsym() extensions functions
 end -- class DYNAMIC_SHARED_OBJECT
 
--- Liberty Eiffel wrappers for GNU C library Copyright (C) 2013-2016: Paolo Redaelli, Free Software Foundation
+-- Liberty Eiffel wrappers for GNU C library Copyright (C) 2013-2017: Paolo Redaelli, Free Software Foundation
 -- 
 -- The GNU C Library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public

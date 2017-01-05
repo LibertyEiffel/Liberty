@@ -1,7 +1,7 @@
 note
 	description: "MessageType -- The type of message being displayed in a dialog."
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team
+					Copyright (C) 2006-2017: eiffel-libraries team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

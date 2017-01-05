@@ -20,7 +20,7 @@ feature {ANY} -- Complex constants:
 
 end -- class COMPLEX_MATH
 --
--- Copyright (C) 2011-2016: Paolo Redaelli
+-- Copyright (C) 2011-2017: Paolo Redaelli
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

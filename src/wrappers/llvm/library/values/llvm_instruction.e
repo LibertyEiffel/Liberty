@@ -50,7 +50,7 @@ feature {ANY} -- TODO: Important Public Members of the Instruction class
 
 end -- class LLVM_INSTRUCTION
 
--- Copyright 2009 LLVM Team and 2009 Paolo Redaelli
+-- Copyright (C) 2009-2017: LLVM Team and 2009 Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

@@ -16,7 +16,7 @@ feature {ANY} -- Creation
 invariant type_kind.is_void_type_kind
 end -- class LLVM_VOID_TYPE
 
--- Copyright 2009 Paolo Redaelli
+-- Copyright (C) 2009-2017: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

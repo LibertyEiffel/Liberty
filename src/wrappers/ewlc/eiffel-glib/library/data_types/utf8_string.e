@@ -1,7 +1,7 @@
 note
 	description: "Unicode UTF-8 string."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, Glib team
+					Copyright (C) 2006-2017: Paolo Redaelli, Glib team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

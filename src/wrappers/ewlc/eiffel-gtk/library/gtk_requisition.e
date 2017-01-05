@@ -1,7 +1,7 @@
 note
 	description: "A GtkRequisition represents the desired size of a widget. See the section called `Siz Requisition' in GTK_WIDGET for more informations."
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2006-2017: eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

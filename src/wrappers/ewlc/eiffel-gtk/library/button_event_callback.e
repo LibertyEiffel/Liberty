@@ -1,7 +1,7 @@
 note
 	description: "Generic callback for the button-release-event and button-pressed-event signals"
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, eiffel-libraries team,  GTK+ team and others
+					Copyright (C) 2006-2017: Paolo Redaelli, eiffel-libraries team,  GTK+ team and others
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

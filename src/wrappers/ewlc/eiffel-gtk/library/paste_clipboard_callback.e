@@ -1,7 +1,7 @@
 note
 	description: "Callback for the paste-clipboard signal"
 	copyright: "[
-					Copyright (C) 2008 Anthony Lenton, Soluciones Informáticas Libres S.A.,
+					Copyright (C) 2008-2017: Anthony Lenton, Soluciones Informáticas Libres S.A.,
 													eiffel-libraries team,  GTK+ team and others
 					
 					This library is free software; you can redistribute it and/or

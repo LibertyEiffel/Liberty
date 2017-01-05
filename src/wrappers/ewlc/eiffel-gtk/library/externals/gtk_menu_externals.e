@@ -1,6 +1,6 @@
 note
 	description: "External calls for GTK_MENU"
-	copyright: "Copyright (C) 2007 Paolo Redaelli"
+	copyright: "Copyright (C) 2007-2017: Paolo Redaelli"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

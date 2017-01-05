@@ -151,5 +151,5 @@ feature {} -- Types
 
 end -- class LLVM_EXAMPLE
 
--- Copyright 2009 Paolo Redaelli
+-- Copyright (C) 2009-2017: Paolo Redaelli
 

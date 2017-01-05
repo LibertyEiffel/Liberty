@@ -1,7 +1,7 @@
 note
 	description: "Points-related features."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli,  1999 St<E9>phane Popinet
+					Copyright (C) 2006-2017: Paolo Redaelli,  1999 St<E9>phane Popinet
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

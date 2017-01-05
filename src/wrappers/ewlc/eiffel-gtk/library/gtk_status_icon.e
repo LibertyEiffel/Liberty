@@ -1,7 +1,7 @@
 note
 	description: "GtkStatusIcon — Display an icon in the system tray."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTK+ team
+					Copyright (C) 2006-2017: Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

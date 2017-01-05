@@ -3,7 +3,7 @@ note
       "Wrapper for a generic C structure, that is shared with external code, handle will not be freed on dispose of the Eiffel wrapper object, if is_shared is true"
    copyright:
       "[
-Copyright (C) 2008-2016: Raphael Mack <mail@raphael-mack.de>, Paolo Redaelli <paolo.redaelli@poste.it>
+Copyright (C) 2008-2017: Raphael Mack <mail@raphael-mack.de>, Paolo Redaelli <paolo.redaelli@poste.it>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License

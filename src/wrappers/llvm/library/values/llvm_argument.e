@@ -25,7 +25,7 @@ feature {ANY}
 
 end -- class LLVM_ARGUMENT
 
--- Copyright 2009 Paolo Redaelli
+-- Copyright (C) 2009-2017: Paolo Redaelli
 
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.

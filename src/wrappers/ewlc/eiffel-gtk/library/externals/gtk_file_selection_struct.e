@@ -1,6 +1,6 @@
 note
 	description: "Access to GtkFileSelection C structure"
-	copyright: "Copyright (C) 2007 $EWLC_developer, $original_copyright_holder"
+	copyright: "Copyright (C) 2007-2017: $EWLC_developer, $original_copyright_holder"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

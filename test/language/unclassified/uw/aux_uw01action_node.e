@@ -30,8 +30,8 @@ invariant
    good_language: language /= Void
 
 end -- class AUX_UW01ACTION_NODE
--- Copyright (C) 1998-2016: by Ulrich Windl
--- Copyright (C) 1998-2016: by Klinikum der Universität Regensburg,
+-- Copyright (C) 1998-2017: by Ulrich Windl
+-- Copyright (C) 1998-2017: by Klinikum der Universität Regensburg,
 --      D-93042 Regensburg
 --
 --  This program is free software; you can redistribute it and/or modify

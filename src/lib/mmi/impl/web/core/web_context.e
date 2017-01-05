@@ -488,7 +488,7 @@ invariant
 
 end -- class WEB_CONTEXT
 --
--- Copyright (C) 2012-2016: Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (C) 2012-2017: Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

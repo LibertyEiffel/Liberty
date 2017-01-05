@@ -1,7 +1,7 @@
 /*
 	Author: Natalia B. Bidart
-	Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)
-	Copyright (C) 2006 Paolo Redaelli
+	Copyright (C) 2006-2017: Soluciones Informaticas Libres S.A. (Except)
+	Copyright (C) 2006-2017: Paolo Redaelli
 	
 	This library is free software; you can redistribute it and/or
 	modify it under the terms of the GNU Lesser General Public License

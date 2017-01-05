@@ -92,7 +92,7 @@ feature {}
    completions: ITERATOR[ABSTRACT_STRING]
 
 end
--- Copyright (C) 2012-2016: 2013 Cyril Adrian
+-- Copyright (C) 2012-2017: 2013 Cyril Adrian
 
 -- This library is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by

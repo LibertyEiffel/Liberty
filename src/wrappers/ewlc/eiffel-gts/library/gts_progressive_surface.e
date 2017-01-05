@@ -1,7 +1,7 @@
 note
 	description: "Progressive surfaces -- continuous level-of-detail for surfaces."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, GTS team
+					Copyright (C) 2007-2017: Paolo Redaelli, GTS team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

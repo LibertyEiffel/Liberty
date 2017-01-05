@@ -1,8 +1,8 @@
 note
 	description: "GtkProgressBar: A widget which indicates progress visually"
 	copyright: "[
-					Copyright (C) 2006 Nicolas Fafchamps <nicolas.fafchamps@gmail-com
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2006-2017: Nicolas Fafchamps <nicolas.fafchamps@gmail-com
+					Copyright (C) 2006-2017: eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

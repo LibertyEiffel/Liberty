@@ -149,7 +149,7 @@ end -- class MOCK_GENERATOR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright (C) 2011-2016: Cyril ADRIAN
+-- Copyright (C) 2011-2017: Cyril ADRIAN
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

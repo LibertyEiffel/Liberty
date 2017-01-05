@@ -1,7 +1,7 @@
 note
 	description: "."
 	copyright: "[
-					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
+					Copyright (C) 2007-2017: $EWLC_developer, $original_copyright_holder
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

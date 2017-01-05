@@ -1,7 +1,7 @@
 note
 	description: "Gnome Data Access full example."
 	copyright: "[
-					Copyright (C) 2006, 2007 Paolo Redaelli, GDA team
+					Copyright (C) 2006-2017: , 2007 Paolo Redaelli, GDA team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

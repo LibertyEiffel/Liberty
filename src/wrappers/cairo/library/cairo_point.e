@@ -1,7 +1,7 @@
 note
 	description: "A point in bidimentional space (for Cairo)."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli,
+					Copyright (C) 2007-2017: Paolo Redaelli,
 					Soluciones Informaticas Libres S.A. (Except),
 					Cairo team
 					

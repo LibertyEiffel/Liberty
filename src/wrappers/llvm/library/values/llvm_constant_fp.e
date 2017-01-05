@@ -27,7 +27,7 @@ feature {ANY} -- Creation
 		handle := llvmconst_real_of_string(a_type.handle, a_text.to_external)
 	end
 end -- class LLVM_CONSTANT_FP
--- Copyright 2009 Paolo Redaelli
+-- Copyright (C) 2009-2017: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
