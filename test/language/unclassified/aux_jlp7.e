@@ -1,19 +1,19 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class AUX_JLP7[X -> REAL]
+class AUX_JLP7[X_ -> REAL]
 
 feature {ANY}
    nb_owner: INTEGER 2
 
-   depth: X
+   depth: X_
 
-   set_depth (v: X)
+   set_depth (v: X_)
       do
          depth := v
       end
 
-   owner (k: X): INTEGER
+   owner (k: X_): INTEGER
       do
          Result := (k / depth).floor.force_to_integer_32 \\ nb_owner
       end

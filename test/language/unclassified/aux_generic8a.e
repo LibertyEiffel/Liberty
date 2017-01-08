@@ -1,7 +1,7 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class AUX_GENERIC8A[X]
+class AUX_GENERIC8A[X_]
 
 end -- class AUX_GENERIC8A
 --

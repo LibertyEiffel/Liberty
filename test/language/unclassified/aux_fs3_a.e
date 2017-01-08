@@ -1,13 +1,13 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class AUX_FS3_A[X -> AUX_FS3_B]
+class AUX_FS3_A[X_ -> AUX_FS3_B]
 
 create {ANY}
    make
 
 feature {ANY}
-   f: X
+   f: X_
 
    make (vf: like f)
       do
