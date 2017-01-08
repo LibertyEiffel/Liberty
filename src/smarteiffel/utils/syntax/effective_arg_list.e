@@ -320,6 +320,7 @@ feature {}
          not synthetic_tuple
       local
          ftt: NON_EMPTY_TUPLE_TYPE_MARK
+         ftt_tmp: TYPE_MARK
          tup: MANIFEST_TUPLE; rem: FAST_ARRAY[EXPRESSION]
          eal: EFFECTIVE_ARG_LIST_N
          i, fal_count: INTEGER
@@ -329,25 +330,38 @@ feature {}
          if count < fal_count then
             create tup.make(start_position, Void)
          else
-            ftt ::= fal.type_mark(fal_count).resolve_in(target_type).canonical_type_mark
-            if count = fal_count then
-               create eal.make_1(expression(fal_count).start_position, synthetic_tuple_arg(0, t, fal, ftt))
-            elseif count = fal_count + 1 then
-               create eal.make_2(expression(fal_count).start_position, synthetic_tuple_arg(0, t, fal, ftt), synthetic_tuple_arg(1, t, fal, ftt))
+            ftt_tmp := fal.type_mark(fal_count).resolve_in(target_type).canonical_type_mark
+            if not ftt ?:= ftt_tmp then
+               error_handler.add_position(start_position)
+               error_handler.append(once "Cannot pass TUPLE")
+               error_handler.append(once " (NON_EMPTY_TUPLE_TYPE_MARK")
+               error_handler.append(once ") into formal type ")
+               error_handler.add_type(ftt_tmp.resolve_in(t))
+               error_handler.append(once " (")
+               error_handler.append(ftt_tmp.generating_type)
+               error_handler.append(once "). Implicit tuples not fully implemented.")
+               error_handler.print_as_fatal_error
             else
-               check
-                  count >= fal_count + 2
+               ftt ::= ftt_tmp
+               if count = fal_count then
+                  create eal.make_1(expression(fal_count).start_position, synthetic_tuple_arg(0, t, fal, ftt))
+               elseif count = fal_count + 1 then
+                  create eal.make_2(expression(fal_count).start_position, synthetic_tuple_arg(0, t, fal, ftt), synthetic_tuple_arg(1, t, fal, ftt))
+               else
+                  check
+                     count >= fal_count + 2
+                  end
+                  from
+                     create rem.with_capacity(count - fal_count - 2)
+                     i := 0
+                  until
+                     i >= count - fal_count
+                  loop
+                     rem.add_last(synthetic_tuple_arg(i, t, fal, ftt))
+                     i := i + 1
+                  end
+                  create eal.make_n(expression(fal_count).start_position, synthetic_tuple_arg(0, t, fal, ftt), rem)
                end
-               from
-                  create rem.with_capacity(count - fal_count - 2)
-                  i := 0
-               until
-                  i >= count - fal_count
-               loop
-                  rem.add_last(synthetic_tuple_arg(i, t, fal, ftt))
-                  i := i + 1
-               end
-               create eal.make_n(expression(fal_count).start_position, synthetic_tuple_arg(0, t, fal, ftt), rem)
             end
             create tup.make(expression(fal_count).start_position, eal)
          end
