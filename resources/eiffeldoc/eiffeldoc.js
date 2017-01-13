@@ -1,3 +1,17 @@
+function set_pov (clazz) {
+    var els = document.getElementsByClassName("feature_block");
+
+    for (var i = 0; i < els.length; ++i) {
+        var str = els[i].getAttribute('data-access');
+        if(els[i].hasAttribute('data-access')){
+            if(clazz == null || str.indexOf(clazz + ",") >= 0)
+                els[i].style.display = 'block';
+            else
+                els[i].style.display = 'none';
+        }
+    }
+}
+
 function alter_display_by_id (id, value) {
 	var el = document.getElementById (id + '_expanded');
 	if (el) {
@@ -58,17 +72,19 @@ function set_class_name (el, value) {
 }
 
 function set_hl_class_by_id (id, flag) {
-	var el = document.getElementById (id + '_hl');
+    var el = document.getElementById (id + '_hl');
+    if(el){
 	if (flag) {
-		if (!end_with (el.className, '_hover')) {
-			el.className = el.className + '_hover';
-		}
+	    if (!end_with (el.className, '_hover')) {
+		el.className = el.className + '_hover';
+	    }
 	} else {
-		if (end_with (el.className, '_hover')) {
-			el.className = el.className.substring (0, el.className.lastIndexOf ('_hover'));
-		}
+	    if (end_with (el.className, '_hover')) {
+		el.className = el.className.substring (0, el.className.lastIndexOf ('_hover'));
+	    }
 	}
-	return true;
+    }
+    return true;
 }
 
 function init () {

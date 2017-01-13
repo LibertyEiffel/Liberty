@@ -79,7 +79,7 @@ feature {EIFFELDOC_GLOBALS}
                s.shrink(1, i - 1)
                inspect
                   s
-               when "http", "https", "ftp", "mailto" then
+               when "http", "https", "ftp", "mailto", "javascript" then
                   Result := ref
                else
                end

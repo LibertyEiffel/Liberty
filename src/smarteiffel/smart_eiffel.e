@@ -243,7 +243,7 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
          ace.remove(ct)
       end
 
-feature {FINDER}
+feature {FINDER, EIFFELDOC_SHORTER_CLASSDOC}
    find_paths_for (class_name: HASHED_STRING): FAST_ARRAY[CLASS_TEXT]
          -- Finds the path to any class having the given `class_name'
       require

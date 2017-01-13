@@ -89,7 +89,7 @@ feature {}
          if is_generic_name(cn) then
             html.put_string(cn)
          else
-            address := filename_of(ct, smart_eiffel.type_any.canonical_type_mark)
+            address := filename_of(ct)
             html.with_attribute(once "class", once "wiki_link")
             html.with_href(address)
             html.open_anchor

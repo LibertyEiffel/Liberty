@@ -65,7 +65,7 @@ feature {}
    css_invariant: STRING "invariant"
    css_assertion: STRING "assertion"
    css_obsolete: STRING "obsolete"
-
+   
    css_block_suffix: STRING "_block"
    css_head_suffix: STRING "_head"
    css_head_layout_suffix: STRING "_head_layout"
@@ -88,6 +88,10 @@ feature {}
    css_once_suffix: STRING "_once"
    css_blank_suffix: STRING "_blank"
    css_value_suffix: STRING "_value"
+   css_access_suffix: STRING "_access"
+   css_note_suffix: STRING "_note"
+   css_note_tag_suffix: STRING "_note_tag"
+   css_note_values_suffix: STRING "_note_values"
 
    css_nav_link: STRING "nav_link"
    css_class_link: STRING "class_link"
@@ -136,7 +140,7 @@ feature {}
    overview_id: STRING "Overview:"
    class_invariant_id: STRING "Class invariant:"
 
-   title_bar: STRING "Eiffeldoc : "
+   title_bar: STRING "Eiffeldoc: "
    real_css: STRING "eiffeldoc.css"
    real_js : STRING "eiffeldoc.js"
 
@@ -416,12 +420,15 @@ feature {}
          end
       end
 
-   filename_of (a_class: CLASS_TEXT; a_client: TYPE_MARK): STRING
+   filename_of (a_class: CLASS_TEXT): STRING
       require
          a_class /= Void
       local
          i: INTEGER; s, n: STRING; c, k: CHARACTER
       do
+         -- Rmk, 2017-01-09: removed client dependent file names -> all 
+         -- different point of views are now in one single file
+
          -- We add '.d' at the end of the directory names in the cluster name part to be sure not to
          -- have clashes between directory names and class names in case-insensitive file systems.
          -- We also remove double slashes
@@ -461,15 +468,7 @@ feature {}
             c := k
             i := i + 1
          end
-         if c /= '/' then
-            Result.append(once ".d/")
-         end
          Result.append(a_class.name.to_string)
-         if a_client /= Void then
-            Result.extend('/')
-            Result.append(once "client_")
-            client_file_name_part_(Result, a_client)
-         end
          Result.append(once ".html")
       end
 
@@ -487,34 +486,6 @@ feature {}
       once
          hs := string_aliaser.hashed_string(as_tuple)
          create Result.unknown_position(hs, False)
-      end
-
-   client_file_name_part_ (buffer: STRING; a_client: TYPE_MARK)
-      require
-         buffer /= Void
-      local
-         gl: ARRAY[TYPE_MARK]; i: INTEGER
-      do
-         buffer.append(a_client.class_text.name.to_string)
-         if a_client.is_generic then
-            gl := a_client.generic_list
-            if gl /= Void then
-               buffer.append(once "_of")
-               from
-                  i := gl.lower
-               until
-                  i > gl.upper
-               loop
-                  if i > gl.lower then
-                     buffer.append(once "_and")
-                  end
-                  buffer.extend('_')
-                  client_file_name_part_(buffer, gl.item(i))
-                  i := i + 1
-               end
-               buffer.append(once "_fo")
-            end
-         end
       end
 
 end -- class EIFFELDOC_GLOBALS

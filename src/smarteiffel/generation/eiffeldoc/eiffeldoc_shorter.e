@@ -14,9 +14,8 @@ create {EIFFELDOC_CORE}
 
 feature {EIFFELDOC_CORE}
    short_for (ct: CLASS_TEXT; inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT])
-         -- The filename of the class file is returned
       local
-         fn: STRING; i: INTEGER; client: TYPE_MARK
+         fn: STRING
       do
          if remote_cluster(ct.cluster) = Void then
             -- It is a local class
@@ -24,23 +23,11 @@ feature {EIFFELDOC_CORE}
             echo.put_character('%T')
             echo.put_string(ct.name.to_string)
             echo.put_new_line
-            clients := find_clients.clients_of(ct)
-            -- Now iterate over all the known clients
-            from
-               i := 1
-            until
-               i > clients.count
-            loop
-               client := clients.item(i)
-               fn := filename_of(ct, client)
-               classdoc.generate(ct, client, fn, inherit_children, insert_children)
-               depends.union(classdoc.depends)
-               i := i + 1
-            end
-            -- Now adding all_features:
-            client := Void
-            fn := filename_of(ct, client)
-            classdoc.generate(ct, client, fn, inherit_children, insert_children)
+            -- Rmk, 2017-01-14: removed the need for a separate html 
+            -- file per client
+            
+            fn := filename_of(ct)
+            classdoc.generate(ct, fn, inherit_children, insert_children)
             depends.union(classdoc.depends)
          end
       end
@@ -66,8 +53,6 @@ feature {}
    sourcedoc: EIFFELDOC_SHORTER_SOURCEDOC
 
    options: EIFFELDOC_OPTIONS
-
-   clients: TYPE_MARK_LIST
 
 feature {ANY}
    command_name: STRING ""

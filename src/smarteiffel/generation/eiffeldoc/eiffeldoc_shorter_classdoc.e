@@ -3,7 +3,7 @@
 --
 class EIFFELDOC_SHORTER_CLASSDOC
    --
-   -- Document a class for a given client
+   -- Document one class
    --
 
 inherit
@@ -26,6 +26,8 @@ insert
    ASSERTION_PRINT_TOOLS
    AGENT_TYPE_MARKS
    EIFFELDOC_GLOBALS
+   INDEX_LIST_VISITOR
+   INDEX_CLAUSE_VISITOR
 
 create {EIFFELDOC_SHORTER}
    make
@@ -41,16 +43,15 @@ feature {EIFFELDOC_SHORTER}
    find_clients: EIFFELDOC_SHORTER_FIND_CLIENTS
 
    clients: TYPE_MARK_LIST
+         -- list of all class names given in feature clauses
 
-   generate (a_class_text: CLASS_TEXT; a_client: like client; a_filename: STRING;
-            inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT])
+   generate (a_class_text: CLASS_TEXT; a_filename: STRING; inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT])
       local
          obs: MANIFEST_STRING; comment: COMMENT
+         idx_list: INDEX_LIST; idx_clause: INDEX_CLAUSE; i, n: INTEGER
+         list: FAST_ARRAY[MANIFEST_STRING]
       do
          context.set_class_text(a_class_text)
-         if a_client /= Void then
-            context.set_client(a_client)
-         end
          depends.clear_count
          clients := find_clients.clients_of(a_class_text)
 
@@ -74,13 +75,59 @@ feature {EIFFELDOC_SHORTER}
          else
             -- summary
             open_block(html, css_summary, summary_title_str, summary_id)
-            open_expand_block(html, css_summary, summary_id, False)
+            -- Rmk, 2017-01-08: I prefer the Summary block also to be expanded at page load
+            open_expand_block(html, css_summary, summary_id, True)
 
             comment := a_class_text.heading_comment2
             if comment /= Void then
                open_comment_block(html, css_summary)
                context.write_comment(comment, 1, 0)
                close_comment_block(html)
+            end
+
+            -- now let's print the notes
+            idx_list := a_class_text.index_list
+            if idx_list /= Void then
+               from
+                  i := 1
+               until
+                  i > idx_list.list.upper
+               loop
+                  idx_clause := idx_list.list.item(i)
+                  list := idx_clause.list
+                  if list /= Void then
+                     if idx_clause.tag /= Void then
+                        -- this handling is strange...
+                        set_suffixed_attribute(once "class", css_summary, css_note_suffix, html)
+                        html.open_div
+                        set_suffixed_attribute(once "class", css_summary, css_note_tag_suffix, html)
+                        html.open_div
+                        html.put_string(idx_clause.tag.to_string)
+                        html.close_div
+                     end
+                     set_suffixed_attribute(once "class", css_summary, css_note_values_suffix, html)
+                     html.open_div
+                     from
+                        n := list.lower
+                     until
+                        n > list.upper
+                     loop
+                        if n > list.lower then
+                           html.put_string(once ",%N")
+                        end
+                        html.put_string(list.item(n).to_string)
+                        n := n + 1
+                     end
+                     html.close_div
+                     i := i + 1
+
+                     if         (i <= idx_list.list.upper and then idx_list.list.item(i).tag /= Void)
+                        or else (i > idx_list.list.upper)
+                     then
+                        html.close_div
+                     end
+                  end
+               end
             end
 
             html.open_definition_list
@@ -138,11 +185,7 @@ feature {EIFFELDOC_SHORTER}
             if a_class_text.feature_clause_list /= Void then
                set_suffixed_attribute(once "class", css_overview, css_keyword_suffix, html)
                html.open_div
-               if (a_client /= Void) then
-                  html.put_string(exported_features_str)
-               else
-                  html.put_string(features_str)
-               end
+               html.put_string(features_str)
                phase := summary_features_phase
                found_features.clear_count
                browse_class(a_class_text)
@@ -156,7 +199,7 @@ feature {EIFFELDOC_SHORTER}
             found_features.clear_count
             browse_class(a_class_text)
          end
-
+         
          close_root_block
          html.close
          html.disconnect
@@ -202,22 +245,23 @@ feature {}
          html.open_div
 
          -- Points of view menu
-         if client = Void then
-            options.open_menu(html, points_of_view_menu_name, all_feature_entry_name)
-         else
-            options.open_menu(html, points_of_view_menu_name, client.written_mark)
-         end
+         options.open_menu(html, points_of_view_menu_name, all_feature_entry_name)
          from
             i := 1
          until
             i > clients.count
          loop
             tm := clients.item(i)
-            options.add_menu_item(html, tm.written_mark, filename_of(context_class_text, tm))
+            -- TYPED_INTERNALS and INTERNALS_HANDLER are no 
+            -- interesting POVs
+            if tm.class_text.name.to_string /= as_typed_internals and
+               tm.class_text.name.to_string /= as_internals_handler then
+               options.add_menu_item(html, tm.written_mark, "javascript:set_pov('" + tm.written_mark + once "');")
+            end
             i := i + 1
          end
          tm := Void
-         options.add_menu_item(html, all_feature_entry_name, filename_of(context_class_text, tm))
+         options.add_menu_item(html, all_feature_entry_name, "javascript:set_pov(null);")
          options.close_menu(html)
 
          -- write name
@@ -406,6 +450,44 @@ feature {}
 
    feature_clause_comment_printed: BOOLEAN
 
+   print_client_list
+         -- output the client list for the current object as class-links
+      local
+         i: INTEGER
+         tm: TYPE_MARK
+      do
+         html.open_div
+         html.put_string("{")
+         if feature_clause_client_list /= Void then
+            from
+               i := 1
+            until
+               i > feature_clause_client_list.count
+            loop
+               tm := feature_clause_client_list.item(i)
+
+               -- in case the resolved class name cannot be 
+               -- loaded this ends up in a Void reference... check 
+               -- for it before
+               if not smart_eiffel.find_paths_for(tm.written_name).is_empty then
+
+                  put_class_name(tm.resolve_in(context.type).class_text.name, True)
+                  if i < feature_clause_client_list.count then
+                     html.put_string(", ")
+                  end
+               end
+               i := i + 1
+            end
+         end
+         
+         html.put_string("}")
+         html.close_div
+      end
+
+   feature_clause_client_list: TYPE_MARK_LIST
+         -- list of all class names given in feature clauses, those
+         -- have access to the current feature(s)
+   
    enter_creation_clause_list (visited: CREATION_CLAUSE_LIST): BOOLEAN
       do
          inspect
@@ -422,26 +504,21 @@ feature {}
       end
 
    enter_creation_clause (visited: CREATION_CLAUSE): BOOLEAN
-      require
-         not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
-      local
-         c: like client
       do
-         c := client
-         Result := c = Void or else visited.clients.gives_permission_to(client, context.type)
-         if Result then
-            inspect
-               phase
-            when invariant_phase then
-               check False end
-            when summary_creation_phase then
-               feature_clause_comment_to_print := visited.comment
-               feature_clause_comment_printed := False
-            when summary_features_phase then
-            when details_creation_phase then
-            when details_features_phase then
-            end
+         inspect
+            phase
+         when invariant_phase then
+            check False end
+         when summary_creation_phase then
+            feature_clause_comment_to_print := visited.comment
+            feature_clause_client_list := visited.clients.type_mark_list
+            feature_clause_comment_printed := False
+         when summary_features_phase then
+         when details_creation_phase then
+         when details_features_phase then
+            feature_clause_client_list := visited.clients.type_mark_list
          end
+         Result := True
       ensure
          not_done_to_report_errors: error_handler.is_empty
       end
@@ -480,8 +557,6 @@ feature {}
       end
 
    enter_feature_clause (visited: FEATURE_CLAUSE): BOOLEAN
-      require
-         not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       do
          inspect
             phase
@@ -493,12 +568,9 @@ feature {}
                look_for_creation /= Void
             end
          when summary_features_phase then
-            if client = Void then
-               Result := True
-            else
-               Result := visited.clients /= Void and then visited.clients.gives_permission_to(client, context.type)
-            end
+            Result := True
             feature_clause_comment_to_print := visited.comment
+            feature_clause_client_list := visited.clients.type_mark_list
             feature_clause_comment_printed := False
          when details_creation_phase then
             Result := True
@@ -506,11 +578,8 @@ feature {}
                look_for_creation /= Void
             end
          when details_features_phase then
-            if client = Void then
-               Result := True
-            else
-               Result := visited.clients /= Void and then visited.clients.gives_permission_to(client, context.type)
-            end
+            feature_clause_client_list := visited.clients.type_mark_list
+            Result := True
          end
       ensure
          not_done_to_report_errors: error_handler.is_empty
@@ -591,6 +660,8 @@ feature {}
       end
 
    print_feature (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
+      require
+         not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       do
          inspect
             phase
@@ -605,6 +676,8 @@ feature {}
                   html.close_div
                   feature_clause_comment_to_print := Void
                end
+               print_client_list
+               
                feature_clause_comment_printed := True
                html.open_list
             end
@@ -615,8 +688,6 @@ feature {}
       end
 
    print_feature_summary (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
-      require
-         not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
          ref: STRING; i: INTEGER
          name, assign_anchor: STRING
@@ -624,9 +695,6 @@ feature {}
          name := once ""
          name.clear_count
          fn.complete_name_in(name)
-         check
-            phase = summary_features_phase implies client = Void or else af.permissions.gives_permission_to(client, context.type)
-         end
          set_suffixed_attribute(once "class", css_overview, css_feature_item_suffix, html)
          html.open_list_item
          ref := once ""
@@ -687,22 +755,42 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
          i: INTEGER
-         feature_name, id, assign_anchor, const_string: STRING
+         feature_name, id, assign_anchor, const_string, client_str: STRING
          require_not_empty, ensure_not_empty, need_blank: BOOLEAN
          c_value: EXPRESSION
          cst: CST_ATT
          manifest_string: MANIFEST_STRING
          btc: BASE_TYPE_CONSTANT
+         tm: TYPE_MARK
       do
-         check
-            phase = details_features_phase implies client = Void or else af.permissions.gives_permission_to(client, context.type)
-         end
          feature_name := once ""
          feature_name.clear_count
          fn.complete_name_in(feature_name)
          id := once ""
          id.copy(once "id.")
          id.append(feature_name)
+
+         client_str := once ""
+         client_str.clear_count
+         if feature_clause_client_list /= Void then
+            from
+               i := 1
+            until
+               i > clients.count
+            loop
+               tm := clients.item(i)
+               -- TYPED_INTERNALS and INTERNALS_HANDLER are no 
+               -- interesting POVs
+               if tm.class_text.name.to_string /= as_typed_internals and
+                  tm.class_text.name.to_string /= as_internals_handler and
+                  af.permissions.gives_permission_to(tm, context.type) then
+                  client_str.append(tm.written_mark)
+                  client_str.append(",") -- always append , as we need the separator also at the end to prevent finding substrings
+               end
+               i := i + 1
+            end
+            html.with_attribute(once "data-access", client_str)
+         end
 
          open_block_head(html, css_feature, id)
 
@@ -830,6 +918,11 @@ feature {}
             need_blank := True
          end
 
+         html.close_div
+         set_suffixed_attribute(once "class", css_feature, css_access_suffix, html)
+         print_client_list
+         html.open_div
+         
          if need_blank then
             html.close_div
             set_suffixed_attribute(once "class", css_feature, css_blank_suffix, html)
@@ -922,9 +1015,7 @@ feature {}
                not Result or else i > al.upper
             loop
                a := al.item(i)
-               if client = Void or else not hidden_expression_detector.visit(a, context.type, client, False) then
-                  Result := a.expression = Void
-               end
+               Result := a.expression = Void
                i := i + 1
             end
          end
@@ -983,34 +1074,32 @@ feature {}
       local
          ewc: EXPRESSION_WITH_COMMENT; e: EXPRESSION; c: COMMENT
       do
-         if client = Void or else not hidden_expression_detector.visit(a, context.type, client, False) then
-            html.open_list_item
-            if a.tag /= Void then
-               set_suffixed_attribute(once "class", css_assertion, css_name_suffix, html)
-               html.open_span
-               html.put_string(a.tag.to_string)
-               html.put_string(once ": ")
-               html.close_span
-            end
-            e := a.expression
-            c := a.comment
-            if e /= Void then
-               if ewc ?:= e then
-                  ewc ::= e
-                  check
-                     c = Void
-                  end
-                  e := ewc.expression
-                  c := ewc.comment
-               end
-               e.accept (Current)
-            end
-            if c /= Void then
-               context.write_feature_comment(c, for_feature, 1, 0)
-            end
-            html.put_break
-            html.close_list_item
+         html.open_list_item
+         if a.tag /= Void then
+            set_suffixed_attribute(once "class", css_assertion, css_name_suffix, html)
+            html.open_span
+            html.put_string(a.tag.to_string)
+            html.put_string(once ": ")
+            html.close_span
          end
+         e := a.expression
+         c := a.comment
+         if e /= Void then
+            if ewc ?:= e then
+               ewc ::= e
+               check
+                  c = Void
+               end
+               e := ewc.expression
+               c := ewc.comment
+            end
+            e.accept (Current)
+         end
+         if c /= Void then
+            context.write_feature_comment(c, for_feature, 1, 0)
+         end
+         html.put_break
+         html.close_list_item
       end
 
 feature {}
@@ -1058,13 +1147,13 @@ feature {FEATURE_NAME}
             phase
          when invariant_phase then
             check False end
-         when summary_creation_phase, details_creation_phase then
+         when summary_creation_phase, details_creation_phase, details_features_phase then
             if class_text.feature_clause_list /= Void then
                look_for_creation := visited
                class_text.feature_clause_list.accept(Current)
                look_for_creation := Void
             end
-         when summary_features_phase, details_features_phase then
+         when summary_features_phase then
          end
       end
 
@@ -1301,11 +1390,6 @@ feature {CREATE_EXPRESSION}
 feature {}
    class_text: CLASS_TEXT
 
-   client: TYPE_MARK
-      do
-         Result := context.client
-      end
-
    phase: INTEGER
 
    options: EIFFELDOC_OPTIONS
@@ -1395,11 +1479,14 @@ feature {}
       end
 
    put_class_name (class_name: CLASS_NAME; anchored: BOOLEAN)
+      require
+         non_void_classname: class_name /= Void
       local
          anchor: STRING
       do
          if anchored then
-            anchor := filename_of(class_name.class_text, smart_eiffel.type_any.canonical_type_mark)
+            
+            anchor := filename_of(class_name.class_text)
          end
          put_class_name_string(class_name.to_string, anchor)
       end
@@ -1435,6 +1522,15 @@ feature {}
       end
 
    context: EIFFELDOC_CONTEXT
+
+feature {INDEX_LIST, INDEX_CLAUSE} -- unused vistors
+   visit_index_list (visited: INDEX_LIST)
+      do
+      end
+
+   visit_index_clause (visited: INDEX_CLAUSE)
+      do
+      end
 
 end -- class EIFFELDOC_SHORTER_CLASSDOC
 --

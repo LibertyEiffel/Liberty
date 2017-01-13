@@ -68,11 +68,6 @@ feature {}
          Result := context.class_type
       end
 
-   client: TYPE_MARK
-      do
-         Result := context.client
-      end
-
    class_text: CLASS_TEXT
       do
          Result := context.class_text

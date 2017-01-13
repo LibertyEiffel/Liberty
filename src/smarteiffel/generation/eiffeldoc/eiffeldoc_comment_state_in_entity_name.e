@@ -42,9 +42,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          when "Current", "Result" then
             with_anchor := False
          else
-            if client = Void then
-               with_anchor := False
-            elseif for_feature = Void then
+            if for_feature = Void then
                with_anchor := True
             else
                if for_feature.arguments /= Void then
@@ -65,8 +63,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
                      n.copy(type.name.to_string)
                      n.extend('.')
                      n.append(feature_name)
-                     n.append(once " for ")
-                     n.append(client.written_mark)
+                     n.append(once " for some client")
                   end
                   if fs = Void then
                      echo.put_string(once "*** cannot find ")
@@ -82,9 +79,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
                      fs := fs.resolve_static_binding_for(type, class_type)
                      if fs /= Void then
                         af := fs.anonymous_feature(class_type)
-                        if af /= Void then
-                           with_anchor := af.permissions.gives_permission_to(client, type)
-                        end
+                        with_anchor := True
                      end
                      if with_anchor then
                         fn := class_type.get_feature_name(fs)

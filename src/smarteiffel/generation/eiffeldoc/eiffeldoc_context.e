@@ -25,7 +25,6 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER_CLASSDOC}
          class_text := a_class_text
          class_type := a_class_text.declaration_type_of_like_current
          type := class_type
-         client := Void
       end
 
    set_html (a_html: like html)
@@ -33,13 +32,6 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER_CLASSDOC}
          a_html /= Void
       do
          html := a_html
-      end
-
-   set_client (a_client: like client)
-      require
-         a_client /= Void
-      do
-         client := a_client
       end
 
    set_type (a_type: like type)
@@ -57,8 +49,6 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER_CLASSDOC, EIFFELDOC_COMMENT_STATE, EIFFELD
    class_type: TYPE
 
    class_text: CLASS_TEXT
-
-   client: TYPE_MARK
 
    options: EIFFELDOC_OPTIONS
 
