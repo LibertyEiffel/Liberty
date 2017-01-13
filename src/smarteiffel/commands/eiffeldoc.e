@@ -738,7 +738,7 @@ feature {} -- Support features for html writing
             create clu.make(0)
             all_class_clusters.add(clu, i)
          end
-         urls.add_last(filename_of(ct, smart_eiffel.type_any.canonical_type_mark).twin)
+         urls.add_last(filename_of(ct).twin)
          com.add_last(ct.heading_comment2)
          clu.add_last(cluster_name(ct.cluster).twin)
          core.add(ct)
