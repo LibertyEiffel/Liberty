@@ -789,8 +789,8 @@ feature {}
                end
                i := i + 1
             end
-            html.with_attribute(once "data-access", client_str)
          end
+         html.with_attribute(once "data-access", client_str)
 
          open_block_head(html, css_feature, id)
 
