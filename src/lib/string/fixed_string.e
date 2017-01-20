@@ -424,7 +424,6 @@ invariant
    ;(immutable and not is_shared) implies capacity.in_range(count, count + 1)
    ;(immutable and not is_shared) implies (count = 0 implies storage.item(0) = '%U')
    ;(immutable and not is_shared) implies (count > 0 implies (storage.item(count - 1) = '%U' or else storage.item(count) = '%U'))
-   ;(immutable and not is_shared) implies (storage.item(count) = '%U' implies capacity = count + 1)
    holders.fast_has(Current)
    holders.for_all(agent (holder: FIXED_STRING; p: POINTER): BOOLEAN do Result := holder.storage.to_pointer = p end (?, storage.to_pointer))
    is_interned = (interned.fast_has(hash_code) and then interned.fast_reference_at(hash_code).fast_has(Current))
