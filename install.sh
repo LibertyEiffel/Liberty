@@ -727,56 +727,85 @@ EOF
 }
 
 do_pkg_tools_src() {
+    title "Setup tools sources"
     _do_pkg_src tools $LIBERTY_HOME/src/smarteiffel $LIBERTY_HOME/src/tools
 }
 
 do_pkg_core_libs() {
+    title "Setup core libraries"
     _do_pkg_src core $LIBERTY_HOME/src/lib
 }
 
 do_pkg_extra_libs() {
+    title "Setup extra libraries"
     _do_pkg_src liberty_extra $LIBERTY_HOME/src/wrappers
 }
 
 do_pkg_staging_libs() {
+    title "Setup staging library"
     _do_pkg_src liberty_staging $LIBERTY_HOME/src/staging
 }
 
 do_pkg_tutorial() {
+    title "Setup LibertyEiffel tutorial"
     _do_pkg_src tutorial $LIBERTY_HOME/tutorial
 }
 
 do_pkg_tools_doc() {
-    DOC=$USRDIR/share/doc/liberty-eiffel
-    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/tools/{liberty,smarteiffel}
-    cp -a $TARGET/doc/api/smarteiffel/* $DOC/tools/smarteiffel/
-    cp -a $TARGET/doc/api/liberty/* $DOC/tools/liberty/
-    find $DOC -type f -exec chmod a-x {} +
-    chown -R ${LE_USER}:${LE_GROUP} $DOC
+
+    if [ -e $TARGET/doc/api ] ; then
+	title "Installing tools API documentation."
+	DOC=$USRDIR/share/doc/liberty-eiffel
+	install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/tools/{liberty,smarteiffel}
+	cp -a $TARGET/doc/api/smarteiffel/* $DOC/tools/smarteiffel/
+	cp -a $TARGET/doc/api/liberty/* $DOC/tools/liberty/
+	find $DOC -type f -exec chmod a-x {} +
+	chown -R ${LE_USER}:${LE_GROUP} $DOC
+    else
+	title "No tools API documentation to install."
+    fi
 }
 
 do_pkg_core_doc() {
-    DOC=$USRDIR/share/doc/liberty-eiffel
-    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/core
-    cp -a $TARGET/doc/api/libraries/* $DOC/core/
-    find $DOC -type f -exec chmod a-x {} +
-    chown -R ${LE_USER}:${LE_GROUP} $DOC
+
+    if [ -e $TARGET/doc/api ] ; then
+	title "Installing core API documentation."
+	DOC=$USRDIR/share/doc/liberty-eiffel
+	install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/core
+	cp -a $TARGET/doc/api/libraries/* $DOC/core/
+	find $DOC -type f -exec chmod a-x {} +
+	chown -R ${LE_USER}:${LE_GROUP} $DOC
+    else
+	title "No core API documentation to install."
+    fi
 }
 
 do_pkg_extra_doc() {
-    DOC=$USRDIR/share/doc/liberty-eiffel
-    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/extra
-    cp -a $TARGET/doc/api/wrappers/* $DOC/extra/
-    find $DOC -type f -exec chmod a-x {} +
-    chown -R ${LE_USER}:${LE_GROUP} $DOC
+
+    if [ -e $TARGET/doc/api ] ; then
+	title "Installing extra API documentation."
+	DOC=$USRDIR/share/doc/liberty-eiffel
+	install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/extra
+	cp -a $TARGET/doc/api/wrappers/* $DOC/extra/
+	find $DOC -type f -exec chmod a-x {} +
+	chown -R ${LE_USER}:${LE_GROUP} $DOC
+    else
+	title "No extra API documentation to install."
+    fi
 }
 
 do_pkg_staging_doc() {
-    DOC=$USRDIR/share/doc/liberty-eiffel
-    install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/staging
-    cp -a $TARGET/doc/api/staging/* $DOC/staging/
-    find $DOC -type f -exec chmod a-x {} +
-    chown -R ${LE_USER}:${LE_GROUP} $DOC
+
+    if [ -e $TARGET/doc/api ] ; then
+	title "Installing staging API documentation."
+        DOC=$USRDIR/share/doc/liberty-eiffel
+	install -d -m 0755 -o ${LE_USER} -g ${LE_GROUP} $DOC/staging
+	cp -a $TARGET/doc/api/staging/* $DOC/staging/
+	find $DOC -type f -exec chmod a-x {} +
+	chown -R ${LE_USER}:${LE_GROUP} $DOC
+    else
+	title "No staging API documentation to isntall."
+    fi
 }
 
 get_user_group_info() {
