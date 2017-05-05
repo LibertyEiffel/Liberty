@@ -16,48 +16,57 @@ feature {ANY} -- Wrapper
 		do
 			("GI_FUNCTION: #(1)%N" # name).print_on(std_output)
 		end
+    
+    feature_name: STRING 
+       -- The name of the Eiffel feature that wrap Current function
+       do
+          if stored_feaure_name=Void then
+             stored_feaure_name := eiffel_feature(name)
+             -- name alone is not right
+          end
+          Result := stored_feaure_name
+       end
 
-	eiffel_wrapper: STRING is
-        local i: like lower
-		do
-            Result := eiffel_feature(name)  --no, name is not right
+   eiffel_wrapper: STRING 
+      local i: like lower
+      do
+         Result := feature_name
+         if has_arguments then
+            debug 
+                  log.info.put_line("#(1) arguments from #(2) to #(3)" # & count # & lower # & upper)
+               end
 
-            if has_arguments then
-                debug 
-                    log.info.put_line("#(1) arguments from #(2) to #(3)" # & count # & lower # & upper)
-                end
-                    
-                Result.append(once "(")
-                from i:=lower until i>upper-1
-                loop -- iterate from first to next to second-last element
-                    debug 
-                        log.info.put_line("arg #(1): #(2)" # &i # & item(i))
-                    end
-                    Result.append(item(i).eiffel_wrapper)
-                    Result.append(once "; ")
-                    i:=i+1
-                end
-                Result.append(last.eiffel_wrapper)
-                Result.append(once ")")
+               Result.append(once "(")
+               from i:=lower until i>upper-1
+               loop -- iterate from first to next to second-last element
+                     debug 
+                           log.info.put_line("arg #(1): #(2)" # &i # & item(i))
+                        end
+                        Result.append(item(i).eiffel_wrapper)
+                        Result.append(once "; ")
+                        i:=i+1
+                     end
+                     Result.append(last.eiffel_wrapper)
+                     Result.append(once ")")
+                  end
+                  if is_query then
+                     Result.append(once ": #(1) -- C type #(2)" # return_type.eiffel_wrapper # name)
+                  end
+                  Result.append(once "    -- TODO: add a description")
+                  Result.append("[
+
+               external "plug_in"
+                  alias "{
+                  location: "."
+                  module_name: "plugin"
+                  feature_name: "#(1)"
+                  }"
+               end
+
+               ]" # symbol)
+
+               -- "-- GI_FUNCTION_INFO not_yet_implemented"
             end
-            if is_query then
-                Result.append(once ": #(1) -- C type #(2)" # return_type.eiffel_wrapper # name)
-            end
-            Result.append(once "    -- TODO: add a description")
-            Result.append("[
-                
-                external "plug_in"
-                alias "{
-                    location: "."
-                    module_name: "plugin"
-                    feature_name: "#(1)"
-                    }"
-                end
-
-            ]" # symbol)
-
-            -- "-- GI_FUNCTION_INFO not_yet_implemented"
-		end
 
     suffix: STRING is "_FUNCTION"
 
@@ -166,6 +175,8 @@ feature {ANY}
 --    -----------------------------------------------------------------------------------------------------------------------
 -- 
 -- 
+feature {} -- Implementation
+   stored_feaure_name: STRING
 end -- class GI_FUNCTION_INFO
 	
 -- Copyright (C) 2013-2017: Paolo Redaelli <paolo.redaelli@gmail.com>

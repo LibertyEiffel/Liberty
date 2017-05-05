@@ -59,9 +59,9 @@ feature {} -- program entry point
 	emit (an_info: GI_BASE_INFO) is
 		-- 
 	do
-        debug std_error.put_line("LEGGOW.emit #(1)" # & an_info ) end
-        log.info.put_line(an_info.eiffel_wrapper) 
-		-- an_info.emit_wrapper
+        std_error.put_line("LEGGOW.emit #(1)" # & an_info )
+        -- log.info.put_line(an_info.eiffel_wrapper) 
+		an_info.emit_wrapper
 	end
 
 feature	{} -- Command line arguments

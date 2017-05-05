@@ -12,9 +12,6 @@ class GI_OBJECT_INFO
 
 inherit 
 	GI_CLASS -- providing properties access
-		redefine 
-            emit_wrapper 
-        end
 
 	GI_REGISTERED_TYPE_INFO
 		redefine 
@@ -31,23 +28,44 @@ insert
 create {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Wrapper
-	emit_wrapper is
+	emit_wrapper 
 		--
-	local pi: PROPERTIES_ITER; mi: METHODS_ITER
-		properties_text: STRING; 
-        a_name, a_count: ABSTRACT_STRING
+    local w: ABSTRACT_STRING; pi: PROPERTIES_ITER
     do
-       std_error.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) 
+       -- std_error.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) 
        --std_error. log.trace.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) 
-		create properties_text.with_capacity( 2048 )
-        a_name := name; a_count := &properties_count 
-		log.info.put_string("Object #(1) with #(2) properties: " # name # & properties_count )
-		-- log.info.put_string("Object #(1) with #(2) properties: " # a_name # & a_count )
-        -- properties_iter.for_each(agent emit_property)
-        debug std_error.put_string("propiter ") end
-        pi := properties_iter
-		("%N#(1) methods:%N "# methods_count.out).print_on(std_output);
-		methods_iter.for_each(agent emit_method(?))
+       -- TODO: add prefix support
+        create path.make_from_string(eiffel_class_name(name,once ".e").as_lower)
+        create output.connect_to(path.to_string)
+        log.info.put_line("Wrapping object #(1) in #(2)" # name # &path)
+        if is_deferred then output.put_string(once "deferred class ")
+        else output.put_string(once "class ")
+        end
+        output.put_line(class_name) 
+        output.put_line("%T-- #(1) %N" # generator )
+        append_create_clause 
+        log.info.put_line("Class #(1) starting properties" # name)
+        output.put_line(once "%N%Nfeature {ANY} -- Properties")
+        -- properties_iter.for_each(agent (x: GI_PROPERTY_INFO) do print(once "foo!%N") end) --append_property(res,?)) 
+        -- from pi:=properties_iter; pi.start
+        -- until not pi.is_off
+        -- loop
+        --    log.info.put_line("#(1) property  #(2)" # name # pi.item.name)
+        --    append_property(pi.item)
+        --    pi.next
+        -- end
+        log.info.put_line("Class #(1) ended properties" # name)
+        log.info.put_line("Class #(1) starting methods" # name)
+        output.put_line(once "%Nfeature {ANY} -- Methods%N")
+        methods_iter.for_each(agent append_method(?))
+
+        output.put_line(once "%Nfeature {ANY} -- Fields")
+        output.put_line(once "%Nfeature {ANY} -- Signals")
+        output.put_line(once "%Nfeature {ANY} -- Virtual functions")
+        output.put_line(once "%Nfeature {ANY} -- Constants")
+        output.put_line(once "%Nend -- class ")
+        output.put_line(class_name)
+        output.disconnect
     end
 
     emit_property (a_property: GI_PROPERTY_INFO) is
@@ -63,45 +81,59 @@ feature {ANY} -- Wrapper
     end
 
 	eiffel_wrapper: STRING is
-        local res: STRING
 		do
-            if is_deferred then Result := "deferred class "
-            else Result := "class "
-            end
-            res:=Result -- to be fed to agents
-            Result.append(class_name) 
-            Result.append(once "%Ncreate {ANY} ")
-            Result.append(constructors.out)
-            Result.append(once "%Nfeature {ANY} -- Properties")
-            --properties_iter.for_each(agent (a_property: GI_PROPERTY_INFO) do
-            --    res.append(once "-- Property #(1)%N"#a_property.name)
-            --    if a_property.flags.is_readable then
-            --        -- emit getter query
-            --    end
-            --    if a_property.flags.is_writable then
-            --        -- emit setter command
-            --    end
-            --end)
-            
-            Result.append(once "%Nfeature {ANY} -- Methods%N")
-            methods_iter.for_each(agent (a_method: GI_FUNCTION_INFO) do
-                -- Methods includes plain methods, constructors, getters and setters. Setters and getters are already wrapped as properties
-                if a_method.flags.is_is_method or a_method.flags.is_is_constructor then
-                    res.append(a_method.eiffel_wrapper)
-                end
-            end)
-
-            Result.append(once "%Nfeature {ANY} -- Fields")
-            Result.append(once "%Nfeature {ANY} -- Signals")
-            Result.append(once "%Nfeature {ANY} -- Virtual functions")
-            Result.append(once "%Nfeature {ANY} -- Constants")
-            Result.append(once "%Nend -- class ")
-            Result.append(class_name)
-		end
+           Result:="-- TODO: eiffel wrapper should not be available in classes but only for methods and the like"
+        end
 
     suffix: STRING is ""
 
+feature {} -- Implementation of eiffel wrapper agents
+   append_property (a_property: GI_PROPERTY_INFO) 
+      -- Append the wrappers - getter and setter - of `a_property' to `output'
+   require 
+      output/=Void 
+      output.is_connected
+      a_property/=Void
+   do
+      output.put_line(once "-- Property #(1)%N"#a_property.name)
+      if a_property.flags.is_readable then
+         -- emit getter query
+         output.put_line(once "%N -- Readable add getter")
+      end
+      if a_property.flags.is_writable then
+         -- emit setter command
+         output.put_line(once "%N -- Writable, add setter")
+      end
+   end
+
+   append_method (a_method: GI_FUNCTION_INFO) 
+      do
+         -- Methods includes plain methods, constructors, getters and setters. Setters and getters are already wrapped as properties
+         if a_method.flags.is_is_method or a_method.flags.is_is_constructor then
+            output.put_line(a_method.eiffel_wrapper)
+         end
+      end
+
 feature {ANY} 
+   append_create_clause 
+      -- Append the creations clause, i.e.e "create {ANY}" plus a list of the constructor feature names, each separated by a comma to output
+   require
+      output /= Void
+      output.is_connected
+   do
+      if not constructors.is_empty then
+         output.put_string(once "%Ncreate {ANY} ")
+         constructors.lower.loop_up_to(constructors.upper-1,
+         agent (i: INTEGER) do
+            output.put_string (constructors.item(i).feature_name)
+            output.put_string (once ", ")
+         end)
+         output.put_line(constructors.last.feature_name)
+      else
+         output.put_line(once "-- No creation features")
+      end
+
+   end
     constructors: COLLECTION[GI_FUNCTION_INFO] 
         -- The constructors of Current GI_OBJECT_INFO
     do
@@ -109,8 +141,9 @@ feature {ANY}
         Result := cached_constructors 
     end
 
-feature {} 
-
+feature {} -- Implementation
+   output: TEXT_FILE_WRITE
+   path: POSIX_PATH_NAME
 feature {ANY}
 	type_name: FIXED_STRING is
 		--  the name of the objects class/type.
