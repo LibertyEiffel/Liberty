@@ -112,7 +112,7 @@ feature {} -- Constants
 
    externals_header: STRING "feature {} -- External calls%N%N"
 
-   typedefs_features_header: STRING "feature {ANY} -- C type definitions (typedefs)%N"
+   typedefs_features_header: STRING "feature {WRAPPER_HANDLER} -- C type definitions (typedefs)%N"
 
    footer: STRING "end%N"
 

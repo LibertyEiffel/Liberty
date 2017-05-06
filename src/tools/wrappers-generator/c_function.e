@@ -167,6 +167,7 @@ feature {ANY}
          -- interpret it as the address of the call casted to an integer.
       local
          i, last: INTEGER
+         an_arg: C_FUNCTION_ARGUMENT
       do
 		  if has_arguments then
 			  log(once " (")
@@ -184,12 +185,16 @@ feature {ANY}
 			  until
 				  i > last - 1
 			  loop
-				  argument(i).put_on(buffer)
+                  an_arg := argument(i)
+                  an_arg.set_pos(i)
+				  an_arg.put_on(buffer) -- argument(i).put_on(buffer)
 				  buffer.append(once "; ")
 				  i := i + 1
 			  end
 
-			  argument(last).put_on(buffer)
+              an_arg := argument(last)
+              an_arg.set_pos(last)
+			  an_arg.put_on(buffer)
 			  log(once ")")
 			  buffer.append(once ")")
 		  end

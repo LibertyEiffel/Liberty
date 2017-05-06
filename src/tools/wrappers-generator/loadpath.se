@@ -1,2 +1,2 @@
 .
-${path_liberty}/src/tools/loadpath.se
+../../lib/loadpath.se

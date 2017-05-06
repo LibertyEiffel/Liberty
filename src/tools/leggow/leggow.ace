@@ -3,16 +3,18 @@ root LEGGOW: main
 default -- section of the system
    assertion (require);
 cluster -- section
-    leggow: "${path_liberty}/src/tools/leggow/loadpath.se"
-        default
-            assertion (all)
-        end
-    lib: "${path_liberty}/src/lib/loadpath.se"
-        default
-            assertion (boost)
-        end
-    common_wrappers: "${path_liberty}/src/wrappers/common/loadpath.se"
-        default
-            assertion(boost)
-        end
-   end
+   leggow: "./loadpath.se"
+      default
+         assertion (all)
+      end
+    
+    lib: "../../lib/loadpath.se"
+         default
+             assertion (boost)
+         end
+    
+    common_wrappers: "../../wrappers/common/loadpath.se"
+    --     default
+    --         assertion(boost)
+    --     end
+end

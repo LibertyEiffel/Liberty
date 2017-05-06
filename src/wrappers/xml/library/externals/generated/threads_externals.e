@@ -16,7 +16,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCleanupThreads"
+                       feature_name: "xmlCleanupThreads()"
                }"
                end
 
@@ -52,7 +52,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlGetGlobalState"
+                       feature_name: "xmlGetGlobalState()"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlGetThreadId"
+                       feature_name: "xmlGetThreadId()"
                }"
                end
 
@@ -76,7 +76,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlInitThreads"
+                       feature_name: "xmlInitThreads()"
                }"
                end
 
@@ -88,7 +88,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlIsMainThread"
+                       feature_name: "xmlIsMainThread()"
                }"
                end
 
@@ -100,7 +100,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlLockLibrary"
+                       feature_name: "xmlLockLibrary()"
                }"
                end
 
@@ -136,7 +136,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlNewMutex"
+                       feature_name: "xmlNewMutex()"
                }"
                end
 
@@ -148,7 +148,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlNewRMutex"
+                       feature_name: "xmlNewRMutex()"
                }"
                end
 
@@ -184,7 +184,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlUnlockLibrary"
+                       feature_name: "xmlUnlockLibrary()"
                }"
                end
 

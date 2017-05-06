@@ -320,7 +320,7 @@ feature {} -- External calls
                }"
                end
 
-	xml_free_valid_ctxt (an_argument_l3105_c7: POINTER) 
+	xml_free_valid_ctxt (argument_1: POINTER) 
 
 		-- function xmlFreeValidCtxt (in `/usr/include/libxml2/libxml/valid.h')
                -- xmlFreeValidCtxt
@@ -484,7 +484,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlNewValidCtxt"
+                       feature_name: "xmlNewValidCtxt()"
                }"
                end
 

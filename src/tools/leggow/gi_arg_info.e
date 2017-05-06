@@ -22,7 +22,7 @@ feature {ANY} -- Wrapper
     eiffel_wrapper: ABSTRACT_STRING is
 		do
 			if name/=Void then
-				Result:=name | ": " | "FOOBAR"
+				Result:=name | ": " | type.eiffel_wrapper
 			end
 		end
 

@@ -53,7 +53,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "dlerror"
+                       feature_name: "dlerror()"
                }"
                end
 

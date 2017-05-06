@@ -65,12 +65,21 @@ feature {ANY}
          -- The placeholder name of Current, suitable for Liberty as a newly created string.
       do
          if c_name = Void then
-            -- Nameless prototype: providing sound default, using
-            -- line and column, which are locally unique.
-            Result := "an_argument_l"
-            line.append_in(Result)
-            Result.append(once "_c")
-            column.append_in(Result)
+            -- Nameless prototype: 
+            if pos /= 0 then
+                -- the position of Current argment has been set by its
+                -- function. We trust it to be unique in the function and use
+                -- it to give a name to this nameless argument
+                Result := "argument_"
+                pos.append_in(Result)
+            else
+                -- no position set. Using providing sound default, using
+                -- line and column, which are locally unique. 
+                Result := "an_argument_l"
+                line.append_in(Result)
+                Result.append(once "_c")
+                column.append_in(Result)
+            end
          else
             Result := eiffel_argument(c_name.to_utf8)
          end
@@ -92,5 +101,4 @@ feature {ANY}
 
          a_buffer.append(once "#(1): #(2)" # a_placeholder # a_wrapper_type)
       end
-
 end -- class C_ARGUMENT

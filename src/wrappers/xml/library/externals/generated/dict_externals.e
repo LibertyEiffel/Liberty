@@ -16,7 +16,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlDictCleanup"
+                       feature_name: "xmlDictCleanup()"
                }"
                end
 
@@ -28,7 +28,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlDictCreate"
+                       feature_name: "xmlDictCreate()"
                }"
                end
 
@@ -160,7 +160,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlInitializeDict"
+                       feature_name: "xmlInitializeDict()"
                }"
                end
 

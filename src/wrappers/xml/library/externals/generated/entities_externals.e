@@ -40,7 +40,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCleanupPredefinedEntities"
+                       feature_name: "xmlCleanupPredefinedEntities()"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCreateEntitiesTable"
+                       feature_name: "xmlCreateEntitiesTable()"
                }"
                end
 
@@ -196,7 +196,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlInitializePredefinedEntities"
+                       feature_name: "xmlInitializePredefinedEntities()"
                }"
                end
 

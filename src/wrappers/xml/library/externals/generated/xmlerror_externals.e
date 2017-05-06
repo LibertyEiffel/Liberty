@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlGetLastError"
+                       feature_name: "xmlGetLastError()"
                }"
                end
 
@@ -160,7 +160,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlResetLastError"
+                       feature_name: "xmlResetLastError()"
                }"
                end
 

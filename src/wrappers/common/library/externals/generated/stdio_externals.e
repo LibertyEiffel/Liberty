@@ -101,7 +101,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "fcloseall"
+                       feature_name: "fcloseall()"
                }"
                end
 
@@ -630,7 +630,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getchar"
+                       feature_name: "getchar()"
                }"
                end
 
@@ -642,7 +642,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getchar_unlocked"
+                       feature_name: "getchar_unlocked()"
                }"
                end
 
@@ -1105,7 +1105,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "tmpfile"
+                       feature_name: "tmpfile()"
                }"
                end
 
@@ -1117,7 +1117,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "tmpfile64"
+                       feature_name: "tmpfile64()"
                }"
                end
 

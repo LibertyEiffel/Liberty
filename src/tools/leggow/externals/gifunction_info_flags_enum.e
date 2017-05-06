@@ -82,32 +82,32 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_is_constructor: BOOLEAN
                do
-                       Result := (value=is_constructor_low_level)
+                       Result := (value.bit_and(is_constructor_low_level).to_boolean)
                end
 
        is_is_getter: BOOLEAN
                do
-                       Result := (value=is_getter_low_level)
+                       Result := (value.bit_and(is_getter_low_level).to_boolean)
                end
 
        is_is_method: BOOLEAN
                do
-                       Result := (value=is_method_low_level)
+                       Result := (value.bit_and(is_method_low_level).to_boolean)
                end
 
        is_is_setter: BOOLEAN
                do
-                       Result := (value=is_setter_low_level)
+                       Result := (value.bit_and(is_setter_low_level).to_boolean)
                end
 
        is_throws: BOOLEAN
                do
-                       Result := (value=throws_low_level)
+                       Result := (value.bit_and(throws_low_level).to_boolean)
                end
 
        is_wraps_vfunc: BOOLEAN
                do
-                       Result := (value=wraps_vfunc_low_level)
+                       Result := (value.bit_and(wraps_vfunc_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

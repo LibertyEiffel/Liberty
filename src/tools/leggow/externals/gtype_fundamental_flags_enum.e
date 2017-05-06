@@ -60,22 +60,22 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_classed: BOOLEAN
                do
-                       Result := (value=classed_low_level)
+                       Result := (value.bit_and(classed_low_level).to_boolean)
                end
 
        is_deep_derivable: BOOLEAN
                do
-                       Result := (value=deep_derivable_low_level)
+                       Result := (value.bit_and(deep_derivable_low_level).to_boolean)
                end
 
        is_derivable: BOOLEAN
                do
-                       Result := (value=derivable_low_level)
+                       Result := (value.bit_and(derivable_low_level).to_boolean)
                end
 
        is_instantiatable: BOOLEAN
                do
-                       Result := (value=instantiatable_low_level)
+                       Result := (value.bit_and(instantiatable_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

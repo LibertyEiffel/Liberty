@@ -424,10 +424,21 @@ feature {ANONYMOUS_FEATURE_MIXER}
       do
          Result := Current
          if permissions /= Void then
-            perm := permissions.specialize_thru(parent_type, parent_edge, new_type)
-            if perm /= permissions then
-               Result := twin
-               Result.set_permissions(perm)
+            if True then -- permissions.has_been_specialized then
+               perm := permissions.specialize_thru(parent_type, parent_edge, new_type)
+               if perm /= permissions then
+                  Result := twin
+                  Result.set_permissions(perm)
+               end
+            else
+               --|| Something prevent specialization
+               error_handler.add_position(start_position)
+               clients.locate_in_error_handler
+               error_handler.append(once " unknown class in exports%
+               %||| (PR 2016-08-25) TODO: provide location of the unknown class ")
+
+
+               error_handler.print_as_fatal_error
             end
          end
       ensure

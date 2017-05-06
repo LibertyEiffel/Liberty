@@ -115,47 +115,47 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_action: BOOLEAN
                do
-                       Result := (value=action_low_level)
+                       Result := (value.bit_and(action_low_level).to_boolean)
                end
 
        is_deprecated: BOOLEAN
                do
-                       Result := (value=deprecated_low_level)
+                       Result := (value.bit_and(deprecated_low_level).to_boolean)
                end
 
        is_detailed: BOOLEAN
                do
-                       Result := (value=detailed_low_level)
+                       Result := (value.bit_and(detailed_low_level).to_boolean)
                end
 
        is_must_collect: BOOLEAN
                do
-                       Result := (value=must_collect_low_level)
+                       Result := (value.bit_and(must_collect_low_level).to_boolean)
                end
 
        is_no_hooks: BOOLEAN
                do
-                       Result := (value=no_hooks_low_level)
+                       Result := (value.bit_and(no_hooks_low_level).to_boolean)
                end
 
        is_no_recurse: BOOLEAN
                do
-                       Result := (value=no_recurse_low_level)
+                       Result := (value.bit_and(no_recurse_low_level).to_boolean)
                end
 
        is_run_cleanup: BOOLEAN
                do
-                       Result := (value=run_cleanup_low_level)
+                       Result := (value.bit_and(run_cleanup_low_level).to_boolean)
                end
 
        is_run_first: BOOLEAN
                do
-                       Result := (value=run_first_low_level)
+                       Result := (value.bit_and(run_first_low_level).to_boolean)
                end
 
        is_run_last: BOOLEAN
                do
-                       Result := (value=run_last_low_level)
+                       Result := (value.bit_and(run_last_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

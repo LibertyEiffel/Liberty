@@ -17,15 +17,15 @@ default -- section of the system
    high_memory_compiler (yes);
    profile (no);
 cluster -- section
-   leggow: "${path_liberty}/src/tools/leggow/loadpath.se"
+   leggow: "loadpath.se" -- ${path_liberty}/src/tools/leggow/loadpath.se"
       default
          assertion (all)
       end
-   lib: "${path_liberty}/src/lib/loadpath.se"
+   lib: "../../loadpath.se"
       default
          assertion(boost)
       end
-    common_wrappers: "${path_liberty}/src/wrappers/common/loadpath.se"
+   common_wrappers: "../../wrappers/common/loadpath.se"
         default
             assertion(boost)
         end

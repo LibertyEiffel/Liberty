@@ -16,7 +16,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCleanupMemory"
+                       feature_name: "xmlCleanupMemory()"
                }"
                end
 
@@ -52,7 +52,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlInitMemory"
+                       feature_name: "xmlInitMemory()"
                }"
                end
 
@@ -88,7 +88,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlMemBlocks"
+                       feature_name: "xmlMemBlocks()"
                }"
                end
 
@@ -208,7 +208,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlMemUsed"
+                       feature_name: "xmlMemUsed()"
                }"
                end
 
@@ -220,7 +220,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlMemoryDump"
+                       feature_name: "xmlMemoryDump()"
                }"
                end
 

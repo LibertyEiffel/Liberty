@@ -38,12 +38,12 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_readable: BOOLEAN
                do
-                       Result := (value=readable_low_level)
+                       Result := (value.bit_and(readable_low_level).to_boolean)
                end
 
        is_writable: BOOLEAN
                do
-                       Result := (value=writable_low_level)
+                       Result := (value.bit_and(writable_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

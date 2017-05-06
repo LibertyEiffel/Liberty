@@ -5,8 +5,8 @@ deferred class STANDARD_C_LIBRARY_TYPES
 
 insert ANY undefine is_equal, copy end
 
-feature {ANY} -- C type definitions (typedefs)
-feature {ANY} -- variable-size types
+feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
+feature {WRAPPER_HANDLER} -- variable-size types
        long: INTEGER_64
                -- a query with the same type of c 'long int'. useful when dealing with
                -- code that uses long int variable: just insert th class and mark
@@ -23,7 +23,7 @@ feature {ANY} -- variable-size types
                -- empty by design
        end
 
-feature {ANY} -- C type definitions (typedefs)
+feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
        comparison_fn_t: POINTER
                -- typedef comparison_fn_t from /usr/include/stdlib.h
                -- Empty by design, used for anchored declarations.

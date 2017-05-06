@@ -16,7 +16,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xlinkGetDefaultDetect"
+                       feature_name: "xlinkGetDefaultDetect()"
                }"
                end
 
@@ -28,7 +28,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xlinkGetDefaultHandler"
+                       feature_name: "xlinkGetDefaultHandler()"
                }"
                end
 

@@ -27,6 +27,14 @@ feature {ANY}
       deferred
       end
 
+   pos: INTEGER
+    -- the position of Current argument in its function. Used to provide stable names to arguments of function defined with nameless prototypes
+   
+   set_pos (a_pos: INTEGER)
+   do
+       pos := a_pos
+   end
+
 end -- class C_FUNCTION_ARGUMENT
 -- Copyright (C) 2008-2017: ,2009,2010 Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it

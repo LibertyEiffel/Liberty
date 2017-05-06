@@ -90,7 +90,7 @@ feature {ANY}
 		 if ptr.is_not_null then
 			 create Result.from_external(ptr)
 		 else 
-			 Result := (once "horror vacui fixme").intern
+			 Result := (once "horror vacui fixme (in GI_BASE_INFO)").intern
 		 end
 	 end
 

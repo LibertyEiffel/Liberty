@@ -104,5 +104,17 @@ feature {} -- External calls
                }"
                end
 
+	glib_autoptr_cleanup_gtype_module (a_ptr: POINTER) 
+
+		-- function glib_autoptr_cleanup_GTypeModule (in `/usr/include/glib-2.0/gobject/gtypemodule.h')
+               -- glib_autoptr_cleanup_GTypeModule
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "glib_autoptr_cleanup_GTypeModule"
+               }"
+               end
+
 
 end -- class GTYPEMODULE_EXTERNALS

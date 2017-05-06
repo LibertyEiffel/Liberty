@@ -40,7 +40,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "clock"
+                       feature_name: "clock()"
                }"
                end
 
@@ -547,7 +547,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "tzset"
+                       feature_name: "tzset()"
                }"
                end
 

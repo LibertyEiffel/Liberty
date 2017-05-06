@@ -18,12 +18,12 @@ default -- section of the system
    profile (no);
 
 cluster -- section
-   wrappers_generator: "${path_liberty}/src/tools/wrappers-generator/loadpath.se"
+   wrappers_generator: "."
      --  default
      --     assertion (boost)
      --  end
 
-   lib: "${path_liberty}/src/lib/loadpath.se"
+   lib: "../../lib/loadpath.se"
       default
          assertion(boost)
       option
@@ -31,7 +31,7 @@ cluster -- section
          -- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME
       end
 
-   tools: "${path_liberty}/src/tools/loadpath.se"
+   tools: "../loadpath.se"
       default
          assertion(boost)
       end

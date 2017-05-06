@@ -68,7 +68,7 @@ feature {} -- External calls
                }"
                end
 
-	tilde_expand (an_argument_l1097_c7: POINTER): POINTER 
+	tilde_expand (argument_1: POINTER): POINTER 
 
 		-- function tilde_expand (in `/usr/include/readline/tilde.h')
                -- tilde_expand
@@ -80,7 +80,7 @@ feature {} -- External calls
                }"
                end
 
-	tilde_expand_word (an_argument_l1100_c7: POINTER): POINTER 
+	tilde_expand_word (argument_1: POINTER): POINTER 
 
 		-- function tilde_expand_word (in `/usr/include/readline/tilde.h')
                -- tilde_expand_word
@@ -152,7 +152,7 @@ feature {} -- External calls
                }"
                end
 
-	tilde_find_word (an_argument_l1103_c7: POINTER; an_argument_l1104_c7: INTEGER; an_argument_l1105_c7: POINTER): POINTER 
+	tilde_find_word (argument_1: POINTER; argument_2: INTEGER; argument_3: POINTER): POINTER 
 
 		-- function tilde_find_word (in `/usr/include/readline/tilde.h')
                -- tilde_find_word

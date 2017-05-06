@@ -220,7 +220,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlBufferCreate"
+                       feature_name: "xmlBufferCreate()"
                }"
                end
 
@@ -677,7 +677,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlDOMWrapNewCtxt"
+                       feature_name: "xmlDOMWrapNewCtxt()"
                }"
                end
 
@@ -833,7 +833,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlGetBufferAllocationScheme"
+                       feature_name: "xmlGetBufferAllocationScheme()"
                }"
                end
 
@@ -845,7 +845,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlGetCompressMode"
+                       feature_name: "xmlGetCompressMode()"
                }"
                end
 

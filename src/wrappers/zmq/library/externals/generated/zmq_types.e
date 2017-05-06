@@ -7,5 +7,5 @@ insert ANY undefine is_equal, copy end
 
 	STANDARD_C_LIBRARY_TYPES
 
-feature {ANY} -- C type definitions (typedefs)
+feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
 end

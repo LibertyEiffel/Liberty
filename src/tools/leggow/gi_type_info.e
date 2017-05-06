@@ -22,8 +22,11 @@ feature {ANY} -- Wrapper
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			Result := "-- GI_TYPE_INFO.eiffel_wrapper not_yet_implemented"
-		end
+           -- TODO: using an inspect would be much more agreeable or even a
+           -- constant array, but it would require reasonably small values of
+           -- the enumeration
+           Result := tag_types.item(tag.value)
+         end
 
     suffix: STRING is "_TYPE"
 
@@ -195,9 +198,74 @@ feature {ANY}
 --    info :    a GITypeInfo
 --    Returns : the array type or -1
 -- 
+
+feature {} -- Implementation
+   is_native_type: BOOLEAN 
+      -- Is the
+      do
+         -- Only simple and statically computable expression are allowed inside "when" of "inspect" statement. Sadly external plug_in are not considered statically computable. So we'll use a sequence of if
+         if tag.value = tag.boolean_low_level then Result := True 
+         elseif tag.value = tag.double_low_level then Result:=True
+            -- TODO check this elseif tag.value = tag.filename_low_level then Result:=True
+         elseif tag.value = tag.float_low_level then Result:=True
+         elseif tag.value = tag.int16_low_level then Result:=True
+         elseif tag.value = tag.int32_low_level then Result:=True
+         elseif tag.value = tag.int64_low_level then Result:=True
+         elseif tag.value = tag.int8_low_level then Result:=True
+         elseif tag.value = tag.uint16_low_level then Result:=True
+         elseif tag.value = tag.uint32_low_level then Result:=True
+         elseif tag.value = tag.uint64_low_level then Result:=True
+         elseif tag.value = tag.uint8_low_level then Result:=True
+            -- TODO check elseif tag.value = tag.unichar_low_level then Result:=True
+            -- TODO check elseif tag.value = tag.utf8_low_level then Result:=True
+            -- TODO check elseif tag.value = tag.void_low_level then Result:=True
+         end 
+      end
+
+   tag_types: INDEXABLE[STRING] 
+      -- the Eiffel equivalent of each type represented by a GI_TYPE_INFO, accessed with the value of the tag enumeration value.
+      --
+      -- it is an INDEXABLE to avoid changes at runtime.
+
+      -- const gchar* becomes utf8
+
+      -- Types that does not have a statically defined wrapper, such as interfaces or have parametric wrappers such as list (singly and doubly linked) and hash tables are 
+   local an_array: FAST_ARRAY[STRING]
+   once
+      -- Remember, don't encode a constant in more than one place. That's why
+      -- this array is almost manually built
+      create an_array.make(32)
+      -- plainly unnecessary?  an_array.set_all_with("unknown type")
+      an_array.put("FAST_ARRAY",tag.array_low_level)
+      an_array.put("BOOLEAN",tag.boolean_low_level)
+      an_array.put("REAL",tag.double_low_level)
+      an_array.put("unimplemented error type",tag.error_low_level)
+      an_array.put("STRING",tag.filename_low_level)
+      an_array.put("REAL_32",tag.float_low_level)
+      an_array.put("G_HASH_TABLE",tag.ghash_low_level)
+      an_array.put("G_LIST",tag.glist_low_level)
+      an_array.put("G_SLIST",tag.gslist_low_level)
+      an_array.put("unimplemented gtype type",tag.gtype_low_level)
+      an_array.put("INTEGER_16",tag.int16_low_level)
+      an_array.put("INTEGER",tag.int32_low_level)
+      an_array.put("INTEGER_64",tag.int64_low_level)
+      an_array.put("INTEGER_8",tag.int8_low_level)
+      -- The wrapper type of and interface is not a static type
+      an_array.put("unimplemented interface type",tag.interface_low_level)
+      an_array.put("NATURAL_16",tag.uint16_low_level)
+      an_array.put("NATURAL",tag.uint32_low_level)
+      an_array.put("NATURAL_64",tag.uint64_low_level)
+      an_array.put("NATURAL_8",tag.uint8_low_level)
+      -- A unicode character in actually a 32bit integer. To be entirely correct it should be 'like gunichar' or some other anchored declaration. TODO: make it really anchored
+      an_array.put("INTEGER_32",tag.unichar_low_level)
+      an_array.put("utf8",tag.utf8_low_level)
+      an_array.put("unimplemented void type",tag.void_low_level)
+      Result:=an_array
+   end
+
 end -- class GI_TYPE_INFO
 
--- Copyright (C) 2013-2017: , 2016 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- Copyright (C) 2013-2017: Paolo Redaelli <paolo.redaelli@gmail.com>
 -- 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public License

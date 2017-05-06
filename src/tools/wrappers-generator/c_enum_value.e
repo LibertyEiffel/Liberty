@@ -123,7 +123,7 @@ feature {ANY} -- "Flag" enumeration
 
          queries.append(once "       is_#(1): BOOLEAN%N%
                 %               do%N%
-                %                       Result := (value=#(1)_low_level)%N%
+                %                       Result := (value.bit_and(#(1)_low_level).to_boolean)%N%
                 %               end%N%N" # eiffel_name)
          -- TODO: add formatted_description(feature_description(class_name,getter_name)),
          -- Append in `low_level_values' a declaration labelled

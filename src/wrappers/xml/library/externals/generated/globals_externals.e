@@ -102,7 +102,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCleanupGlobals"
+                       feature_name: "xmlCleanupGlobals()"
                }"
                end
 
@@ -397,7 +397,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlInitGlobals"
+                       feature_name: "xmlInitGlobals()"
                }"
                end
 

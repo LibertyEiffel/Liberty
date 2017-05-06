@@ -3,7 +3,14 @@ root LEGGOW: main
 default -- section of the system
    assertion (boost);
 cluster -- section
-   leggow: "${path_liberty}/src/tools/leggow/loadpath.se"
-   lib: "${path_liberty}/src/lib/loadpath.se"
-   common_wrappers: "${path_liberty}/src/wrappers/common/loadpath.se"
+   leggow: "${path_tools}/leggow/loadpath.se"
+   -- lib: "../../lib/loadpath.se" 
+   lib: "${path_liberty_core}" -- /../../lib/loadpath.se" 
+   -- common_wrappers: "../../wrappers/common/loadpath.se"
+   common_wrappers: "${path_liberty_extra}/loadpath.se" -- ../../wrappers/common/loadpath.se"
+    
+   -- not using paths relative to environmental variables for now, such as 
+   -- leggow: "${path_core}/src/tools/leggow/loadpath.se"
+   -- lib: "${path_core}/src/lib/loadpath.se"  
+   -- Paolo 2017-03-02
 end
