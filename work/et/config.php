@@ -27,7 +27,7 @@ $img = "$publicBase/images";
 
 $breakFlag = "$out/break.flag";
 
-$gitBranch = "bell";
+$gitBranch = "master";
 if (file_exists("$BaseDir/branch")) {
    $gitBranch = trim(file_get_contents("$BaseDir/branch"));
 }
