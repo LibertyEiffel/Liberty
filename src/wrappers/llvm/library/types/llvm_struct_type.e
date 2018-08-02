@@ -75,7 +75,7 @@ feature {} -- Implementation
 invariant type_kind.is_struct_type_kind
 end -- class LLVM_STRUCT_TYPE
 
--- Copyright (C) 2009-2017: Paolo Redaelli
+-- Copyright (C) 2009-2018: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

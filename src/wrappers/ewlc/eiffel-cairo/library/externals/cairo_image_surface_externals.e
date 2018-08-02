@@ -1,7 +1,7 @@
 note
 	description: "External calls for features of CAIRO_IMAGE_SURFACE"
 	copyright: "[
-					Copyright (C) 2007-2017: Soluciones Informaticas Libres S.A. (Except),
+					Copyright (C) 2007-2018: Soluciones Informaticas Libres S.A. (Except),
 					                   Cairo team
 					
 					This library is free software; you can redistribute it and/or

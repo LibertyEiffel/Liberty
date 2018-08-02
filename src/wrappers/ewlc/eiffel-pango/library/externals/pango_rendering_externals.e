@@ -1,6 +1,6 @@
 note
 	description: "External calls shown on Pango Rendering documentation page"
-	copyright: "Copyright (C) 2007-2017: Paolo Redaelli, Pango developers"
+	copyright: "Copyright (C) 2007-2018: Paolo Redaelli, Pango developers"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

@@ -1,7 +1,7 @@
 note
 	description: "A string made from a `C' const char pointer."
 	copyright: "[
-					Copyright (C) 2006-2017: Paolo Redaelli
+					Copyright (C) 2006-2018: Paolo Redaelli
 					
 					This class  is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

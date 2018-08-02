@@ -1,7 +1,7 @@
 note
 	description: "CAIRO_FONT_FACE -- Base class for fonts"
 	copyright: "[
-					Copyright (C) 2007-2017: Paolo Redaelli,
+					Copyright (C) 2007-2018: Paolo Redaelli,
 									  Soluciones Informaticas Libres S.A. (Except),
 									  Cairo team
 					

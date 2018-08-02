@@ -66,8 +66,8 @@ feature {ANY}
       end
 
 end -- class AUX_UW01ANIMAL_NODE
--- Copyright (C) 1998-2017: by Ulrich Windl
--- Copyright (C) 1998-2017: by Klinikum der Universität Regensburg,
+-- Copyright (C) 1998-2018: by Ulrich Windl
+-- Copyright (C) 1998-2018: by Klinikum der Universität Regensburg,
 --      D-93042 Regensburg
 --
 --  This program is free software; you can redistribute it and/or modify

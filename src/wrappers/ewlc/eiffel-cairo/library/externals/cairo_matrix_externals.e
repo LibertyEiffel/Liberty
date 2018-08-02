@@ -1,7 +1,7 @@
 note
 	description: "External calls for CAIRO_MATRIX"
 	copyright: "[
-					Copyright (C) 2006-2017: Paolo Radaelli,
+					Copyright (C) 2006-2018: Paolo Radaelli,
 					Soluciones Informaticas Libres S.A. (Except),
 					Cairo team
 					

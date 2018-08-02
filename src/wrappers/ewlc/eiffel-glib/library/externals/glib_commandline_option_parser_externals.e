@@ -1,6 +1,6 @@
 note
 	description: "External calls for "
-	copyright: "Copyright (C) 2007-2017: Paolo Readelli, $original_copyright_holder"
+	copyright: "Copyright (C) 2007-2018: Paolo Readelli, $original_copyright_holder"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

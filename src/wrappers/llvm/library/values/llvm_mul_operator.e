@@ -4,7 +4,7 @@ class LLVM_MUL_OPERATOR
 inherit LLVM_OVERFLOWING_BINARY_OPERATOR
 end -- class LLVM_MUL_OPERATOR
 
--- Copyright (C) 2009-2017: Paolo Redaelli
+-- Copyright (C) 2009-2018: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

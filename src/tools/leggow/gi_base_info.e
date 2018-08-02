@@ -184,7 +184,7 @@ feature {}
 
 end -- class GI_BASE_INFO
 
--- Copyright (C) 2013-2017: Paolo Redaelli <paolo.redaelli@gmail.com>
+-- Copyright (C) 2013-2018: Paolo Redaelli <paolo.redaelli@gmail.com>
 -- 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public License

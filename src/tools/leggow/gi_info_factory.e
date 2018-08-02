@@ -42,7 +42,7 @@ feature {WRAPPER, WRAPPER_HANDLER}
 
 end -- class GI_INFO_FACTORY
 
--- Copyright (C) 2013-2017: Paolo Redaelli <paolo.redaelli@gmail.com>
+-- Copyright (C) 2013-2018: Paolo Redaelli <paolo.redaelli@gmail.com>
 -- 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public License

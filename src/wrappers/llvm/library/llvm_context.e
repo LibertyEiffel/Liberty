@@ -32,7 +32,7 @@ feature {} -- Disposing
 
 end -- class LLVM_CONTEXT
 
--- Copyright (C) 2009-2017: Paolo Redaelli
+-- Copyright (C) 2009-2018: Paolo Redaelli
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 -- This library is free software: you can redistribute it and/or modify

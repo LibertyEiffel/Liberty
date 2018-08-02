@@ -123,7 +123,7 @@ feature {ANY} -- Queries
 --        the final symbol address from the got (Global Offset Table) at run time before passing it to dladdr().
 -- 
 end -- class DYNAMIC_LINKING_LOADER
--- Liberty Eiffel wrappers for GNU C library Copyright (C) 2013-2017: Paolo Redaelli, Free Software Foundation
+-- Liberty Eiffel wrappers for GNU C library Copyright (C) 2013-2018: Paolo Redaelli, Free Software Foundation
 -- 
 -- The GNU C Library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public

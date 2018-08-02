@@ -1,7 +1,7 @@
 note
 	description: "Three-dimensional points in the GNU Triangulated Surfaces"
 	copyright: "[
-					Copyright (C) 2006-2017: Paolo Redaelli,  1999 St<E9>phane Popinet
+					Copyright (C) 2006-2018: Paolo Redaelli,  1999 St<E9>phane Popinet
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

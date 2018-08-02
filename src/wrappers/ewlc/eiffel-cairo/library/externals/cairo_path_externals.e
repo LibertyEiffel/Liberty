@@ -1,7 +1,7 @@
 note
 	description: "External calls related to path handling "
 	copyright: "[
-					Copyright (C) 2007-2017: Paolo Redaelli,
+					Copyright (C) 2007-2018: Paolo Redaelli,
 					Soluciones Informaticas Libres S.A. (Except),
 					Cairo team
 					

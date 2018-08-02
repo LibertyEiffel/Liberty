@@ -1,7 +1,7 @@
 note
 	description: "Cairo Image Surface: Cairo surfaces that represent data in memory."
 	copyright: "[
-					Copyright (C) 2007-2017: Soluciones Informaticas Libres S.A. (Except),
+					Copyright (C) 2007-2018: Soluciones Informaticas Libres S.A. (Except),
 					                   Cairo team
 					
 					This library is free software; you can redistribute it and/or

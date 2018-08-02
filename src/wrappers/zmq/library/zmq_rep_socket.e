@@ -34,7 +34,7 @@ end -- class ZMQ_REP_SOCKET
 
 -- Zero MQ Liberty Wrappers
 
--- Copyright (C) 2012-2017: Paolo Redaelli, 2013 Cyril Adrian 
+-- Copyright (C) 2012-2018: Paolo Redaelli, 2013 Cyril Adrian 
 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public

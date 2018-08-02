@@ -1,7 +1,7 @@
 note
 	description: "Balanced Binary Trees, a sorted collection of key/value pairs optimized for searching and traversing in order."
 	copyright: "[
-					Copyright (C) 2005-2017: ,2007 Paolo Redaelli, Glib team
+					Copyright (C) 2005-2018: ,2007 Paolo Redaelli, Glib team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

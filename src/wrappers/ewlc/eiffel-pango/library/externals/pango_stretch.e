@@ -1,7 +1,7 @@
 note
 	description: "An enumeration specifying the width of the font relative to other designs within a family. "
 	copyright: "[
-					Copyright (C) 2006-2017: eiffel-libraries team,
+					Copyright (C) 2006-2018: eiffel-libraries team,
 					Soluciones Informaticas Libres S.A. (Except),
 					Pango team
 					

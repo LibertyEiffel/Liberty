@@ -22,7 +22,7 @@ feature {ANY} -- Creation
 invariant type_kind.is_pointer_type_kind
 end -- class LLVM_POINTER_TYPE
 
--- Copyright (C) 2009-2017: Paolo Redaelli
+-- Copyright (C) 2009-2018: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

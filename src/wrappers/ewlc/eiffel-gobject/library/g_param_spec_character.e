@@ -1,7 +1,7 @@
 note
 
 	description: "Character GParamSpec"
-	copyright: "Copyright (C) 2005-2017: , Paolo Redaelli"
+	copyright: "Copyright (C) 2005-2018: , Paolo Redaelli"
 	license: "LGPL"
 	date: "$Date:  $"
 	revision: "$ $"

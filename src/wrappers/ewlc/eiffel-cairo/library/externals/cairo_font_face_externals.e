@@ -1,7 +1,7 @@
 note
 	description: "External calls for CAIRO_FONT_FACE"
 	copyright: "[
-					Copyright (C) 2007-2017: Paolo Redaelli,
+					Copyright (C) 2007-2018: Paolo Redaelli,
 					              Soluciones Informaticas Libres S.A. (Except),
 					              Cairo team
 					This library is free software; you can redistribute it and/or
