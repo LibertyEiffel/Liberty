@@ -11,7 +11,7 @@ The following people hold the Liberty Eiffel project copyright.
 --  * Hans Zwakenberg <hz at ocean minus consulting dot de>
 
 Except where stated otherwise, the following licenses apply to the
-source files:
+source files: 
 
  * src/lib                      -- X/MIT license (1)
  * src/smarteiffel and sys      -- GPLv2+ license (2)
