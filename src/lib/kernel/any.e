@@ -429,14 +429,14 @@ feature {ANY} -- The Guru section:
       external "built_in"
       end
 
-   frozen is_basic_expanded_type: BOOLEAN
+ --  frozen is_basic_expanded_type: BOOLEAN
          -- The `Result' is True if the target static type is one of the following
          -- basic types: BOOLEAN, CHARACTER, INTEGER, REAL or POINTER.
          --
          -- Warning: this feature will be obsolete in release 2.4.
-      obsolete "This feature is obsolete and will be removed soon (November 2007)."
-      external "built_in"
-      end
+ --     obsolete "This feature is obsolete and will be removed soon (November 2007)."
+ --     external "built_in"
+ --     end
 
    frozen object_size: INTEGER
          -- Gives the size of the current object at first level
