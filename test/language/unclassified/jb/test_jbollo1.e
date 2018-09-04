@@ -27,7 +27,7 @@ feature {ANY}
          check
             integer = 5120000
          end
-         -- *** Faut il aussi accepter ce qui suit ... je pense que oui... Dom 30 mars 2005 ***
+         -- *** Should the following be accepted as well? I think so... Dom 30 March 2005 ***
          -- integer := 10000*2 ^ n
          -- ***
          check
