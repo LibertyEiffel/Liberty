@@ -9,7 +9,7 @@ inherit
 insert
    AUX_EB5A
       export {ANY} f, generating_type, is_equal, standard_is_equal, is_default, copy, out, standard_twin, deep_twin, standard_copy,
-            is_basic_expanded_type, print_on, object_size
+             print_on, object_size
       end
 
 end -- class AUX_EB5D

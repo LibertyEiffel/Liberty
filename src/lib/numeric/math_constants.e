@@ -29,6 +29,9 @@ feature {ANY} -- Maths constants:
    Sqr_tau: REAL 2.50662827463100050241
          -- Square root of Tau
 
+   Inv_tau: REAL 0.15915494401391811225565
+         -- Inverse of tau
+
    Evalue: REAL 2.7182818284590452353602
          -- e (Euler's number)
 
