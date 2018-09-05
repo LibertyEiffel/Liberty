@@ -181,7 +181,9 @@ if (!$force) {
 $startTime = time();
 file_put_contents ($lock, "started on " . date($dateFormat, $startTime) . ($force?" with force":""));
 unlink($activeJsonObj);
-rename($requestJsonObj, $activeJsonObj);
+if (file_exists($requestJsonObj)) {
+   rename($requestJsonObj, $activeJsonObj);
+}
 
 system("rm -rf ". $stageout . "_$historysize > /dev/null");
 
@@ -191,7 +193,9 @@ for ($i = $historysize; $i > 1 ; $i--) {
 system("mv " . $stageout . " " . $stageout . "_1 > /dev/null");
 
 mkdir($stageout, 0755);
-copy($activeJsonObj, $stageout . "/saved.serialjson");
+if (file_exists($activeJsonObj)) {
+   copy($activeJsonObj, $stageout . "/saved.serialjson");
+}
 
 if (substage("git pull")) {
    if (execute("cd $LibertyBase && git fetch origin && git checkout $gitBranch && git clean -f && git merge --ff-only FETCH_HEAD") != 0) {
