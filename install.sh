@@ -314,7 +314,7 @@ EOF
             done
         done
 
-    title "Bootstrapping SmartEiffel tools"
+    title "Bootstrapping Liberty Eiffel tools"
     cd $LIBERTY_HOME/resources/smarteiffel-germ
 
     if [ ! -d $TARGET/bin/compile_to_c.d ]; then
@@ -515,7 +515,7 @@ generate_wrappers() {
 #
 # The compile_all function:
 #
-# Compile the Liberty Eiffel tools (i.e. not SmartEiffel)
+# Compile the Liberty Eiffel tools
 #
 
 compile_all() {
@@ -885,10 +885,9 @@ else
 
 Usage: $0 {-bootstrap|-plugins|-wrappers|-doc|-package}
 
-  -bootstrap   Bootstraps Liberty starting from SmartEiffel compilation,
-                           up to the plugins, wrappers, and Liberty tools installation
+  -bootstrap   Bootstraps Liberty Eiffel.
 
-  -plugins     Compiles the plugins used by the Liberty interpreter
+  -plugins     Compiles the plugins used by the Liberty interpreter.
 
   -wrappers    Generates the library wrappers; some are used by the
                            Liberty tools themselves (ffi, readline, llvm, ...)
