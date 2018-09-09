@@ -2,7 +2,7 @@ class LLVM_CONSTANT_POINTER_NULL
 inherit LLVM_CONSTANT
 create {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 end -- class LLVM_CONSTANT_POINTER_NULL
--- Copyright (C) 2009-2017: Paolo Redaelli
+-- Copyright (C) 2009-2018: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

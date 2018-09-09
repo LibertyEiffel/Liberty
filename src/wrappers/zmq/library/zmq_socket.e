@@ -489,7 +489,7 @@ end -- class ZMQ_SOCKET
 
 -- Zero MQ Liberty Wrappers
 
--- Copyright (C) 2010-2017: Paolo Redaelli
+-- Copyright (C) 2010-2018: Paolo Redaelli
 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public

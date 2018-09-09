@@ -58,7 +58,7 @@ feature {}
 
 end -- class READ_LINE
 
--- Copyright (C) 2010-2017: Paolo Redaelli, 2012 Cyril Adrian
+-- Copyright (C) 2010-2018: Paolo Redaelli, 2012 Cyril Adrian
 
 -- This library is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by

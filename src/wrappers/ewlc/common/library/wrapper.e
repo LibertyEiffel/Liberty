@@ -1,7 +1,7 @@
 note
 	description: "Deferred class handling low-level C interfaces. Its heirs will fully expose each other their internals."
 	copyright: "[
-					Copyright (C) 2005-2017: ,2008 Paolo Redaelli
+					Copyright (C) 2005-2018: ,2008 Paolo Redaelli
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

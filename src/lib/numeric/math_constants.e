@@ -29,6 +29,9 @@ feature {ANY} -- Maths constants:
    Sqr_tau: REAL 2.50662827463100050241
          -- Square root of Tau
 
+   Inv_tau: REAL 0.15915494401391811225565
+         -- Inverse of tau
+
    Evalue: REAL 2.7182818284590452353602
          -- e (Euler's number)
 
@@ -49,7 +52,7 @@ feature {ANY} -- Maths constants:
 
 end -- class MATH_CONSTANTS
 --
--- Copyright (C) 2009-2017: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2018: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

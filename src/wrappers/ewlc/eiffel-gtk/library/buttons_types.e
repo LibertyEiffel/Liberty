@@ -1,7 +1,7 @@
 note
 	description: "enum GtkButtonsType -- Prebuilt sets of buttons for the dialog. If none of these choices are appropriate, simply use GTK_BUTTONS_NONE then call gtk_dialog_add_buttons()."
 	copyright: "[
-					Copyright (C) 2006-2017: eiffel-libraries team,  GTK+ team and others
+					Copyright (C) 2006-2018: eiffel-libraries team,  GTK+ team and others
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

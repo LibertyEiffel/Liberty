@@ -1,7 +1,7 @@
 note
 	description: "C string Utility Functions -- various C-string-related functions."
 	copyright: "[
-					Copyright (C) 2007-2017: Paolo Redaelli, Anthony Lenton,
+					Copyright (C) 2007-2018: Paolo Redaelli, Anthony Lenton,
 					                   Soluciones Informaticas Libres S.A., GLib team
 					
 					This library is free software; you can redistribute it and/or

@@ -11,9 +11,9 @@ if ($key == "payload"){
    $json_str = json_decode(urldecode($value), TRUE);
 
    if(json_last_error()){
-      echo "failed";
+      echo "failed - ";
    }else{
-      echo "ok";
+      echo "ok - ";
    }
 
    if ($json_str["ref"] == "refs/heads/$gitBranch") {
@@ -26,7 +26,7 @@ if ($key == "payload"){
 
       chmod($request, 0666);
    } else {
-      echo "ignored ref: " . $json_str["ref"];
+      echo "ignored ref: " . $json_str["ref"] . " as it is not equal to refs/heads/$gitBranch";
    }
 } else {
    echo "did not understand the request";

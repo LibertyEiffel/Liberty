@@ -26,6 +26,6 @@ for s in $DIRS; do
     DIR=$LIBERTY_HOME/$s
     echo "working in $DIR"
     # replace "Copy\right *" by "Copy\right (C) *-<current>" if INRIA is not found on the line
-    find $DIR -type f -not -name *.el -not -name LICENSE -not -name *.xml -not -name *.dtd -not -name *.html -exec perl -i -ne 's/(.*Copyright)[ ]?(\([cC]\))? ([0-9][0-9][0-9][0-9])-?([0-9][0-9][0-9][0-9])?([ ]*[:]?[ ]+)?([^-](?:(?!INRIA).)*)$/\1 (C) \3-2017: \6/g; print;' {} \;
+    find $DIR -type f -not -name *.el -not -name LICENSE -not -name *.xml -not -name *.dtd -not -name *.html -exec perl -i -ne 's/(.*Copyright)[ ]?(\([cC]\))? ([0-9][0-9][0-9][0-9])-?([0-9][0-9][0-9][0-9])?([ ]*[:]?[ ]+)?([^-](?:(?!INRIA).)*)$/\1 (C) \3-2018: \6/g; print;' {} \;
 
 done

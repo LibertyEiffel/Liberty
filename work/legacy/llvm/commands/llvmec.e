@@ -218,7 +218,7 @@ end -- class LLVMEC
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
 -- Copyright(C) 2003-2004: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
--- Copyright (C) 2012-2017: Paolo Redaelli - Liberty Eiffel
+-- Copyright (C) 2012-2018: Paolo Redaelli - Liberty Eiffel
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --

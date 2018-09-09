@@ -1,6 +1,6 @@
 note
 	description: "Access to GtsSurface C structure"
-	copyright: "Copyright (C) 2007-2017: Paolo Redaelli, GTS developers"
+	copyright: "Copyright (C) 2007-2018: Paolo Redaelli, GTS developers"
 	license: "LGPL v2 or later"
 
 deferred class GTS_SURFACE_STRUCT

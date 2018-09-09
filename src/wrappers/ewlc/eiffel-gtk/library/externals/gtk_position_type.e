@@ -1,7 +1,7 @@
 note
 	description: "enum GtkPositionType Describes which edge of a widget a certain feature is positioned at, e.g. the tabs of a GtkNotebook, the handle of a GtkHandleBox or the label of a GtkScale."
 	copyright: "[
-					Copyright (C) 2006-2017: eiffel-libraries team, GTK+ team
+					Copyright (C) 2006-2018: eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

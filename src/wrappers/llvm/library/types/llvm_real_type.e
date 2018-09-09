@@ -63,7 +63,7 @@ feature {} -- Creation
    -- TODO: write a correct invariant type.is_real_type_kind
 end -- class LLVM_REAL_TYPE
 
--- Copyright (C) 2009-2017: Paolo Redaelli
+-- Copyright (C) 2009-2018: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

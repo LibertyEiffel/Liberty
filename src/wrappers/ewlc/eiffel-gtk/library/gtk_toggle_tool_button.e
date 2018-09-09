@@ -1,7 +1,7 @@
 note
 	description: "GtkToggleToolButton - A GtkToolItem containing a toggle button."
 	copyright: "[
-					Copyright (C) 2006-2017: Soluciones Informaticas Libres S.A.,
+					Copyright (C) 2006-2018: Soluciones Informaticas Libres S.A.,
 					eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or

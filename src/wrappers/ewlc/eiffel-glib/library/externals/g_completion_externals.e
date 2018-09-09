@@ -1,6 +1,6 @@
 note
 	description: "External calls for G_COMPLETION"
-	copyright: "Copyright (C) 2007-2017: Paolo Redaelli"
+	copyright: "Copyright (C) 2007-2018: Paolo Redaelli"
 	license: "LGPL v2 or later"
 
 deferred class G_COMPLETION_EXTERNALS

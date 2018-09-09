@@ -48,7 +48,7 @@ feature {}
 
 end -- class AT_EXIT
 --
--- Copyright (C) 2013-2017: Cyril ADRIAN
+-- Copyright (C) 2013-2018: Cyril ADRIAN
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

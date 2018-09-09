@@ -6,7 +6,7 @@ expanded class COMPLEX_64
 insert COMPLEX_GENERAL[REAL_64]
 end -- class COMPLEX_64
 --
--- Copyright (C) 2011-2017: Paolo Redaelli
+-- Copyright (C) 2011-2018: Paolo Redaelli
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

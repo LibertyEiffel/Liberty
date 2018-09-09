@@ -30,6 +30,7 @@ Get in Touch
  * Documentation Wiki: http://wiki.liberty-eiffel.org
  * Mailing list: mailto:liberty-eiffel@gnu.org subscription and
    archives on https://lists.gnu.org/mailman/listinfo/liberty-eiffel
+ * IRC chat on freenode.org #liberty-eiffel
  * Source on GNU Savannah: http://git.savannah.gnu.org/cgit/liberty-eiffel.git
  * Savannah project: https://savannah.gnu.org/projects/liberty-eiffel/
  * and not to forget the GNU website: http://www.gnu.org/

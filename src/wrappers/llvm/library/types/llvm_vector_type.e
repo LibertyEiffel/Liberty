@@ -20,7 +20,7 @@ feature {ANY}
 invariant type_kind.is_vector_type_kind
 end -- class LLVM_VECTOR_TYPE
 
--- Copyright (C) 2009-2017: Paolo Redaelli
+-- Copyright (C) 2009-2018: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

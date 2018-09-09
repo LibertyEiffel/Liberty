@@ -1,7 +1,7 @@
 note
 	description: "External calls for GTK_TOOLBAR"
 	copyright: "[
-					Copyright (C) 2007-2017: Soluciones Informaticas Libres S.A.,
+					Copyright (C) 2007-2018: Soluciones Informaticas Libres S.A.,
 					eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or

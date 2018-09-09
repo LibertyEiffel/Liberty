@@ -107,7 +107,7 @@ feature {}
 
    pointer_to_any (p: POINTER): ANY
          -- Dangerous forced conversion. This function assumes that `p'
-         -- really a reference to some Eiffel allocated object.
+         -- really is a reference to some Eiffel allocated object.
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
@@ -133,7 +133,7 @@ feature {}
 
 end -- class POINTER
 --
--- Copyright (C) 2009-2017: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2018: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

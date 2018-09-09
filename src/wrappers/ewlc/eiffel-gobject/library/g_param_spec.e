@@ -1,8 +1,8 @@
 note
 	description: "GParamSpec, Metadata for parameter specifications"
 	copyright: "[
-					Copyright (C) 2006-2017: eiffel-libraries team, GTK+ team
-					Copyright (C) 2008-2017: Raphael Mack
+					Copyright (C) 2006-2018: eiffel-libraries team, GTK+ team
+					Copyright (C) 2008-2018: Raphael Mack
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

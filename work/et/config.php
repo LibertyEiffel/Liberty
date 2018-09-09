@@ -7,7 +7,7 @@ $out = "$BaseDir/Liberty/website/et";
 $stageout_cfg = "$out/stages";
 $stageout = "$stageout_cfg"; // do not change, this is kept for backward compatibility
 
-$historysize = 5; // note: delete stagehistory manually on decrease
+$historysize = 6; // note: delete stagehistory manually on decrease
 
 $lock = "$BaseDir/check.lock";
 $request = "$out/request.new";
@@ -27,7 +27,7 @@ $img = "$publicBase/images";
 
 $breakFlag = "$out/break.flag";
 
-$gitBranch = "bell";
+$gitBranch = "master";
 if (file_exists("$BaseDir/branch")) {
    $gitBranch = trim(file_get_contents("$BaseDir/branch"));
 }

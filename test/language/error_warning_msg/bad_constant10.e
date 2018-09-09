@@ -17,7 +17,7 @@ feature {ANY}
 
 end -- class BAD_CONSTANT10
 --
--- Copyright (C) 2016-2017: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2016-2018: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

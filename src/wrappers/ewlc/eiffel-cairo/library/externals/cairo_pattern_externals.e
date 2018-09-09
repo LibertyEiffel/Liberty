@@ -1,7 +1,7 @@
 note
 	description: "External calls for CAIRO_PATTERN"
 	copyright: "[
-					Copyright (C) 2006-2017: , 2007 Paolo Redaelli ,
+					Copyright (C) 2006-2018: , 2007 Paolo Redaelli ,
 					              Soluciones Informaticas Libres S.A. (Except),
 					              Cairo team
 					

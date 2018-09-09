@@ -1,7 +1,7 @@
 note
 	description: "Generic operations on integers."
 	copyright: "[
-					Copyright (C) 2001-2017: Natalia B. Bidart
+					Copyright (C) 2001-2018: Natalia B. Bidart
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

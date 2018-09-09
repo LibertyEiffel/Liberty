@@ -1,6 +1,6 @@
 note
 	description: "External calls for CAIRO_PDF_SURFACE"
-	copyright: "Copyright (C) 2007-2017: $EWLC_developer, $original_copyright_holder"
+	copyright: "Copyright (C) 2007-2018: $EWLC_developer, $original_copyright_holder"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

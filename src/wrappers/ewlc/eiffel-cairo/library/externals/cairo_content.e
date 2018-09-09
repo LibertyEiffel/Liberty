@@ -1,7 +1,7 @@
 note
 	description: "enum cairo_content_t"
 	copyright: "[
-					Copyright (C) 2006-2017: eiffel-libraries team,
+					Copyright (C) 2006-2018: eiffel-libraries team,
 					Soluciones Informaticas Libres S.A. (Except),
 					Cairo team
 					

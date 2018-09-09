@@ -424,7 +424,7 @@ feature {}
             die_with_code(exit_failure_code)
          end
          text_file_write.put_string(once "{
-READ_ME.txt file automatically created by the "eiffeltest" command of Liberty Eiffel.
+The READ_ME.txt file is automatically created by the "eiffeltest" command of Liberty Eiffel.
 (Liberty Eiffel is The GNU Eiffel Compiler, Eiffel tools and libraries.)
 
 This "eiffeltest" directory is used by the "eiffeltest" command to store data or
@@ -457,8 +457,8 @@ action is excluded. Then one may exclude many actions with a single entry in fil
 "excluded.lst" file. As an example, the line "se c -all_check" added in the
 "excluded.lst" file would avoid all compilations with the -all_check mode.
 
-Take the time to read carefully the content of the generated "log.new" file and
-you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
+Take the time to read the content of the generated "log.new" file carefully and
+you'll learn a lot. See also the LibertyEiffel/test_suite directory for examples.
 
          }")
          text_file_write.disconnect
@@ -1311,8 +1311,9 @@ feature {}
          text_file_write.put_string(time_in_english.to_string)
          text_file_write.put_string("%N")
 
+		 text_file_write.put_string("(")
          text_file_write.put_real_format(time_1.elapsed_seconds(time_2), 0)
-         text_file_write.put_string(" (Elapsed seconds in %"")
+         text_file_write.put_string(" elapsed seconds in %"")
          text_file_write.put_string(directory_path)
          text_file_write.put_string("%".)%N")
 
@@ -1334,7 +1335,7 @@ end -- class EIFFELTEST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright (C) 2011-2017: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2018: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --
