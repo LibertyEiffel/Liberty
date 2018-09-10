@@ -2,7 +2,6 @@
 ** This file has been created by wrappers_generator.
 ** Any change will be lost by the next execution of the tool.
 */
-#define sizeof___sigset_t (sizeof(__sigset_t))
 #define fd_set_struct_get_fds_bits(a_structure) (((struct *) (a_structure))->fds_bits)
 
 #define fd_set_struct_set_fds_bits(a_structure,a_value) do {(((struct *)(a_structure)))->fds_bits = (a_value);}while(0)
@@ -31,42 +30,6 @@
 #define sizeof_pthread_barrier_t (sizeof(pthread_barrier_t))
 #define sizeof_pthread_barrierattr_t (sizeof(pthread_barrierattr_t))
 #define sizeof_pthread_barrierattr_t (sizeof(pthread_barrierattr_t))
-#define sigval_t_union_get_sival_int(a_structure) (((union sigval*) (a_structure))->sival_int)
-
-#define sigval_t_union_set_sival_int(a_structure,a_value) do {(((union sigval*)(a_structure)))->sival_int = (a_value);}while(0)
-
-#define sigval_t_union_get_sival_ptr(a_structure) (((union sigval*) (a_structure))->sival_ptr)
-
-#define sigval_t_union_set_sival_ptr(a_structure,a_value) do {(((union sigval*)(a_structure)))->sival_ptr = (a_value);}while(0)
-
-#define sizeof_sigval_t (sizeof(sigval_t))
-#define sigval_t_union_get_sival_int(a_structure) (((union sigval*) (a_structure))->sival_int)
-
-#define sigval_t_union_set_sival_int(a_structure,a_value) do {(((union sigval*)(a_structure)))->sival_int = (a_value);}while(0)
-
-#define sigval_t_union_get_sival_ptr(a_structure) (((union sigval*) (a_structure))->sival_ptr)
-
-#define sigval_t_union_set_sival_ptr(a_structure,a_value) do {(((union sigval*)(a_structure)))->sival_ptr = (a_value);}while(0)
-
-#define sizeof_sigval_t (sizeof(sigval_t))
-#define sigevent_t_struct_get_sigev_signo(a_structure) (((struct sigevent*) (a_structure))->sigev_signo)
-
-#define sigevent_t_struct_set_sigev_signo(a_structure,a_value) do {(((struct sigevent*)(a_structure)))->sigev_signo = (a_value);}while(0)
-
-#define sigevent_t_struct_get_sigev_notify(a_structure) (((struct sigevent*) (a_structure))->sigev_notify)
-
-#define sigevent_t_struct_set_sigev_notify(a_structure,a_value) do {(((struct sigevent*)(a_structure)))->sigev_notify = (a_value);}while(0)
-
-#define sizeof_sigevent_t (sizeof(sigevent_t))
-#define sigevent_t_struct_get_sigev_signo(a_structure) (((struct sigevent*) (a_structure))->sigev_signo)
-
-#define sigevent_t_struct_set_sigev_signo(a_structure,a_value) do {(((struct sigevent*)(a_structure)))->sigev_signo = (a_value);}while(0)
-
-#define sigevent_t_struct_get_sigev_notify(a_structure) (((struct sigevent*) (a_structure))->sigev_notify)
-
-#define sigevent_t_struct_set_sigev_notify(a_structure,a_value) do {(((struct sigevent*)(a_structure)))->sigev_notify = (a_value);}while(0)
-
-#define sizeof_sigevent_t (sizeof(sigevent_t))
 #define aiocb_struct_get_aio_fildes(a_structure) (((struct aiocb*) (a_structure))->aio_fildes)
 
 #define aiocb_struct_set_aio_fildes(a_structure,a_value) do {(((struct aiocb*)(a_structure)))->aio_fildes = (a_value);}while(0)
@@ -150,15 +113,6 @@
 #define aioinit_struct_set_aio_reserved(a_structure,a_value) do {(((struct aioinit*)(a_structure)))->aio_reserved = (a_value);}while(0)
 
 #define sizeof_aioinit (sizeof(struct aioinit))
-#define iovec_struct_get_iov_base(a_structure) (((struct iovec*) (a_structure))->iov_base)
-
-#define iovec_struct_set_iov_base(a_structure,a_value) do {(((struct iovec*)(a_structure)))->iov_base = (a_value);}while(0)
-
-#define iovec_struct_get_iov_len(a_structure) (((struct iovec*) (a_structure))->iov_len)
-
-#define iovec_struct_set_iov_len(a_structure,a_value) do {(((struct iovec*)(a_structure)))->iov_len = (a_value);}while(0)
-
-#define sizeof_iovec (sizeof(struct iovec))
 #define sockaddr_struct_get_sa_family(a_structure) (((struct sockaddr*) (a_structure))->sa_family)
 
 #define sockaddr_struct_set_sa_family(a_structure,a_value) do {(((struct sockaddr*)(a_structure)))->sa_family = (a_value);}while(0)
@@ -1398,32 +1352,6 @@
 #define sizeof_regmatch_t (sizeof(regmatch_t))
 #define sizeof_sem_t (sizeof(sem_t))
 #define sizeof_sem_t (sizeof(sem_t))
-#define siginfo_t_struct_get_si_signo(a_structure) (((struct *) (a_structure))->si_signo)
-
-#define siginfo_t_struct_set_si_signo(a_structure,a_value) do {(((struct *)(a_structure)))->si_signo = (a_value);}while(0)
-
-#define siginfo_t_struct_get_si_errno(a_structure) (((struct *) (a_structure))->si_errno)
-
-#define siginfo_t_struct_set_si_errno(a_structure,a_value) do {(((struct *)(a_structure)))->si_errno = (a_value);}while(0)
-
-#define siginfo_t_struct_get_si_code(a_structure) (((struct *) (a_structure))->si_code)
-
-#define siginfo_t_struct_set_si_code(a_structure,a_value) do {(((struct *)(a_structure)))->si_code = (a_value);}while(0)
-
-#define sizeof_siginfo_t (sizeof(siginfo_t))
-#define siginfo_t_struct_get_si_signo(a_structure) (((struct *) (a_structure))->si_signo)
-
-#define siginfo_t_struct_set_si_signo(a_structure,a_value) do {(((struct *)(a_structure)))->si_signo = (a_value);}while(0)
-
-#define siginfo_t_struct_get_si_errno(a_structure) (((struct *) (a_structure))->si_errno)
-
-#define siginfo_t_struct_set_si_errno(a_structure,a_value) do {(((struct *)(a_structure)))->si_errno = (a_value);}while(0)
-
-#define siginfo_t_struct_get_si_code(a_structure) (((struct *) (a_structure))->si_code)
-
-#define siginfo_t_struct_set_si_code(a_structure,a_value) do {(((struct *)(a_structure)))->si_code = (a_value);}while(0)
-
-#define sizeof_siginfo_t (sizeof(siginfo_t))
 #define sigaction_struct_get_sa_flags(a_structure) (((struct sigaction*) (a_structure))->sa_flags)
 
 #define sigaction_struct_set_sa_flags(a_structure,a_value) do {(((struct sigaction*)(a_structure)))->sa_flags = (a_value);}while(0)
@@ -2212,7 +2140,3 @@
 #define set_re_syntax_options(a_value) re_syntax_options = (a_value);
 #define set_sys_siglist(a_value) sys_siglist = (a_value);
 #define set_environ(a_value) environ = (a_value);
-#define set_optarg(a_value) optarg = (a_value);
-#define set_opterr(a_value) opterr = (a_value);
-#define set_optind(a_value) optind = (a_value);
-#define set_optopt(a_value) optopt = (a_value);

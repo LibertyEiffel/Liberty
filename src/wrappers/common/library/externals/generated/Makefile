@@ -21,15 +21,8 @@ debug: $(XML)
 verbose: $(XML)
 	wrappers_generator --verbose --emit-standard-typedefs --local $(XML) $(HEADERS)
 
-
-CASTXML:=$(shell command -v castxml 2>/dev/null)
-
 $(XML): 
-ifdef CASTXML
 	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
-else
-	gccxml $(HEADER) -fxml=$(XML)
-endif
 
 clean:
 	rm $(XML) *.e

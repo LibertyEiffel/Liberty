@@ -1,8 +1,6 @@
 XML=zmq.gcc-xml
 HEADER=/usr/include/zmq.h
 HEADERS=/usr/include/zmq.h
-CASTXML:=$(shell command -v castxml 2>/dev/null)
-
 
 wrappers: $(XML)
 	@wrappers_generator --local  $(XML) $(HEADERS)
@@ -17,11 +15,7 @@ wrappers: $(XML)
 
 $(XML): 
 	@pkg-config --exists libzmq --atleast-version=2.1.9
-ifdef CASTXML
 	@castxml --castxml-gccxml -x c++  `pkg-config --cflags libzmq` $(HEADER) -o $(XML)
-else
-	@gccxml `pkg-config --cflags libzmq` $(HEADER) -fxml=$(XML)
-endif
 
 
 

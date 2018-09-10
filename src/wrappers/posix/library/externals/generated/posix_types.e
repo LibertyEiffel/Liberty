@@ -190,13 +190,6 @@ feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
        ensure Result.is_default
        end
 
-       locale_t: POINTER
-               -- typedef locale_t from /usr/include/xlocale.h
-               -- Empty by design, used for anchored declarations.
-       do
-       ensure Result.is_default
-       end
-
        nl_item: INTEGER
                -- typedef nl_item from /usr/include/nl_types.h
                -- Empty by design, used for anchored declarations.
