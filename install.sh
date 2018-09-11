@@ -73,7 +73,7 @@ int main() {
 int main() {
 unsigned major = GC_TMP_VERSION_MAJOR;
 unsigned minor = GC_TMP_VERSION_MINOR;
-unsigned micro = GC_TMP_VERSION_MICRO ;
+unsigned micro = GC_TMP_VERSION_MICRO;
 printf("Version %02d.%02d.%02d\n", major, minor, micro );
 if (major < 7 || minor < 4 || micro < 2) {
 exit(1);
