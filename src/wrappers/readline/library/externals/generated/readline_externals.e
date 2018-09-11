@@ -38,7 +38,7 @@ feature {} -- External calls
                }"
                end
 
-	readline (an_argument_l1679_c7: POINTER): POINTER 
+	readline (argument_1: POINTER): POINTER 
 
 		-- function readline (in `/usr/include/readline/readline.h')
                -- readline
@@ -50,7 +50,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_abort (an_argument_l1440_c7: INTEGER; an_argument_l1441_c7: INTEGER): INTEGER 
+	rl_abort (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_abort (in `/usr/include/readline/readline.h')
                -- rl_abort
@@ -62,7 +62,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_add_defun (an_argument_l1690_c7: POINTER; an_argument_l1691_c7: POINTER; an_argument_l1692_c7: INTEGER): INTEGER 
+	rl_add_defun (argument_1: POINTER; argument_2: POINTER; argument_3: INTEGER): INTEGER 
 
 		-- function rl_add_defun (in `/usr/include/readline/readline.h')
                -- rl_add_defun
@@ -74,7 +74,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_add_funmap_entry (an_argument_l1816_c7: POINTER; an_argument_l1817_c7: POINTER): INTEGER 
+	rl_add_funmap_entry (argument_1: POINTER; argument_2: POINTER): INTEGER 
 
 		-- function rl_add_funmap_entry (in `/usr/include/readline/readline.h')
                -- rl_add_funmap_entry
@@ -86,7 +86,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_add_undo (an_argument_l1825_c7: INTEGER; an_argument_l1826_c7: INTEGER; an_argument_l1827_c7: INTEGER; an_argument_l1828_c7: POINTER) 
+	rl_add_undo (argument_1: INTEGER; argument_2: INTEGER; argument_3: INTEGER; argument_4: POINTER) 
 
 		-- function rl_add_undo (in `/usr/include/readline/readline.h')
                -- rl_add_undo
@@ -98,7 +98,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_alphabetic (an_argument_l1919_c7: INTEGER): INTEGER 
+	rl_alphabetic (argument_1: INTEGER): INTEGER 
 
 		-- function rl_alphabetic (in `/usr/include/readline/readline.h')
                -- rl_alphabetic
@@ -140,7 +140,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_arrow_keys (an_argument_l1180_c7: INTEGER; an_argument_l1181_c7: INTEGER): INTEGER 
+	rl_arrow_keys (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_arrow_keys (in `/usr/include/readline/readline.h')
                -- rl_arrow_keys
@@ -212,7 +212,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_backward (an_argument_l1148_c7: INTEGER; an_argument_l1149_c7: INTEGER): INTEGER 
+	rl_backward (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_backward (in `/usr/include/readline/readline.h')
                -- rl_backward
@@ -224,7 +224,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_backward_byte (an_argument_l1140_c7: INTEGER; an_argument_l1141_c7: INTEGER): INTEGER 
+	rl_backward_byte (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_backward_byte (in `/usr/include/readline/readline.h')
                -- rl_backward_byte
@@ -236,7 +236,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_backward_char (an_argument_l1144_c7: INTEGER; an_argument_l1145_c7: INTEGER): INTEGER 
+	rl_backward_char (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_backward_char (in `/usr/include/readline/readline.h')
                -- rl_backward_char
@@ -248,7 +248,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_backward_char_search (an_argument_l1252_c7: INTEGER; an_argument_l1253_c7: INTEGER): INTEGER 
+	rl_backward_char_search (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_backward_char_search (in `/usr/include/readline/readline.h')
                -- rl_backward_char_search
@@ -260,7 +260,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_backward_kill_line (an_argument_l1344_c7: INTEGER; an_argument_l1345_c7: INTEGER): INTEGER 
+	rl_backward_kill_line (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_backward_kill_line (in `/usr/include/readline/readline.h')
                -- rl_backward_kill_line
@@ -272,7 +272,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_backward_kill_word (an_argument_l1336_c7: INTEGER; an_argument_l1337_c7: INTEGER): INTEGER 
+	rl_backward_kill_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_backward_kill_word (in `/usr/include/readline/readline.h')
                -- rl_backward_kill_word
@@ -284,7 +284,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_backward_menu_complete (an_argument_l1328_c7: INTEGER; an_argument_l1329_c7: INTEGER): INTEGER 
+	rl_backward_menu_complete (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_backward_menu_complete (in `/usr/include/readline/readline.h')
                -- rl_backward_menu_complete
@@ -296,7 +296,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_backward_word (an_argument_l1164_c7: INTEGER; an_argument_l1165_c7: INTEGER): INTEGER 
+	rl_backward_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_backward_word (in `/usr/include/readline/readline.h')
                -- rl_backward_word
@@ -368,7 +368,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_beg_of_line (an_argument_l1152_c7: INTEGER; an_argument_l1153_c7: INTEGER): INTEGER 
+	rl_beg_of_line (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_beg_of_line (in `/usr/include/readline/readline.h')
                -- rl_beg_of_line
@@ -388,11 +388,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_begin_undo_group"
+                       feature_name: "rl_begin_undo_group()"
                }"
                end
 
-	rl_beginning_of_history (an_argument_l1256_c7: INTEGER; an_argument_l1257_c7: INTEGER): INTEGER 
+	rl_beginning_of_history (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_beginning_of_history (in `/usr/include/readline/readline.h')
                -- rl_beginning_of_history
@@ -404,7 +404,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_bind_key (an_argument_l1695_c7: INTEGER; an_argument_l1696_c7: POINTER): INTEGER 
+	rl_bind_key (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function rl_bind_key (in `/usr/include/readline/readline.h')
                -- rl_bind_key
@@ -416,7 +416,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_bind_key_if_unbound (an_argument_l1711_c7: INTEGER; an_argument_l1712_c7: POINTER): INTEGER 
+	rl_bind_key_if_unbound (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function rl_bind_key_if_unbound (in `/usr/include/readline/readline.h')
                -- rl_bind_key_if_unbound
@@ -428,7 +428,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_bind_key_if_unbound_in_map (an_argument_l1715_c7: INTEGER; an_argument_l1716_c7: POINTER; an_argument_l1717_c7: POINTER): INTEGER 
+	rl_bind_key_if_unbound_in_map (argument_1: INTEGER; argument_2: POINTER; argument_3: POINTER): INTEGER 
 
 		-- function rl_bind_key_if_unbound_in_map (in `/usr/include/readline/readline.h')
                -- rl_bind_key_if_unbound_in_map
@@ -440,7 +440,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_bind_key_in_map (an_argument_l1699_c7: INTEGER; an_argument_l1700_c7: POINTER; an_argument_l1701_c7: POINTER): INTEGER 
+	rl_bind_key_in_map (argument_1: INTEGER; argument_2: POINTER; argument_3: POINTER): INTEGER 
 
 		-- function rl_bind_key_in_map (in `/usr/include/readline/readline.h')
                -- rl_bind_key_in_map
@@ -452,7 +452,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_bind_keyseq (an_argument_l1728_c7: POINTER; an_argument_l1729_c7: POINTER): INTEGER 
+	rl_bind_keyseq (argument_1: POINTER; argument_2: POINTER): INTEGER 
 
 		-- function rl_bind_keyseq (in `/usr/include/readline/readline.h')
                -- rl_bind_keyseq
@@ -464,7 +464,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_bind_keyseq_if_unbound (an_argument_l1737_c7: POINTER; an_argument_l1738_c7: POINTER): INTEGER 
+	rl_bind_keyseq_if_unbound (argument_1: POINTER; argument_2: POINTER): INTEGER 
 
 		-- function rl_bind_keyseq_if_unbound (in `/usr/include/readline/readline.h')
                -- rl_bind_keyseq_if_unbound
@@ -476,7 +476,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_bind_keyseq_if_unbound_in_map (an_argument_l1741_c7: POINTER; an_argument_l1742_c7: POINTER; an_argument_l1743_c7: POINTER): INTEGER 
+	rl_bind_keyseq_if_unbound_in_map (argument_1: POINTER; argument_2: POINTER; argument_3: POINTER): INTEGER 
 
 		-- function rl_bind_keyseq_if_unbound_in_map (in `/usr/include/readline/readline.h')
                -- rl_bind_keyseq_if_unbound_in_map
@@ -488,7 +488,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_bind_keyseq_in_map (an_argument_l1732_c7: POINTER; an_argument_l1733_c7: POINTER; an_argument_l1734_c7: POINTER): INTEGER 
+	rl_bind_keyseq_in_map (argument_1: POINTER; argument_2: POINTER; argument_3: POINTER): INTEGER 
 
 		-- function rl_bind_keyseq_in_map (in `/usr/include/readline/readline.h')
                -- rl_bind_keyseq_in_map
@@ -530,7 +530,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_call_last_kbd_macro (an_argument_l1412_c7: INTEGER; an_argument_l1413_c7: INTEGER): INTEGER 
+	rl_call_last_kbd_macro (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_call_last_kbd_macro (in `/usr/include/readline/readline.h')
                -- rl_call_last_kbd_macro
@@ -542,7 +542,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_callback_handler_install (an_argument_l1484_c7: POINTER; an_argument_l1485_c7: POINTER) 
+	rl_callback_handler_install (argument_1: POINTER; argument_2: POINTER) 
 
 		-- function rl_callback_handler_install (in `/usr/include/readline/readline.h')
                -- rl_callback_handler_install
@@ -562,7 +562,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_callback_handler_remove"
+                       feature_name: "rl_callback_handler_remove()"
                }"
                end
 
@@ -574,11 +574,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_callback_read_char"
+                       feature_name: "rl_callback_read_char()"
                }"
                end
 
-	rl_capitalize_word (an_argument_l1236_c7: INTEGER; an_argument_l1237_c7: INTEGER): INTEGER 
+	rl_capitalize_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_capitalize_word (in `/usr/include/readline/readline.h')
                -- rl_capitalize_word
@@ -710,7 +710,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_char_search (an_argument_l1248_c7: INTEGER; an_argument_l1249_c7: INTEGER): INTEGER 
+	rl_char_search (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_char_search (in `/usr/include/readline/readline.h')
                -- rl_char_search
@@ -722,7 +722,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_character_len (an_argument_l1850_c7: INTEGER; an_argument_l1851_c7: INTEGER): INTEGER 
+	rl_character_len (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_character_len (in `/usr/include/readline/readline.h')
                -- rl_character_len
@@ -742,7 +742,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_cleanup_after_signal"
+                       feature_name: "rl_cleanup_after_signal()"
                }"
                end
 
@@ -754,7 +754,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_clear_history"
+                       feature_name: "rl_clear_history()"
                }"
                end
 
@@ -766,7 +766,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_clear_message"
+                       feature_name: "rl_clear_message()"
                }"
                end
 
@@ -778,11 +778,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_clear_pending_input"
+                       feature_name: "rl_clear_pending_input()"
                }"
                end
 
-	rl_clear_screen (an_argument_l1172_c7: INTEGER; an_argument_l1173_c7: INTEGER): INTEGER 
+	rl_clear_screen (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_clear_screen (in `/usr/include/readline/readline.h')
                -- rl_clear_screen
@@ -802,11 +802,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_clear_signals"
+                       feature_name: "rl_clear_signals()"
                }"
                end
 
-	rl_complete (an_argument_l1308_c7: INTEGER; an_argument_l1309_c7: INTEGER): INTEGER 
+	rl_complete (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_complete (in `/usr/include/readline/readline.h')
                -- rl_complete
@@ -818,7 +818,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_complete_internal (an_argument_l1940_c7: INTEGER): INTEGER 
+	rl_complete_internal (argument_1: INTEGER): INTEGER 
 
 		-- function rl_complete_internal (in `/usr/include/readline/readline.h')
                -- rl_complete_internal
@@ -1070,7 +1070,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_completion_matches (an_argument_l1948_c7: POINTER; an_argument_l1949_c7: POINTER): POINTER 
+	rl_completion_matches (argument_1: POINTER; argument_2: POINTER): POINTER 
 
 		-- function rl_completion_matches (in `/usr/include/readline/readline.h')
                -- rl_completion_matches
@@ -1082,7 +1082,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_completion_mode (an_argument_l1960_c7: POINTER): INTEGER 
+	rl_completion_mode (argument_1: POINTER): INTEGER 
 
 		-- function rl_completion_mode (in `/usr/include/readline/readline.h')
                -- rl_completion_mode
@@ -1274,7 +1274,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_copy_backward_word (an_argument_l1376_c7: INTEGER; an_argument_l1377_c7: INTEGER): INTEGER 
+	rl_copy_backward_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_copy_backward_word (in `/usr/include/readline/readline.h')
                -- rl_copy_backward_word
@@ -1286,7 +1286,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_copy_forward_word (an_argument_l1372_c7: INTEGER; an_argument_l1373_c7: INTEGER): INTEGER 
+	rl_copy_forward_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_copy_forward_word (in `/usr/include/readline/readline.h')
                -- rl_copy_forward_word
@@ -1298,7 +1298,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_copy_region_to_kill (an_argument_l1364_c7: INTEGER; an_argument_l1365_c7: INTEGER): INTEGER 
+	rl_copy_region_to_kill (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_copy_region_to_kill (in `/usr/include/readline/readline.h')
                -- rl_copy_region_to_kill
@@ -1310,7 +1310,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_copy_text (an_argument_l1871_c7: INTEGER; an_argument_l1872_c7: INTEGER): POINTER 
+	rl_copy_text (argument_1: INTEGER; argument_2: INTEGER): POINTER 
 
 		-- function rl_copy_text (in `/usr/include/readline/readline.h')
                -- rl_copy_text
@@ -1330,11 +1330,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_crlf"
+                       feature_name: "rl_crlf()"
                }"
                end
 
-	rl_delete (an_argument_l1208_c7: INTEGER; an_argument_l1209_c7: INTEGER): INTEGER 
+	rl_delete (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_delete (in `/usr/include/readline/readline.h')
                -- rl_delete
@@ -1346,7 +1346,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_delete_horizontal_space (an_argument_l1216_c7: INTEGER; an_argument_l1217_c7: INTEGER): INTEGER 
+	rl_delete_horizontal_space (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_delete_horizontal_space (in `/usr/include/readline/readline.h')
                -- rl_delete_horizontal_space
@@ -1358,7 +1358,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_delete_or_show_completions (an_argument_l1220_c7: INTEGER; an_argument_l1221_c7: INTEGER): INTEGER 
+	rl_delete_or_show_completions (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_delete_or_show_completions (in `/usr/include/readline/readline.h')
                -- rl_delete_or_show_completions
@@ -1370,7 +1370,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_delete_text (an_argument_l1863_c7: INTEGER; an_argument_l1864_c7: INTEGER): INTEGER 
+	rl_delete_text (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_delete_text (in `/usr/include/readline/readline.h')
                -- rl_delete_text
@@ -1420,11 +1420,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_deprep_terminal"
+                       feature_name: "rl_deprep_terminal()"
                }"
                end
 
-	rl_digit_argument (an_argument_l1120_c7: INTEGER; an_argument_l1121_c7: INTEGER): INTEGER 
+	rl_digit_argument (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_digit_argument (in `/usr/include/readline/readline.h')
                -- rl_digit_argument
@@ -1444,7 +1444,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_ding"
+                       feature_name: "rl_ding()"
                }"
                end
 
@@ -1516,7 +1516,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_discard_argument"
+                       feature_name: "rl_discard_argument()"
                }"
                end
 
@@ -1550,7 +1550,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_display_match_list (an_argument_l1943_c7: POINTER; an_argument_l1944_c7: INTEGER; an_argument_l1945_c7: INTEGER) 
+	rl_display_match_list (argument_1: POINTER; argument_2: INTEGER; argument_3: INTEGER) 
 
 		-- function rl_display_match_list (in `/usr/include/readline/readline.h')
                -- rl_display_match_list
@@ -1592,7 +1592,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_do_lowercase_version (an_argument_l1200_c7: INTEGER; an_argument_l1201_c7: INTEGER): INTEGER 
+	rl_do_lowercase_version (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_do_lowercase_version (in `/usr/include/readline/readline.h')
                -- rl_do_lowercase_version
@@ -1612,7 +1612,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_do_undo"
+                       feature_name: "rl_do_undo()"
                }"
                end
 
@@ -1646,7 +1646,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_downcase_word (an_argument_l1232_c7: INTEGER; an_argument_l1233_c7: INTEGER): INTEGER 
+	rl_downcase_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_downcase_word (in `/usr/include/readline/readline.h')
                -- rl_downcase_word
@@ -1658,7 +1658,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_dump_functions (an_argument_l1296_c7: INTEGER; an_argument_l1297_c7: INTEGER): INTEGER 
+	rl_dump_functions (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_dump_functions (in `/usr/include/readline/readline.h')
                -- rl_dump_functions
@@ -1670,7 +1670,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_dump_macros (an_argument_l1300_c7: INTEGER; an_argument_l1301_c7: INTEGER): INTEGER 
+	rl_dump_macros (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_dump_macros (in `/usr/include/readline/readline.h')
                -- rl_dump_macros
@@ -1682,7 +1682,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_dump_variables (an_argument_l1304_c7: INTEGER; an_argument_l1305_c7: INTEGER): INTEGER 
+	rl_dump_variables (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_dump_variables (in `/usr/include/readline/readline.h')
                -- rl_dump_variables
@@ -1694,7 +1694,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_echo_signal_char (an_argument_l1930_c7: INTEGER) 
+	rl_echo_signal_char (argument_1: INTEGER) 
 
 		-- function rl_echo_signal_char (in `/usr/include/readline/readline.h')
                -- rl_echo_signal_char
@@ -1736,7 +1736,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_emacs_editing_mode (an_argument_l1284_c7: INTEGER; an_argument_l1285_c7: INTEGER): INTEGER 
+	rl_emacs_editing_mode (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_emacs_editing_mode (in `/usr/include/readline/readline.h')
                -- rl_emacs_editing_mode
@@ -1778,7 +1778,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_end_kbd_macro (an_argument_l1408_c7: INTEGER; an_argument_l1409_c7: INTEGER): INTEGER 
+	rl_end_kbd_macro (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_end_kbd_macro (in `/usr/include/readline/readline.h')
                -- rl_end_kbd_macro
@@ -1790,7 +1790,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_end_of_history (an_argument_l1260_c7: INTEGER; an_argument_l1261_c7: INTEGER): INTEGER 
+	rl_end_of_history (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_end_of_history (in `/usr/include/readline/readline.h')
                -- rl_end_of_history
@@ -1802,7 +1802,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_end_of_line (an_argument_l1156_c7: INTEGER; an_argument_l1157_c7: INTEGER): INTEGER 
+	rl_end_of_line (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_end_of_line (in `/usr/include/readline/readline.h')
                -- rl_end_of_line
@@ -1822,7 +1822,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_end_undo_group"
+                       feature_name: "rl_end_undo_group()"
                }"
                end
 
@@ -1886,7 +1886,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_exchange_point_and_mark (an_argument_l1276_c7: INTEGER; an_argument_l1277_c7: INTEGER): INTEGER 
+	rl_exchange_point_and_mark (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_exchange_point_and_mark (in `/usr/include/readline/readline.h')
                -- rl_exchange_point_and_mark
@@ -1898,7 +1898,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_execute_next (an_argument_l1904_c7: INTEGER): INTEGER 
+	rl_execute_next (argument_1: INTEGER): INTEGER 
 
 		-- function rl_execute_next (in `/usr/include/readline/readline.h')
                -- rl_execute_next
@@ -2030,7 +2030,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_expand_prompt (an_argument_l1685_c7: POINTER): INTEGER 
+	rl_expand_prompt (argument_1: POINTER): INTEGER 
 
 		-- function rl_expand_prompt (in `/usr/include/readline/readline.h')
                -- rl_expand_prompt
@@ -2072,7 +2072,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_extend_line_buffer (an_argument_l1915_c7: INTEGER) 
+	rl_extend_line_buffer (argument_1: INTEGER) 
 
 		-- function rl_extend_line_buffer (in `/usr/include/readline/readline.h')
                -- rl_extend_line_buffer
@@ -2114,7 +2114,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_filename_completion_function (an_argument_l1956_c7: POINTER; an_argument_l1957_c7: INTEGER): POINTER 
+	rl_filename_completion_function (argument_1: POINTER; argument_2: INTEGER): POINTER 
 
 		-- function rl_filename_completion_function (in `/usr/include/readline/readline.h')
                -- rl_filename_completion_function
@@ -2314,11 +2314,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_forced_update_display"
+                       feature_name: "rl_forced_update_display()"
                }"
                end
 
-	rl_forward (an_argument_l1136_c7: INTEGER; an_argument_l1137_c7: INTEGER): INTEGER 
+	rl_forward (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_forward (in `/usr/include/readline/readline.h')
                -- rl_forward
@@ -2330,7 +2330,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_forward_byte (an_argument_l1128_c7: INTEGER; an_argument_l1129_c7: INTEGER): INTEGER 
+	rl_forward_byte (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_forward_byte (in `/usr/include/readline/readline.h')
                -- rl_forward_byte
@@ -2342,7 +2342,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_forward_char (an_argument_l1132_c7: INTEGER; an_argument_l1133_c7: INTEGER): INTEGER 
+	rl_forward_char (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_forward_char (in `/usr/include/readline/readline.h')
                -- rl_forward_char
@@ -2354,7 +2354,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_forward_search_history (an_argument_l1400_c7: INTEGER; an_argument_l1401_c7: INTEGER): INTEGER 
+	rl_forward_search_history (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_forward_search_history (in `/usr/include/readline/readline.h')
                -- rl_forward_search_history
@@ -2366,7 +2366,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_forward_word (an_argument_l1160_c7: INTEGER; an_argument_l1161_c7: INTEGER): INTEGER 
+	rl_forward_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_forward_word (in `/usr/include/readline/readline.h')
                -- rl_forward_word
@@ -2378,7 +2378,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_free (an_argument_l1922_c7: POINTER) 
+	rl_free (argument_1: POINTER) 
 
 		-- function rl_free (in `/usr/include/readline/readline.h')
                -- rl_free
@@ -2390,7 +2390,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_free_keymap (an_argument_l1808_c7: POINTER) 
+	rl_free_keymap (argument_1: POINTER) 
 
 		-- function rl_free_keymap (in `/usr/include/readline/readline.h')
                -- rl_free_keymap
@@ -2410,7 +2410,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_free_line_state"
+                       feature_name: "rl_free_line_state()"
                }"
                end
 
@@ -2422,11 +2422,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_free_undo_list"
+                       feature_name: "rl_free_undo_list()"
                }"
                end
 
-	rl_function_dumper (an_argument_l1793_c7: INTEGER) 
+	rl_function_dumper (argument_1: INTEGER) 
 
 		-- function rl_function_dumper (in `/usr/include/readline/readline.h')
                -- rl_function_dumper
@@ -2438,7 +2438,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_function_of_keyseq (an_argument_l1780_c7: POINTER; an_argument_l1781_c7: POINTER; an_argument_l1782_c7: POINTER): POINTER 
+	rl_function_of_keyseq (argument_1: POINTER; argument_2: POINTER; argument_3: POINTER): POINTER 
 
 		-- function rl_function_of_keyseq (in `/usr/include/readline/readline.h')
                -- rl_function_of_keyseq
@@ -2458,11 +2458,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_funmap_names"
+                       feature_name: "rl_funmap_names()"
                }"
                end
 
-	rl_generic_bind (an_argument_l1746_c7: INTEGER; an_argument_l1747_c7: POINTER; an_argument_l1748_c7: POINTER; an_argument_l1749_c7: POINTER): INTEGER 
+	rl_generic_bind (argument_1: INTEGER; argument_2: POINTER; argument_3: POINTER; argument_4: POINTER): INTEGER 
 
 		-- function rl_generic_bind (in `/usr/include/readline/readline.h')
                -- rl_generic_bind
@@ -2474,7 +2474,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_get_keymap_name (an_argument_l1811_c7: POINTER): POINTER 
+	rl_get_keymap_name (argument_1: POINTER): POINTER 
 
 		-- function rl_get_keymap_name (in `/usr/include/readline/readline.h')
                -- rl_get_keymap_name
@@ -2494,11 +2494,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_get_keymap_name_from_edit_mode"
+                       feature_name: "rl_get_keymap_name_from_edit_mode()"
                }"
                end
 
-	rl_get_next_history (an_argument_l1264_c7: INTEGER; an_argument_l1265_c7: INTEGER): INTEGER 
+	rl_get_next_history (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_get_next_history (in `/usr/include/readline/readline.h')
                -- rl_get_next_history
@@ -2510,7 +2510,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_get_previous_history (an_argument_l1268_c7: INTEGER; an_argument_l1269_c7: INTEGER): INTEGER 
+	rl_get_previous_history (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_get_previous_history (in `/usr/include/readline/readline.h')
                -- rl_get_previous_history
@@ -2522,7 +2522,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_get_screen_size (an_argument_l1893_c7: POINTER; an_argument_l1894_c7: POINTER) 
+	rl_get_screen_size (argument_1: POINTER; argument_2: POINTER) 
 
 		-- function rl_get_screen_size (in `/usr/include/readline/readline.h')
                -- rl_get_screen_size
@@ -2534,7 +2534,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_get_termcap (an_argument_l1898_c7: POINTER): POINTER 
+	rl_get_termcap (argument_1: POINTER): POINTER 
 
 		-- function rl_get_termcap (in `/usr/include/readline/readline.h')
                -- rl_get_termcap
@@ -2546,7 +2546,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_getc (an_argument_l1909_c7: POINTER): INTEGER 
+	rl_getc (argument_1: POINTER): INTEGER 
 
 		-- function rl_getc (in `/usr/include/readline/readline.h')
                -- rl_getc
@@ -2618,7 +2618,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_history_search_backward (an_argument_l1452_c7: INTEGER; an_argument_l1453_c7: INTEGER): INTEGER 
+	rl_history_search_backward (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_history_search_backward (in `/usr/include/readline/readline.h')
                -- rl_history_search_backward
@@ -2630,7 +2630,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_history_search_forward (an_argument_l1448_c7: INTEGER; an_argument_l1449_c7: INTEGER): INTEGER 
+	rl_history_search_forward (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_history_search_forward (in `/usr/include/readline/readline.h')
                -- rl_history_search_forward
@@ -2642,7 +2642,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_history_substr_search_backward (an_argument_l1460_c7: INTEGER; an_argument_l1461_c7: INTEGER): INTEGER 
+	rl_history_substr_search_backward (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_history_substr_search_backward (in `/usr/include/readline/readline.h')
                -- rl_history_substr_search_backward
@@ -2654,7 +2654,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_history_substr_search_forward (an_argument_l1456_c7: INTEGER; an_argument_l1457_c7: INTEGER): INTEGER 
+	rl_history_substr_search_forward (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_history_substr_search_forward (in `/usr/include/readline/readline.h')
                -- rl_history_substr_search_forward
@@ -2764,7 +2764,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_initialize"
+                       feature_name: "rl_initialize()"
                }"
                end
 
@@ -2776,7 +2776,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_initialize_funmap"
+                       feature_name: "rl_initialize_funmap()"
                }"
                end
 
@@ -2810,7 +2810,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_insert (an_argument_l1184_c7: INTEGER; an_argument_l1185_c7: INTEGER): INTEGER 
+	rl_insert (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_insert (in `/usr/include/readline/readline.h')
                -- rl_insert
@@ -2822,7 +2822,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_insert_close (an_argument_l1480_c7: INTEGER; an_argument_l1481_c7: INTEGER): INTEGER 
+	rl_insert_close (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_insert_close (in `/usr/include/readline/readline.h')
                -- rl_insert_close
@@ -2834,7 +2834,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_insert_comment (an_argument_l1224_c7: INTEGER; an_argument_l1225_c7: INTEGER): INTEGER 
+	rl_insert_comment (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_insert_comment (in `/usr/include/readline/readline.h')
                -- rl_insert_comment
@@ -2846,7 +2846,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_insert_completions (an_argument_l1316_c7: INTEGER; an_argument_l1317_c7: INTEGER): INTEGER 
+	rl_insert_completions (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_insert_completions (in `/usr/include/readline/readline.h')
                -- rl_insert_completions
@@ -2888,7 +2888,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_insert_text (an_argument_l1860_c7: POINTER): INTEGER 
+	rl_insert_text (argument_1: POINTER): INTEGER 
 
 		-- function rl_insert_text (in `/usr/include/readline/readline.h')
                -- rl_insert_text
@@ -2930,7 +2930,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_invoking_keyseqs (an_argument_l1790_c7: POINTER): POINTER 
+	rl_invoking_keyseqs (argument_1: POINTER): POINTER 
 
 		-- function rl_invoking_keyseqs (in `/usr/include/readline/readline.h')
                -- rl_invoking_keyseqs
@@ -2942,7 +2942,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_invoking_keyseqs_in_map (an_argument_l1786_c7: POINTER; an_argument_l1787_c7: POINTER): POINTER 
+	rl_invoking_keyseqs_in_map (argument_1: POINTER; argument_2: POINTER): POINTER 
 
 		-- function rl_invoking_keyseqs_in_map (in `/usr/include/readline/readline.h')
                -- rl_invoking_keyseqs_in_map
@@ -2984,7 +2984,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_kill_full_line (an_argument_l1348_c7: INTEGER; an_argument_l1349_c7: INTEGER): INTEGER 
+	rl_kill_full_line (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_kill_full_line (in `/usr/include/readline/readline.h')
                -- rl_kill_full_line
@@ -2996,7 +2996,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_kill_line (an_argument_l1340_c7: INTEGER; an_argument_l1341_c7: INTEGER): INTEGER 
+	rl_kill_line (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_kill_line (in `/usr/include/readline/readline.h')
                -- rl_kill_line
@@ -3008,7 +3008,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_kill_region (an_argument_l1368_c7: INTEGER; an_argument_l1369_c7: INTEGER): INTEGER 
+	rl_kill_region (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_kill_region (in `/usr/include/readline/readline.h')
                -- rl_kill_region
@@ -3020,7 +3020,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_kill_text (an_argument_l1867_c7: INTEGER; an_argument_l1868_c7: INTEGER): INTEGER 
+	rl_kill_text (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_kill_text (in `/usr/include/readline/readline.h')
                -- rl_kill_text
@@ -3032,7 +3032,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_kill_word (an_argument_l1332_c7: INTEGER; an_argument_l1333_c7: INTEGER): INTEGER 
+	rl_kill_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_kill_word (in `/usr/include/readline/readline.h')
                -- rl_kill_word
@@ -3142,11 +3142,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_list_funmap_names"
+                       feature_name: "rl_list_funmap_names()"
                }"
                end
 
-	rl_macro_bind (an_argument_l1764_c7: POINTER; an_argument_l1765_c7: POINTER; an_argument_l1766_c7: POINTER): INTEGER 
+	rl_macro_bind (argument_1: POINTER; argument_2: POINTER; argument_3: POINTER): INTEGER 
 
 		-- function rl_macro_bind (in `/usr/include/readline/readline.h')
                -- rl_macro_bind
@@ -3158,7 +3158,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_macro_dumper (an_argument_l1796_c7: INTEGER) 
+	rl_macro_dumper (argument_1: INTEGER) 
 
 		-- function rl_macro_dumper (in `/usr/include/readline/readline.h')
                -- rl_macro_dumper
@@ -3208,7 +3208,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_maybe_replace_line"
+                       feature_name: "rl_maybe_replace_line()"
                }"
                end
 
@@ -3220,7 +3220,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_maybe_save_line"
+                       feature_name: "rl_maybe_save_line()"
                }"
                end
 
@@ -3232,11 +3232,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_maybe_unsave_line"
+                       feature_name: "rl_maybe_unsave_line()"
                }"
                end
 
-	rl_menu_complete (an_argument_l1324_c7: INTEGER; an_argument_l1325_c7: INTEGER): INTEGER 
+	rl_menu_complete (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_menu_complete (in `/usr/include/readline/readline.h')
                -- rl_menu_complete
@@ -3286,11 +3286,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_message"
+                       feature_name: "rl_message()"
                }"
                end
 
-	rl_modifying (an_argument_l1835_c7: INTEGER; an_argument_l1836_c7: INTEGER): INTEGER 
+	rl_modifying (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_modifying (in `/usr/include/readline/readline.h')
                -- rl_modifying
@@ -3302,7 +3302,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_named_function (an_argument_l1777_c7: POINTER): POINTER 
+	rl_named_function (argument_1: POINTER): POINTER 
 
 		-- function rl_named_function (in `/usr/include/readline/readline.h')
                -- rl_named_function
@@ -3314,7 +3314,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_newline (an_argument_l1196_c7: INTEGER; an_argument_l1197_c7: INTEGER): INTEGER 
+	rl_newline (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_newline (in `/usr/include/readline/readline.h')
                -- rl_newline
@@ -3326,7 +3326,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_noninc_forward_search (an_argument_l1464_c7: INTEGER; an_argument_l1465_c7: INTEGER): INTEGER 
+	rl_noninc_forward_search (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_noninc_forward_search (in `/usr/include/readline/readline.h')
                -- rl_noninc_forward_search
@@ -3338,7 +3338,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_noninc_forward_search_again (an_argument_l1472_c7: INTEGER; an_argument_l1473_c7: INTEGER): INTEGER 
+	rl_noninc_forward_search_again (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_noninc_forward_search_again (in `/usr/include/readline/readline.h')
                -- rl_noninc_forward_search_again
@@ -3350,7 +3350,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_noninc_reverse_search (an_argument_l1468_c7: INTEGER; an_argument_l1469_c7: INTEGER): INTEGER 
+	rl_noninc_reverse_search (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_noninc_reverse_search (in `/usr/include/readline/readline.h')
                -- rl_noninc_reverse_search
@@ -3362,7 +3362,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_noninc_reverse_search_again (an_argument_l1476_c7: INTEGER; an_argument_l1477_c7: INTEGER): INTEGER 
+	rl_noninc_reverse_search_again (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_noninc_reverse_search_again (in `/usr/include/readline/readline.h')
                -- rl_noninc_reverse_search_again
@@ -3434,7 +3434,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_old_menu_complete (an_argument_l1320_c7: INTEGER; an_argument_l1321_c7: INTEGER): INTEGER 
+	rl_old_menu_complete (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_old_menu_complete (in `/usr/include/readline/readline.h')
                -- rl_old_menu_complete
@@ -3454,7 +3454,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_on_new_line"
+                       feature_name: "rl_on_new_line()"
                }"
                end
 
@@ -3466,7 +3466,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_on_new_line_with_prompt"
+                       feature_name: "rl_on_new_line_with_prompt()"
                }"
                end
 
@@ -3500,7 +3500,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_overwrite_mode (an_argument_l1288_c7: INTEGER; an_argument_l1289_c7: INTEGER): INTEGER 
+	rl_overwrite_mode (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_overwrite_mode (in `/usr/include/readline/readline.h')
                -- rl_overwrite_mode
@@ -3512,7 +3512,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_parse_and_bind (an_argument_l1805_c7: POINTER): INTEGER 
+	rl_parse_and_bind (argument_1: POINTER): INTEGER 
 
 		-- function rl_parse_and_bind (in `/usr/include/readline/readline.h')
                -- rl_parse_and_bind
@@ -3584,7 +3584,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_possible_completions (an_argument_l1312_c7: INTEGER; an_argument_l1313_c7: INTEGER): INTEGER 
+	rl_possible_completions (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_possible_completions (in `/usr/include/readline/readline.h')
                -- rl_possible_completions
@@ -3686,7 +3686,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_prep_terminal (an_argument_l1875_c7: INTEGER) 
+	rl_prep_terminal (argument_1: INTEGER) 
 
 		-- function rl_prep_terminal (in `/usr/include/readline/readline.h')
                -- rl_prep_terminal
@@ -3698,7 +3698,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_print_last_kbd_macro (an_argument_l1416_c7: INTEGER; an_argument_l1417_c7: INTEGER): INTEGER 
+	rl_print_last_kbd_macro (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_print_last_kbd_macro (in `/usr/include/readline/readline.h')
                -- rl_print_last_kbd_macro
@@ -3740,7 +3740,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_push_macro_input (an_argument_l1822_c7: POINTER) 
+	rl_push_macro_input (argument_1: POINTER) 
 
 		-- function rl_push_macro_input (in `/usr/include/readline/readline.h')
                -- rl_push_macro_input
@@ -3752,7 +3752,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_quoted_insert (an_argument_l1188_c7: INTEGER; an_argument_l1189_c7: INTEGER): INTEGER 
+	rl_quoted_insert (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_quoted_insert (in `/usr/include/readline/readline.h')
                -- rl_quoted_insert
@@ -3764,7 +3764,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_re_read_init_file (an_argument_l1292_c7: INTEGER; an_argument_l1293_c7: INTEGER): INTEGER 
+	rl_re_read_init_file (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_re_read_init_file (in `/usr/include/readline/readline.h')
                -- rl_re_read_init_file
@@ -3776,7 +3776,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_read_init_file (an_argument_l1802_c7: POINTER): INTEGER 
+	rl_read_init_file (argument_1: POINTER): INTEGER 
 
 		-- function rl_read_init_file (in `/usr/include/readline/readline.h')
                -- rl_read_init_file
@@ -3796,7 +3796,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_read_key"
+                       feature_name: "rl_read_key()"
                }"
                end
 
@@ -3898,7 +3898,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_redisplay"
+                       feature_name: "rl_redisplay()"
                }"
                end
 
@@ -3932,7 +3932,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_refresh_line (an_argument_l1168_c7: INTEGER; an_argument_l1169_c7: INTEGER): INTEGER 
+	rl_refresh_line (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_refresh_line (in `/usr/include/readline/readline.h')
                -- rl_refresh_line
@@ -3944,7 +3944,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_replace_line (an_argument_l1856_c7: POINTER; an_argument_l1857_c7: INTEGER) 
+	rl_replace_line (argument_1: POINTER; argument_2: INTEGER) 
 
 		-- function rl_replace_line (in `/usr/include/readline/readline.h')
                -- rl_replace_line
@@ -3964,7 +3964,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_reset_after_signal"
+                       feature_name: "rl_reset_after_signal()"
                }"
                end
 
@@ -3976,7 +3976,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_reset_line_state"
+                       feature_name: "rl_reset_line_state()"
                }"
                end
 
@@ -3988,11 +3988,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_reset_screen_size"
+                       feature_name: "rl_reset_screen_size()"
                }"
                end
 
-	rl_reset_terminal (an_argument_l1885_c7: POINTER): INTEGER 
+	rl_reset_terminal (argument_1: POINTER): INTEGER 
 
 		-- function rl_reset_terminal (in `/usr/include/readline/readline.h')
                -- rl_reset_terminal
@@ -4012,11 +4012,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_resize_terminal"
+                       feature_name: "rl_resize_terminal()"
                }"
                end
 
-	rl_restart_output (an_argument_l1432_c7: INTEGER; an_argument_l1433_c7: INTEGER): INTEGER 
+	rl_restart_output (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_restart_output (in `/usr/include/readline/readline.h')
                -- rl_restart_output
@@ -4036,11 +4036,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_restore_prompt"
+                       feature_name: "rl_restore_prompt()"
                }"
                end
 
-	rl_restore_state (an_argument_l2045_c7: POINTER): INTEGER 
+	rl_restore_state (argument_1: POINTER): INTEGER 
 
 		-- function rl_restore_state (in `/usr/include/readline/readline.h')
                -- rl_restore_state
@@ -4052,7 +4052,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_reverse_search_history (an_argument_l1396_c7: INTEGER; an_argument_l1397_c7: INTEGER): INTEGER 
+	rl_reverse_search_history (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_reverse_search_history (in `/usr/include/readline/readline.h')
                -- rl_reverse_search_history
@@ -4064,7 +4064,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_revert_line (an_argument_l1420_c7: INTEGER; an_argument_l1421_c7: INTEGER): INTEGER 
+	rl_revert_line (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_revert_line (in `/usr/include/readline/readline.h')
                -- rl_revert_line
@@ -4076,7 +4076,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_rubout (an_argument_l1204_c7: INTEGER; an_argument_l1205_c7: INTEGER): INTEGER 
+	rl_rubout (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_rubout (in `/usr/include/readline/readline.h')
                -- rl_rubout
@@ -4088,7 +4088,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_rubout_or_delete (an_argument_l1212_c7: INTEGER; an_argument_l1213_c7: INTEGER): INTEGER 
+	rl_rubout_or_delete (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_rubout_or_delete (in `/usr/include/readline/readline.h')
                -- rl_rubout_or_delete
@@ -4108,11 +4108,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_save_prompt"
+                       feature_name: "rl_save_prompt()"
                }"
                end
 
-	rl_save_state (an_argument_l2042_c7: POINTER): INTEGER 
+	rl_save_state (argument_1: POINTER): INTEGER 
 
 		-- function rl_save_state (in `/usr/include/readline/readline.h')
                -- rl_save_state
@@ -4124,7 +4124,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_set_key (an_argument_l1759_c7: POINTER; an_argument_l1760_c7: POINTER; an_argument_l1761_c7: POINTER): INTEGER 
+	rl_set_key (argument_1: POINTER; argument_2: POINTER; argument_3: POINTER): INTEGER 
 
 		-- function rl_set_key (in `/usr/include/readline/readline.h')
                -- rl_set_key
@@ -4136,7 +4136,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_set_keyboard_input_timeout (an_argument_l1912_c7: INTEGER): INTEGER 
+	rl_set_keyboard_input_timeout (argument_1: INTEGER): INTEGER 
 
 		-- function rl_set_keyboard_input_timeout (in `/usr/include/readline/readline.h')
                -- rl_set_keyboard_input_timeout
@@ -4156,11 +4156,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_set_keymap_from_edit_mode"
+                       feature_name: "rl_set_keymap_from_edit_mode()"
                }"
                end
 
-	rl_set_mark (an_argument_l1272_c7: INTEGER; an_argument_l1273_c7: INTEGER): INTEGER 
+	rl_set_mark (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_set_mark (in `/usr/include/readline/readline.h')
                -- rl_set_mark
@@ -4172,7 +4172,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_set_paren_blink_timeout (an_argument_l1933_c7: INTEGER): INTEGER 
+	rl_set_paren_blink_timeout (argument_1: INTEGER): INTEGER 
 
 		-- function rl_set_paren_blink_timeout (in `/usr/include/readline/readline.h')
                -- rl_set_paren_blink_timeout
@@ -4184,7 +4184,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_set_prompt (an_argument_l1682_c7: POINTER): INTEGER 
+	rl_set_prompt (argument_1: POINTER): INTEGER 
 
 		-- function rl_set_prompt (in `/usr/include/readline/readline.h')
                -- rl_set_prompt
@@ -4196,7 +4196,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_set_screen_size (an_argument_l1889_c7: INTEGER; an_argument_l1890_c7: INTEGER) 
+	rl_set_screen_size (argument_1: INTEGER; argument_2: INTEGER) 
 
 		-- function rl_set_screen_size (in `/usr/include/readline/readline.h')
                -- rl_set_screen_size
@@ -4216,11 +4216,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_set_signals"
+                       feature_name: "rl_set_signals()"
                }"
                end
 
-	rl_show_char (an_argument_l1847_c7: INTEGER): INTEGER 
+	rl_show_char (argument_1: INTEGER): INTEGER 
 
 		-- function rl_show_char (in `/usr/include/readline/readline.h')
                -- rl_show_char
@@ -4262,7 +4262,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_skip_csi_sequence (an_argument_l1176_c7: INTEGER; an_argument_l1177_c7: INTEGER): INTEGER 
+	rl_skip_csi_sequence (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_skip_csi_sequence (in `/usr/include/readline/readline.h')
                -- rl_skip_csi_sequence
@@ -4334,7 +4334,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_start_kbd_macro (an_argument_l1404_c7: INTEGER; an_argument_l1405_c7: INTEGER): INTEGER 
+	rl_start_kbd_macro (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_start_kbd_macro (in `/usr/include/readline/readline.h')
                -- rl_start_kbd_macro
@@ -4376,7 +4376,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_stop_output (an_argument_l1436_c7: INTEGER; an_argument_l1437_c7: INTEGER): INTEGER 
+	rl_stop_output (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_stop_output (in `/usr/include/readline/readline.h')
                -- rl_stop_output
@@ -4388,7 +4388,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_stuff_char (an_argument_l1901_c7: INTEGER): INTEGER 
+	rl_stuff_char (argument_1: INTEGER): INTEGER 
 
 		-- function rl_stuff_char (in `/usr/include/readline/readline.h')
                -- rl_stuff_char
@@ -4400,7 +4400,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_tab_insert (an_argument_l1192_c7: INTEGER; an_argument_l1193_c7: INTEGER): INTEGER 
+	rl_tab_insert (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_tab_insert (in `/usr/include/readline/readline.h')
                -- rl_tab_insert
@@ -4442,7 +4442,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_tilde_expand (an_argument_l1428_c7: INTEGER; an_argument_l1429_c7: INTEGER): INTEGER 
+	rl_tilde_expand (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_tilde_expand (in `/usr/include/readline/readline.h')
                -- rl_tilde_expand
@@ -4454,7 +4454,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_translate_keyseq (an_argument_l1769_c7: POINTER; an_argument_l1770_c7: POINTER; an_argument_l1771_c7: POINTER): INTEGER 
+	rl_translate_keyseq (argument_1: POINTER; argument_2: POINTER; argument_3: POINTER): INTEGER 
 
 		-- function rl_translate_keyseq (in `/usr/include/readline/readline.h')
                -- rl_translate_keyseq
@@ -4466,7 +4466,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_transpose_chars (an_argument_l1244_c7: INTEGER; an_argument_l1245_c7: INTEGER): INTEGER 
+	rl_transpose_chars (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_transpose_chars (in `/usr/include/readline/readline.h')
                -- rl_transpose_chars
@@ -4478,7 +4478,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_transpose_words (an_argument_l1240_c7: INTEGER; an_argument_l1241_c7: INTEGER): INTEGER 
+	rl_transpose_words (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_transpose_words (in `/usr/include/readline/readline.h')
                -- rl_transpose_words
@@ -4490,7 +4490,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_tty_set_default_bindings (an_argument_l1879_c7: POINTER) 
+	rl_tty_set_default_bindings (argument_1: POINTER) 
 
 		-- function rl_tty_set_default_bindings (in `/usr/include/readline/readline.h')
                -- rl_tty_set_default_bindings
@@ -4502,7 +4502,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_tty_status (an_argument_l1444_c7: INTEGER; an_argument_l1445_c7: INTEGER): INTEGER 
+	rl_tty_status (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_tty_status (in `/usr/include/readline/readline.h')
                -- rl_tty_status
@@ -4514,7 +4514,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_tty_unset_default_bindings (an_argument_l1882_c7: POINTER) 
+	rl_tty_unset_default_bindings (argument_1: POINTER) 
 
 		-- function rl_tty_unset_default_bindings (in `/usr/include/readline/readline.h')
                -- rl_tty_unset_default_bindings
@@ -4526,7 +4526,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_unbind_command_in_map (an_argument_l1724_c7: POINTER; an_argument_l1725_c7: POINTER): INTEGER 
+	rl_unbind_command_in_map (argument_1: POINTER; argument_2: POINTER): INTEGER 
 
 		-- function rl_unbind_command_in_map (in `/usr/include/readline/readline.h')
                -- rl_unbind_command_in_map
@@ -4538,7 +4538,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_unbind_function_in_map (an_argument_l1720_c7: POINTER; an_argument_l1721_c7: POINTER): INTEGER 
+	rl_unbind_function_in_map (argument_1: POINTER; argument_2: POINTER): INTEGER 
 
 		-- function rl_unbind_function_in_map (in `/usr/include/readline/readline.h')
                -- rl_unbind_function_in_map
@@ -4550,7 +4550,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_unbind_key (an_argument_l1704_c7: INTEGER): INTEGER 
+	rl_unbind_key (argument_1: INTEGER): INTEGER 
 
 		-- function rl_unbind_key (in `/usr/include/readline/readline.h')
                -- rl_unbind_key
@@ -4562,7 +4562,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_unbind_key_in_map (an_argument_l1707_c7: INTEGER; an_argument_l1708_c7: POINTER): INTEGER 
+	rl_unbind_key_in_map (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function rl_unbind_key_in_map (in `/usr/include/readline/readline.h')
                -- rl_unbind_key_in_map
@@ -4574,7 +4574,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_undo_command (an_argument_l1424_c7: INTEGER; an_argument_l1425_c7: INTEGER): INTEGER 
+	rl_undo_command (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_undo_command (in `/usr/include/readline/readline.h')
                -- rl_undo_command
@@ -4616,7 +4616,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_universal_argument (an_argument_l1124_c7: INTEGER; an_argument_l1125_c7: INTEGER): INTEGER 
+	rl_universal_argument (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_universal_argument (in `/usr/include/readline/readline.h')
                -- rl_universal_argument
@@ -4628,7 +4628,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_unix_filename_rubout (an_argument_l1356_c7: INTEGER; an_argument_l1357_c7: INTEGER): INTEGER 
+	rl_unix_filename_rubout (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_unix_filename_rubout (in `/usr/include/readline/readline.h')
                -- rl_unix_filename_rubout
@@ -4640,7 +4640,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_unix_line_discard (an_argument_l1360_c7: INTEGER; an_argument_l1361_c7: INTEGER): INTEGER 
+	rl_unix_line_discard (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_unix_line_discard (in `/usr/include/readline/readline.h')
                -- rl_unix_line_discard
@@ -4652,7 +4652,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_unix_word_rubout (an_argument_l1352_c7: INTEGER; an_argument_l1353_c7: INTEGER): INTEGER 
+	rl_unix_word_rubout (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_unix_word_rubout (in `/usr/include/readline/readline.h')
                -- rl_unix_word_rubout
@@ -4664,7 +4664,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_untranslate_keyseq (an_argument_l1774_c7: INTEGER): POINTER 
+	rl_untranslate_keyseq (argument_1: INTEGER): POINTER 
 
 		-- function rl_untranslate_keyseq (in `/usr/include/readline/readline.h')
                -- rl_untranslate_keyseq
@@ -4676,7 +4676,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_upcase_word (an_argument_l1228_c7: INTEGER; an_argument_l1229_c7: INTEGER): INTEGER 
+	rl_upcase_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_upcase_word (in `/usr/include/readline/readline.h')
                -- rl_upcase_word
@@ -4688,7 +4688,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_username_completion_function (an_argument_l1952_c7: POINTER; an_argument_l1953_c7: INTEGER): POINTER 
+	rl_username_completion_function (argument_1: POINTER; argument_2: INTEGER): POINTER 
 
 		-- function rl_username_completion_function (in `/usr/include/readline/readline.h')
                -- rl_username_completion_function
@@ -4700,7 +4700,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_variable_bind (an_argument_l1755_c7: POINTER; an_argument_l1756_c7: POINTER): INTEGER 
+	rl_variable_bind (argument_1: POINTER; argument_2: POINTER): INTEGER 
 
 		-- function rl_variable_bind (in `/usr/include/readline/readline.h')
                -- rl_variable_bind
@@ -4712,7 +4712,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_variable_dumper (an_argument_l1799_c7: INTEGER) 
+	rl_variable_dumper (argument_1: INTEGER) 
 
 		-- function rl_variable_dumper (in `/usr/include/readline/readline.h')
                -- rl_variable_dumper
@@ -4724,7 +4724,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_variable_value (an_argument_l1752_c7: POINTER): POINTER 
+	rl_variable_value (argument_1: POINTER): POINTER 
 
 		-- function rl_variable_value (in `/usr/include/readline/readline.h')
                -- rl_variable_value
@@ -4736,7 +4736,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_append_eol (an_argument_l1542_c7: INTEGER; an_argument_l1543_c7: INTEGER): INTEGER 
+	rl_vi_append_eol (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_append_eol (in `/usr/include/readline/readline.h')
                -- rl_vi_append_eol
@@ -4748,7 +4748,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_append_mode (an_argument_l1538_c7: INTEGER; an_argument_l1539_c7: INTEGER): INTEGER 
+	rl_vi_append_mode (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_append_mode (in `/usr/include/readline/readline.h')
                -- rl_vi_append_mode
@@ -4760,7 +4760,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_arg_digit (an_argument_l1562_c7: INTEGER; an_argument_l1563_c7: INTEGER): INTEGER 
+	rl_vi_arg_digit (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_arg_digit (in `/usr/include/readline/readline.h')
                -- rl_vi_arg_digit
@@ -4772,7 +4772,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_b_word (an_argument_l1659_c7: INTEGER; an_argument_l1660_c7: INTEGER): INTEGER 
+	rl_vi_b_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_bWord (in `/usr/include/readline/readline.h')
                -- rl_vi_bWord
@@ -4784,7 +4784,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_back_to_indent (an_argument_l1598_c7: INTEGER; an_argument_l1599_c7: INTEGER): INTEGER 
+	rl_vi_back_to_indent (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_back_to_indent (in `/usr/include/readline/readline.h')
                -- rl_vi_back_to_indent
@@ -4796,7 +4796,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_bracktype (an_argument_l1647_c7: INTEGER): INTEGER 
+	rl_vi_bracktype (argument_1: INTEGER): INTEGER 
 
 		-- function rl_vi_bracktype (in `/usr/include/readline/readline.h')
                -- rl_vi_bracktype
@@ -4808,7 +4808,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_bword (an_argument_l1671_c7: INTEGER; an_argument_l1672_c7: INTEGER): INTEGER 
+	rl_vi_bword (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_bword (in `/usr/include/readline/readline.h')
                -- rl_vi_bword
@@ -4820,7 +4820,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_change_case (an_argument_l1566_c7: INTEGER; an_argument_l1567_c7: INTEGER): INTEGER 
+	rl_vi_change_case (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_change_case (in `/usr/include/readline/readline.h')
                -- rl_vi_change_case
@@ -4832,7 +4832,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_change_char (an_argument_l1614_c7: INTEGER; an_argument_l1615_c7: INTEGER): INTEGER 
+	rl_vi_change_char (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_change_char (in `/usr/include/readline/readline.h')
                -- rl_vi_change_char
@@ -4844,7 +4844,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_change_to (an_argument_l1582_c7: INTEGER; an_argument_l1583_c7: INTEGER): INTEGER 
+	rl_vi_change_to (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_change_to (in `/usr/include/readline/readline.h')
                -- rl_vi_change_to
@@ -4856,7 +4856,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_char_search (an_argument_l1606_c7: INTEGER; an_argument_l1607_c7: INTEGER): INTEGER 
+	rl_vi_char_search (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_char_search (in `/usr/include/readline/readline.h')
                -- rl_vi_char_search
@@ -4876,11 +4876,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rl_vi_check"
+                       feature_name: "rl_vi_check()"
                }"
                end
 
-	rl_vi_column (an_argument_l1574_c7: INTEGER; an_argument_l1575_c7: INTEGER): INTEGER 
+	rl_vi_column (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_column (in `/usr/include/readline/readline.h')
                -- rl_vi_column
@@ -4892,7 +4892,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_complete (an_argument_l1514_c7: INTEGER; an_argument_l1515_c7: INTEGER): INTEGER 
+	rl_vi_complete (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_complete (in `/usr/include/readline/readline.h')
                -- rl_vi_complete
@@ -4904,7 +4904,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_delete (an_argument_l1594_c7: INTEGER; an_argument_l1595_c7: INTEGER): INTEGER 
+	rl_vi_delete (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_delete (in `/usr/include/readline/readline.h')
                -- rl_vi_delete
@@ -4916,7 +4916,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_delete_to (an_argument_l1578_c7: INTEGER; an_argument_l1579_c7: INTEGER): INTEGER 
+	rl_vi_delete_to (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_delete_to (in `/usr/include/readline/readline.h')
                -- rl_vi_delete_to
@@ -4928,7 +4928,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_domove (an_argument_l1643_c7: INTEGER; an_argument_l1644_c7: POINTER): INTEGER 
+	rl_vi_domove (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function rl_vi_domove (in `/usr/include/readline/readline.h')
                -- rl_vi_domove
@@ -4940,7 +4940,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_e_word (an_argument_l1663_c7: INTEGER; an_argument_l1664_c7: INTEGER): INTEGER 
+	rl_vi_e_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_eWord (in `/usr/include/readline/readline.h')
                -- rl_vi_eWord
@@ -4952,7 +4952,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_editing_mode (an_argument_l1280_c7: INTEGER; an_argument_l1281_c7: INTEGER): INTEGER 
+	rl_vi_editing_mode (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_editing_mode (in `/usr/include/readline/readline.h')
                -- rl_vi_editing_mode
@@ -4964,7 +4964,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_end_word (an_argument_l1530_c7: INTEGER; an_argument_l1531_c7: INTEGER): INTEGER 
+	rl_vi_end_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_end_word (in `/usr/include/readline/readline.h')
                -- rl_vi_end_word
@@ -4976,7 +4976,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_eof_maybe (an_argument_l1546_c7: INTEGER; an_argument_l1547_c7: INTEGER): INTEGER 
+	rl_vi_eof_maybe (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_eof_maybe (in `/usr/include/readline/readline.h')
                -- rl_vi_eof_maybe
@@ -4988,7 +4988,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_eword (an_argument_l1675_c7: INTEGER; an_argument_l1676_c7: INTEGER): INTEGER 
+	rl_vi_eword (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_eword (in `/usr/include/readline/readline.h')
                -- rl_vi_eword
@@ -5000,7 +5000,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_f_word (an_argument_l1655_c7: INTEGER; an_argument_l1656_c7: INTEGER): INTEGER 
+	rl_vi_f_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_fWord (in `/usr/include/readline/readline.h')
                -- rl_vi_fWord
@@ -5012,7 +5012,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_fetch_history (an_argument_l1502_c7: INTEGER; an_argument_l1503_c7: INTEGER): INTEGER 
+	rl_vi_fetch_history (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_fetch_history (in `/usr/include/readline/readline.h')
                -- rl_vi_fetch_history
@@ -5024,7 +5024,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_first_print (an_argument_l1602_c7: INTEGER; an_argument_l1603_c7: INTEGER): INTEGER 
+	rl_vi_first_print (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_first_print (in `/usr/include/readline/readline.h')
                -- rl_vi_first_print
@@ -5036,7 +5036,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_fword (an_argument_l1667_c7: INTEGER; an_argument_l1668_c7: INTEGER): INTEGER 
+	rl_vi_fword (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_fword (in `/usr/include/readline/readline.h')
                -- rl_vi_fword
@@ -5048,7 +5048,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_goto_mark (an_argument_l1638_c7: INTEGER; an_argument_l1639_c7: INTEGER): INTEGER 
+	rl_vi_goto_mark (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_goto_mark (in `/usr/include/readline/readline.h')
                -- rl_vi_goto_mark
@@ -5060,7 +5060,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_insert_beg (an_argument_l1534_c7: INTEGER; an_argument_l1535_c7: INTEGER): INTEGER 
+	rl_vi_insert_beg (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_insert_beg (in `/usr/include/readline/readline.h')
                -- rl_vi_insert_beg
@@ -5072,7 +5072,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_insert_mode (an_argument_l1554_c7: INTEGER; an_argument_l1555_c7: INTEGER): INTEGER 
+	rl_vi_insert_mode (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_insert_mode (in `/usr/include/readline/readline.h')
                -- rl_vi_insert_mode
@@ -5084,7 +5084,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_insertion_mode (an_argument_l1550_c7: INTEGER; an_argument_l1551_c7: INTEGER): INTEGER 
+	rl_vi_insertion_mode (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_insertion_mode (in `/usr/include/readline/readline.h')
                -- rl_vi_insertion_mode
@@ -5096,7 +5096,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_match (an_argument_l1610_c7: INTEGER; an_argument_l1611_c7: INTEGER): INTEGER 
+	rl_vi_match (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_match (in `/usr/include/readline/readline.h')
                -- rl_vi_match
@@ -5108,7 +5108,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_movement_mode (an_argument_l1558_c7: INTEGER; an_argument_l1559_c7: INTEGER): INTEGER 
+	rl_vi_movement_mode (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_movement_mode (in `/usr/include/readline/readline.h')
                -- rl_vi_movement_mode
@@ -5120,7 +5120,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_next_word (an_argument_l1526_c7: INTEGER; an_argument_l1527_c7: INTEGER): INTEGER 
+	rl_vi_next_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_next_word (in `/usr/include/readline/readline.h')
                -- rl_vi_next_word
@@ -5132,7 +5132,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_overstrike (an_argument_l1622_c7: INTEGER; an_argument_l1623_c7: INTEGER): INTEGER 
+	rl_vi_overstrike (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_overstrike (in `/usr/include/readline/readline.h')
                -- rl_vi_overstrike
@@ -5144,7 +5144,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_overstrike_delete (an_argument_l1626_c7: INTEGER; an_argument_l1627_c7: INTEGER): INTEGER 
+	rl_vi_overstrike_delete (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_overstrike_delete (in `/usr/include/readline/readline.h')
                -- rl_vi_overstrike_delete
@@ -5156,7 +5156,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_prev_word (an_argument_l1522_c7: INTEGER; an_argument_l1523_c7: INTEGER): INTEGER 
+	rl_vi_prev_word (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_prev_word (in `/usr/include/readline/readline.h')
                -- rl_vi_prev_word
@@ -5168,7 +5168,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_put (an_argument_l1570_c7: INTEGER; an_argument_l1571_c7: INTEGER): INTEGER 
+	rl_vi_put (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_put (in `/usr/include/readline/readline.h')
                -- rl_vi_put
@@ -5180,7 +5180,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_redo (an_argument_l1490_c7: INTEGER; an_argument_l1491_c7: INTEGER): INTEGER 
+	rl_vi_redo (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_redo (in `/usr/include/readline/readline.h')
                -- rl_vi_redo
@@ -5192,7 +5192,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_replace (an_argument_l1630_c7: INTEGER; an_argument_l1631_c7: INTEGER): INTEGER 
+	rl_vi_replace (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_replace (in `/usr/include/readline/readline.h')
                -- rl_vi_replace
@@ -5204,7 +5204,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_rubout (an_argument_l1590_c7: INTEGER; an_argument_l1591_c7: INTEGER): INTEGER 
+	rl_vi_rubout (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_rubout (in `/usr/include/readline/readline.h')
                -- rl_vi_rubout
@@ -5216,7 +5216,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_search (an_argument_l1510_c7: INTEGER; an_argument_l1511_c7: INTEGER): INTEGER 
+	rl_vi_search (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_search (in `/usr/include/readline/readline.h')
                -- rl_vi_search
@@ -5228,7 +5228,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_search_again (an_argument_l1506_c7: INTEGER; an_argument_l1507_c7: INTEGER): INTEGER 
+	rl_vi_search_again (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_search_again (in `/usr/include/readline/readline.h')
                -- rl_vi_search_again
@@ -5240,7 +5240,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_set_mark (an_argument_l1634_c7: INTEGER; an_argument_l1635_c7: INTEGER): INTEGER 
+	rl_vi_set_mark (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_set_mark (in `/usr/include/readline/readline.h')
                -- rl_vi_set_mark
@@ -5252,7 +5252,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_start_inserting (an_argument_l1650_c7: INTEGER; an_argument_l1651_c7: INTEGER; an_argument_l1652_c7: INTEGER) 
+	rl_vi_start_inserting (argument_1: INTEGER; argument_2: INTEGER; argument_3: INTEGER) 
 
 		-- function rl_vi_start_inserting (in `/usr/include/readline/readline.h')
                -- rl_vi_start_inserting
@@ -5264,7 +5264,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_subst (an_argument_l1618_c7: INTEGER; an_argument_l1619_c7: INTEGER): INTEGER 
+	rl_vi_subst (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_subst (in `/usr/include/readline/readline.h')
                -- rl_vi_subst
@@ -5276,7 +5276,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_tilde_expand (an_argument_l1518_c7: INTEGER; an_argument_l1519_c7: INTEGER): INTEGER 
+	rl_vi_tilde_expand (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_tilde_expand (in `/usr/include/readline/readline.h')
                -- rl_vi_tilde_expand
@@ -5288,7 +5288,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_undo (an_argument_l1494_c7: INTEGER; an_argument_l1495_c7: INTEGER): INTEGER 
+	rl_vi_undo (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_undo (in `/usr/include/readline/readline.h')
                -- rl_vi_undo
@@ -5300,7 +5300,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_yank_arg (an_argument_l1498_c7: INTEGER; an_argument_l1499_c7: INTEGER): INTEGER 
+	rl_vi_yank_arg (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_yank_arg (in `/usr/include/readline/readline.h')
                -- rl_vi_yank_arg
@@ -5312,7 +5312,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_vi_yank_to (an_argument_l1586_c7: INTEGER; an_argument_l1587_c7: INTEGER): INTEGER 
+	rl_vi_yank_to (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_vi_yank_to (in `/usr/include/readline/readline.h')
                -- rl_vi_yank_to
@@ -5324,7 +5324,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_yank (an_argument_l1380_c7: INTEGER; an_argument_l1381_c7: INTEGER): INTEGER 
+	rl_yank (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_yank (in `/usr/include/readline/readline.h')
                -- rl_yank
@@ -5336,7 +5336,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_yank_last_arg (an_argument_l1392_c7: INTEGER; an_argument_l1393_c7: INTEGER): INTEGER 
+	rl_yank_last_arg (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_yank_last_arg (in `/usr/include/readline/readline.h')
                -- rl_yank_last_arg
@@ -5348,7 +5348,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_yank_nth_arg (an_argument_l1388_c7: INTEGER; an_argument_l1389_c7: INTEGER): INTEGER 
+	rl_yank_nth_arg (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_yank_nth_arg (in `/usr/include/readline/readline.h')
                -- rl_yank_nth_arg
@@ -5360,7 +5360,7 @@ feature {} -- External calls
                }"
                end
 
-	rl_yank_pop (an_argument_l1384_c7: INTEGER; an_argument_l1385_c7: INTEGER): INTEGER 
+	rl_yank_pop (argument_1: INTEGER; argument_2: INTEGER): INTEGER 
 
 		-- function rl_yank_pop (in `/usr/include/readline/readline.h')
                -- rl_yank_pop

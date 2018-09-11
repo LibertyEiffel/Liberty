@@ -232,7 +232,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlNewAutomata"
+                       feature_name: "xmlNewAutomata()"
                }"
                end
 

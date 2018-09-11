@@ -19,7 +19,10 @@ insert
    LOGGING undefine copy, is_equal end
    GIBASEINFO_EXTERNALS -- undefine copy, is_equal end
    GITYPEINFO_EXTERNALS -- undefine copy, is_equal end
-   NAME_CONVERTER undefine copy, is_equal end
+   NAME_CONVERTER 
+         export {} all 
+         undefine copy, is_equal 
+         end
 
 feature {ANY} -- Eiffel wrapper generation
 	emit_wrapper is
@@ -87,7 +90,7 @@ feature {ANY}
 		 if ptr.is_not_null then
 			 create Result.from_external(ptr)
 		 else 
-			 Result := (once "horror vacui fixme").intern
+			 Result := (once "horror vacui fixme (in GI_BASE_INFO)").intern
 		 end
 	 end
 

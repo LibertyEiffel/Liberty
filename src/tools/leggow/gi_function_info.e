@@ -16,48 +16,144 @@ feature {ANY} -- Wrapper
 		do
 			("GI_FUNCTION: #(1)%N" # name).print_on(std_output)
 		end
+    
+    feature_name: STRING 
+       -- The name of the Eiffel feature that wrap Current function
+       do
+          if stored_feaure_name=Void then
+             stored_feaure_name := eiffel_feature(name)
+             -- name alone is not right
+          end
+          Result := stored_feaure_name
+       end
 
-	eiffel_wrapper: STRING is
-        local i: like lower
-		do
-            Result := eiffel_feature(name)  --no, name is not right
+   requires_custom_code: BOOLEAN 
+      -- Does Current function have arguments or results that are not handled
+      -- as native types? Non-native types requires glue code on the Eiffel side
 
-            if has_arguments then
-                debug 
-                    log.info.put_line("#(1) arguments from #(2) to #(3)" # & count # & lower # & upper)
-                end
-                    
-                Result.append(once "(")
-                from i:=lower until i>upper-1
-                loop -- iterate from first to next to second-last element
-                    debug 
-                        log.info.put_line("arg #(1): #(2)" # &i # & item(i))
-                    end
-                    Result.append(item(i).eiffel_wrapper)
-                    Result.append(once "; ")
-                    i:=i+1
-                end
-                Result.append(last.eiffel_wrapper)
-                Result.append(once ")")
+      -- Note: currently this is an attribute, updated when eiffel_wrapper is queried 
+
+   eiffel_low_level_wrapper: STRING 
+      do
+         Result := "%T"+feature_name+"_low_level"
+         if has_arguments then
+            Result.append(once "(")
+            from i:=lower until i>upper-1
+            loop -- iterate from first to next to second-last element
+                  Result.append(item(i).eiffel_wrapper)
+                  Result.append(once "; ")
+                  i:=i+1
             end
-            if is_query then
-                Result.append(once ": #(1) -- C type #(2)" # return_type.eiffel_wrapper # name)
-            end
-            Result.append(once "    -- TODO: add a description")
-            Result.append("[
-                
-                external "plug_in"
-                alias "{
-                    location: "."
-                    module_name: "plugin"
-                    feature_name: "#(1)"
-                    }"
-                end
-
+            Result.append(last.eiffel_wrapper)
+            Result.append(once ")")
+         end
+         if is_query then
+            Result.append(once ": #(1) -- C type #(2)" # return_type.eiffel_wrapper # name)
+         end
+         Result.append("[
+               -- #(1) description (TODO)
+               external "plug_in"
+               alias "{
+                  location: "."
+                  module_name: "plugin"
+                  feature_name: "#(1)"
+               }"
+               end
             ]" # symbol)
+      end
 
-            -- "-- GI_FUNCTION_INFO not_yet_implemented"
-		end
+   eiffel_wrapper: STRING 
+      local 
+         i: like lower
+         an_argument: GI_ARG_INFO
+      do
+         Result := "%T"+feature_name
+         if has_arguments then
+            debug 
+                  log.info.put_line("#(1) arguments from #(2) to #(3)" # & count # & lower # & upper)
+            end
+
+            Result.append(once "(")
+            from i:=lower until i>upper-1
+            loop -- iterate from first to next to second-last element
+                  an_argument := item(i)
+                  if not requires_custom_code and then not an_argument.type.is_native_type then
+                     -- is_native_type may be relatively costly. It's a waste to check it out when we
+                     -- already know that custom wrapper code is required
+                     requires_custom_code := True
+                  end
+                  debug 
+                        log.info.put_line("arg #(1): #(2)" # &i # & an_argument)
+                  end
+                  Result.append(an_argument.eiffel_wrapper)
+                  Result.append(once "; ")
+                  i:=i+1
+            end
+            if not requires_custom_code and then not last.type.is_native_type then
+               requires_custom_code := True
+            end
+            Result.append(last.eiffel_wrapper)
+            Result.append(once ")")
+         end
+         if is_query then
+            Result.append(once ": #(1) -- C type #(2)" # return_type.eiffel_wrapper # name)
+            if not requires_custom_code and then not return_type.is_native_type then
+               requires_custom_code := True
+            end
+         end
+         if requires_custom_code then
+            if is_query then
+               if return_type.is_native_type then
+                  -- Native return type
+                  Result.append("[
+                        : #(1)
+                        -- #(2)
+                        do
+                           Result := 
+                     ]" # return_type.eiffel_wrapper # symbol)
+              else
+                  if return_type.may_return_null then
+                     -- Non native return type, may be NULL.
+                     Result.append("[
+                              -- #(1)
+                           local a_ptr: POINTER
+                           do
+                              a_ptr := #(2)
+                              if a_ptr.is_not_null then
+                                 create Result.from_external_pointer(a_ptr)
+                              end
+                        ]" # symbol)
+                  else
+                     -- Non native, non-Void return type
+                     Result.append("[
+                              -- #(1)
+                           do
+                              create Result.from_external_pointer(#(2))
+                        ]" # symbol)
+                  end
+               end
+            else -- it is a command
+               Result.append("[
+                     -- #(1)
+                  do
+
+                  end
+                  ]" # symbol)
+
+            end
+            Result.append("%N%Tend")
+         else Result.append("[
+               -- #(1) description (TODO)
+               external "plug_in"
+               alias "{
+                  location: "."
+                  module_name: "plugin"
+                  feature_name: "#(1)"
+               }"
+               end
+            ]" # symbol)
+         end
+      end
 
     suffix: STRING is "_FUNCTION"
 
@@ -166,6 +262,8 @@ feature {ANY}
 --    -----------------------------------------------------------------------------------------------------------------------
 -- 
 -- 
+feature {} -- Implementation
+   stored_feaure_name: STRING
 end -- class GI_FUNCTION_INFO
 	
 -- Copyright (C) 2013-2018: Paolo Redaelli <paolo.redaelli@gmail.com>

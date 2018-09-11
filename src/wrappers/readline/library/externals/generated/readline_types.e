@@ -7,7 +7,7 @@ insert ANY undefine is_equal, copy end
 
 	STANDARD_C_LIBRARY_TYPES
 
-feature {ANY} -- C type definitions (typedefs)
+feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
        histdata_t: POINTER
                -- typedef histdata_t from /usr/include/readline/history.h
                -- Empty by design, used for anchored declarations.

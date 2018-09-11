@@ -104,42 +104,42 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_dtdvalid: BOOLEAN
                do
-                       Result := (value=dtdvalid_low_level)
+                       Result := (value.bit_and(dtdvalid_low_level).to_boolean)
                end
 
        is_html: BOOLEAN
                do
-                       Result := (value=html_low_level)
+                       Result := (value.bit_and(html_low_level).to_boolean)
                end
 
        is_internal: BOOLEAN
                do
-                       Result := (value=internal_low_level)
+                       Result := (value.bit_and(internal_low_level).to_boolean)
                end
 
        is_nsvalid: BOOLEAN
                do
-                       Result := (value=nsvalid_low_level)
+                       Result := (value.bit_and(nsvalid_low_level).to_boolean)
                end
 
        is_old10: BOOLEAN
                do
-                       Result := (value=old10_low_level)
+                       Result := (value.bit_and(old10_low_level).to_boolean)
                end
 
        is_userbuilt: BOOLEAN
                do
-                       Result := (value=userbuilt_low_level)
+                       Result := (value.bit_and(userbuilt_low_level).to_boolean)
                end
 
        is_wellformed: BOOLEAN
                do
-                       Result := (value=wellformed_low_level)
+                       Result := (value.bit_and(wellformed_low_level).to_boolean)
                end
 
        is_xinclude: BOOLEAN
                do
-                       Result := (value=xinclude_low_level)
+                       Result := (value.bit_and(xinclude_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

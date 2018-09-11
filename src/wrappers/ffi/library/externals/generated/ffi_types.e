@@ -7,7 +7,7 @@ insert ANY undefine is_equal, copy end
 
 	STANDARD_C_LIBRARY_TYPES
 
-feature {ANY} -- C type definitions (typedefs)
+feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
        ffi_type: NATURAL
                -- typedef FFI_TYPE from /usr/include/x86_64-linux-gnu/ffi.h
                -- Empty by design, used for anchored declarations.

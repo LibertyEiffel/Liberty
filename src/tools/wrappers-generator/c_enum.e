@@ -88,7 +88,7 @@ feature {ANY}
    emit_items
       do
          if children_count > 0 then
-            if flag_enums.has(eiffel_name) then
+            if flag_enums.has(c_string_name) then
                log(once ", forcefully wrapped as flag.%N")
                append_flag_items
             elseif have_flags_values then

@@ -7,7 +7,7 @@ insert ANY undefine is_equal, copy end
 
 	STANDARD_C_LIBRARY_TYPES
 
-feature {ANY} -- C type definitions (typedefs)
+feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
        gifficlosure_callback: POINTER
                -- typedef GIFFIClosureCallback from /usr/include/gobject-introspection-1.0/girffi.h
                -- Empty by design, used for anchored declarations.
@@ -87,6 +87,13 @@ feature {ANY} -- C type definitions (typedefs)
 
        gtype_plugin_use: POINTER
                -- typedef GTypePluginUse from /usr/include/glib-2.0/gobject/gtypeplugin.h
+               -- Empty by design, used for anchored declarations.
+       do
+       ensure Result.is_default
+       end
+
+       gtype_module_autoptr: POINTER
+               -- typedef GTypeModule_autoptr from /usr/include/glib-2.0/gobject/gtypemodule.h
                -- Empty by design, used for anchored declarations.
        do
        ensure Result.is_default

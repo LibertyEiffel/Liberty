@@ -65,7 +65,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "zmq_errno"
+                       feature_name: "zmq_errno()"
                }"
                end
 

@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCleanupInputCallbacks"
+                       feature_name: "xmlCleanupInputCallbacks()"
                }"
                end
 
@@ -76,7 +76,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCleanupOutputCallbacks"
+                       feature_name: "xmlCleanupOutputCallbacks()"
                }"
                end
 
@@ -546,7 +546,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlPopInputCallbacks"
+                       feature_name: "xmlPopInputCallbacks()"
                }"
                end
 
@@ -558,7 +558,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlRegisterDefaultInputCallbacks"
+                       feature_name: "xmlRegisterDefaultInputCallbacks()"
                }"
                end
 
@@ -570,7 +570,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlRegisterDefaultOutputCallbacks"
+                       feature_name: "xmlRegisterDefaultOutputCallbacks()"
                }"
                end
 
@@ -582,7 +582,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlRegisterHTTPPostCallbacks"
+                       feature_name: "xmlRegisterHTTPPostCallbacks()"
                }"
                end
 

@@ -82,32 +82,32 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_closure: BOOLEAN
                do
-                       Result := (value=closure_low_level)
+                       Result := (value.bit_and(closure_low_level).to_boolean)
                end
 
        is_data: BOOLEAN
                do
-                       Result := (value=data_low_level)
+                       Result := (value.bit_and(data_low_level).to_boolean)
                end
 
        is_detail: BOOLEAN
                do
-                       Result := (value=detail_low_level)
+                       Result := (value.bit_and(detail_low_level).to_boolean)
                end
 
        is_func: BOOLEAN
                do
-                       Result := (value=func_low_level)
+                       Result := (value.bit_and(func_low_level).to_boolean)
                end
 
        is_id: BOOLEAN
                do
-                       Result := (value=id_low_level)
+                       Result := (value.bit_and(id_low_level).to_boolean)
                end
 
        is_unblocked: BOOLEAN
                do
-                       Result := (value=unblocked_low_level)
+                       Result := (value.bit_and(unblocked_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

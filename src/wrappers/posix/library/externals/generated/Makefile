@@ -24,8 +24,6 @@ HEADERS:=$(shell cpp $(HEADER) -H -o /dev/null 2>&1 | cut -d " " -f 2 | grep -v 
 -e /types.h \
 -e /wchar.h )
 
-CASTXML:=$(shell command -v castxml 2>/dev/null)
-
 .PHONY: clean
 
 wrappers: $(XML)
@@ -38,11 +36,7 @@ debug: $(XML)
 	wrappers_generator.debug --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER)
-ifdef CASTXML
 	@castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
-else
-	@gccxml --gccxml-compiler gcc-4.9 $(HEADER) -fxml=$(XML)
-endif
 
 ## Ideally here we should make wrappers for include files not already wrapped in common wrapper cluster using a command like
 ## (gcc -M ../../../common/library/externals/plugin/c/standard-c-lib.h; gcc -M plugin/c/liberty-posix.h)|sort |uniq --repeated 

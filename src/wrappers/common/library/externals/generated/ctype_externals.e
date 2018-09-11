@@ -11,7 +11,7 @@ feature {} -- External calls
 	-- `hidden' function __ctype_b_loc skipped.
 	-- `hidden' function __ctype_tolower_loc skipped.
 	-- `hidden' function __ctype_toupper_loc skipped.
-	isalnum (an_argument_l95_c7: INTEGER): INTEGER 
+	isalnum (argument_1: INTEGER): INTEGER 
 
 		-- function isalnum (in `/usr/include/ctype.h')
                -- isalnum
@@ -23,7 +23,7 @@ feature {} -- External calls
                }"
                end
 
-	isalnum_l (an_argument_l156_c7: INTEGER; an_argument_l157_c7: POINTER): INTEGER 
+	isalnum_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function isalnum_l (in `/usr/include/ctype.h')
                -- isalnum_l
@@ -35,7 +35,7 @@ feature {} -- External calls
                }"
                end
 
-	isalpha (an_argument_l98_c7: INTEGER): INTEGER 
+	isalpha (argument_1: INTEGER): INTEGER 
 
 		-- function isalpha (in `/usr/include/ctype.h')
                -- isalpha
@@ -47,7 +47,7 @@ feature {} -- External calls
                }"
                end
 
-	isalpha_l (an_argument_l160_c7: INTEGER; an_argument_l161_c7: POINTER): INTEGER 
+	isalpha_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function isalpha_l (in `/usr/include/ctype.h')
                -- isalpha_l
@@ -71,7 +71,7 @@ feature {} -- External calls
                }"
                end
 
-	isblank (an_argument_l134_c7: INTEGER): INTEGER 
+	isblank (argument_1: INTEGER): INTEGER 
 
 		-- function isblank (in `/usr/include/ctype.h')
                -- isblank
@@ -83,7 +83,7 @@ feature {} -- External calls
                }"
                end
 
-	isblank_l (an_argument_l200_c7: INTEGER; an_argument_l201_c7: POINTER): INTEGER 
+	isblank_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function isblank_l (in `/usr/include/ctype.h')
                -- isblank_l
@@ -95,7 +95,7 @@ feature {} -- External calls
                }"
                end
 
-	iscntrl (an_argument_l101_c7: INTEGER): INTEGER 
+	iscntrl (argument_1: INTEGER): INTEGER 
 
 		-- function iscntrl (in `/usr/include/ctype.h')
                -- iscntrl
@@ -107,7 +107,7 @@ feature {} -- External calls
                }"
                end
 
-	iscntrl_l (an_argument_l164_c7: INTEGER; an_argument_l165_c7: POINTER): INTEGER 
+	iscntrl_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function iscntrl_l (in `/usr/include/ctype.h')
                -- iscntrl_l
@@ -131,7 +131,7 @@ feature {} -- External calls
                }"
                end
 
-	isdigit (an_argument_l104_c7: INTEGER): INTEGER 
+	isdigit (argument_1: INTEGER): INTEGER 
 
 		-- function isdigit (in `/usr/include/ctype.h')
                -- isdigit
@@ -143,7 +143,7 @@ feature {} -- External calls
                }"
                end
 
-	isdigit_l (an_argument_l168_c7: INTEGER; an_argument_l169_c7: POINTER): INTEGER 
+	isdigit_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function isdigit_l (in `/usr/include/ctype.h')
                -- isdigit_l
@@ -155,7 +155,7 @@ feature {} -- External calls
                }"
                end
 
-	isgraph (an_argument_l110_c7: INTEGER): INTEGER 
+	isgraph (argument_1: INTEGER): INTEGER 
 
 		-- function isgraph (in `/usr/include/ctype.h')
                -- isgraph
@@ -167,7 +167,7 @@ feature {} -- External calls
                }"
                end
 
-	isgraph_l (an_argument_l176_c7: INTEGER; an_argument_l177_c7: POINTER): INTEGER 
+	isgraph_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function isgraph_l (in `/usr/include/ctype.h')
                -- isgraph_l
@@ -179,7 +179,7 @@ feature {} -- External calls
                }"
                end
 
-	islower (an_argument_l107_c7: INTEGER): INTEGER 
+	islower (argument_1: INTEGER): INTEGER 
 
 		-- function islower (in `/usr/include/ctype.h')
                -- islower
@@ -191,7 +191,7 @@ feature {} -- External calls
                }"
                end
 
-	islower_l (an_argument_l172_c7: INTEGER; an_argument_l173_c7: POINTER): INTEGER 
+	islower_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function islower_l (in `/usr/include/ctype.h')
                -- islower_l
@@ -203,7 +203,7 @@ feature {} -- External calls
                }"
                end
 
-	isprint (an_argument_l113_c7: INTEGER): INTEGER 
+	isprint (argument_1: INTEGER): INTEGER 
 
 		-- function isprint (in `/usr/include/ctype.h')
                -- isprint
@@ -215,7 +215,7 @@ feature {} -- External calls
                }"
                end
 
-	isprint_l (an_argument_l180_c7: INTEGER; an_argument_l181_c7: POINTER): INTEGER 
+	isprint_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function isprint_l (in `/usr/include/ctype.h')
                -- isprint_l
@@ -227,7 +227,7 @@ feature {} -- External calls
                }"
                end
 
-	ispunct (an_argument_l116_c7: INTEGER): INTEGER 
+	ispunct (argument_1: INTEGER): INTEGER 
 
 		-- function ispunct (in `/usr/include/ctype.h')
                -- ispunct
@@ -239,7 +239,7 @@ feature {} -- External calls
                }"
                end
 
-	ispunct_l (an_argument_l184_c7: INTEGER; an_argument_l185_c7: POINTER): INTEGER 
+	ispunct_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function ispunct_l (in `/usr/include/ctype.h')
                -- ispunct_l
@@ -251,7 +251,7 @@ feature {} -- External calls
                }"
                end
 
-	isspace (an_argument_l119_c7: INTEGER): INTEGER 
+	isspace (argument_1: INTEGER): INTEGER 
 
 		-- function isspace (in `/usr/include/ctype.h')
                -- isspace
@@ -263,7 +263,7 @@ feature {} -- External calls
                }"
                end
 
-	isspace_l (an_argument_l188_c7: INTEGER; an_argument_l189_c7: POINTER): INTEGER 
+	isspace_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function isspace_l (in `/usr/include/ctype.h')
                -- isspace_l
@@ -275,7 +275,7 @@ feature {} -- External calls
                }"
                end
 
-	isupper (an_argument_l122_c7: INTEGER): INTEGER 
+	isupper (argument_1: INTEGER): INTEGER 
 
 		-- function isupper (in `/usr/include/ctype.h')
                -- isupper
@@ -287,7 +287,7 @@ feature {} -- External calls
                }"
                end
 
-	isupper_l (an_argument_l192_c7: INTEGER; an_argument_l193_c7: POINTER): INTEGER 
+	isupper_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function isupper_l (in `/usr/include/ctype.h')
                -- isupper_l
@@ -299,7 +299,7 @@ feature {} -- External calls
                }"
                end
 
-	isxdigit (an_argument_l125_c7: INTEGER): INTEGER 
+	isxdigit (argument_1: INTEGER): INTEGER 
 
 		-- function isxdigit (in `/usr/include/ctype.h')
                -- isxdigit
@@ -311,7 +311,7 @@ feature {} -- External calls
                }"
                end
 
-	isxdigit_l (an_argument_l196_c7: INTEGER; an_argument_l197_c7: POINTER): INTEGER 
+	isxdigit_l (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function isxdigit_l (in `/usr/include/ctype.h')
                -- isxdigit_l

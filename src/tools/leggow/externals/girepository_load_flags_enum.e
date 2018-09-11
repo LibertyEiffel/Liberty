@@ -27,7 +27,7 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_g_irepository_load_flag_lazy: BOOLEAN
                do
-                       Result := (value=g_irepository_load_flag_lazy_low_level)
+                       Result := (value.bit_and(g_irepository_load_flag_lazy_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

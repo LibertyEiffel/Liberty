@@ -28,7 +28,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "abort"
+                       feature_name: "abort()"
                }"
                end
 
@@ -184,7 +184,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "clearenv"
+                       feature_name: "clearenv()"
                }"
                end
 
@@ -198,7 +198,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "drand48"
+                       feature_name: "drand48()"
                }"
                end
 
@@ -355,7 +355,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "getpt"
+                       feature_name: "getpt()"
                }"
                end
 
@@ -501,7 +501,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "lrand48"
+                       feature_name: "lrand48()"
                }"
                end
 
@@ -705,7 +705,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "mrand48"
+                       feature_name: "mrand48()"
                }"
                end
 
@@ -921,7 +921,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "rand"
+                       feature_name: "rand()"
                }"
                end
 
@@ -945,7 +945,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "random"
+                       feature_name: "random()"
                }"
                end
 

@@ -28,7 +28,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCleanupParser"
+                       feature_name: "xmlCleanupParser()"
                }"
                end
 
@@ -208,7 +208,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlGetExternalEntityLoader"
+                       feature_name: "xmlGetExternalEntityLoader()"
                }"
                end
 
@@ -268,7 +268,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlInitParser"
+                       feature_name: "xmlInitParser()"
                }"
                end
 
@@ -352,7 +352,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlNewParserCtxt"
+                       feature_name: "xmlNewParserCtxt()"
                }"
                end
 

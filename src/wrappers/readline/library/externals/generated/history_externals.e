@@ -8,7 +8,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	add_history (an_argument_l2214_c7: POINTER) 
+	add_history (argument_1: POINTER) 
 
 		-- function add_history (in `/usr/include/readline/history.h')
                -- add_history
@@ -20,7 +20,7 @@ feature {} -- External calls
                }"
                end
 
-	add_history_time (an_argument_l2217_c7: POINTER) 
+	add_history_time (argument_1: POINTER) 
 
 		-- function add_history_time (in `/usr/include/readline/history.h')
                -- add_history_time
@@ -32,7 +32,7 @@ feature {} -- External calls
                }"
                end
 
-	append_history (an_argument_l2276_c7: INTEGER; an_argument_l2277_c7: POINTER): INTEGER 
+	append_history (argument_1: INTEGER; argument_2: POINTER): INTEGER 
 
 		-- function append_history (in `/usr/include/readline/history.h')
                -- append_history
@@ -52,7 +52,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "clear_history"
+                       feature_name: "clear_history()"
                }"
                end
 
@@ -64,11 +64,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "current_history"
+                       feature_name: "current_history()"
                }"
                end
 
-	free_history_entry (an_argument_l2223_c7: POINTER): POINTER 
+	free_history_entry (argument_1: POINTER): POINTER 
 
 		-- function free_history_entry (in `/usr/include/readline/history.h')
                -- free_history_entry
@@ -80,7 +80,7 @@ feature {} -- External calls
                }"
                end
 
-	get_history_event (an_argument_l2293_c7: POINTER; an_argument_l2294_c7: POINTER; an_argument_l2295_c7: INTEGER): POINTER 
+	get_history_event (argument_1: POINTER; argument_2: POINTER; argument_3: INTEGER): POINTER 
 
 		-- function get_history_event (in `/usr/include/readline/history.h')
                -- get_history_event
@@ -92,7 +92,7 @@ feature {} -- External calls
                }"
                end
 
-	history_arg_extract (an_argument_l2288_c7: INTEGER; an_argument_l2289_c7: INTEGER; an_argument_l2290_c7: POINTER): POINTER 
+	history_arg_extract (argument_1: INTEGER; argument_2: INTEGER; argument_3: POINTER): POINTER 
 
 		-- function history_arg_extract (in `/usr/include/readline/history.h')
                -- history_arg_extract
@@ -164,7 +164,7 @@ feature {} -- External calls
                }"
                end
 
-	history_expand (an_argument_l2284_c7: POINTER; an_argument_l2285_c7: POINTER): INTEGER 
+	history_expand (argument_1: POINTER; argument_2: POINTER): INTEGER 
 
 		-- function history_expand (in `/usr/include/readline/history.h')
                -- history_expand
@@ -206,7 +206,7 @@ feature {} -- External calls
                }"
                end
 
-	history_get (an_argument_l2240_c7: INTEGER): POINTER 
+	history_get (argument_1: INTEGER): POINTER 
 
 		-- function history_get (in `/usr/include/readline/history.h')
                -- history_get
@@ -226,11 +226,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "history_get_history_state"
+                       feature_name: "history_get_history_state()"
                }"
                end
 
-	history_get_time (an_argument_l2243_c7: POINTER): like long 
+	history_get_time (argument_1: POINTER): like long 
 
 		-- function history_get_time (in `/usr/include/readline/history.h')
                -- history_get_time
@@ -280,7 +280,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "history_is_stifled"
+                       feature_name: "history_is_stifled()"
                }"
                end
 
@@ -322,7 +322,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "history_list"
+                       feature_name: "history_list()"
                }"
                end
 
@@ -416,7 +416,7 @@ feature {} -- External calls
                }"
                end
 
-	history_search (an_argument_l2252_c7: POINTER; an_argument_l2253_c7: INTEGER): INTEGER 
+	history_search (argument_1: POINTER; argument_2: INTEGER): INTEGER 
 
 		-- function history_search (in `/usr/include/readline/history.h')
                -- history_search
@@ -458,7 +458,7 @@ feature {} -- External calls
                }"
                end
 
-	history_search_pos (an_argument_l2260_c7: POINTER; an_argument_l2261_c7: INTEGER; an_argument_l2262_c7: INTEGER): INTEGER 
+	history_search_pos (argument_1: POINTER; argument_2: INTEGER; argument_3: INTEGER): INTEGER 
 
 		-- function history_search_pos (in `/usr/include/readline/history.h')
                -- history_search_pos
@@ -470,7 +470,7 @@ feature {} -- External calls
                }"
                end
 
-	history_search_prefix (an_argument_l2256_c7: POINTER; an_argument_l2257_c7: INTEGER): INTEGER 
+	history_search_prefix (argument_1: POINTER; argument_2: INTEGER): INTEGER 
 
 		-- function history_search_prefix (in `/usr/include/readline/history.h')
                -- history_search_prefix
@@ -482,7 +482,7 @@ feature {} -- External calls
                }"
                end
 
-	history_set_history_state (an_argument_l2211_c7: POINTER) 
+	history_set_history_state (argument_1: POINTER) 
 
 		-- function history_set_history_state (in `/usr/include/readline/history.h')
                -- history_set_history_state
@@ -494,7 +494,7 @@ feature {} -- External calls
                }"
                end
 
-	history_set_pos (an_argument_l2247_c7: INTEGER): INTEGER 
+	history_set_pos (argument_1: INTEGER): INTEGER 
 
 		-- function history_set_pos (in `/usr/include/readline/history.h')
                -- history_set_pos
@@ -536,7 +536,7 @@ feature {} -- External calls
                }"
                end
 
-	history_tokenize (an_argument_l2298_c7: POINTER): POINTER 
+	history_tokenize (argument_1: POINTER): POINTER 
 
 		-- function history_tokenize (in `/usr/include/readline/history.h')
                -- history_tokenize
@@ -556,11 +556,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "history_total_bytes"
+                       feature_name: "history_total_bytes()"
                }"
                end
 
-	history_truncate_file (an_argument_l2280_c7: POINTER; an_argument_l2281_c7: INTEGER): INTEGER 
+	history_truncate_file (argument_1: POINTER; argument_2: INTEGER): INTEGER 
 
 		-- function history_truncate_file (in `/usr/include/readline/history.h')
                -- history_truncate_file
@@ -670,7 +670,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "next_history"
+                       feature_name: "next_history()"
                }"
                end
 
@@ -682,11 +682,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "previous_history"
+                       feature_name: "previous_history()"
                }"
                end
 
-	read_history (an_argument_l2265_c7: POINTER): INTEGER 
+	read_history (argument_1: POINTER): INTEGER 
 
 		-- function read_history (in `/usr/include/readline/history.h')
                -- read_history
@@ -698,7 +698,7 @@ feature {} -- External calls
                }"
                end
 
-	read_history_range (an_argument_l2268_c7: POINTER; an_argument_l2269_c7: INTEGER; an_argument_l2270_c7: INTEGER): INTEGER 
+	read_history_range (argument_1: POINTER; argument_2: INTEGER; argument_3: INTEGER): INTEGER 
 
 		-- function read_history_range (in `/usr/include/readline/history.h')
                -- read_history_range
@@ -710,7 +710,7 @@ feature {} -- External calls
                }"
                end
 
-	remove_history (an_argument_l2220_c7: INTEGER): POINTER 
+	remove_history (argument_1: INTEGER): POINTER 
 
 		-- function remove_history (in `/usr/include/readline/history.h')
                -- remove_history
@@ -722,7 +722,7 @@ feature {} -- External calls
                }"
                end
 
-	replace_history_entry (an_argument_l2226_c7: INTEGER; an_argument_l2227_c7: POINTER; an_argument_l2228_c7: POINTER): POINTER 
+	replace_history_entry (argument_1: INTEGER; argument_2: POINTER; argument_3: POINTER): POINTER 
 
 		-- function replace_history_entry (in `/usr/include/readline/history.h')
                -- replace_history_entry
@@ -734,7 +734,7 @@ feature {} -- External calls
                }"
                end
 
-	stifle_history (an_argument_l2232_c7: INTEGER) 
+	stifle_history (argument_1: INTEGER) 
 
 		-- function stifle_history (in `/usr/include/readline/history.h')
                -- stifle_history
@@ -754,7 +754,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "unstifle_history"
+                       feature_name: "unstifle_history()"
                }"
                end
 
@@ -766,7 +766,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "using_history"
+                       feature_name: "using_history()"
                }"
                end
 
@@ -778,11 +778,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "where_history"
+                       feature_name: "where_history()"
                }"
                end
 
-	write_history (an_argument_l2273_c7: POINTER): INTEGER 
+	write_history (argument_1: POINTER): INTEGER 
 
 		-- function write_history (in `/usr/include/readline/history.h')
                -- write_history

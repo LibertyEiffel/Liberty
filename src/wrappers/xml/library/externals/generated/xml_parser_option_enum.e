@@ -269,117 +269,117 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_big_lines: BOOLEAN
                do
-                       Result := (value=big_lines_low_level)
+                       Result := (value.bit_and(big_lines_low_level).to_boolean)
                end
 
        is_compact: BOOLEAN
                do
-                       Result := (value=compact_low_level)
+                       Result := (value.bit_and(compact_low_level).to_boolean)
                end
 
        is_dtdattr: BOOLEAN
                do
-                       Result := (value=dtdattr_low_level)
+                       Result := (value.bit_and(dtdattr_low_level).to_boolean)
                end
 
        is_dtdload: BOOLEAN
                do
-                       Result := (value=dtdload_low_level)
+                       Result := (value.bit_and(dtdload_low_level).to_boolean)
                end
 
        is_dtdvalid: BOOLEAN
                do
-                       Result := (value=dtdvalid_low_level)
+                       Result := (value.bit_and(dtdvalid_low_level).to_boolean)
                end
 
        is_huge: BOOLEAN
                do
-                       Result := (value=huge_low_level)
+                       Result := (value.bit_and(huge_low_level).to_boolean)
                end
 
        is_ignore_enc: BOOLEAN
                do
-                       Result := (value=ignore_enc_low_level)
+                       Result := (value.bit_and(ignore_enc_low_level).to_boolean)
                end
 
        is_nobasefix: BOOLEAN
                do
-                       Result := (value=nobasefix_low_level)
+                       Result := (value.bit_and(nobasefix_low_level).to_boolean)
                end
 
        is_noblanks: BOOLEAN
                do
-                       Result := (value=noblanks_low_level)
+                       Result := (value.bit_and(noblanks_low_level).to_boolean)
                end
 
        is_nocdata: BOOLEAN
                do
-                       Result := (value=nocdata_low_level)
+                       Result := (value.bit_and(nocdata_low_level).to_boolean)
                end
 
        is_nodict: BOOLEAN
                do
-                       Result := (value=nodict_low_level)
+                       Result := (value.bit_and(nodict_low_level).to_boolean)
                end
 
        is_noent: BOOLEAN
                do
-                       Result := (value=noent_low_level)
+                       Result := (value.bit_and(noent_low_level).to_boolean)
                end
 
        is_noerror: BOOLEAN
                do
-                       Result := (value=noerror_low_level)
+                       Result := (value.bit_and(noerror_low_level).to_boolean)
                end
 
        is_nonet: BOOLEAN
                do
-                       Result := (value=nonet_low_level)
+                       Result := (value.bit_and(nonet_low_level).to_boolean)
                end
 
        is_nowarning: BOOLEAN
                do
-                       Result := (value=nowarning_low_level)
+                       Result := (value.bit_and(nowarning_low_level).to_boolean)
                end
 
        is_noxincnode: BOOLEAN
                do
-                       Result := (value=noxincnode_low_level)
+                       Result := (value.bit_and(noxincnode_low_level).to_boolean)
                end
 
        is_nsclean: BOOLEAN
                do
-                       Result := (value=nsclean_low_level)
+                       Result := (value.bit_and(nsclean_low_level).to_boolean)
                end
 
        is_old10: BOOLEAN
                do
-                       Result := (value=old10_low_level)
+                       Result := (value.bit_and(old10_low_level).to_boolean)
                end
 
        is_oldsax: BOOLEAN
                do
-                       Result := (value=oldsax_low_level)
+                       Result := (value.bit_and(oldsax_low_level).to_boolean)
                end
 
        is_pedantic: BOOLEAN
                do
-                       Result := (value=pedantic_low_level)
+                       Result := (value.bit_and(pedantic_low_level).to_boolean)
                end
 
        is_recover: BOOLEAN
                do
-                       Result := (value=recover_low_level)
+                       Result := (value.bit_and(recover_low_level).to_boolean)
                end
 
        is_sax1: BOOLEAN
                do
-                       Result := (value=sax1_low_level)
+                       Result := (value.bit_and(sax1_low_level).to_boolean)
                end
 
        is_xinclude: BOOLEAN
                do
-                       Result := (value=xinclude_low_level)
+                       Result := (value.bit_and(xinclude_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

@@ -60,22 +60,22 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_must_chain_up: BOOLEAN
                do
-                       Result := (value=must_chain_up_low_level)
+                       Result := (value.bit_and(must_chain_up_low_level).to_boolean)
                end
 
        is_must_not_override: BOOLEAN
                do
-                       Result := (value=must_not_override_low_level)
+                       Result := (value.bit_and(must_not_override_low_level).to_boolean)
                end
 
        is_must_override: BOOLEAN
                do
-                       Result := (value=must_override_low_level)
+                       Result := (value.bit_and(must_override_low_level).to_boolean)
                end
 
        is_throws: BOOLEAN
                do
-                       Result := (value=throws_low_level)
+                       Result := (value.bit_and(throws_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

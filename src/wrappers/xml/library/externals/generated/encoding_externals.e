@@ -100,7 +100,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCleanupCharEncodingHandlers"
+                       feature_name: "xmlCleanupCharEncodingHandlers()"
                }"
                end
 
@@ -112,7 +112,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlCleanupEncodingAliases"
+                       feature_name: "xmlCleanupEncodingAliases()"
                }"
                end
 
@@ -196,7 +196,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlInitCharEncodingHandlers"
+                       feature_name: "xmlInitCharEncodingHandlers()"
                }"
                end
 

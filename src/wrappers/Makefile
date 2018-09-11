@@ -22,17 +22,11 @@ SUBMAKEFILES := $(shell find $(LIBRARIES) -name Makefile)
 ## Unfinished wrappers: gconf gda gdk2 gio gtk-math-view gtk-source-view gtk-unix-print json-glib qt4 xml zlib
 
 CASTXML=$(shell which castxml)
-GCCXML=$(shell which gccxml)
 
 .PHONY: subdirs $(LIBRARIES) clean
 
 update: $(LIBRARIES) 
 	@echo Clusters that will be updated: $^
-ifdef CASTXML
-	@echo using castxml
-else	
-	@echo using gccxml
-endif
 
 clean: 
 	@echo Removing generated files

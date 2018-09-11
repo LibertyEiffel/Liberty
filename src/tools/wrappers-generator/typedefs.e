@@ -71,7 +71,7 @@ feature {ANY}
          -- long") for C types that can have different sizes on different
          -- architectures.
       do
-         file.put_string("feature {ANY} -- variable-size types%N%
+         file.put_string("feature {WRAPPER_HANDLER} -- variable-size types%N%
                 %       long: INTEGER_#(1)%N%
                 %               -- a query with the same type of c 'long int'. useful when dealing with%N%
                 %               -- code that uses long int variable: just insert th class and mark%N%
@@ -91,11 +91,11 @@ feature {ANY}
 
    emit_standard_typedefs
       do
-         file.put_string("feature {ANY} -- Memory related type definitions%N%
+         file.put_string("feature {WRAPPER_HANDLER} -- Memory related type definitions%N%
                         %       size_t: NATURAL_#(1)  do end%N%N%
                         %   ssize_t: INTEGER_#(2)  do end%N%N%
                         %       ptrdiff_t: INTEGER_#(3)  do end%N%N" # &size_t_size # &ssize_t_size # &ptrdiff_t_size)
-         file.put_string("feature {ANY} -- Standard C type definitions%N%
+         file.put_string("feature {WRAPPER_HANDLER} -- Standard C type definitions%N%
                         %       -- All those queries are empty by design, meant to be used as anchored declarations%N%N%
                         %       -- Exact-width integer types%N%
                         %       -- Integer types having exactly the specified width %N%

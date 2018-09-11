@@ -7,7 +7,7 @@ insert ANY undefine is_equal, copy end
 
 	STANDARD_C_LIBRARY_TYPES
 
-feature {ANY} -- C type definitions (typedefs)
+feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
        lmid_t: like long
                -- typedef Lmid_t from /usr/include/dlfcn.h
                -- Empty by design, used for anchored declarations.

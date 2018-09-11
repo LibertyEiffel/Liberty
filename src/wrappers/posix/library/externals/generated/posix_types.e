@@ -7,7 +7,7 @@ insert ANY undefine is_equal, copy end
 
 	STANDARD_C_LIBRARY_TYPES
 
-feature {ANY} -- C type definitions (typedefs)
+feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
        wctrans_t: POINTER
                -- typedef wctrans_t from /usr/include/wctype.h
                -- Empty by design, used for anchored declarations.
@@ -185,13 +185,6 @@ feature {ANY} -- C type definitions (typedefs)
 
        mqd_t: INTEGER
                -- typedef mqd_t from /usr/include/x86_64-linux-gnu/bits/mqueue.h
-               -- Empty by design, used for anchored declarations.
-       do
-       ensure Result.is_default
-       end
-
-       locale_t: POINTER
-               -- typedef locale_t from /usr/include/xlocale.h
                -- Empty by design, used for anchored declarations.
        do
        ensure Result.is_default

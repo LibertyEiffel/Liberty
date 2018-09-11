@@ -7,7 +7,7 @@ insert ANY undefine is_equal, copy end
 
 	STANDARD_C_LIBRARY_TYPES
 
-feature {ANY} -- C type definitions (typedefs)
+feature {WRAPPER_HANDLER} -- C type definitions (typedefs)
        xml_rmutex_ptr: POINTER
                -- typedef xmlRMutexPtr from /usr/include/libxml2/libxml/threads.h
                -- Empty by design, used for anchored declarations.

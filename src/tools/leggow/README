@@ -18,3 +18,16 @@ usual programming are written and maintained entirely manually.
 
 Such wrappers are not currently used elsewhere so are kept here, tightly
 integrated to provide a self-contained tool, avoiding circular dependencies
+
+g-ir-compiler
+converts one or more GIR files into one or more typelib.
+g-ir-doc-tool
+generates Mallard files that can be viewed with yelp or rendered to HTML with yelp-build from yelp-tools.
+g-ir-inspect
+is a utility that gives information about a GI typelib.
+g-ir-scanner
+is a tool which generates GIR XML files by parsing headers and introspecting GObject based libraries.
+g-ir-generate
+is a GIR generator that uses the repository API.
+libgirepository-1.0.so
+provides an API to access the typelib metadata.

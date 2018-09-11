@@ -516,7 +516,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __erf skipped.
-	erf (an_argument_l5311_c7: REAL): REAL 
+	erf (argument_1: REAL): REAL 
 
 		-- function erf (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- erf
@@ -529,7 +529,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __erfc skipped.
-	erfc (an_argument_l5317_c7: REAL): REAL 
+	erfc (argument_1: REAL): REAL 
 
 		-- function erfc (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- erfc
@@ -541,7 +541,7 @@ feature {} -- External calls
                }"
                end
 
-	erfcf (an_argument_l5824_c7: REAL_32): REAL_32 
+	erfcf (argument_1: REAL_32): REAL_32 
 
 		-- function erfcf (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- erfcf
@@ -555,7 +555,7 @@ feature {} -- External calls
 
 	-- `hidden' function __erfcf skipped.
 	-- `hidden' function __erfcl skipped.
-	erfcl (an_argument_l6331_c7: REAL_EXTENDED): REAL_EXTENDED 
+	erfcl (argument_1: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function erfcl (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- erfcl
@@ -568,7 +568,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __erff skipped.
-	erff (an_argument_l5818_c7: REAL_32): REAL_32 
+	erff (argument_1: REAL_32): REAL_32 
 
 		-- function erff (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- erff
@@ -580,7 +580,7 @@ feature {} -- External calls
                }"
                end
 
-	erfl (an_argument_l6325_c7: REAL_EXTENDED): REAL_EXTENDED 
+	erfl (argument_1: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function erfl (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- erfl
@@ -1103,7 +1103,7 @@ feature {} -- External calls
                }"
                end
 
-	gamma (an_argument_l5335_c7: REAL): REAL 
+	gamma (argument_1: REAL): REAL 
 
 		-- function gamma (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- gamma
@@ -1117,7 +1117,7 @@ feature {} -- External calls
 
 	-- `hidden' function __gamma skipped.
 	-- `hidden' function __gammaf skipped.
-	gammaf (an_argument_l5842_c7: REAL_32): REAL_32 
+	gammaf (argument_1: REAL_32): REAL_32 
 
 		-- function gammaf (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- gammaf
@@ -1130,7 +1130,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __gammal skipped.
-	gammal (an_argument_l6349_c7: REAL_EXTENDED): REAL_EXTENDED 
+	gammal (argument_1: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function gammal (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- gammal
@@ -1301,7 +1301,7 @@ feature {} -- External calls
 	-- `hidden' function __issignaling skipped.
 	-- `hidden' function __issignalingf skipped.
 	-- `hidden' function __issignalingl skipped.
-	j0 (an_argument_l5271_c7: REAL): REAL 
+	j0 (argument_1: REAL): REAL 
 
 		-- function j0 (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- j0
@@ -1315,7 +1315,7 @@ feature {} -- External calls
 
 	-- `hidden' function __j0 skipped.
 	-- `hidden' function __j0f skipped.
-	j0f (an_argument_l5778_c7: REAL_32): REAL_32 
+	j0f (argument_1: REAL_32): REAL_32 
 
 		-- function j0f (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- j0f
@@ -1327,7 +1327,7 @@ feature {} -- External calls
                }"
                end
 
-	j0l (an_argument_l6285_c7: REAL_EXTENDED): REAL_EXTENDED 
+	j0l (argument_1: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function j0l (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- j0l
@@ -1341,7 +1341,7 @@ feature {} -- External calls
 
 	-- `hidden' function __j0l skipped.
 	-- `hidden' function __j1 skipped.
-	j1 (an_argument_l5277_c7: REAL): REAL 
+	j1 (argument_1: REAL): REAL 
 
 		-- function j1 (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- j1
@@ -1354,7 +1354,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __j1f skipped.
-	j1f (an_argument_l5784_c7: REAL_32): REAL_32 
+	j1f (argument_1: REAL_32): REAL_32 
 
 		-- function j1f (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- j1f
@@ -1367,7 +1367,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __j1l skipped.
-	j1l (an_argument_l6291_c7: REAL_EXTENDED): REAL_EXTENDED 
+	j1l (argument_1: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function j1l (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- j1l
@@ -1379,7 +1379,7 @@ feature {} -- External calls
                }"
                end
 
-	jn (an_argument_l5283_c7: INTEGER; an_argument_l5284_c7: REAL): REAL 
+	jn (argument_1: INTEGER; argument_2: REAL): REAL 
 
 		-- function jn (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- jn
@@ -1392,7 +1392,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __jn skipped.
-	jnf (an_argument_l5790_c7: INTEGER; an_argument_l5791_c7: REAL_32): REAL_32 
+	jnf (argument_1: INTEGER; argument_2: REAL_32): REAL_32 
 
 		-- function jnf (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- jnf
@@ -1405,7 +1405,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __jnf skipped.
-	jnl (an_argument_l6297_c7: INTEGER; an_argument_l6298_c7: REAL_EXTENDED): REAL_EXTENDED 
+	jnl (argument_1: INTEGER; argument_2: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function jnl (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- jnl
@@ -1457,7 +1457,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __ldexpl skipped.
-	lgamma (an_argument_l5323_c7: REAL): REAL 
+	lgamma (argument_1: REAL): REAL 
 
 		-- function lgamma (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- lgamma
@@ -1470,7 +1470,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __lgamma skipped.
-	lgamma_r (an_argument_l5341_c7: REAL; a_signgamp: POINTER): REAL 
+	lgamma_r (argument_1: REAL; a_signgamp: POINTER): REAL 
 
 		-- function lgamma_r (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- lgamma_r
@@ -1484,7 +1484,7 @@ feature {} -- External calls
 
 	-- `hidden' function __lgamma_r skipped.
 	-- `hidden' function __lgammaf skipped.
-	lgammaf (an_argument_l5830_c7: REAL_32): REAL_32 
+	lgammaf (argument_1: REAL_32): REAL_32 
 
 		-- function lgammaf (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- lgammaf
@@ -1496,7 +1496,7 @@ feature {} -- External calls
                }"
                end
 
-	lgammaf_r (an_argument_l5848_c7: REAL_32; a_signgamp: POINTER): REAL_32 
+	lgammaf_r (argument_1: REAL_32; a_signgamp: POINTER): REAL_32 
 
 		-- function lgammaf_r (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- lgammaf_r
@@ -1510,7 +1510,7 @@ feature {} -- External calls
 
 	-- `hidden' function __lgammaf_r skipped.
 	-- `hidden' function __lgammal skipped.
-	lgammal (an_argument_l6337_c7: REAL_EXTENDED): REAL_EXTENDED 
+	lgammal (argument_1: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function lgammal (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- lgammal
@@ -1523,7 +1523,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __lgammal_r skipped.
-	lgammal_r (an_argument_l6355_c7: REAL_EXTENDED; a_signgamp: POINTER): REAL_EXTENDED 
+	lgammal_r (argument_1: REAL_EXTENDED; a_signgamp: POINTER): REAL_EXTENDED 
 
 		-- function lgammal_r (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- lgammal_r
@@ -2709,7 +2709,7 @@ feature {} -- External calls
 
 	-- `hidden' function __tanl skipped.
 	-- `hidden' function __tgamma skipped.
-	tgamma (an_argument_l5329_c7: REAL): REAL 
+	tgamma (argument_1: REAL): REAL 
 
 		-- function tgamma (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- tgamma
@@ -2722,7 +2722,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __tgammaf skipped.
-	tgammaf (an_argument_l5836_c7: REAL_32): REAL_32 
+	tgammaf (argument_1: REAL_32): REAL_32 
 
 		-- function tgammaf (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- tgammaf
@@ -2735,7 +2735,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __tgammal skipped.
-	tgammal (an_argument_l6343_c7: REAL_EXTENDED): REAL_EXTENDED 
+	tgammal (argument_1: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function tgammal (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- tgammal
@@ -2787,7 +2787,7 @@ feature {} -- External calls
 
 	-- `hidden' function __truncl skipped.
 	-- `hidden' function __y0 skipped.
-	y0 (an_argument_l5291_c7: REAL): REAL 
+	y0 (argument_1: REAL): REAL 
 
 		-- function y0 (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- y0
@@ -2800,7 +2800,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __y0f skipped.
-	y0f (an_argument_l5798_c7: REAL_32): REAL_32 
+	y0f (argument_1: REAL_32): REAL_32 
 
 		-- function y0f (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- y0f
@@ -2813,7 +2813,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __y0l skipped.
-	y0l (an_argument_l6305_c7: REAL_EXTENDED): REAL_EXTENDED 
+	y0l (argument_1: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function y0l (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- y0l
@@ -2826,7 +2826,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __y1 skipped.
-	y1 (an_argument_l5297_c7: REAL): REAL 
+	y1 (argument_1: REAL): REAL 
 
 		-- function y1 (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- y1
@@ -2839,7 +2839,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __y1f skipped.
-	y1f (an_argument_l5804_c7: REAL_32): REAL_32 
+	y1f (argument_1: REAL_32): REAL_32 
 
 		-- function y1f (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- y1f
@@ -2851,7 +2851,7 @@ feature {} -- External calls
                }"
                end
 
-	y1l (an_argument_l6311_c7: REAL_EXTENDED): REAL_EXTENDED 
+	y1l (argument_1: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function y1l (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- y1l
@@ -2865,7 +2865,7 @@ feature {} -- External calls
 
 	-- `hidden' function __y1l skipped.
 	-- `hidden' function __yn skipped.
-	yn (an_argument_l5303_c7: INTEGER; an_argument_l5304_c7: REAL): REAL 
+	yn (argument_1: INTEGER; argument_2: REAL): REAL 
 
 		-- function yn (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- yn
@@ -2877,7 +2877,7 @@ feature {} -- External calls
                }"
                end
 
-	ynf (an_argument_l5810_c7: INTEGER; an_argument_l5811_c7: REAL_32): REAL_32 
+	ynf (argument_1: INTEGER; argument_2: REAL_32): REAL_32 
 
 		-- function ynf (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- ynf
@@ -2890,7 +2890,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __ynf skipped.
-	ynl (an_argument_l6317_c7: INTEGER; an_argument_l6318_c7: REAL_EXTENDED): REAL_EXTENDED 
+	ynl (argument_1: INTEGER; argument_2: REAL_EXTENDED): REAL_EXTENDED 
 
 		-- function ynl (in `/usr/include/x86_64-linux-gnu/bits/mathcalls.h')
                -- ynl

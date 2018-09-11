@@ -38,12 +38,12 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_abstract: BOOLEAN
                do
-                       Result := (value=abstract_low_level)
+                       Result := (value.bit_and(abstract_low_level).to_boolean)
                end
 
        is_value_abstract: BOOLEAN
                do
-                       Result := (value=value_abstract_low_level)
+                       Result := (value.bit_and(value_abstract_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

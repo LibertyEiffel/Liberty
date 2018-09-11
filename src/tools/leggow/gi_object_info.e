@@ -12,9 +12,6 @@ class GI_OBJECT_INFO
 
 inherit 
 	GI_CLASS -- providing properties access
-		redefine 
-            emit_wrapper 
-        end
 
 	GI_REGISTERED_TYPE_INFO
 		redefine 
@@ -31,77 +28,192 @@ insert
 create {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Wrapper
-	emit_wrapper is
+	emit_wrapper 
 		--
-	local pi: PROPERTIES_ITER; mi: METHODS_ITER
-		properties_text: STRING; 
-        a_name, a_count: ABSTRACT_STRING
+    local w: ABSTRACT_STRING; pi: PROPERTIES_ITER
     do
-       std_error.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) 
+       -- std_error.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) 
        --std_error. log.trace.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) 
-		create properties_text.with_capacity( 2048 )
-        a_name := name; a_count := &properties_count 
-		log.info.put_string("Object #(1) with #(2) properties: " # name # & properties_count )
-		-- log.info.put_string("Object #(1) with #(2) properties: " # a_name # & a_count )
-        -- properties_iter.for_each(agent emit_property)
-        debug std_error.put_string("propiter ") end
-        pi := properties_iter
-		("%N#(1) methods:%N "# methods_count.out).print_on(std_output);
-		methods_iter.for_each(agent emit_method(?))
+       -- TODO: add prefix support
+        create path.make_from_string(eiffel_class_name(name,once ".e").as_lower)
+        create output.connect_to(path.to_string)
+        log.info.put_line("Wrapping object #(1) in #(2)" # name # &path)
+        if is_deferred then output.put_string(once "deferred class ")
+        else output.put_string(once "class ")
+        end
+        output.put_line(class_name) 
+        output.put_line("%T-- #(1) %N" # generator )
+        append_create_clause 
+        append_properties
+        append_methods
+        append_fields
+        append_signals
+        append_virtual_functions
+        append_constants
+        
+        output.put_string(once "%Nend -- class ")
+        output.put_line(class_name)
+        output.disconnect
     end
 
-    emit_property (a_property: GI_PROPERTY_INFO) is
-		do
-			("'#(1)', " # a_property.name).print_on(std_output)
-		end
+   append_properties 
+      do
+         log.info.put_line("Class #(1) starting properties" # name)
+         output.put_line(once "%N%Nfeature {ANY} -- Properties")
+         -- properties_iter.for_each(agent (x: GI_PROPERTY_INFO) do print(once "foo!%N") end) --append_property(res,?)) 
+         -- from pi:=properties_iter; pi.start
+         -- until not pi.is_off
+         -- loop
+         --    log.info.put_line("#(1) property  #(2)" # name # pi.item.name)
+         --    append_property(pi.item)
+         --    pi.next
+         -- end
+         log.info.put_line("Class #(1) ended properties" # name)
+      end
 
-    emit_method (a_method: GI_FUNCTION_INFO) is 
+
+   append_methods 
+       -- Append all methods to `output'.
+    local getters,setters: STRING
     do
-        ("'").print_on(std_output); 
-        (a_method.name).print_on(std_output); 
-        (once "',").print_on(std_output)
+       log.info.put_line("Class #(1) starting methods" # name)
+       getters := "feature {ANY} -- Properties%N"
+       setters := "feature {ANY} -- Setting properties%N"
+
+       output.put_line(once "%Nfeature {ANY} -- Methods%N")
+       methods_iter.for_each(agent append_method(?,getters,setters))
+       output.put_string(getters)
+       output.put_string(setters)
     end
+
+   append_fields
+     require 
+      output/=Void 
+         output.is_connected
+      do
+        output.put_line(once "%Nfeature {ANY} -- Fields")
+      end
+
+   append_signals
+   require 
+      output/=Void 
+         output.is_connected
+      do
+         output.put_line(once "%Nfeature {ANY} -- Signals")
+      end
+
+   append_virtual_functions
+   require 
+      output/=Void 
+      output.is_connected
+      do
+        output.put_line(once "%Nfeature {ANY} -- Virtual functions")
+      end
+
+   append_constants
+   require 
+      output/=Void 
+         output.is_connected
+      do
+        output.put_line(once "%Nfeature {ANY} -- Constants")
+      end
+
 
 	eiffel_wrapper: STRING is
-        local res: STRING
 		do
-            if is_deferred then Result := "deferred class "
-            else Result := "class "
-            end
-            res:=Result -- to be fed to agents
-            Result.append(class_name) 
-            Result.append(once "%Ncreate {ANY} ")
-            Result.append(constructors.out)
-            Result.append(once "%Nfeature {ANY} -- Properties")
-            --properties_iter.for_each(agent (a_property: GI_PROPERTY_INFO) do
-            --    res.append(once "-- Property #(1)%N"#a_property.name)
-            --    if a_property.flags.is_readable then
-            --        -- emit getter query
-            --    end
-            --    if a_property.flags.is_writable then
-            --        -- emit setter command
-            --    end
-            --end)
-            
-            Result.append(once "%Nfeature {ANY} -- Methods%N")
-            methods_iter.for_each(agent (a_method: GI_FUNCTION_INFO) do
-                -- Methods includes plain methods, constructors, getters and setters. Setters and getters are already wrapped as properties
-                if a_method.flags.is_is_method or a_method.flags.is_is_constructor then
-                    res.append(a_method.eiffel_wrapper)
-                end
-            end)
-
-            Result.append(once "%Nfeature {ANY} -- Fields")
-            Result.append(once "%Nfeature {ANY} -- Signals")
-            Result.append(once "%Nfeature {ANY} -- Virtual functions")
-            Result.append(once "%Nfeature {ANY} -- Constants")
-            Result.append(once "%Nend -- class ")
-            Result.append(class_name)
-		end
+           Result:="-- TODO: eiffel wrapper should not be available in classes but only for methods and the like"
+        end
 
     suffix: STRING is ""
 
+feature {} -- Implementation of eiffel wrapper agents
+  append_method (a_method: GI_FUNCTION_INFO; some_getters, some_setters: STRING) 
+      -- When `a_method' is a getter append its query to `getters'
+      -- When `a_method' is a setter appends its command to `setters' 
+      -- When `a_method' is a constructor appends its creation commands to `constructurs'
+      -- In any case output the low level into `externals'
+    require 
+      a_method /= Void
+      some_getters /= Void
+      some_setters /= Void
+   local 
+      its_property: GI_PROPERTY_INFO
+      its_vfunc: GI_VFUNC_INFO
+      is_getter, is_setter, is_constructor: BOOLEAN
+   do
+         -- Methods includes plain methods, constructors, getters and setters.
+         -- It seems that flags for setters and getters are not set up correctly. So this command discover tries to discover it accessing `property' and `vfunc'
+         its_property := a_method.property
+         its_vfunc := a_method.vfunc
+         is_getter := (its_property/=Void and a_method.name.has_prefix(once "get_"))
+         is_setter := (its_property/=Void and a_method.name.has_prefix(once "set_"))
+         is_constructor := a_method.flags.is_is_constructor
+         log.info.put_line("Method '#(1)' (flags: #(2): getter #(3) setter #(4) method #(5) constructor #(6))" 
+         # a_method.feature_name # &(a_method.flags.value) 
+         # &(is_getter) 
+         # &(is_setter) 
+         # &(a_method.flags.is_is_method) 
+         # &(is_constructor))
+         if a_method.is_deprecated then
+            log.info.put_line("Skipping deprecated method #(1)" # a_method.feature_name)
+         elseif a_method.flags.is_is_getter then
+            log.info.put_line("Getter method #(1)" # a_method.feature_name)
+            some_getters.append("[
+            #(1): #(2)
+               -- #(3) (query feature, aka getter)
+            external "plug_in"
+            alias "{
+               location: "."
+               module_name: "plugin"
+               feature_name: "#(3)"
+            }"
+            end
+            ]" 
+            # a_method.property.name 
+            # a_method.return_type.eiffel_wrapper
+            # a_method.symbol)
+         elseif a_method.flags.is_is_setter then
+            log.info.put_line("Setter method #(1)" # a_method.feature_name)
+            some_setters.append("[
+            #(1) (a_value: #(2))
+               -- #(3) (setting command)
+            external "plug_in"
+               alias "{
+               location: "."
+               module_name: "plugin"
+               feature_name: "#(4)"
+               }"
+            end
+            ]" 
+            # a_method.property.name 
+            # "TODO_SETTER_TYPE"
+            # a_method.class_name # a_method.symbol)
+         elseif a_method.flags.is_is_method or a_method.flags.is_is_constructor then
+            log.info.put_line("Method or constructor #(1)" # a_method.feature_name)
+            output.put_line(a_method.eiffel_wrapper)
+         end
+      end
+
 feature {ANY} 
+   append_create_clause 
+      -- Append the creations clause, i.e.e "create {ANY}" plus a list of the constructor feature names, each separated by a comma to output
+   require
+      output /= Void
+      output.is_connected
+   do
+      if not constructors.is_empty then
+         output.put_string(once "%Ncreate {ANY} ")
+         constructors.lower.loop_up_to(constructors.upper-1,
+         agent (i: INTEGER) do
+            output.put_string (constructors.item(i).feature_name)
+            output.put_string (once ", ")
+         end)
+         output.put_line(constructors.last.feature_name)
+      else
+         output.put_line(once "-- No creation features")
+      end
+
+   end
     constructors: COLLECTION[GI_FUNCTION_INFO] 
         -- The constructors of Current GI_OBJECT_INFO
     do
@@ -109,8 +221,9 @@ feature {ANY}
         Result := cached_constructors 
     end
 
-feature {} 
-
+feature {} -- Implementation
+   output: TEXT_FILE_WRITE
+   path: POSIX_PATH_NAME
 feature {ANY}
 	type_name: FIXED_STRING is
 		--  the name of the objects class/type.
@@ -159,9 +272,7 @@ feature {ANY} -- Properties
 	properties_count: INTEGER is
 		--the number of properties that this object type has. 
 	do
-        debug std_error.put_string("n. properties: ") end
 		Result:=g_object_info_get_n_properties(handle)
-        debug std_error.put_line(" #(1) " # & Result) end
 	end
 
 	property (n: INTEGER): GI_PROPERTY_INFO is

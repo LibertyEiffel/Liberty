@@ -233,6 +233,10 @@ feature {CLIENT_LIST}
             i > count
          loop
             tm := item(i)
+            if tm=Void then
+               error_handler.append("Trying to specialize_in a Void TYPE_MARK")
+               error_handler.print_as_fatal_error
+            end
             if tm.start_position.class_text = new_type.class_text then
                tm.specialize_in(new_type)
             end
@@ -254,6 +258,10 @@ feature {CLIENT_LIST}
          f := first
          tm1 := first
          tm2 := first.specialize_thru(parent_type, parent_edge, new_type)
+         if tm1=Void or tm2=Void then
+            error_handler.append("Trying to specialize_thru a Void TYPE_MARK")
+            error_handler.print_as_fatal_error
+         end
          if tm1 /= tm2 then
             f := tm2
             check remainder /= Void implies i = remainder.lower end -- since it is 0

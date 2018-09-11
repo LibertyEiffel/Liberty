@@ -38,12 +38,12 @@ feature {ANY} -- Setters
 feature {ANY} -- Queries
        is_after: BOOLEAN
                do
-                       Result := (value=after_low_level)
+                       Result := (value.bit_and(after_low_level).to_boolean)
                end
 
        is_swapped: BOOLEAN
                do
-                       Result := (value=swapped_low_level)
+                       Result := (value.bit_and(swapped_low_level).to_boolean)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values

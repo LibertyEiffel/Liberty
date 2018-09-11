@@ -16,7 +16,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "docbDefaultSAXHandlerInit"
+                       feature_name: "docbDefaultSAXHandlerInit()"
                }"
                end
 
@@ -28,7 +28,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "htmlDefaultSAXHandlerInit"
+                       feature_name: "htmlDefaultSAXHandlerInit()"
                }"
                end
 
@@ -40,7 +40,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "xmlDefaultSAXHandlerInit"
+                       feature_name: "xmlDefaultSAXHandlerInit()"
                }"
                end
 
