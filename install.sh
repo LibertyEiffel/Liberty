@@ -9,7 +9,7 @@ MAXTOOLCOUNT=20
 #
 # I try GNU readlink first, if I don't find it I will rely on POSIX
 # readlink. I think.
-#
+# 
 
 CANONICAL_SOURCE=$(readlink -f "$BASH_SOURCE" 2>/dev/null) || {
     unsymlink() {
