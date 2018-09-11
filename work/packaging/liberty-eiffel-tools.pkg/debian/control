@@ -1,7 +1,7 @@
 Package: liberty-eiffel-tools
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, liberty-eiffel-core-libs (= #VERSION#), gcc, libgc1c2 (>= 7.2)
-Recommends: libgc-dev
+Recommends: libgc-dev, castxml
 Suggests: liberty-eiffel-tools-src (= #VERSION#), emacs
 Description: Liberty Eiffel tools
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
