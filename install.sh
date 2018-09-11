@@ -66,17 +66,20 @@ _check_libgc() {
 #include "gc/gc.h"
 
 int main() {
-   unsigned version = GC_get_version();
-   unsigned major = (version & 0x00ff0000) >> 16;
-   unsigned minor = (version & 0x0000ff00) >> 8;
-   unsigned alpha = (version & 0x000000ff) != GC_NOT_ALPHA;
-   printf("Version %02d.%02d %s\n", major, minor, alpha ? "alpha" : "");
-   if (major < 7 || minor < 2 || alpha) {
-          /* http://article.gmane.org/gmane.lisp.guile.bugs/5007/match=threads+test */
-          exit(1);
-   }
-   exit(0);
+#include <stdlib.h>
+#include <stdio.h>
+#include "gc/gc.h"
+
+int main() {
+unsigned major = GC_TMP_VERSION_MAJOR;
+unsigned minor = GC_TMP_VERSION_MINOR;
+unsigned micro = GC_TMP_VERSION_MICRO ;
+printf("Version %02d.%02d.%02d\n", major, minor, micro );
+if (major < 7 || minor < 4 || micro < 2) {
+exit(1);
 }
+exit(0);
+} 
 EOF
     ${CC} -lgc $TMPDIR/check_libgc.c -o $TMPDIR/check_libgc >/dev/null 2>&1 || return 1
     if $TMPDIR/check_libgc; then
