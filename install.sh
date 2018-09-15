@@ -66,19 +66,27 @@ _check_libgc() {
 #include "gc/gc.h"
 
 int main() {
-#include <stdlib.h>
-#include <stdio.h>
-#include "gc/gc.h"
-
-int main() {
-unsigned major = GC_TMP_VERSION_MAJOR;
-unsigned minor = GC_TMP_VERSION_MINOR;
-unsigned micro = GC_TMP_VERSION_MICRO;
-printf("Version %02d.%02d.%02d\n", major, minor, micro );
-if (major < 7 || minor < 4 || micro < 2) {
-exit(1);
-}
-exit(0);
+    unsigned major = 0;
+    unsigned minor = 0;
+    unsigned micro = 0;
+    unsigned alpha = 0;
+#ifdef GC_VERSION_MICRO
+    major = GC_VERSION_MAJOR;
+    minor = GC_VERSION_MINOR;
+    micro = GC_VERSION_MICRO;
+#else
+    unsigned version = GC_get_version();
+    major = (version & 0x00ff0000) >> 16;
+    minor = (version & 0x0000ff00) >> 8;
+    alpha = (version & 0x000000ff) != GC_NOT_ALPHA;
+#endif
+    printf("BDW (libgc) Version %02d.%02d.%02d %s\n", major, minor, micro, alpha ? "alpha" : "");
+    if (   (major < 7)
+        || (major == 7 && minor < 1)
+        || (alpha)) {
+        exit(1);
+    }
+    exit(0);
 } 
 EOF
     ${CC} -lgc $TMPDIR/check_libgc.c -o $TMPDIR/check_libgc >/dev/null 2>&1 || return 1
