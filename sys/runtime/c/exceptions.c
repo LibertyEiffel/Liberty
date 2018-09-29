@@ -63,7 +63,7 @@ TLS(int) signal_exception_number = 0;
 TLS(char*) additional_error_message = NULL;
 
 static void critical_error_exit(void) {
-/* This is called whenever a critical error in the SmartEiffel
+/* This is called whenever a critical error in Liberty Eiffel
    is encountered.  This kind of error cannot be handled by the
    exception handler.
 
@@ -552,7 +552,7 @@ static void print_exception_case( int ex_num ) {
     break;
   case Void_attached_to_expanded:
     fprintf(SE_ERR, "A Void became attached to an expanded object.\n");
-    fprintf(SE_ERR, "Please report this problem to the SmartEiffel team.\n");
+    fprintf(SE_ERR, "Please report this problem to the Liberty Eiffel team.\n");
     break;
   case Void_call_target:
     fprintf(SE_ERR, "Feature call attempted on a Void reference.\n");
@@ -562,7 +562,7 @@ static void print_exception_case( int ex_num ) {
     break;
   default:
     fprintf(SE_ERR, "There was an unknown exception.\n");
-    fprintf(SE_ERR, "Please report this problem to the SmartEiffel team.\n");
+    fprintf(SE_ERR, "Please report this problem to the Liberty Eiffel team.\n");
   }
 }
 #endif

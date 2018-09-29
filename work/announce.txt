@@ -11,17 +11,17 @@ developers to test and prove ideas that made their way into papers;
 such a goal naturally requires the development model to follow the
 rules of the academia, for example keeping all the coding in-house.
 
-We are designing and developing an Eiffel compiler, compatible with
+We are designing and developing an Eiffel compiler, based on
 SmartEiffel, but with different goals:
 
 - keep the language and the required run-time system as simple as
   possible;
 
-- stick to the same high quality requirements that make SmartEiffel
+- stick to the same high quality requirements that made SmartEiffel
   such a good piece of Free Software;
 
 - "exit the ivory tower", being a community-driven project without the
-  requirements of academic goals; being easily or automatically
+  requirements of academic restructions; being easily or automatically
   interoperable with most mainstream languages (C, Java, .NET...) is
   an absolute need;
 
@@ -44,8 +44,10 @@ SmartEiffel, but with different goals:
 Liberty is a community-driven project. We invite you to participate
 and test your own ideas. It's very easy: the code is shared on github.
 
-Liberty is only beginning. We need you.
+Liberty is currently in its second release. We need you to push the
+product forward.
 
+    https://www.liberty-eiffel.org
     http://liberty-eiffel.blogspot.com/
     http://github.com/tybor/Liberty
 
