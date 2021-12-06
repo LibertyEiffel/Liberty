@@ -157,7 +157,7 @@ if [[ $deploy == FALSE ]]; then
 Source: liberty-eiffel
 Section: $section
 Priority: extra
-Maintainer: Cyril Adrian <cyril.adrian@gmail.com>
+Maintainer: Raphael Mack (ET bot) <et@liberty-eiffel.org>
 Build-Depends: debhelper (>= 8.0.0), docbook-to-man, libgc-dev
 Standards-Version: 3.9.2
 Homepage: http://www.gnu.org/software/liberty-eiffel/
