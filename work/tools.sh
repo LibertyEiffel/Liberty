@@ -31,6 +31,23 @@ case `uname -s` in
 	germ_cc=${CC}
 	germ_cflags="-pipe -O2 -c -x c"
 	;;
+    NetBSD)
+	export PATH=/usr/pkg/bin:$PATH
+	flavor=NetBSD
+	jobs=$((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
+	CC_TYPE=${CC_TYPE:-gcc}
+	CC=${CC:-$CC_TYPE}
+	# using boehm-gc from pkgsrc
+	PKGSRC_INC=/usr/pkg/include
+	PKGSRC_LIBS=/usr/pkg/lib
+	CFLAGS="-pipe -I${PKGSRC_INC}"
+	CXX_TYPE=${CXX_TYPE:-g++}
+	CXX=${CXX:-${CXX_TYPE}}
+	CXXFLAGS="-pipe -I${PKGSRC_INC}"
+	LDFLAGS="-Xlinker -${hyphen}no-as-needed -L${PKGSRC_LIBS} -Wl,-rpath=${PKGSRC_LIBS}"
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
+	;;
     Darwin)
 	flavor=Darwin
 	jobs=$((1 + $(sysctl -n hw.physicalcpu)))
