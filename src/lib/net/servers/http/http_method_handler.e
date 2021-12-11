@@ -4,17 +4,22 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class HTTP_METHOD_HANDLER
+   --
+   -- Used ton handle an HTTP request.
+   --
 
-feature {HTTP_CONNECTION}
+feature {HTTP_CONNECTION} -- Implementation
+
    code: INTEGER
          -- the HTTP answer code
 
    method: STRING
-         -- the method
+         -- the request method (GET, POST, etc.)
       deferred
       end
 
    begin_answer
+         -- Launched before the answer preparation
       do
          response_header.clear_count
          response_body.clear_count
@@ -22,64 +27,72 @@ feature {HTTP_CONNECTION}
       end
 
    prepare_answer
+         -- Prepare the answer of the request
       require
          not done
       deferred
       end
 
-   answer (out_stream: OUTPUT_STREAM)
+   answer (a_out_stream: OUTPUT_STREAM)
+         -- Send the request answer to the `a_out_stream'
       require
          not done
          prepare_ok
       local
-         i, n: INTEGER
+         l_index, l_count: INTEGER
       do
          default_body
-         out_stream.put_string(once "HTTP/1.1 ")
-         out_stream.put_integer(code)
-         out_stream.put_character(' ')
-         out_stream.put_string(reason)
-         newline(out_stream)
+         a_out_stream.put_string(once "HTTP/1.1 ")
+         a_out_stream.put_integer(code)
+         a_out_stream.put_character(' ')
+         a_out_stream.put_string(reason)
+         newline(a_out_stream)
          from
-            i := response_header.lower
-            n := response_header.upper
+            l_index := response_header.lower
+            l_count := response_header.upper
          until
-            i > n
+            l_index > l_count
          loop
-            out_stream.put_string(response_header.item(i))
-            newline(out_stream)
-            i := i + 1
+            a_out_stream.put_string(response_header.item(l_index))
+            newline(a_out_stream)
+            l_index := l_index + 1
          end
-         newline(out_stream)
-         out_stream.put_string(response_body)
+         newline(a_out_stream)
+         a_out_stream.put_string(response_body)
          done := True
       end
 
-   add_header (header: STRING)
+   add_header (a_header: STRING)
+         -- A request `a_header' is added
       deferred
       end
 
    expect_body: BOOLEAN
+         -- True if the request must have a body.
       deferred
       end
 
-   add_body (body: STRING)
+   add_body (a_body: STRING)
+         -- A request `a_body' is added.
       require
          expect_body
       deferred
       end
 
    prepare_ok: BOOLEAN
+         -- True if `prepare_answer' has been completed correctly
       deferred
       end
 
    done: BOOLEAN
+         -- True when the answer has been send
 
-   expect (events: EVENTS_SET)
+   expect (a_events: EVENTS_SET)
       deferred
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN
+   is_ready (a_events: EVENTS_SET): BOOLEAN
+         -- `Current' ca be used to manage a request.
       deferred
       end
 
@@ -88,46 +101,52 @@ feature {}
          -- the source URI
 
    version: STRING
-         -- the version
+         -- the http version (1.0, 1.1, etc.)
 
    response_header: FAST_ARRAY[STRING]
+         -- Every headers of the request
+
    response_body: STRING
+         -- The complete body of the request
 
    default_body
+         -- A defaut answer's body
       local
-         r: STRING
+         l_reason: STRING
       do
          if code = 200 and then response_body = Void then
-            r := reason
+            l_reason := reason
             response_body.append(once "<!DOCTYPE HTML PUBLIC %"-//IETF//DTD HTML 2.0//EN%">%R%N<html><head>%R%N<title>")
             code.append_in(response_body)
             response_body.extend(' ')
-            response_body.append(r)
+            response_body.append(l_reason)
             response_body.append(once "</title>%R%N</head><body>%R%N<h1>")
-            response_body.append(r)
+            response_body.append(l_reason)
             response_body.append(once "</h1>%R%N<p>")
             response_body.append(method)
             response_body.append(once " to ")
             response_body.append(uri)
             response_body.append(once ": ")
-            response_body.append(r)
+            response_body.append(l_reason)
             response_body.append(once "</p>%R%N</body></html>%R%N")
          end
          set_content_length
       end
 
    set_content_length
+         -- Set the lenght of the answer's body
       local
-         l: STRING
+         l_lenght: STRING
       do
-         l := once ""
-         l.clear_count
-         l.append(once "Content-Length: ")
-         response_body.count.append_in(l)
-         response_header.add_last(l)
+         l_lenght := once ""
+         l_lenght.clear_count
+         l_lenght.append(once "Content-Length: ")
+         response_body.count.append_in(l_lenght)
+         response_header.add_last(l_lenght)
       end
 
    reason: STRING
+         -- A text representation of the answer `code'
       do
          inspect
             code
@@ -216,10 +235,10 @@ feature {}
          end
       end
 
-   newline (out_stream: OUTPUT_STREAM)
+   newline (a_out_stream: OUTPUT_STREAM)
          -- output CRLF
       do
-         out_stream.put_string(once "%R%N")
+         a_out_stream.put_string(once "%R%N")
       end
 
 invariant
@@ -228,7 +247,7 @@ invariant
 
 end -- class HTTP_METHOD_HANDLER
 --
--- Copyright (C) 2009-2018: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2021: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

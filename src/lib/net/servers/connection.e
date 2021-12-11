@@ -5,14 +5,16 @@
 --
 deferred class CONNECTION
    --
-   -- Handle one connection to the SERVER.
+   -- Handle one connection to the {SERVER}.
    --
 
 inherit
    JOB
 
-feature {SERVER}
+feature {SERVER} -- Server implementation
+
    set_io (a_io: SOCKET_INPUT_OUTPUT_STREAM)
+         -- Assign `ios' witht the value of `a_io'
       require
          a_io.is_connected
       do
@@ -21,34 +23,44 @@ feature {SERVER}
          ios = a_io
       end
 
-feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET)
+feature {LOOP_ITEM} -- Loop implementation
+
+   prepare (a_events: EVENTS_SET)
+         -- Launched before starting the to manage requests.
+         -- Indicate in `a_events' the kind of request to manage.
       do
-         events.expect(ios.event_can_read)
+         a_events.expect(ios.event_can_read)
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN
+   is_ready (a_events: EVENTS_SET): BOOLEAN
+         -- True if `Current' is ready to manage requests using
+         -- `a_events' to detect it.
       do
-         Result := events.event_occurred(ios.event_can_read)
+         Result := a_events.event_occurred(ios.event_can_read)
       end
 
    done: BOOLEAN
+         -- `Current' has finished managing requests and answers.
       do
          Result := not ios.is_connected
       end
 
    restart
+         -- Restart the connection.
+         -- Require by Job. Should not be used.
       do
          -- cannot restart a connection
          --|*** (the postcondition will not be respected, how can I do otherwise? Philippe?)
       end
 
-feature {}
+feature {} -- Implementation
+
    ios: SOCKET_INPUT_OUTPUT_STREAM
+         -- Used to read (request) and write (answer)
 
 end -- class CONNECTION
 --
--- Copyright (C) 2009-2018: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2021: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
