@@ -15,24 +15,11 @@ inherit
 create {HTTP_CONNECTION}
    make
 
-feature {HTTP_CONNECTION}
-   prepare_ok: BOOLEAN True
-
-   expect_body: BOOLEAN False
-
-   method: STRING "UNKNOWN"
-
-   add_header (header: STRING)
-      do
-         -- forget it
-      end
-
-   add_body (body: STRING)
-      do
-         -- forget it
-      end
+feature {} -- Initialisation
 
    make (a_uri, a_version: STRING)
+         -- Initialisation of `Current' using `a_uri' as `uri'
+         -- and `a_version' as `version'
       do
          uri := a_uri
          version := a_version
@@ -42,12 +29,38 @@ feature {HTTP_CONNECTION}
          end
       end
 
+
+feature {HTTP_CONNECTION} -- Implementation
+
+   prepare_ok: BOOLEAN True
+         -- Precursor{HTTP_METHOD_HANDLER}
+
+   expect_body: BOOLEAN False
+         -- Precursor{HTTP_METHOD_HANDLER}
+
+   method: STRING "UNKNOWN"
+         -- Precursor{HTTP_METHOD_HANDLER}
+
+   add_header (header: STRING)
+         -- Precursor{HTTP_METHOD_HANDLER}
+      do
+         -- forget it
+      end
+
+   add_body (body: STRING)
+         -- Precursor{HTTP_METHOD_HANDLER}
+      do
+         -- forget it
+      end
+
    prepare_answer
+         -- Precursor{HTTP_METHOD_HANDLER}
       do
          code := 501
       end
 
    expect (events: EVENTS_SET)
+         -- Precursor{HTTP_METHOD_HANDLER}
       local
          t: TIME_EVENTS
       do
@@ -55,13 +68,14 @@ feature {HTTP_CONNECTION}
       end
 
    is_ready (events: EVENTS_SET): BOOLEAN
+         -- Precursor{HTTP_METHOD_HANDLER}
       do
          Result := True
       end
 
 end -- class HTTP_NO_METHOD_HANDLER
 --
--- Copyright (C) 2009-2018: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2021: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

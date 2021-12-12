@@ -18,36 +18,40 @@ insert
    RECYCLABLE
    DISPOSABLE
 
-feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET)
+feature {LOOP_ITEM} -- Loop Implementation
+
+   prepare (a_events: EVENTS_SET)
+         -- Premare the request to be processed by `a_events' and `method_handler'.
       local
-         t: TIME_EVENTS
+         l_time_events: TIME_EVENTS
       do
          inspect
             answer_state
          when answer_state_read then
-            events.expect(ios.event_can_read)
+            a_events.expect(ios.event_can_read)
          when answer_state_prepare, answer_state_write then
             if method_handler = Void then
-               events.expect(t.timeout(0))
+               a_events.expect(l_time_events.timeout(0))
             else
-               method_handler.expect(events)
+               method_handler.expect(a_events)
             end
          end
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN
+   is_ready (a_events: EVENTS_SET): BOOLEAN
+         -- `True' when the management of the request in `a_events' can be use
       do
          inspect
             answer_state
          when answer_state_read then
-            Result := events.event_occurred(ios.event_can_read)
+            Result := a_events.event_occurred(ios.event_can_read)
          when answer_state_prepare, answer_state_write then
-            Result := method_handler = Void or else method_handler.is_ready(events)
+            Result := method_handler = Void or else method_handler.is_ready(a_events)
          end
       end
 
    done: BOOLEAN
+         -- `True' when the request management has been completed.
       do
          if ios.is_connected then
             inspect
@@ -63,85 +67,121 @@ feature {LOOP_ITEM}
       end
 
    continue
-      local
-         c: CHARACTER
-         log: STRING
-         read: BOOLEAN
+         -- Manage the next step of the request.
       do
          inspect
             answer_state
          when answer_state_read then
-            if read_buffer = Void then
-               create read_buffer.make_empty
-            end
-            if ios.can_read_character then
-               ios.read_character
-               read := True
-            end
-            if not read or else ios.end_of_input or else (content_length > 0 and then content_count >= content_length) then
-               if not read_buffer.is_empty then
-                  call_state
-               end
-               --| server.log(" -> answer_state_prepare")
-               answer_state := answer_state_prepare
-            else
-               c := ios.last_character
-               if state = state_body then
-                  content_count := content_count + 1
-               end
-               inspect
-                  c
-               when '%R' then
-                  -- ignore
-               when '%N' then
-                  call_state
-               else
-                  read_buffer.extend(c)
-               end
-            end
+            continue_read
          when answer_state_prepare then
-            if method_handler = Void then
-               --| server.log(" -> answer_state_write")
-               answer_state := answer_state_write
-            else
-               method_handler.prepare_answer
-               if method_handler.prepare_ok then
-                  --| server.log(" -> answer_state_write")
-                  answer_state := answer_state_write
-               end
-            end
+            continue_prepare
          when answer_state_write then
-            if method_handler = Void then
-               --| server.log(" -> answer_state_read")
-               answer_state := answer_state_read
+            continue_write
+         end
+      end
+
+   continue_read
+         -- Read and manage the last character of the request
+      local
+         l_character: CHARACTER
+         l_read: BOOLEAN
+      do
+         if read_buffer = Void then
+            create read_buffer.make_empty
+         end
+         if ios.can_read_character then
+            ios.read_character
+            l_read := True
+         end
+         if not l_read or else ios.end_of_input or else (content_length > 0 and then content_count >= content_length) then
+            if not read_buffer.is_empty then
+               call_state
+            end
+            --| server.log(" -> answer_state_prepare")
+            answer_state := answer_state_prepare
+         else
+            l_character := ios.last_character
+            if state = state_body then
+               content_count := content_count + 1
+            end
+            inspect
+               l_character
+            when '%R' then
+               -- ignore
+            when '%N' then
+               call_state
             else
-               method_handler.answer(ios)
-               if method_handler.done then
-                  log := once ""
-                  log.copy(request_line)
-                  log.extend(' ')
-                  method_handler.code.append_in(log)
-                  server.log(log)
-                  ios.disconnect
-                  --| server.log(" -> answer_state_read")
-                  answer_state := answer_state_read
-               end
+               read_buffer.extend(l_character)
             end
          end
       end
 
-feature {}
+   continue_prepare
+         -- Manage the answer preparation
+      do
+         if method_handler = Void then
+            --| server.log(" -> answer_state_write")
+            answer_state := answer_state_write
+         else
+            method_handler.prepare_answer
+            if method_handler.prepare_ok then
+               --| server.log(" -> answer_state_write")
+               answer_state := answer_state_write
+            end
+         end
+      end
+
+   continue_write
+         -- Manage writing the answer
+      local
+         l_log: STRING
+      do
+         if method_handler = Void then
+            --| server.log(" -> answer_state_read")
+            answer_state := answer_state_read
+         else
+            method_handler.answer(ios)
+            if method_handler.done then
+               l_log := once ""
+               l_log.copy(request_line)
+               l_log.extend(' ')
+               method_handler.code.append_in(l_log)
+               server.log(l_log)
+               ios.disconnect
+               --| server.log(" -> answer_state_read")
+               answer_state := answer_state_read
+            end
+         end
+      end
+
+feature {} -- Implementation
+
    answer_state: INTEGER
+         -- The state of a single answer
+
    answer_state_read: INTEGER 0
+         -- The state of the answer is in the `read' state
+
    answer_state_prepare: INTEGER 1
+         -- The state of the answer is in the `read' state
+
    answer_state_write: INTEGER 2
+         -- The state of the answer is in the `write' state
+
 
    read_buffer: STRING
-   content_length: INTEGER
-   content_count: INTEGER
+         -- The buffer that has been read
 
-feature {HTTP_SERVER}
+   content_length: INTEGER
+         -- The length of the body content of the request
+
+   content_count: INTEGER
+         -- The number of bytes that has already been read.
+
+feature {HTTP_SERVER} -- HTTP Server implementation
+
    set_server (a_server: like server)
+         -- Assing `server' with the value of `a_server'
       do
          server := a_server
          --| server.log(" -> state_request_line")
@@ -154,17 +194,22 @@ feature {HTTP_SERVER}
          content_length := 0
       end
 
-feature {SERVER}
+feature {SERVER} -- Server implementation
+
    set_io (a_io: like ios)
+         -- Assing `ios' with the value of `a_io'
       do
          Precursor(a_io)
          a_io.when_disconnect(agent handle_disconnect(?))
       end
 
-feature {}
+feature {} -- Implementation
+
    server: HTTP_SERVER
+         -- The server used to manage http connections
 
    handle_disconnect (a_io: like ios)
+         -- Disconnect `a_io'
       require
          a_io = ios
          done
@@ -173,17 +218,41 @@ feature {}
          server.connection_done(Current)
       end
 
+   get_method_handler (a_method, a_uri, a_version: STRING): HTTP_METHOD_HANDLER
+         -- Retreive the method handeler of used to manage a request of type `a_method'
+         -- addressed with `a_uri' using http `a_version'
+      require
+         a_method.as_upper.is_equal(a_method)
+      deferred
+      ensure
+         Result.method.is_equal(a_method) or else ({HTTP_NO_METHOD_HANDLER} ?:= Result)
+      end
+
+   disconnected: BOOLEAN
+         -- `Current' is disconnected.
+
 feature {} -- The HTTP protocol (see RFC 2616)
+
    state: INTEGER
+         -- The present connection state.
 
    state_request_line: INTEGER 0
+         -- The present `state' is in the manage request line connection state.
+
    state_header: INTEGER 1
+         -- The present `state' is in the manage header connection state.
+
    state_body: INTEGER 2
+         -- The present `state' is in the manage body connection state.
 
    method_handler: HTTP_METHOD_HANDLER
+         -- The handler used to manage the requests.
+
    request_line: STRING
+         -- A single line of the request.
 
    call_state
+         -- Manage `read_buffer' depending the present `state'
       require
          answer_state = answer_state_read
       do
@@ -199,41 +268,43 @@ feature {} -- The HTTP protocol (see RFC 2616)
          read_buffer.clear_count
       end
 
-   a_request_line (line: STRING)
+   a_request_line (a_line: STRING)
+         -- Manage the resquest `a_line'
       require
          answer_state = answer_state_read
       local
          i, j: INTEGER
-         method, uri, version: STRING
+         l_method, l_uri, l_version: STRING
       do
-         i := line.first_index_of(' ')
-         j := line.index_of(' ', i + 1)
-         method := once ""
-         method.copy_substring(line, 1, i - 1)
-         method.to_upper
-         uri := once ""
+         i := a_line.first_index_of(' ')
+         j := a_line.index_of(' ', i + 1)
+         l_method := once ""
+         l_method.copy_substring(a_line, 1, i - 1)
+         l_method.to_upper
+         l_uri := once ""
          if j = 0 then
-            uri.copy_substring(line, i + 1, line.count)
-            version := once "HTTP/1.0"
+            l_uri.copy_substring(a_line, i + 1, a_line.count)
+            l_version := once "HTTP/1.0"
          else
-            uri.copy_substring(line, i + 1, j - 1)
-            version := once ""
-            version.copy_substring(line, j + 1, line.count)
+            l_uri.copy_substring(a_line, i + 1, j - 1)
+            l_version := once ""
+            l_version.copy_substring(a_line, j + 1, a_line.count)
          end
-         request_line.copy(method)
+         request_line.copy(l_method)
          request_line.extend(' ')
-         request_line.append(uri)
+         request_line.append(l_uri)
          --| server.log(" -> state_header")
          state := state_header
-         method_handler := get_method_handler(method, uri, version)
+         method_handler := get_method_handler(l_method, l_uri, l_version)
          if method_handler /= Void then
             method_handler.begin_answer
          end
       end
 
-   a_header (line: STRING)
+   a_header (a_line: STRING)
+         -- Manage the header `a_line' and add it to the `method_handler' headers.
       do
-         if line.is_empty then
+         if a_line.is_empty then
             if method_handler /= Void and then method_handler.expect_body then
                --| server.log(" -> state_body")
                state := state_body
@@ -242,9 +313,9 @@ feature {} -- The HTTP protocol (see RFC 2616)
                answer_state := answer_state_prepare
             end
          else
-            parse_header(line)
+            parse_header(a_line)
             inspect
-               header_key
+               header_key.as_lower
             when "content-length" then
                if header_value.is_integer then
                   content_length := header_value.to_integer
@@ -253,7 +324,7 @@ feature {} -- The HTTP protocol (see RFC 2616)
                -- ignored
             end
             if method_handler /= Void then
-               method_handler.add_header(line.twin)
+               method_handler.add_header(a_line.twin)
             else
                -- ignored
             end
@@ -261,9 +332,14 @@ feature {} -- The HTTP protocol (see RFC 2616)
       end
 
    header_key: STRING
-   header_value: STRING
+         -- An header key generated by `parse_value'
 
-   parse_header (line: STRING)
+   header_value: STRING
+         -- An header value generated by `parse_value'
+
+   parse_header (a_line: STRING)
+         -- Split the header `a_line' as key/value.
+         -- Assing `header_key' and `header_value'
       local
          i: INTEGER
       do
@@ -277,50 +353,43 @@ feature {} -- The HTTP protocol (see RFC 2616)
             header_key.clear_count
             header_value.clear_count
          end
-         i := line.first_index_of(':')
-         if line.valid_index(i) then
-            header_key.copy_substring(line, 1, i - 1)
+         i := a_line.first_index_of(':')
+         if a_line.valid_index(i) then
+            header_key.copy_substring(a_line, 1, i - 1)
             from
+               i := i + 1
             until
-               i > line.upper or else not line.item(i).is_separator
+               i > a_line.upper or else not a_line.item(i).is_separator
             loop
                i := i + 1
             end
-            header_value.copy_substring(line, i, line.upper)
+            header_value.copy_substring(a_line, i, a_line.upper)
          end
       end
 
-   a_body (line: STRING)
+   a_body (a_line: STRING)
+         -- Add the `a_line' in the `method_handler'
       do
-         if line.is_empty and then content_length = 0 then
+         if a_line.is_empty and then content_length = 0 then
             --| server.log(" -> answer_state_prepare")
             answer_state := answer_state_prepare
          else
-            method_handler.add_body(line.twin)
+            method_handler.add_body(a_line.twin)
          end
       end
 
-feature {}
-   get_method_handler (method, uri, version: STRING): HTTP_METHOD_HANDLER
-      require
-         method.as_upper.is_equal(method)
-      deferred
-      ensure
-         Result.method.is_equal(method) or else ({HTTP_NO_METHOD_HANDLER} ?:= Result)
-      end
-
-   disconnected: BOOLEAN
-
-feature {RECYCLING_POOL}
+feature {RECYCLING_POOL} -- Recycler Implementation
    recycle
+         -- At collection, recycle `ios'
       do
          if not disconnected then
             handle_disconnect(ios)
          end
       end
 
-feature {}
+feature {} -- Collection Implementation
    dispose
+         -- At collection, disconnect `ios'
       do
          if not disconnected then
             handle_disconnect(ios)
@@ -332,7 +401,7 @@ invariant
 
 end -- class HTTP_CONNECTION
 --
--- Copyright (C) 2009-2018: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2021: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

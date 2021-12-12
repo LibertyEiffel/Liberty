@@ -4,6 +4,10 @@
 -- See the Copyright notice at the end of this file.
 --
 class HTTP_SERVER
+   --
+   -- A {SERVER} used to manage http requests
+   --
+
 
 insert
    SERVER[HTTP_CONNECTION]
@@ -14,86 +18,105 @@ insert
 create {ANY}
    make
 
-feature {ANY}
-   is_alive: BOOLEAN
+feature {} -- Initialisation
+
+   make (a_error_handler: like error_handler; a_connection_factory: like connection_factory)
+         -- Initialisation of `Current' using `a_error_handler' as `error_handler'
+         -- and `a_connection_factory' as `connection_factory'.
       do
-         Result := not server.done
+         error_handler := a_error_handler
+         connection_factory := a_connection_factory
+      end
+
+feature {ANY} -- Access
+
+   is_alive: BOOLEAN
+         -- `Current' is still listening to connection
+      do
+         Result := not server_job.done
       end
 
    log (a_message: ABSTRACT_STRING)
+         -- Write `a_message' in the `logger'
       local
-         msg: STRING
+         l_message: STRING
       do
          if logger /= Void then
-            msg := once ""
-            msg.copy(once "[")
-            msg.append(current_time)
-            msg.append(once "] ")
-            msg.append(a_message)
-            logger.call([msg])
+            l_message := once ""
+            l_message.copy(once "[")
+            l_message.append(current_time)
+            l_message.append(once "] ")
+            l_message.append(a_message)
+            logger.call([l_message])
          end
       end
 
-feature {}
+feature {} -- Implementation
+
    current_time: STRING
+         -- An HTTP comatible text representation of the
+         -- present date/time.
       local
-         date: TIME; t: MICROSECOND_TIME; ms: INTEGER
+         l_date: TIME;
+         l_time: MICROSECOND_TIME;
+         l_microsecond: INTEGER
       do
-         t.update
-         date := t.time
-         ms := t.microsecond // 1000
+         l_time.update
+         l_date := l_time.time
+         l_microsecond := l_time.microsecond // 1000
          check
-            ms.in_range(0, 999)
+            l_microsecond.in_range(0, 999)
          end
          Result := once ""
          Result.clear_count
-         date.year.append_in(Result)
+         l_date.year.append_in(Result)
          Result.extend('/')
-         if date.month < 10 then
+         if l_date.month < 10 then
             Result.extend('0')
          end
-         date.month.append_in(Result)
+         l_date.month.append_in(Result)
          Result.extend('/')
-         if date.day < 10 then
+         if l_date.day < 10 then
             Result.extend('0')
          end
-         date.day.append_in(Result)
+         l_date.day.append_in(Result)
          Result.extend(' ')
-         if date.hour < 10 then
+         if l_date.hour < 10 then
             Result.extend('0')
          end
-         date.hour.append_in(Result)
+         l_date.hour.append_in(Result)
          Result.extend(':')
-         if date.minute < 10 then
+         if l_date.minute < 10 then
             Result.extend('0')
          end
-         date.minute.append_in(Result)
+         l_date.minute.append_in(Result)
          Result.extend(':')
-         if date.second < 10 then
+         if l_date.second < 10 then
             Result.extend('0')
          end
-         date.second.append_in(Result)
+         l_date.second.append_in(Result)
          Result.extend('.')
-         if ms < 100 then
+         if l_microsecond < 100 then
             Result.extend('0')
-            if ms < 10 then
+            if l_microsecond < 10 then
                Result.extend('0')
             end
          end
-         ms.append_in(Result)
+         l_microsecond.append_in(Result)
       end
 
-feature {HTTP_CONNECTION}
+feature {HTTP_CONNECTION} -- HTTP connection implementation
+
    shutdown
          -- A connection asked the server to shut down
       do
-         server.shutdown
+         server_job.shutdown
       end
 
    halt
          -- A connection asked the server to halt
       do
-         server.halt
+         server_job.halt
       end
 
    connection_done (a_connection: HTTP_CONNECTION)
@@ -101,8 +124,8 @@ feature {HTTP_CONNECTION}
       do
          release_connection(a_connection)
          connections := connections - 1
-         if server.done then
-            handle_shutdown(server)
+         if server_job.done then
+            handle_shutdown(server_job)
          end
       end
 
@@ -113,28 +136,25 @@ feature {}
    connection_factory: FUNCTION[TUPLE, HTTP_CONNECTION]
          -- the HTTP connection factory
 
-   make (a_error_handler: like error_handler; a_connection_factory: like connection_factory)
-      do
-         error_handler := a_error_handler
-         connection_factory := a_connection_factory
-      end
-
-   handle_error (msg: STRING)
+   handle_error (a_message: STRING)
+         -- Manage an error that is explain by `a_message'
       do
          if error_handler /= Void then
-            error_handler.call([msg])
+            error_handler.call([a_message])
          else
-            std_error.put_string(msg)
+            std_error.put_string(a_message)
             std_error.put_new_line
          end
       end
 
    connections_pool: RECYCLING_POOL[HTTP_CONNECTION]
+         -- A pool structure used to recycle {HTTP_CONNECTION}
       once
          create Result.make
       end
 
    new_connection: HTTP_CONNECTION
+         -- An {HTTP_CONNECTION} freshly instanciate
       do
          if connections_pool.is_empty then
             Result := connection_factory.item([])
@@ -144,14 +164,16 @@ feature {}
          Result.set_server(Current)
       end
 
-   release_connection (cnx: HTTP_CONNECTION)
+   release_connection (a_connection: HTTP_CONNECTION)
+         -- Recycle `a_connection'.
+         -- See: `connections_pool' to get the recycled connections.
       do
-         connections_pool.recycle(cnx)
+         connections_pool.recycle(a_connection)
       end
 
 end -- class HTTP_SERVER
 --
--- Copyright (C) 2009-2018: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2021: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
