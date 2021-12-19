@@ -15,7 +15,7 @@ inherit
 create {HTTP_CONNECTION}
    make
 
-feature {} -- Initialisation
+feature {HTTP_CONNECTION} -- Initialisation
 
    make (a_uri, a_version: STRING)
          -- Initialisation of `Current' using `a_uri' as `uri'

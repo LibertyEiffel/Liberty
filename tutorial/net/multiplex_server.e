@@ -43,22 +43,22 @@ feature {MULTIPLEX_CONNECTION}
    shutdown
          -- A connection asked the server to shut down
       do
-         server.shutdown
+         server_job.shutdown
       end
 
    halt
          -- A connection asked the server to halt
       do
-         server.halt
+         server_job.halt
       end
 
    connection_done (a_connection: MULTIPLEX_CONNECTION)
          -- A connection is just finished.
       do
          connections := connections - 1
-         if connections = 0 and then server.done then
+         if connections = 0 and then server_job.done then
             -- and then stack.current_loop /= Void
-            handle_shutdown(server)
+            handle_shutdown(server_job)
          end
       end
 
