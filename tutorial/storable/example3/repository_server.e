@@ -66,20 +66,20 @@ feature {REPOSITORY_CONNECTION}
    shutdown
          -- A connection asked the server to shut down
       do
-         server.shutdown
+         server_job.shutdown
       end
 
    halt
          -- A connection asked the server to halt
       do
-         server.halt
+         server_job.halt
       end
 
    connection_done (a_connection: REPOSITORY_CONNECTION)
          -- A connection is just finished.
       do
          connections := connections - 1
-         if connections = 0 and then server.done and then stack.current_loop /= Void then
+         if connections = 0 and then server_job.done and then stack.current_loop /= Void then
             -- If all the connections are closed and the server is shut down, then we exit the loop.
             stack.break
          end
