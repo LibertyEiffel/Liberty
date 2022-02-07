@@ -242,85 +242,173 @@ Running (-no_split -boost -bdw_gc) "test_deep_twin.exe".
 se clean test_deep_twin.e
 Removing (-no_split -boost -bdw_gc) "test_deep_twin.exe".
 se c -boost test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -boost test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-boost) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-boost) "test_deep_twin_array.exe".
 se c -flat_check -all_check -debug test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -all_check -debug test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -all_check -debug) "test_deep_twin_array.exe".
+Abnormal: exit status 1 of "Running (-flat_check -all_check -debug) "test_deep_twin_array.exe".".
+se clean test_deep_twin_array.e
+Removing (-flat_check -all_check -debug) "test_deep_twin_array.exe".
 se c -no_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_check) "test_deep_twin_array.exe".
 se c -flat_check -require_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -require_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -require_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-flat_check -require_check) "test_deep_twin_array.exe".
 se c -flat_check -ensure_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -ensure_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -ensure_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-flat_check -ensure_check) "test_deep_twin_array.exe".
 se c -flat_check -invariant_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -invariant_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -invariant_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-flat_check -invariant_check) "test_deep_twin_array.exe".
 se c -flat_check -loop_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -loop_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -loop_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-flat_check -loop_check) "test_deep_twin_array.exe".
 se c -flat_check -all_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -all_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -all_check) "test_deep_twin_array.exe".
+Abnormal: exit status 1 of "Running (-flat_check -all_check) "test_deep_twin_array.exe".".
+se clean test_deep_twin_array.e
+Removing (-flat_check -all_check) "test_deep_twin_array.exe".
 se c -no_gc -boost test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -boost test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -boost) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -boost) "test_deep_twin_array.exe".
 se c -no_gc -boost -debug test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -boost -debug test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -boost -debug) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -boost -debug) "test_deep_twin_array.exe".
 se c -no_gc -no_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -no_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -no_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -no_check) "test_deep_twin_array.exe".
 se c -no_gc -flat_check -require_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -flat_check -require_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -flat_check -require_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -flat_check -require_check) "test_deep_twin_array.exe".
 se c -no_gc -ensure_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -ensure_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -ensure_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -ensure_check) "test_deep_twin_array.exe".
 se c -no_gc -flat_check -invariant_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -flat_check -invariant_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -flat_check -invariant_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -flat_check -invariant_check) "test_deep_twin_array.exe".
 se c -no_gc -flat_check -loop_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -flat_check -loop_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -flat_check -loop_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -flat_check -loop_check) "test_deep_twin_array.exe".
 se c -no_gc -flat_check -all_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -flat_check -all_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -flat_check -all_check) "test_deep_twin_array.exe".
+Abnormal: exit status 1 of "Running (-no_gc -flat_check -all_check) "test_deep_twin_array.exe".".
+se clean test_deep_twin_array.e
+Removing (-no_gc -flat_check -all_check) "test_deep_twin_array.exe".
 se c -boost -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -boost -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-boost -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-boost -bdw_gc) "test_deep_twin_array.exe".
 se c -boost -debug -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -boost -debug -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-boost -debug -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-boost -debug -bdw_gc) "test_deep_twin_array.exe".
 se c -no_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_check -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_check -bdw_gc) "test_deep_twin_array.exe".
 se c -flat_check -require_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -require_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -require_check -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-flat_check -require_check -bdw_gc) "test_deep_twin_array.exe".
 se c -ensure_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -ensure_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-ensure_check -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-ensure_check -bdw_gc) "test_deep_twin_array.exe".
 se c -flat_check -invariant_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -invariant_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -invariant_check -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-flat_check -invariant_check -bdw_gc) "test_deep_twin_array.exe".
 se c -flat_check -loop_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -loop_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -loop_check -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-flat_check -loop_check -bdw_gc) "test_deep_twin_array.exe".
 se c -flat_check -all_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -flat_check -all_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-flat_check -all_check -bdw_gc) "test_deep_twin_array.exe".
+Abnormal: exit status 1 of "Running (-flat_check -all_check -bdw_gc) "test_deep_twin_array.exe".".
+se clean test_deep_twin_array.e
+Removing (-flat_check -all_check -bdw_gc) "test_deep_twin_array.exe".
 se c -all_check -debug test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -all_check -debug test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-all_check -debug) "test_deep_twin_array.exe".
+Abnormal: exit status 1 of "Running (-all_check -debug) "test_deep_twin_array.exe".".
+se clean test_deep_twin_array.e
+Removing (-all_check -debug) "test_deep_twin_array.exe".
 se c -require_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -require_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-require_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-require_check) "test_deep_twin_array.exe".
 se c -ensure_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -ensure_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-ensure_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-ensure_check) "test_deep_twin_array.exe".
 se c -invariant_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -invariant_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-invariant_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-invariant_check) "test_deep_twin_array.exe".
 se c -loop_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -loop_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-loop_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-loop_check) "test_deep_twin_array.exe".
 se c -all_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -all_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-all_check) "test_deep_twin_array.exe".
+Abnormal: exit status 1 of "Running (-all_check) "test_deep_twin_array.exe".".
+se clean test_deep_twin_array.e
+Removing (-all_check) "test_deep_twin_array.exe".
 se c -no_gc -require_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -require_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -require_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -require_check) "test_deep_twin_array.exe".
 se c -no_gc -ensure_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -ensure_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -ensure_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -ensure_check) "test_deep_twin_array.exe".
 se c -no_gc -invariant_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -invariant_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -invariant_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -invariant_check) "test_deep_twin_array.exe".
 se c -no_gc -loop_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -loop_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -loop_check) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_gc -loop_check) "test_deep_twin_array.exe".
 se c -no_gc -all_check test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_gc -all_check test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_gc -all_check) "test_deep_twin_array.exe".
+Abnormal: exit status 1 of "Running (-no_gc -all_check) "test_deep_twin_array.exe".".
+se clean test_deep_twin_array.e
+Removing (-no_gc -all_check) "test_deep_twin_array.exe".
 se c -require_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -require_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-require_check -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-require_check -bdw_gc) "test_deep_twin_array.exe".
 se c -ensure_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -ensure_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-ensure_check -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-ensure_check -bdw_gc) "test_deep_twin_array.exe".
 se c -invariant_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -invariant_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-invariant_check -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-invariant_check -bdw_gc) "test_deep_twin_array.exe".
 se c -loop_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -loop_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-loop_check -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-loop_check -bdw_gc) "test_deep_twin_array.exe".
 se c -all_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -all_check -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-all_check -bdw_gc) "test_deep_twin_array.exe".
+Abnormal: exit status 1 of "Running (-all_check -bdw_gc) "test_deep_twin_array.exe".".
+se clean test_deep_twin_array.e
+Removing (-all_check -bdw_gc) "test_deep_twin_array.exe".
 se c -profile -boost test_deep_twin_array.e -o test_deep_twin_array.exe
 Abnormal: exit status 1 of "se c -profile -boost test_deep_twin_array.e -o test_deep_twin_array.exe".
 se c -profile -all_check -debug test_deep_twin_array.e -o test_deep_twin_array.exe
@@ -376,11 +464,17 @@ Abnormal: exit status 1 of "se c -profile -flat_check -loop_check test_deep_twin
 se c -profile -flat_check -all_check test_deep_twin_array.e -o test_deep_twin_array.exe
 Abnormal: exit status 1 of "se c -profile -flat_check -all_check test_deep_twin_array.e -o test_deep_twin_array.exe".
 se c -no_split -boost test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_split -boost test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_split -boost) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_split -boost) "test_deep_twin_array.exe".
 se c -no_split -no_gc -boost test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_split -no_gc -boost test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_split -no_gc -boost) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_split -no_gc -boost) "test_deep_twin_array.exe".
 se c -no_split -boost -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe
-Abnormal: exit status 1 of "se c -no_split -boost -bdw_gc test_deep_twin_array.e -o test_deep_twin_array.exe".
+Running (-no_split -boost -bdw_gc) "test_deep_twin_array.exe".
+se clean test_deep_twin_array.e
+Removing (-no_split -boost -bdw_gc) "test_deep_twin_array.exe".
 --------------------------------------------------------------------------------
 No "excluded.lst" here (good).
 --------------------------------------------------------------------------------
