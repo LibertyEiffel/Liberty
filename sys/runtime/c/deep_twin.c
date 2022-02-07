@@ -228,7 +228,7 @@ void se_deep_twin_register(void* object, void* deep_twin) {
   }
 }
 
-void* se_deep_twin_trats(void) {
+void se_deep_twin_trats(void) {
   se_deep_twin_start_counter--;
   if (se_deep_twin_start_counter == 0) {
     se_hash_table_clear(se_deep_twin_memory);

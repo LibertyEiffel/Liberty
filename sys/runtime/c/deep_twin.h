@@ -38,7 +38,7 @@
 void se_deep_twin_start(void);
 void* se_deep_twin_search(void* object);
 void se_deep_twin_register(void* object, void* deep_twin);
-void* se_deep_twin_trats(void);
+void se_deep_twin_trats(void);
 
 /* Runtime support for `is_deep_equal':
  */
