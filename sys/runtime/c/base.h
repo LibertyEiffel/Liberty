@@ -231,9 +231,6 @@ typedef int_least8_t int8_t;
 */
 #if defined(BSD) && (BSD >= 199103)
 #  include <machine/endian.h>
-#elif defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
-/* bi-endian processor, current mode should be find in machine/endian.h file */
-#  include <machine/endian.h>
 #elif defined(linux)
 #  include <endian.h>
 #endif
