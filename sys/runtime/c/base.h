@@ -304,6 +304,7 @@ typedef int_least8_t int8_t;
 #  if defined(wrltitan)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
+#endif
 
 #if !defined(BYTE_ORDER)
 #  error "Unknown byte order. Add your system in above macros once you know your system type. Please drop an e-mail to liberty-eiffel@gnu.org"
