@@ -277,19 +277,6 @@ elif defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
 #    error "ARMs are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to liberty-eiffel@gnu.org"
 #  endif
   
-/* HP RISC */
-#  if defined(__hppa__) || defined(__hppa) || defined(__hp9000) || \
-          defined(__hp9000s300) || defined(hp9000s300) || \
-          defined(__hp9000s700) || defined(hp9000s700) || \
-          defined(__hp9000s800) || defined(hp9000s800) || defined(hp9000s820)
-#    define BYTE_ORDER      BIG_ENDIAN
-#  endif
-
-/* IBM */
-#  if defined(ibm032) || defined(ibm370) || defined(_IBMR2) || \
-          defined(IBM370) || defined(__MVS__)
-#    define BYTE_ORDER      BIG_ENDIAN
-#  endi
   
 /* Intel x86 */
 #  if defined(i386) || defined(__i386__) || defined(__i386) || \
@@ -304,24 +291,6 @@ elif defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
-  /* Nationnal Semiconductor 32000 serie */
-#  if  defined(ns32000)
-#    define BYTE_ORDER      LITTLE_ENDIAN
-#  endif
-  
-/* Motorola 68000 */
-#  if defined(mc68000) || defined(is68k) || defined(m68k)
-#    define BYTE_ORDER      BIG_ENDIAN
-#  endif
-
- /* MIPS */
-#  if defined(MIPSEL) || defined(_MIPSEL)
-#    define BYTE_ORDER      LITTLE_ENDIAN
-#  elif defined(MIPSEB) || defined(_MIPSEB)
-#    define BYTE_ORDER      BIG_ENDIAN
-#  elif defined(__mips__) || defined(__mips) || defined(__MIPS__)
-#    error "MIPS are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to liberty-eiffel@gnu.org"
-#  endif
   
 /* Power PC */
 /* this processor is bi-endian, how to know if little-endian is set? */
@@ -331,32 +300,6 @@ elif defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
-  /* Pyramid 9810 */
-#  if defined(pyr)
-#    define BYTE_ORDER      BIG_ENDIAN
-#  endif
-
-/* RS/6000 */
-#  if defined(__THW_RS6000) || defined(_IBMR2) || defined(_POWER) || \
-          defined(_ARCH_PWR) || defined(_ARCH_PWR2)
-#    define BYTE_ORDER      BIG_ENDIAN
-#  endif
-
-/* SPARC */
-#  if defined(__sparc__) || defined(sparc) || defined(__sparc)
-#    define BYTE_ORDER      BIG_ENDIAN
-#  endif
-
-/* CCI Tahoe */
-#  if defined(tahoe)
-#    define BYTE_ORDER      BIG_ENDIAN
-#  endif
-
-/* VAX */
-#  if defined(vax) || defined(VAX) || defined(__vax__) || defined(_vax_) || \
-          defined(__vax) || defined(__VAX)
-#    define BYTE_ORDER      LITTLE_ENDIAN
-#  endif
   
 /* Miscellaneous little endian */
 #  if defined(wrltitan)
