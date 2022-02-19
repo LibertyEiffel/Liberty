@@ -83,7 +83,6 @@
 #    define GC_BUG(tag, expr) do {if (expr) {    \
          handle(SE_HANDLE_RUNTIME_ERROR, NULL); \
          se_print_run_time_stack();             \
-         // {int *i=0;*i=0;}                       \
          exit(EXIT_FAILURE);                    \
       }} while(0)
 #else

@@ -362,6 +362,7 @@ elif defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
 #  if defined(wrltitan)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
+#endif
 
 /* Miscellaneous big endian */
 #  if defined(apollo) || defined(__convex__) || defined(_CRAY) || defined(sel)
