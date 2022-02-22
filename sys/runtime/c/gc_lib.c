@@ -914,65 +914,6 @@ fsoc* gc_fsoc_get2(void) {
   }
 }
 
-#if defined(__sparc__) || defined(sparc) || defined(__sparc)
-/* For SPARC architecture.
-   As this part contains assembly code (asm), you must not use
-   the flag -ansi of gcc compiler.
-*/
-
-void mark_loop(void) {
-  void** max = stack_bottom;
-  void** stack_pointer;
-  void* stack_top[2]={NULL,NULL};
-  stack_pointer = stack_top;
-  /* Addresses decrease as the stack grows. */
-  while (stack_pointer <= max) {
-    gc_mark(*(stack_pointer++));
-  }
-}
-
-void mark_stack_and_registers(void) {
-#  if defined(__sparcv9)
-  asm(" flushw");
-#  else
-  asm(" ta      0x3   ! ST_FLUSH_WINDOWS");
-#  endif
-  mark_loop();
-}
-
-#elif defined(__hppa__) || defined(__hppa) || defined(__hp9000) || \
-      defined(__hp9000s300) || defined(hp9000s300) || \
-      defined(__hp9000s700) || defined(hp9000s700) || \
-      defined(__hp9000s800) || defined(hp9000s800) || defined(hp9000s820)
-
-/****************************************************************************
- * Generic code for architectures where addresses increase as the stack grows.
- ****************************************************************************/
-
-void mark_stack_and_registers(void){
-  void** max = stack_bottom;
-  JMP_BUF registers;   /* The jmp_buf buffer is in the C stack. */
-  void**stack_pointer; /* Used to traverse the stack and registers assuming
-                          that `setjmp' will save registers in the C stack.
-                       */
-
-  (void)SETJMP(registers);  /* To fill the C stack with registers. */
-  stack_pointer = (void**)(void*)(&registers) + ((sizeof(JMP_BUF)/sizeof(void*))-1);
-  /* stack_pointer will traverse the JMP_BUF as well (jmp_buf size is added,
-     otherwise stack_pointer would be below the registers structure). */
-
-#  if !defined(SE_BOOST)
-  if (stack_pointer < max) {
-    fprintf(stderr, "Wrong stack direction: your stack decrease as the stack grows (or complex stack management). Please drop an e-mail to liberty-eiffel@gnu.org\n");
-    exit(1); }
-#  endif
-
-  while (stack_pointer >= max) {
-    gc_mark(*(stack_pointer--));
-  }
-}
-#else
-
 /****************************************************************************
  * Generic code for architectures where addresses decrease as the stack grows.
  ****************************************************************************/
@@ -997,4 +938,4 @@ void mark_stack_and_registers(void){
     gc_mark(*(stack_pointer++));
   }
 }
-#endif
+
