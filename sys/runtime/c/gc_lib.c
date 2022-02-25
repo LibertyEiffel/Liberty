@@ -145,7 +145,7 @@ static void may_free_rsocfl(void) {
   rsoc* next; register rsoc *current;
   unsigned int count = rsocfl_count();
   register unsigned int where = gcmt_used;
-  register unsigned int how_many;
+  
 
   if ((count > 50) && (count > (rsoc_count >> 1))) {
     current=rsocfl;
@@ -154,7 +154,7 @@ static void may_free_rsocfl(void) {
       next=current->next;
       if (current->isize == current->header.size) {
         where = binary_search_in_gcmt(0, where-1, (mch*)current);
-        how_many = gcmt_used - 1 - where;
+        register unsigned int how_many = gcmt_used - 1 - where;
         if (how_many > 0)
           memmove(gcmt+where, gcmt+where+1, how_many*sizeof(mch*));
         free(current); gcmt_used--; rsoc_count--;
@@ -423,14 +423,13 @@ static void gc_add_into_gcmt(mch*c) {
      new `mch' (Memory Chunk Header).`gcmt_used' is updated.
   */
   unsigned int where=0;
-  unsigned how_many;
   if (gcmt_used>0){
     where=binary_search_in_gcmt(0, gcmt_used-1, c);
     if (gcmt_used == gcmt_max) {
       gcmt_max <<= 1;
       gcmt = ((mch**)(se_realloc(gcmt,(gcmt_max+1)*sizeof(mch*))));
     }
-    how_many = gcmt_used - where;
+    unsigned how_many = gcmt_used - where;
     if (how_many > 0)
       memmove(gcmt+where+1, gcmt+where, how_many*sizeof(mch*));
   }
