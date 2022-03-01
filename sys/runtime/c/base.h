@@ -231,9 +231,6 @@ typedef int_least8_t int8_t;
 */
 #if defined(BSD) && (BSD >= 199103)
 #  include <machine/endian.h>
-elif defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
-/* bi-endian processor, current mode should be find in machine/endian.h file */
-#  include <machine/endian.h>
 #elif defined(linux)
 #  include <endian.h>
 #endif
@@ -276,8 +273,7 @@ elif defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
 #  elif defined(__arm__)
 #    error "ARMs are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to liberty-eiffel@gnu.org"
 #  endif
-  
-  
+
 /* Intel x86 */
 #  if defined(i386) || defined(__i386__) || defined(__i386) || \
           defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL) || \
@@ -300,25 +296,19 @@ elif defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
-  
 /* Miscellaneous little endian */
 #  if defined(wrltitan)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 #endif
 
-/* Miscellaneous big endian */
-#  if defined(apollo) || defined(__convex__) || defined(_CRAY) || defined(sel)
-#    define BYTE_ORDER      BIG_ENDIAN
-#  endif
-#endi
-  
 #if !defined(BYTE_ORDER)
 #  error "Unknown byte order. Add your system in above macros once you know your system type. Please drop an e-mail to liberty-eiffel@gnu.org"
 #endif
 #if (BYTE_ORDER != BIG_ENDIAN && BYTE_ORDER != LITTLE_ENDIAN)
 #  error "Only little-endian and big-endian are valid at this time. Please drop an e-mail to liberty-eiffel@gnu.org"
 #endif
+
 
 /*
   Byte swapping stuff
