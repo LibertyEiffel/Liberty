@@ -109,27 +109,6 @@ typedef unsigned __int64 uint64_t;
 #  define UINT16_C(c) c ## u
 #  define UINT32_C(c) c ## u
 #  define UINT64_C(c) c ## ui64
-#elif defined(__WATCOMC__) && (__WATCOMC__ <= 1220) /* WATCOM 12.2 or lower */
-typedef signed char int8_t;
-typedef signed short int16_t;
-typedef signed long int int32_t;
-typedef signed __int64 int64_t;
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned long int uint32_t;
-typedef unsigned __int64 uint64_t;
-#  define PRId8 "d"
-#  define PRId16 "d"
-#  define PRId32 "d"
-#  define PRId64 "Ld"
-#  define INT8_C(c) c
-#  define INT16_C(c) c
-#  define INT32_C(c) c ## L
-#  define INT64_C(c) c ## i64
-#  define UINT8_C(c) c ## u
-#  define UINT16_C(c) c ## u
-#  define UINT32_C(c) c ## UL
-#  define UINT64_C(c) c ## ui64
 #elif defined(__BORLANDC__) && (__BORLANDC__ < 0x600) /* Borland before 6.0 */
 typedef signed char int8_t;
 typedef signed short int16_t;
