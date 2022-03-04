@@ -133,6 +133,7 @@ check_prerequisites() {
 
 bootstrap() {
     test -d $TARGET && rm -rf $TARGET
+    mkdir -p $TARGET
     mkdir -p $TMPDIR
     cd $TARGET
     test -d log || mkdir log
