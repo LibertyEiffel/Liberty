@@ -101,7 +101,7 @@ check_libgc() {
     if _check_libgc; then
        BDW_GC="-bdw_gc"
     else
-       error_message "BDW too old or missing"
+       error_message "BDW too old or missing. On Debian based distribution install libgc and libgc-dev packages; on rpm-based distributions (Fedora) gc and gc-devel; on BSD systems install boehm-gc package"
        BDW_GC="-no_gc"
     fi
     export BDW_GC
