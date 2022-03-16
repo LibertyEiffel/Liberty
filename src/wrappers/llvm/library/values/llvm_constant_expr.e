@@ -1,7 +1,7 @@
 class LLVM_CONSTANT_EXPR
 inherit LLVM_CONSTANT
 end -- class LLVM_CONSTANT_EXPR
--- Copyright (C) 2009-2018: Paolo Redaelli
+-- Copyright (C) 2009-2022: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

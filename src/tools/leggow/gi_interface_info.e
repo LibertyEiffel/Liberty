@@ -235,7 +235,7 @@ feature {ANY} -- Constants
 --    Returns : the GIStructInfo or NULL. Free it with g_base_info_unref() when done. [transfer full]
 end 
 
--- Copyright (C) 2013-2018: , 2016 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- Copyright (C) 2013-2022: , 2016 Paolo Redaelli <paolo.redaelli@gmail.com>
 -- 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public License

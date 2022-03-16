@@ -10,7 +10,7 @@ insert
 end -- class DL_LOADER
 
 
--- Liberty Eiffel wrappers for GNU C library Copyright (C) 2013-2018: Paolo Redaelli, Free Software Foundation
+-- Liberty Eiffel wrappers for GNU C library Copyright (C) 2013-2022: Paolo Redaelli, Free Software Foundation
 -- 
 -- The GNU C Library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public

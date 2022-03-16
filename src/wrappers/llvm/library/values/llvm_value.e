@@ -711,7 +711,7 @@ feature {WRAPPER, WRAPPER_HANDLER}
 
 	end -- class LLVM_VALUE
 
--- Copyright (C) 2009-2018: Paolo Redaelli
+-- Copyright (C) 2009-2022: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

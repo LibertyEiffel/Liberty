@@ -51,7 +51,7 @@ feature {}
 
 end
 
--- Liberty Eiffel wrappers for GNU readline library Copyright (C) 2010-2018: ,2012,2013 Paolo Redaelli, Cyril Adrian 
+-- Liberty Eiffel wrappers for GNU readline library Copyright (C) 2010-2022: ,2012,2013 Paolo Redaelli, Cyril Adrian 
 -- 
 -- The GNU C Library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public

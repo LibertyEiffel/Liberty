@@ -19,7 +19,7 @@ feature {ANY}
 
 end -- class REGULAR_EXPRESSION_ITEM_IS_POSIX_ASCII
 --
--- Copyright (C) 2009-2018: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2022: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

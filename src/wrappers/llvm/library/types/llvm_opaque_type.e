@@ -17,7 +17,7 @@ feature {ANY} -- Creation
 invariant type_kind.is_opaque_type_kind
 end -- class LLVM_OPAQUE_TYPE
 
--- Copyright (C) 2009-2018: Paolo Redaelli
+-- Copyright (C) 2009-2022: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

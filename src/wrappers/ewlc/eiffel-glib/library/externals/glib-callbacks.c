@@ -1,10 +1,10 @@
 /* Eiffel callbacks for the Glib library 
  * 
  * based on the original Glib:
- * Copyright (C) 1995-2018: Peter Mattis, Spencer Kimball and Josh MacDonald
- * Copyright (C) 1997-2018: the GLib Team and others
+ * Copyright (C) 1995-2022: Peter Mattis, Spencer Kimball and Josh MacDonald
+ * Copyright (C) 1997-2022: the GLib Team and others
 
- * Copyright (C) 2007-2018: , Paolo Redaelli, EWLC team
+ * Copyright (C) 2007-2022: , Paolo Redaelli, EWLC team
  
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License

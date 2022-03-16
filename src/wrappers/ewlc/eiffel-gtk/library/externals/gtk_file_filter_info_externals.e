@@ -1,7 +1,7 @@
 note
 	description: "External calls for GTL_FILE_FILTER_INFO A GtkFileFilterInfo struct is used to pass information about the tested file to gtk_file_filter_filter()."
 	copyright: "[
-					Copyright (C) 2006-2018: eiffel-libraries team, GTK+ team
+					Copyright (C) 2006-2022: eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

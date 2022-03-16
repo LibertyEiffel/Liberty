@@ -1,7 +1,7 @@
 note
 	description: "An enumeration specifying the weight (boldness) of a font. This is a numerical value ranging from 100 to 900, but there are some predefined values"
 	copyright: "[
-					Copyright (C) 2006-2018: eiffel-libraries team,
+					Copyright (C) 2006-2022: eiffel-libraries team,
 					Soluciones Informaticas Libres S.A. (Except)
 					Pango team
 					

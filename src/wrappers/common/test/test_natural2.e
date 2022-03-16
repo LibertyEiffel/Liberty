@@ -20,7 +20,7 @@ feature {ANY}
 
 end -- class TEST_NATURAL2
 
--- Copyright (C) 2009-2018: , 2013 Paolo Redaelli, 2013 Cyril Adrian
+-- Copyright (C) 2009-2022: , 2013 Paolo Redaelli, 2013 Cyril Adrian
 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public License

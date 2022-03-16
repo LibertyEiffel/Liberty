@@ -4,7 +4,7 @@ note
 					the main loop
 			"]
 	copyright: "[
-					Copyright (C) 2006-2018: Paolo Redaelli, eiffel-gtk team
+					Copyright (C) 2006-2022: Paolo Redaelli, eiffel-gtk team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

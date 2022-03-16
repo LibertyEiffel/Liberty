@@ -4,7 +4,7 @@ class LLVM_DBG_FUNC_START_INST
 inherit LLVM_DBG_INFO_INTRINSIC
 end -- class LLVM_DBG_FUNC_START_INST
 
--- Copyright (C) 2009-2018: Paolo Redaelli
+-- Copyright (C) 2009-2022: Paolo Redaelli
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 -- This library is free software: you can redistribute it and/or modify

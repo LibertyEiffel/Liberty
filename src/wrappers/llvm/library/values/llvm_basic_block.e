@@ -125,7 +125,7 @@ feature {ANY} -- Iterating over instructions
 		end
 end -- class LLVM_BASIC_BLOCK
 
--- Copyright (C) 2009-2018: Paolo Redaelli, partially derived from LLVM documentation
+-- Copyright (C) 2009-2022: Paolo Redaelli, partially derived from LLVM documentation
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --
 -- This library is free software: you can redistribute it and/or modify

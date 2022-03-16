@@ -1,7 +1,7 @@
 note
 	description: "cairo_matrix_t -- Generic matrix operations."
 	copyright: "[
-					Copyright (C) 2007-2018: Paolo Redaelli,
+					Copyright (C) 2007-2022: Paolo Redaelli,
 					Soluciones Informaticas Libres S.A. (Except),
 					Cairo team
 					

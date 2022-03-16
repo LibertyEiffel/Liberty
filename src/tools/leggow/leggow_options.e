@@ -64,7 +64,7 @@ end -- class LEGGOW_OPTIONS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright (C) 2016-2018: Paolo REDAELLI
+-- Copyright (C) 2016-2022: Paolo REDAELLI
 --
 -- http://www.liberty-eiffel.org - https://github.com/LibertyEiffel/Liberty
 --

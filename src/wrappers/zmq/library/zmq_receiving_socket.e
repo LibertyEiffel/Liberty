@@ -79,7 +79,7 @@ end -- class ZMQ_RECEIVING_SOCKET
 
 -- Zero MQ Liberty Wrappers
 
--- Copyright (C) 2012-2018: Paolo Redaelli 
+-- Copyright (C) 2012-2022: Paolo Redaelli 
 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public

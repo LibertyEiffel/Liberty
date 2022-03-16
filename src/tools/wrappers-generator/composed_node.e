@@ -180,7 +180,7 @@ feature {ANY}
 
 end -- class COMPOSED_NODE
 
--- Copyright (C) 2008-2018: Paolo Redaelli
+-- Copyright (C) 2008-2022: Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free

@@ -1,7 +1,7 @@
 note
 	description: "enum cairo_font_weight_t"
 	copyright: "[
-					Copyright (C) 2007-2018: Paolo Redaelli, Cairo team
+					Copyright (C) 2007-2022: Paolo Redaelli, Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

@@ -42,7 +42,7 @@ feature {ANY} -- Commands
 
 end -- class LLVM_GLOBAL_VARIABLE
 
--- Copyright (C) 2010-2018: Paolo Redaelli
+-- Copyright (C) 2010-2022: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

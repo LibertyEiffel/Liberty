@@ -1,7 +1,7 @@
 note
 	description: "Data-type for performing parallel assignements and substitutions on matrices and polyhedra."
 	copyright: "[
-					Copyright (C) 2001-2018: Natalia B. Bidart
+					Copyright (C) 2001-2022: Natalia B. Bidart
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

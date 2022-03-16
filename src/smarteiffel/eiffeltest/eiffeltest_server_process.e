@@ -191,7 +191,7 @@ end -- class EIFFELTEST_SERVER_PROCESS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright (C) 2013-2018: Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (C) 2013-2022: Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

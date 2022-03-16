@@ -23,7 +23,7 @@ feature {ANY}
       end
 
 end -- class C_NAMESPACE_ALIAS
--- Copyright (C) 2015-2018: Paolo Redaelli
+-- Copyright (C) 2015-2022: Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free

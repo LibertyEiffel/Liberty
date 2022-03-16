@@ -1,7 +1,7 @@
 note
 	description: "GDK_SELECTION - Functions for transfering data via the X selection mechanism."
 	copyright: "[
-					Copyright (C) 2008-2018: eiffel-libraries team, GTK+ team
+					Copyright (C) 2008-2022: eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

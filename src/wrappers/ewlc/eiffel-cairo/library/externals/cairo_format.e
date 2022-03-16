@@ -1,7 +1,7 @@
 note
 	description: "enum cairo_format_t"
 	copyright: "[
-					Copyright (C) 2006-2018: Soluciones Informaticas Libres S.A. (Except),
+					Copyright (C) 2006-2022: Soluciones Informaticas Libres S.A. (Except),
 					                   Cairo team
 					
 					This library is free software; you can redistribute it and/or

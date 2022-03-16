@@ -7,7 +7,7 @@ note
 
 					Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN					
 
-					Copyright (C) 2007-2018: Paolo Redaelli
+					Copyright (C) 2007-2022: Paolo Redaelli
 
 					
 					This program is free software; you can redistribute it and/or

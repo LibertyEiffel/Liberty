@@ -6,7 +6,7 @@ deferred class LLVM_OPERATOR
 inherit LLVM_USER
 end -- class LLVM_OPERATOR
 
--- Copyright (C) 2009-2018: Paolo Redaelli
+-- Copyright (C) 2009-2022: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

@@ -1,7 +1,7 @@
 note
 	description: "External C calls for CAIRO_FONT_OPTIONS"
 	copyright: "[
-					Copyright (C) 2007-2018: Paolo Redaelli,
+					Copyright (C) 2007-2022: Paolo Redaelli,
 					Soluciones Informaticas Libres S.A. (Except),
 					Cairo team
 					

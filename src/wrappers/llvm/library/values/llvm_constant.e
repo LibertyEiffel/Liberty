@@ -56,7 +56,7 @@ feature {ANY} -- Queries
 
 end -- class LLVM_CONSTANT
 
--- Copyright (C) 2009-2018: ,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
+-- Copyright (C) 2009-2022: ,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

@@ -1,6 +1,6 @@
 note
 	description: "External calls for GTK_FONT_SELECTION"
-	copyright: "Copyright (C) 2007-2018: Paolo Redaelli, Gtk team"
+	copyright: "Copyright (C) 2007-2022: Paolo Redaelli, Gtk team"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

@@ -21,7 +21,7 @@ feature {} -- Creation
 	-- 
 end -- class LLVM_ARRAY
 
--- Copyright (C) 2013-2018: Paolo Redaelli
+-- Copyright (C) 2013-2022: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

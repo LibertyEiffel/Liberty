@@ -3,7 +3,7 @@ note
       "A wrapper for a C object whose memory is handled by the Eiffel library "
    copyright:
       "[
-               Copyright (C) 2008-2018: Paolo Redaelli
+               Copyright (C) 2008-2022: Paolo Redaelli
 
                This library is free software; you can redistribute it and/or
                modify it under the terms of the GNU Lesser General Public License

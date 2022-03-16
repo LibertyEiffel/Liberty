@@ -199,7 +199,7 @@ feature {ANY}
 
 end -- class GI_UNION_INFO
 
--- Copyright (C) 2013-2018: Paolo Redaelli <paolo.redaelli@gmail.com>
+-- Copyright (C) 2013-2022: Paolo Redaelli <paolo.redaelli@gmail.com>
 -- 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public License

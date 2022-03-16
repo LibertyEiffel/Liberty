@@ -1,7 +1,7 @@
 note
 	description: "Generic callback for the enter-notify-event and leave-notify-event signals"
 	copyright: "[
-					Copyright (C) 2006-2018: Anthony Lenton, eiffel-libraries team,  GTK+ team and others
+					Copyright (C) 2006-2022: Anthony Lenton, eiffel-libraries team,  GTK+ team and others
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

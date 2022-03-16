@@ -1,7 +1,7 @@
 note
 	description: "Generic callback for the insert-at-cursor signal"
 	copyright: "[
-					Copyright (C) 2007-2018: eiffel-libraries team,  GTK+ team and others
+					Copyright (C) 2007-2022: eiffel-libraries team,  GTK+ team and others
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------------------------------------
 -- This file is part of the ESE library.
--- Copyright (C) 2006-2018: Cyril ADRIAN <cyril.adrian@gmail.com> and others (see AUTHORS)
+-- Copyright (C) 2006-2022: Cyril ADRIAN <cyril.adrian@gmail.com> and others (see AUTHORS)
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 -- associated documentation files (the "Software"), to deal in the Software without restriction, including

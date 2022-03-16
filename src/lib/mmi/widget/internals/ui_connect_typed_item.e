@@ -21,7 +21,7 @@ feature {ANY}
 
 end -- class UI_CONNECT_TYPED_ITEM[E_]
 --
--- Copyright (C) 2012-2018: Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (C) 2012-2022: Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

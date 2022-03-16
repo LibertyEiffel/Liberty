@@ -81,7 +81,7 @@ feature {ANY}
 invariant type_kind.is_function_type_kind
 end -- LLVM_FUNCTION_TYPE
 
--- Copyright (C) 2009-2018: Paolo Redaelli
+-- Copyright (C) 2009-2022: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

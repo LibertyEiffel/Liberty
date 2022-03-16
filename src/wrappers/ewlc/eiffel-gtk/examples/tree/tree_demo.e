@@ -1,6 +1,6 @@
 note
 	description: "Tree example translated to Eiffel from C"
-	copyright: "Copyright (c) 2003-2004 Tim-Philipp Müller <tim at centricular dot net>, Copyright (C) 2005-2018: , Paolo Redaelli"
+	copyright: "Copyright (c) 2003-2004 Tim-Philipp Müller <tim at centricular dot net>, Copyright (C) 2005-2022: , Paolo Redaelli"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

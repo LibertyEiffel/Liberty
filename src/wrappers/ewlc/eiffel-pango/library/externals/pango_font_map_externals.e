@@ -1,7 +1,7 @@
 note
 	description: "External calls for PANGO_FONT_MAP"
 	copyright: "[
-					Copyright (C) 2006-2018: eiffel-libraries team, Pango team
+					Copyright (C) 2006-2022: eiffel-libraries team, Pango team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

@@ -6,7 +6,7 @@ insert   LLVM_TYPE_FACTORY undefine out_in_tagged_out_memory end
 create {ANY} manifest_creation, from_external_array
 end -- class LLVM_TYPE_ARRAY
 
--- Copyright (C) 2009-2018: ,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
+-- Copyright (C) 2009-2022: ,2010,2013 Paolo Redaelli - 2013 Cyril Adrian 
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

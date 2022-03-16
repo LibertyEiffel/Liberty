@@ -1,6 +1,6 @@
 note
 	description: "External calls for GTS_FACE"
-	copyright: "Copyright (C) 2007-2018: Paolo Redaelli, GTS developers"
+	copyright: "Copyright (C) 2007-2022: Paolo Redaelli, GTS developers"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

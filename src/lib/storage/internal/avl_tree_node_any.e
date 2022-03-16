@@ -13,7 +13,7 @@ insert
 
 end -- class AVL_TREE_NODE_ANY
 --
--- Copyright (C) 2009-2018: by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2022: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

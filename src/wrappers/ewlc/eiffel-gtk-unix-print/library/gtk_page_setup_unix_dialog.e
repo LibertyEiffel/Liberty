@@ -1,7 +1,7 @@
 note
 	description: "A page setup dialog."
 	copyright: "[
-					Copyright (C) 2007-2018: Paolo Redaelli, GTK+ team
+					Copyright (C) 2007-2022: Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

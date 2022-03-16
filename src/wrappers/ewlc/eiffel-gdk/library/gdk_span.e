@@ -1,7 +1,7 @@
 note
 	description: "A GdkSpan represents a horizontal line of pixels starting at the pixel with coordinates x, y and ending before x + width, y."
 	copyright: "[
-					Copyright (C) 2006-2018: eiffel-libraries team, GTK+ team
+					Copyright (C) 2006-2022: eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

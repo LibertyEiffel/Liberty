@@ -1,7 +1,7 @@
 note
 	description: "Enum cairo_line_join_t"
 	copyright: "[
-					Copyright (C) 2007-2018: eiffel-libraries team,
+					Copyright (C) 2007-2022: eiffel-libraries team,
 					Soluciones Informaticas Libres S.A. (Except),
 					Cairo team
 					

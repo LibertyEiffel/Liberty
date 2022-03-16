@@ -1,7 +1,7 @@
 note
 	description: "Enum GtkResponseType. Predefined values for use as response ids in GTK_DIALOG add_button. All predefined values are negative, GTK+ leaves positive values for application-defined response ids."
 	copyright: "[
-					Copyright (C) 2006-2018: eiffel-libraries team, GTK+ team
+					Copyright (C) 2006-2022: eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

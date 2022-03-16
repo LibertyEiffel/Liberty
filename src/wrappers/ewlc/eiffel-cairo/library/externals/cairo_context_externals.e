@@ -1,7 +1,7 @@
 note
 	description: "External calls for features of CAIRO_CONTEXT"
 	copyright: "[
-					Copyright (C) 2006-2018: , 2007 Paolo Redaelli ,
+					Copyright (C) 2006-2022: , 2007 Paolo Redaelli ,
 					              Soluciones Informaticas Libres S.A. (Except),
 					              Cairo team
 					

@@ -19,7 +19,7 @@ feature {} -- Creatuon
 	end
 end -- class LLVM_LABEL
 
--- Copyright (C) 2013-2018: Paolo Redaelli
+-- Copyright (C) 2013-2022: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

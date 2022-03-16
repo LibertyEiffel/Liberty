@@ -1,7 +1,7 @@
 note
 	description: "Simple statistics -- a basic structure for computing min, max, average and variance."
 	copyright: "[
-					Copyright (C) 2007-2018: Paolo Redaelli, GTS team
+					Copyright (C) 2007-2022: Paolo Redaelli, GTS team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

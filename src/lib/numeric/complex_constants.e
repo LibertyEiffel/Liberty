@@ -33,7 +33,7 @@ feature {ANY} -- Maths constants:
 
 end -- class COMPLEX_CONSTANTS
 --
--- Copyright (C) 2011-2018: Paolo Redaelli
+-- Copyright (C) 2011-2022: Paolo Redaelli
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

@@ -9,7 +9,7 @@ inherit LLVM_CMP_INST
 create {LLVM_BUILDER} from_external_pointer
 end -- class LLVM_FCMP_INST
 
--- Copyright (C) 2009-2018: Paolo Redaelli
+-- Copyright (C) 2009-2022: Paolo Redaelli
 
 -- This file is part of LLVM wrappers for Liberty Eiffel.
 --

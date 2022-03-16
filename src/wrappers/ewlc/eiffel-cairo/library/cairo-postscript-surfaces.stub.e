@@ -1,7 +1,7 @@
 note
 	description: "."
 	copyright: "[
-					Copyright (C) 2007-2018: Paolo Redaelli, GTK+ team
+					Copyright (C) 2007-2022: Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -273,7 +273,7 @@ feature {} -- Creation
 	-- cairo_surface_t *surface = cairo_ps_surface_create (filename, width, height);
 	-- ...
 	-- cairo_ps_surface_dsc_comment (surface, "%Title: My excellent document");
-	-- cairo_ps_surface_dsc_comment (surface, "%Copyright: Copyright (C) 2006-2018: Cairo Lover")
+	-- cairo_ps_surface_dsc_comment (surface, "%Copyright: Copyright (C) 2006-2022: Cairo Lover")
 	-- ...
 	-- cairo_ps_surface_dsc_begin_setup (surface);
 	-- cairo_ps_surface_dsc_comment (surface, "%IncludeFeature: *MediaColor White");

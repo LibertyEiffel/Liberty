@@ -1,7 +1,7 @@
 note
 	description: "GOO_CANVAS -- The canvas widget"
 	copyright: "[
-					GooCanvas. Copyright (C) 2005-2018: Damon Chaplin, eiffel-libraries team and others
+					GooCanvas. Copyright (C) 2005-2022: Damon Chaplin, eiffel-libraries team and others
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

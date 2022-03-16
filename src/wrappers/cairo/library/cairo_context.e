@@ -1,7 +1,7 @@
 note
 	description: "The cairo drawing context (cairo_t in C)"
 	copyright: "[
-					Copyright (C) 2007-2018: Paolo Redaelli,
+					Copyright (C) 2007-2022: Paolo Redaelli,
 											 Soluciones Informaticas Libres S.A. (Except),
 											 Cairo team
 					
