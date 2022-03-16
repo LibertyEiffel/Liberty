@@ -47,27 +47,27 @@ struct _se_breakpoint {
 };
 
 /* The breakpoint list: */
-static se_breakpoint* breakpoint_list = NULL;
+static TLS(se_breakpoint*) breakpoint_list = NULL;
 
 /* Save the last command for automatic repetition */
-static char sedb_last_command[SEDB_BUFMAX];
+static TLS(char) sedb_last_command[SEDB_BUFMAX];
 
 /* Save the last 'eval' expression */
-static char sedb_eval_expression[SEDB_BUFMAX];
+static TLS(char) sedb_eval_expression[SEDB_BUFMAX];
 
 enum sedb_status_values sedb_status = SEDB_START_STATUS;
 
 /* For SEDB_TRACE_FILE mode. A non NULL value indicates
    that the user is doing some profiling:
 */
-static FILE* sedb_trace_file = NULL;
+static TLS(FILE*) sedb_trace_file = NULL;
 
-static int sedb_signal_raised = 0;
-static int sedb_in_signal_handler = 0;
-static int sedb_in_read_line = 0;
+static TLS(int) sedb_signal_raised = 0;
+static TLS(int) sedb_in_signal_handler = 0;
+static TLS(int) sedb_in_read_line = 0;
 
 /* previous dump stack frame */
-static se_dump_stack* sedb_previous_ds;
+static TLS(se_dump_stack*) sedb_previous_ds;
 
 /* ---------------------------------------------------------------------- */
 /* forward declarations */
@@ -85,8 +85,8 @@ static void _sedb_eval(se_dump_stack*ds, char* expr, int eval_again);
 
 #ifdef SEDB_NAMED_PIPES
 
-static FILE* sedb_input_stream;
-static FILE* sedb_output_stream;
+static TLS(FILE*) sedb_input_stream;
+static TLS(FILE*) sedb_output_stream;
 
 static FILE* sedb_input(void) {
   if (sedb_input_stream == NULL) {
@@ -102,8 +102,8 @@ static FILE* sedb_output(void) {
   return sedb_output_stream;
 }
 
-static char sedb_path_in[SEDB_BUFMAX];
-static char sedb_path_out[SEDB_BUFMAX];
+static TLS(char) sedb_path_in[SEDB_BUFMAX];
+static TLS(char) sedb_path_out[SEDB_BUFMAX];
 
 static int sedb_ensure_directory(char* path) {
   struct stat s;
@@ -586,7 +586,7 @@ static void sedb_on_line_more_help(void) {
   if (sedb_yes_or_no("More help with the SmartEiffel debugger",1)) {
     /*      ------------------------------------------------------------------------------- */
     sedb_printf(out,
-            "Yes, sedb is the SmartEiffel DeBugger. Keep in mind that you can trust sedb\n"
+            "Yes, sedb is the Liberty Eiffel Debugger. Keep in mind that you can trust sedb\n"
             "if and only if you are using a freshly compiled system. To take in account\n"
             "any modification of some Eiffel source file, you must leave sedb and\n"
             "recompile your system first.\n"
