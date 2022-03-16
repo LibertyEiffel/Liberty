@@ -70,7 +70,7 @@ static void critical_error_exit(void) {
    For instance, this routine is called if there is an error in the
    operation of the exception handler routines themselves.
 */
-  fprintf(SE_ERR, "There was a critical error in the liberty Eiffel runtime.\n");
+  fprintf(SE_ERR, "There was a critical error in the Liberty Eiffel runtime.\n");
   exit(EXIT_FAILURE);
 }
 
@@ -85,7 +85,7 @@ void setup_signal_handler() {
    define SIG_ERR which is returned by signal() on an error. All Unix
    signals are included except SIGABRT, SIGKILL and SIGSTOP.
 
-   The other signals liberty Eiffel traps for
+   The other signals Liberty Eiffel traps for
    other OSs (like SIGBREAK) are not included here, but are below
    in the #else part, for non-Posix systems.
 */
