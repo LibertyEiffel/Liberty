@@ -25,8 +25,8 @@
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-EIF_INTEGER basic_microsecond_microsecond = 0;
-EIF_INTEGER_64 basic_microsecond_time = 0;
+TLS(EIF_INTEGER) basic_microsecond_microsecond = 0;
+TLS(EIF_INTEGER_64) basic_microsecond_time = 0;
 
 void _basic_microsecond_update(void) {
 #ifndef WIN32
