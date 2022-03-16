@@ -54,8 +54,8 @@ typedef struct se_hash_table {
   int threshold;
 } se_hash_table;
 
-void se_hash_table_clear (se_hash_table *ht);
-void se_hash_table_insert(se_hash_table *ht, void* key, void* value);
+TLS(void) se_hash_table_clear (se_hash_table *ht);
+TLS(void) se_hash_table_insert(se_hash_table *ht, void* key, void* value);
 
 #define SE_DEEP_TWIN_BUFFER_SIZE 89
 
@@ -203,11 +203,11 @@ void se_hash_table_clear(se_hash_table *ht) {
 
 /* To count level of nested `deep_twin' calls:
  */
-static int se_deep_twin_start_counter = 0;
+static TLS(int) se_deep_twin_start_counter = 0;
 
 /* Memory buffer to retrieve already `deep_twin'ed objects:
  */
-static se_hash_table *se_deep_twin_memory = NULL;
+static TLS(se_hash_table) *se_deep_twin_memory = NULL;
 
 void se_deep_twin_start(void) {
   if (NULL == se_deep_twin_memory) {
@@ -238,14 +238,14 @@ void se_deep_twin_trats(void) {
 
 /* To count level of nested `deep_equal' calls:
  */
-static int se_deep_equal_start_counter = 0;
+static TLS(int) se_deep_equal_start_counter = 0;
 
 /* Memory buffer to retrieve already `deep_equal'ed objects:
  */
-static void** se_deep_equal_memory1 = NULL;
-static void** se_deep_equal_memory2 = NULL;
-static size_t se_deep_equal_memory_sizeof = 0;
-static int    se_deep_equal_memory_last = -1;
+static TLS(void**) se_deep_equal_memory1 = NULL;
+static TLS(void**) se_deep_equal_memory2 = NULL;
+static TLS(size_t) se_deep_equal_memory_sizeof = 0;
+static TLS(int)    se_deep_equal_memory_last = -1;
 
 void se_deep_equal_start(void) {
   if (se_deep_equal_start_counter == 0) {
