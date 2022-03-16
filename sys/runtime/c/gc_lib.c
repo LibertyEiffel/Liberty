@@ -847,7 +847,7 @@ unsigned int fsocfl_count(void) {
   return r;
 }
 
-static int __se_dispose_before_exit;
+static TLS(int) __se_dispose_before_exit;
 
 void gc_set_dispose_before_exit(int enable) {
    __se_dispose_before_exit = enable;
