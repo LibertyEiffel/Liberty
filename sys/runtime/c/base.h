@@ -234,9 +234,6 @@ typedef int_least8_t int8_t;
 #if !defined(BIG_ENDIAN)
 #  define BIG_ENDIAN      4321    /* MSB first (IBM, net) */
 #endif
-#if !defined(PDP_ENDIAN)
-#  define PDP_ENDIAN      3412    /* LSB first in word, MSW first in long */
-#endif
 
 #if !defined(BYTE_ORDER) && defined(BIT_ZERO_ON_RIGHT)
 #  define BYTE_ORDER      LITTLE_ENDIAN
@@ -266,7 +263,6 @@ typedef int_least8_t int8_t;
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
-  
 /* Power PC */
 /* this processor is bi-endian, how to know if little-endian is set? */
 #  if defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || \
