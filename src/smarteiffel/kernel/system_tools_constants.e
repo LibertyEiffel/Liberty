@@ -12,8 +12,6 @@ feature {SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
 
    dos_system: STRING "DOS"
 
-   open_vms_system: STRING "OpenVMS"
-
 feature {} -- Currently handled C/C++ compiler list:
    gcc: STRING "gcc"
 
@@ -27,15 +25,11 @@ feature {} -- Currently handled C/C++ compiler list:
 
    cc_pp: STRING "CC"
 
-   wcl386: STRING "wcl386"
-
    bcc32: STRING "bcc32"
 
    cl: STRING "cl"
 
    ccc: STRING "ccc"
-
-   open_vms_cc: STRING "OpenVMS_CC"
 
    tcc: STRING "tcc"
 
