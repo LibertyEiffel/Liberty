@@ -174,13 +174,11 @@ feature {}
          elseif c_compiler = cl then
          elseif c_compiler = ccc then
             add_external_lib(libcpml)
-         elseif c_compiler = open_vms_cc then
          elseif c_compiler = tcc then
             add_external_lib(libm)
          elseif c_compiler = cc or else c_compiler = cc_pp then
             add_external_lib(libm)
          elseif c_compiler = lcc_win32 then
-         elseif c_compiler = wcl386 then
          end
       end
 
