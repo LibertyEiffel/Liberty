@@ -40,7 +40,9 @@ feature {ANY}
          item: STRING_RECYCLING_ITEM
       do
          gc := collecting
-         collection_off
+         if gc then
+            collection_off
+         end
          if not strings.is_empty then
             item.set_capacity(capacity)
             i := items_comparator.insert_index(strings, item)
