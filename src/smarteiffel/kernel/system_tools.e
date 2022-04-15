@@ -34,18 +34,18 @@ create {ANY}
 feature { SERC_FACTORY}
    system_list: FAST_ARRAY[STRING]
       once
-         Result := {FAST_ARRAY[STRING] << unix_system, windows_system, cygwin_system, dos_system, open_vms_system >> }
+         Result := {FAST_ARRAY[STRING] << unix_system, windows_system, cygwin_system, dos_system >> }
       end
 
    compiler_list: FAST_ARRAY[STRING]
       once
-         Result := {FAST_ARRAY[STRING] << gcc, gpp, lcc_win32, cc, wcl386, bcc32, cl, ccc, open_vms_cc, tcc, distcc >> }
+         Result := {FAST_ARRAY[STRING] << gcc, gpp, lcc_win32, cc, bcc32, cl, ccc, tcc, distcc >> }
       end
 
    c_plus_plus_compiler_list: FAST_ARRAY[STRING]
          -- Compilers (among `compiler_list') which can handle C++
       once
-         Result := {FAST_ARRAY[STRING] << gpp, cc_pp, cl, bcc32, wcl386, distcc, fz_none -- special no-C++ compiler
+         Result := {FAST_ARRAY[STRING] << gpp, cc_pp, cl, bcc32, distcc, fz_none -- special no-C++ compiler
                                        >> }
       end
 
@@ -136,8 +136,6 @@ feature {}
                   set_system_name(cygwin_system)
                elseif basic_directory.windows_notation then
                   set_system_name(windows_system)
-               elseif basic_directory.openvms_notation then
-                  set_system_name(open_vms_system)
                end
             end
          end
@@ -339,9 +337,6 @@ feature {SE, COMPILE}
       local
          bd: BASIC_DIRECTORY; tmp_file: STRING
       do
-         if system_name = open_vms_system then
-            command.append(once "mcr ")
-         end
          tmp_file := once "1234567890"
          tmp_file.copy(command_name)
          tmp_file.append(x_suffix)
@@ -444,8 +439,6 @@ feature {ANY}
             Result := once ".BAT"
          elseif windows_system = system_name then
             Result := once ".bat"
-         elseif open_vms_system = system_name then
-            Result := once ".com"
          else
             Result := once ".make"
          end
@@ -455,9 +448,6 @@ feature {ANY}
          -- Executable files suffix.
       once
          if dos_system = system_name then
-            Result := exe_suffix
-            Result.to_upper
-         elseif open_vms_system = system_name then
             Result := exe_suffix
             Result.to_upper
          elseif windows_system = system_name then
@@ -480,17 +470,12 @@ feature {ANY}
             Result := obj_suffix
          elseif c_compiler = cc or else c_compiler = cc_pp then
             Result := o_suffix
-         elseif c_compiler = wcl386 then
-            Result := obj_suffix
          elseif c_compiler = bcc32 then
             Result := obj_suffix
          elseif c_compiler = cl then
             Result := obj_suffix
          elseif c_compiler = ccc then
             Result := o_suffix
-         elseif c_compiler = open_vms_cc then
-            Result := obj_suffix
-            Result.to_upper
          elseif c_compiler = tcc then
             Result := o_suffix
          end
@@ -815,21 +800,13 @@ feature {}
 feature {C_PRETTY_PRINTER}
    main_function_return_type_in (pending_c_function_signature: STRING)
       do
-         if open_vms_system = system_name then
-            pending_c_function_signature.append(once "void")
-         else
-            pending_c_function_signature.append(once "int")
-         end
+         pending_c_function_signature.append(once "int")
       end
 
    main_function_exit_in (pending_c_function_body: STRING)
       do
          pending_c_function_body.append(once "exit(0);%N")
-         if open_vms_system = system_name then
-            pending_c_function_body.append(once "return;%N")
-         else
-            pending_c_function_body.append(once "return 0;%N")
-         end
+         pending_c_function_body.append(once "return 0;%N")
       end
 
    sys_runtime (name: STRING; suffix: CHARACTER)
@@ -1108,13 +1085,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, external_header_path)
             append_token(Result, c_flag)
             append_token(Result, c_file_name)
-         elseif c_compiler = wcl386 then
-            Result.append(c_compiler_path)
-            append_token(Result, c_compiler_options)
-            append_token(Result, c_plugin_compiler_options)
-            append_token(Result, external_header_path)
-            append_token(Result, once "/c")
-            append_token(Result, c_file_name)
          elseif c_compiler = bcc32 then
             Result.append(c_compiler_path)
             append_token(Result, c_compiler_options)
@@ -1136,12 +1106,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, external_header_path)
             append_token(Result, c_flag)
             append_token(Result, c_file_name)
-         elseif c_compiler = open_vms_cc then
-            -- BdB: external_header_path to be added here somehow
-            Result.append(once "cc/warning=disable=(embedcomment,longextern) ")
-            Result.append(c_file_name)
-            Result.append(c_compiler_path)
-            Result.remove_tail(2)
          elseif c_compiler = tcc then
             Result.append(c_compiler_path)
             append_token(Result, c_compiler_options)
@@ -1163,7 +1127,7 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
       require
          not objects.is_empty
       local
-         script, lst: TEXT_FILE_WRITE; i: INTEGER; name: STRING
+         lst: TEXT_FILE_WRITE; i: INTEGER; name: STRING
       do
          Result := once "...This is a local once buffer..."
          Result.clear_count
@@ -1228,17 +1192,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, external_c_plus_plus_files)
             append_token(Result, external_object_files)
             append_token(Result, external_lib)
-         elseif c_compiler = wcl386 then
-            Result.append(c_linker_path)
-            append_token(Result, external_header_path)
-            append_token(Result, c_linker_options)
-            append_token(Result, external_lib_path)
-            add_executable_name(Result)
-            append_tokens(Result, objects)
-            append_token(Result, external_c_files)
-            append_token(Result, external_c_plus_plus_files)
-            append_token(Result, external_object_files)
-            append_token(Result, external_lib)
          elseif c_compiler = bcc32 then
             Result.append(c_linker_path)
             append_token(Result, external_header_path)
@@ -1275,28 +1228,6 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
             append_token(Result, external_c_plus_plus_files)
             append_token(Result, external_object_files)
             append_token(Result, external_lib)
-         elseif c_compiler = open_vms_cc then
-            --|*** CAD: DON'T UNDERSTAND!! SHOULD USE c_linker_path
-            create script.make
-            echo.tfw_connect(script, once "linkit.com")
-            script.put_string(once "$ link/exe=")
-            Result.clear_count
-            add_executable_name(Result)
-            script.put_string(Result)
-            script.put_character(' ')
-            from
-               i := objects.lower
-            until
-               i >= objects.upper
-            loop
-               script.put_string(objects.item(i))
-               script.put_string(once ",-%N")
-               i := i + 1
-            end
-            script.put_string(objects.item(i))
-            script.put_character('%N')
-            script.disconnect
-            Result.copy(once "@linkit.com%Ndelete linkit.com;")
          elseif c_compiler = tcc then
             Result.append(c_linker_path)
             append_token(Result, external_header_path)
@@ -1542,8 +1473,6 @@ feature {}
             create {UNIX_DIRECTORY_NOTATION} notation
          elseif s = windows_system or else s = dos_system then
             create {WINDOWS_DIRECTORY_NOTATION} notation
-         elseif s = open_vms_system then
-            create {OPENVMS_DIRECTORY_NOTATION} notation
          elseif s = cygwin_system then
             create {CYGWIN_DIRECTORY_NOTATION} notation
          else
@@ -1773,16 +1702,12 @@ feature {}
             Result := cc
          elseif compiler = cc_pp then
             Result := cc_pp
-         elseif compiler = wcl386 then
-            Result := once "wcc386"
          elseif compiler = bcc32 then
             Result := bcc32
          elseif compiler = cl then
             Result := cl
          elseif compiler = ccc then
             Result := ccc
-         elseif compiler = open_vms_cc then
-            Result := open_vms_cc
          elseif compiler = tcc then
             Result := tcc
          end
@@ -1815,16 +1740,12 @@ feature {}
             Result := cc
          elseif compiler = cc_pp then
             Result := cc_pp
-         elseif compiler = wcl386 then
-            Result := once "wlink"
          elseif compiler = bcc32 then
             Result := bcc32
          elseif compiler = cl then
             Result := cl
          elseif compiler = ccc then
             Result := ccc
-         elseif compiler = open_vms_cc then
-            Result := open_vms_cc
          elseif compiler = tcc then
             Result := tcc
          end
@@ -2106,12 +2027,6 @@ feature {}
                append_token(cmd, e_flag)
                cmd.append(executable_name)
                add_x_suffix(cmd)
-            elseif c_compiler = wcl386 then
-               append_token(cmd, once "/fe=")
-               cmd.append(executable_name)
-               add_x_suffix(cmd)
-            elseif c_compiler = open_vms_cc then
-               append_token(cmd, executable_name)
             elseif c_compiler = tcc then
                if system_name = unix_system then
                   append_token(cmd, o_flag)
@@ -2140,10 +2055,6 @@ feature {}
                append_token(cmd, o_flag)
                append_token(cmd, executable_name)
                add_x_suffix(cmd)
-            elseif c_compiler = wcl386 then
-               append_token(cmd, once "/fe=")
-               cmd.append(executable_name)
-               add_x_suffix(cmd)
             elseif c_compiler = bcc32 then
                append_token(cmd, e_flag)
                cmd.append(executable_name)
@@ -2156,8 +2067,6 @@ feature {}
                append_token(cmd, o_flag)
                append_token(cmd, executable_name)
                add_x_suffix(cmd)
-            elseif c_compiler = open_vms_cc then
-               cmd.append(executable_name)
             elseif c_compiler = tcc then
                append_token(cmd, o_flag)
                append_token(cmd, executable_name)

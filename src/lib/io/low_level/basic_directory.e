@@ -511,20 +511,6 @@ feature {DIRECTORY_NOTATION_HANDLER}
          Result := {CYGWIN_DIRECTORY_NOTATION} ?:= system_notation
       end
 
-   openvms_notation: BOOLEAN
-         -- The VMS file path notation looks like:
-         --    DISK:[LibertyEiffel.sys]system.se
-         -- The current working directory notation is:
-         --    DISK:[]
-         -- The equivalent of Unix .. is :
-         --    [-]
-         -- The equivalent of Unix ../.. is :
-         --    [-.-]
-         --
-      do
-         Result := {OPENVMS_DIRECTORY_NOTATION} ?:= system_notation
-      end
-
    set_notation_using (some_path: ABSTRACT_STRING)
          -- Try to detect automatically the file system notation.
       require
@@ -541,8 +527,6 @@ feature {DIRECTORY_NOTATION_HANDLER}
             end
          when '\' then
             system_notation_buffer.set_item(create {WINDOWS_DIRECTORY_NOTATION})
-         when '[' then
-            system_notation_buffer.set_item(create {OPENVMS_DIRECTORY_NOTATION})
          when 'a' .. 'z', 'A' .. 'Z' then
             if some_path.count >= 2 then
                inspect
@@ -556,13 +540,7 @@ feature {DIRECTORY_NOTATION_HANDLER}
                      system_notation_buffer.set_item(create {CYGWIN_DIRECTORY_NOTATION})
                   end
                when 'a' .. 'z', 'A' .. 'Z' then
-                  if some_path.has('[') then
-                     system_notation_buffer.set_item(create {OPENVMS_DIRECTORY_NOTATION})
-                  elseif some_path.has(':') then
-                     if some_path.has('[') then
-                        system_notation_buffer.set_item(create {OPENVMS_DIRECTORY_NOTATION})
-                     end
-                  elseif some_path.has('/') then
+                  if some_path.has('/') then
                      system_notation_buffer.set_item(create {UNIX_DIRECTORY_NOTATION})
                   elseif some_path.has('\') then
                      --|*** This looks weird <FM-23/03/2005>
