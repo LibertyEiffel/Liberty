@@ -14,12 +14,14 @@ feature {ANY} -- Garbage collector information and tuning:
       end
 
    frozen collection_off
-         -- Disable garbage collection.
+         -- Disable garbage collection. Call this always in pairs 
+         -- with `collection_on´.
       external "built_in"
       end
 
    frozen collection_on
-         -- Enable garbage collection.
+         -- Enable garbage collection. Call this always in pairs 
+         -- with `collection_off´.
       external "built_in"
       end
 

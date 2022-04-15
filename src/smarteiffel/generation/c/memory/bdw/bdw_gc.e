@@ -100,16 +100,18 @@ feature {C_PRETTY_PRINTER} -- C code phases
 
    initialize_runtime
       do
-         cpp.pending_c_function_body.append(once "GC_java_finalization=1;%N%
-                                                 %GC_finalize_on_demand=1;%N%
-                                                 %GC_finalizer_notifier=bdw_run_finalizers;%N%
-                                                 %GC_INIT();%N%
-                                                 %GC_stackbottom=(char*)(void*)&argc;%N")
+         cpp.pending_c_function_body.append(once "GC_set_java_finalization(1);%N%
+                                                 %GC_set_finalize_on_demand(1);%N%
+                                                 %GC_set_finalizer_notifier(bdw_run_finalizers);%N%
+                                                 %GC_INIT();%N")
+-- Rmk, 2022-04-15: removed, deprecated and I guess it's not needed
+--                                                 %GC_stackbottom=(char*)(void*)&argc;%N")
       end
 
    initialize_thread
       do
-         cpp.pending_c_function_body.append(once "GC_stackbottom=(char*)(void*)&C;%N")
+-- Rmk, 2022-04-15: removed, deprecated and I guess it's not needed
+--         cpp.pending_c_function_body.append(once "GC_stackbottom=(char*)(void*)&C;%N")
       end
 
    post_initialize_runtime
@@ -195,11 +197,15 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
 feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
    gc_disable
       do
+-- TODO: Rmk, 2022-04-15: this should be reworked: disable/enable 
+-- shall always be called in pairs
          cpp.pending_c_function_body.append(once "GC_disable();%N")
       end
 
    gc_enable
       do
+-- TODO: Rmk, 2022-04-15: this should be reworked: disable/enable 
+-- shall always be called in pairs
          cpp.pending_c_function_body.append(once "GC_enable();%N")
       end
 
@@ -210,7 +216,7 @@ feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
 
    gc_is_collecting
       do
-         cpp.pending_c_function_body.append(once "(!GC_dont_gc)")
+         cpp.pending_c_function_body.append(once "(!GC_is_disabled())")
       end
 
    gc_counter
