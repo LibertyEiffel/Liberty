@@ -19,8 +19,8 @@ insert
       end
 
 feature {ANY}
-   liberty_authors: STRING "C.ADRIAN, P.REDAELLI, R.MACK"
-   liberty_dates: STRING "2011-2016"
+   liberty_authors: STRING "C.ADRIAN, P.REDAELLI, R.MACK and others, see AUTHORS file"
+   liberty_dates: STRING "2011-2022"
 
    copyright: ABSTRACT_STRING
       once
