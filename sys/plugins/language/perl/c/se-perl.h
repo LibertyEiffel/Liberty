@@ -29,9 +29,13 @@
 #include <EXTERN.h>               /* from the Perl distribution     */
 #include <perl.h>                 /* from the Perl distribution     */
 
+void perl_interpreter_init_();
+void perl_interpreter_destroy_();
+
+
 #define perl_interpreter_init perl_interpreter_init_()
 #define perl_interpreter_destroy perl_interpreter_destroy_()
 #define se_SvIVX(sv) SvIVX((SV*)(sv))
 #define se_SvIOK(sv) SvIOK((SV*)(sv))
 
-PerlInterpreter *my_perl;  /***    The Perl interpreter    ***/
+extern PerlInterpreter *my_perl;  /***    The Perl interpreter    ***/
