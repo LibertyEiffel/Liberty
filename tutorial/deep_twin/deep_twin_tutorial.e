@@ -49,7 +49,7 @@ feature {ANY}
          another.add_last("Fourth")
 
          (
-         ("[ 
+         ("[
          Let's append something to the elements of array and a fourth element to another: "#(1)"
          another, which has been created using twin is a different points to the same elements of array, so its contents are changed too: #(2)
          third, created with deep twin is changed: #(3)
