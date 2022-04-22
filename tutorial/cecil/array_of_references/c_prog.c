@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "eiffel.h"
 
-c_prog (EIF_OBJ animals) {
+void c_prog (EIF_OBJ animals) {
   int i;
   EIF_OBJ eiffel_string;
   char* c_string;

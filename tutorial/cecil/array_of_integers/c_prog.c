@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "eiffel.h"
 
-c_prog (EIF_OBJ values) {
+void c_prog (EIF_OBJ values) {
   int i;
   int val;
   

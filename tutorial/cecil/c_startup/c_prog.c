@@ -8,7 +8,7 @@ int main(int argc,char*argv[]) {
 
   /* Must be called once before calling Eiffel code :
    */
-  initialize_eiffel_runtime(argc,argv);
+  initialize_eiffel_runtime(argc, argv);
 
 
   /* Now calling Eiffel code :
