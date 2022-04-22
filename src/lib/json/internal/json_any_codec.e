@@ -19,9 +19,11 @@ feature {JSON_HANDLER}
       end
 
    finalize_array (array: JSON_DATA)
+      -- array is fully read, if a codec needs to do some cleanup 
+      -- this feature can be redefined
       require
          array /= Void
-      deferred
+      do
       end
 
    create_object: JSON_DATA
@@ -37,9 +39,11 @@ feature {JSON_HANDLER}
       end
 
    finalize_object (object: JSON_DATA)
+      -- object is fully read, if a codec needs to do some cleanup 
+      -- this feature can be redefined
       require
          object /= Void
-      deferred
+      do
       end
 
    create_string (string: JSON_STRING): JSON_DATA
