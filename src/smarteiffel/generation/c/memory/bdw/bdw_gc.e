@@ -221,7 +221,9 @@ feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
 
    gc_counter
       do
-         cpp.pending_c_function_body.append(once "(GC_gc_no)")
+         -- Rmk, 2022-04-22: this is not thread-safe, when we'd add 
+         -- threads we need to wrap this in GC_call_with_alloc_lock
+         cpp.pending_c_function_body.append(once "(GC_get_gc_no())")
       end
 
    gc_allocated_bytes
