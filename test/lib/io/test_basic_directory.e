@@ -16,8 +16,6 @@ feature {}
    make
          -- To test BASIC_DIRECTORY.try_to_compute_notation:
       do
-         bd.reset_notation_using("SOMEDISK:[SmartEiffel.sys]system.se")
-         assert(bd.openvms_notation)
          bd.reset_notation_using("/home/SmartEiffel/sys/system.se")
          assert(bd.unix_notation)
          unix_test
@@ -27,7 +25,6 @@ feature {}
          bd.reset_notation_using("D:\SmartEiffel\sys\system.se")
          assert(bd.windows_notation)
          windows_test
-         open_vms_test
       end
 
    unix_test
@@ -106,19 +103,6 @@ feature {}
          add_filena("C", "C", "/", "system.se", "/system.se")
       end
 
-   open_vms_test
-      do
-         set_notation_using_old_implementation_name("V")
-         assert(bd.openvms_notation)
-         parent_dir("?", "V", "DISK:[SmartEiffel.sys]system.se", "DISK:[SmartEiffel.sys]")
-         parent_dir("?", "V", "DISK:[SmartEiffel.sys]", "DISK:[SmartEiffel]")
-         parent_dir("?", "V", "DISK:[SmartEiffel]", "DISK:[]")
-         sub_direct("V", "V", "DISK:", "SmartEiffel", "DISK:[SmartEiffel]")
-         sub_direct("?", "V", "DISK:[]", "SmartEiffel", "DISK:[SmartEiffel]")
-         sub_direct("?", "V", "DISK:[SmartEiffel]", "sys", "DISK:[SmartEiffel.sys]")
-         add_filena("?", "V", "DISK:[SmartEiffel.sys]", "system.se", "DISK:[SmartEiffel.sys]system.se")
-      end
-
    parent_dir (n1, n2, p1, p2: STRING)
       local
          view: STRING
@@ -160,8 +144,6 @@ feature {}
             Result := once "W"
          elseif bd.cygwin_notation then
             Result := once "C"
-         elseif bd.openvms_notation then
-            Result := once "V"
          else
             not_yet_implemented
          end
@@ -182,9 +164,6 @@ feature {}
          when "W" then
             bd.reset_notation_using("C:\WINNT")
             assert(bd.windows_notation)
-         when "V" then
-            bd.system_notation_buffer.set_item(create {OPENVMS_DIRECTORY_NOTATION})
-            assert(bd.openvms_notation)
          else
             not_yet_implemented
          end
