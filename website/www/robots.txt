@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+sitemap: https://www.liberty-eiffel.org/sitemap.xml
