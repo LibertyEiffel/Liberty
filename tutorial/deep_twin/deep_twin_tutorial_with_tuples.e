@@ -10,33 +10,37 @@ create {ANY}
 feature {ANY}
    main
       do
-         tree := new_tree;
-         ("Let's take a `tree' of TUPLES like #(1) and duplicate it with `twin'%N" # &tree).print_on(std_output)
-         another := tree.twin;
 
-         ("[
-         Another tree items are actually the same of the original tree:
-         another.item_1 = tree.item_1? #(1)
-         another.item_2 = tree.item_2? #(2)
-         another.item_3 = tree.item_3? #(3)
+         print("Currently the compiler does not handle deep twinning of TUPLEs.%N")
+         die_with_code(0)
 
-         Note: a BOOLEAN is not directly printable, but we can obtain use & to get a lazy, printable representation 
-         ]" 
-         # &(another.item_1 = tree.item_1) 
-         # &(another.item_2 = tree.item_2)
-         # &(another.item_3 = tree.item_3)).print_on(io)
+         -- tree := new_tree;
+         -- ("Let's take a `tree' of TUPLES like #(1) and duplicate it with `twin'%N" # &tree).print_on(std_output)
+         -- another := tree.twin;
 
-         a_twin := tree.deep_twin;
-         ("[
-         Now we create a_twin using `deep_twin': see as tree items are actually different objects than those of the original tree:
-         a_twin.item_1 = tree.item_1? #(1)
-         a_twin.item_2 = tree.item_2? #(2)
-         a_twin.item_3 = tree.item_3? #(3)
+         -- ("[
+         -- Another tree items are actually the same of the original tree:
+         -- another.item_1 = tree.item_1? #(1)
+         -- another.item_2 = tree.item_2? #(2)
+         -- another.item_3 = tree.item_3? #(3)
 
-         ]" 
-         # &(a_twin.item_1 = tree.item_1) 
-         # &(a_twin.item_2 = tree.item_2)
-         # &(a_twin.item_3 = tree.item_3)).print_on(io)
+         -- Note: a BOOLEAN is not directly printable, but we can obtain use & to get a lazy, printable representation 
+         -- ]" 
+         -- # &(another.item_1 = tree.item_1) 
+         -- # &(another.item_2 = tree.item_2)
+         -- # &(another.item_3 = tree.item_3)).print_on(io)
+
+         -- a_twin := tree.deep_twin;
+         -- ("[
+         -- Now we create a_twin using `deep_twin': see as tree items are actually different objects than those of the original tree:
+         -- a_twin.item_1 = tree.item_1? #(1)
+         -- a_twin.item_2 = tree.item_2? #(2)
+         -- a_twin.item_3 = tree.item_3? #(3)
+
+         -- ]" 
+         -- # &(a_twin.item_1 = tree.item_1) 
+         -- # &(a_twin.item_2 = tree.item_2)
+         -- # &(a_twin.item_3 = tree.item_3)).print_on(io)
       end
 
    tree, another, a_twin: like new_tree
