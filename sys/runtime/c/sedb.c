@@ -515,7 +515,7 @@ static void sedb_on_line_help(char* line) {
   }
 
   sedb_printf(out,
-          "SmartEiffel debugger help (list of commands):\n"
+          "Liberty Eiffel debugger help (list of commands):\n"
           "\n"
           "HELP\n"
           " ? or h  : display this help message\n"
@@ -583,7 +583,7 @@ static void sedb_on_line_help(char* line) {
 
 static void sedb_on_line_more_help(void) {
   FILE* out = sedb_output();
-  if (sedb_yes_or_no("More help with the SmartEiffel debugger",1)) {
+  if (sedb_yes_or_no("More help with the Liberty Eiffel debugger",1)) {
     /*      ------------------------------------------------------------------------------- */
     sedb_printf(out,
             "Yes, sedb is the Liberty Eiffel Debugger. Keep in mind that you can trust sedb\n"
@@ -780,7 +780,7 @@ static void sedb_on_line_more_help(void) {
             "debugger is in the file ${SmartEiffel}/sys/runtime/c/sedb.c\". Please, feel\n"
             "free to debug or to complete this debugger. Any problem should be reported in\n"
             "the SmartZilla bugs base at \"http://SmartZilla.loria.fr\".\n"
-            "Also, do not forget to visit our WEB pages at \"http://SmartEiffel.loria.fr\".\n"
+            "Also, do not forget to visit our WEB pages at \"https://www.liberty-eiffel.org\".\n"
             "\n");
   }
 }
@@ -1111,7 +1111,7 @@ static void sedb_launch_garbage_collector(void) {
                bytes, (bytes > 1 ? "s" : ""),
                used, (used > 1 ? "s" : ""));
 #else
-  sedb_message("This system is not equipped with the SmartEiffel garbage collector.\n");
+  sedb_message("This system is not equipped with the Liberty Eiffel garbage collector.\n");
 #endif
 }
 
@@ -1123,7 +1123,7 @@ static void sedb_show_gc_info(void) {
                bytes, (bytes > 1 ? "s" : ""),
                gc_is_off ? "off" : "on");
 #else
-  sedb_message("This system is not equipped with the SmartEiffel garbage collector.\n");
+  sedb_message("This system is not equipped with the Liberty Eiffel garbage collector.\n");
 #endif
 }
 
@@ -1850,7 +1850,7 @@ static void _sedb_eval(se_dump_stack*ds, char* expr, int eval_again) {
         if (!exp && se_introspecT[id] == NULL) {
           /* find the correct id (the found id is a class not at run time; find the correct heir id) */
           if (obj == NULL) {
-            sedb_message("There is a bug in SmartEiffel (sorry): no object available in %s.%s\n", keep, attrib);
+            sedb_message("There is a bug in Liberty Eiffel (sorry): no object available in %s.%s\n", keep, attrib);
             id = -1;
           }
           else if (*(T0**)obj != NULL) {
@@ -1899,7 +1899,7 @@ static void _sedb_eval(se_dump_stack*ds, char* expr, int eval_again) {
     }
     else if (exp) {
       if (se_prinT[id] == NULL) {
-        sedb_message("There is a bug in SmartEiffel (sorry): no print function available for expanded <%d>@%p\n",
+        sedb_message("There is a bug in Liberty Eiffel (sorry): no print function available for expanded <%d>@%p\n",
                      id, obj);
       }
       else {
@@ -1910,7 +1910,7 @@ static void _sedb_eval(se_dump_stack*ds, char* expr, int eval_again) {
       sedb_printf(out, "Void");
     }
     else if (se_prinT[(*((T0**)obj))->id] == NULL) {
-      sedb_message("There is a bug in SmartEiffel (sorry): no print function available for <%d>@%p\n",
+      sedb_message("There is a bug in Liberty Eiffel (sorry): no print function available for <%d>@%p\n",
                    (*((T0**)obj))->id, (*((T0**)obj)));
     }
     else {
