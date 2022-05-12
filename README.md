@@ -6,7 +6,7 @@ continuation of the SmartEiffel compiler. We want to retain from
 SmartEiffel its rigour; but not its rigidity. Think of Liberty as
 SmartEiffel down from its ivory tower.
 
-It is a complete, small and fast, Eiffel compiler, including an
+It is a complete, small and fast Eiffel compiler, including an
 Eiffel to C compiler, documentation tools, a pretty printer, a
 debugger and various other tools.
 
