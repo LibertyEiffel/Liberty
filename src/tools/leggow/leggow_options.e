@@ -66,5 +66,5 @@ end -- class LEGGOW_OPTIONS
 --
 -- Copyright (C) 2016-2022: Paolo REDAELLI
 --
--- http://www.liberty-eiffel.org - https://github.com/LibertyEiffel/Liberty
+-- https://www.liberty-eiffel.org
 --
