@@ -71,5 +71,5 @@ end -- class EIFFELDOC_COMMENT_STATE_IN_STRING
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://liberty-eiffel.blogspot.com - liberty-eiffel.blogspot.com
+-- https://www.liberty-eiffel.org
 -- ------------------------------------------------------------------------------------------------------------------------------

@@ -167,7 +167,7 @@ end -- class EIFFELTEST_SERVER
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- https://www.liberty-eiffel.org
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)
