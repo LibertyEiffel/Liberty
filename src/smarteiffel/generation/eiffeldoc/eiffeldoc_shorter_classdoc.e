@@ -171,28 +171,30 @@ feature {EIFFELDOC_SHORTER}
             put_class_invariant(a_class_text)
 
             -- features overview
-            open_block(html, css_overview, overview_title_str, overview_id)
-            open_expand_block(html, css_overview, overview_id, True)
-            if a_class_text.creation_clause_list /= Void then
-               set_suffixed_attribute(once "class", css_overview, css_keyword_suffix, html)
-               html.open_div
-               html.put_string(creation_features_str)
-               phase := summary_creation_phase
-               found_features.clear_count
-               browse_class(a_class_text)
-               html.close_div
-            end
-            if a_class_text.feature_clause_list /= Void then
-               set_suffixed_attribute(once "class", css_overview, css_keyword_suffix, html)
-               html.open_div
-               html.put_string(features_str)
-               phase := summary_features_phase
-               found_features.clear_count
-               browse_class(a_class_text)
-               html.close_div
-            end
-            close_expand_block(html)
-            close_block(html)
+-- Rmk, 2022-05-23 let's remove the overview block and see how 
+-- eiffeldoc behaves.            
+--            open_block(html, css_overview, overview_title_str, overview_id)
+--            open_expand_block(html, css_overview, overview_id, True)
+--            if a_class_text.creation_clause_list /= Void then
+--               set_suffixed_attribute(once "class", css_overview, css_keyword_suffix, html)
+--               html.open_div
+--               html.put_string(creation_features_str)
+--               phase := summary_creation_phase
+--               found_features.clear_count
+--               browse_class(a_class_text)
+--               html.close_div
+--            end
+--            if a_class_text.feature_clause_list /= Void then
+--               set_suffixed_attribute(once "class", css_overview, css_keyword_suffix, html)
+--               html.open_div
+--               html.put_string(features_str)
+--               phase := summary_features_phase
+--               found_features.clear_count
+--               browse_class(a_class_text)
+--               html.close_div
+--            end
+--            close_expand_block(html)
+--            close_block(html)
 
             -- features details
             phase := details_features_phase
