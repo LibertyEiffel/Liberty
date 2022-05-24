@@ -6,7 +6,7 @@ class JSON_CODEC_IMPL[DATA_]
 inherit
    JSON_CODEC[DATA_]
       redefine
-         parse
+         parse, finalize_array, finalize_object
       end
 
 insert
