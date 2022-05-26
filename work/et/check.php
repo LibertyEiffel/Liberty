@@ -220,7 +220,7 @@ if (substage("class check ANY")) {
 
 //- se doc
 if (substage("eiffeldoc")) {
-   execute("$LibertyBase/work/build_doc.sh -plain -zip && mkdir -p $LibertyBase/website/doc/files && rm -f $LibertyBase/website/doc/files/*.tgz && mv $LibertyBase/website/doc/api/*.tgz $LibertyBase/website/doc/files/", $ulimit_time = 3600);
+   execute("$LibertyBase/work/build_doc.sh -plain -zip && mkdir -p $LibertyBase/website/doc/files && rm -f $LibertyBase/website/doc/files/*.tgz && mv $LibertyBase/website/doc/api/*.tgz $LibertyBase/website/doc/files/", $ulimit_time = 3600, $ulimit_virt = 8388608);
    endsubstage();
 }
 
@@ -228,13 +228,13 @@ if (substage("eiffeldoc")) {
 if (substage("debian packaging")) {
    $pkg_result = 0;
    if (substage("source")) {
-      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-S && mkdir -p $LibertyBase/work/packaging/debs_src && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_src/", $ulimit_time = 3600);
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-S && mkdir -p $LibertyBase/work/packaging/debs_src && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_src/", $ulimit_time = 3600, $ulimit_virt = 8388608);
       file_put_contents($stagedir ."/result.txt", $result);
       $pkg_result += $result;
       endsubstage();
    }
    if (substage("amd64")) {
-      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-b && mkdir -p $LibertyBase/work/packaging/debs_amd64 && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_amd64/", $ulimit_time = 3600);
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-b && mkdir -p $LibertyBase/work/packaging/debs_amd64 && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_amd64/", $ulimit_time = 3600, $ulimit_virt = 8388608);
       file_put_contents($stagedir ."/result.txt", $result);
       $pkg_result += $result;
       endsubstage();
@@ -246,7 +246,7 @@ if (substage("debian packaging")) {
       endsubstage();
    }
    if (substage("deploy")) {
-      $result = execute("mkdir -p $LibertyBase/work/packaging/debs && ln $LibertyBase/work/packaging/debs_*/* $LibertyBase/work/packaging/debs/ && rm -rf $LibertyBase/work/packaging/debs_* ; export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' && $LibertyBase/work/packaging/build_debian.sh -deploy",  $ulimit_time = 3600);
+      $result = execute("mkdir -p $LibertyBase/work/packaging/debs && ln $LibertyBase/work/packaging/debs_*/* $LibertyBase/work/packaging/debs/ && rm -rf $LibertyBase/work/packaging/debs_* ; export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' && $LibertyBase/work/packaging/build_debian.sh -deploy",  $ulimit_time = 3600, $ulimit_virt = 8388608);
       $pkg_result += $result;
       endsubstage();
    }
