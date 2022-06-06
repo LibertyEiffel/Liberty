@@ -2,7 +2,10 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_EXCEPTIONS01
-
+   -- BUG#S-62591
+   -- fails in boost mode, as the rescue does not catch and fix the 
+   -- Void call
+   
 create {}
    make
 

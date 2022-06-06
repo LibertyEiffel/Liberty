@@ -2,7 +2,9 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_AGENT12
-   -- From: Benjamin Franksen <franksen@mail.bessy.de>
+   -- BUG#S-62591
+   -- fails in boost mode, as the rescue does not catch and fix the 
+   -- Void call
 
 insert
    EIFFELTEST_TOOLS
