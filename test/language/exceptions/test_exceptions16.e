@@ -5,6 +5,7 @@ class TEST_EXCEPTIONS16
 
 insert
    EXCEPTIONS
+   EIFFELTEST_TOOLS
 
 create {}
    make
@@ -16,8 +17,10 @@ feature {ANY}
       do
          foo
          foo
+         assert(i = 3) -- foos precondition shall fail the first time
       rescue
          i := 1
+         assert(True) -- this shall be reached
          retry
       end
 
@@ -25,8 +28,10 @@ feature {ANY}
       require
          i /= 0
       do
+         i := i + 1
       rescue
          std_output.put_string("TEST_EXCEPTION16: ERROR #1%N")
+         assert(False) -- foo itself shall not fail
       end
 
 end -- class TEST_EXCEPTIONS16

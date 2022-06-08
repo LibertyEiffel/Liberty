@@ -5,6 +5,7 @@ class TEST_EXCEPTIONS22
 
 insert
    EXCEPTIONS
+   EIFFELTEST_TOOLS
 
 create {}
    make
@@ -14,17 +15,23 @@ feature {ANY}
       local
          a, c: POLYMORPHIC1; b: POLYMORPHIC2; number, counter: INTEGER
       do
+         io.put_string("counter = " + counter.out + "%N")
          if counter > 0 then
             check
                number = System_level_type_error
             end
+            io.put_string("reached counter " + counter.out + " and number "
+                          + number.out + "%N")
          else
             create a
             create b
             c := b -- Let's fool the type checker;
             if c.is_equal(a) then
+               assert(False)
                --          raise("Execution never gets here anyway")
             end
+            -- c.is_equal will access a.foo which does not exist
+            assert(False)
          end
       rescue
          counter := counter + 1

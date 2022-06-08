@@ -4,6 +4,9 @@
 class TEST_EXCEPTIONS23
    -- SZ:280:
 
+insert
+   EIFFELTEST_TOOLS
+   
 create {}
    make
 
@@ -14,6 +17,7 @@ feature {ANY}
    make
       do
          exception_test
+         assert(True)
       end
 
    make_exception
@@ -28,9 +32,11 @@ feature {ANY}
          if not done then
             done := True
             create test.make_exception
+            assert(False) -- shall not be reached, as the creation feature make_exception will violate the class invariant
          end
       rescue
          test := Void
+         assert(True)
          retry
       end
 

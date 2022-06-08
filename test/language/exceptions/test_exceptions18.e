@@ -5,6 +5,7 @@ class TEST_EXCEPTIONS18
 
 insert
    EXCEPTIONS
+   EIFFELTEST_TOOLS
 
 create {}
    make
@@ -38,6 +39,7 @@ feature {ANY}
          else
             --std_output.put_string("Yes%N");
          end
+         assert(b)
       end
 
    cpt: INTEGER

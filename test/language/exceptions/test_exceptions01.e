@@ -5,6 +5,9 @@ class TEST_EXCEPTIONS01
    -- BUG#S-62591
    -- fails in boost mode, as the rescue does not catch and fix the 
    -- Void call
+
+insert
+   EIFFELTEST_TOOLS
    
 create {}
    make
@@ -14,26 +17,16 @@ feature {ANY}
       local
          s: STRING
       do
+         io.put_string(once "let's access a (non-) Void object%N")
          s.extend('o')
-         is_true(("foo").is_equal(s))
+         assert(("foo").is_equal(s))
       rescue
          sedb_breakpoint
+         io.put_string(once "fix the Void reference and ...%N")
          s := "fo"
+         io.put_string(once "... try again%N")
          retry
       end
-
-feature {}
-   is_true (b: BOOLEAN)
-      do
-         cpt := cpt + 1
-         if not b then
-            std_output.put_string("TEST_EXCEPTION01: ERROR Test # ")
-            std_output.put_integer(cpt)
-            std_output.put_string("%N")
-         end
-      end
-
-   cpt: INTEGER
 
 end -- class TEST_EXCEPTIONS01
 --

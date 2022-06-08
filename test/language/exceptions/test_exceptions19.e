@@ -6,6 +6,7 @@ class TEST_EXCEPTIONS19
 
 insert
    EXCEPTIONS
+   EIFFELTEST_TOOLS
 
 create {}
    make
@@ -25,11 +26,10 @@ feature {ANY}
             call_sub(sub2)
          else
          end
+         assert(counter = 2)
       rescue
          counter := counter + 1
-         check
-            counter.in_range(1, 2)
-         end
+         assert(counter.in_range(1, 2))
          retry
       end
 

@@ -5,15 +5,15 @@ class TEST_EXCEPTIONS12
 
 insert
    EXCEPTIONS
-
+   EIFFELTEST_TOOLS
+   
 create {}
    make
 
 feature {ANY}
    make
       do
-         if exception > 0 then
-         end
+         assert(exception = 0)
       end
 
 end -- class TEST_EXCEPTIONS12

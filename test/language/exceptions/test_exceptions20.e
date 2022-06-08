@@ -5,7 +5,12 @@ class TEST_EXCEPTIONS20
 
 insert
    ANY
-      redefine default_rescue
+      redefine
+         default_rescue
+      end
+   EIFFELTEST_TOOLS
+      undefine
+         default_rescue
       end
 
 create {}
@@ -16,7 +21,9 @@ feature {ANY}
 
    make
       do
+         cnt := cnt + 1
          foo
+         assert(cnt = 4)
       rescue
          retry
       end
@@ -24,13 +31,18 @@ feature {ANY}
    foo
       do
          string.extend(' ')
+         cnt := cnt + 1
       end
 
    default_rescue
       do
+         io.put_string(once "default rescue...%N")
          create string.make(3)
+         assert(True)
+         cnt := cnt + 1
       end
 
+   cnt: INTEGER
 end -- class TEST_EXCEPTIONS20
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
