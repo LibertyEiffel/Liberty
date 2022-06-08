@@ -383,10 +383,26 @@ function testDir($dir) {
          }
          $res = execute("se test -flat $dir");
          if ($res == 0) {
-            $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
-            $res = -$warnCnt;
+            //            $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
+
+             foreach(file('$stagedir/err.txt') as $line) {
+                 if(preg_match("/Warning:/i", $line)){
+                     $warnCnt++;
+                 }
+             }
+             $res = -$warnCnt;
          } else {
-            $res += exec("grep -i " . escapeshellarg("Abnormal:") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
+                 //            $res += exec("grep -i " . escapeshellarg("Abnormal:") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
+             $cases = array();
+             foreach(file('/tmp/log.new') as $line) {
+                 if(preg_match("/^Abnormal:.*\"(.*)\\.exe\"\\.\"\\./i", $line, $matches)) {
+                     $tcase = $matches[1];
+                     print("found '$tcase'\n");
+                     $cases[] = $tcase;
+                 }
+             }
+             $cases = array_unique($cases);
+             $res += count($cases);
          }
       } else {
          file_put_contents("$stagedir/err.txt", "missing eiffeltest directory - please add to repository");
