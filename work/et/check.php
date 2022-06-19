@@ -406,6 +406,7 @@ function testDir($dir) {
                          $sys = $matches[2]; // the ticket system. S = GNU savannah
                          $id =  $matches[3];
                          file_put_contents($dir . "/eiffeltest/tickets.txt", $case . ": " . $type . "(" . $sys . "): " . $id . "\n", FILE_APPEND);
+                         
                      }
                  }
              }
