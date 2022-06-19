@@ -383,7 +383,7 @@ function testDir($dir) {
          }
          $res = execute("se test -flat $dir");
          if ($res == 0) {
-             foreach(file('$stagedir/err.txt') as $line) {
+             foreach(file($stagedir . "/err.txt") as $line) {
                  if(preg_match("/Warning:/i", $line)){
                      $warnCnt++;
                  }
@@ -391,7 +391,7 @@ function testDir($dir) {
              $res = -$warnCnt;
          } else {
              $cases = array();
-             foreach(file('/tmp/log.new') as $line) {
+             foreach(file($dir . "/eiffeltest/log.new") as $line) {
                  if(preg_match("/^Abnormal:.*\"(.*)\\.exe\"\\.\"\\./i", $line, $matches)) {
                      $tcase = $matches[1];
                      print("found '$tcase'\n");
@@ -400,12 +400,12 @@ function testDir($dir) {
              }
              $cases = array_unique($cases);
              foreach($cases as $case) {
-                 foreach(file($dir . $case. ".e") as $line) {
+                 foreach(file($dir . "/" . $case. ".e") as $line) {
                      if(preg_match("/--\s*(BUG|TASK)#(\S)-(\d+)/i", $line, $matches)) {
                          $type = $matches[1]; // BUG or TASK
                          $sys = $matches[2]; // the ticket system. S = GNU savannah
                          $id =  $matches[3];
-                         file_put_contents("$dir/eiffeltest/tickets.txt", $case . ": " . $type . "(" . $sys . "): " . $id . "\n", FILE_APPEND);
+                         file_put_contents($dir . "/eiffeltest/tickets.txt", $case . ": " . $type . "(" . $sys . "): " . $id . "\n", FILE_APPEND);
                      }
                  }
              }
@@ -413,7 +413,7 @@ function testDir($dir) {
              $res += count($cases);
          }
       } else {
-         file_put_contents("$stagedir/err.txt", "missing eiffeltest directory - please add to repository");
+         file_put_contents($stagedir . "/err.txt", "missing eiffeltest directory - please add to repository");
          $res = 1;
       }
       if ($res <= 0) {
