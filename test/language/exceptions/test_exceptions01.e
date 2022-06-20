@@ -5,7 +5,8 @@ class TEST_EXCEPTIONS01
    -- BUG#S-62591
    -- fails in boost mode, as the rescue does not catch and fix the 
    -- Void call
-
+   -- but it fails only without all those io.put_strings
+   
 insert
    EIFFELTEST_TOOLS
    
@@ -17,14 +18,14 @@ feature {ANY}
       local
          s: STRING
       do
-         io.put_string(once "let's access a (non-) Void object%N")
+--         io.put_string(once "let's access a (non-) Void object%N")
          s.extend('o')
          assert(("foo").is_equal(s))
       rescue
          sedb_breakpoint
-         io.put_string(once "fix the Void reference and ...%N")
+--         io.put_string(once "fix the Void reference and ...%N")
          s := "fo"
-         io.put_string(once "... try again%N")
+--         io.put_string(once "... try again%N")
          retry
       end
 
