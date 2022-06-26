@@ -353,7 +353,7 @@ function testDir($dir) {
    global $stagedir;
    global $repobaselink, $LibertyBase;
    $result = 0;
-
+   $warnCnt = 0;
    foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname) {
       if (basename($dirname) != "eiffeltest") {
          if (substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname))) {
@@ -383,6 +383,7 @@ function testDir($dir) {
          }
          $res = execute("se test -flat $dir");
          if ($res == 0) {
+             // se test passed, so now let's check for warnings, they are not per case
              foreach(file($stagedir . "/err.txt") as $line) {
                  if(preg_match("/Warning:/i", $line)){
                      $warnCnt++;
@@ -390,6 +391,7 @@ function testDir($dir) {
              }
              $res = -$warnCnt;
          } else {
+             // some test(s) failed, let's investigate which case
              $cases = array();
              foreach(file($dir . "/eiffeltest/log.new") as $line) {
                  if(preg_match("/^Abnormal:.*\"(.*)\\.exe\"\\.\"\\./i", $line, $matches)) {
@@ -399,19 +401,33 @@ function testDir($dir) {
                  }
              }
              $cases = array_unique($cases);
+             $failedTaskCount = 0;
+             $failedBugCount = 0;
              foreach($cases as $case) {
+                 $b = false;
+                 $t = false;
                  foreach(file($dir . "/" . $case. ".e") as $line) {
                      if(preg_match("/--\s*(BUG|TASK)#(\S)-(\d+)/i", $line, $matches)) {
                          $type = $matches[1]; // BUG or TASK
                          $sys = $matches[2]; // the ticket system. S = GNU savannah
                          $id =  $matches[3];
-                         file_put_contents($dir . "/eiffeltest/tickets.txt", $case . ": " . $type . "(" . $sys . "): " . $id . "\n", FILE_APPEND);
-                         
+                         file_put_contents($stagedir . "/tickets.txt", $case . ": " . $type . "(" . $sys . "): " . $id . "\n", FILE_APPEND);
+                         if($type == "BUG") $b = true;
+                         if($type == "TASK") $t = true;
+                     }else{
+                         // not ticket annotation, so let's count it as bug
+                         $b = true;
                      }
                  }
+                 if($b) $failedBugCount++;
+                 if($t) $failedTaskCount++;
+                 file_put_contents($stagedir . "/FailedCases.txt", $case . "\t" . $failedBugCount . "\t" . $failedTaskCount . "\n", FILE_APPEND);
              }
-             
-             $res += count($cases);
+             if($failedBugCount > 0){
+                 $res += $failedBugCount;
+             }else{
+                 $res -= $failedTaskCount;
+             }
          }
       } else {
          file_put_contents($stagedir . "/err.txt", "missing eiffeltest directory - please add to repository");
