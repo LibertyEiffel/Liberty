@@ -1888,6 +1888,8 @@ feature {CECIL_FILE}
          out_h.put_string(once "#ifdef _BASE_H%N%
                                %#define _HAD_BASE_H%N%
                                %#endif%N")
+         out_h.put_string(once "void initialize_eiffel_runtime(int argc,char*argv[])")
+
          system_tools.mandatory_sys_runtime(once "base", 'h')
          put_file(tmp_file_read, out_h)
          out_h.put_string(once "#ifndef _HAD_BASE_H%N%
