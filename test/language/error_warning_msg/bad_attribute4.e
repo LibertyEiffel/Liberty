@@ -4,6 +4,7 @@
 class BAD_ATTRIBUTE4
 -- Goal: test whether a reference to a self-initialized attribute in 
 -- its own precondition is reported as error.
+-- TASK#S-16226
 -- only relevant after bug #43266 https://savannah.gnu.org/bugs/index.php?43266 is implemented
    
 insert
