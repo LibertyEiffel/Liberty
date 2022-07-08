@@ -18,8 +18,11 @@ create {GCCXML_TREE}
 
 feature {ANY}
    store
-      do
-         -- if not standard_typedefs.has(c_string_name) then
+do
+      if verbose then
+         log("Storing #(1) id #(2) name #(2)" # Current.tagged_out) -- # id.to_utf8 # c_string_name)
+      end
+      -- if not standard_typedefs.has(c_string_name) then
          -- Current typedef is not a standard one and requires a query for anchored declarations.
          typedefs.add_first(Current)
          -- end

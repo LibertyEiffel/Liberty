@@ -19,18 +19,23 @@ feature {ANY}
          -- The line in the source code where Current is defined
       do
          Result := attribute_at(once U"line")
+         if Result=Void then Result := once U"unknown"
       ensure
          Result /= Void
       end
 
    c_file: C_FILE
       do
-         Result := files.reference_at(file_id)
+         if file_id /= Void then
+            Result := files.reference_at(file_id)
+         else
+            log(once "warning node at line #(1) does not have a C associated file"# (&line))
+         end
       end
 
    set_file (a_file: C_FILE)
          -- Make Current node as if it was defined into `a_file'
-         -- Consider Current as if it wes defined in `a_file_name'.
+         -- Consider Current as if it was defined in `a_file_name'.
       require
          a_file /= Void
       do

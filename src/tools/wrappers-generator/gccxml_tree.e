@@ -138,28 +138,37 @@ feature {ANY} -- Wrappers emittions
       end
 
    move_feature (a_feature: WRAPPER_FEATURE)
+      -- When a_feature is not anonymous it is moved into the file it belongs
+      -- to or into the file provided in `moved'  
       require
          a_feature /= Void
-      local
-         destination: ABSTRACT_STRING; file: C_FILE
+
+local
+      destination: ABSTRACT_STRING; file: C_FILE
       do
-          if not a_feature.is_anonymous then
-             destination := moved.reference_at(a_feature.c_string_name)
-             if destination /= Void then
-                -- user required move
-                file := files_by_name.reference_at(destination)
-                log(once "Moving #(1) into #(2) as requested.%N"
-                # a_feature.c_string_name # file.c_string_name)
-             else
-                -- a_feature belong to the file as declared in the gcc-xml file
-                file := files.reference_at(a_feature.c_file.id)
-                log(once "Moving #(1) from #(2) into #(3).%N" 
-                # a_feature.c_string_name # a_feature.c_file.c_string_name # file.c_string_name)
-             end
-             check
-                file /= Void
-             end
-             file.features.add_last(a_feature)
+         if not a_feature.is_anonymous then
+            destination := moved.reference_at(a_feature.c_string_name)
+            if destination /= Void then
+               -- user required move
+               file := files_by_name.reference_at(destination)
+               log(once "Moving #(1) into #(2) as requested.%N"
+               # a_feature.c_string_name # file.c_string_name)
+               file.features.add_last(a_feature)
+            else
+               -- a_feature belong to the file as declared in the gcc-xml file
+               if a_feature.c_file /= Void then
+                  file := files.reference_at(a_feature.c_file.id)
+                  if file/=Void then 
+                     log(once "Moving #(1) from #(2) into #(3).%N" 
+                     # a_feature.c_string_name # a_feature.c_file.c_string_name # file.c_string_name)
+                     file.features.add_last(a_feature)
+                  else
+                     log(once "Warning: #(1) can't be moved, #(2) is not stored into files collection" 
+                     # a_feature.c_string_name # a_feature.c_file.c_string_name)
+                  end
+               else
+               end
+            end
          end
       end
 

@@ -28,32 +28,36 @@ feature {ANY}
    has_wrapper: BOOLEAN
       local dequalified: UNICODE_STRING; actual_type: C_TYPE
       do
-         -- Previously it was "Result := types.at(dequalify(type)).has_wrapper" but that's too brittle
-         check type/=Void end -- unnecessary when we will have attached types
-         dequalified := dequalify(type)
-         if dequalified /= Void then
-             actual_type := types.reference_at(dequalified)
-             if actual_type/=Void then
-                 Result := actual_type.has_wrapper
-             else
-                 check 
-                     Result=False
-                 end
-             end
+         -- Previously it was "Result := types.at(dequalify(type)).has_wrapper"
+         -- but that's too brittle. Those queries cannot akswer attached types as
+         -- sometimes the right answer may be void.
+         if type = Void then
+            log("Warning #(1) has no type" # Current.tagged_out)
+            Result := False
          else
-             check
-                 Result=False
-             end
+            dequalified := dequalify(type)
+            if dequalified /= Void then
+                actual_type := types.reference_at(dequalified)
+                if actual_type/=Void then
+                    Result := actual_type.has_wrapper
+                else
+                   Result:=False
+                   -- It already should be false, so we just could write check Result=False end
+                end
+            else
+               Result:=False
+               -- It already should be false, so we just could write check Result=False end
+            end
          end
-      rescue
-         log("has_wrapper failed. Known types:%N")
-         types.for_each_item(agent (a_type: C_TYPE)
-            do
-               io.put_string(a_type.out)
-            end(?))
+         -- rescue
+      --    log("has_wrapper failed. Known types:%N")
+      --    types.for_each_item(agent (a_type: C_TYPE)
+      --       do
+      --          io.put_string(a_type.out)
+      --       end(?))
 
-         print_run_time_stack
-         die_with_code(5)
+      --    print_run_time_stack
+      --    die_with_code(5)
       end
 
    wrapper_type: STRING
@@ -62,7 +66,7 @@ feature {ANY}
       end
 
    placeholder: STRING
-         -- The placeholder name of Current, suitable for Liberty as a newly created string.
+         -- The placeholder name of Current, suitable for Liberty; a newly created string.
       do
          if c_name = Void then
             -- Nameless prototype: 
@@ -94,7 +98,7 @@ feature {ANY}
       local
          a_placeholder, a_wrapper_type: STRING
       do
-         -- Cache results of `placeholder' and `wrapper_type' queries
+         -- Manually cache the results of `placeholder' and `wrapper_type' queries
          a_placeholder := placeholder
          a_wrapper_type := wrapper_type
          log(once "#(1): #(2) " # a_placeholder # a_wrapper_type)

@@ -9,7 +9,7 @@ default -- section of the system
    assertion_flat_check (no);
    debug (no);
    trace (no);
-   collect ("bdw");
+   collect (no); -- not the ("bdw");
    style_warning (yes);
    no_warning (no);
    verbose (no);
@@ -23,7 +23,7 @@ cluster -- section
      --     assertion (boost)
      --  end
 
-   lib: "../../lib/loadpath.se"
+   lib: "${path_liberty_core}/loadpath.se"
       default
          assertion(boost)
       option
@@ -31,10 +31,10 @@ cluster -- section
          -- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME
       end
 
-   tools: "../loadpath.se"
-      default
-         assertion(boost)
-      end
+   tools: "${path_tools}/../loadpath.se"
+       default
+          assertion(boost)
+       end
 
 external -- section for elements written in another language
 generate -- section

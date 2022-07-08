@@ -20,7 +20,10 @@ feature {ANY}
    referree: C_TYPE
          -- The node referred by `type' in `types' dictionary.
       do
-         Result := types.at(type)
+         Result := types.reference_at(type)
+         if Result=Void then
+            log("Warning: type #(1) at line does not have a referee in types" # type.as_utf8 )
+         end
       end
 
 end -- class TYPED_NODE

@@ -6,7 +6,7 @@ root WRAPPERS_GENERATOR: make
 
 default -- section of the system
 
-   assertion (require); -- or boost, no, require, ensure, invariant, loop, check, all.
+   assertion (boost); -- or boost, no, require, ensure, invariant, loop, check, all.
 
    assertion_flat_check (no);
    debug (yes);
@@ -22,11 +22,12 @@ default -- section of the system
 cluster -- section
    wrappers_generator: "./loadpath.se"
       default
-         assertion (all)
+         assertion (require)
       end
 
-   lib: "../..lib/loadpath.se"
-      -- Using the libraries of the repository we are in
+   liberty: "${path_liberty_core}/loadpath.se"
+      -- Defalut library. To use the libraries of the repository we are in you can use 
+      -- lib: "../../lib/loadpath.se" but this make this ace file location sensitive
       default
          assertion(boost)
       option
@@ -34,7 +35,7 @@ cluster -- section
          -- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME
       end
 
-   tools: "../loadpath.se"
+   tools: "${path_tools}/../loadpath.se"
       default
          assertion(boost)
       end
