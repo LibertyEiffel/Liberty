@@ -14,12 +14,13 @@ feature {ANY}
    default_create
       do
          pattern := once "aa"
+         substrings_names := create {HASHED_BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING]}.make
          create substrings_first_indexes.make(0, 2)
          create substrings_last_indexes.make(0, 2)
          substitution_pattern_ready := False
       end
 
-   match_from (text: STRING; first_index: INTEGER): BOOLEAN
+   match_from (text: ABSTRACT_STRING; first_index: INTEGER): BOOLEAN
       local
          pos, i: INTEGER
       do

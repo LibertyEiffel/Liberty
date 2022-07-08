@@ -5,6 +5,7 @@ class TEST_EXCEPTIONS02
 
 insert
    EXCEPTIONS
+   EIFFELTEST_TOOLS
 
 create {}
    make
@@ -37,6 +38,7 @@ feature {}
             std_output.put_integer(cpt)
             std_output.put_string("%N")
          end
+         assert(b)
       end
 
    cpt: INTEGER

@@ -1,0 +1,403 @@
+se c -all_check -bdw_gc test_assertion_boost_or_no_check
+se c -all_check -bdw_gc test_assertion_debug
+se c -all_check -bdw_gc test_assertion_ensure
+se c -all_check -bdw_gc test_assertion_invariant
+se c -all_check -bdw_gc test_assertion_loop
+se c -all_check -bdw_gc test_assertion_require
+se c -all_check -debug test_assertion_all
+se c -all_check -debug test_assertion_boost_or_no_check
+se c -all_check -debug test_assertion_ensure
+se c -all_check -debug test_assertion_invariant
+se c -all_check -debug test_assertion_loop
+se c -all_check -debug test_assertion_require
+se c -all_check -debug test_dead_code01.e
+se c -all_check test_assertion_boost_or_no_check
+se c -all_check test_assertion_debug
+se c -all_check test_assertion_ensure
+se c -all_check test_assertion_invariant
+se c -all_check test_assertion_loop
+se c -all_check test_assertion_require
+se c -boost -bdw_gc test_assertion_all
+se c -boost -bdw_gc test_assertion_debug
+se c -boost -bdw_gc test_assertion_ensure
+se c -boost -bdw_gc test_assertion_invariant
+se c -boost -bdw_gc test_assertion_loop
+se c -boost -bdw_gc test_assertion_require
+se c -boost -bdw_gc test_require1.e
+se c -boost -debug -bdw_gc test_assertion_all
+se c -boost -debug -bdw_gc test_assertion_boost_or_no_check
+se c -boost -debug -bdw_gc test_assertion_debug
+se c -boost -debug -bdw_gc test_assertion_ensure
+se c -boost -debug -bdw_gc test_assertion_invariant
+se c -boost -debug -bdw_gc test_assertion_loop
+se c -boost -debug -bdw_gc test_assertion_require
+se c -boost -debug -bdw_gc test_dead_code01.e
+se c -boost -debug -bdw_gc test_require1.e
+se c -boost test_assertion_all
+se c -boost test_assertion_debug
+se c -boost test_assertion_ensure
+se c -boost test_assertion_invariant
+se c -boost test_assertion_loop
+se c -boost test_assertion_require
+se c -boost test_require1.e
+se c -ensure_check -bdw_gc test_assertion_all
+se c -ensure_check -bdw_gc test_assertion_boost_or_no_check
+se c -ensure_check -bdw_gc test_assertion_debug
+se c -ensure_check -bdw_gc test_assertion_invariant
+se c -ensure_check -bdw_gc test_assertion_loop
+se c -ensure_check -bdw_gc test_assertion_require
+se c -ensure_check test_assertion_all
+se c -ensure_check test_assertion_boost_or_no_check
+se c -ensure_check test_assertion_debug
+se c -ensure_check test_assertion_invariant
+se c -ensure_check test_assertion_loop
+se c -ensure_check test_assertion_require
+se c -flat_check -all_check -bdw_gc test_assertion_boost_or_no_check
+se c -flat_check -all_check -bdw_gc test_assertion_debug
+se c -flat_check -all_check -bdw_gc test_assertion_ensure
+se c -flat_check -all_check -bdw_gc test_assertion_invariant
+se c -flat_check -all_check -bdw_gc test_assertion_loop
+se c -flat_check -all_check -bdw_gc test_assertion_require
+se c -flat_check -all_check -debug test_assertion_all
+se c -flat_check -all_check -debug test_assertion_boost_or_no_check
+se c -flat_check -all_check -debug test_assertion_ensure
+se c -flat_check -all_check -debug test_assertion_invariant
+se c -flat_check -all_check -debug test_assertion_loop
+se c -flat_check -all_check -debug test_assertion_require
+se c -flat_check -all_check -debug test_dead_code01.e
+se c -flat_check -all_check test_assertion_boost_or_no_check
+se c -flat_check -all_check test_assertion_debug
+se c -flat_check -all_check test_assertion_ensure
+se c -flat_check -all_check test_assertion_invariant
+se c -flat_check -all_check test_assertion_loop
+se c -flat_check -all_check test_assertion_require
+se c -flat_check -ensure_check test_assertion_all
+se c -flat_check -ensure_check test_assertion_boost_or_no_check
+se c -flat_check -ensure_check test_assertion_debug
+se c -flat_check -ensure_check test_assertion_invariant
+se c -flat_check -ensure_check test_assertion_loop
+se c -flat_check -ensure_check test_assertion_require
+se c -flat_check -invariant_check -bdw_gc test_assertion_all
+se c -flat_check -invariant_check -bdw_gc test_assertion_boost_or_no_check
+se c -flat_check -invariant_check -bdw_gc test_assertion_debug
+se c -flat_check -invariant_check -bdw_gc test_assertion_ensure
+se c -flat_check -invariant_check -bdw_gc test_assertion_loop
+se c -flat_check -invariant_check -bdw_gc test_assertion_require
+se c -flat_check -invariant_check test_assertion_all
+se c -flat_check -invariant_check test_assertion_boost_or_no_check
+se c -flat_check -invariant_check test_assertion_debug
+se c -flat_check -invariant_check test_assertion_ensure
+se c -flat_check -invariant_check test_assertion_loop
+se c -flat_check -invariant_check test_assertion_require
+se c -flat_check -loop_check -bdw_gc test_assertion_all
+se c -flat_check -loop_check -bdw_gc test_assertion_boost_or_no_check
+se c -flat_check -loop_check -bdw_gc test_assertion_debug
+se c -flat_check -loop_check -bdw_gc test_assertion_ensure
+se c -flat_check -loop_check -bdw_gc test_assertion_invariant
+se c -flat_check -loop_check -bdw_gc test_assertion_require
+se c -flat_check -loop_check test_assertion_all
+se c -flat_check -loop_check test_assertion_boost_or_no_check
+se c -flat_check -loop_check test_assertion_debug
+se c -flat_check -loop_check test_assertion_ensure
+se c -flat_check -loop_check test_assertion_invariant
+se c -flat_check -loop_check test_assertion_require
+se c -flat_check -require_check -bdw_gc test_assertion_all
+se c -flat_check -require_check -bdw_gc test_assertion_boost_or_no_check
+se c -flat_check -require_check -bdw_gc test_assertion_debug
+se c -flat_check -require_check -bdw_gc test_assertion_ensure
+se c -flat_check -require_check -bdw_gc test_assertion_invariant
+se c -flat_check -require_check -bdw_gc test_assertion_loop
+se c -flat_check -require_check test_assertion_all
+se c -flat_check -require_check test_assertion_boost_or_no_check
+se c -flat_check -require_check test_assertion_debug
+se c -flat_check -require_check test_assertion_ensure
+se c -flat_check -require_check test_assertion_invariant
+se c -flat_check -require_check test_assertion_loop
+se c -invariant_check -bdw_gc test_assertion_all
+se c -invariant_check -bdw_gc test_assertion_boost_or_no_check
+se c -invariant_check -bdw_gc test_assertion_debug
+se c -invariant_check -bdw_gc test_assertion_ensure
+se c -invariant_check -bdw_gc test_assertion_loop
+se c -invariant_check -bdw_gc test_assertion_require
+se c -invariant_check test_assertion_all
+se c -invariant_check test_assertion_boost_or_no_check
+se c -invariant_check test_assertion_debug
+se c -invariant_check test_assertion_ensure
+se c -invariant_check test_assertion_loop
+se c -invariant_check test_assertion_require
+se c -loop_check -bdw_gc test_assertion_all
+se c -loop_check -bdw_gc test_assertion_boost_or_no_check
+se c -loop_check -bdw_gc test_assertion_debug
+se c -loop_check -bdw_gc test_assertion_ensure
+se c -loop_check -bdw_gc test_assertion_invariant
+se c -loop_check -bdw_gc test_assertion_require
+se c -loop_check test_assertion_all
+se c -loop_check test_assertion_boost_or_no_check
+se c -loop_check test_assertion_debug
+se c -loop_check test_assertion_ensure
+se c -loop_check test_assertion_invariant
+se c -loop_check test_assertion_require
+se c -no_check -bdw_gc test_assertion_all
+se c -no_check -bdw_gc test_assertion_debug
+se c -no_check -bdw_gc test_assertion_ensure
+se c -no_check -bdw_gc test_assertion_invariant
+se c -no_check -bdw_gc test_assertion_loop
+se c -no_check -bdw_gc test_assertion_require
+se c -no_check -bdw_gc test_require1.e
+se c -no_check test_assertion_all
+se c -no_check test_assertion_debug
+se c -no_check test_assertion_ensure
+se c -no_check test_assertion_invariant
+se c -no_check test_assertion_loop
+se c -no_check test_assertion_require
+se c -no_check test_require1.e
+se c -no_gc -all_check test_assertion_boost_or_no_check
+se c -no_gc -all_check test_assertion_debug
+se c -no_gc -all_check test_assertion_ensure
+se c -no_gc -all_check test_assertion_invariant
+se c -no_gc -all_check test_assertion_loop
+se c -no_gc -all_check test_assertion_require
+se c -no_gc -boost -debug test_assertion_all
+se c -no_gc -boost -debug test_assertion_boost_or_no_check
+se c -no_gc -boost -debug test_assertion_debug
+se c -no_gc -boost -debug test_assertion_ensure
+se c -no_gc -boost -debug test_assertion_invariant
+se c -no_gc -boost -debug test_assertion_loop
+se c -no_gc -boost -debug test_assertion_require
+se c -no_gc -boost -debug test_dead_code01.e
+se c -no_gc -boost -debug test_require1.e
+se c -no_gc -boost test_assertion_all
+se c -no_gc -boost test_assertion_debug
+se c -no_gc -boost test_assertion_ensure
+se c -no_gc -boost test_assertion_invariant
+se c -no_gc -boost test_assertion_loop
+se c -no_gc -boost test_assertion_require
+se c -no_gc -boost test_require1.e
+se c -no_gc -ensure_check test_assertion_all
+se c -no_gc -ensure_check test_assertion_boost_or_no_check
+se c -no_gc -ensure_check test_assertion_debug
+se c -no_gc -ensure_check test_assertion_invariant
+se c -no_gc -ensure_check test_assertion_loop
+se c -no_gc -ensure_check test_assertion_require
+se c -no_gc -flat_check -all_check test_assertion_boost_or_no_check
+se c -no_gc -flat_check -all_check test_assertion_debug
+se c -no_gc -flat_check -all_check test_assertion_ensure
+se c -no_gc -flat_check -all_check test_assertion_invariant
+se c -no_gc -flat_check -all_check test_assertion_loop
+se c -no_gc -flat_check -all_check test_assertion_require
+se c -no_gc -flat_check -invariant_check test_assertion_all
+se c -no_gc -flat_check -invariant_check test_assertion_boost_or_no_check
+se c -no_gc -flat_check -invariant_check test_assertion_debug
+se c -no_gc -flat_check -invariant_check test_assertion_ensure
+se c -no_gc -flat_check -invariant_check test_assertion_loop
+se c -no_gc -flat_check -invariant_check test_assertion_require
+se c -no_gc -flat_check -loop_check test_assertion_all
+se c -no_gc -flat_check -loop_check test_assertion_boost_or_no_check
+se c -no_gc -flat_check -loop_check test_assertion_debug
+se c -no_gc -flat_check -loop_check test_assertion_ensure
+se c -no_gc -flat_check -loop_check test_assertion_invariant
+se c -no_gc -flat_check -loop_check test_assertion_require
+se c -no_gc -flat_check -require_check test_assertion_all
+se c -no_gc -flat_check -require_check test_assertion_boost_or_no_check
+se c -no_gc -flat_check -require_check test_assertion_debug
+se c -no_gc -flat_check -require_check test_assertion_ensure
+se c -no_gc -flat_check -require_check test_assertion_invariant
+se c -no_gc -flat_check -require_check test_assertion_loop
+se c -no_gc -invariant_check test_assertion_all
+se c -no_gc -invariant_check test_assertion_boost_or_no_check
+se c -no_gc -invariant_check test_assertion_debug
+se c -no_gc -invariant_check test_assertion_ensure
+se c -no_gc -invariant_check test_assertion_loop
+se c -no_gc -invariant_check test_assertion_require
+se c -no_gc -loop_check test_assertion_all
+se c -no_gc -loop_check test_assertion_boost_or_no_check
+se c -no_gc -loop_check test_assertion_debug
+se c -no_gc -loop_check test_assertion_ensure
+se c -no_gc -loop_check test_assertion_invariant
+se c -no_gc -loop_check test_assertion_require
+se c -no_gc -no_check test_assertion_all
+se c -no_gc -no_check test_assertion_debug
+se c -no_gc -no_check test_assertion_ensure
+se c -no_gc -no_check test_assertion_invariant
+se c -no_gc -no_check test_assertion_loop
+se c -no_gc -no_check test_assertion_require
+se c -no_gc -no_check test_require1.e
+se c -no_gc -require_check test_assertion_all
+se c -no_gc -require_check test_assertion_boost_or_no_check
+se c -no_gc -require_check test_assertion_debug
+se c -no_gc -require_check test_assertion_ensure
+se c -no_gc -require_check test_assertion_invariant
+se c -no_gc -require_check test_assertion_loop
+se c -no_split -boost -bdw_gc test_assertion_all
+se c -no_split -boost -bdw_gc test_assertion_debug
+se c -no_split -boost -bdw_gc test_assertion_ensure
+se c -no_split -boost -bdw_gc test_assertion_invariant
+se c -no_split -boost -bdw_gc test_assertion_loop
+se c -no_split -boost -bdw_gc test_assertion_require
+se c -no_split -boost -bdw_gc test_require1.e
+se c -no_split -boost test_assertion_all
+se c -no_split -boost test_assertion_debug
+se c -no_split -boost test_assertion_ensure
+se c -no_split -boost test_assertion_invariant
+se c -no_split -boost test_assertion_loop
+se c -no_split -boost test_assertion_require
+se c -no_split -boost test_require1.e
+se c -no_split -no_gc -boost test_assertion_all
+se c -no_split -no_gc -boost test_assertion_debug
+se c -no_split -no_gc -boost test_assertion_ensure
+se c -no_split -no_gc -boost test_assertion_invariant
+se c -no_split -no_gc -boost test_assertion_loop
+se c -no_split -no_gc -boost test_assertion_require
+se c -no_split -no_gc -boost test_require1.e
+se c -profile -all_check -bdw_gc test_assertion_boost_or_no_check
+se c -profile -all_check -bdw_gc test_assertion_debug
+se c -profile -all_check -bdw_gc test_assertion_ensure
+se c -profile -all_check -bdw_gc test_assertion_invariant
+se c -profile -all_check -bdw_gc test_assertion_loop
+se c -profile -all_check -bdw_gc test_assertion_require
+se c -profile -all_check -debug test_assertion_all
+se c -profile -all_check -debug test_assertion_boost_or_no_check
+se c -profile -all_check -debug test_assertion_ensure
+se c -profile -all_check -debug test_assertion_invariant
+se c -profile -all_check -debug test_assertion_loop
+se c -profile -all_check -debug test_assertion_require
+se c -profile -all_check -debug test_dead_code01.e
+se c -profile -all_check test_assertion_boost_or_no_check
+se c -profile -all_check test_assertion_debug
+se c -profile -all_check test_assertion_ensure
+se c -profile -all_check test_assertion_invariant
+se c -profile -all_check test_assertion_loop
+se c -profile -all_check test_assertion_require
+se c -profile -boost -bdw_gc test_assertion_all
+se c -profile -boost -bdw_gc test_assertion_debug
+se c -profile -boost -bdw_gc test_assertion_ensure
+se c -profile -boost -bdw_gc test_assertion_invariant
+se c -profile -boost -bdw_gc test_assertion_loop
+se c -profile -boost -bdw_gc test_assertion_require
+se c -profile -boost -bdw_gc test_require1.e
+se c -profile -boost test_assertion_all
+se c -profile -boost test_assertion_debug
+se c -profile -boost test_assertion_ensure
+se c -profile -boost test_assertion_invariant
+se c -profile -boost test_assertion_loop
+se c -profile -boost test_assertion_require
+se c -profile -boost test_require1.e
+se c -profile -ensure_check -bdw_gc test_assertion_all
+se c -profile -ensure_check -bdw_gc test_assertion_boost_or_no_check
+se c -profile -ensure_check -bdw_gc test_assertion_debug
+se c -profile -ensure_check -bdw_gc test_assertion_invariant
+se c -profile -ensure_check -bdw_gc test_assertion_loop
+se c -profile -ensure_check -bdw_gc test_assertion_require
+se c -profile -ensure_check test_assertion_all
+se c -profile -ensure_check test_assertion_boost_or_no_check
+se c -profile -ensure_check test_assertion_debug
+se c -profile -ensure_check test_assertion_invariant
+se c -profile -ensure_check test_assertion_loop
+se c -profile -ensure_check test_assertion_require
+se c -profile -flat_check
+se c -profile -invariant_check -bdw_gc test_assertion_all
+se c -profile -invariant_check -bdw_gc test_assertion_boost_or_no_check
+se c -profile -invariant_check -bdw_gc test_assertion_debug
+se c -profile -invariant_check -bdw_gc test_assertion_ensure
+se c -profile -invariant_check -bdw_gc test_assertion_loop
+se c -profile -invariant_check -bdw_gc test_assertion_require
+se c -profile -invariant_check test_assertion_all
+se c -profile -invariant_check test_assertion_boost_or_no_check
+se c -profile -invariant_check test_assertion_debug
+se c -profile -invariant_check test_assertion_ensure
+se c -profile -invariant_check test_assertion_loop
+se c -profile -invariant_check test_assertion_require
+se c -profile -loop_check -bdw_gc test_assertion_all
+se c -profile -loop_check -bdw_gc test_assertion_boost_or_no_check
+se c -profile -loop_check -bdw_gc test_assertion_debug
+se c -profile -loop_check -bdw_gc test_assertion_ensure
+se c -profile -loop_check -bdw_gc test_assertion_invariant
+se c -profile -loop_check -bdw_gc test_assertion_require
+se c -profile -loop_check test_assertion_all
+se c -profile -loop_check test_assertion_boost_or_no_check
+se c -profile -loop_check test_assertion_debug
+se c -profile -loop_check test_assertion_ensure
+se c -profile -loop_check test_assertion_invariant
+se c -profile -loop_check test_assertion_require
+se c -profile -no_check -bdw_gc test_assertion_all
+se c -profile -no_check -bdw_gc test_assertion_debug
+se c -profile -no_check -bdw_gc test_assertion_ensure
+se c -profile -no_check -bdw_gc test_assertion_invariant
+se c -profile -no_check -bdw_gc test_assertion_loop
+se c -profile -no_check -bdw_gc test_assertion_require
+se c -profile -no_check -bdw_gc test_require1.e
+se c -profile -no_check test_assertion_all
+se c -profile -no_check test_assertion_debug
+se c -profile -no_check test_assertion_ensure
+se c -profile -no_check test_assertion_invariant
+se c -profile -no_check test_assertion_loop
+se c -profile -no_check test_assertion_require
+se c -profile -no_check test_require1.e
+se c -profile -no_gc -all_check test_assertion_boost_or_no_check
+se c -profile -no_gc -all_check test_assertion_debug
+se c -profile -no_gc -all_check test_assertion_ensure
+se c -profile -no_gc -all_check test_assertion_invariant
+se c -profile -no_gc -all_check test_assertion_loop
+se c -profile -no_gc -all_check test_assertion_require
+se c -profile -no_gc -boost test_assertion_all
+se c -profile -no_gc -boost test_assertion_debug
+se c -profile -no_gc -boost test_assertion_ensure
+se c -profile -no_gc -boost test_assertion_invariant
+se c -profile -no_gc -boost test_assertion_loop
+se c -profile -no_gc -boost test_assertion_require
+se c -profile -no_gc -boost test_require1.e
+se c -profile -no_gc -ensure_check test_assertion_all
+se c -profile -no_gc -ensure_check test_assertion_boost_or_no_check
+se c -profile -no_gc -ensure_check test_assertion_debug
+se c -profile -no_gc -ensure_check test_assertion_invariant
+se c -profile -no_gc -ensure_check test_assertion_loop
+se c -profile -no_gc -ensure_check test_assertion_require
+se c -profile -no_gc -invariant_check test_assertion_all
+se c -profile -no_gc -invariant_check test_assertion_boost_or_no_check
+se c -profile -no_gc -invariant_check test_assertion_debug
+se c -profile -no_gc -invariant_check test_assertion_ensure
+se c -profile -no_gc -invariant_check test_assertion_loop
+se c -profile -no_gc -invariant_check test_assertion_require
+se c -profile -no_gc -loop_check test_assertion_all
+se c -profile -no_gc -loop_check test_assertion_boost_or_no_check
+se c -profile -no_gc -loop_check test_assertion_debug
+se c -profile -no_gc -loop_check test_assertion_ensure
+se c -profile -no_gc -loop_check test_assertion_invariant
+se c -profile -no_gc -loop_check test_assertion_require
+se c -profile -no_gc -no_check test_assertion_all
+se c -profile -no_gc -no_check test_assertion_debug
+se c -profile -no_gc -no_check test_assertion_ensure
+se c -profile -no_gc -no_check test_assertion_invariant
+se c -profile -no_gc -no_check test_assertion_loop
+se c -profile -no_gc -no_check test_assertion_require
+se c -profile -no_gc -no_check test_require1.e
+se c -profile -no_gc -require_check test_assertion_all
+se c -profile -no_gc -require_check test_assertion_boost_or_no_check
+se c -profile -no_gc -require_check test_assertion_debug
+se c -profile -no_gc -require_check test_assertion_ensure
+se c -profile -no_gc -require_check test_assertion_invariant
+se c -profile -no_gc -require_check test_assertion_loop
+se c -profile -require_check -bdw_gc test_assertion_all
+se c -profile -require_check -bdw_gc test_assertion_boost_or_no_check
+se c -profile -require_check -bdw_gc test_assertion_debug
+se c -profile -require_check -bdw_gc test_assertion_ensure
+se c -profile -require_check -bdw_gc test_assertion_invariant
+se c -profile -require_check -bdw_gc test_assertion_loop
+se c -profile -require_check test_assertion_all
+se c -profile -require_check test_assertion_boost_or_no_check
+se c -profile -require_check test_assertion_debug
+se c -profile -require_check test_assertion_ensure
+se c -profile -require_check test_assertion_invariant
+se c -profile -require_check test_assertion_loop
+se c -require_check -bdw_gc test_assertion_all
+se c -require_check -bdw_gc test_assertion_boost_or_no_check
+se c -require_check -bdw_gc test_assertion_debug
+se c -require_check -bdw_gc test_assertion_ensure
+se c -require_check -bdw_gc test_assertion_invariant
+se c -require_check -bdw_gc test_assertion_loop
+se c -require_check test_assertion_all
+se c -require_check test_assertion_boost_or_no_check
+se c -require_check test_assertion_debug
+se c -require_check test_assertion_ensure
+se c -require_check test_assertion_invariant
+se c -require_check test_assertion_loop

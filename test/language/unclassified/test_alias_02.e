@@ -1,5 +1,8 @@
 class TEST_ALIAS_02
-
+   -- TASK#S-16216
+   -- test support of alias "()" as procedure call, also in case the 
+   -- agent is returned by a function
+   
 insert
    EIFFELTEST_TOOLS
 
@@ -25,6 +28,10 @@ feature {}
 
          assert(universal = 42)
 
+         -- this is the easy workaround
+         assert((sq)(2) = 4)
+         assert((sq)(4) = 16)
+         
          -- not-syntactic case (needs semantic analysis)
          assert(sq(2) = 4)
          assert(sq(4) = 16)

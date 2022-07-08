@@ -2293,5 +2293,5 @@ end -- class SYSTEM_TOOLS
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
 --
--- http://liberty-eiffel.blogspot.com - liberty-eiffel.blogspot.com
+-- https://www.liberty-eiffel.org
 -- ------------------------------------------------------------------------------------------------------------------------------

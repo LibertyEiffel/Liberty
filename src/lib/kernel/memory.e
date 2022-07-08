@@ -51,7 +51,7 @@ feature {ANY} -- Liberty Eiffel Garbage collector information and tuning:
 
    frozen low_memory_strategy: BOOLEAN
          -- Is the low memory strategy in use? When this strategy is used,
-         -- the garbage collector try to use as few memory as possible.
+         -- the garbage collector tries to use as few memory as possible.
       require
          smart_eiffel_collector
       do
@@ -74,7 +74,7 @@ feature {ANY} -- Liberty Eiffel Garbage collector information and tuning:
 
    frozen high_memory_strategy: BOOLEAN
          -- Is the high memory strategy in use? When this strategy is used,
-         -- the garbage collector assume that more memory can be allocated
+         -- the garbage collector assumes that more memory can be allocated
          -- if necessary.
       require
          smart_eiffel_collector

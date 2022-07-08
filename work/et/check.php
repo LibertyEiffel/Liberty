@@ -220,7 +220,7 @@ if (substage("class check ANY")) {
 
 //- se doc
 if (substage("eiffeldoc")) {
-   execute("$LibertyBase/work/build_doc.sh -plain -zip && mkdir -p $LibertyBase/website/doc/files && rm -f $LibertyBase/website/doc/files/*.tgz && mv $LibertyBase/website/doc/api/*.tgz $LibertyBase/website/doc/files/", $ulimit_time = 3600);
+   execute("$LibertyBase/work/build_doc.sh -plain -zip && mkdir -p $LibertyBase/website/doc/files && rm -f $LibertyBase/website/doc/files/*.tgz && mv $LibertyBase/website/doc/api/*.tgz $LibertyBase/website/doc/files/", $ulimit_time = 3600, $ulimit_virt = 8388608);
    endsubstage();
 }
 
@@ -228,13 +228,13 @@ if (substage("eiffeldoc")) {
 if (substage("debian packaging")) {
    $pkg_result = 0;
    if (substage("source")) {
-      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-S && mkdir -p $LibertyBase/work/packaging/debs_src && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_src/", $ulimit_time = 3600);
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-S && mkdir -p $LibertyBase/work/packaging/debs_src && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_src/", $ulimit_time = 3600, $ulimit_virt = 8388608);
       file_put_contents($stagedir ."/result.txt", $result);
       $pkg_result += $result;
       endsubstage();
    }
    if (substage("amd64")) {
-      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-b && mkdir -p $LibertyBase/work/packaging/debs_amd64 && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_amd64/", $ulimit_time = 3600);
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-b && mkdir -p $LibertyBase/work/packaging/debs_amd64 && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_amd64/", $ulimit_time = 3600, $ulimit_virt = 8388608);
       file_put_contents($stagedir ."/result.txt", $result);
       $pkg_result += $result;
       endsubstage();
@@ -246,7 +246,7 @@ if (substage("debian packaging")) {
       endsubstage();
    }
    if (substage("deploy")) {
-      $result = execute("mkdir -p $LibertyBase/work/packaging/debs && ln $LibertyBase/work/packaging/debs_*/* $LibertyBase/work/packaging/debs/ && rm -rf $LibertyBase/work/packaging/debs_* ; export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' && $LibertyBase/work/packaging/build_debian.sh -deploy",  $ulimit_time = 3600);
+      $result = execute("mkdir -p $LibertyBase/work/packaging/debs && ln $LibertyBase/work/packaging/debs_*/* $LibertyBase/work/packaging/debs/ && rm -rf $LibertyBase/work/packaging/debs_* ; export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' && $LibertyBase/work/packaging/build_debian.sh -deploy",  $ulimit_time = 3600, $ulimit_virt = 8388608);
       $pkg_result += $result;
       endsubstage();
    }
@@ -353,7 +353,7 @@ function testDir($dir) {
    global $stagedir;
    global $repobaselink, $LibertyBase;
    $result = 0;
-
+   $warnCnt = 0;
    foreach (glob("$dir/*", GLOB_ONLYDIR) as $dirname) {
       if (basename($dirname) != "eiffeltest") {
          if (substage(basename($dirname), str_replace($LibertyBase, $repobaselink, $dirname))) {
@@ -383,13 +383,54 @@ function testDir($dir) {
          }
          $res = execute("se test -flat $dir");
          if ($res == 0) {
-            $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
-            $res = -$warnCnt;
+             // se test passed, so now let's check for warnings, they are not per case
+             foreach(file($stagedir . "/err.txt") as $line) {
+                 if(preg_match("/Warning:/i", $line)){
+                     $warnCnt++;
+                 }
+             }
+             $res = -$warnCnt;
          } else {
-            $res += exec("grep -i " . escapeshellarg("Abnormal:") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
+             // some test(s) failed, let's investigate which case
+             $cases = array();
+             foreach(file($dir . "/eiffeltest/log.new") as $line) {
+                 if(preg_match("/^Abnormal:.*\"(.*)\\.exe\"\\.\"\\./i", $line, $matches)) {
+                     $tcase = $matches[1];
+                     print("found '$tcase'\n");
+                     $cases[] = $tcase;
+                 }
+             }
+             $cases = array_unique($cases);
+             $failedTaskCount = 0;
+             $failedBugCount = 0;
+             foreach($cases as $case) {
+                 $b = false;
+                 $t = false;
+                 foreach(file($dir . "/" . $case. ".e") as $line) {
+                     if(preg_match("/--\s*(BUG|TASK)#(\S)-(\d+)/i", $line, $matches)) {
+                         $type = $matches[1]; // BUG or TASK
+                         $sys = $matches[2]; // the ticket system. S = GNU savannah
+                         $id =  $matches[3];
+                         file_put_contents($stagedir . "/tickets.txt", $case . ": " . $type . "(" . $sys . "): " . $id . "\n", FILE_APPEND);
+                         if($type == "BUG") $b = true;
+                         if($type == "TASK") $t = true;
+                     }else{
+                         // not ticket annotation, so let's count it as bug
+                         $b = true;
+                     }
+                 }
+                 if($b) $failedBugCount++;
+                 if($t) $failedTaskCount++;
+                 file_put_contents($stagedir . "/FailedCases.txt", $case . "\t" . $failedBugCount . "\t" . $failedTaskCount . "\n", FILE_APPEND);
+             }
+             if($failedBugCount > 0){
+                 $res += $failedBugCount;
+             }else{
+                 $res -= $failedTaskCount;
+             }
          }
       } else {
-         file_put_contents("$stagedir/err.txt", "missing eiffeltest directory - please add to repository");
+         file_put_contents($stagedir . "/err.txt", "missing eiffeltest directory - please add to repository");
          $res = 1;
       }
       if ($res <= 0) {

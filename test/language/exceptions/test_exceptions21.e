@@ -3,12 +3,15 @@
 --
 class TEST_EXCEPTIONS21
 
-insert
+inherit
    ANY
       rename default_rescue as dummy
       redefine dummy
       end
-
+   
+insert
+   EIFFELTEST_TOOLS
+   
 create {}
    make
 
@@ -18,6 +21,7 @@ feature {ANY}
    make
       do
          foo
+         assert(r = Current)
       rescue
          retry
       end
@@ -25,14 +29,19 @@ feature {ANY}
    dummy
       do
          r := Current
-         if r = Void then
-         end
+         assert(r /= Void)
       end
 
    foo
       do
-         if r = Void then
-         end
+         r.try
+         assert(r /= Void)
+      end
+
+   try
+      do
+         assert(True)
+         io.put_string(out + "%N")
       end
 
 end -- class TEST_EXCEPTIONS21

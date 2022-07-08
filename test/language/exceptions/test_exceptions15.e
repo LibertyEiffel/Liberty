@@ -5,6 +5,7 @@ class TEST_EXCEPTIONS15
 
 insert
    EXCEPTIONS
+   EIFFELTEST_TOOLS
 
 create {}
    make
@@ -18,6 +19,7 @@ feature {ANY}
             done := True
             do_it_bad
          end
+         assert(done)
       rescue
          retry
       end
@@ -26,15 +28,17 @@ feature {ANY}
       local
          str: STRING; i: INTEGER
       do
+         assert(True) -- this shall be reached
          from
             str := "foo"
             i := 1
          until
-            i < 1000
+            i > 1000
          loop
             str.put('%U', i)
-            i := i - 1
+            i := i + 1
          end
+         assert(False) -- this shall not be reached
       end
 
 end -- class TEST_EXCEPTIONS15

@@ -118,7 +118,7 @@ end -- class LEGGOW
 --
 -- Copyright (C) 2013-2022: Paolo REDAELLI
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- https://www.liberty-eiffel.org
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

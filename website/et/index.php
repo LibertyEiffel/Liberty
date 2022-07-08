@@ -226,6 +226,7 @@ function printSubStages($dir){
       echo "         <div class=\"substage\">";
       printSubStages($stagedir);
       echo "         </div>";
+      
       echo "         <p class=\"cmd\">" . htmlify(file_get_contents("$stagedir/cmd.txt")) . "</p>\n";
       echo "         <p class=\"out\">" . htmlify(file_get_contents("$stagedir/out.txt")) . "</p>\n";
       echo "         <p class=\"err\">" . htmlify(file_get_contents("$stagedir/err.txt")) . "</p>\n";

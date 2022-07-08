@@ -5,6 +5,7 @@ class TEST_EXCEPTIONS13
 
 insert
    EXCEPTIONS
+   EIFFELTEST_TOOLS
 
 create {}
    make
@@ -12,8 +13,7 @@ create {}
 feature {ANY}
    make
       do
-         if signal_number > 0 then
-         end
+         assert(signal_numer = 0)
       end
 
 end -- class TEST_EXCEPTIONS13
