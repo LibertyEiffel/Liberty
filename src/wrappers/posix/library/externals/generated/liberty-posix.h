@@ -52,7 +52,7 @@
 // Also in standard C lib: ##include <stdlib.h>
 // Also in standard C lib: ##include <string.h>
 #include <strings.h>
-#include <stropts.h>
+// "modern" systemd does not have #include <stropts.h>
 #include <sys/ipc.h>
 #include <sys/mman.h>
 #include <sys/msg.h>
