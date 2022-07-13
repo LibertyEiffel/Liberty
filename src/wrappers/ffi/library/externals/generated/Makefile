@@ -1,7 +1,8 @@
 XML=ffi.gcc-xml
 HEADER=plugin/c/ffi_liberty.h
 ## HEADERS=`dpkg -L libffi-dev | grep "\.h$$"`
-HEADERS=`find /usr/include/ -name ffi.h -o -name ffitarget.h `
+HEADERS=/usr/include/ffi*.h
+##HEADERS=`find /usr/include/ -name ffi.h -o -name ffitarget.h `
 
 wrappers: $(XML)
 	wrappers_generator --local $(XML) $(HEADERS)

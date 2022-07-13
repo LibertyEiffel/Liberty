@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class FFI_ABI_ENUM
 
--- Wrapper of enum ffi_abi defined in file /usr/include/x86_64-linux-gnu/ffitarget.h
+-- Wrapper of enum ffi_abi defined in file /usr/include/ffitarget-x86_64.h
 insert ENUM
 
 create {ANY} default_create
@@ -13,8 +13,6 @@ feature {ANY} -- Validity
 				(a_value = fastcall_low_level)  or else
 				(a_value = first_abi_low_level)  or else
 				(a_value = last_abi_low_level)  or else
-				(a_value = pascal_low_level)  or else
-				(a_value = register_low_level)  or else
 				(a_value = stdcall_low_level)  or else
 				(a_value = sysv_low_level)  or else
 				(a_value = thiscall_low_level)  or else
@@ -41,16 +39,6 @@ feature {ANY} -- Setters
 	set_last_abi
                do
                        value := last_abi_low_level
-               end
-
-	set_pascal
-               do
-                       value := pascal_low_level
-               end
-
-	set_register
-               do
-                       value := register_low_level
                end
 
 	set_stdcall
@@ -92,16 +80,6 @@ feature {ANY} -- Queries
        is_last_abi: BOOLEAN
                do
                        Result := (value=last_abi_low_level)
-               end
-
-       is_pascal: BOOLEAN
-               do
-                       Result := (value=pascal_low_level)
-               end
-
-       is_register: BOOLEAN
-               do
-                       Result := (value=register_low_level)
                end
 
        is_stdcall: BOOLEAN
@@ -158,24 +136,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                        location: "."
                        module_name: "plugin"
                        feature_name: "FFI_LAST_ABI"
-                       }"
-               end
-
-     pascal_low_level: INTEGER
-               external "plug_in"
-               alias "{
-                       location: "."
-                       module_name: "plugin"
-                       feature_name: "FFI_PASCAL"
-                       }"
-               end
-
-     register_low_level: INTEGER
-               external "plug_in"
-               alias "{
-                       location: "."
-                       module_name: "plugin"
-                       feature_name: "FFI_REGISTER"
                        }"
                end
 

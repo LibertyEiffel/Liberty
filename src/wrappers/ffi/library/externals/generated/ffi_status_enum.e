@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class FFI_STATUS_ENUM
 
--- Wrapper of enum ffi_status defined in file /usr/include/x86_64-linux-gnu/ffi.h
+-- Wrapper of enum ffi_status defined in file /usr/include/ffi-x86_64.h
 insert ENUM
 
 create {ANY} default_create
