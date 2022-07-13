@@ -14,8 +14,6 @@ feature {ANY}
 		require
 			valid_string: a_connection_string /= Void
 		deferred
-		ensure
-			connect: last_action_success = is_connected
 		end
 	
 	close
