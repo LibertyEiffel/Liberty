@@ -11,37 +11,17 @@ default -- section of the system
 	collect (yes);
 	style_warning (yes);
 	no_warning (no);
-	verbose (yes);
+	verbose (no);
 	manifest_string_trace (no);
 	high_memory_compiler (no);	
 	profile (no);
 	relax (yes);
 
 cluster -- section
-	database: "${eiffel_libraries}/eiffel-database/loadpath.se"
+	database: "${path_liberty_extra}/database/loadpath.se"
+  wrappers: "${path_liberty_extra}/common/loadpath.se"
 	demo: "."
-
---    optional_cluster_name: "cluster_path_using_system_file_notation_here"
---       default -- at this cluster level
---          assertion (require)
---          debug (no);
---          trace (no);
---       option -- for this cluster
---          assertion (loop) : CLASS_NAME1, CLASS_NAME2;
---          assertion (all)  : CLASS_NAME3, CLASS_NAME4;
---          -- ...
---          debug (yes) : CLASS_NAME1, CLASS_NAME2, ...;
---          debug ("KEY") : CLASS_NAME1, CLASS_NAME2, ...;
---          -- ...
---          trace : CLASS_NAME1, CLASS_NAME2;
---          trace : CLASS_NAME3, CLASS_NAME4;
---          -- ...
---       end -- of one cluster
-
-	-- Pull in SmartEiffel's standard library. Always put this last so 
-	-- that you can override options for parts of the library.
-
-	standard: "${path_lib}/loadpath.se"
+	standard_library: "${path_liberty_core}/loadpath.se"
 
 external -- section for elements written in another language
 

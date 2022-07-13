@@ -20,20 +20,16 @@ inherit
 		end
 	C_STRUCT
 	
+insert LIBPQ_FE_EXTERNALS
+
 create {ANY}  connect
 
 feature {} -- size
-	struct_size: like size_t
-		external "C inline use <libpg-fe.h>"
-		alias "sizeof(PGconn)"
-		end
-
 	dispose
 			-- cleanup
 		do
 			if is_connected then
-				-- disconnect
-				not_yet_implemented
+				close
 			end
 		end
 
@@ -360,6 +356,7 @@ feature {ANY} -- Creation
 			-- Closes the connection to the server. 
 		do
 			pqfinish (handle)
+      handle := default_pointer
 		end
 
 	reset
@@ -554,98 +551,5 @@ feature {ANY} -- Connection Status
 	-- for this function. Doing this will also automatically include
 	-- ssl.h from OpenSSL.
 
-
-feature {} -- External calls
-	
-	pqconnectdb (a_conninfo: POINTER): POINTER
-		external "plug_in"
-		alias "{
-			location: "${eiffel_libraries}plugins"
-			module_name: "postgresql"
-			feature_name: "PQconnectdb"
-			}"
-		end
---  PGconn *PQsetdbLogin(const char *pghost,
---                       const char *pgport,
---                       const char *pgoptions,
---                       const char *pgtty,
---                       const char *dbName,
---                       const char *login,
---                       const char *pwd);
-
---  PGconn *PQconnectStart(const char *conninfo);
-
---  PostgresPollingStatusType PQconnectPoll(PGconn *conn);
-
-feature {} -- PostgresPollingStatusType  enum
-	--               CONNECTION_STARTED
-	
-	--                         Waiting for connection to be made.
-	
-	--                 CONNECTION_MADE
-
---                         Connection OK; waiting to send.
-
---                 CONNECTION_AWAITING_RESPONSE
-
---                         Waiting for a response from the server.
-
---                 CONNECTION_AUTH_OK
-
---                         Received authentication; waiting for backend start-up
---                         to finish.
-
---                 CONNECTION_SSL_STARTUP
-
---                         Negotiating SSL encryption.
-
---                 CONNECTION_SETENV
-
---                         Negotiating environment-driven parameter settings.
-
---    PQconndefaults
-
---            Returns the default connection options.
-
---  PQconninfoOption *PQconndefaults(void);
-
---  typedef struct
---  {
---      char   *keyword;   /* The keyword of the option */
---      char   *envvar;    /* Fallback environment variable name */
---      char   *compiled;  /* Fallback compiled in default value */
---      char   *val;       /* Option's current value, or NULL */
---      char   *label;     /* Label for field in connect dialog */
---      char   *dispchar;  /* Character to display for this field
---                            in a connect dialog. Values are:
---                            ""        Display entered value as is
---                            "*"       Password field - hide value
---                            "D"       Debug option - don't show by default */
---      int     dispsize;  /* Field size in characters for dialog */
---  } PQconninfoOption;
-
-	pqfinish (a_connection: POINTER)
-			--  void PQfinish(PGconn *conn);
-		external "plug_in"
-		alias "{
-			location: "${eiffel_libraries}plugins"
-			module_name: "postgresql"
-			feature_name: "PGfinish"
-			}"
-		end
-
-	pqreset(a_connection: POINTER)
-			--  void PQreset(PGconn *conn);
-		external "plug_in"
-		alias "{
-			location: "${eiffel_libraries}plugins"
-			module_name: "postgresql"
-			feature_name: "PGfinish"
-			}"
-		end
-
-	--  int PQresetStart(PGconn *conn);
-	
-	--  PostgresPollingStatusType PQresetPoll(PGconn *conn);
 
 end
