@@ -89,7 +89,7 @@ int main() {
     exit(0);
 } 
 EOF
-    ${CC} -lgc $TMPDIR/check_libgc.c -o $TMPDIR/check_libgc >/dev/null 2>&1 || return 1
+    ${CC} ${CFLAGS} ${LDFLAGS} -lgc $TMPDIR/check_libgc.c -o $TMPDIR/check_libgc >/dev/null 2>&1 || return 1
     if $TMPDIR/check_libgc; then
         return 0
     else

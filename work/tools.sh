@@ -48,6 +48,23 @@ case `uname -s` in
 	germ_cc=${CC}
 	germ_cflags="-pipe -O2 -c -x c"
 	;;
+    FreeBSD)
+	export PATH=/usr/local/bin:$PATH
+	flavor=FreeBSD
+	jobs=$((1 + $(sysctl -n hw.ncpu)))
+	CC_TYPE=${CC_TYPE:-cc}
+	CC=${CC:-$CC_TYPE}
+	# using boehm-gc from pkg
+	PKG_INC=/usr/local/include
+	PKG_LIBS=/usr/local/lib
+	CFLAGS="-pipe -I${PKG_INC}"
+	CXX_TYPE=${CXX_TYPE:-CC}
+	CXX=${CXX:-${CXX_TYPE}}
+	CXXFLAGS="-pipe -I${PKG_INC}"
+	LDFLAGS="-Xlinker -${hyphen}no-as-needed -L${PKG_LIBS} -Wl,-rpath=${PKG_LIBS}"
+	germ_cc=${CC}
+	germ_cflags="-pipe -O2 -c -x c"
+	;;
     Darwin)
 	flavor=Darwin
 	jobs=$((1 + $(sysctl -n hw.physicalcpu)))
