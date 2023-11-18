@@ -93,7 +93,7 @@ static void set_host_error(char* host) {
 /* ---------------------------------------------------------------------- */
 /* Initialization */
 
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
 
 #define init() (1)
 
@@ -276,7 +276,7 @@ SOCKET net_udp(int a, int b, int c, int d, int port, EIF_BOOLEAN sync) {
   return result;
 }
 
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
 
 SOCKET net_local(int port, EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
@@ -353,7 +353,7 @@ SOCKET net_udp_socket(EIF_BOOLEAN sync) {
   return result;
 }
 
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
 
 SOCKET net_local_socket(EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
@@ -415,7 +415,7 @@ SOCKET net_udp_server(int port, EIF_BOOLEAN sync) {
   return result;
 }
 
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
 SOCKET net_local_server(int port, EIF_BOOLEAN sync) {
   SOCKET result = INVALID_SOCKET;
   if (init()) {
