@@ -25,7 +25,7 @@
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
 /* macro read is used of read_stdin */
 
 int io_copy (char*source, char*target) {

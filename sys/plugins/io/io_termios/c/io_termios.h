@@ -22,11 +22,11 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 -- THE SOFTWARE.
 */
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
  #include <termios.h>
 #endif
 
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
  #define termios_fd(FILE_p) fileno(FILE_p)
  #define termios_tcdrain(FILE_p) ((tcdrain(termios_fd(FILE_p))) == 0 ? 0 : errno)
  #define termios_cfgetispeed(s_termios) (cfgetispeed(s_termios))

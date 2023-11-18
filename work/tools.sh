@@ -68,13 +68,16 @@ case `uname -s` in
     Darwin)
 	flavor=Darwin
 	jobs=$((1 + $(sysctl -n hw.physicalcpu)))
+	# using boehm-gc from homebrew
+	PKG_INC=/opt/homebrew/include
+	PKG_LIBS=/opt/homebrew/lib
 	CC_TYPE=${CC_TYPE:-gcc}
 	CC=${CC:-$CC_TYPE}
-	CFLAGS="-pipe"
+	CFLAGS="-pipe -I${PKG_INC}"
 	CXX_TYPE=${CXX_TYPE:-g++}
 	CXX=${CXX:-${CXX_TYPE}}
-	CXXFLAGS="-pipe"
-	LDFLAGS=""
+	CXXFLAGS="-pipe -I${PKG_INC}"
+	LDFLAGS="-L${PKG_LIBS}"
 	germ_cc=${CC}
 	germ_cflags="-pipe -O2 -c -x c"
 	;;

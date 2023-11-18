@@ -1,4 +1,4 @@
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
 
 void i18n_set_system_locale (void* language, void* country, void* encoding) {
   static char locale[32];
