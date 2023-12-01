@@ -17,7 +17,7 @@ feature {ANY}
       do
          foo := "text1"
 
-         -- let's create an array with some strings in it
+         -- let's create an object containing a string
          create aux.make(foo)
 
          aux_twin := aux.twin
