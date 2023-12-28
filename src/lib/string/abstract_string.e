@@ -1052,7 +1052,9 @@ feature {ANY} -- Concatenation
     end
 
     infix "#" (a_value: ABSTRACT_STRING): ABSTRACT_STRING
-         -- A copy of Current with a placeholder "#(n)" is replaced with the content of `a_value'. A chain of # queries will progressively replace placeholder 1, 2 ...
+         -- A copy of Current with the placeholder "#(n)" with the lowest n replaced with the content of `a_value'.
+         --
+         -- A chain of # queries will progressively replace placeholder 1, 2 ...
          --
          -- For example a_string#"foo"#"bar"#"maman" is equivalent to a_string.arg(1,"foo").arg(2,"bar").arg(3,"maman")
          --
