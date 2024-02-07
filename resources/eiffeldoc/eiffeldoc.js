@@ -13,24 +13,26 @@ function set_pov (clazz) {
 }
 
 function alter_display_by_id (id, value) {
-	var el = document.getElementById (id + '_expanded');
-	if (el) {
-		if (value == 'none' || value == 'block')
-			el.style.display = value;
-		else if (el.style.display == 'none')
-			el.style.display = 'block';
-		else
-			el.style.display = 'none';
+    var el = document.getElementById (id + '_expanded');
+    var show = true;
+    var cls_hidden = 'expand_block_hidden';
+    if (el) {
+        if (value == 'none') {
+            show = false;
+        } else if (value == 'block') {
+            show = true;
+        } else {
+            show = el.classList.contains (cls_hidden);
+        }
 
-		var el_exp = document.getElementById (id + '_hl');
-		if (el_exp) {
-			if (el.style.display == 'none')
-				el_exp.innerHTML = '+';
-			else
-				el_exp.innerHTML = '-';
-		}
-	}
-	return true;
+        el.classList[show ? 'remove' : 'add'] (cls_hidden);
+
+        var el_exp = document.getElementById (id + '_hl');
+        if (el_exp) {
+            el_exp.innerHTML = show ? '-' : '+';
+        }
+    }
+    return true;
 }
 
 var href_clicked = false;
