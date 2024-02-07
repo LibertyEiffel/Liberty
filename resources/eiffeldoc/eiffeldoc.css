@@ -879,3 +879,7 @@ ul.menu > li > a:hover {
 .obsolete_mark {
     font-style: italic;
 }
+
+.expand_block_hidden {
+    display: none;
+}
