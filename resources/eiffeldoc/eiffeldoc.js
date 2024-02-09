@@ -16,16 +16,12 @@ var cls_hidden = 'expand_block_hidden';
 
 function alter_display_by_id (id, value) {
     var el = document.getElementById (id + '_expanded');
-    var show = true;
-    if (el) {
-        if (value == 'none') {
-            show = false;
-        } else if (value == 'block') {
-            show = true;
-        } else {
-            show = el.classList.contains (cls_hidden);
-        }
+    var show = value;
+    if (value == 'toggle') {
+        show = el.classList.contains (cls_hidden);
+    }
 
+    if (el) {
         el.classList[show ? 'remove' : 'add'] (cls_hidden);
 
         var el_exp = document.getElementById (id + '_hl');
@@ -46,7 +42,7 @@ function href_class_link (el) {
 
 function href_feature_link (el) {
 	href_clicked = true;
-	alter_display_by_id ('id.' + el.href.substring (el.href.lastIndexOf ('#') + 1) + '.', 'block');
+	alter_display_by_id ('id.' + el.href.substring (el.href.lastIndexOf ('#') + 1) + '.', true);
 	return true;
 }
 
