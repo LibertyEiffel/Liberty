@@ -12,10 +12,11 @@ function set_pov (clazz) {
     }
 }
 
+var cls_hidden = 'expand_block_hidden';
+
 function alter_display_by_id (id, value) {
     var el = document.getElementById (id + '_expanded');
     var show = true;
-    var cls_hidden = 'expand_block_hidden';
     if (el) {
         if (value == 'none') {
             show = false;
@@ -104,7 +105,7 @@ function init () {
 			if (e_exp) {
 				var e_hl = document.getElementById (el.id + '_hl');
 				if (e_hl) {
-					if (e_exp.style.display == 'none')
+					if (e_exp.classList.contains (cls_hidden))
 						e_hl.innerHTML = '+';
 					else
 						e_hl.innerHTML = '-';
