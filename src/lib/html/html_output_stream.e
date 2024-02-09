@@ -353,6 +353,40 @@ feature {ANY} -- Header tags
          reset_state(state_in_script)
       end
 
+   open_noscript
+      require
+         in_header or in_body
+      do
+         indent
+         open_tag(os_noscript)
+         set_state(state_in_noscript)
+      end
+
+   close_noscript
+      require
+         in_noscript
+      do
+         close_tag(os_noscript)
+         reset_state(state_in_noscript)
+      end
+
+   open_style
+      require
+         in_header
+      do
+         indent
+         open_tag(os_style)
+         set_state(state_in_style)
+      end
+
+   close_style
+      require
+         in_style
+      do
+         close_tag(os_style)
+         reset_state(state_in_style)
+      end
+
 feature {ANY} -- Frames
    open_frameset
       require
@@ -1117,6 +1151,16 @@ feature {ANY} -- State queries
          Result := state = state_in_script
       end
 
+   in_noscript: BOOLEAN
+      do
+         Result := state = state_in_noscript
+      end
+
+   in_style: BOOLEAN
+      do
+         Result := state = state_in_style
+      end
+
    in_body: BOOLEAN
       do
          Result := state = state_in_body
@@ -1259,6 +1303,10 @@ feature {} -- States
    state_in_header: INTEGER 10
 
    state_in_script: INTEGER 11
+
+   state_in_noscript: INTEGER 12
+
+   state_in_style: INTEGER 13
 
    state_in_body: INTEGER 20
 
@@ -1452,6 +1500,10 @@ feature {} -- Once strings
    os_javascript: STRING "javascript"
 
    os_script: STRING "script"
+
+   os_noscript: STRING "noscript"
+
+   os_style: STRING "style"
 
    os_h1: STRING "h1"
 
