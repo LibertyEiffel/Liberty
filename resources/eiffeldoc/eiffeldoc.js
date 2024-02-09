@@ -17,7 +17,6 @@ var cls_hidden = 'expand_block_hidden';
 function alter_display_by_id (id, value) {
     var el = document.getElementById (id + '_expanded');
     var show = true;
-    var cls_hidden = 'expand_block_hidden';
     if (el) {
         if (value == 'none') {
             show = false;
