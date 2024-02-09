@@ -5,7 +5,6 @@ deferred class EIFFELDOC_GLOBALS
 
 insert
    GLOBALS
-   HTML_HANDLER
 
 feature {}
    operator_filter: HASHED_DICTIONARY[STRING, CHARACTER]
@@ -234,11 +233,11 @@ feature {}
          html_os.close_title
          html_os.put_stylesheet(css)
          html_os.put_javascript(js)
-         html_os.open_tag(once "noscript")
-         html_os.open_tag(once "style")
+         html_os.open_noscript
+         html_os.open_style
          html_os.put_string(once ".expand_block_hidden { display: block; }")
-         html_os.close_tag(once "style")
-         html_os.close_tag(once "noscript")
+         html_os.close_style
+         html_os.close_noscript
          html_os.with_attribute(once "onload", once "init()")
       ensure
          html_os.in_header
