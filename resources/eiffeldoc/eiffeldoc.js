@@ -12,25 +12,24 @@ function set_pov (clazz) {
     }
 }
 
-function alter_display_by_id (id, value) {
-	var el = document.getElementById (id + '_expanded');
-	if (el) {
-		if (value == 'none' || value == 'block')
-			el.style.display = value;
-		else if (el.style.display == 'none')
-			el.style.display = 'block';
-		else
-			el.style.display = 'none';
+var cls_hidden = 'expand_block_hidden';
 
-		var el_exp = document.getElementById (id + '_hl');
-		if (el_exp) {
-			if (el.style.display == 'none')
-				el_exp.innerHTML = '+';
-			else
-				el_exp.innerHTML = '-';
-		}
-	}
-	return true;
+function alter_display_by_id (id, value) {
+    var el = document.getElementById (id + '_expanded');
+    var show = value;
+    if (value == 'toggle') {
+        show = el.classList.contains (cls_hidden);
+    }
+
+    if (el) {
+        el.classList[show ? 'remove' : 'add'] (cls_hidden);
+
+        var el_exp = document.getElementById (id + '_hl');
+        if (el_exp) {
+            el_exp.innerHTML = show ? '-' : '+';
+        }
+    }
+    return true;
 }
 
 var href_clicked = false;
@@ -43,7 +42,7 @@ function href_class_link (el) {
 
 function href_feature_link (el) {
 	href_clicked = true;
-	alter_display_by_id ('id.' + el.href.substring (el.href.lastIndexOf ('#') + 1) + '.', 'block');
+	alter_display_by_id ('id.' + el.href.substring (el.href.lastIndexOf ('#') + 1) + '.', true);
 	return true;
 }
 
@@ -102,7 +101,7 @@ function init () {
 			if (e_exp) {
 				var e_hl = document.getElementById (el.id + '_hl');
 				if (e_hl) {
-					if (e_exp.style.display == 'none')
+					if (e_exp.classList.contains (cls_hidden))
 						e_hl.innerHTML = '+';
 					else
 						e_hl.innerHTML = '-';

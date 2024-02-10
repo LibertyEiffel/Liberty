@@ -233,6 +233,11 @@ feature {}
          html_os.close_title
          html_os.put_stylesheet(css)
          html_os.put_javascript(js)
+         html_os.open_noscript
+         html_os.open_style
+         html_os.put_string(once ".expand_block_hidden { display: block; }")
+         html_os.close_style
+         html_os.close_noscript
          html_os.with_attribute(once "onload", once "init()")
       ensure
          html_os.in_header
@@ -334,7 +339,7 @@ feature {}
          css_base_class /= Void
          base_id /= Void
       local
-         id: STRING
+         css_class, id: STRING
       do
          id := once ""
          id.clear_count
@@ -342,12 +347,11 @@ feature {}
          id.add_last('.')
 
          set_suffixed_attribute(once "id", filtered_attribute(id), once "_expanded", html_os)
-         set_suffixed_attribute(once "class", css_base_class, css_expanded_suffix, html_os)
-         if expand then
-            html_os.with_attribute(once "style", once "display: block")
-         else
-            html_os.with_attribute(once "style", once "display: none")
+         css_class := css_base_class
+         if not expand then
+            css_class := "expand_block_hidden " + css_base_class
          end
+         set_suffixed_attribute(once "class", css_class, css_expanded_suffix, html_os)
          html_os.open_div
       end
 
