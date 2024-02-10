@@ -143,7 +143,6 @@ feature {}
             not ace.has_root
          loop
             do_compile
-            ace.next_root
          end
          if ace.clean then
             from
