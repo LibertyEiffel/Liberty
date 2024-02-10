@@ -48,7 +48,7 @@
 #define io_fseek(f, o) (fseek((FILE*)(f),(o),SEEK_SET))
 #define io_ftell(f) ((EIF_INTEGER_64)ftell((FILE*)(f)))
 
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
 #  define read_stdin(b, s) (read(STDIN_FILENO, b, s))
 #else
    extern int read_stdin(EIF_CHARACTER *buffer, int size);

@@ -1,4 +1,4 @@
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE || (defined __APPLE__ && defined __MACH__)
 
 #include <stdio.h>
 #include <stdlib.h>
