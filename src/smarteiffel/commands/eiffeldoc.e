@@ -38,14 +38,22 @@ feature {ANY}
          Result.append(options.command_help)
          Result.append("{
   -prune <cluster>    Exclude <cluster> from the generated documentation. It
-                       uses the loadpath.se or ACE syntax for paths. Note that
-                       it also removes all subclusters.
+                       uses the loadpath.se or ACE syntax for paths.
                        For example:
 
          }")
          Result.append("                        ")
          Result.append(command_line_name)
-         Result.append(" -prune 'lib/xml'%N")
+         Result.append(" -prune 'liberty_core:xml'%N")
+         Result.append("{
+                       (For a listing of cluster names run with the -verbose flag.)
+                       Note that it also removes all subclusters.
+                       In fact all clusters whose name begins
+                       with the specified string are pruned, so that e.g.
+                        -prune 'liberty_core:i'
+                       prunes clusters 'i18n', 'io' and 'iterator'.
+
+         }")
          Result.append("{
   -remote <cluster> <url>
                       Use the documentation at <url> for <cluster>. Note that,
