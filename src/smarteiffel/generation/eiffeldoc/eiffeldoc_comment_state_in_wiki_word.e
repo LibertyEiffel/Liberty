@@ -78,7 +78,7 @@ feature {}
          url.copy(wiki_prefix)
          url.append(buffer)
          html.with_attribute(once "class", once "wiki_word")
-         html.with_attribute(once "href", filtered_attribute(url))
+         html.with_attribute(once "href", url)
          html.open_anchor
          if close_anchor then
             html.put_string(buffer)
