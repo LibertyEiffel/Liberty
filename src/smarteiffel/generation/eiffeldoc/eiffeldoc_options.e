@@ -272,7 +272,15 @@ feature {EIFFELDOC}
                                    items
 
             Wiki words:
-              -wiki_prefix <url>  Specify the wiki home URL for wiki words
+              -wiki_prefix <url>  Specify URL prefix for links in comments - e.g.
+                                   'https://en.wikipedia.org/wiki/'
+                                   in order to link to Wikipedia. If not specified,
+                                   Liberty Eiffel Wiki is used as default.
+                                   Markup format of the links mimicks MediaWiki:
+                                   [[Glossary]] - link text same as URL segment
+                                   [[Glossary|custom link text]]
+                                   [[any/path?arg=value|link to a relative URL (not wiki-like)]]
+                                   [[https://www.w3.org|link to an absolute URL]]
 
             Cluster management:
               -depends            Generate dependant classes even if their cluster is
