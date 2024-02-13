@@ -16,7 +16,7 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {}
-   default_wiki_prefix: STRING "http://wiki.liberty-eiffel.org/en/index.php/"
+   default_wiki_prefix: STRING "https://wiki.liberty-eiffel.org/index.php/"
 
    wiki_prefix: STRING
 
