@@ -1,6 +1,6 @@
 XML=postgresql.gcc-xml
-HEADER=/usr/include/libpq-fe.h
-HEADERS=/usr/include/*.h
+HEADER=/usr/include/postgresql/libpq-fe.h
+HEADERS=/usr/include/postgresql/*.h
 
 wrappers: $(XML)
 	wrappers_generator --local $(XML) $(HEADERS)  
