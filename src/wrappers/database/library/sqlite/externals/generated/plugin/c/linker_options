@@ -1,2 +1,6 @@
 [UNIX]
 sqlite: "$(pkg-config --libs sqlite3) -Xlinker --no-as-needed"
+
+[UNIX.Darwin]
+sqlite: "$(pkg-config --libs sqlite3)"
+
