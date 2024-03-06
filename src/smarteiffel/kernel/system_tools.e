@@ -883,7 +883,7 @@ feature {C_PRETTY_PRINTER}
 
    add_lib_profile
       once
-         if system_name = unix_system then
+         if system_name = unix_system and then not system_flavor.is_equal("Darwin") then
             add_external_lib("rt")
          end
       end
