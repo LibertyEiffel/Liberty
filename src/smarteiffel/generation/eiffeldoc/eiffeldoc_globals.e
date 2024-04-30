@@ -5,6 +5,7 @@ deferred class EIFFELDOC_GLOBALS
 
 insert
    GLOBALS
+   HTML_HANDLER
 
 feature {}
    operator_filter: HASHED_DICTIONARY[STRING, CHARACTER]
