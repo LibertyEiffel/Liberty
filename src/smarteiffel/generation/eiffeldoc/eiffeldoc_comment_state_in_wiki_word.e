@@ -7,6 +7,8 @@ class EIFFELDOC_COMMENT_STATE_IN_WIKI_WORD
    --
    -- [[Main Page]]
    -- [[FAQ|the FAQ]]
+   -- [[dir/subdir/page-name|relative URL]]
+   -- [[https://www.liberty-eiffel.org/|absolute URL]]
    --
 
 inherit
@@ -16,7 +18,7 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {}
-   default_wiki_prefix: STRING "http://wiki.liberty-eiffel.org/en/index.php/"
+   default_wiki_prefix: STRING "https://wiki.liberty-eiffel.org/index.php/"
 
    wiki_prefix: STRING
 
@@ -75,10 +77,14 @@ feature {}
          buffer.copy(comment)
          buffer.shrink(first, last)
          url := once ""
-         url.copy(wiki_prefix)
+         if buffer.has_prefix(once "http://") or buffer.has_prefix(once "https://") then
+            url.clear_count
+         else
+            url.copy(wiki_prefix)
+         end
          url.append(buffer)
          html.with_attribute(once "class", once "wiki_word")
-         html.with_attribute(once "href", filtered_attribute(url))
+         html.with_attribute(once "href", url)
          html.open_anchor
          if close_anchor then
             html.put_string(buffer)
