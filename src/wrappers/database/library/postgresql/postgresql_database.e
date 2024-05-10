@@ -5,7 +5,7 @@ note
 	date: "$Date: $"
 	revision: "$Revision: $"
 	
-class POSTGRESQL_DATABASE
+deferred class POSTGRESQL_DATABASE
 	-- Eiffel interface to PostgreSQL is based on libpq, the C
 	-- application programmer's interface to PostgreSQL. libpq is a set
 	-- of library functions that allow client programs to pass queries
@@ -19,10 +19,14 @@ inherit
 			is_equal
 		end
 	C_STRUCT
+		undefine
+			copy,
+			is_equal
+		end
 	
 insert LIBPQ_FE_EXTERNALS
 
-create {ANY}  connect
+-- create {ANY}  connect
 
 feature {} -- size
 	dispose
