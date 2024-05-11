@@ -475,6 +475,7 @@ EOF
         progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
         cp $LIBERTY_HOME/work/se_make.sh .
 
+      
         progress 30 $MAXTOOLCOUNT $MAXTOOLCOUNT "done."
         echo
 }
@@ -827,6 +828,15 @@ do_local_install() {
     do_pkg_staging_libs
     do_pkg_staging_doc
     do_pkg_tutorial
+
+    ## TODO: move into a separate function
+    export LOCAL_MAN_PATH="~/.local/share/man/man1/"
+    echo "Locally installing manpages in $LOCAL_MAN_PATH"
+    if [ ! -d $LOCAL_MAN_PATH]; then
+       echo "Creating $LOCAL_MAN_PATH"
+       mkdir -p $LOCAL_MAN_PATH
+    fi
+    cp $LIBERTY_HOME/misc/manpages/*.1.gz $LOCAL_MAN_PATH
 }
 
 do_pkg() {
