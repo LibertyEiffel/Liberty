@@ -34,7 +34,7 @@ case `uname -s` in
     NetBSD)
 	export PATH=/usr/pkg/bin:$PATH
 	flavor=NetBSD
-	jobs=$((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
+	jobs=$((1 + $(grep -a '^processor' /proc/cpuinfo|wc -l)))
 	CC_TYPE=${CC_TYPE:-gcc}
 	CC=${CC:-$CC_TYPE}
 	# using boehm-gc from pkgsrc
