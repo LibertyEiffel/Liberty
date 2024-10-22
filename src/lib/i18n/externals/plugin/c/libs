@@ -2,3 +2,7 @@
 intl: intl
 [UNIX.NetBSD]
 intl: intl
+[UNIX.Darwin]
+intl: intl
+[UNIX.FreeBSD]
+intl: intl
