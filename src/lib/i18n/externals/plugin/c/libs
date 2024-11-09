@@ -1,2 +1,4 @@
 [UNIX.Cygwin]
 intl: intl
+[UNIX.OpenBSD]
+intl: intl
