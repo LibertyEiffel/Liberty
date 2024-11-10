@@ -6,3 +6,5 @@ intl: intl
 intl: intl
 [UNIX.FreeBSD]
 intl: intl
+[UNIX.OpenBSD]
+intl: intl
