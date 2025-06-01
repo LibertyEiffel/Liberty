@@ -1,3 +1,6 @@
+-- This file is part of LibertyEiffel The GNU Eiffel Compiler Tools and Libraries.
+-- See the Copyright notice at the end of this file.
+--
 class TEST_ROPE
 insert
     EIFFELTEST_TOOLS
@@ -54,32 +57,31 @@ feature {}
             assert(outcome~"The rope «A-rope-is-beautiful» does not have spaces.")
 
             outcome.clear_count;
-            ("The rope «"|r|"» does not have spaces.").print_on(ss)
+            ("The rope «" | r | "» does not have spaces.").print_on(ss)
             assert(outcome~"The rope «A-rope-is-beautiful» does not have spaces.")
 
             outcome.clear_count;
-            ("Foo is "|(3.out)|" characters long%N").print_on(ss)
-            assert(outcome~"Foo is 3 characters long%N")
+            ("Foo is " | (3.out) | " characters long%N").print_on(ss)
+            assert(outcome ~ "Foo is 3 characters long%N")
 
-            assert(("Rope r is "+r.count.to_string+" characters long.").is_equal("Rope r is 19 characters long."))
-            assert(("Rope r is "|r.count.to_string|" characters long.").is_equal("Rope r is 19 characters long."))
-            assert(("Rope r is "| &r.count        |" characters long.").is_equal("Rope r is 19 characters long."))
-            assert(not ("Failing equality").is_equal("Test-"|"equality"))
-            assert(("Test-"|"equality").is_equal("Test-"|"equality"))
-            assert(not ("Failing"|"equality").is_equal("Test-"|"equality"))
-            assert(("Test"|"-equality").is_equal("Test-equality"))
-            assert(("Test"|"-equality").is_equal("Test-equ"|"ality"))
-            assert(not ("Failing-"|"equality").is_equal("equality"))
-            assert(("Foo is "|foo.count.out|" characters long.").is_equal("Foo is 3 characters long."))
-            assert(("Foo is "| &foo.count  |" characters long.").is_equal("Foo is 3 characters long."))
-            assert(("Ropes are "|("beautiful".intern)).is_equal("Ropes are beautiful"))
-            assert(("Ropes are "|("beautiful".intern)).is_equal("Ropes are beautiful".intern))
-
+            assert(("Rope r is " + r.count.to_string + " characters long.").is_equal("Rope r is 19 characters long."))
+            assert(("Rope r is " | r.count.to_string | " characters long.").is_equal("Rope r is 19 characters long."))
+            assert(("Rope r is " | &r.count          | " characters long.").is_equal("Rope r is 19 characters long."))
+            assert(not ("Failing equality").is_equal("Test-" | "equality"))
+            assert(("Test-" | "equality").is_equal("Test-" | "equality"))
+            assert(not ("Failing" | "equality").is_equal("Test-" | "equality"))
+            assert(("Test" | "-equality").is_equal("Test-equality"))
+            assert(("Test" | "-equality").is_equal("Test-equ" | "ality"))
+            assert(not ("Failing-" | "equality").is_equal("equality"))
+            assert(("Foo is " | foo.count.out | " characters long.").is_equal("Foo is 3 characters long."))
+            assert(("Foo is " | &foo.count    | " characters long.").is_equal("Foo is 3 characters long."))
+            assert(("Ropes are " | ("beautiful".intern)).is_equal("Ropes are beautiful"))
+            assert(("Ropes are " | ("beautiful".intern)).is_equal("Ropes are beautiful".intern))
 
             -- Test mutable ROPEs
             a := "Eiffel"
             b := "beautiful"
-            r := a|" is "|b
+            r := a | " is " | b
             assert(r.is_equal("Eiffel is beautiful"))
             a.prepend("Liberty")
             assert(r.is_equal("LibertyEiffel is beautiful"))
@@ -91,4 +93,22 @@ feature {}
 
         foo: STRING "Foo"
 
-    end -- class TEST_ROPE
+ end -- class TEST_ROPE
+--
+-- ------------------------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- LibertyEiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
+-- LibertyEiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
+-- received a copy of the GNU General Public License along with LibertyEiffel; see the file COPYING. If not, write to the Free
+-- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- http://www.liberty-eiffel.org-
+-- ------------------------------------------------------------------------------------------------------------------------------
