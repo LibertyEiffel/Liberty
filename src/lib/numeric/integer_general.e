@@ -169,7 +169,7 @@ feature {ANY}
       do
          n := Current * Current * 5
          Result := ( is_perfect_square(n+4) or is_perfect_square(n-4) )
-      end      
+      end
 
    sqrt: REAL
       deferred
@@ -572,7 +572,7 @@ feature {ANY} -- Miscellaneous:
 
    divisible (other: like Current): BOOLEAN
       do
-         Result := other /= zero
+         Result := (Current \\ other) = zero
       end
 
    is_equal (other: like Current): BOOLEAN

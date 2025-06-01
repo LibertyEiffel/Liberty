@@ -481,9 +481,8 @@ feature {ANY} -- Miscellaneous:
       end
 
    divisible (other: like Current): BOOLEAN
+      require non_zero: other /= zero
       deferred
-      ensure
-         definition: Result = (other /= zero)
       end
 
    is_a_power_of_2: BOOLEAN
