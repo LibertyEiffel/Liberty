@@ -1,0 +1,16 @@
+system
+  "argumentless_plugin_calls"
+
+root
+  ARGUMENTLESS_PLUGIN_CALLS: make
+
+default
+  assertion (all)
+  collect (no)
+
+cluster
+  "."
+  "${path_liberty_core}/loadpath.se"
+
+generate
+  clean (no);
