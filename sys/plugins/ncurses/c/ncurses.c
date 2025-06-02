@@ -66,14 +66,14 @@ void init_screen(void) {
 int wgetwidth(void* win) {
    int x, y;
    getmaxyx((WINDOW*)win, y, x);
-   return x - wgetleft(win);
+   return x;
 }
 
 
 int wgetheight(void* win) {
    int x, y;
    getmaxyx((WINDOW*)win, y, x);
-   return y - wgettop(win);
+   return y;
 }
 
 
