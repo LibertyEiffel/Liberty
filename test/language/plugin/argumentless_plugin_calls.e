@@ -23,7 +23,7 @@ feature {ANY} -- external calls
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "void_no_args"
+         feature_name: "void_no_args()"
          }"
       end
 
@@ -32,7 +32,7 @@ feature {ANY} -- external calls
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "int_no_args"
+         feature_name: "int_no_args()"
          }"
       end
 
