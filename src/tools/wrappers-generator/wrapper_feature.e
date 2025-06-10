@@ -1,5 +1,5 @@
 deferred class WRAPPER_FEATURE
-   -- A node of an XML file produced by gccxml that will be wrapped by a Liberty feature, part of wider wrapper class.
+   -- A node of an XML file produced by castxml that will be wrapped by a Liberty feature, part of wider wrapper class.
 
 inherit
    WRAPPABLE_NODE
@@ -16,7 +16,7 @@ feature {ANY}
       end
 
 end -- class WRAPPER_FEATURE
--- Copyright (C) 2008-2022: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2025: ,2009,2010 Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

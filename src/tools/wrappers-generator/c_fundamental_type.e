@@ -1,5 +1,5 @@
 class C_FUNDAMENTAL_TYPE
-   -- A node of an XML file made by gccxml representing a fundamental type of the C language.
+   -- A node of an XML file made by castxml representing a fundamental type of the C language.
    -- The Eiffel wrapper type is computed with the assumption that the tools
    -- is run on an x86 or an x64 or a 32-bit ARM CPU to build wrappers for the
    -- same architecture.
@@ -12,10 +12,7 @@ inherit
    NAMED_NODE
    STORABLE_NODE
 
-insert
-   WRAPPER_GENERATOR_EXCEPTIONS
-
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -31,12 +28,17 @@ feature {ANY}
 
    is_fundamental: BOOLEAN True
 
+   is_complex_number: BOOLEAN
+      -- Is Current fundamental a complex number?
+      --
+      -- A complex number requires special management
+
    has_wrapper: BOOLEAN
       do
          if not is_wrapper_computed then
             compute_wrapper
          end
-         Result := stored_wrapper_type /= Void
+         Result := not is_complex_number and stored_wrapper_type /= Void
       end
 
    size: INTEGER
@@ -77,9 +79,11 @@ feature {} -- Implementation
          when "char", "signed char", "unsigned char" then
             stored_wrapper_type := once "CHARACTER"
          when "complex double" then
-            last_error := unhandled_complex_type -- should be stored_wrapper_type := once "COMPLEX_DOUBLE" when implemented
+            stored_wrapper_type := once "COMPLEX_64"
+            is_complex_number := True
          when "complex float" then
-            last_error := unhandled_complex_type -- should be stored_wrapper_type := once "COMPLEX_FLOAT" when implemented
+            stored_wrapper_type := once "COMPLEX_32"
+            is_complex_number := True
          when "double" then
             stored_wrapper_type := once "REAL"
          when "float" then
@@ -125,47 +129,20 @@ feature {} -- Implementation
          else
             last_error := unhandled_type
          end
-         -- The code previously worked like th.
-         -- if c_type.has_substring(once "int") then
-         --      if c_type.has_substring(once "unsigned") then
-         --              inspect size
-         --              when 16 then stored_wrapper_type := once "NATURAL_16"
-         --              when 32 then stored_wrapper_type := once "NATURAL_32"
-         --              when 64 then stored_wrapper_type := once "NATURAL_64"
-         --              else last_error := unhandled_unsigned_integer_type
-         --              end
-         --      else
-         --              inspect size
-         --              when 16 then stored_wrapper_type := once "INTEGER_16"
-         --              when 32 then stored_wrapper_type := once "INTEGER_32"
-         --              when 64 then stored_wrapper_type := once "INTEGER_64"
-         --              else last_error := unhandled_integer_type
-         --              end
-         --      end
-         -- elseif c_type.has_substring(once "float") or else
-         --      c_type.has_substring(once "double") then
-         --      inspect size
-         --      when 32 then stored_wrapper_type := once "REAL_32"
-         --      when 64 then stored_wrapper_type := once "REAL_64"
-         --      when 80 then stored_wrapper_type := once "REAL_80"
-         --      when 128 then stored_wrapper_type := once "REAL_128"
-         --      else last_error := unhandled_double_type
-         --      end
-         -- elseif c_type.has_substring(once "complex") then
-         --      -- could be "complex double" "complex float",
-         --      -- "complex long double"
-         --      last_error := unhandled_complex_type
-         -- else last_error := unhandled_type
-         -- end
-         -- I shall test it a little before deciding which approach is best. Paolo 2013-04-04
-
          is_wrapper_computed := True
       ensure
          is_wrapper_computed = True
-      end -- invariant name.is_equal(once U"FundamentalType")
+      end
+
+feature {} -- Exception names
+   unhandled_type: STRING "Unhandled type"
+
+-- invariant name.is_equal(once U"FundamentalType")
 
 end -- class C_FUNDAMENTAL_TYPE
--- Copyright (C) 2008-2022: ,2009,2010 Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

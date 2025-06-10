@@ -2,14 +2,14 @@ deferred class SHARED_SETTINGS
    -- Access to the `settings' singleton and commodity features like "proxy"
    -- setters, queries and logging facilities.
 
-insert 
-    ANY 
-        undefine 
-            copy, 
-            default_create,
-            is_equal, 
-            out_in_tagged_out_memory
-        end
+insert
+   LOGGING
+     undefine
+         copy,
+         default_create,
+         is_equal,
+         out_in_tagged_out_memory
+     end
 
 feature {ANY}
    settings: SETTINGS
@@ -38,7 +38,7 @@ feature {ANY} -- Plugin
 feature {ANY} -- Syntactic sugar
    verbose: BOOLEAN
       do
-         Result := settings.verbose
+         Result := log.is_info -- was settings.verbose
       end
 
    global: BOOLEAN
@@ -48,7 +48,7 @@ feature {ANY} -- Syntactic sugar
 
 feature {} -- Type mangling
    dequalify (an_id: UNICODE_STRING): UNICODE_STRING
-         -- `an_id' without the type qualifier used by GccXml to mark the
+         -- `an_id' without the type qualifier used by castxml to mark the
          -- identification labels.
          -- "const", "reference" and "volatile" qualifier are represented in a
          -- CvQualifiedType node adding 'c', 'r' and 'v' to the identifies. i.e.
@@ -69,17 +69,11 @@ feature {} -- Type mangling
             Result := an_id
          end
          --debug
-         --      log(once "dequalify(#(1))=#(2)" # an_id.out # Result.out)
+         --      log.info.put_line(once "dequalify(#(1))=#(2)" # an_id.out # Result.out)
          --end
       end
 
 feature {} -- Auxiliary features
-   log (a_string: ABSTRACT_STRING) do
-      if verbose then
-		  std_error.put_string(a_string)
-	  end
-  end
-
    buffer: FORMATTER
          -- Buffer to render the text of the feature currently being
          -- wrapped (a function call, a structure or an enumeration).
@@ -140,12 +134,14 @@ feature {} -- Constants
                 ]"
 
 end -- class SHARED_SETTINGS
--- Copyright (C) 2008-2022: Paolo Redaelli
--- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
+-- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
--- eiffel-gcc-xml is distributed in the hope that it will be useful, but
+-- wrappers-generator is distributed in the hope that it will be useful, but
 -- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 -- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 -- more details.

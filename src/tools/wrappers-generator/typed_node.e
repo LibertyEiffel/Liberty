@@ -1,8 +1,8 @@
 deferred class TYPED_NODE
-   -- A Gccxml node with "type" attribute
+   -- A castxml node with "type" attribute
 
 inherit
-   GCCXML_NODE
+   CASTXML_NODE
 
 insert
    SHARED_COLLECTIONS
@@ -22,12 +22,14 @@ feature {ANY}
       do
          Result := types.reference_at(type)
          if Result=Void then
-            log("Warning: type #(1) at line does not have a referee in types" # type.as_utf8 )
+            log.info.put_line("Warning: type #(1) at line does not have a referee in types" # type.as_utf8 )
          end
       end
 
 end -- class TYPED_NODE
--- Copyright (C) 2008-2022: Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

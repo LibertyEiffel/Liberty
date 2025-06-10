@@ -34,7 +34,7 @@ feature {ANY} -- Descriptions reading
                line.right_adjust
                if line.has_prefix(once "--") then
                   debug
-                     log(once ".")
+                     log.info.put_line(once ".")
                   end
                else
                   create words.make
@@ -44,7 +44,7 @@ feature {ANY} -- Descriptions reading
                      words.remove_first
                      read_description(described, words)
                      debug
-                        log(once ".")
+                        log.info.put_line(once ".")
                      end
                   end
                end
@@ -57,7 +57,7 @@ feature {ANY} -- Descriptions reading
             descriptions.disconnect
          else
             debug
-               log(once "Couldn't connect to `#(1)' to read descriptions.%N" # a_file_name)
+               log.info.put_line(once "Couldn't connect to `#(1)' to read descriptions.%N" # a_file_name)
             end
          end
       end
@@ -83,12 +83,12 @@ feature {ANY} -- Descriptions reading
                -- could be a class
                if is_valid_class_name(a_described) then
                   debug
-                     log(once "Description for class #(1): %"#(2)%".%N" # a_described # & a_description)
-                     -- a_description.for_each(agent log) log(once "%".%N")
+                     log.info.put_line(once "Description for class #(1): %"#(2)%".%N" # a_described # & a_description)
+                     -- a_description.for_each(agent log) log.info.put_line(once "%".%N")
                   end
                   class_descriptions.put(a_description, a_described)
                else
-                  log(once "Comment file: invalid class name `#(1)'.%N" # a_described)
+                  log.info.put_line(once "Comment file: invalid class name `#(1)'.%N" # a_described)
                end
             when 1 then
                -- could be a feature (i.e. CLASS.feature)
@@ -98,9 +98,9 @@ feature {ANY} -- Descriptions reading
                   described_class := a_described.substring(1, dot - 1)
                   described_feature := a_described.substring(dot + 1, a_described.count)
                   debug
-                     log(once "Description for feature #(1) of #(2) #(3)%".%N" #
+                     log.info.put_line(once "Description for feature #(1) of #(2) #(3)%".%N" #
 					 	described_feature # described_class # &a_description )
-                     -- a_description.for_each(agent log) log(once "%".%N")
+                     -- a_description.for_each(agent log) log.info.put_line(once "%".%N")
                   end
                   subdictionary := feature_descriptions.reference_at(described_class)
                   if subdictionary = Void then
@@ -110,10 +110,10 @@ feature {ANY} -- Descriptions reading
 
                   subdictionary.put(a_description, described_feature)
                else
-                  log(once "Comment file: empty class or feature name %"" | a_described | once "%".%N")
+                  log.info.put_line(once "Comment file: empty class or feature name %"" | a_described | once "%".%N")
                end
             else
-               log(once "Comment file: feature name %"" | a_described | once "%" has too many dots.%N")
+               log.info.put_line(once "Comment file: feature name %"" | a_described | once "%" has too many dots.%N")
             end
             -- inspect
          end
@@ -168,7 +168,7 @@ feature {ANY} -- Queries
          if dictionary /= Void then
             Result := dictionary.reference_at(a_feature_name)
             -- debug
-            --      log(once "feature_description(%"#(1)%",%"#(2)%")=%"#(3)%"%N"#a_class_name#a_feature_name#formatted_description(Result))
+            --      log.info.put_line(once "feature_description(%"#(1)%",%"#(2)%")=%"#(3)%"%N"#a_class_name#a_feature_name#formatted_description(Result))
             -- end
          end
       end
@@ -192,7 +192,9 @@ feature {} -- Descriptions
       end
 
 end -- class DESCRIPTIONS
--- Copyright (C) 2008-2022: Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

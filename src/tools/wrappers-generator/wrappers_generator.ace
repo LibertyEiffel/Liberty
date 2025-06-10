@@ -18,8 +18,8 @@ default -- section of the system
    profile (no);
 
 cluster -- section
-   wrappers_generator: "."
-     --  default
+   wrappers_generator: "${path_tools}/wrappers-generator/loadpath.se"
+     --  defaults
      --     assertion (boost)
      --  end
 

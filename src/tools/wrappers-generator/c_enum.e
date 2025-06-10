@@ -1,5 +1,5 @@
 class C_ENUM
-   -- An "Enumeration" XML node in a file made by gccxml representing a C
+   -- An "Enumeration" XML node in a file made by castxml representing a C
    -- enum.
    -- TODO: Currently wrapper_type is "INTEGER"; this assumes two
    -- conditions:
@@ -19,7 +19,7 @@ inherit
 insert
    COLLECTION_SORTER[C_ENUM_VALUE]
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -55,7 +55,7 @@ feature {ANY}
             create path.make_from_string(directory)
             path.add_last(eiffel_name.as_lower + once ".e")
             filename := path.to_string
-            log(once "Wrapping enum #(1) as #(2) on #(3)" # c_name.to_utf8 # eiffel_name # filename)
+            log.info.put_line(once "Wrapping enum #(1) as #(2) on #(3)" # c_name.to_utf8 # eiffel_name # filename)
 
             create {TEXT_FILE_WRITE} output.connect_to(filename)
 
@@ -65,7 +65,7 @@ feature {ANY}
             output.flush
             output.disconnect
          else
-            log(once "Skipping enum `#(1)'.%N" # c_string_name) 
+            log.info.put_line(once "Skipping enum `#(1)'." # c_string_name)
          end
          emitted:=True
       end
@@ -78,7 +78,7 @@ feature {ANY}
          buffer.append_new_line
          emit_description_on(class_descriptions.reference_at(c_string_name), buffer)
          buffer.append(once "[
-            
+
             -- Wrapper of enum #(1) defined in file #(2)
             ]" # c_string_name # c_file.c_string_name )
          buffer.append(once "%Ninsert ENUM%N%Ncreate {ANY} default_create%N")
@@ -89,17 +89,17 @@ feature {ANY}
       do
          if children_count > 0 then
             if flag_enums.has(c_string_name) then
-               log(once ", forcefully wrapped as flag.%N")
+               log.info.put_line(once "#(1) forcefully wrapped as flag." # c_string_name)
                append_flag_items
             elseif have_flags_values then
-               log(once ", as flag.%N")
+               log.info.put_line(once "#(1) wrapped as flag." # c_string_name)
                append_flag_items
             else
-               log(once ", as an enumeration.%N")
+               log.info.put_line(once "#(1) wrapperd as an enumeration." # c_string_name)
                append_enumeration_items
             end
          else
-            log(once "... fieldless.%N")
+            log.info.put_line(once "#(1) enum is fieldless.")
          end
          output.put_line(once "feature {ANY} -- Validity")
          validity_query.print_on(output)
@@ -144,7 +144,7 @@ feature {ANY}
                   Result := False
                end
             else
-				log(once "Warning: enum at line #(1) has at least a value that is not an EnumValue!"#line.out)
+              log.warning.put_line(once "enum at line #(1) has at least a value that is not an EnumValue!"#line.out)
             end
 
             i := i + 1
@@ -381,7 +381,8 @@ feature {} -- Implementation
       end --invariant name.is_equal(once U"Enumeration")
 
 end -- class C_ENUM
--- Copyright (C) 2008-2022: ,2009,2010 Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

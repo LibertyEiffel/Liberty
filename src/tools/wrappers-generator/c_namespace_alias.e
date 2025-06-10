@@ -1,13 +1,13 @@
 class C_NAMESPACE_ALIAS
-   -- An NamespaceAlias node of an XML file made by gccxml, referring to an actual a C++ namespace.
+   -- An NamespaceAlias node of an XML file made by castxml, referring to an actual a C++ namespace.
 
 inherit
-   GCCXML_NODE
+   CASTXML_NODE
    CONTEXTED_NODE
    NAMED_NODE
    IDENTIFIED_NODE
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -19,11 +19,12 @@ feature {ANY}
          -- The wrapper of a namespace actually is not any Liberty code but only
          -- a directory that will be the cluster representing that namespace.
       do
-         log("A NamespaceAlias can be skipped" )
+         log.info.put_line("A NamespaceAlias can be skipped" )
       end
 
 end -- class C_NAMESPACE_ALIAS
--- Copyright (C) 2015-2022: Paolo Redaelli
+
+-- Copyright (C) 2015-2025: Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free

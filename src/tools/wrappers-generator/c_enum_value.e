@@ -1,7 +1,7 @@
 class C_ENUM_VALUE
 
 inherit
-   GCCXML_NODE
+   CASTXML_NODE
    NAMED_NODE
       redefine eiffel_name
       end
@@ -10,7 +10,7 @@ insert
    SHARED_COLLECTIONS
    NAME_CONVERTER
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -36,10 +36,10 @@ feature {ANY}
                   -- this further test may be buggy and enum.prefix_length < c_string_name.count then
                   stored_eiffel_name.remove_head(enum.longest_prefix)
                else
-                   log("#(1) enumeration values: value '#(2)' (at line #(3)) is the longest prefix: keeping name to avoid problems%N"
+                   log.info.put_line("#(1) enumeration values: value '#(2)' (at line #(3)) is the longest prefix: keeping name to avoid problems%N"
 	                  # enum.values.count.to_string # c_string_name # line.out)
                end
-            else log("The parent of C_ENUM_VALUE at line #(1) not a C_ENUM!%N" # line.out)
+            else log.info.put_line("The parent of C_ENUM_VALUE at line #(1) not a C_ENUM!%N" # line.out)
             end
 
             stored_eiffel_name := eiffel_feature(stored_eiffel_name)
@@ -61,7 +61,7 @@ feature {ANY} -- Plain enumeration
          -- Append in `queries' the text of a query for an enumeration value
          -- with `a_name' with a low level value `a_value'.
       do
-         log(once "enum item #(1) wrapped as #(2)%N" # c_string_name # eiffel_name)
+         log.info.put_line(once "enum item #(1) wrapped as #(2)%N" # c_string_name # eiffel_name)
          -- Append to `validity_query' the part of the comparon dealing with
          -- Current value, i.e. "(a_value = FooBarOne)"....
 
@@ -100,7 +100,7 @@ feature {ANY} -- "Flag" enumeration
          --and a low level value
          -- `a_value'.
       do
-         log(once "flag item #(1) wrapped as #(2)%N" # 
+         log.info.put_line(once "flag item #(1) wrapped as #(2)%N" #
 		 	c_string_name # eiffel_name)
          -- Append to `validity_query' the part of the comparon dealing with
          -- Current value, i.e. "(a_value = FooBarOne)"....
@@ -146,7 +146,7 @@ feature {} -- Implementation
 
 end -- class C_ENUM_VALUE
 
--- Copyright (C) 2008-2022: Paolo Redaelli
+-- Copyright (C) 2008-2025: Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free

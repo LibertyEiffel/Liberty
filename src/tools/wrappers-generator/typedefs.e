@@ -20,7 +20,7 @@ inherit
 
 insert
    SHARED_SETTINGS
-   SHARED_COLLECTIONS 
+   SHARED_COLLECTIONS
 
 create {ANY}
    make
@@ -34,7 +34,7 @@ feature {ANY}
       do
          create path.make_from_string(directory)
          path.add_last(settings.typedefs.as_lower + once ".e")
-         log(once "Outputting anchor queries (for typedefs) into #(1) on `#(2)'.%N" 
+         log.info.put_line(once "Outputting anchor queries (for typedefs) into #(1) on `#(2)'.%N"
 		 	# settings.typedefs # path.to_string )
 
          create {TEXT_FILE_WRITE} file.connect_to(path.to_string)
@@ -55,10 +55,10 @@ feature {ANY}
          file.put_string(typedefs_features_header)
          for_each(agent (a_typedef:C_TYPEDEF) do
             if a_typedef.is_to_be_emitted  then
-                log("Wrapping typedef #(1)%N" # a_typedef.c_string_name)
-                a_typedef.wrap_on(file) 
-            else 
-                log("Typedef '#(1)' (at line #(2)) is not to be emitted%N" # a_typedef.c_string_name # &a_typedef.line )
+                log.info.put_line("Wrapping typedef #(1)%N" # a_typedef.c_string_name)
+                a_typedef.wrap_on(file)
+            else
+                log.info.put_line("Typedef '#(1)' (at line #(2)) is not to be emitted%N" # a_typedef.c_string_name # &a_typedef.line )
             end
          end(?))
          file.put_string(footer)
@@ -314,7 +314,8 @@ feature {} -- Actual size queries
 
 end -- class TYPEDEFS
 
--- Copyright (C) 2008-2022: Paolo Redaelli
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

@@ -1,8 +1,8 @@
 deferred class FILED_NODE
-   -- A Gccxml node with "file" attribute
+   -- A castxml node with "file" attribute
 
 inherit
-   GCCXML_NODE
+   CASTXML_NODE
 
 insert
    SHARED_COLLECTIONS
@@ -29,7 +29,7 @@ feature {ANY}
          if file_id /= Void then
             Result := files.reference_at(file_id)
          else
-            log(once "warning node at line #(1) does not have a C associated file"# (&line))
+            log.info.put_line(once "warning node at line #(1) does not have a C associated file"# (&line))
          end
       end
 
@@ -45,7 +45,9 @@ feature {ANY}
       end
 
 end -- class FILED_NODE
--- Copyright (C) 2008-2022: ,2009,2010 Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

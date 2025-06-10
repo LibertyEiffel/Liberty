@@ -1,14 +1,16 @@
 class OFFSET_TYPE_NODE
-   -- An "OffsetType" node in the output of GccXml.
+   -- An "OffsetType" node in the output of castxml.
 
 inherit
-   GCCXML_NODE
+   CASTXML_NODE
 
 create {ANY}
    make
 
 end -- class OFFSET_TYPE_NODE
--- Copyright (C) 2014-2022: Paolo Redaelli
+
+-- Copyright (C) 2014-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

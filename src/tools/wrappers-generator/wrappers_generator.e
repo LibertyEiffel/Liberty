@@ -1,5 +1,5 @@
 class WRAPPERS_GENERATOR
-   -- An application that processes the output of gccxml to produce low-level
+   -- An application that processes the output of castxml to produce low-level
    -- wrappers for functions, structures and enumerationsi and unions.
    -- Function having argument structures passed by value are not handled.
 
@@ -16,43 +16,45 @@ create {ANY}
 
 feature {ANY}
    liberty_authors: STRING "P.REDAELLI"
-   liberty_dates: STRING "2008-2016"
+   liberty_dates: STRING "2008-2025"
 
    make
+      local log_levels: LOG_LEVELS
       do
-         log(once "wrappers generator%N")
+         log.set_level(log_levels.error) -- set default logging level
+         log.info.put_string(once "wrappers generator")
          process_arguments
-         log(once "Loading XML file: ")
+         log.info.put_string(once " …loading XML file… ")
          create tree.make(input.url)
-         log(once "done.%N")
+         log.info.put_line(once "done.")
          open_plugin_files
          if file_exists(avoided) and then is_file(avoided) then
-            log(once "Reading list of avoided symbols from '#(1)'.%N" # avoided)
+            log.info.put_line(once "Reading list of avoided symbols from '#(1)'." # avoided)
             tree.read_avoided_from(avoided)
          end
 
          if file_exists(moved) and then is_file(moved) then
-            log(once "Reading symbols to be moved/renamed from '#(1)'.%N" # moved)
+            log.info.put_line(once "Reading symbols to be moved/renamed from '#(1)'." # moved)
             tree.read_moved_from(moved)
          end
 
          if file_exists(flags) and then is_file(flags) then
-            log(once "Reading enumerations that will be forcefully wrapped as flags from '#(1)'.%N" # flags)
+            log.info.put_line(once "Reading enumerations that will be forcefully wrapped as flags from '#(1)'." # flags)
             tree.read_flags_from(flags)
          end
 
          if file_exists(descriptions) and then is_file(descriptions) then
-            log(once "Reading descriptions flags from '#(1)'.%N" # descriptions)
+            log.info.put_line(once "Reading descriptions flags from '#(1)'." # descriptions)
             tree.read_descriptions_from(descriptions)
          end
 
-         log(once "Making wrappers.%N")
+         log.info.put_line(once "Making wrappers.")
          tree.emit_wrappers
-         -- tree.namespaces.for_each(agent {GCCXML_NODE}.emit_wrappers)
+         -- tree.namespaces.for_each(agent {CASTXML_NODE}.emit_wrappers)
          close_plugin_files
       end
 
-   tree: GCCXML_TREE
+   tree: CASTXML_TREE
 
    input: INPUT_STREAM
 
@@ -74,7 +76,8 @@ feature {ANY}
          -- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits.
          --| TODO: Why isn't this using COMMAND_LINE_TOOLS? --djk
       local
-         arg, gccxml_prefix, standard_typedefs: STRING; i: INTEGER
+         arg, castxml_prefix, standard_typedefs: STRING; i: INTEGER
+         log_levels: LOG_LEVELS
       do
          check
             global = False
@@ -162,6 +165,7 @@ feature {ANY}
                   die_with_code(0)
                elseif arg.is_equal(once "-verbose") then
                   settings.set_verbose(True)
+                  log.set_level(log_levels.info)
                   -- TODO: re-enable grouping output on standard output
                   -- elseif arg.is_equal(once "-on-standard-output") then
                   --    settings.set_directory(Void)
@@ -189,16 +193,16 @@ feature {ANY}
                i := i + 1
             end
             if input = Void then
-               log(once "Using standard input. Prefix will be the basename of the current directory.")
+               log.info.put_line(once "Using standard input. Prefix will be the basename of the current directory.")
                create path.make_current
                input := std_input
             end
 
-            gccxml_prefix := path.last.twin
-            gccxml_prefix.remove_tail(path.extension.count)
-            settings.set_typedefs(eiffel_class_name(gccxml_prefix, "_TYPES"))
+            castxml_prefix := path.last.twin
+            castxml_prefix.remove_tail(path.extension.count)
+            settings.set_typedefs(eiffel_class_name(castxml_prefix, "_TYPES"))
             settings.set_standard_typedefs(standard_typedefs)
-            preprocessor_label := eiffel_class_name(gccxml_prefix, "_LIBERTY_PLUGIN")
+            preprocessor_label := eiffel_class_name(castxml_prefix, "_LIBERTY_PLUGIN")
 
             if verbose then
                if global then
@@ -226,28 +230,28 @@ feature {ANY}
          create cwd.scan_current_working_directory
          if not cwd.has_file(once "plugin") then
             if not bd.create_new_directory(once "plugin") then
-               log("Couldn't create plugin directory")
+               log.info.put_line("Couldn't create plugin directory")
                die_with_code(exit_failure_code)
             end
          end
 
          file := cwd.file("plugin")
          if not file.is_directory then
-            log("%'plugin'  not a directory")
+            log.info.put_line("%'plugin'  not a directory")
             die_with_code(exit_failure_code)
          end
 
          plugin := file.as_directory
          if not plugin.has_file(once "c") then
             if not bd.create_new_directory(once "plugin/c") then
-               log("Couldn't create plugin/c directory")
+               log.info.put_line("Couldn't create plugin/c directory")
                die_with_code(exit_failure_code)
             end
          end
 
          file := plugin.file(once "c")
          if not file.is_directory then
-            log("%'plugin/c'  not a directory")
+            log.info.put_line("%'plugin/c'  not a directory")
             die_with_code(exit_failure_code)
          end
          -- TODO: check that both pdirectory exists.
@@ -334,15 +338,16 @@ feature {ANY}
                                    is not given the program will use the "avoided" file if
                                    present.
 
-            The basename of the provided XML file made by gccxml will be used as prefix
+            The basename of the provided XML file made by castxml will be used as prefix
             for the typedef class and preprocessor symbol.
          ]")
          die_with_code(exit_success_code)
       end
 
 end -- class WRAPPERS_GENERATOR
--- class WRAPPER_GENERATOR
--- Copyright (C) 2008-2022: Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

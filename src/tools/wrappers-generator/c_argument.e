@@ -1,15 +1,15 @@
 class C_ARGUMENT
-   -- An "Argument" node of an XML file made by gccxml.
+   -- An "Argument" node of an XML file made by castxml.
 
 inherit
    C_FUNCTION_ARGUMENT
    NAMED_NODE
    TYPED_NODE
- 
+
 insert
    NAME_CONVERTER
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -32,7 +32,7 @@ feature {ANY}
          -- but that's too brittle. Those queries cannot akswer attached types as
          -- sometimes the right answer may be void.
          if type = Void then
-            log("Warning #(1) has no type" # Current.tagged_out)
+            log.warning.put_line("#(1) has no type" # Current.tagged_out)
             Result := False
          else
             dequalified := dequalify(type)
@@ -50,7 +50,7 @@ feature {ANY}
             end
          end
          -- rescue
-      --    log("has_wrapper failed. Known types:%N")
+      --    log.warning.put_line("has_wrapper failed. Known types:%N")
       --    types.for_each_item(agent (a_type: C_TYPE)
       --       do
       --          io.put_string(a_type.out)
@@ -69,7 +69,7 @@ feature {ANY}
          -- The placeholder name of Current, suitable for Liberty; a newly created string.
       do
          if c_name = Void then
-            -- Nameless prototype: 
+            -- Nameless prototype:
             if pos /= 0 then
                 -- the position of Current argment has been set by its
                 -- function. We trust it to be unique in the function and use
@@ -78,7 +78,7 @@ feature {ANY}
                 pos.append_in(Result)
             else
                 -- no position set. Using providing sound default, using
-                -- line and column, which are locally unique. 
+                -- line and column, which are locally unique.
                 Result := "an_argument_l"
                 line.append_in(Result)
                 Result.append(once "_c")
@@ -101,8 +101,18 @@ feature {ANY}
          -- Manually cache the results of `placeholder' and `wrapper_type' queries
          a_placeholder := placeholder
          a_wrapper_type := wrapper_type
-         log(once "#(1): #(2) " # a_placeholder # a_wrapper_type)
-
          a_buffer.append(once "#(1): #(2)" # a_placeholder # a_wrapper_type)
       end
 end -- class C_ARGUMENT
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+-- wrappers-generator  is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as publhed by the Free
+-- Software Foundation, either version 2 of the License, or (at your option)
+-- any later version.
+-- wrappers-generator is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+-- more details.
+-- You should have received a copy of the GNU General Public License along with
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

@@ -20,7 +20,7 @@ default -- section of the system
    profile (no);
 
 cluster -- section
-   wrappers_generator: "./loadpath.se"
+   wrappers_generator: "${path_tools}/wrappers-generator/loadpath.se"
       default
          assertion (require)
       end

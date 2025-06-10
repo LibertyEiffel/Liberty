@@ -1,6 +1,6 @@
 deferred class COMPOSED_NODE
-   -- GCCXML node representing a type andhaving "members" attribute.
-   
+   -- CASTXML node representing a type andhaving "members" attribute.
+
    -- The "members" attribute contains the
    -- ids of the fields that compose the actual object referred by Current
    -- node that can be a struct, a union or a C++ class.
@@ -10,7 +10,7 @@ deferred class COMPOSED_NODE
    -- do not belong to a single file.
 
 inherit
-   WRAPPER_CLASS 
+   WRAPPER_CLASS
         -- so also a NAMED_NODE as all effective heirs (Class,
         -- Struct, Namespace, Union) are also named
         redefine set_name end
@@ -23,16 +23,16 @@ inherit
         redefine set_name end
 
 feature {ANY}
-    set_name (a_name: STRING) 
+    set_name (a_name: STRING)
     do
         -- better to rewrite the one-liner instead of having "Precursor{WRAPPER_CLASS}(a_name)"
         assigned_name := a_name.twin
-        -- set_attribute(once U"name",create {UNICODE_STRING}.from_utf8(a_name)) 
-        -- TODO: when STRING will convert to UNICODE_STRING the line above could be 
-        -- set_attribute(once U"name",a_name) 
+        -- set_attribute(once U"name",create {UNICODE_STRING}.from_utf8(a_name))
+        -- TODO: when STRING will convert to UNICODE_STRING the line above could be
+        -- set_attribute(once U"name",a_name)
         -- cached_eiffel_name := Void
     end
-        
+
 feature {ANY}
    store
       deferred
@@ -54,10 +54,10 @@ feature {ANY}
 
    is_to_be_emitted: BOOLEAN
       do
-         Result := (is_named and then (not avoided_symbols.has(c_string_name)) 
-            or has_assigned_name) and then 
-            (is_public or has_assigned_name) and then 
-            (global or else headers.has(c_file.c_string_name)) 
+         Result := (is_named and then (not avoided_symbols.has(c_string_name))
+            or has_assigned_name) and then
+            (is_public or has_assigned_name) and then
+            (global or else headers.has(c_file.c_string_name))
 
       end
 
@@ -72,7 +72,7 @@ feature {ANY}
             create path.make_from_string(directory)
             path.add_last(eiffel_name.as_lower + once ".e")
             filename := path.to_string
-            log(once "wrapping #(1) #(2) as #(3) in #(4)%N" #
+            log.info.put_line(once "wrapping #(1) #(2) as #(3) in #(4)%N" #
 			 c_type # c_string_name # eiffel_name # filename)
 
             create {TEXT_FILE_WRITE} output.connect_to(filename)
@@ -84,9 +84,9 @@ feature {ANY}
             output.disconnect
          else
             if is_anonymous then
-               log(once "Skipping anonymous #(1) at line #(2).%N" # c_type # line.out)
+               log.info.put_line(once "Skipping anonymous #(1) at line #(2).%N" # c_type # line.out)
             else
-               log(once "Skipping #(1) #(2)%N" # c_type # c_string_name)
+               log.info.put_line(once "Skipping #(1) #(2)%N" # c_type # c_string_name)
             end
          end
          emitted := True
@@ -99,7 +99,7 @@ feature {ANY}
          buffer.append(deferred_class)
          buffer.append(eiffel_name)
          buffer.append(once "[
-            
+
                 -- Wrapper of #(1) #(2) defined in file #(3)
             ]" # c_type # c_string_name # c_file.c_string_name)
          -- TODO: emit_description(class_descriptions.reference_at(eiffel_name))
@@ -122,7 +122,7 @@ feature {ANY}
             queries.print_on(output)
          else
             (once "%T-- Fieldless #(1)%N" # c_type).print_on(output)
-			log(once "#(1) #(2) have no fields%N" # c_type # c_string_name)
+			log.info.put_line(once "#(1) #(2) have no fields%N" # c_type # c_string_name)
          end
       end
 
@@ -131,11 +131,11 @@ feature {ANY}
      local a_name: STRING
      do
          sedb_breakpoint;
-         if has_assigned_name then 
+         if has_assigned_name then
              a_name := assigned_name
-             ("#define sizeof_#(1) (sizeof(#(1)))%N" # a_name).print_on(include) 
+             ("#define sizeof_#(1) (sizeof(#(1)))%N" # a_name).print_on(include)
          elseif not is_anonymous then
-             a_name := c_string_name 
+             a_name := c_string_name
              ("#define sizeof_#(1) (sizeof(#(2) #(1)))%N" # c_string_name # c_type).print_on(include)
          else
              raise("Trying to emit size query of an anonymous, not typedeffed composed elementt (either a struct, union or perhaps class): I don't know hot to call the query")
@@ -152,7 +152,7 @@ feature {ANY}
                 %               end%N%N" # a_name)
 
          buffer.print_on(output)
-      
+
       end
 
    emit_footer
@@ -180,7 +180,7 @@ feature {ANY}
 
 end -- class COMPOSED_NODE
 
--- Copyright (C) 2008-2022: Paolo Redaelli
+-- Copyright (C) 2008-2025: Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free

@@ -1,5 +1,5 @@
-class GCCXML_TREE
-   -- A partially validated representation of an XML file made by gccxml
+class CASTXML_TREE
+   -- A partially validated representation of an XML file made by castxml
    -- Effective heirs will emit wrappers using the plugin machanm.
 
 inherit
@@ -80,6 +80,8 @@ feature {ANY}
             create {C_POINTER_TYPE} Result.make(node_name, line, column)
          when "ReferenceType" then
             create {C_REFERENCE_TYPE} Result.make(node_name, line, column)
+         when "RValueReferenceType" then
+            create {C_RVALUE_REFERENCE_TYPE} Result.make(node_name, line, column)
          when "Struct" then
             create {C_STRUCT_NODE} Result.make(node_name, line, column)
          when "Typedef" then
@@ -91,7 +93,8 @@ feature {ANY}
          when "Variable" then
             create {C_VARIABLE} Result.make(node_name, line, column)
          else
-            raise(node_name.as_utf8 + " does not have an GCCXML_NODE")
+
+            raise(node_name.as_utf8 + " does not have an CASTXML_NODE")
             -- create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
          end
          -- TODO: it would be nice to allow direct inspection of UNICODE_STRING
@@ -112,11 +115,11 @@ feature {ANY}
 feature {ANY} -- Wrappers emittions
    emit_wrappers
       local
-         node: GCCXML_NODE
+         node: CASTXML_NODE
       do
-         log(once "Moving symbols.%N")
+         log.info.put_line(once "Moving symbols.%N")
          moved.for_each(agent move_symbol(?,?))
-         log(once "Making typedefs and assigning names to typedeffed types.%N")
+         log.info.put_line(once "Making typedefs and assigning names to typedeffed types.%N")
          typedefs.emit_wrappers
          -- Assign each field to the composed node it belongs to
          -- Wrap namespaces as Eiffel clusters which are directories containing classes
@@ -129,17 +132,17 @@ feature {ANY} -- Wrappers emittions
          check
             node ?:= root
          end
-         -- this is not stricly necessary, we check that root is actually a GCCXML_NODE
+         -- this is not stricly necessary, we check that root is actually a CASTXML_NODE
          node ::= root
          node.emit_wrappers
          -- Note that an eventual assertion like "check node/=Void end" or a
          -- run-time check like "if node/=Void then node.emit_wrappers end"
-         -- are not necessary since "node ::= root" actually requires root to be a GCCXML_NODE
+         -- are not necessary since "node ::= root" actually requires root to be a CASTXML_NODE
       end
 
    move_feature (a_feature: WRAPPER_FEATURE)
       -- When a_feature is not anonymous it is moved into the file it belongs
-      -- to or into the file provided in `moved'  
+      -- to or into the file provided in `moved'
       require
          a_feature /= Void
 
@@ -151,19 +154,19 @@ local
             if destination /= Void then
                -- user required move
                file := files_by_name.reference_at(destination)
-               log(once "Moving #(1) into #(2) as requested.%N"
+               log.info.put_line(once "Moving #(1) into #(2) as requested.%N"
                # a_feature.c_string_name # file.c_string_name)
                file.features.add_last(a_feature)
             else
                -- a_feature belong to the file as declared in the gcc-xml file
                if a_feature.c_file /= Void then
                   file := files.reference_at(a_feature.c_file.id)
-                  if file/=Void then 
-                     log(once "Moving #(1) from #(2) into #(3).%N" 
+                  if file/=Void then
+                     log.info.put_line(once "Moving #(1) from #(2) into #(3).%N"
                      # a_feature.c_string_name # a_feature.c_file.c_string_name # file.c_string_name)
                      file.features.add_last(a_feature)
                   else
-                     log(once "Warning: #(1) can't be moved, #(2) is not stored into files collection" 
+                     log.info.put_line(once "Warning: #(1) can't be moved, #(2) is not stored into files collection"
                      # a_feature.c_string_name # a_feature.c_file.c_string_name)
                   end
                else
@@ -229,7 +232,7 @@ feature {ANY}
                   words.read_word
                   if not words.last_string.is_empty then
                      value := words.last_string.twin
-                     log(once "Symbol #(1) moved to #(2)%N" # symbol # value)
+                     log.info.put_line(once "Symbol #(1) moved to #(2)%N" # symbol # value)
                      moved.put(value, symbol)
                   end
                end
@@ -246,15 +249,15 @@ feature {ANY}
       do
          f := files_by_name.reference_at(a_file_name)
          if f = Void then
-            log(once "Symbol `#(1)' can't be considered part of file #(2): file not referenced by in input file%N" # a_symbol # a_file_name)
+            log.info.put_line(once "Symbol `#(1)' can't be considered part of file #(2): file not referenced by in input file%N" # a_symbol # a_file_name)
          else
             symbol ?= symbols.reference_at(a_symbol)
             if symbol /= Void then
-               log(once "Considering #(1) as declared into file #(2)%N"
+               log.info.put_line(once "Considering #(1) as declared into file #(2)%N"
 			   # a_symbol # a_file_name)
                symbol.set_file(f)
             else
-               log(once "Cannot find symbol #(1) (that would be considered part of #(2))%N"
+               log.info.put_line(once "Cannot find symbol #(1) (that would be considered part of #(2))%N"
 			   # a_symbol # a_file_name)
             end
          end
@@ -263,8 +266,9 @@ feature {ANY}
 invariant
    moved /= Void
 
-end -- class GCCXML_TREE
--- Copyright (C) 2008-2022: Paolo Redaelli
+end -- class CASTXML_TREE
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

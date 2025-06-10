@@ -13,16 +13,14 @@ inherit
    STORABLE_NODE
    WRAPPER_CLASS
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
    store
-do
-      if verbose then
-         log("Storing #(1) id #(2) name #(2)" # Current.tagged_out) -- # id.to_utf8 # c_string_name)
-      end
-      -- if not standard_typedefs.has(c_string_name) then
+      do
+         log.info.put_line("Storing type '#(1)' (id #(2))" # c_string_name # id.to_utf8)
+         -- if not standard_typedefs.has(c_string_name) then
          -- Current typedef is not a standard one and requires a query for anchored declarations.
          typedefs.add_first(Current)
          -- end
@@ -47,7 +45,7 @@ do
             if referree.has_wrapper then
                Result := referree.wrapper_type
             else
-				log("C typedef #(1) at line #(2) is not wrappable" # c_string_name # &line)
+               log.info.put_line("C typedef #(1) at line #(2) is not wrappable" # c_string_name # &line)
             end
          end
       end
@@ -85,7 +83,7 @@ do
             if is_fundamental then
                if has_wrapper then
                   query_name := eiffel_feature(c_string_name)
-                  log(once "Anchored query #(2) for typedef #(1)%N" # c_string_name # query_name)
+                  log.info.put_line(once "Anchored query #(2) for typedef #(1)%N" # c_string_name # query_name)
 
 				  buffer.append(once "       #(1): #(2)%N%
 							  %               -- typedef #(3) from #(4)%N%
@@ -93,7 +91,7 @@ do
 							  %       do%N%
 							  %       ensure Result.is_default%N%
 							  %       end%N%
-							  %%N" # query_name # wrapper_type # c_string_name 
+							  %%N" # query_name # wrapper_type # c_string_name
                               # c_file.c_string_name )
 			  else
 				  buffer.append(once "%T-- #(1) unwrappable: no wrapper type.%N" # c_string_name)
@@ -112,20 +110,20 @@ feature {ANY}
     local a_composed_type: COMPOSED_NODE
     do
         if a_composed_type ?:= referree then
-            log("Emitting wrapper for typedef #(1)%N" # c_string_name)
-            a_composed_type ::= referree 
+            log.info.put_line("Emitting wrapper for typedef #(1)%N" # c_string_name)
+            a_composed_type ::= referree
             if a_composed_type /=Void then
                 if not a_composed_type.is_named then
-                    log("Referred #(1) is anonymous, forcingly setting its name to #(2)%N" # 
+                    log.info.put_line("Referred #(1) is anonymous, forcingly setting its name to #(2)%N" #
                     a_composed_type.c_type # c_string_name)
                     a_composed_type.set_name(c_string_name)
                 end
-                a_composed_type.emit_wrapper  
+                a_composed_type.emit_wrapper
             else
-                log(" typedef #(1) has no referree node%N" # c_string_name)
+                log.info.put_line(" typedef #(1) has no referree node%N" # c_string_name)
             end
         else
-            log("No wrapper for typedef #(1)%N" # c_string_name)
+            log.info.put_line("No wrapper for typedef #(1)%N" # c_string_name)
         end
         emitted := True
     end
@@ -133,7 +131,9 @@ feature {ANY}
    suffix: STRING ""
 
 end -- class C_TYPEDEF
--- Copyright (C) 2008-2022: Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

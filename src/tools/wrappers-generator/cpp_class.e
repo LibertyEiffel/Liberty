@@ -1,13 +1,13 @@
 class CPP_CLASS
-   -- A "Class" node of an XML file made by gccxml representing a C++ class.
+   -- A "Class" node of an XML file made by castxml representing a C++ class.
    -- Be aware that class names includes templates, so they may be like
    -- "QFlags<Qt::MouseButton>" escaped as "QFlags%lt;Qt::MouseButton&gt;".
-   -- C++ and therefore also GccXml does not have the concept of template
+   -- C++ and therefore also castxml does not have the concept of template
    -- classes at parsed code level, only within source code.
 
 
 inherit
-   CONTEXTED_NODE 
+   CONTEXTED_NODE
     undefine set_name end
    IDENTIFIED_NODE
     undefine set_name end
@@ -71,7 +71,7 @@ feature {ANY}
          if is_to_be_emitted then
             create path.make_from_string(directory)
             path.add_last(eiffel_name.as_lower + once ".e")
-            log(once "Class #(1) to #(2) in #(3)%N" #
+            log.info.put_line(once "Class #(1) to #(2) in #(3)%N" #
 			c_string_name # eiffel_name # path.to_string)
 
             create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
@@ -84,9 +84,9 @@ feature {ANY}
             output.disconnect
          else
             if is_anonymous then
-               log(once "Skipping anonymous structure at line #(1).%N" # line.out)
+               log.info.put_line(once "Skipping anonymous structure at line #(1).%N" # line.out)
             else
-               log(once "Struct #(1) skipped%N" # c_string_name )
+               log.info.put_line(once "Struct #(1) skipped%N" # c_string_name )
             end
          end
          emitted := True
@@ -100,7 +100,9 @@ feature {ANY}
          -- "standard-c-library.gcc-xml"; allow the user to specify its name,
 
 end -- class CPP_CLASS
--- Copyright (C) 2010-2022: , 2014 Paolo Redaelli
+
+-- Copyright (C) 2010-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

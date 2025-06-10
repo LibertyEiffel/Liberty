@@ -1,5 +1,5 @@
 class C_RVALUE_REFERENCE_TYPE
-   -- A GccXml RValueReferenceType node.
+   -- A castxml RValueReferenceType node.
 
 inherit
    C_TYPE
@@ -7,7 +7,7 @@ inherit
    TYPED_NODE
    STORABLE_NODE
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -30,6 +30,7 @@ feature {ANY}
 end -- class C_RVALUE_REFERENCE_TYPE
 
 -- Copyright (C) 2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

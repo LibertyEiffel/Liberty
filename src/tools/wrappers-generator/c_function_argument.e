@@ -1,10 +1,10 @@
 deferred class C_FUNCTION_ARGUMENT
-   -- An XML node of a file made by gccxml representing a piece of the
+   -- An XML node of a file made by castxml representing a piece of the
    -- argument lt of a C function, either an actual argument or an ellips
    -- ("...")
 
 inherit
-   GCCXML_NODE
+   CASTXML_NODE
 
 insert
    SHARED_COLLECTIONS
@@ -29,14 +29,16 @@ feature {ANY}
 
    pos: INTEGER
     -- the position of Current argument in its function. Used to provide stable names to arguments of function defined with nameless prototypes
-   
+
    set_pos (a_pos: INTEGER)
    do
        pos := a_pos
    end
 
 end -- class C_FUNCTION_ARGUMENT
--- Copyright (C) 2008-2022: ,2009,2010 Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

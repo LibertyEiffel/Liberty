@@ -6,7 +6,7 @@ deferred class NAMED_NODE
    -- Nameless nodes are considered non-public
 
 inherit
-   GCCXML_NODE
+   CASTXML_NODE
    COMPARABLE
       undefine is_equal
       end
@@ -23,7 +23,7 @@ feature {ANY} -- Comparability
 
 feature {ANY}
    is_anonymous: BOOLEAN
-         -- Is Current node anonynmous? 
+         -- Is Current node anonynmous?
       do
          Result := not is_named
       end
@@ -45,7 +45,7 @@ feature {ANY}
 	  local a_name: UNICODE_STRING
       do
 		  a_name := c_name
-		  if a_name/=Void then 
+		  if a_name/=Void then
 			  Result:= c_name.to_utf8
 		  end
       end
@@ -84,20 +84,22 @@ feature {} -- Implementation
             -- Actually trying to wrap a nameless element that is not
             -- identified by its position in a file is quite hopeless. We
             -- neverethells may assign a unique name, using the line of the
-            -- gccxml file as unique id. Quite a shameless trick, but I guess
+            -- castxml file as unique id. Quite a shameless trick, but I guess
             -- that such elements are quite esoteric and unreachable and
             -- unusable also on C level.
-            create cached_eiffel_name.make_from_string(once "anonymous_gccxml_element_at_line_#(1)_r#(2)" # &line # &column)
+            create cached_eiffel_name.make_from_string(once "anonymous_castxml_element_at_line_#(1)_r#(2)" # &line # &column)
             -- TODO once we have convert this create will be mimicked by a simple assignment.
             -- It could also be written like this:
-            -- cached_eiffel_name := (once "anonymous_gccxml_element_at_l#(1)_r#(2)" # &line # &column).string
+            -- cached_eiffel_name := (once "anonymous_castxml_element_at_l#(1)_r#(2)" # &line # &column).string
          end
       ensure
          cached_eiffel_name /= Void
       end
 
 end -- class NAMED_NODE
--- Copyright (C) 2008-2022: Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

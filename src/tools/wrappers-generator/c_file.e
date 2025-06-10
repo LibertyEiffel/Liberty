@@ -13,7 +13,7 @@ insert
    FILE_TOOLS
    COLLECTION_SORTER[WRAPPER_FEATURE]
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -43,16 +43,16 @@ feature {ANY}
             create path.make_from_string(directory)
             path.add_last(eiffel_name.as_lower + once ".e")
             -- if path.is_file then
-            --      log(once "Copying existing file #(1) onto #(1).orig.%N" # path.to_string)
+            --      log.info.put_line(once "Copying existing file #(1) onto #(1).orig.%N" # path.to_string)
             --      copy_to(path.to_string, path.to_string+once ".orig")
             -- end
 
-            log(once "Outputting wrapper for functions found in file #(1) on #(2).%N" # c_name.as_utf8 # path.to_string)
+            log.info.put_line(once "Outputting wrapper for functions found in file #(1) on #(2)." # c_name.as_utf8 # path.to_string)
 
             create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
             -- end
             emit_header_on(output)
-            log(once "Sorting file features%N")
+            log.info.put_line(once "Sorting file features%N")
             if features.count > 1 then
                sort(features)
             end
@@ -61,7 +61,7 @@ feature {ANY}
             emit_footer_on(output)
             output.disconnect
          else
-            log(once "Skipping file '#(1)'.%N"#c_string_name)
+            log.info.put_line(once "Skipping file '#(1)'."#c_string_name)
          end
          emitted := True
       end
@@ -132,7 +132,9 @@ feature {ANY} -- Content
    features: FAST_ARRAY[WRAPPER_FEATURE]
 
 end -- class C_FILE
--- Copyright (C) 2008-2022: ,2009,2010 Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

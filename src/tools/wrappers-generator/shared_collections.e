@@ -3,10 +3,10 @@ deferred class SHARED_COLLECTIONS
 
 insert
    ANY
-      undefine 
-	  	copy, 
+      undefine
+	  	copy,
         default_create,
-		is_equal, 
+		is_equal,
 		out_in_tagged_out_memory
 	end
 feature {}
@@ -98,7 +98,7 @@ feature {}
       end
 
 end -- class SHARED_COLLECTIONS
--- Copyright (C) 2008-2022: Paolo Redaelli
+-- Copyright (C) 2008-2025: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

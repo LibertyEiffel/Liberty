@@ -14,7 +14,7 @@ inherit
 
 insert NAME_CONVERTER
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -24,8 +24,8 @@ feature {ANY}
          types.fast_put(Current, id)
          if is_named then
             symbols.put(Current, c_string_name)
-         else 
-             log("Anonimous union at line #(1)%N" # &line_row)
+         else
+             log.info.put_line("Anonimous union at line #(1)%N" # &line_row)
          end
 
          composed_types.fast_put(Current, id)
@@ -41,18 +41,18 @@ feature {ANY}
 
    wrapper_type: STRING
       do
-          debug
-              print(once "C_UNION.wrapper_type requires creation%
-              % of external/expanded types; currently returning an empty string")
-          end
-      not_yet_implemented
-  end
+         log.error.put_line (once "C_UNION.wrapper_type requires creation of external/expanded types; currently returning an empty string")
+         Result := ""
+         not_yet_implemented
+      end
 
    suffix: STRING "_UNION"
          -- invariant name.is_equal(once U"Union")
 
 end -- class C_UNION
--- Copyright (C) 2008-2022: Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

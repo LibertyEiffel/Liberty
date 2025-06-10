@@ -9,7 +9,7 @@ inherit
     STORABLE_NODE
    WRAPPER_FEATURE
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -27,7 +27,7 @@ feature {ANY}
    wrap_on (a_stream: OUTPUT_STREAM)
       do
          if not has_wrapper then
-            log("Variable `#(1)' does not have a wrapper type (address of query emitted anyway)%N" # c_string_name)
+            log.info.put_line("Variable `#(1)' does not have a wrapper type (address of query emitted anyway)%N" # c_string_name)
             buffer.reset
             buffer.append(once "       -- Variable #(1) in file %"#(2)%" does not have a wrapper type%N" #
 				c_string_name # c_file.c_string_name )
@@ -42,7 +42,7 @@ feature {ANY}
                                 %                       module_name: %"plugin%"%N%
                                 %                       feature_name: %"&#(2)%"%N%
                                 %               }%"%N%
-                                %               end%N%N" # 
+                                %               end%N%N" #
 								eiffel_feature(c_string_name) # c_string_name)
             -- For debugging purpose the line where the node occurred were once
             -- printed in the comment, like this:
@@ -61,13 +61,13 @@ feature {ANY}
             -- this information is not printed anymore to make the generated
             -- classes a little more stable, avoiding unnecessary changes.
          elseif not is_public then
-            log(once "Skipping 'hidden' variable `#(1)'%N" # c_string_name)
+            log.info.put_line(once "Skipping 'hidden' variable `#(1)'%N" # c_string_name)
             buffer.append(once "%T-- `hidden' variable #(1) skipped.%N" # c_string_name)
          elseif not namespace.is_main then
-            log(once "Skipping variable `#(1)' belonging to namespace #(2)%N" # c_string_name # namespace.c_string_name)
+            log.info.put_line(once "Skipping variable `#(1)' belonging to namespace #(2)%N" # c_string_name # namespace.c_string_name)
             buffer.append(once "%T-- variable #(1) in namespace #(2) skipped.%N" # c_string_name # namespace.c_string_name)
          else
-            log(once "Variable #(1)%N" # c_string_name)
+            log.info.put_line(once "Variable #(1)%N" # c_string_name)
             buffer.append(once "%T#(1): #(2)%N%
                                 %               -- #(1)%N%
                                 %               external %"plug_in%"%N%
@@ -121,7 +121,9 @@ feature {ANY}
       end
 
 end -- class C_VARIABLE
--- Copyright (C) 2008-2022: Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

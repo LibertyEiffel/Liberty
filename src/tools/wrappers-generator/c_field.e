@@ -8,7 +8,7 @@ inherit
    STORABLE_NODE
    WRAPPER_FEATURE
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -22,7 +22,7 @@ feature {ANY}
             container_type.fields.add_last(Current)
          else
             -- Fields may be part of a composed type that will be not be wrapped, for example PThread structures when wrapping GObject introspection facilities. Therefore its container will not be present in the composed types!
-            log("Ignoring field #(1) of #(2) in %"#(3)%"%N" # c_string_name # context.to_utf8)
+            log.info.put_line("Ignoring field #(1) of #(2) in %"#(3)%"%N" # c_string_name # context.to_utf8)
          end
       end
 
@@ -42,7 +42,7 @@ feature {ANY}
               Result:=field_type.has_wrapper
           end
       rescue
-          log("C_FIELD.has_wrapper failed%N")
+          log.info.put_line("C_FIELD.has_wrapper failed%N")
           print_run_time_stack
           die_with_code (exit_failure_code)
           -- if type/=Void then
@@ -50,12 +50,12 @@ feature {ANY}
           --     if field_type /= Void then
           --         Result := field_type.has_wrapper
           --     else
-          --         log(once "Warning: C field #(1) in line  #(2) is of an unknown type!%N"
+          --         log.info.put_line(once "Warning: C field #(1) in line  #(2) is of an unknown type!%N"
           --         # c_string_name # &line )
           --         Result := False
           --     end
           -- else
-          --     log(once "Warning: C field #(1) in line #(2) is typeless!%N"
+          --     log.info.put_line(once "Warning: C field #(1) in line #(2) is typeless!%N"
           --     # c_string_name # &line )
           --     Result := False
           -- end
@@ -92,13 +92,13 @@ feature {ANY}
          setter, getter, getter_description, setter_description: STRING; eiffel_field: ABSTRACT_STRING
       do
 		  if is_anonymous then
-			  log(once "Anonymous field in #(1) at line #(2): not wrappable." # a_structure_name # &line_row)
+			  log.info.put_line(once "Anonymous field in #(1) at line #(2): not wrappable." # a_structure_name # &line_row)
 			  queries.append(once "%T-- Anonymous field at line #(1).%N" # &line_row)
 		  elseif not is_public then
-			  log(once "Private field #(1) in #(2) not wrapped." # c_string_name # a_structure_name)
+			  log.info.put_line(once "Private field #(1) in #(2) not wrapped." # c_string_name # a_structure_name)
 			  queries.append(once "%T-- Unwrapped private field #(1).%N" # c_string_name)
 		  elseif not has_wrapper then
-			  log(once "Field #(1) in #(2) doesn't have a wrapper.%N" # c_string_name # a_structure_name)
+			  log.info.put_line(once "Field #(1) in #(2) doesn't have a wrapper.%N" # c_string_name # a_structure_name)
 			  queries.append(once "%T-- Unwrappable field #(1).%N"#c_string_name)
 			  -- doesn't have a valid wrapper
 		  else -- we can actually wrap it
@@ -115,7 +115,7 @@ feature {ANY}
             --    getter_description:=formatted_description(descriptions.reference_at(eiffel_field))
             -- else setter_description:=once ""; getter_description:=once ""
             -- end
-            -- log(once "Field #(1).#(2) (%"#(3)%", %"#(4)%" " #
+            -- log.info.put_line(once "Field #(1).#(2) (%"#(3)%", %"#(4)%" " #
             -- a_structure_name # c_field # setter_description # getter_description)
 
             queries.append(once "   #(1) (a_structure: POINTER): #(2) %N%
@@ -140,7 +140,7 @@ feature {ANY}
             %         feature_name: %"#(1)%"%N%
             %      }%"%N%
             %      end%N%N" # setter # wrapper_type # c_string_name # a_structure_name # setter_description)
-            -- log(once "command, ")
+            -- log.info.put_line(once "command, ")
             -- -- Note: Type safety is assured by Eiffel and GCC-XML so we can
             -- -- be less type-strict-paranoid here and use some type-casts.
             -- TODO: the next print_on commands cause compiler crash if
@@ -148,7 +148,7 @@ feature {ANY}
             -- of +.
 
             ("#define #(1)(a_structure) (((#(2) #(3)*) (a_structure))->#(4))%N%N"
-			# getter # container.c_type # container.c_string_name 
+			# getter # container.c_type # container.c_string_name
 			# c_string_name).print_on(include)
             -- the above line previously was written, rather unreadably like this ("#define " + getter + "(a_structure) (((" + container.c_type + " " + container.c_string_name + "*) (a_structure))->" + c_string_name + ")%N%N").print_on(include)
             ("#define #(1)(a_structure,a_value) do {(((#(2) #(3)*)(a_structure)))->#(4) = (a_value);}while(0)%N%N"
@@ -163,7 +163,7 @@ feature {} -- Implementation
 
 end -- class C_FIELD
 
--- Copyright (C) 2008-2022: Paolo Redaelli
+-- Copyright (C) 2008-2025: Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free

@@ -1,5 +1,5 @@
 class C_REFERENCE_TYPE
-   -- A GccXml node representing a C++ reference.
+   -- A castxml node representing a C++ reference.
    -- Currently crudely wrapped as a POINTER.
 
 inherit
@@ -9,7 +9,7 @@ inherit
    STORABLE_NODE
       -- ReferenceType nodes also has size and align attributes
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -30,7 +30,9 @@ feature {ANY}
          -- invariant name.is_equal(once U"ReferenceType")
 
 end -- class C_REFERENCE_TYPE
--- Copyright (C) 2008-2022: ,2009,2010 Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

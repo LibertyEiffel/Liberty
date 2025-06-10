@@ -1,8 +1,8 @@
 deferred class C_TYPE
-   -- An XML node representing a type in the C language in the output of GccXml
+   -- An XML node representing a type in the C language in the output of castxml
 
 inherit
-   GCCXML_NODE
+   CASTXML_NODE
 
 feature {ANY}
    is_fundamental: BOOLEAN
@@ -30,7 +30,8 @@ feature {ANY}
 
 end -- class C_TYPE
 
--- Copyright (C) 2014-2022: Paolo Redaelli
+-- Copyright (C) 2014-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

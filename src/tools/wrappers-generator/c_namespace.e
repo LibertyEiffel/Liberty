@@ -1,11 +1,11 @@
 class C_NAMESPACE
-   -- A node of an XML file made by gccxml representing a C++ namespace.
+   -- A node of an XML file made by castxml representing a C++ namespace.
    -- A C++ name-space is modelled in Liberty as a cluster, a directory
    -- containing classes, subclusters and how they shall be compiled and
    -- linked.
 
 inherit
-   GCCXML_NODE
+   CASTXML_NODE
    CONTEXTED_NODE
    NAMED_NODE
       redefine compute_eiffel_name
@@ -13,7 +13,7 @@ inherit
    IDENTIFIED_NODE
    STORABLE_NODE
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -61,25 +61,26 @@ feature {ANY}
          -- local cwd: STRING; bd: BASIC_DIRECTORY;
          -- Create a directory named like Current namespace that will contain everything defined in that namespace.
          -- Try to create the directory and forget about the result
-         log("Faking creation of «" + path.to_string + "»directory%N")
+         log.info.put_line("Faking creation of «" + path.to_string + "»directory%N")
          --      outcome :=  bd.create_new_directory(path.to_string);
          --      if path.is_directory then
          --              are_members_wrapped:=True
-         --              -- Each gccxml node will query its containing namespace to see if it shall be wrapped.
+         --              -- Each castxml node will query its containing namespace to see if it shall be wrapped.
          --      else -- directory still doesn't exists, we cannot wrap its content.
-         --              log("Namespace `#(1)' would be wrapped into `#(2)', but it is not a directory or could not be created: its contents shall not be wrapped.%N"
+         --              log.info.put_line("Namespace `#(1)' would be wrapped into `#(2)', but it is not a directory or could not be created: its contents shall not be wrapped.%N"
          --              # c_string_name # path.to_string)
          --      end
       end
 
 feature {STORABLE_NODE} -- Contained nodes
-   
+
 
 feature {} -- Implementation
    cached_path: PATH_NAME
 
 end -- class C_NAMESPACE
--- Copyright (C) 2008-2022: Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

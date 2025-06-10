@@ -99,12 +99,14 @@ feature {} -- Implementation
    buffer: STRING
 
 end -- class FORMATTER
--- Copyright (C) 2008-2022: ,2009 Paolo Redaelli
--- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
+-- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
--- eiffel-gcc-xml is distributed in the hope that it will be useful, but
+-- wrappers-generator is distributed in the hope that it will be useful, but
 -- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 -- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 -- more details.

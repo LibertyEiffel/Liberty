@@ -1,5 +1,5 @@
 deferred class WRAPPED_TYPE
-    -- A node of a GccXml/CastXml file representing a C/C++ type that is wrappable as an Eiffel class:
+    -- A node of a castxml/CastXml file representing a C/C++ type that is wrappable as an Eiffel class:
 
     -- * struct
     -- * union
@@ -30,7 +30,8 @@ feature {} -- Implementation
 
 end -- class WRAPPER_CLASS
 
--- Copyright (C) 2008-2022: Paolo Redaelli
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

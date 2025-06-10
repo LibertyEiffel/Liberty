@@ -1,5 +1,5 @@
 deferred class WRAPPABLE_NODE
-   -- A node of an XML file made by GccXml representing an entity that may be wrapped in Liberty Eiffel either as a feature, as a class or a cluster.
+   -- A node of an XML file made by castxml representing an entity that may be wrapped in Liberty Eiffel either as a feature, as a class or a cluster.
 
 inherit
    NAMED_NODE
@@ -13,11 +13,13 @@ feature {ANY} -- Emittability
       deferred
       end
 
-   emitted: BOOLEAN 
+   emitted: BOOLEAN
       -- Has Current node been already been wrapped?
 
 end -- class WRAPPABLE_NODE
--- Copyright (C) 2008-2022: ,2009,2010 Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

@@ -1,5 +1,5 @@
 class C_STRUCT_NODE
-   -- A "Struct" node of an XML file made by gccxml.
+   -- A "Struct" node of an XML file made by castxml.
 
 inherit
     IDENTIFIED_NODE undefine set_name end
@@ -14,7 +14,7 @@ inherit
 insert
    NAME_CONVERTER
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -23,9 +23,9 @@ feature {ANY}
 		  create {LINKED_LIST[C_FIELD]} fields.make
 		  types.put(Current, id)
 		  if is_named then
-			  symbols.put(Current, c_string_name)
+                     symbols.put(Current, c_string_name)
 		  else
-			  log("Anonymous struct at line #(1)%N" # line_row.as_utf8)
+                     log.info.put_line("Anonymous struct at line #(1)" # line_row.as_utf8)
 		  end
 
 		  composed_types.put(Current, id)
@@ -54,17 +54,16 @@ feature {ANY}
 
    wrapper_type: STRING
       do
-         debug
-            print(once "C_STRUCT_NODE.wrapper_type requires creation%
-                                % of external/expanded types; currently returning an empty string")
-         end
+         log.error.put_line(once "C_STRUCT_NODE.wrapper_type requires creation of external/expanded types; currently returning an empty string")
          not_yet_implemented -- Result := eiffel_name
       end
 
    suffix: STRING "_STRUCT"
 
 end -- class C_STRUCT_NODE
--- Copyright (C) 2008-2022: Paolo Redaelli
+
+-- Copyright (C) 2008-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

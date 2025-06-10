@@ -1,10 +1,10 @@
 class CPP_BASE_NODE
-   -- An "Base" node in the output of GccXml.
+   -- An "Base" node in the output of castxml.
 
 inherit
    TYPED_NODE
 
-create {GCCXML_TREE}
+create {CASTXML_TREE}
    make
 
 feature {ANY}
@@ -22,11 +22,12 @@ feature {ANY}
    wrapper_type: STRING
       do
          raise("Asked for wrapper type of a %"Base%" node. This should have never happened because wrapper_type has the precondition of has_wrapper.")
-      end 
+      end
 
 end -- class CPP_BASE_NODE
 
--- Copyright (C) 2014-2022: Paolo Redaelli
+-- Copyright (C) 2014-2025: Paolo Redaelli
+--
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
