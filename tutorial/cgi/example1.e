@@ -28,7 +28,7 @@ feature {CGI_REQUEST_METHOD}
       do
          log ("GET")
          create r.set_status (200)
-         r.body.put_string ("Hello, world!")
+         r.body.put_string ("Hello, world!%N") -- body must end with newline, otherwise exception is thrown later on
          respond_with (r)
       end
 
