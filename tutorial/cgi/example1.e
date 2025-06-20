@@ -24,19 +24,50 @@ feature {CGI_REQUEST_METHOD}
    get
       -- handle a GET request
       local
+         form: CGI_FORM
          r: CGI_RESPONSE_DOCUMENT
+         key, qs: FIXED_STRING
+         stream: STRING_INPUT_STREAM
+         addressee: ABSTRACT_STRING
       do
          log ("GET")
          create r.set_status (200)
-         r.body.put_string ("Hello, world!%N") -- body must end with newline, otherwise exception is thrown later on
+
+         -- parsing query string
+         qs := cgi.query_string.string
+         if qs /= Void then
+            create stream.from_string (qs)
+            create form.parse (stream)
+         end
+
+         key := "name".intern
+         if form /= Void and then form.form.has (key) then
+            addressee := form.form.at (key)
+         else
+            addressee := "world"
+         end
+         r.body.put_string ("Hello, " + addressee + "!%N") -- body must end with newline, otherwise exception is thrown later on
          respond_with (r)
       end
 
    post
       -- handle a POST request
+      local
+         form: CGI_FORM
+         r: CGI_RESPONSE_DOCUMENT
+         key: FIXED_STRING
       do
          log ("POST")
-         dummy_response
+         create r.set_status (200)
+
+         -- parsing request body (encoded as form data)
+         create form.parse (std_input)
+         key := "name".intern
+         if form.form.has (key) then
+            r.body.put_string ("Hello, " + form.form.at (key) + "!%N")
+         end
+
+         respond_with (r)
       end
 
    head
