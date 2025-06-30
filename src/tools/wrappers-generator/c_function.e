@@ -135,27 +135,27 @@ feature {ANY}
             line_length, new_line_length: INTEGER
       do
          -- TODO: complete C_FUNCTION.append_description
-         buffer.append(once "%N%T%T-- function #(1) (in `#(2)')%N" #
-					c_string_name # c_file.c_string_name)
-         description := feature_description(class_name, name)
-         if description/=Void then
-              from
-                      iter:=a_description.get_new_iterator; iter.start;
-                      buffer.append(once "%N%T%T-- "); length:=0
-              until iter.is_off loop
-                      word := iter.item
-                      new_line_length := line_length + word.count
-                      if new_line_length > description_lenght then
-                        buffer.append(once "%N%T%T-- ")
-                        length := 0
-                      else
-                        buffer.put(' ')
-                        length := new_line_length + 1
-                      end
-                      buffer.append(word)
-                      iter.next
-              end
-         end
+         -- buffer.append(once "%N%T%T-- function #(1) (in `#(2)')%N" #
+	 --        			c_string_name # c_file.c_string_name)
+         -- description := feature_description(class_name, name)
+         -- if description/=Void then
+         --      from
+         --              iter:=a_description.get_new_iterator; iter.start;
+         --              buffer.append(once "%N%T%T-- "); length:=0
+         --      until iter.is_off loop
+         --              word := iter.item
+         --              new_line_length := line_length + word.count
+         --              if new_line_length > description_lenght then
+         --                buffer.append(once "%N%T%T-- ")
+         --                length := 0
+         --              else
+         --                buffer.put(' ')
+         --                length := new_line_length + 1
+         --              end
+         --              buffer.append(word)
+         --              iter.next
+         --      end
+         -- end
       end
 
    append_arguments
