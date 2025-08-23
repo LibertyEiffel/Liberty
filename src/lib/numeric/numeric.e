@@ -30,7 +30,6 @@ feature {ANY}
       require
          other /= Void
          other /= zero
-         divisible(other)
       deferred
       end
 
