@@ -13,7 +13,7 @@ create {}
 feature {ANY}
    make
       do
-         assert(signal_numer = 0)
+         assert(signal_number = 0)
       end
 
 end -- class TEST_EXCEPTIONS13
