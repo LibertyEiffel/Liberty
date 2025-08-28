@@ -22,6 +22,7 @@ feature {ANY}
 
          if opt_organization.is_set then
             io.put_string(opt_organization.item)
+            io.put_character(' ')
          else
             io.put_string(opt_author_last.item.as_upper)
             io.put_string(", ")
