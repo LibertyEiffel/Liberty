@@ -75,7 +75,7 @@ TITLE "###  Creating Liberty Eiffel's configuration file  ###"
       echo bin: !installation_path!bin
       echo sys: !installation_path!sys
       echo short: !installation_path!short
-      echo flavor: Windows
+      echo os: Windows
       echo.
       echo [Environment]
       echo path_eiffel: !installation_path!
