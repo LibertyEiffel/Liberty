@@ -172,7 +172,7 @@ feature {}
          elseif c_compiler = cl then
          elseif c_compiler = ccc then
             add_external_lib(libcpml)
-         elseif c_compiler = tcc then
+         elseif c_compiler = tcc and system_name /= windows_system then
             add_external_lib(libm)
          elseif c_compiler = cc or else c_compiler = cc_pp then
             add_external_lib(libm)
